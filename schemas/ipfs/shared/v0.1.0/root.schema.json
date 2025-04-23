@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/v0.1.0/root.schema.json",
+  "title": "Carrot Shared NFT IPFS Metadata Root",
+  "description": "Shared root fields for all Carrot IPFS metadata files, used by MassID, ClaimID, CircularID, etc.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "metadata_type",
+    "metadata_version",
+    "created_at",
+    "external_id",
+    "external_url",
+    "token_id",
+    "smart_contract_address",
+    "name",
+    "short_name",
+    "description",
+    "image",
+    "schema_hash",
+    "metadata_signature",
+    "attributes"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI of the JSON Schema used to validate this metadata file.",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/v0.1.0/mass-id.schema.json"
+    },
+    "metadata_type": {
+      "type": "string",
+      "description": "Type/category of this metadata (e.g., 'MassID', 'ClaimID', 'CircularID').",
+      "example": "MassID"
+    },
+    "metadata_version": {
+      "type": "string",
+      "description": "Version of the metadata format, using semantic versioning (https://semver.org/).",
+      "example": "v1.0.0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 creation timestamp for this metadata file.",
+      "example": "2025-04-11T15:32:00Z"
+    },
+    "external_id": {
+      "type": "string",
+      "description": "Off-chain reference ID (e.g., UUID from Carrot backend).",
+      "example": "40e44dc8-75d4-4b6f-a5b2-420ab9482ee9"
+    },
+    "external_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Public link to this NFT's Explorer or frontend page.",
+      "example": "https://explore.carrot.eco/document/40e44dc8-75d4-4b6f-a5b2-420ab9482ee9"
+    },
+    "token_id": {
+      "type": "string",
+      "description": "Token ID of the NFT (must be stringified to support large integers).",
+      "example": "123"
+    },
+    "smart_contract_address": {
+      "type": "string",
+      "description": "Address of the smart contract that minted this NFT.",
+      "example": "0xabc123..."
+    },
+    "name": {
+      "type": "string",
+      "description": "Full display name for this NFT, including extra context.",
+      "example": "MassID #123 • Organic • 1.79t"
+    },
+    "short_name": {
+      "type": "string",
+      "description": "Compact name for UI summaries, tables, or tooltips.",
+      "example": "MassID #123"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+      "example": "This MassID represents a recorded and traceable mass of organic waste."
+    },
+    "image": {
+      "type": "string",
+      "format": "uri",
+      "description": "IPFS URI of the preview image.",
+      "example": "ipfs://.../image.png"
+    },
+    "animation_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional animated or interactive media file.",
+      "example": "ipfs://.../animation.html"
+    },
+    "external_links": {
+      "type": "array",
+      "description": "Optional list of public resource links with labels.",
+      "items": {
+        "type": "object",
+        "required": ["label", "url"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display name or category for the external link.",
+            "example": "Carrot Impact Hub"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Direct URI to the linked resource.",
+            "example": "https://impact.carrot.eco/mass-id/123"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "private_data": {
+      "type": "object",
+      "description": "Optional cryptographic proof of private data (if any).",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "signature": {
+          "$ref": "#/$defs/signature"
+        }
+      },
+      "required": ["description", "signature"],
+      "additionalProperties": false
+    },
+    "schema_hash": {
+      "type": "string",
+      "description": "Keccak256 hash of the full JSON Schema this metadata was validated against."
+    },
+    "metadata_signature": {
+      "$ref": "#/$defs/signature"
+    },
+    "attributes": {
+      "type": "array",
+      "description": "List of visual traits and filterable attributes.",
+      "items": {
+        "type": "object",
+        "required": ["trait_type", "value"],
+        "properties": {
+          "trait_type": {
+            "type": "string"
+          },
+          "value": {},
+          "display_type": {
+            "type": "string",
+            "enum": ["number", "date"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "details": {
+      "type": "object",
+      "description": "Custom metadata block that includes timeline, participants, and other context."
+    }
+  },
+  "$defs": {
+    "signature": {
+      "type": "object",
+      "description": "EIP-712-compatible digital signature object.",
+      "properties": {
+        "signer": {
+          "type": "string"
+        },
+        "signing_method": {
+          "type": "string",
+          "example": "eip712-offchain"
+        },
+        "domain": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "chain_id": {
+              "type": "integer"
+            }
+          },
+          "required": ["name", "version", "chain_id"],
+          "additionalProperties": false
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "example": "keccak256"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "signer",
+        "signing_method",
+        "domain",
+        "hash_algorithm",
+        "hash",
+        "signature"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
