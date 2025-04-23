@@ -1,0 +1,23 @@
+Carrot Foundation — Public Schema Reference
+
+These JSON Schemas are published by the Carrot Foundation to support validation, traceability, and interoperability across the Carrot ecosystem.
+
+They are intended for public reference only.
+
+You may:
+
+- Reference these schemas in metadata via `$id`
+- Use them for validation or formatting of Carrot-compatible data
+- Link to them from applications, dashboards, or traceability tools
+
+You may not:
+
+- Modify or fork these schemas for use in other ecosystems
+- Publish derivative schemas that reference or imply affiliation with Carrot
+- Use Carrot's names, trademarks, or formatting in unrelated projects
+
+All schemas are provided "as is" under the Apache License 2.0.  
+No warranty is provided, and Carrot reserves the right to update or deprecate any schema at any time.
+
+For official documentation and ecosystem usage, visit:  
+https://carrot.eco
