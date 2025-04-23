@@ -1,0 +1,23 @@
+{
+  "eslint.validate": ["yaml", "json"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "cSpell.words": [
+    "MassID",
+    "ClaimID",
+    "CircularID",
+    "EIP-712",
+    "keccak256",
+    "ipfs",
+    "carrot"
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
