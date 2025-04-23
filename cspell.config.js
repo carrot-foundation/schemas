@@ -1,0 +1,41 @@
+const vsCodeSettings = require('./.vscode/settings.json');
+
+module.exports = {
+  $schema:
+    'https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json',
+  allowCompoundWords: true,
+  caseSensitive: true,
+  dictionaries: [
+    'bash',
+    'en_us',
+    'en-gb',
+    'fullstack',
+    'html',
+    'lorem-ipsum',
+    'node',
+    'npm',
+    'fullstack',
+    'softwareTerms',
+    'typescript',
+  ],
+  ignorePaths: [
+    'dist',
+    'node_modules',
+    'local',
+    'package.json',
+    'pnpm-lock.yaml',
+    'tmp',
+    '.vscode',
+    '.gitignore',
+    'cspell.config.js',
+    '*.snap',
+    '*.svg',
+    'coverage',
+    '*.log',
+    '*.min.js',
+    '.git',
+  ],
+  language: 'en',
+  useGitignore: true,
+  words: vsCodeSettings['cSpell.words'],
+};
