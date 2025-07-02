@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/v0.1.0/mass-id.attributes.schema.json",
+  "$defs": {
+    "attribute_waste_type": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Waste Type"
+        },
+        "value": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/waste_type"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_subtype": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Subtype"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_weight": {
+      "type": "object",
+      "required": ["trait_type", "value", "display_type"],
+      "properties": {
+        "trait_type": {
+          "const": "Weight"
+        },
+        "value": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/weight_kg"
+        },
+        "display_type": {
+          "const": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_unit": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Unit"
+        },
+        "value": {
+          "const": "kg"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_origin_country": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Origin Country"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_origin_municipality": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Origin Municipality"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_origin_division": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Origin Administrative Division"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_recycler": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Recycler"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_integrator": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Integrator"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_processing_method": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Processing Method"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_pickup_date": {
+      "type": "object",
+      "required": ["trait_type", "value", "display_type"],
+      "properties": {
+        "trait_type": {
+          "const": "Pick-up Date"
+        },
+        "value": {
+          "type": "string",
+          "format": "date"
+        },
+        "display_type": {
+          "const": "date"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_recycling_date": {
+      "type": "object",
+      "required": ["trait_type", "value", "display_type"],
+      "properties": {
+        "trait_type": {
+          "const": "Recycling Date"
+        },
+        "value": {
+          "type": "string",
+          "format": "date"
+        },
+        "display_type": {
+          "const": "date"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "title": "MassID NFT Attribute Array",
+  "description": "Schema for the fixed set of MassID NFT attributes, enforcing order and type for each trait.",
+  "type": "array",
+  "prefixItems": [
+    { "$ref": "#/$defs/attribute_waste_type" },
+    { "$ref": "#/$defs/attribute_subtype" },
+    { "$ref": "#/$defs/attribute_weight" },
+    { "$ref": "#/$defs/attribute_unit" },
+    { "$ref": "#/$defs/attribute_origin_country" },
+    { "$ref": "#/$defs/attribute_origin_municipality" },
+    { "$ref": "#/$defs/attribute_origin_division" },
+    { "$ref": "#/$defs/attribute_recycler" },
+    { "$ref": "#/$defs/attribute_integrator" },
+    { "$ref": "#/$defs/attribute_processing_method" },
+    { "$ref": "#/$defs/attribute_pickup_date" },
+    { "$ref": "#/$defs/attribute_recycling_date" }
+  ],
+  "items": false,
+  "minItems": 12,
+  "maxItems": 12
+}

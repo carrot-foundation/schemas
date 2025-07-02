@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/v0.1.0/mass-id.details.schema.json",
+  "title": "MassID Details Block",
+  "description": "MassID-specific metadata including waste tracking, chain of custody, and environmental verification data.",
+  "type": "object",
+  "required": [
+    "waste_classification",
+    "locations",
+    "participants",
+    "chain_of_custody",
+    "geographic_data"
+  ],
+  "properties": {
+    "waste_classification": {
+      "type": "object",
+      "description": "Standardized waste material classification and regulatory information.",
+      "required": ["primary_type", "subtype", "measurement_unit", "net_weight"],
+      "properties": {
+        "primary_type": {
+          "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/waste_type"
+        },
+        "subtype": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Specific subcategory or detailed classification of the waste material.",
+          "example": "Food, Food Waste and Beverages"
+        },
+        "local_classification": {
+          "type": "object",
+          "description": "Local or regional waste classification codes and descriptions.",
+          "required": ["code"],
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 20,
+              "description": "Local waste classification code.",
+              "example": "04 02 20"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "Local waste classification description.",
+              "example": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19"
+            },
+            "system": {
+              "type": "string",
+              "maxLength": 50,
+              "description": "Classification system name (e.g., 'Ibama Waste Code', 'European Waste Catalogue', 'US EPA Codes').",
+              "example": "Ibama Waste Code"
+            }
+          },
+          "additionalProperties": false
+        },
+        "measurement_unit": {
+          "type": "string",
+          "enum": ["kg", "ton", "lb"],
+          "description": "Unit of measurement for the waste quantity.",
+          "example": "kg"
+        },
+        "net_weight": {
+          "type": "number",
+          "description": "Net weight of the waste batch in the specified measurement unit.",
+          "minimum": 0.01
+        },
+        "contamination_level": {
+          "type": "string",
+          "enum": ["None", "Low", "Medium", "High"],
+          "description": "Level of contamination in the waste batch.",
+          "example": "Low"
+        }
+      },
+      "additionalProperties": false
+    },
+    "locations": {
+      "type": "array",
+      "description": "All locations referenced in this MassID, indexed by ID",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/location"
+      }
+    },
+    "participants": {
+      "type": "array",
+      "description": "All participants referenced in this MassID, indexed by ID",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant"
+      }
+    },
+    "chain_of_custody": {
+      "type": "object",
+      "description": "Complete chain of custody tracking from waste generation to final processing.",
+      "required": ["events", "total_distance_km", "total_duration_hours"],
+      "properties": {
+        "events": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Chronological sequence of custody transfer and processing events.",
+          "items": {
+            "type": "object",
+            "required": [
+              "event_id",
+              "name",
+              "description",
+              "timestamp",
+              "participant_id",
+              "location_id"
+            ],
+            "properties": {
+              "event_id": {
+                "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+                "description": "Unique event identifier (UUID)."
+              },
+              "name": {
+                "type": "string",
+                "description": "Name of custody or processing event.",
+                "example": "Pick-up"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "description": "Detailed description of what happened during this event.",
+                "example": "Waste collected from restaurant kitchen using refrigerated truck"
+              },
+              "timestamp": {
+                "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/iso_timestamp",
+                "description": "ISO 8601 timestamp when the event occurred."
+              },
+              "participant_id": {
+                "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+                "description": "Reference to participant in the participants array"
+              },
+              "location_id": {
+                "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+                "description": "Reference to location in the locations array"
+              },
+              "weight_before": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Weight before this event (for tracking changes).",
+                "example": 1500.5
+              },
+              "weight_after": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Weight after this event (for tracking changes).",
+                "example": 1500.5
+              },
+              "attributes": {
+                "type": "array",
+                "description": "Additional attributes specific to this event.",
+                "items": {
+                  "type": "object",
+                  "required": ["name", "value"],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "description": "Attribute name.",
+                      "example": "Vehicle License Plate"
+                    },
+                    "value": {
+                      "oneOf": [
+                        { "type": "string" },
+                        { "type": "number" },
+                        { "type": "boolean" }
+                      ],
+                      "description": "Attribute value.",
+                      "example": "QLU-4552"
+                    },
+                    "format": {
+                      "type": "string",
+                      "enum": [
+                        "KILOGRAM",
+                        "DATE",
+                        "CURRENCY",
+                        "PERCENTAGE",
+                        "COORDINATE"
+                      ],
+                      "description": "Data format hint for proper display.",
+                      "example": "KILOGRAM"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "documentation": {
+                "type": "array",
+                "description": "Associated documentation for this event.",
+                "items": {
+                  "type": "object",
+                  "required": ["type", "reference"],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "description": "Type of supporting documentation.",
+                      "example": "Transport Manifest"
+                    },
+                    "document_number": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 50,
+                      "description": "Official document number if applicable.",
+                      "example": "MTR-4126"
+                    },
+                    "reference": {
+                      "type": "string",
+                      "minLength": 1,
+                      "description": "Reference to document (IPFS hash, file name, or external URL).",
+                      "example": "ipfs://QmTransportManifest123"
+                    },
+                    "issue_date": {
+                      "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/iso_date",
+                      "description": "Date the document was issued."
+                    },
+                    "issuer": {
+                      "type": "string",
+                      "maxLength": 100,
+                      "description": "Entity that issued the document.",
+                      "example": "Transport Authority"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "notes": {
+                "type": "string",
+                "maxLength": 500,
+                "description": "Additional notes or comments about this event.",
+                "example": "Delay due to traffic conditions"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "total_distance_km": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total distance traveled across all transport events.",
+          "example": 45.2
+        },
+        "total_duration_hours": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total time from first to last event in hours.",
+          "example": 72.5
+        }
+      },
+      "additionalProperties": false
+    },
+    "geographic_data": {
+      "type": "object",
+      "description": "Geographic information about waste origin and processing locations.",
+      "required": [
+        "origin_location_id",
+        "final_destination_id",
+        "transport_routes"
+      ],
+      "properties": {
+        "origin_location_id": {
+          "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+          "description": "Reference to origin location in the locations array"
+        },
+        "processing_locations_ids": {
+          "type": "array",
+          "description": "Locations where the waste was processed or handled.",
+          "items": {
+            "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+            "description": "Reference to processing location in the locations array"
+          }
+        },
+        "final_destination_id": {
+          "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+          "description": "Reference to final destination in the locations array"
+        },
+        "transport_routes": {
+          "type": "array",
+          "description": "Detailed transport route information.",
+          "items": {
+            "type": "object",
+            "required": [
+              "from_location_id",
+              "to_location_id",
+              "distance_km",
+              "transport_method",
+              "duration_hours"
+            ],
+            "properties": {
+              "from_location_id": {
+                "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+                "description": "Reference to from location in the locations array"
+              },
+              "to_location_id": {
+                "$ref": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+                "description": "Reference to to location in the locations array"
+              },
+              "distance_km": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Distance for this route segment in kilometers.",
+                "example": 45.2
+              },
+              "transport_method": {
+                "type": "string",
+                "description": "Method of transportation for this segment.",
+                "example": "Truck"
+              },
+              "duration_hours": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Time taken for this route segment in hours.",
+                "example": 2.5
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
