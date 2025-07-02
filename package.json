@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": false,
+  "type": "module",
   "packageManager": "pnpm@10.9.0",
   "engines": {
     "node": "22.15.0"
@@ -10,12 +11,17 @@
   "scripts": {
     "pkgJsonLint": "npmPkgJsonLint .",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky"
+    "prepare": "husky",
+    "validate-schemas": "node scripts/validate-schemas.js"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
     "@commitlint/config-conventional": "19.8.0",
+    "@cspell/dict-pt-br": "2.4.0",
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
     "cspell": "8.19.2",
+    "glob": "11.0.3",
     "husky": "9.1.7",
     "lint-staged": "15.5.1",
     "npm-package-json-lint": "8.0.0",
