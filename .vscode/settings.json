@@ -9,13 +9,14 @@
     "source.fixAll": "always"
   },
   "cSpell.words": [
-    "MassID",
+    "carrot",
+    "RecyclingID",
     "ClaimID",
-    "CircularID",
     "EIP-712",
-    "keccak256",
     "ipfs",
-    "carrot"
+    "keccak256",
+    "MassID",
+    "offchain"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

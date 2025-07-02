@@ -5,10 +5,12 @@ module.exports = {
     'https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json',
   allowCompoundWords: true,
   caseSensitive: true,
+  import: ['@cspell/dict-pt-br/cspell-ext.json'],
   dictionaries: [
     'bash',
     'en_us',
     'en-gb',
+    'pt-br',
     'fullstack',
     'html',
     'lorem-ipsum',
@@ -38,4 +40,5 @@ module.exports = {
   language: 'en',
   useGitignore: true,
   words: vsCodeSettings['cSpell.words'],
+  ignoreRegExpList: ['/ipfs:\\/\\/[^\\s"\']+/'],
 };
