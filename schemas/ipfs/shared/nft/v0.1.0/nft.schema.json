@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/nft/v0.1.0/nft.schema.json",
+  "title": "Carrot NFT IPFS Metadata",
+  "description": "NFT-specific fields for Carrot IPFS metadata files, extending the base schema with marketplace-compatible properties.",
+  "unevaluatedProperties": false,
+  "allOf": [
+    {
+      "$ref": "../../base/v0.1.0/base.schema.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "blockchain",
+        "name",
+        "short_name",
+        "description",
+        "image",
+        "attributes"
+      ],
+      "properties": {
+        "metadata_type": {
+          "type": "string",
+          "enum": ["MassID", "RecyclingID", "GasID", "PurchaseID"],
+          "description": "Type/category of this NFT metadata.",
+          "example": "MassID"
+        },
+        "blockchain": {
+          "type": "object",
+          "required": [
+            "smart_contract_address",
+            "chain_id",
+            "network_name",
+            "token_id"
+          ],
+          "properties": {
+            "smart_contract_address": {
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ethereum_address",
+              "description": "Ethereum smart contract address in hexadecimal format."
+            },
+            "chain_id": {
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/chain_id",
+              "description": "Blockchain network chain ID where the NFT is deployed."
+            },
+            "network_name": {
+              "type": "string",
+              "description": "Name of the blockchain network.",
+              "example": "Polygon"
+            },
+            "token_id": {
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/token_id",
+              "description": "Token ID of the NFT as numeric string to support large integers (uint256)."
+            }
+          },
+          "additionalProperties": false,
+          "description": "Blockchain-specific information for the NFT."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Full display name for this NFT, including extra context.",
+          "example": "MassID #123 • Organic • 1.79t"
+        },
+        "short_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50,
+          "description": "Compact name for UI summaries, tables, or tooltips.",
+          "example": "MassID #123"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500,
+          "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+          "example": "This MassID represents a recorded and traceable mass of organic waste."
+        },
+        "image": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+          "description": "IPFS URI pointing to the preview image."
+        },
+        "background_color": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/hex_color",
+          "description": "Hex color code for marketplace background display."
+        },
+        "animation_url": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+          "description": "IPFS URI pointing to an animated or interactive media file."
+        },
+        "external_links": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "description": "Optional list of public resource links with labels.",
+          "items": {
+            "type": "object",
+            "required": ["label", "url", "description"],
+            "properties": {
+              "label": {
+                "type": "string",
+                "maxLength": 50,
+                "description": "Display name for the external link.",
+                "example": "View on Carrot Explorer"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Direct URI to the linked resource.",
+                "example": "https://explorer.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+              },
+              "description": {
+                "type": "string",
+                "maxLength": 100,
+                "description": "Optional context about what the link provides.",
+                "example": "Complete chain of custody and audit trail"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "attributes": {
+          "type": "array",
+          "description": "List of visual traits and filterable attributes compatible with NFT marketplaces.",
+          "items": {
+            "type": "object",
+            "required": ["trait_type", "value"],
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "maxLength": 50,
+                "description": "Name of the trait or attribute."
+              },
+              "value": {
+                "oneOf": [
+                  { "type": "string" },
+                  { "type": "number" },
+                  { "type": "boolean" }
+                ],
+                "description": "Value of the trait - can be string, number, or boolean."
+              },
+              "display_type": {
+                "type": "string",
+                "enum": ["number", "date", "boost_number", "boost_percentage"],
+                "description": "How the trait should be displayed in marketplace UIs."
+              },
+              "max_value": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Maximum possible value for numeric traits."
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  ]
+}
