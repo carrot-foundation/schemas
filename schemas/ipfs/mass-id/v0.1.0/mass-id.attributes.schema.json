@@ -15,16 +15,15 @@
       },
       "additionalProperties": false
     },
-    "attribute_subtype": {
+    "attribute_waste_subtype": {
       "type": "object",
       "required": ["trait_type", "value"],
       "properties": {
         "trait_type": {
-          "const": "Subtype"
+          "const": "Waste Subtype"
         },
         "value": {
-          "type": "string",
-          "maxLength": 200
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/waste_subtype"
         }
       },
       "additionalProperties": false
@@ -34,26 +33,13 @@
       "required": ["trait_type", "value", "display_type"],
       "properties": {
         "trait_type": {
-          "const": "Weight"
+          "const": "Weight (kg)"
         },
         "value": {
           "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/weight_kg"
         },
         "display_type": {
           "const": "number"
-        }
-      },
-      "additionalProperties": false
-    },
-    "attribute_unit": {
-      "type": "object",
-      "required": ["trait_type", "value"],
-      "properties": {
-        "trait_type": {
-          "const": "Unit"
-        },
-        "value": {
-          "const": "kg"
         }
       },
       "additionalProperties": false
@@ -67,7 +53,9 @@
         },
         "value": {
           "type": "string",
-          "maxLength": 100
+          "maxLength": 100,
+          "description": "Country where the waste was generated",
+          "example": "Brazil"
         }
       },
       "additionalProperties": false
@@ -81,7 +69,9 @@
         },
         "value": {
           "type": "string",
-          "maxLength": 100
+          "maxLength": 100,
+          "description": "Municipality where the waste was generated",
+          "example": "Macapá"
         }
       },
       "additionalProperties": false
@@ -95,7 +85,9 @@
         },
         "value": {
           "type": "string",
-          "maxLength": 100
+          "maxLength": 100,
+          "description": "Administrative division (state/province) where the waste was generated",
+          "example": "Amapá"
         }
       },
       "additionalProperties": false
@@ -109,7 +101,9 @@
         },
         "value": {
           "type": "string",
-          "maxLength": 100
+          "maxLength": 100,
+          "description": "Organization that processed the waste",
+          "example": "Eco Reciclagem"
         }
       },
       "additionalProperties": false
@@ -123,21 +117,9 @@
         },
         "value": {
           "type": "string",
-          "maxLength": 100
-        }
-      },
-      "additionalProperties": false
-    },
-    "attribute_processing_method": {
-      "type": "object",
-      "required": ["trait_type", "value"],
-      "properties": {
-        "trait_type": {
-          "const": "Processing Method"
-        },
-        "value": {
-          "type": "string",
-          "maxLength": 100
+          "maxLength": 100,
+          "description": "Organization that integrated the waste into the Carrot network",
+          "example": "Carrot Foundation"
         }
       },
       "additionalProperties": false
@@ -151,7 +133,9 @@
         },
         "value": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": "Date when the waste was picked up from the source",
+          "example": "2024-12-05"
         },
         "display_type": {
           "const": "date"
@@ -168,7 +152,9 @@
         },
         "value": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": "Date when the waste was recycled/processed",
+          "example": "2025-02-22"
         },
         "display_type": {
           "const": "date"
@@ -182,19 +168,17 @@
   "type": "array",
   "prefixItems": [
     { "$ref": "#/$defs/attribute_waste_type" },
-    { "$ref": "#/$defs/attribute_subtype" },
+    { "$ref": "#/$defs/attribute_waste_subtype" },
     { "$ref": "#/$defs/attribute_weight" },
-    { "$ref": "#/$defs/attribute_unit" },
     { "$ref": "#/$defs/attribute_origin_country" },
     { "$ref": "#/$defs/attribute_origin_municipality" },
     { "$ref": "#/$defs/attribute_origin_division" },
     { "$ref": "#/$defs/attribute_recycler" },
     { "$ref": "#/$defs/attribute_integrator" },
-    { "$ref": "#/$defs/attribute_processing_method" },
     { "$ref": "#/$defs/attribute_pickup_date" },
     { "$ref": "#/$defs/attribute_recycling_date" }
   ],
   "items": false,
-  "minItems": 12,
-  "maxItems": 12
+  "minItems": 10,
+  "maxItems": 10
 }

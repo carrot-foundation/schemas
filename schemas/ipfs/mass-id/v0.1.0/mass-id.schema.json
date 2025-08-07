@@ -1,8 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/v0.1.0/mass-id.schema.json",
-  "title": "MassID NFT IPFS Metadata",
-  "description": "IPFS metadata schema for MassID NFTs - foundational tokens representing unique batches of physical waste material with complete chain of custody tracking and environmental verification.",
+  "title": "MassID NFT IPFS Record",
   "unevaluatedProperties": false,
   "allOf": [
     {
@@ -11,13 +10,17 @@
     {
       "type": "object",
       "properties": {
-        "metadata_type": {
-          "const": "MassID"
+        "schema": {
+          "properties": {
+            "type": {
+              "const": "MassID"
+            }
+          }
         },
         "attributes": {
           "$ref": "./mass-id.attributes.schema.json"
         },
-        "details": {
+        "data": {
           "$ref": "./mass-id.details.schema.json"
         }
       }
