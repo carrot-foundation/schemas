@@ -43,7 +43,8 @@
           "title": "Source Waste Net Weight",
           "description": "Net weight of the source waste"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "origin_location": {
       "$ref": "../../shared/entities/location/v0.1.0/location.schema.json",
@@ -109,7 +110,8 @@
                 }
               }
             }
-          }
+          },
+          "additionalProperties": false
         }
       }
     },
@@ -145,7 +147,8 @@
             "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_url",
             "title": "Participant Accreditation External URL"
           }
-        }
+        },
+        "additionalProperties": false
       }
     },
     "participant_rewards": {
@@ -200,7 +203,8 @@
                 "title": "Effective Percentage",
                 "description": "Effective percentage of the reward"
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "distribution_notes": {
@@ -216,9 +220,11 @@
               "description": "Description of the redirected rewards",
               "example": "Discounted rewards from large businesses redirected to accredited NGOs"
             }
-          }
+          },
+          "additionalProperties": false
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

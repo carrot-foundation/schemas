@@ -197,7 +197,7 @@
           "participant_name": "Enlatados Produção",
           "role": "Waste Generator",
           "reward_percentage": 25.0,
-          "large_business_discount": true,
+          "large_business_discount_applied": true,
           "effective_percentage": 12.5
         },
         {
