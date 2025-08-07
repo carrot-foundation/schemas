@@ -16,7 +16,8 @@
     "ipfs",
     "keccak256",
     "MassID",
-    "offchain"
+    "offchain",
+    "UNFCCC"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
