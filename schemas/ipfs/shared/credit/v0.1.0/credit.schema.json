@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/credit/v0.1.0/credit.schema.json",
+  "title": "Credit IPFS Record",
+  "description": "Complete schema for Credit ERC20 token IPFS records, extending the base Carrot schema with credit-specific data.",
+  "unevaluatedProperties": false,
+  "allOf": [
+    {
+      "$ref": "../../base/v0.1.0/base.schema.json"
+    },
+    {
+      "type": "object",
+      "required": ["symbol", "name", "decimals", "image", "description"],
+      "properties": {
+        "schema": {
+          "properties": {
+            "type": {
+              "const": "Credit"
+            }
+          }
+        },
+        "symbol": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "maxLength": 10,
+          "pattern": "^[A-Z0-9-]+$",
+          "title": "Token Symbol",
+          "description": "ERC20 token symbol in uppercase letters and numbers only.",
+          "example": "C-CARB"
+        },
+        "name": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "title": "Token Name",
+          "description": "Full human-readable name of the ERC20 token.",
+          "example": "Carrot Carbon"
+        },
+        "decimals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18,
+          "title": "Token Decimals",
+          "description": "Number of decimal places for the ERC20 token.",
+          "example": 18
+        },
+        "image": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+          "title": "Token Image",
+          "description": "IPFS URI pointing to the token's visual representation image.",
+          "example": "ipfs://QmTokenImageHash/credit-icon.png"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 1000,
+          "title": "Token Description",
+          "description": "Comprehensive description of the credit token, its purpose, environmental impact, and utility within the Carrot ecosystem.",
+          "example": "Carrot Carbon (C-CARB) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices."
+        }
+      }
+    }
+  ]
+}

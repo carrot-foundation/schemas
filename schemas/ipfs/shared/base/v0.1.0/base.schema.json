@@ -9,8 +9,7 @@
     "schema",
     "created_at",
     "external_id",
-    "external_url",
-    "data"
+    "external_url"
   ],
   "properties": {
     "$schema": {
