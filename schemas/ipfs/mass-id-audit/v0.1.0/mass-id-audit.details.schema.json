@@ -57,7 +57,8 @@
           "title": "Failed Rules Count",
           "description": "Number of rules that failed verification"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "rules_execution_results": {
       "type": "array",
@@ -120,7 +121,8 @@
             "title": "Rule Source Code Version",
             "description": "Version identifier for the rule source code."
           }
-        }
+        },
+        "additionalProperties": false
       }
     }
   },
