@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/credit/v0.1.0/credit.schema.json",
+  "schema": {
+    "hash": "0x8b33fe7f20e0b71c003e63f7db6da83fedef22b4229b5089b78554fc8a2cb987",
+    "type": "Collection",
+    "version": "v0.1.0"
+  },
+  "environment": {
+    "blockchain_network": "testnet",
+    "deployment": "production",
+    "data_set_name": "TEST"
+  },
+  "created_at": "2024-12-05T14:30:00.000Z",
+  "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
+  "external_url": "https://explore.carrot.eco/collection/bold-cold-start-carazinho",
+  "name": "BOLD Cold Start - Carazinho",
+  "image": "ipfs://QmCollectionImageHash/bold-cold-start-carazinho-icon.png",
+  "description": "Cold Start is a limited-edition collection created for early supporters of BOLD - Breakthrough in Organic Landfill Diversion. This purchase contributes to reducing global waste and promoting circularity, with funds distributed via smart contract to local recycling operations and communities."
+}

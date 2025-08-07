@@ -38,7 +38,8 @@
             "GasID",
             "PurchaseID",
             "Methodology",
-            "Credit"
+            "Credit",
+            "Collection"
           ],
           "title": "Schema Type",
           "description": "Type/category of this schema.",
