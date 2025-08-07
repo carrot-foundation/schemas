@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/methodology/v0.1.0/methodology.schema.json",
+  "title": "Methodology IPFS Record",
+  "unevaluatedProperties": false,
+  "allOf": [
+    {
+      "$ref": "../../shared/base/v0.1.0/base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "properties": {
+            "type": {
+              "const": "Methodology"
+            }
+          }
+        },
+        "data": {
+          "$ref": "./methodology.details.schema.json"
+        }
+      }
+    }
+  ]
+}
