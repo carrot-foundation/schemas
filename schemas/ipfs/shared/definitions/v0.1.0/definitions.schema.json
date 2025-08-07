@@ -162,13 +162,6 @@
       "description": "Non-negative float value.",
       "example": 100.5
     },
-    "positive_float": {
-      "type": "number",
-      "minimum": 0,
-      "title": "Positive Float",
-      "description": "Positive float value.",
-      "example": 100.5
-    },
     "hours": {
       "type": "number",
       "minimum": 0,
