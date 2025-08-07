@@ -16,7 +16,8 @@
         "short_name",
         "description",
         "image",
-        "attributes"
+        "attributes",
+        "data_signatures"
       ],
       "properties": {
         "schema": {
@@ -175,6 +176,25 @@
             },
             "additionalProperties": false
           }
+        },
+        "data_signatures": {
+          "type": "object",
+          "title": "Data Signatures",
+          "description": "Cryptographic signatures for data integrity verification.",
+          "required": ["content", "source_data"],
+          "properties": {
+            "content": {
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/signature",
+              "title": "Content Signature",
+              "description": "Signature of this record for integrity verification."
+            },
+            "source_data": {
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/signature",
+              "title": "Original Data Integrity Signature",
+              "description": "Cryptographic signature of the complete original data before any modifications or updates. This signature ensures data integrity and proves the authenticity of the source data at the time of initial creation."
+            }
+          },
+          "additionalProperties": false
         }
       }
     }

@@ -61,10 +61,10 @@
       },
       {
         "rule_id": "12345678-1234-1234-1234-000000000004",
-        "rule_slug": "massid-qualifications",
+        "rule_slug": "mass-id-qualifications",
         "rule_name": "MassID Qualifications",
         "description": "Validates the proper categorization and definition of the organic waste mass",
-        "source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/massid-qualifications.js",
+        "source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/mass-id-qualifications.js",
         "mandatory": true,
         "execution_order": 5
       },
@@ -169,10 +169,10 @@
       },
       {
         "rule_id": "12345678-1234-1234-1234-000000000016",
-        "rule_slug": "massid-sorting",
+        "rule_slug": "mass-id-sorting",
         "rule_name": "MassID Sorting",
         "description": "Confirms the proper segregation and classification of organic waste materials",
-        "source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/massid-sorting.js",
+        "source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/mass-id-sorting.js",
         "mandatory": true,
         "execution_order": 17
       },
@@ -213,31 +213,5 @@
         "execution_order": 21
       }
     ]
-  },
-  "data_signatures": {
-    "content": {
-      "signer": "0x742d35cc6334c1532926d7d93e7b8b00b1234567",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot Methodology",
-        "version": "1.0.0",
-        "chain_id": 137
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
-      "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678901c"
-    },
-    "source_data": {
-      "signer": "0x742d35cc6334c1532926d7d93e7b8b00b1234567",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot Methodology Source",
-        "version": "1.0.0",
-        "chain_id": 137
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x8a11ee4f20f0a71b002e52f6db5da83fedef22b3228b5099b78554fc8a2cb557",
-      "signature": "0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321fedcba09876543211c"
-    }
   }
 }

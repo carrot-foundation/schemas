@@ -282,31 +282,5 @@
         "rule_source_code_version": "v2.1.3-d1c2b3bc-b5c6-bcde-0123-9012345f0123"
       }
     ]
-  },
-  "data_signatures": {
-    "content": {
-      "signer": "0x8f2d91cc7445d1543937d8d94e8c9c01c2345678",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot Audit",
-        "version": "1.0.0",
-        "chain_id": 137
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x7d9f82c4e1b6a5f3d8e2c1b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9",
-      "signature": "0x123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef01c"
-    },
-    "source_data": {
-      "signer": "0x8f2d91cc7445d1543937d8d94e8c9c01c2345678",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot Audit Source",
-        "version": "1.0.0",
-        "chain_id": 137
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x6c8e71b3d0c5a4f2d7e1c0b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8",
-      "signature": "0xfedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210fedcba987654321c1c"
-    }
   }
 }
