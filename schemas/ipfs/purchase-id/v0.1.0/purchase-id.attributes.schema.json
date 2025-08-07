@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/purchase-id/v0.1.0/purchase-id.attributes.schema.json",
+  "$defs": {
+    "attribute_credit": {
+      "type": "object",
+      "required": ["trait_type", "value", "display_type"],
+      "properties": {
+        "trait_type": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/token_symbol",
+          "description": "Symbol of the credit token (e.g., C-CARB, C-BIOW)",
+          "example": "C-CARB"
+        },
+        "value": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+          "description": "Amount of credits purchased",
+          "example": 2.5
+        },
+        "display_type": {
+          "const": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_buyer": {
+      "type": "object",
+      "required": ["trait_type", "value"],
+      "properties": {
+        "trait_type": {
+          "const": "Buyer"
+        },
+        "value": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_name",
+          "description": "Organization or individual that purchased the credits",
+          "example": "EcoTech Solutions Inc."
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_purchase_date": {
+      "type": "object",
+      "required": ["trait_type", "value", "display_type"],
+      "properties": {
+        "trait_type": {
+          "const": "Purchase Date"
+        },
+        "value": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/iso_date",
+          "description": "Date when the purchase was completed",
+          "example": "2025-01-15"
+        },
+        "display_type": {
+          "const": "date"
+        }
+      },
+      "additionalProperties": false
+    },
+    "attribute_collection": {
+      "type": "object",
+      "required": ["trait_type", "value", "display_type"],
+      "properties": {
+        "trait_type": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "description": "Name of the collection",
+          "example": "BOLD Cold Start - Carazinho"
+        },
+        "value": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+          "description": "Amount of credits from the collection",
+          "example": 4.0
+        },
+        "display_type": {
+          "const": "number"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "title": "PurchaseID NFT Attribute Array",
+  "description": "Schema for the fixed set of PurchaseID NFT attributes, enforcing order and type for each trait.",
+  "type": "array",
+  "items": {
+    "anyOf": [
+      { "$ref": "#/$defs/attribute_credit" },
+      { "$ref": "#/$defs/attribute_buyer" },
+      { "$ref": "#/$defs/attribute_purchase_date" },
+      { "$ref": "#/$defs/attribute_collection" }
+    ]
+  },
+  "minItems": 4
+}

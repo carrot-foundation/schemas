@@ -1,0 +1,245 @@
+{
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/purchase-id/v0.1.0/purchase-id.schema.json",
+  "schema": {
+    "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
+    "type": "PurchaseID",
+    "version": "v0.1.0"
+  },
+  "environment": {
+    "blockchain_network": "mainnet",
+    "deployment": "production",
+    "data_set_name": "TEST"
+  },
+  "blockchain": {
+    "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+    "chain_id": 137,
+    "network_name": "Polygon",
+    "token_id": "789"
+  },
+  "created_at": "2025-01-15T10:30:45.000Z",
+  "external_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+  "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+  "name": "PurchaseID #789 • 5.5 Credits",
+  "short_name": "PurchaseID #789",
+  "description": "Purchase receipt for 5.5 credits across C-CARB and C-BIOW tokens from 2 collections, with rewards distributed to 4 accredited participants in the waste management supply chain.",
+  "image": "ipfs://QmPurchaseIdHash789/purchase-receipt.png",
+  "background_color": "#2D5016",
+  "external_links": [
+    {
+      "label": "View on Carrot Explorer",
+      "url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "description": "Complete purchase details and audit trail"
+    },
+    {
+      "label": "Carrot Marketplace",
+      "url": "https://marketplace.carrot.eco/purchase/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "description": "Original purchase transaction details"
+    }
+  ],
+  "attributes": [
+    {
+      "trait_type": "C-CARB",
+      "value": 2.5,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "C-BIOW",
+      "value": 3.0,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Buyer",
+      "value": "EcoTech Solutions Inc."
+    },
+    {
+      "trait_type": "Purchase Date",
+      "value": "2025-01-15",
+      "display_type": "date"
+    },
+    {
+      "trait_type": "BOLD Cold Start - Carazinho",
+      "value": 4,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "BOLD Brazil",
+      "value": 1.5,
+      "display_type": "number"
+    }
+  ],
+  "data": {
+    "summary": {
+      "total_usdc_amount": 1250.0,
+      "total_certificates": 3,
+      "total_credits": 5.5,
+      "purchase_date": "2025-01-15",
+      "credit_symbols": ["C-CARB", "C-BIOW"],
+      "certificate_types": ["GasID", "RecycledID"]
+    },
+    "buyer": {
+      "wallet_address": "0x1234567890abcdef1234567890abcdef12345678",
+      "identity": {
+        "name": "EcoTech Solutions Inc.",
+        "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
+        "external_url": "https://explore.carrot.eco/participant/buyer-corp-12345"
+      }
+    },
+    "collections": [
+      {
+        "slug": "bold-cold-start-carazinho",
+        "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
+        "name": "BOLD Cold Start - Carazinho",
+        "external_url": "https://explore.carrot.eco/collection/bold-cold-start-carazinho",
+        "uri": "ipfs://QmCollectionImageHash/bold-cold-start-carazinho.json"
+      },
+      {
+        "slug": "bold-brazil",
+        "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+        "name": "BOLD Brazil",
+        "external_url": "https://explore.carrot.eco/collection/bold-professional-series",
+        "uri": "ipfs://QmCollectionProfHash/bold-professional-series.json"
+      }
+    ],
+    "credits": [
+      {
+        "slug": "carbon",
+        "symbol": "C-CARB",
+        "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
+        "external_url": "https://explore.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
+        "uri": "ipfs://QmCreditHash/c-carb.json",
+        "smart_contract": {
+          "address": "0xabcdef1234567890abcdef1234567890abcdef12",
+          "chain_id": 137,
+          "network_name": "Polygon"
+        }
+      },
+      {
+        "slug": "organic",
+        "symbol": "C-BIOW",
+        "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+        "external_url": "https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0",
+        "uri": "ipfs://QmCreditBiowHash/c-biow.json",
+        "smart_contract": {
+          "address": "0xfedcba0987654321fedcba0987654321fedcba09",
+          "chain_id": 137,
+          "network_name": "Polygon"
+        }
+      }
+    ],
+    "items": [
+      {
+        "certificate": {
+          "token_id": "456",
+          "type": "GasID",
+          "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+          "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
+          "uri": "ipfs://QmGasIdHash456/gas-id.json",
+          "mass_id": {
+            "token_id": "123",
+            "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+            "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
+            "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json"
+          }
+        },
+        "collection_slug": "bold-cold-start-carazinho",
+        "credit_slug": "carbon",
+        "credit_amount": 2.5,
+        "usdc_amount": 500.0
+      },
+      {
+        "certificate": {
+          "token_id": "789",
+          "type": "RecycledID",
+          "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+          "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
+          "uri": "ipfs://QmRecycledIdHash789/recycled-id.json",
+          "mass_id": {
+            "token_id": "124",
+            "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+            "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
+            "uri": "ipfs://QmMassIdHash124/mass-id.json"
+          }
+        },
+        "collection_slug": "bold-cold-start-carazinho",
+        "credit_slug": "carbon",
+        "credit_amount": 1.5,
+        "usdc_amount": 300.0
+      },
+      {
+        "certificate": {
+          "token_id": "789",
+          "type": "RecycledID",
+          "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+          "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
+          "uri": "ipfs://QmRecycledIdHash789/recycled-id.json",
+          "mass_id": {
+            "token_id": "124",
+            "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+            "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
+            "uri": "ipfs://QmMassIdHash124/mass-id.json"
+          }
+        },
+        "collection_slug": "bold-brazil",
+        "credit_slug": "organic",
+        "credit_amount": 1.5,
+        "usdc_amount": 450.0
+      }
+    ],
+    "participant_rewards": [
+      {
+        "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+        "participant_name": "Enlatados Produção",
+        "roles": ["Waste Generator"],
+        "percentage": 12.5,
+        "usdc_amount": 156.25
+      },
+      {
+        "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+        "participant_name": "Eco Reciclagem",
+        "roles": ["Hauler", "Processor", "Recycler"],
+        "percentage": 60.0,
+        "usdc_amount": 750.0
+      },
+      {
+        "participant_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+        "participant_name": "Carrot Foundation",
+        "roles": ["Network Integrator"],
+        "percentage": 15.0,
+        "usdc_amount": 187.5
+      },
+      {
+        "participant_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+        "participant_name": "Carrot Marketplace",
+        "roles": ["Platform"],
+        "percentage": 12.5,
+        "usdc_amount": 156.25
+      }
+    ]
+  },
+  "data_signatures": {
+    "content": {
+      "signer": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+      "signing_method": "eip712-offchain",
+      "domain": {
+        "name": "Carrot GasID",
+        "version": "1.0.0",
+        "chain_id": 1
+      },
+      "hash_algorithm": "keccak256",
+      "hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1c"
+    },
+    "source_data": {
+      "signer": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+      "signing_method": "eip712-offchain",
+      "domain": {
+        "name": "Carrot GasID Source",
+        "version": "1.0.0",
+        "chain_id": 1
+      },
+      "hash_algorithm": "keccak256",
+      "hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+      "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678901c"
+    }
+  }
+}

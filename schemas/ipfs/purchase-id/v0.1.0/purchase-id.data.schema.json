@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/purchase-id/v0.1.0/purchase-id.data.schema.json",
+  "title": "PurchaseID Data",
+  "type": "object",
+  "required": [
+    "summary",
+    "buyer",
+    "collections",
+    "credits",
+    "items",
+    "participant_rewards"
+  ],
+  "properties": {
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_usdc_amount",
+        "total_certificates",
+        "total_credits",
+        "purchase_date",
+        "credit_symbols",
+        "certificate_types"
+      ],
+      "properties": {
+        "total_usdc_amount": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+          "title": "Total USDC Amount",
+          "description": "Total amount paid in USDC for the purchase"
+        },
+        "total_certificates": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/positive_integer",
+          "title": "Total Certificates",
+          "description": "Total number of certificates purchased"
+        },
+        "total_credits": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+          "title": "Total Credits",
+          "description": "Total amount of credits purchased"
+        },
+        "purchase_date": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/iso_date",
+          "title": "Purchase Date",
+          "description": "Date when the purchase was made"
+        },
+        "credit_symbols": {
+          "type": "array",
+          "title": "Credit Symbols",
+          "description": "Array of credit token symbols included in the purchase",
+          "items": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/token_symbol"
+          },
+          "minItems": 1
+        },
+        "certificate_types": {
+          "type": "array",
+          "title": "Certificate Types",
+          "description": "Array of certificate types included in the purchase",
+          "items": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string"
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "buyer": {
+      "type": "object",
+      "required": ["wallet_address"],
+      "properties": {
+        "wallet_address": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ethereum_address",
+          "title": "Buyer Wallet Address",
+          "description": "Ethereum address of the buyer"
+        },
+        "identity": {
+          "type": "object",
+          "required": ["name", "external_id", "external_url"],
+          "properties": {
+            "name": {
+              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_name",
+              "title": "Buyer Name",
+              "description": "Legal name of the buyer organization"
+            },
+            "external_id": {
+              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_id",
+              "title": "Buyer External ID",
+              "description": "External identifier for the buyer"
+            },
+            "external_url": {
+              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_url",
+              "title": "Buyer External URL",
+              "description": "External URL for the buyer profile"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "collections": {
+      "type": "array",
+      "title": "Collections",
+      "description": "Array of collections included in the purchase",
+      "items": {
+        "type": "object",
+        "required": ["slug", "external_id", "name", "external_url", "uri"],
+        "properties": {
+          "slug": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/slug",
+            "title": "Collection Slug",
+            "description": "URL-friendly identifier for the collection"
+          },
+          "external_id": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_id",
+            "title": "Collection External ID",
+            "description": "External identifier for the collection"
+          },
+          "name": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/name",
+            "title": "Collection Name",
+            "description": "Display name of the collection"
+          },
+          "external_url": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_url",
+            "title": "Collection External URL",
+            "description": "External URL for the collection"
+          },
+          "uri": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+            "title": "Collection URI",
+            "description": "IPFS URI for the collection metadata"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "credits": {
+      "type": "array",
+      "title": "Credits",
+      "description": "Array of credits included in the purchase",
+      "items": {
+        "type": "object",
+        "required": [
+          "slug",
+          "symbol",
+          "external_id",
+          "external_url",
+          "uri",
+          "smart_contract"
+        ],
+        "properties": {
+          "slug": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/slug",
+            "title": "Credit Slug",
+            "description": "URL-friendly identifier for the credit"
+          },
+          "symbol": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/token_symbol",
+            "title": "Credit Token Symbol",
+            "description": "Symbol of the credit token (e.g., C-CARB, C-BIOW)"
+          },
+          "external_id": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_id",
+            "title": "Credit External ID",
+            "description": "External identifier for the credit"
+          },
+          "external_url": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_url",
+            "title": "Credit External URL",
+            "description": "External URL for the credit"
+          },
+          "uri": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+            "title": "Credit URI",
+            "description": "IPFS URI for the credit details"
+          },
+          "smart_contract": {
+            "type": "object",
+            "required": ["address", "chain_id", "network_name"],
+            "properties": {
+              "address": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ethereum_address",
+                "title": "Smart Contract Address",
+                "description": "Address of the credit smart contract"
+              },
+              "chain_id": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/chain_id",
+                "title": "Chain ID",
+                "description": "Blockchain network chain ID"
+              },
+              "network_name": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+                "title": "Blockchain Network Name",
+                "description": "Name of the blockchain network"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "items": {
+      "type": "array",
+      "title": "Purchase Items",
+      "description": "Array of individual items purchased",
+      "items": {
+        "type": "object",
+        "required": [
+          "certificate",
+          "collection_slug",
+          "credit_slug",
+          "credit_amount",
+          "usdc_amount"
+        ],
+        "properties": {
+          "certificate": {
+            "type": "object",
+            "required": [
+              "token_id",
+              "type",
+              "external_id",
+              "external_url",
+              "uri",
+              "mass_id"
+            ],
+            "properties": {
+              "token_id": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/token_id",
+                "title": "Certificate Token ID",
+                "description": "Token ID of the certificate"
+              },
+              "type": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+                "title": "Certificate Type",
+                "description": "Type of certificate (e.g., GasID, RecycledID)"
+              },
+              "external_id": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_id",
+                "title": "Certificate External ID",
+                "description": "External identifier for the certificate"
+              },
+              "external_url": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_url",
+                "title": "Certificate External URL",
+                "description": "External URL for the certificate"
+              },
+              "uri": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+                "title": "Certificate URI",
+                "description": "IPFS URI for the certificate metadata"
+              },
+              "mass_id": {
+                "$ref": "../../shared/references/mass-id-reference/v0.1.0/mass-id-reference.schema.json"
+              }
+            },
+            "additionalProperties": false
+          },
+          "collection_slug": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/slug",
+            "title": "Collection Slug",
+            "description": "Slug of the collection this item belongs to"
+          },
+          "credit_slug": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/slug",
+            "title": "Credit Slug",
+            "description": "Slug of the credit type for this item"
+          },
+          "credit_amount": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+            "title": "Credit Amount",
+            "description": "Amount of credits for this item"
+          },
+          "usdc_amount": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+            "title": "USDC Amount",
+            "description": "USDC amount paid for this item"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "participant_rewards": {
+      "type": "array",
+      "title": "Participant Rewards",
+      "description": "Array of rewards distributed to participants in the supply chain",
+      "items": {
+        "type": "object",
+        "required": [
+          "participant_id",
+          "participant_name",
+          "roles",
+          "percentage",
+          "usdc_amount"
+        ],
+        "properties": {
+          "participant_id": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
+            "title": "Participant ID",
+            "description": "Unique identifier for the participant"
+          },
+          "participant_name": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_name",
+            "title": "Participant Name",
+            "description": "Legal name of the participant"
+          },
+          "roles": {
+            "type": "array",
+            "title": "Participant Roles",
+            "description": "Array of roles the participant has in the supply chain",
+            "items": {
+              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_role"
+            },
+            "minItems": 1
+          },
+          "percentage": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/percentage",
+            "title": "Reward Percentage",
+            "description": "Percentage of the total purchase amount allocated to this participant"
+          },
+          "usdc_amount": {
+            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+            "title": "USDC Reward Amount",
+            "description": "USDC amount allocated to this participant"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -19,7 +19,8 @@
     "keccak256",
     "MassID",
     "offchain",
-    "UNFCCC"
+    "UNFCCC",
+    "usdc"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
