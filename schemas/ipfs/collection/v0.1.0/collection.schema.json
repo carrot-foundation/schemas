@@ -23,6 +23,11 @@
           "title": "Collection Name",
           "example": "BOLD Cold Start - Carazinho"
         },
+        "slug": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/slug",
+          "title": "Collection Slug",
+          "example": "bold-cold-start-carazinho"
+        },
         "image": {
           "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
           "title": "Collection Image",

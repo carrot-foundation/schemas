@@ -221,6 +221,14 @@
       "description": "External URL of the content.",
       "example": "https://explore.carrot.eco/document/40e44dc8-75d4-4b6f-a5b2-420ab9482ee9"
     },
+    "token_symbol": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 10,
+      "pattern": "^[A-Z0-9-]+$",
+      "title": "Token Symbol",
+      "description": "ERC20 token symbol in uppercase letters and numbers only.",
+      "example": "C-CARB"
+    },
     "signature": {
       "type": "object",
       "title": "EIP-712 Signature",

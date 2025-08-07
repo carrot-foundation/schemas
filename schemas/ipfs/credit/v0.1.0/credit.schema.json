@@ -20,12 +20,12 @@
           }
         },
         "symbol": {
-          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-          "maxLength": 10,
-          "pattern": "^[A-Z0-9-]+$",
-          "title": "Token Symbol",
-          "description": "ERC20 token symbol in uppercase letters and numbers only.",
-          "example": "C-CARB"
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/token_symbol"
+        },
+        "slug": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/slug",
+          "title": "Token Slug",
+          "example": "carbon"
         },
         "name": {
           "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
