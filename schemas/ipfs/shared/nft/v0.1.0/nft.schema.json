@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/nft/v0.1.0/nft.schema.json",
-  "title": "Carrot NFT IPFS Metadata",
-  "description": "NFT-specific fields for Carrot IPFS metadata files, extending the base schema with marketplace-compatible properties.",
+  "title": "Carrot NFT IPFS Record",
+  "description": "NFT-specific fields for Carrot IPFS records.",
   "unevaluatedProperties": false,
   "allOf": [
     {
@@ -19,14 +19,21 @@
         "attributes"
       ],
       "properties": {
-        "metadata_type": {
-          "type": "string",
-          "enum": ["MassID", "RecyclingID", "GasID", "PurchaseID"],
-          "description": "Type/category of this NFT metadata.",
-          "example": "MassID"
+        "schema": {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["MassID", "RecyclingID", "GasID", "PurchaseID"],
+              "title": "NFT Metadata Type",
+              "description": "Type/category of this NFT schema.",
+              "example": "MassID"
+            }
+          }
         },
         "blockchain": {
           "type": "object",
+          "title": "NFT Blockchain Information",
+          "description": "Blockchain-specific information for the NFT.",
           "required": [
             "smart_contract_address",
             "chain_id",
@@ -36,29 +43,30 @@
           "properties": {
             "smart_contract_address": {
               "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ethereum_address",
-              "description": "Ethereum smart contract address in hexadecimal format."
+              "title": "Smart Contract Address"
             },
             "chain_id": {
-              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/chain_id",
-              "description": "Blockchain network chain ID where the NFT is deployed."
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/chain_id"
             },
             "network_name": {
               "type": "string",
+              "title": "Blockchain Network Name",
               "description": "Name of the blockchain network.",
+              "minLength": 5,
+              "maxLength": 100,
               "example": "Polygon"
             },
             "token_id": {
-              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/token_id",
-              "description": "Token ID of the NFT as numeric string to support large integers (uint256)."
+              "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/token_id"
             }
           },
-          "additionalProperties": false,
-          "description": "Blockchain-specific information for the NFT."
+          "additionalProperties": false
         },
         "name": {
           "type": "string",
           "minLength": 1,
           "maxLength": 100,
+          "title": "NFT Name",
           "description": "Full display name for this NFT, including extra context.",
           "example": "MassID #123 • Organic • 1.79t"
         },
@@ -66,6 +74,7 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 50,
+          "title": "NFT Short Name",
           "description": "Compact name for UI summaries, tables, or tooltips.",
           "example": "MassID #123"
         },
@@ -73,25 +82,30 @@
           "type": "string",
           "minLength": 10,
           "maxLength": 500,
+          "title": "NFT Description",
           "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
           "example": "This MassID represents a recorded and traceable mass of organic waste."
         },
         "image": {
           "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+          "title": "NFT Image",
           "description": "IPFS URI pointing to the preview image."
         },
         "background_color": {
           "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/hex_color",
+          "title": "NFT Background Color",
           "description": "Hex color code for marketplace background display."
         },
         "animation_url": {
           "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+          "title": "NFT Animation URL",
           "description": "IPFS URI pointing to an animated or interactive media file."
         },
         "external_links": {
           "type": "array",
           "maxItems": 10,
           "uniqueItems": true,
+          "title": "NFT External Links",
           "description": "Optional list of public resource links with labels.",
           "items": {
             "type": "object",
@@ -99,19 +113,24 @@
             "properties": {
               "label": {
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 50,
+                "title": "NFT External Link Label",
                 "description": "Display name for the external link.",
                 "example": "View on Carrot Explorer"
               },
               "url": {
                 "type": "string",
                 "format": "uri",
+                "title": "NFT External Link URL",
                 "description": "Direct URI to the linked resource.",
                 "example": "https://explorer.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               },
               "description": {
                 "type": "string",
+                "minLength": 10,
                 "maxLength": 100,
+                "title": "NFT External Link Description",
                 "description": "Optional context about what the link provides.",
                 "example": "Complete chain of custody and audit trail"
               }
@@ -121,6 +140,7 @@
         },
         "attributes": {
           "type": "array",
+          "title": "NFT Attributes",
           "description": "List of visual traits and filterable attributes compatible with NFT marketplaces.",
           "items": {
             "type": "object",
@@ -129,7 +149,8 @@
               "trait_type": {
                 "type": "string",
                 "maxLength": 50,
-                "description": "Name of the trait or attribute."
+                "description": "Name of the trait or attribute.",
+                "example": "Waste Type"
               },
               "value": {
                 "oneOf": [
@@ -137,17 +158,19 @@
                   { "type": "number" },
                   { "type": "boolean" }
                 ],
-                "description": "Value of the trait - can be string, number, or boolean."
+                "description": "Value of the trait - can be string, number, or boolean.",
+                "example": "Organic"
               },
               "display_type": {
                 "type": "string",
                 "enum": ["number", "date", "boost_number", "boost_percentage"],
-                "description": "How the trait should be displayed in marketplace UIs."
+                "description": "How the trait should be displayed in marketplace UIs.",
+                "example": "number"
               },
               "max_value": {
-                "type": "number",
-                "minimum": 0,
-                "description": "Maximum possible value for numeric traits."
+                "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+                "description": "Maximum possible value for numeric traits.",
+                "example": 100.5
               }
             },
             "additionalProperties": false

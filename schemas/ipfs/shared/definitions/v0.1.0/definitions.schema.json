@@ -2,21 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/v0.1.0/definitions.schema.json",
   "title": "Carrot Shared Definitions",
-  "description": "Reusable atomic, domain, and composite definitions for Carrot IPFS metadata schemas.",
+  "description": "Reusable atomic, domain, and composite definitions for Carrot IPFS JSON schemas.",
   "type": "object",
   "$defs": {
     "uuid": {
       "type": "string",
       "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-      "title": "UUID v4 Format",
       "description": "UUID v4 string in canonical format.",
       "example": "6f520d88-864d-432d-bf9f-5c3166c4818f"
     },
     "ethereum_address": {
       "type": "string",
-      "pattern": "^0x[a-fA-F0-9]{40}$",
+      "pattern": "^0x[a-f0-9]{40}$",
       "title": "Ethereum Address",
-      "description": "Ethereum address in hexadecimal format.",
+      "description": "Ethereum address in lowercase hexadecimal format.",
       "example": "0xabc123def456789abcdef123456789abcdef1234"
     },
     "iso_timestamp": {
@@ -47,6 +46,20 @@
       "description": "ISO 3166-2 administrative division code.",
       "example": "BR-AP"
     },
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Latitude in decimal degrees.",
+      "example": -23.39
+    },
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180,
+      "description": "Longitude in decimal degrees.",
+      "example": -51.13
+    },
     "weight_kg": {
       "type": "number",
       "minimum": 0,
@@ -54,29 +67,46 @@
       "description": "Weight measurement in kilograms.",
       "example": 1500.5
     },
-    "waste_type": {
+    "name": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 200
+    },
+    "slug": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^[a-z0-9-]+$",
+      "maxLength": 100,
+      "title": "Slug",
+      "description": "URL-friendly identifier using lowercase letters, numbers, and hyphens only.",
+      "example": "bold-carbon-ch4"
+    },
+    "non_empty_string": {
       "type": "string",
+      "minLength": 1
+    },
+    "waste_type": {
+      "$ref": "#/$defs/non_empty_string",
       "title": "Waste Classification",
       "description": "Primary waste material category following international standards.",
       "example": "Organic"
     },
     "waste_subtype": {
-      "type": "string",
-      "minLength": 1,
+      "$ref": "#/$defs/non_empty_string",
       "maxLength": 100,
       "description": "Specific subcategory or detailed classification of the waste material.",
       "example": "Food, Food Waste and Beverages"
     },
     "participant_role": {
-      "type": "string",
-      "title": "Supply Chain Role",
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 100,
+      "title": "Participant Role",
       "description": "Role in the waste management supply chain.",
       "example": "Transporter"
     },
     "participant_name": {
-      "type": "string",
+      "$ref": "#/$defs/non_empty_string",
       "maxLength": 100,
-      "description": "Legal name of the participant organization.",
+      "title": "Participant Name",
+      "description": "Legal name of the participant.",
       "example": "Eco Reciclagem"
     },
     "facility_type": {
@@ -102,6 +132,101 @@
       "title": "Blockchain network chain ID",
       "description": "Blockchain network chain ID where the NFT is deployed.",
       "example": 137
+    },
+    "percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "title": "Percentage Value",
+      "description": "Percentage value between 0 and 100.",
+      "example": 25.5
+    },
+    "non_negative_integer": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Non-Negative Integer",
+      "description": "Non-negative integer value.",
+      "example": 100
+    },
+    "positive_integer": {
+      "type": "integer",
+      "minimum": 1,
+      "title": "Positive Integer",
+      "description": "Positive integer value.",
+      "example": 100
+    },
+    "non_negative_float": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Non-Negative Float",
+      "description": "Non-negative float value.",
+      "example": 100.5
+    },
+    "positive_float": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Positive Float",
+      "description": "Positive float value.",
+      "example": 100.5
+    },
+    "hours": {
+      "type": "number",
+      "minimum": 0,
+      "multipleOf": 0.1,
+      "title": "Hours",
+      "description": "Time in hours.",
+      "example": 72.5
+    },
+    "ipfs_uri": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^ipfs://[a-zA-Z0-9]+(/.*)?$",
+      "title": "IPFS URI",
+      "description": "IPFS URI pointing to content-addressed data using CID (Content Identifier). Format: ipfs://{CID}[/path]",
+      "examples": [
+        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
+        "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
+        "ipfs://QmHashExample/metadata.json"
+      ]
+    },
+    "semantic_version": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
+      "title": "Semantic Version",
+      "description": "Semantic version string (semver.org).",
+      "example": "v1.2.3"
+    },
+    "token_id": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^[0-9]+$",
+      "title": "Token ID",
+      "description": "NFT token ID as numeric string (supports uint256).",
+      "example": "123"
+    },
+    "hex_color": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^#[0-9A-F]{6}$",
+      "title": "Hex Color",
+      "description": "Hex color code with # prefix and uppercase.",
+      "example": "#FFFFFF"
+    },
+    "keccak256_hash": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^0x[a-fA-F0-9]{64}$",
+      "title": "Keccak256 Hash",
+      "description": "Keccak256 hash as 32-byte hex string.",
+      "example": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658"
+    },
+    "external_id": {
+      "$ref": "#/$defs/uuid",
+      "title": "External ID",
+      "description": "Off-chain reference ID (UUID from Carrot backend)."
+    },
+    "external_url": {
+      "$ref": "#/$defs/non_empty_string",
+      "format": "uri",
+      "title": "External URL",
+      "description": "External URL of the content.",
+      "example": "https://explore.carrot.eco/document/40e44dc8-75d4-4b6f-a5b2-420ab9482ee9"
     },
     "signature": {
       "type": "object",
@@ -165,192 +290,6 @@
         "signature"
       ],
       "additionalProperties": false
-    },
-    "participant": {
-      "type": "object",
-      "title": "Supply Chain Participant",
-      "description": "A participant in the waste management chain.",
-      "required": ["id", "name", "roles"],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/uuid"
-        },
-        "name": {
-          "$ref": "#/$defs/participant_name"
-        },
-        "roles": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "description": "Roles of participant in the waste management chain.",
-          "items": {
-            "$ref": "#/$defs/participant_role"
-          },
-          "example": ["Waste Generator", "Transporter"]
-        }
-      },
-      "additionalProperties": false
-    },
-    "location": {
-      "type": "object",
-      "title": "Geographic Location",
-      "description": "Geographic location with address and coordinate information.",
-      "required": [
-        "administrative_division_code",
-        "administrative_division",
-        "coordinates",
-        "country_code",
-        "country",
-        "facility_type",
-        "id",
-        "municipality"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/uuid"
-        },
-        "municipality": {
-          "type": "string",
-          "maxLength": 100,
-          "description": "Municipality or city name.",
-          "example": "Macapá"
-        },
-        "administrative_division": {
-          "type": "string",
-          "maxLength": 100,
-          "description": "State, province, or administrative region.",
-          "example": "Amapá"
-        },
-        "administrative_division_code": {
-          "$ref": "#/$defs/iso_administrative_division_code"
-        },
-        "country": {
-          "type": "string",
-          "maxLength": 100,
-          "description": "Full country name in English.",
-          "example": "Brazil"
-        },
-        "country_code": {
-          "$ref": "#/$defs/iso_country_code"
-        },
-        "coordinates": {
-          "type": "object",
-          "description": "GPS coordinates of the location.",
-          "required": ["latitude", "longitude", "precision_level"],
-          "properties": {
-            "latitude": {
-              "type": "number",
-              "minimum": -90,
-              "maximum": 90,
-              "description": "Latitude in decimal degrees.",
-              "example": -23.39
-            },
-            "longitude": {
-              "type": "number",
-              "minimum": -180,
-              "maximum": 180,
-              "description": "Longitude in decimal degrees.",
-              "example": -51.13
-            },
-            "precision_level": {
-              "type": "string",
-              "enum": ["exact", "neighborhood", "city", "region", "country"],
-              "description": "Level of coordinate precision.",
-              "example": "city"
-            }
-          },
-          "additionalProperties": false
-        },
-        "facility_type": {
-          "$ref": "#/$defs/facility_type"
-        }
-      },
-      "additionalProperties": false
-    },
-    "ipfs_uri": {
-      "type": "string",
-      "pattern": "^ipfs://[a-zA-Z0-9]+(/.*)?$",
-      "title": "IPFS URI",
-      "description": "IPFS URI pointing to content-addressed data using CID (Content Identifier). Format: ipfs://{CID}[/path]",
-      "examples": [
-        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
-        "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
-        "ipfs://QmHashExample/metadata.json"
-      ]
-    },
-    "semantic_version": {
-      "type": "string",
-      "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
-      "title": "Semantic Version",
-      "description": "Semantic version string (semver.org).",
-      "example": "v1.2.3"
-    },
-    "token_id": {
-      "type": "string",
-      "pattern": "^[0-9]+$",
-      "title": "Token ID",
-      "description": "NFT token ID as numeric string (supports uint256).",
-      "example": "123"
-    },
-    "hex_color": {
-      "type": "string",
-      "pattern": "^#[0-9A-F]{6}$",
-      "title": "Hex Color",
-      "description": "Hex color code with # prefix and uppercase.",
-      "example": "#FFFFFF"
-    },
-    "keccak256_hash": {
-      "type": "string",
-      "pattern": "^0x[a-fA-F0-9]{64}$",
-      "title": "Keccak256 Hash",
-      "description": "Keccak256 hash as 32-byte hex string.",
-      "example": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658"
-    },
-    "external_id": {
-      "$ref": "#/$defs/uuid",
-      "title": "External ID",
-      "description": "Off-chain reference ID (UUID from Carrot backend)."
-    },
-    "external_url": {
-      "type": "string",
-      "format": "uri",
-      "description": "External URL of the content.",
-      "example": "https://explore.carrot.eco/document/40e44dc8-75d4-4b6f-a5b2-420ab9482ee9"
-    },
-    "attribute": {
-      "type": "object",
-      "required": ["trait_type", "value"],
-      "properties": {
-        "trait_type": {
-          "type": "string",
-          "maxLength": 50,
-          "description": "Name of the trait or attribute.",
-          "example": "Waste Type"
-        },
-        "value": {
-          "oneOf": [
-            { "type": "string" },
-            { "type": "number" },
-            { "type": "boolean" }
-          ],
-          "description": "Value of the trait - can be string, number, or boolean.",
-          "example": "Plastic"
-        },
-        "display_type": {
-          "type": "string",
-          "enum": ["number", "date", "boost_number", "boost_percentage"],
-          "description": "How the trait should be displayed in marketplace UIs.",
-          "example": "number"
-        },
-        "max_value": {
-          "type": "number",
-          "minimum": 0,
-          "description": "Maximum possible value for numeric traits.",
-          "example": 100
-        }
-      },
-      "additionalProperties": false,
-      "description": "Generic NFT attribute object for visual traits and filterable properties."
     }
   },
   "additionalProperties": false
