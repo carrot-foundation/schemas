@@ -23,7 +23,7 @@
           "properties": {
             "type": {
               "type": "string",
-              "enum": ["MassID", "RecyclingID", "GasID", "PurchaseID"],
+              "enum": ["MassID", "RecycledID", "GasID", "PurchaseID"],
               "title": "NFT Metadata Type",
               "description": "Type/category of this NFT schema.",
               "example": "MassID"

@@ -4,15 +4,48 @@
   "title": "GasID Data",
   "type": "object",
   "required": [
+    "summary",
     "methodology",
     "audit",
     "mass_id",
     "waste_classification",
     "origin_location",
-    "prevented_emissions",
+    "prevented_emissions_calculation",
     "accredited_participants"
   ],
   "properties": {
+    "summary": {
+      "type": "object",
+      "required": [
+        "gas_type",
+        "credit_type",
+        "credit_amount",
+        "prevented_co2e_kg"
+      ],
+      "properties": {
+        "gas_type": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "title": "Gas Type",
+          "description": "Type of gas prevented"
+        },
+        "credit_type": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "title": "Credit Type",
+          "description": "Type of credit issued"
+        },
+        "credit_amount": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float",
+          "title": "Credit Amount",
+          "description": "Amount of credits issued"
+        },
+        "prevented_co2e_kg": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/weight_kg",
+          "title": "Prevented Emissions (CO₂e kg)",
+          "description": "CO₂e weight of the prevented emissions"
+        }
+      },
+      "additionalProperties": false
+    },
     "methodology": {
       "$ref": "../../shared/references/methodology-reference/v0.1.0/methodology-reference.schema.json"
     },
@@ -23,208 +56,64 @@
       "$ref": "../../shared/references/mass-id-reference/v0.1.0/mass-id-reference.schema.json"
     },
     "waste_classification": {
-      "type": "object",
-      "required": ["primary_type", "subtype", "net_weight_kg"],
-      "title": "Waste Classification",
-      "description": "Classification of the source waste (MassID)",
-      "properties": {
-        "primary_type": {
-          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/waste_type",
-          "title": "Source Waste Primary Type",
-          "description": "Primary type of the source waste"
-        },
-        "subtype": {
-          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/waste_subtype",
-          "title": "Source Waste Subtype",
-          "description": "Subtype of the source waste"
-        },
-        "net_weight_kg": {
-          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/weight_kg",
-          "title": "Source Waste Net Weight",
-          "description": "Net weight of the source waste"
-        }
-      },
-      "additionalProperties": false
+      "$ref": "../../shared/certificate/v0.1.0/certificate.schema.json#/$defs/waste_classification"
     },
     "origin_location": {
       "$ref": "../../shared/entities/location/v0.1.0/location.schema.json",
       "title": "Source Waste Origin Location",
       "description": "Location of the waste origin"
     },
-    "prevented_emissions": {
+    "prevented_emissions_calculation": {
       "type": "object",
-      "required": ["gas_type", "co2e_kg", "calculation"],
-      "title": "Prevented Emissions",
-      "description": "Prevented emissions from the source waste",
+      "required": ["formula", "method", "date", "values"],
       "properties": {
-        "gas_type": {
+        "formula": {
           "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-          "title": "Gas Type",
-          "description": "Type of gas prevented"
+          "title": "Calculation Formula",
+          "description": "Formula used to calculate the prevented emissions",
+          "maxLength": 100
         },
-        "co2e_kg": {
-          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/weight_kg",
-          "title": "Prevented Emissions (CO₂e kg)",
-          "description": "CO₂e weight of the prevented emissions"
-        },
-        "calculation": {
-          "type": "object",
-          "required": ["formula", "method", "date", "values"],
-          "properties": {
-            "formula": {
-              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-              "title": "Calculation Formula",
-              "description": "Formula used to calculate the prevented emissions",
-              "maxLength": 100
-            },
-            "method": {
-              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-              "title": "Calculation Method",
-              "description": "Method used to calculate the prevented emissions",
-              "maxLength": 100
-            },
-            "date": {
-              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/iso_date",
-              "title": "Calculation Date",
-              "description": "Date when the calculation was performed"
-            },
-            "values": {
-              "type": "array",
-              "title": "Calculation Values",
-              "description": "Values used to calculate the prevented emissions",
-              "items": {
-                "type": "object",
-                "required": ["reference", "value", "label"],
-                "properties": {
-                  "reference": {
-                    "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-                    "maxLength": 3
-                  },
-                  "value": {
-                    "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float"
-                  },
-                  "label": {
-                    "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-                    "maxLength": 100
-                  }
-                }
-              }
-            }
-          },
-          "additionalProperties": false
-        }
-      }
-    },
-    "accredited_participants": {
-      "type": "array",
-      "minItems": 1,
-      "title": "Accredited Participants",
-      "items": {
-        "type": "object",
-        "required": [
-          "participant_id",
-          "name",
-          "role",
-          "external_url",
-          "accreditation_id"
-        ],
-        "properties": {
-          "participant_id": {
-            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
-            "title": "Participant ID"
-          },
-          "name": {
-            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_name"
-          },
-          "role": {
-            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_role"
-          },
-          "accreditation_id": {
-            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
-            "title": "Accreditation ID"
-          },
-          "external_url": {
-            "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/external_url",
-            "title": "Participant Accreditation External URL"
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "participant_rewards": {
-      "type": "object",
-      "required": ["distribution_basis", "reward_allocations"],
-      "title": "Participant Rewards",
-      "description": "Rewards distribution to participants",
-      "properties": {
-        "distribution_basis": {
+        "method": {
           "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-          "maxLength": 200,
-          "title": "Distribution Basis",
-          "description": "Basis for the rewards distribution"
+          "title": "Calculation Method",
+          "description": "Method used to calculate the prevented emissions",
+          "maxLength": 100
         },
-        "reward_allocations": {
+        "date": {
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/iso_date",
+          "title": "Calculation Date",
+          "description": "Date when the calculation was performed"
+        },
+        "values": {
           "type": "array",
-          "minItems": 1,
-          "title": "Reward Allocations",
-          "description": "Rewards percentage allocated to each participant",
+          "title": "Calculation Values",
+          "description": "Values used to calculate the prevented emissions",
           "items": {
             "type": "object",
-            "required": [
-              "participant_id",
-              "participant_name",
-              "role",
-              "reward_percentage",
-              "effective_percentage"
-            ],
+            "required": ["reference", "value", "label"],
             "properties": {
-              "participant_id": {
-                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/uuid",
-                "title": "Participant ID"
+              "reference": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+                "maxLength": 3
               },
-              "participant_name": {
-                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_name"
+              "value": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_negative_float"
               },
-              "role": {
-                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/participant_role"
-              },
-              "reward_percentage": {
-                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/percentage",
-                "title": "Reward Percentage",
-                "description": "Reward percentage allocated to the participant"
-              },
-              "large_business_discount_applied": {
-                "type": "boolean",
-                "title": "Large Business Discount Applied",
-                "description": "Whether the large business discount was applied"
-              },
-              "effective_percentage": {
-                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/percentage",
-                "title": "Effective Percentage",
-                "description": "Effective percentage of the reward"
+              "label": {
+                "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+                "maxLength": 100
               }
-            },
-            "additionalProperties": false
-          }
-        },
-        "distribution_notes": {
-          "type": "object",
-          "properties": {
-            "large_business_discount_applied": {
-              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-              "description": "Description of the large business discount applied",
-              "example": "50% reduction applied to participants with >$4M annual revenue"
-            },
-            "redirected_rewards": {
-              "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
-              "description": "Description of the redirected rewards",
-              "example": "Discounted rewards from large businesses redirected to accredited NGOs"
             }
-          },
-          "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
+    },
+    "accredited_participants": {
+      "$ref": "../../shared/certificate/v0.1.0/certificate.schema.json#/$defs/accredited_participants"
+    },
+    "participant_rewards": {
+      "$ref": "../../shared/certificate/v0.1.0/certificate.schema.json#/$defs/participant_rewards"
     }
   },
   "additionalProperties": false
