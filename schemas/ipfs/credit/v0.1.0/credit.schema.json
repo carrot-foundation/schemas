@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/credit/v0.1.0/credit.schema.json",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/credit/v0.1.0/credit.schema.json",
   "title": "Credit IPFS Record",
   "description": "Complete schema for Credit ERC20 token IPFS records, extending the base Carrot schema with credit-specific data.",
   "unevaluatedProperties": false,
   "allOf": [
     {
-      "$ref": "../../base/v0.1.0/base.schema.json"
+      "$ref": "../../shared/base/v0.1.0/base.schema.json"
     },
     {
       "type": "object",
@@ -20,7 +20,7 @@
           }
         },
         "symbol": {
-          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
           "maxLength": 10,
           "pattern": "^[A-Z0-9-]+$",
           "title": "Token Symbol",
@@ -28,7 +28,7 @@
           "example": "C-CARB"
         },
         "name": {
-          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/non_empty_string",
           "title": "Token Name",
           "description": "Full human-readable name of the ERC20 token.",
           "example": "Carrot Carbon"
@@ -42,7 +42,7 @@
           "example": 18
         },
         "image": {
-          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
+          "$ref": "../../shared/definitions/v0.1.0/definitions.schema.json#/$defs/ipfs_uri",
           "title": "Token Image",
           "description": "IPFS URI pointing to the token's visual representation image.",
           "example": "ipfs://QmTokenImageHash/credit-icon.png"
