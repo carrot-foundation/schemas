@@ -1,49 +1,62 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/v0.1.0/base.schema.json",
-  "title": "Carrot IPFS Metadata Base",
-  "description": "Base fields for all Carrot IPFS metadata files, providing common structure for any JSON content stored in IPFS.",
+  "title": "Carrot Base IPFS Record",
+  "description": "Base fields for all Carrot IPFS records, providing common structure for any JSON content stored in IPFS.",
   "type": "object",
   "required": [
     "$schema",
-    "metadata_type",
-    "metadata_version",
+    "schema",
     "created_at",
     "external_id",
     "external_url",
-    "schema_hash",
-    "metadata_signature",
-    "original_data_signature",
-    "details"
+    "data_signatures",
+    "data"
   ],
   "properties": {
     "$schema": {
       "type": "string",
       "format": "uri",
-      "description": "URI of the JSON Schema used to validate this metadata file.",
+      "title": "Schema URI",
+      "description": "URI of the JSON Schema used to validate this record.",
       "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/v0.1.0/mass-id.schema.json"
     },
-    "metadata_type": {
-      "type": "string",
-      "enum": [
-        "MassID",
-        "MassID Verification",
-        "MassID Validation",
-        "RecyclingID",
-        "GasID",
-        "PurchaseID",
-        "Methodology"
-      ],
-      "description": "Type/category of this metadata.",
-      "example": "MassID"
-    },
-    "metadata_version": {
-      "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/semantic_version",
-      "description": "Version of the metadata format, using semantic versioning (https://semver.org/)."
+    "schema": {
+      "type": "object",
+      "description": "Schema information.",
+      "required": ["hash", "type", "version"],
+      "properties": {
+        "hash": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/keccak256_hash",
+          "title": "Schema Hash",
+          "description": "Keccak256 hash of the JSON Schema this record was validated against (32 bytes as hex string)."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "MassID",
+            "MassID Audit",
+            "RecyclingID",
+            "GasID",
+            "PurchaseID",
+            "Methodology"
+          ],
+          "title": "Schema Type",
+          "description": "Type/category of this schema.",
+          "example": "MassID"
+        },
+        "version": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/semantic_version",
+          "title": "Schema Version",
+          "description": "Version of the schema, using semantic versioning (https://semver.org/)."
+        }
+      },
+      "additionalProperties": false
     },
     "created_at": {
       "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/iso_timestamp",
-      "description": "ISO 8601 creation timestamp for this metadata file."
+      "title": "Record Creation Timestamp",
+      "description": "ISO 8601 creation timestamp for this record."
     },
     "external_id": {
       "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/external_id"
@@ -51,22 +64,56 @@
     "external_url": {
       "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/external_url"
     },
-    "schema_hash": {
-      "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/keccak256_hash",
-      "description": "Keccak256 hash of the JSON Schema this metadata was validated against (32 bytes as hex string)."
-    },
-    "metadata_signature": {
-      "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/signature",
-      "description": "Signature of this final metadata file for integrity verification."
-    },
-    "original_data_signature": {
-      "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/signature",
-      "title": "Original Data Integrity Signature",
-      "description": "Cryptographic signature of the complete original metadata before any modifications or updates. This signature ensures data integrity and proves the authenticity of the source data at the time of initial creation."
-    },
-    "details": {
+    "environment": {
       "type": "object",
-      "description": "Custom metadata block that includes participants and other context.",
+      "description": "Environment information.",
+      "required": ["blockchain_network", "deployment", "data_set_name"],
+      "properties": {
+        "blockchain_network": {
+          "type": "string",
+          "enum": ["mainnet", "testnet"],
+          "title": "Blockchain Network Environment",
+          "example": "mainnet"
+        },
+        "deployment": {
+          "type": "string",
+          "enum": ["production", "development", "testing"],
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated.",
+          "example": "production"
+        },
+        "data_set_name": {
+          "type": "string",
+          "enum": ["TEST", "PROD"],
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record.",
+          "example": "TEST"
+        }
+      },
+      "additionalProperties": false
+    },
+    "data_signatures": {
+      "type": "object",
+      "title": "Data Signatures",
+      "description": "Cryptographic signatures for data integrity verification.",
+      "required": ["content", "source_data"],
+      "properties": {
+        "content": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/signature",
+          "title": "Content Signature",
+          "description": "Signature of this record for integrity verification."
+        },
+        "source_data": {
+          "$ref": "../../definitions/v0.1.0/definitions.schema.json#/$defs/signature",
+          "title": "Original Data Integrity Signature",
+          "description": "Cryptographic signature of the complete original data before any modifications or updates. This signature ensures data integrity and proves the authenticity of the source data at the time of initial creation."
+        }
+      },
+      "additionalProperties": false
+    },
+    "data": {
+      "type": "object",
+      "description": "Custom data block that includes the record's data.",
       "additionalProperties": true
     }
   }
