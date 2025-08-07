@@ -1,8 +1,21 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/v0.1.0/mass-id.schema.json",
-  "schema_hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
-  "metadata_type": "MassID",
-  "metadata_version": "v0.1.0",
+  "schema": {
+    "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
+    "type": "MassID",
+    "version": "v0.1.0"
+  },
+  "environment": {
+    "blockchain_network": "testnet",
+    "deployment": "development",
+    "data_set_name": "TEST"
+  },
+  "blockchain": {
+    "token_id": "123",
+    "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+    "chain_id": 1,
+    "network_name": "Polygon"
+  },
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
   "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
@@ -11,12 +24,6 @@
   "description": "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
   "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
   "background_color": "#2D5A27",
-  "blockchain": {
-    "token_id": "123",
-    "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
-    "chain_id": 1,
-    "network_name": "Polygon"
-  },
   "external_links": [
     {
       "label": "Carrot Explorer",
@@ -29,47 +36,19 @@
       "description": "Carrot Foundation technical and impact white paper"
     }
   ],
-  "metadata_signature": {
-    "signer": "0x742d35Cc6334C1532926d7D93e7b8B00b1234567",
-    "signing_method": "eip712-offchain",
-    "domain": {
-      "name": "Carrot MassID",
-      "version": "1.0.0",
-      "chain_id": 1
-    },
-    "hash_algorithm": "keccak256",
-    "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
-    "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12"
-  },
-  "original_data_signature": {
-    "signer": "0x742d35Cc6334C1532926d7D93e7b8B00b1234567",
-    "signing_method": "eip712-offchain",
-    "domain": {
-      "name": "Carrot MassID",
-      "version": "1.0.0",
-      "chain_id": 1
-    },
-    "hash_algorithm": "keccak256",
-    "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
-    "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12"
-  },
   "attributes": [
     {
       "trait_type": "Waste Type",
       "value": "Organic"
     },
     {
-      "trait_type": "Subtype",
+      "trait_type": "Waste Subtype",
       "value": "Food, Food Waste and Beverages"
     },
     {
-      "trait_type": "Weight",
+      "trait_type": "Weight (kg)",
       "value": 3000,
       "display_type": "number"
-    },
-    {
-      "trait_type": "Unit",
-      "value": "kg"
     },
     {
       "trait_type": "Origin Country",
@@ -92,10 +71,6 @@
       "value": "Carrot Foundation"
     },
     {
-      "trait_type": "Processing Method",
-      "value": "Composting"
-    },
-    {
       "trait_type": "Pick-up Date",
       "value": "2024-12-05",
       "display_type": "date"
@@ -106,13 +81,14 @@
       "display_type": "date"
     }
   ],
-  "details": {
+  "data": {
     "waste_classification": {
       "primary_type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
       "local_classification": {
         "code": "04 02 20",
-        "description": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19"
+        "description": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19",
+        "system": "Ibama Waste Code"
       },
       "measurement_unit": "kg",
       "net_weight": 3000,
@@ -131,7 +107,8 @@
           "latitude": -0.02,
           "longitude": -51.06,
           "precision_level": "city"
-        }
+        },
+        "responsible_participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f"
       },
       {
         "id": "d01217a9-9d21-4f16-8908-0fea6750953e",
@@ -145,7 +122,8 @@
           "latitude": -20.38,
           "longitude": -40.34,
           "precision_level": "city"
-        }
+        },
+        "responsible_participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
       }
     ],
     "participants": [
@@ -164,7 +142,7 @@
       "events": [
         {
           "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
-          "name": "Pick-up",
+          "event_name": "Pick-up",
           "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
@@ -182,13 +160,12 @@
         },
         {
           "event_id": "9f6c6855-0a6b-4989-a3fc-1a8a38f919ec",
-          "name": "Transport",
+          "event_name": "Transport",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "description": "Waste transported to recycling facility",
           "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
           "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
-          "weight_before": 0,
-          "weight_after": 3000,
+          "weight": 3000,
           "attributes": [
             {
               "name": "Document Type",
@@ -215,7 +192,7 @@
         },
         {
           "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
-          "name": "Weighing",
+          "event_name": "Weighing",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "description": "Waste weighed at recycling facility",
           "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
@@ -252,7 +229,7 @@
         },
         {
           "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
-          "name": "Drop-off",
+          "event_name": "Drop-off",
           "description": "Waste deposited in Windrow number 1",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
@@ -266,7 +243,7 @@
         },
         {
           "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
-          "name": "Sorting",
+          "event_name": "Sorting",
           "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
@@ -280,7 +257,7 @@
         },
         {
           "event_id": "df7d3cac-81a1-46db-8486-b3fe4ec4ea32",
-          "name": "Documentation",
+          "event_name": "Documentation",
           "description": "Attached the recycling manifest documentation",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
@@ -311,7 +288,7 @@
         },
         {
           "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
-          "name": "Recycling",
+          "event_name": "Recycling",
           "description": "Composting process completed",
           "timestamp": "2025-02-22T10:35:12.000Z",
           "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
@@ -334,6 +311,32 @@
           "duration_hours": 72.5
         }
       ]
+    }
+  },
+  "data_signatures": {
+    "content": {
+      "signer": "0x742d35cc6334c1532926d7d93e7b8b00b1234567",
+      "signing_method": "eip712-offchain",
+      "domain": {
+        "name": "Carrot MassID",
+        "version": "1.0.0",
+        "chain_id": 1
+      },
+      "hash_algorithm": "keccak256",
+      "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
+      "signature": "0xabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890ef1c"
+    },
+    "source_data": {
+      "signer": "0x742d35cc6334c1532926d7d93e7b8b00b1234567",
+      "signing_method": "eip712-offchain",
+      "domain": {
+        "name": "Carrot MassID",
+        "version": "1.0.0",
+        "chain_id": 1
+      },
+      "hash_algorithm": "keccak256",
+      "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
+      "signature": "0xabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890ef1c"
     }
   }
 }
