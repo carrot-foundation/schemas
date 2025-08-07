@@ -1,0 +1,40 @@
+---
+description: 
+globs: *.json
+alwaysApply: false
+---
+# Cursor Rules for JSON Files
+
+## Formatting Standards
+
+- Use 2-space indentation consistently
+- No trailing commas in JSON files
+- Use double quotes for all strings
+- Maintain consistent line breaks between top-level properties
+- Keep arrays and objects properly formatted with appropriate spacing
+
+## Property Naming Conventions
+
+- Use snake_case for property names (following project convention)
+- Use descriptive, meaningful property names
+- Avoid abbreviations unless they're well-established (e.g., "id", "url")
+- Use consistent naming patterns across related schemas
+
+## Structure Organization
+
+- Order properties logically:
+  1. Schema metadata (`$schema`, `$id`, etc.)
+  2. Core identification fields
+  3. Required business logic fields
+  4. Optional/extended fields
+  5. Nested objects and arrays
+- Keep nesting levels reasonable (max 4-5 levels deep)
+- Group related properties together
+
+## Value Formatting
+
+- Use proper data types (string, number, boolean, array, object)
+- Format dates as ISO 8601 strings
+- Use string format for large integers (token IDs, etc.)
+- Provide meaningful default values where appropriate
+- Use null explicitly rather than omitting optional fields when clarity is needed

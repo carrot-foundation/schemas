@@ -1,0 +1,160 @@
+---
+description: 
+globs: *.schema.json
+alwaysApply: false
+---
+
+# Cursor Rules for JSON Schema Files
+
+### Schema Structure Requirements
+
+- Always include `$schema` field pointing to JSON Schema draft version
+- Include `$id` with full URI pointing to the schema location
+- Provide meaningful `title` and `description` fields
+- Use semantic versioning in file paths and references (e.g., v0.1.0)
+
+### Metadata Requirements
+
+- Every schema must have:
+  - `title`: Clear, descriptive name
+  - `description`: Comprehensive explanation of purpose
+  - `type`: Primary type definition
+- Include `example` values for primitive properties
+- Document all `enum` values with clear meanings
+
+### Property Definitions
+
+- Always specify `type` for every property
+- Use `format` validation where applicable (uri, date-time, email)
+- Include `description` for all properties
+- Provide `example` values for guidance
+- Set appropriate constraints (`maxLength`, `minimum`, `maximum`)
+- Use `required` arrays to specify mandatory fields
+
+### Documentation Standards
+
+- Write clear, concise descriptions for all schema elements
+- Include practical examples that demonstrate real usage
+- Document any business logic or validation rules
+- Explain relationships between properties when relevant
+- Use consistent language and terminology across schemas
+
+### Reusability Patterns
+
+- Define common structures in `$defs` section
+- Use `$ref` to reference shared definitions
+- Create shared schemas for common data types
+- Maintain backward compatibility when versioning schemas
+- Follow consistent URI patterns for schema references
+
+### Validation Rules
+
+- Set `additionalProperties: false` unless explicitly allowing extensions
+- Use appropriate string formats (`uri`, `date-time`, `email`, etc.)
+- Define reasonable length limits for strings
+- Use `enum` for restricted value sets
+- Implement proper array item validation with `items`
+
+## Code Quality Standards
+
+### File Organization
+
+```glob
+schemas/*/v*/: JSON schema files
+*.example.json: Example data files
+*.schema.json: Schema definition files
+```
+
+### Naming Conventions
+
+- Schema files: `{type}.schema.json` (e.g., `mass-id.schema.json`)
+- Example files: `{type}.example.json` (e.g., `mass-id.example.json`)
+- Use kebab-case for file names
+- Include version in directory structure (`v0.1.0/`)
+
+### Required Fields for All Schemas
+
+- `$schema`: JSON Schema draft version
+- `$id`: Canonical URI for the schema
+- `title`: Human-readable name
+- `description`: Purpose and usage explanation
+- `type`: Primary data type
+- `properties`: Property definitions (for objects)
+- `required`: Array of mandatory properties (for objects)
+- `additionalProperties`: Explicitly set to false unless extensions allowed
+
+### Error Prevention
+
+- Validate all JSON syntax before committing
+- Ensure all `$ref` references resolve correctly
+- Verify examples validate against their schemas
+- Check that required fields are actually defined in properties
+- Ensure URI formats are valid and accessible
+
+## Project-Specific Requirements
+
+### Schema References
+
+- Use GitHub raw URLs for `$id` and `$schema` references
+- Follow pattern: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/{category}/{type}/v{version}/{filename}`
+- Include version in path structure for future compatibility
+
+### Common Patterns
+
+- Use `external_id` for off-chain references (UUIDs)
+- Use `external_url` for public-facing links
+- Include `created_at` timestamp for temporal tracking
+- Implement signature objects using EIP-712 pattern
+- Use `attributes` array for NFT trait compatibility
+
+### Signature Objects
+
+- Follow EIP-712 structure in `$defs/signature`
+- Include required fields: signer, signing_method, domain, hash_algorithm, hash, signature
+- Set `additionalProperties: false` for security
+
+### Integration Standards
+
+- Ensure compatibility with existing validation scripts
+- Follow semantic versioning for schema evolution
+- Maintain consistency with frontend/backend expectations
+- Support both development and production environments
+
+## Best Practices
+
+### Performance Considerations
+
+- Avoid overly complex nested structures
+- Use appropriate data types to minimize parsing overhead
+- Keep example values realistic but concise
+- Implement efficient validation patterns
+
+### Maintainability Guidelines
+
+- Document breaking changes in schema evolution
+- Use consistent vocabulary across all schemas
+- Implement deprecation patterns for obsolete fields
+- Maintain clear upgrade paths between versions
+
+### Version Control Integration
+
+- Include schema validation in CI/CD pipeline
+- Use meaningful commit messages for schema changes
+- Tag schema releases appropriately
+- Maintain changelog for schema modifications
+
+## Enforcement Rules
+
+### Validation Requirements
+
+- All JSON files must be valid JSON syntax
+- All schema files must be valid JSON Schema draft-07
+- Example files must validate against their corresponding schemas
+- URI references must be properly formatted
+
+### Quality Gates
+
+- No undefined references in schemas
+- All required properties must exist in property definitions
+- Examples must be realistic and useful
+- Documentation must be complete and accurate
