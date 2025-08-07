@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id-audit/v0.1.0/mass-id-audit.details.schema.json",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id-audit/v0.1.0/mass-id-audit.data.schema.json",
   "title": "MassID Audit Data",
   "type": "object",
   "required": [

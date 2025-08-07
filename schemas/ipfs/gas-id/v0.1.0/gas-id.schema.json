@@ -21,7 +21,7 @@
           "$ref": "./gas-id.attributes.schema.json"
         },
         "data": {
-          "$ref": "./gas-id.details.schema.json"
+          "$ref": "./gas-id.data.schema.json"
         }
       }
     }

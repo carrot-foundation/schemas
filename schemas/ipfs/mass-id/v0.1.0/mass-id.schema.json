@@ -21,7 +21,7 @@
           "$ref": "./mass-id.attributes.schema.json"
         },
         "data": {
-          "$ref": "./mass-id.details.schema.json"
+          "$ref": "./mass-id.data.schema.json"
         }
       }
     }

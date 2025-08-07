@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/gas-id/v0.1.0/gas-id.details.schema.json",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/gas-id/v0.1.0/gas-id.data.schema.json",
   "title": "GasID Data",
   "type": "object",
   "required": [
