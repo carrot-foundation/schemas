@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/references/methodology-reference/methodology-reference.schema.json",
+  "title": "Methodology Reference",
+  "description": "Reference to a methodology record.",
+  "type": "object",
+  "required": ["external_id", "name", "version", "external_url"],
+  "properties": {
+    "external_id": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/external_id",
+      "description": "Unique identifier for the methodology."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 150,
+      "description": "Human-readable name of the methodology.",
+      "example": "BOLD Carbon (CH₄)"
+    },
+    "version": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/semantic_version",
+      "description": "Version of the methodology."
+    },
+    "external_url": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/external_url",
+      "description": "URL to view the methodology on Carrot Explorer."
+    },
+    "uri": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/ipfs_uri",
+      "description": "IPFS URI to the methodology record."
+    }
+  },
+  "additionalProperties": false
+}

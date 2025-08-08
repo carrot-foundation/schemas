@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "title": "MassID Audit IPFS Record",
+  "unevaluatedProperties": false,
+  "allOf": [
+    {
+      "$ref": "../shared/base/base.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "properties": {
+            "type": {
+              "const": "MassID Audit"
+            }
+          }
+        },
+        "data": {
+          "$ref": "./mass-id-audit.data.schema.json"
+        }
+      }
+    }
+  ]
+}

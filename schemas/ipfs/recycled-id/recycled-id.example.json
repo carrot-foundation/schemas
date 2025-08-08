@@ -1,0 +1,234 @@
+{
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "schema": {
+    "hash": "0xa1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+    "type": "RecycledID",
+    "version": "v0.1.0"
+  },
+  "environment": {
+    "blockchain_network": "mainnet",
+    "deployment": "production",
+    "data_set_name": "TEST"
+  },
+  "blockchain": {
+    "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+    "chain_id": 1,
+    "network_name": "Ethereum Mainnet",
+    "token_id": "789"
+  },
+  "created_at": "2025-06-24T13:02:25.000Z",
+  "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
+  "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
+  "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
+  "short_name": "RecycledID #789",
+  "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",
+  "image": "ipfs://QmRecycledIdHash789/recycled-id-bold-recycling.png",
+  "background_color": "#2D5016",
+  "external_links": [
+    {
+      "label": "View on Carrot Explorer",
+      "url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
+      "description": "Complete RecycledID details and audit trail"
+    },
+    {
+      "label": "MassID",
+      "url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
+      "description": "Originating waste batch with full chain of custody"
+    },
+    {
+      "label": "BOLD Recycling Methodology",
+      "url": "https://explore.carrot.eco/document/bold-recycling",
+      "description": "Complete methodology specification and rules"
+    },
+    {
+      "label": "Carrot White Paper",
+      "url": "https://carrot.eco/whitepaper",
+      "description": "Carrot ecosystem overview and technical foundation"
+    }
+  ],
+  "attributes": [
+    {
+      "trait_type": "Methodology",
+      "value": "BOLD Recycling"
+    },
+    {
+      "trait_type": "Recycled Mass Weight (kg)",
+      "value": 3000,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Credit Amount",
+      "value": 3,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Credit Type",
+      "value": "Carrot Organic"
+    },
+    {
+      "trait_type": "Source Waste Type",
+      "value": "Organic"
+    },
+    {
+      "trait_type": "Source Weight (kg)",
+      "value": 3000,
+      "display_type": "number"
+    },
+    {
+      "trait_type": "Origin Country",
+      "value": "Brazil"
+    },
+    {
+      "trait_type": "Origin Municipality",
+      "value": "Macapá"
+    },
+    {
+      "trait_type": "Recycler",
+      "value": "Eco Reciclagem"
+    },
+    {
+      "trait_type": "MassID",
+      "value": "#123"
+    },
+    {
+      "trait_type": "MassID Recycling Date",
+      "value": "2025-02-22",
+      "display_type": "date"
+    }
+  ],
+  "data": {
+    "summary": {
+      "recycled_mass_kg": 3000,
+      "credit_type": "Carrot Organic (C-BIOW)",
+      "credit_amount": 3
+    },
+    "methodology": {
+      "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d490",
+      "name": "BOLD Recycling",
+      "version": "1.2.0",
+      "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490",
+      "uri": "ipfs://QmMethodologyHash/bold-recycling-v1.2.0.pdf"
+    },
+    "audit": {
+      "date": "2025-06-24",
+      "external_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "methodology_compliance": "PASSED",
+      "rules_executed": 18,
+      "report": "ipfs://QmVerificationHash/recycled-id-audit.json"
+    },
+    "mass_id": {
+      "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+      "token_id": "123",
+      "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
+      "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json"
+    },
+    "waste_classification": {
+      "primary_type": "Organic",
+      "subtype": "Food, Food Waste and Beverages",
+      "net_weight_kg": 3000
+    },
+    "origin_location": {
+      "id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "municipality": "Macapá",
+      "administrative_division": "Amapá",
+      "administrative_division_code": "BR-AP",
+      "country": "Brazil",
+      "country_code": "BR",
+      "coordinates": {
+        "latitude": -0.034934,
+        "longitude": -51.07045,
+        "precision_level": "city"
+      },
+      "facility_type": "Waste Generation",
+      "responsible_participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+    },
+    "accredited_participants": [
+      {
+        "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+        "name": "Eco Reciclagem",
+        "role": "Recycler",
+        "accreditation_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+        "external_url": "https://explore.carrot.eco/document/acc-5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+      },
+      {
+        "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+        "name": "Enlatados Produção",
+        "role": "Waste Generator",
+        "accreditation_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+        "external_url": "https://explore.carrot.eco/document/acc-6f520d88-864d-432d-bf9f-5c3166c4818f"
+      }
+    ],
+    "participant_rewards": {
+      "distribution_basis": "BOLD Recycling methodology rewards calculation",
+      "reward_allocations": [
+        {
+          "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+          "participant_name": "Enlatados Produção",
+          "role": "Waste Generator",
+          "reward_percentage": 30.0,
+          "large_business_discount_applied": true,
+          "effective_percentage": 15.0
+        },
+        {
+          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+          "participant_name": "Eco Reciclagem",
+          "role": "Hauler",
+          "reward_percentage": 20.0,
+          "effective_percentage": 20.0
+        },
+        {
+          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+          "participant_name": "Eco Reciclagem",
+          "role": "Processor",
+          "reward_percentage": 20.0,
+          "effective_percentage": 20.0
+        },
+        {
+          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+          "participant_name": "Eco Reciclagem",
+          "role": "Recycler",
+          "reward_percentage": 15.0,
+          "effective_percentage": 15.0
+        },
+        {
+          "participant_id": "e710790f-5909-4a54-ab89-6a59819472ee",
+          "participant_name": "Carrot Foundation",
+          "role": "Network Integrator",
+          "reward_percentage": 15.0,
+          "effective_percentage": 15.0
+        }
+      ],
+      "distribution_notes": {
+        "large_business_discount_applied": "50% reduction applied to participants with >$4M annual revenue",
+        "redirected_rewards": "Discounted rewards from large businesses redirected to accredited NGOs"
+      }
+    }
+  },
+  "data_signatures": {
+    "content": {
+      "signer": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+      "signing_method": "eip712-offchain",
+      "domain": {
+        "name": "Carrot RecycledID",
+        "version": "1.0.0",
+        "chain_id": 1
+      },
+      "hash_algorithm": "keccak256",
+      "hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1c"
+    },
+    "source_data": {
+      "signer": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+      "signing_method": "eip712-offchain",
+      "domain": {
+        "name": "Carrot RecycledID Source",
+        "version": "1.0.0",
+        "chain_id": 1
+      },
+      "hash_algorithm": "keccak256",
+      "hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+      "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678901c"
+    }
+  }
+}

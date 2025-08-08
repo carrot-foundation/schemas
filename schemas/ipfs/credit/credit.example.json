@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/credit/credit.schema.json",
+  "schema": {
+    "hash": "0x8b33fe7f20e0b71c003e63f7db6da83fedef22b4229b5089b78554fc8a2cb987",
+    "type": "Credit",
+    "version": "v0.1.0"
+  },
+  "environment": {
+    "blockchain_network": "testnet",
+    "deployment": "production",
+    "data_set_name": "TEST"
+  },
+  "created_at": "2024-12-05T14:30:00.000Z",
+  "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
+  "external_url": "https://explore.carrot.eco/credit/carrot-carbon",
+  "symbol": "C-CARB",
+  "slug": "carbon",
+  "name": "Carrot Carbon",
+  "decimals": 18,
+  "image": "ipfs://QmCreditImageHash/c-carb-icon.png",
+  "description": "Carrot Carbon (C-CARB) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
+}

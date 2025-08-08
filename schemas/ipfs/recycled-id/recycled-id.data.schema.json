@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/recycled-id/recycled-id.data.schema.json",
+  "title": "RecycledID Data",
+  "type": "object",
+  "required": [
+    "summary",
+    "methodology",
+    "audit",
+    "mass_id",
+    "waste_classification",
+    "origin_location",
+    "accredited_participants"
+  ],
+  "properties": {
+    "summary": {
+      "type": "object",
+      "required": ["recycled_mass_kg", "credit_type", "credit_amount"],
+      "properties": {
+        "recycled_mass_kg": {
+          "$ref": "../shared/definitions/definitions.schema.json#/$defs/weight_kg",
+          "title": "Recycled Mass Weight",
+          "description": "Total weight of materials successfully recycled"
+        },
+        "credit_type": {
+          "$ref": "../shared/definitions/definitions.schema.json#/$defs/non_empty_string",
+          "title": "Credit Type",
+          "description": "Type of credit issued"
+        },
+        "credit_amount": {
+          "$ref": "../shared/definitions/definitions.schema.json#/$defs/non_negative_float",
+          "title": "Credit Amount",
+          "description": "Amount of credits issued"
+        }
+      },
+      "additionalProperties": false
+    },
+    "methodology": {
+      "$ref": "../shared/references/methodology-reference/methodology-reference.schema.json"
+    },
+    "audit": {
+      "$ref": "../shared/references/audit-reference/audit-reference.schema.json"
+    },
+    "mass_id": {
+      "$ref": "../shared/references/mass-id-reference/mass-id-reference.schema.json"
+    },
+    "waste_classification": {
+      "$ref": "../shared/certificate/certificate.schema.json#/$defs/waste_classification"
+    },
+    "origin_location": {
+      "$ref": "../shared/entities/location/location.schema.json",
+      "title": "Source Waste Origin Location",
+      "description": "Location of the waste origin"
+    },
+    "accredited_participants": {
+      "$ref": "../shared/certificate/certificate.schema.json#/$defs/accredited_participants"
+    },
+    "participant_rewards": {
+      "$ref": "../shared/certificate/certificate.schema.json#/$defs/participant_rewards"
+    }
+  },
+  "additionalProperties": false
+}

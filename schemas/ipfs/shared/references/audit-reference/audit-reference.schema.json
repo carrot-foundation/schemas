@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/references/audit-reference/audit-reference.schema.json",
+  "title": "Audit Reference",
+  "description": "Reference to Audit record.",
+  "type": "object",
+  "required": [
+    "date",
+    "external_id",
+    "external_url",
+    "methodology_compliance",
+    "rules_executed",
+    "report"
+  ],
+  "properties": {
+    "date": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/iso_date",
+      "title": "Audit Date",
+      "description": "Date when the audit was completed"
+    },
+    "external_id": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/external_id"
+    },
+    "external_url": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/external_url",
+      "description": "URL to view the audit on Carrot Explorer"
+    },
+    "report": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/ipfs_uri",
+      "title": "Audit Report",
+      "description": "IPFS URI of the audit report"
+    },
+    "methodology_compliance": {
+      "type": "string",
+      "enum": ["PASSED", "FAILED"]
+    },
+    "rules_executed": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/non_negative_integer"
+    }
+  },
+  "additionalProperties": false
+}

@@ -7,9 +7,9 @@ They are versioned, publicly referenceable, and used for validation, traceabilit
 
 ## 📦 Structure
 
-- Schemas are organized by type and version, following [Semantic Versioning](https://semver.org/).
+- Schemas are organized by type (e.g., `mass-id`, `gas-id`, `shared`) and follow [Semantic Versioning](https://semver.org/), but folder names are not versioned.
 - Each schema lives in its own folder and includes an `example.json` for testing and documentation.
-- Shared components like `signature`, `attribute`, and the `root` schema are located in `schemas/shared`.
+- Shared components like `signature`, `attribute`, and the `root` schema are located in `schemas/ipfs/shared`.
 
 ## ✅ Usage
 
