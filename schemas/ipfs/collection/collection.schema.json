@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/collection/collection.schema.json",
+  "title": "Collection IPFS Record",
+  "unevaluatedProperties": false,
+  "allOf": [
+    {
+      "$ref": "../shared/base/base.schema.json"
+    },
+    {
+      "type": "object",
+      "required": ["name", "description", "image"],
+      "properties": {
+        "schema": {
+          "properties": {
+            "type": {
+              "const": "Collection"
+            }
+          }
+        },
+        "name": {
+          "$ref": "../shared/definitions/definitions.schema.json#/$defs/non_empty_string",
+          "title": "Collection Name",
+          "example": "BOLD Cold Start - Carazinho"
+        },
+        "slug": {
+          "$ref": "../shared/definitions/definitions.schema.json#/$defs/slug",
+          "title": "Collection Slug",
+          "example": "bold-cold-start-carazinho"
+        },
+        "image": {
+          "$ref": "../shared/definitions/definitions.schema.json#/$defs/ipfs_uri",
+          "title": "Collection Image",
+          "description": "IPFS URI pointing to the collection's visual representation image.",
+          "example": "ipfs://QmCollectionImageHash/collection-icon.png"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 1000,
+          "title": "Collection Description",
+          "example": "Cold Start is a limited-edition collection created for early supporters of BOLD - Breakthrough in Organic Landfill Diversion. This purchase contributes to reducing global waste and promoting circularity, with funds distributed via smart contract to local recycling operations and communities."
+        }
+      }
+    }
+  ]
+}

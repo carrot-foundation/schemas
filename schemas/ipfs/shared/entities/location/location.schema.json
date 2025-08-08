@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/entities/location/location.schema.json",
+  "title": "Geographic Location",
+  "description": "Geographic location with address and coordinate information.",
+  "type": "object",
+  "required": [
+    "id",
+    "municipality",
+    "administrative_division",
+    "administrative_division_code",
+    "country",
+    "country_code",
+    "responsible_participant_id",
+    "coordinates",
+    "facility_type"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/uuid",
+      "title": "Location ID",
+      "description": "Unique identifier for the location."
+    },
+    "municipality": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/non_empty_string",
+      "maxLength": 50,
+      "description": "Municipality or city name.",
+      "example": "Macapá"
+    },
+    "administrative_division": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/non_empty_string",
+      "title": "Administrative Division",
+      "maxLength": 50,
+      "description": "State, province, or administrative region.",
+      "example": "Amapá"
+    },
+    "administrative_division_code": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/iso_administrative_division_code"
+    },
+    "country": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/non_empty_string",
+      "maxLength": 50,
+      "description": "Full country name in English.",
+      "example": "Brazil"
+    },
+    "country_code": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/iso_country_code"
+    },
+    "responsible_participant_id": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/uuid",
+      "title": "Responsible Participant ID",
+      "description": "ID of the participant responsible for this location."
+    },
+    "coordinates": {
+      "type": "object",
+      "title": "Location Coordinates",
+      "description": "GPS coordinates of the location.",
+      "required": ["latitude", "longitude", "precision_level"],
+      "properties": {
+        "latitude": {
+          "$ref": "../../definitions/definitions.schema.json#/$defs/latitude"
+        },
+        "longitude": {
+          "$ref": "../../definitions/definitions.schema.json#/$defs/longitude"
+        },
+        "precision_level": {
+          "type": "string",
+          "enum": ["exact", "neighborhood", "city", "region", "country"],
+          "title": "Coordinate Precision Level",
+          "description": "Level of coordinate precision.",
+          "example": "city"
+        }
+      },
+      "additionalProperties": false
+    },
+    "facility_type": {
+      "type": "string",
+      "enum": [
+        "Waste Generation",
+        "Collection Point",
+        "Transfer Station",
+        "Sorting Facility",
+        "Composting Facility",
+        "Recycling Facility",
+        "Processing Facility",
+        "Disposal Facility",
+        "Administrative Office"
+      ],
+      "title": "Facility Type",
+      "description": "Type of facility at a location.",
+      "example": "Recycling Facility"
+    }
+  },
+  "additionalProperties": false
+}
