@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/gas-id/gas-id.schema.json",
+  "title": "GasID NFT IPFS Record",
+  "unevaluatedProperties": false,
+  "allOf": [
+    {
+      "$ref": "../shared/nft/nft.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "properties": {
+            "type": {
+              "const": "GasID"
+            }
+          }
+        },
+        "attributes": {
+          "$ref": "./gas-id.attributes.schema.json"
+        },
+        "data": {
+          "$ref": "./gas-id.data.schema.json"
+        }
+      }
+    }
+  ]
+}

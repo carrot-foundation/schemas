@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/definitions/definitions.schema.json",
+  "title": "Carrot Shared Definitions",
+  "description": "Reusable atomic, domain, and composite definitions for Carrot IPFS JSON schemas.",
+  "type": "object",
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      "description": "UUID v4 string in canonical format.",
+      "example": "6f520d88-864d-432d-bf9f-5c3166c4818f"
+    },
+    "ethereum_address": {
+      "type": "string",
+      "pattern": "^0x[a-f0-9]{40}$",
+      "title": "Ethereum Address",
+      "description": "Ethereum address in lowercase hexadecimal format.",
+      "example": "0xabc123def456789abcdef123456789abcdef1234"
+    },
+    "iso_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "title": "ISO 8601 Timestamp",
+      "description": "ISO 8601 timestamp with timezone.",
+      "example": "2024-12-05T11:02:47.000Z"
+    },
+    "iso_date": {
+      "type": "string",
+      "format": "date",
+      "title": "ISO 8601 Date",
+      "description": "ISO 8601 date (YYYY-MM-DD).",
+      "example": "2024-02-10"
+    },
+    "iso_country_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "title": "Country Code",
+      "description": "ISO 3166-1 alpha-2 country code.",
+      "example": "BR"
+    },
+    "iso_administrative_division_code": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
+      "title": "Administrative Division Code",
+      "description": "ISO 3166-2 administrative division code.",
+      "example": "BR-AP"
+    },
+    "latitude": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90,
+      "description": "Latitude in decimal degrees.",
+      "example": -23.39
+    },
+    "longitude": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180,
+      "description": "Longitude in decimal degrees.",
+      "example": -51.13
+    },
+    "weight_kg": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Weight in Kilograms",
+      "description": "Weight measurement in kilograms.",
+      "example": 1500.5
+    },
+    "name": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 200
+    },
+    "slug": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^[a-z0-9-]+$",
+      "maxLength": 100,
+      "title": "Slug",
+      "description": "URL-friendly identifier using lowercase letters, numbers, and hyphens only.",
+      "example": "bold-carbon-ch4"
+    },
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "waste_type": {
+      "$ref": "#/$defs/non_empty_string",
+      "title": "Waste Classification",
+      "description": "Primary waste material category following international standards.",
+      "example": "Organic"
+    },
+    "waste_subtype": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 100,
+      "description": "Specific subcategory or detailed classification of the waste material.",
+      "example": "Food, Food Waste and Beverages"
+    },
+    "participant_role": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 100,
+      "title": "Participant Role",
+      "description": "Role in the waste management supply chain.",
+      "example": "Transporter"
+    },
+    "participant_name": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 100,
+      "title": "Participant Name",
+      "description": "Legal name of the participant.",
+      "example": "Eco Reciclagem"
+    },
+    "facility_type": {
+      "type": "string",
+      "enum": [
+        "Waste Generation",
+        "Collection Point",
+        "Transfer Station",
+        "Sorting Facility",
+        "Composting Facility",
+        "Recycling Facility",
+        "Processing Facility",
+        "Disposal Facility",
+        "Administrative Office"
+      ],
+      "title": "Facility Type",
+      "description": "Type of facility at a location.",
+      "example": "Recycling Facility"
+    },
+    "chain_id": {
+      "type": "integer",
+      "minimum": 1,
+      "title": "Blockchain network chain ID",
+      "description": "Blockchain network chain ID where the NFT is deployed.",
+      "example": 137
+    },
+    "percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "title": "Percentage Value",
+      "description": "Percentage value between 0 and 100.",
+      "example": 25.5
+    },
+    "non_negative_integer": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Non-Negative Integer",
+      "description": "Non-negative integer value.",
+      "example": 100
+    },
+    "positive_integer": {
+      "type": "integer",
+      "minimum": 1,
+      "title": "Positive Integer",
+      "description": "Positive integer value.",
+      "example": 100
+    },
+    "non_negative_float": {
+      "type": "number",
+      "minimum": 0,
+      "title": "Non-Negative Float",
+      "description": "Non-negative float value.",
+      "example": 100.5
+    },
+    "hours": {
+      "type": "number",
+      "minimum": 0,
+      "multipleOf": 0.1,
+      "title": "Hours",
+      "description": "Time in hours.",
+      "example": 72.5
+    },
+    "ipfs_uri": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^ipfs://[a-zA-Z0-9]+(/.*)?$",
+      "title": "IPFS URI",
+      "description": "IPFS URI pointing to content-addressed data using CID (Content Identifier). Format: ipfs://{CID}[/path]",
+      "examples": [
+        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
+        "ipfs://bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
+        "ipfs://QmHashExample/metadata.json"
+      ]
+    },
+    "semantic_version": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
+      "title": "Semantic Version",
+      "description": "Semantic version string (semver.org).",
+      "example": "v1.2.3"
+    },
+    "token_id": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^[0-9]+$",
+      "title": "Token ID",
+      "description": "NFT token ID as numeric string (supports uint256).",
+      "example": "123"
+    },
+    "hex_color": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^#[0-9A-F]{6}$",
+      "title": "Hex Color",
+      "description": "Hex color code with # prefix and uppercase.",
+      "example": "#FFFFFF"
+    },
+    "keccak256_hash": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^0x[a-fA-F0-9]{64}$",
+      "title": "Keccak256 Hash",
+      "description": "Keccak256 hash as 32-byte hex string.",
+      "example": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658"
+    },
+    "external_id": {
+      "$ref": "#/$defs/uuid",
+      "title": "External ID",
+      "description": "Off-chain reference ID (UUID from Carrot backend)."
+    },
+    "external_url": {
+      "$ref": "#/$defs/non_empty_string",
+      "format": "uri",
+      "title": "External URL",
+      "description": "External URL of the content.",
+      "example": "https://explore.carrot.eco/document/40e44dc8-75d4-4b6f-a5b2-420ab9482ee9"
+    },
+    "token_symbol": {
+      "$ref": "#/$defs/non_empty_string",
+      "maxLength": 10,
+      "pattern": "^[A-Z0-9-]+$",
+      "title": "Token Symbol",
+      "description": "ERC20 token symbol in uppercase letters and numbers only.",
+      "example": "C-CARB"
+    },
+    "signature": {
+      "type": "object",
+      "title": "EIP-712 Signature",
+      "description": "EIP-712-compatible digital signature object.",
+      "properties": {
+        "signer": {
+          "$ref": "#/$defs/ethereum_address"
+        },
+        "signing_method": {
+          "type": "string",
+          "enum": ["eip712-offchain", "eip712-onchain"],
+          "description": "Method used for signing.",
+          "example": "eip712-offchain"
+        },
+        "domain": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the signing domain.",
+              "example": "Carrot Protocol"
+            },
+            "version": {
+              "type": "string",
+              "description": "Version of the signing domain.",
+              "example": "1.0.0"
+            },
+            "chain_id": {
+              "$ref": "#/$defs/chain_id"
+            }
+          },
+          "required": ["name", "version", "chain_id"],
+          "additionalProperties": false
+        },
+        "hash_algorithm": {
+          "type": "string",
+          "enum": ["keccak256", "sha256"],
+          "description": "Hashing algorithm used.",
+          "example": "keccak256"
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{64}$",
+          "description": "Hash of the signed data (32 bytes as hex string).",
+          "example": "0x7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069"
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{130}$",
+          "description": "65-byte signature as hex string (r,s,v components).",
+          "example": "0x28ef61340bd939bc2195fe537567866003e1a15d3c71ff63e1590620aa636276139dacbce41ab5cd3a017b5562e3f238e31bbce5b89ab77f4a46c8ca9e67ab6bb1c"
+        }
+      },
+      "required": [
+        "signer",
+        "signing_method",
+        "domain",
+        "hash_algorithm",
+        "hash",
+        "signature"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
