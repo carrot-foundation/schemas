@@ -9,6 +9,7 @@
     "node": "22.15.0"
   },
   "scripts": {
+    "check-refs": "node scripts/check-refs.js",
     "pkgJsonLint": "npmPkgJsonLint .",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
