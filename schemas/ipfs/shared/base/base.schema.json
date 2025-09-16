@@ -9,7 +9,9 @@
     "schema",
     "created_at",
     "external_id",
-    "external_url"
+    "external_url",
+    "content_hash",
+    "creator"
   ],
   "properties": {
     "$schema": {
@@ -64,6 +66,90 @@
     "external_url": {
       "$ref": "../definitions/definitions.schema.json#/$defs/external_url"
     },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$",
+      "title": "Content Hash",
+      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation."
+    },
+    "creator": {
+      "type": "object",
+      "description": "Entity that created this record.",
+      "required": ["type", "value", "jurisdiction"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "company_registration",
+          "description": "Type of identifier used for the creator entity."
+        },
+        "value": {
+          "type": "string",
+          "description": "Company registration number or identifier value."
+        },
+        "jurisdiction": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}(-[A-Z]{2})?$",
+          "description": "Jurisdiction code (ISO 3166-1 alpha-2, optionally with subdivision).",
+          "example": "US-DE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "relationships": {
+      "type": "array",
+      "description": "References to other IPFS records this record relates to.",
+      "items": {
+        "type": "object",
+        "required": ["target_cid", "type"],
+        "properties": {
+          "target_cid": {
+            "type": "string",
+            "pattern": "^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]+)$",
+            "description": "IPFS Content Identifier (CID) of the referenced record."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "source_data",
+              "methodology",
+              "audit",
+              "update",
+              "derivation",
+              "reference"
+            ],
+            "description": "Type of relationship to the referenced record."
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the relationship."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "signature": {
+      "type": "object",
+      "description": "Cryptographic signature for record authenticity (optional).",
+      "required": ["algorithm", "value", "signer_address"],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "ECDSA-secp256k1",
+          "description": "Cryptographic signature algorithm used."
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{130}$",
+          "description": "Hex signature (65 bytes) of the record's content hash."
+        },
+        "signer_address": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$",
+          "description": "Ethereum address of the signing entity."
+        }
+      },
+      "additionalProperties": false
+    },
     "environment": {
       "type": "object",
       "description": "Environment information.",
@@ -91,11 +177,7 @@
         }
       },
       "additionalProperties": false
-    },
-    "data": {
-      "type": "object",
-      "description": "Custom data block that includes the record's data.",
-      "additionalProperties": true
     }
-  }
+  },
+  "additionalProperties": false
 }
