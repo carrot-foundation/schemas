@@ -1,0 +1,114 @@
+name: Publish Package
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.14.0'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Lint package.json
+        run: pnpm pkgJsonLint
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Determine version bump
+        id: version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          custom_release_rules: |
+            *:patch:Patch Release
+            feat:minor:Minor Release
+            fix:patch:Patch Release
+            docs:patch:Documentation
+            style:patch:Code Style
+            refactor:patch:Code Refactoring
+            perf:patch:Performance Improvements
+            test:patch:Tests
+            build:patch:Build System
+            ci:patch:Continuous Integration
+            chore:patch:Chores
+            revert:patch:Reverts
+          dry_run: true
+
+      - name: Update version in package.json
+        if: steps.version.outputs.new_tag
+        run: |
+          NEW_VERSION="${{ steps.version.outputs.new_version }}"
+          echo "Updating package.json to version $NEW_VERSION"
+          npm version $NEW_VERSION --no-git-tag-version
+
+      - name: Generate changelog
+        if: steps.version.outputs.new_tag
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          custom_release_rules: |
+            *:patch:Patch Release
+            feat:minor:Minor Release
+            fix:patch:Patch Release
+            docs:patch:Documentation
+            style:patch:Code Style
+            refactor:patch:Code Refactoring
+            perf:patch:Performance Improvements
+            test:patch:Tests
+            build:patch:Build System
+            ci:patch:Continuous Integration
+            chore:patch:Chores
+            revert:patch:Reverts
+
+      - name: Publish to npm
+        if: steps.version.outputs.new_tag
+        run: pnpm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: steps.version.outputs.new_tag
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.new_tag }}
+          name: Release ${{ steps.version.outputs.new_version }}
+          body: ${{ steps.version.outputs.changelog }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

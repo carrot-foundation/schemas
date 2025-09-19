@@ -21,7 +21,9 @@
     "offchain",
     "UNFCCC",
     "usdc",
-    "NFTIPFSSchema"
+    "NFTIPFSSchema",
+    "mathieudutour",
+    "softprops"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
