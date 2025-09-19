@@ -9,7 +9,9 @@
     "schema",
     "created_at",
     "external_id",
-    "external_url"
+    "external_url",
+    "content_hash",
+    "creator"
   ],
   "properties": {
     "$schema": {
@@ -63,6 +65,67 @@
     },
     "external_url": {
       "$ref": "../definitions/definitions.schema.json#/$defs/external_url"
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$",
+      "title": "Content Hash",
+      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation."
+    },
+    "original_content_hash": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{64}$",
+      "title": "Original Content Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation."
+    },
+    "creator": {
+      "type": "object",
+      "description": "Entity that created this record.",
+      "required": ["name", "id"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Company or individual name that created this record."
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "Unique identifier for the creator, such as a website or DID."
+        }
+      },
+      "additionalProperties": false
+    },
+    "relationships": {
+      "type": "array",
+      "description": "References to other IPFS records this record relates to.",
+      "items": {
+        "type": "object",
+        "required": ["target_cid", "type"],
+        "properties": {
+          "target_cid": {
+            "type": "string",
+            "pattern": "^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]+)$",
+            "description": "IPFS Content Identifier (CID) of the referenced record."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "collection",
+              "credit",
+              "audit",
+              "update",
+              "derivation",
+              "reference"
+            ],
+            "description": "Type of relationship to the referenced record."
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the relationship."
+          }
+        },
+        "additionalProperties": false
+      }
     },
     "environment": {
       "type": "object",
