@@ -229,68 +229,21 @@
       "description": "ERC20 token symbol in uppercase letters and numbers only.",
       "example": "C-CARB"
     },
-    "signature": {
-      "type": "object",
-      "title": "EIP-712 Signature",
-      "description": "EIP-712-compatible digital signature object.",
-      "properties": {
-        "signer": {
-          "$ref": "#/$defs/ethereum_address"
-        },
-        "signing_method": {
-          "type": "string",
-          "enum": ["eip712-offchain", "eip712-onchain"],
-          "description": "Method used for signing.",
-          "example": "eip712-offchain"
-        },
-        "domain": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "Name of the signing domain.",
-              "example": "Carrot Protocol"
-            },
-            "version": {
-              "type": "string",
-              "description": "Version of the signing domain.",
-              "example": "1.0.0"
-            },
-            "chain_id": {
-              "$ref": "#/$defs/chain_id"
-            }
-          },
-          "required": ["name", "version", "chain_id"],
-          "additionalProperties": false
-        },
-        "hash_algorithm": {
-          "type": "string",
-          "enum": ["keccak256", "sha256"],
-          "description": "Hashing algorithm used.",
-          "example": "keccak256"
-        },
-        "hash": {
-          "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{64}$",
-          "description": "Hash of the signed data (32 bytes as hex string).",
-          "example": "0x7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069"
-        },
-        "signature": {
-          "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{130}$",
-          "description": "65-byte signature as hex string (r,s,v components).",
-          "example": "0x28ef61340bd939bc2195fe537567866003e1a15d3c71ff63e1590620aa636276139dacbce41ab5cd3a017b5562e3f238e31bbce5b89ab77f4a46c8ca9e67ab6bb1c"
-        }
-      },
-      "required": [
-        "signer",
-        "signing_method",
-        "domain",
-        "hash_algorithm",
-        "hash",
-        "signature"
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "collection",
+        "credit",
+        "gas-id",
+        "mass-id",
+        "mass-id-audit",
+        "methodology",
+        "purchase-id",
+        "recycled-id"
       ],
-      "additionalProperties": false
+      "title": "Relationship Type",
+      "description": "Type of relationship between records.",
+      "example": "mass-id"
     }
   },
   "additionalProperties": false
