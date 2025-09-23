@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json",
   "schema": {
     "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
     "type": "MassID",
@@ -300,7 +300,7 @@
     },
     "geographic_data": {
       "origin_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
-      "processing_locations_ids": ["d01217a9-9d21-4f16-8908-0fea6750953e"],
+      "processing_location_ids": ["d01217a9-9d21-4f16-8908-0fea6750953e"],
       "final_destination_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
       "transport_routes": [
         {
@@ -311,32 +311,6 @@
           "duration_hours": 72.5
         }
       ]
-    }
-  },
-  "data_signatures": {
-    "content": {
-      "signer": "0x742d35cc6334c1532926d7d93e7b8b00b1234567",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot MassID",
-        "version": "1.0.0",
-        "chain_id": 1
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
-      "signature": "0xabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890ef1c"
-    },
-    "source_data": {
-      "signer": "0x742d35cc6334c1532926d7d93e7b8b00b1234567",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot MassID",
-        "version": "1.0.0",
-        "chain_id": 1
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x9c22ff5f21f0b81b113e63f7db6da94fedef11b2119b4088b89664fb9a3cb658",
-      "signature": "0xabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890efabcd1234567890ef1c"
     }
   }
 }
