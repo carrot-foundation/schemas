@@ -14,8 +14,8 @@ import https from 'https';
 
 const CONFIG = {
   schemasDir: './schemas',
-  schemaPattern: '**/*.schema.json',
-  dataPattern: '**/*.example.json',
+  schemaPattern: '*.schema.json',
+  dataPattern: 'examples/*.example.json',
   verbose: false,
 };
 

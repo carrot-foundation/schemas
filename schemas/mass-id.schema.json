@@ -1,5 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MassID NFT IPFS Record",
+  "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json",
   "type": "object",
   "properties": {
     "$schema": {
@@ -43,7 +46,7 @@
     "external_id": {
       "description": "Off-chain reference ID (UUID from Carrot backend)",
       "type": "string",
-      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
     },
     "external_url": {
       "description": "External URL of the content",
@@ -68,9 +71,9 @@
           "type": "string"
         },
         "id": {
-          "description": "Unique identifier for the creator, such as a website or DID",
+          "description": "Unique identifier for the creator",
           "type": "string",
-          "format": "uri"
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         }
       },
       "required": [
@@ -242,7 +245,7 @@
               "id": {
                 "description": "Unique identifier for the location",
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
               },
               "municipality": {
                 "description": "Municipality or city name",
@@ -275,7 +278,7 @@
               "responsible_participant_id": {
                 "description": "ID of the participant responsible for this location",
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
               },
               "coordinates": {
                 "description": "GPS coordinates of the location",
@@ -352,7 +355,7 @@
               "id": {
                 "description": "Unique identifier for the participant",
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
               },
               "name": {
                 "description": "Name of the participant",
@@ -394,7 +397,7 @@
                   "event_id": {
                     "description": "Unique event identifier",
                     "type": "string",
-                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
                   },
                   "event_name": {
                     "description": "Name of custody or processing event",
@@ -417,12 +420,12 @@
                   "participant_id": {
                     "description": "Reference to participant in the participants array",
                     "type": "string",
-                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
                   },
                   "location_id": {
                     "description": "Reference to location in the locations array",
                     "type": "string",
-                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
                   },
                   "weight": {
                     "description": "Mass weight after this event",
@@ -561,20 +564,20 @@
             "origin_location_id": {
               "description": "Reference to origin location in the locations array",
               "type": "string",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
             },
             "processing_location_ids": {
               "description": "Locations where the waste was processed or handled",
               "type": "array",
               "items": {
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
               }
             },
             "final_destination_id": {
               "description": "Reference to final destination in the locations array",
               "type": "string",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
             },
             "transport_routes": {
               "description": "Detailed transport route information",
@@ -586,12 +589,12 @@
                   "from_location_id": {
                     "description": "Reference to the origin location in the locations array",
                     "type": "string",
-                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
                   },
                   "to_location_id": {
                     "description": "Reference to the destination location in the locations array",
                     "type": "string",
-                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
                   },
                   "distance_km": {
                     "description": "Distance for this route segment in kilometers",
@@ -738,8 +741,7 @@
         },
         "required": [
           "label",
-          "url",
-          "description"
+          "url"
         ],
         "additionalProperties": false
       }

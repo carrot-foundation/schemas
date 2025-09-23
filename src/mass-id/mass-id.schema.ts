@@ -148,7 +148,8 @@ export const massIdIPFSSchema = nftIPFSSchema
   .describe('Complete MassID NFT IPFS record')
   .refine((data) => {
     const { net_weight, measurement_unit } = data.data.waste_classification;
-    const normalizedKg = measurement_unit === 'ton' ? net_weight * 1000 : net_weight;
+    const normalizedKg =
+      measurement_unit === 'ton' ? net_weight * 1000 : net_weight;
     const attributeWeightKg = data.attributes[2].value;
     return Math.abs(attributeWeightKg - normalizedKg) < 1e-6;
   }, 'Weight in attributes must match net_weight in waste classification data')
@@ -191,7 +192,13 @@ export const massIdIPFSSchema = nftIPFSSchema
     return originLocation
       ? attributeOriginDivision === originLocation.administrative_division
       : false;
-  }, 'Origin administrative division in attributes must match the administrative division of the origin location in data');
+  }, 'Origin administrative division in attributes must match the administrative division of the origin location in data')
+  .meta({
+    title: 'MassID NFT IPFS Record',
+    description:
+      'Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data',
+    $id: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json',
+  });
 
 export type MassIdIPFSSchema = z.infer<typeof massIdIPFSSchema>;
 export type MassIdAttributes = z.infer<typeof massIdAttributes>;
