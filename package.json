@@ -46,6 +46,7 @@
   "scripts": {
     "build": "tsc",
     "check-refs": "node scripts/check-refs.js",
+    "clean": "rm -rf dist",
     "pkgJsonLint": "npmPkgJsonLint .",
     "prebuild": "pnpm clean",
     "preinstall": "npx only-allow pnpm",
