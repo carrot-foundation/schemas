@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const uuid = z
   .string()
   .regex(
-    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/,
     'Must be a valid UUID v4 string in canonical format',
   );
 
