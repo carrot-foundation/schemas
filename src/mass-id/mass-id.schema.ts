@@ -147,13 +147,10 @@ export const massIdIPFSSchema = nftIPFSSchema
   .strict()
   .describe('Complete MassID NFT IPFS record')
   .refine((data) => {
-    const dataWeight = data.data.waste_classification.net_weight;
-
-    const measurementUnit = data.data.waste_classification.measurement_unit;
-    const normalizedDataWeight =
-      measurementUnit === 'ton' ? dataWeight * 1000 : dataWeight;
-
-    return normalizedDataWeight;
+    const { net_weight, measurement_unit } = data.data.waste_classification;
+    const normalizedKg = measurement_unit === 'ton' ? net_weight * 1000 : net_weight;
+    const attributeWeightKg = data.attributes[2].value;
+    return Math.abs(attributeWeightKg - normalizedKg) < 1e-6;
   }, 'Weight in attributes must match net_weight in waste classification data')
   .refine((data) => {
     const attributeWasteType = data.attributes[0].value;
