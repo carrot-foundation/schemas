@@ -39,7 +39,8 @@ const externalLink = z
       .string()
       .min(10)
       .max(100)
-      .describe('Optional context about what the link provides'),
+      .describe('Optional context about what the link provides')
+      .optional(),
   })
   .strict();
 
