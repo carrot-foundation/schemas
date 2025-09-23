@@ -1,2 +1,2 @@
-export * from './mass-id.data.schema';
-export * from './mass-id.schema';
+export * from './mass-id.data.schema.js';
+export * from './mass-id.schema.js';

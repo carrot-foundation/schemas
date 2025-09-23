@@ -1,7 +1,11 @@
 import { z } from 'zod';
-import { nftIPFSSchema } from '../shared/nft.schema';
-import { massIdDataSchema } from './mass-id.data.schema';
-import { wasteType, wasteSubtype, weightKg } from '../shared/definitions.schema';
+import { nftIPFSSchema } from '../shared/nft.schema.js';
+import { massIdDataSchema } from './mass-id.data.schema.js';
+import {
+  wasteType,
+  wasteSubtype,
+  weightKg,
+} from '../shared/definitions.schema.js';
 
 const attributeWasteType = z
   .object({
@@ -127,8 +131,8 @@ const massIdAttributes = z
   .describe('Fixed set of MassID NFT attributes in required order');
 
 export const massIdIPFSSchema = nftIPFSSchema
-  .extend({
-    schema: nftIPFSSchema.shape.schema.extend({
+  .safeExtend({
+    schema: nftIPFSSchema.shape.schema.safeExtend({
       type: z.literal('MassID').describe('MassID NFT schema type'),
     }),
 

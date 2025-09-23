@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { uuid, participantName, participantRole } from '../definitions.schema';
+import { uuid, participantName, participantRole } from '../definitions.schema.js';
 
 export const participantSchema = z
   .object({

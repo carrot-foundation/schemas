@@ -8,9 +8,9 @@ import {
   isoTimestamp,
   isoDate,
   hours,
-} from '../shared/definitions.schema';
-import { locationSchema } from '../shared/entities/location.schema';
-import { participantSchema } from '../shared/entities/participant.schema';
+} from '../shared/definitions.schema.js';
+import { locationSchema } from '../shared/entities/location.schema.js';
+import { participantSchema } from '../shared/entities/participant.schema.js';
 
 export type {
   LocationSchema,
@@ -172,7 +172,7 @@ const geographicData = z
     origin_location_id: uuid.describe(
       'Reference to origin location in the locations array',
     ),
-    processing_locations_ids: z
+    processing_location_ids: z
       .array(uuid)
       .optional()
       .describe('Locations where the waste was processed or handled'),
@@ -235,7 +235,7 @@ export const massIdDataSchema = z
     const referencedIds = [
       geo.origin_location_id,
       geo.final_destination_id,
-      ...(geo.processing_locations_ids || []),
+      ...(geo.processing_location_ids || []),
     ];
 
     return referencedIds.every((id) => locationIds.has(id));

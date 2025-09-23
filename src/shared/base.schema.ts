@@ -5,7 +5,7 @@ import {
   isoTimestamp,
   externalId,
   externalUrl,
-} from './definitions.schema';
+} from './definitions.schema.js';
 
 const schemaType = z.enum([
   'MassID',

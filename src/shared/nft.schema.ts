@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { baseIPFSSchema } from './base.schema';
+import { baseIPFSSchema } from './base.schema.js';
 import {
   ethereumAddress,
   chainId,
@@ -7,7 +7,7 @@ import {
   ipfsUri,
   hexColor,
   nonNegativeFloat,
-} from './definitions.schema';
+} from './definitions.schema.js';
 
 const nftSchemaType = z.enum(['MassID', 'RecycledID', 'GasID', 'PurchaseID']);
 
@@ -60,8 +60,8 @@ const attribute = z
   .strict();
 
 export const nftIPFSSchema = baseIPFSSchema
-  .extend({
-    schema: baseIPFSSchema.shape.schema.extend({
+  .safeExtend({
+    schema: baseIPFSSchema.shape.schema.safeExtend({
       type: nftSchemaType.describe('Type/category of this NFT schema'),
     }),
 
