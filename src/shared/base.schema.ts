@@ -5,6 +5,7 @@ import {
   isoTimestamp,
   externalId,
   externalUrl,
+  uuid,
 } from './definitions.schema.js';
 
 const schemaType = z.enum([
@@ -36,9 +37,7 @@ const creator = z
     name: z
       .string()
       .describe('Company or individual name that created this record'),
-    id: z
-      .url('Must be a valid URI')
-      .describe('Unique identifier for the creator, such as a website or DID'),
+    id: uuid.describe('Unique identifier for the creator'),
   })
   .strict()
   .describe('Entity that created this record');
