@@ -10,7 +10,7 @@ const SCHEMAS_DIR = './schemas';
 const EXAMPLES_DIR = './schemas/examples';
 
 function createValidator() {
-  const ajv = new Ajv({ allErrors: true });
+  const ajv = new Ajv({ allErrors: true, strictSchema: false });
   addFormats(ajv);
   return ajv;
 }

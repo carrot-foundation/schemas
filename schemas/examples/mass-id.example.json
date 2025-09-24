@@ -3,7 +3,7 @@
   "schema": {
     "hash": "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
     "type": "MassID",
-    "version": "v0.1.0"
+    "version": "0.1.0"
   },
   "environment": {
     "blockchain_network": "testnet",
