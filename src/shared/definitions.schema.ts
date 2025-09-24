@@ -85,7 +85,7 @@ export const semanticVersion = nonEmptyString.regex(
 );
 
 export const tokenId = nonEmptyString.regex(
-  /^[0-9]+$/,
+  /^\d+$/,
   'Must be a numeric string (supports uint256)',
 );
 
