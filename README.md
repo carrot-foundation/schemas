@@ -1,4 +1,4 @@
-# 🥕 Carrot Schemas
+# 🥕 Carrot IPFS Schemas
 
 This repository contains all JSON Schemas used across the Carrot ecosystem.
 
@@ -41,5 +41,5 @@ See [NOTICE](./NOTICE) for full usage guidance.
 
 ## 🔐 License
 
-Licensed under the [Apache License 2.0](./LICENSE).  
+Licensed under the [Apache License 2.0](./LICENSE).
 See [NOTICE](./NOTICE) for additional terms and usage intentions.
