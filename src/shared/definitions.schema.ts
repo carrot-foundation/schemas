@@ -5,7 +5,7 @@ export const uuid = z.uuidv4('Must be a valid UUID v4 string');
 export const ethereumAddress = z
   .string()
   .regex(
-    /^0x[a-f0-9]{40}$/,
+    /^0x[a-fA-F0-9]{40}$/,
     'Must be a valid Ethereum address in lowercase hexadecimal format',
   );
 
