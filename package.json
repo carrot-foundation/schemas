@@ -1,6 +1,6 @@
 {
   "name": "@carrot-foundation/ipfs-schemas",
-  "version": "0.0.2",
+  "version": "0.1.3",
   "description": "JSON Schema definitions and Zod validation schemas for Carrot IPFS records",
   "license": "Apache-2.0",
   "private": false,
