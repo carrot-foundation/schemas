@@ -126,21 +126,27 @@ export const baseIPFSSchema = z
   .describe(
     'Base fields for all Carrot IPFS records, providing common structure for any JSON content stored in IPFS',
   )
-  .refine((data) => {
-    const schemaUrl = data.$schema;
-    const schemaType = data.schema.type;
 
-    if (schemaUrl.includes('mass-id') && schemaType !== 'MassID') {
-      return false;
+  .refine((data) => {
+    const schemaUrl = String(data.$schema).toLowerCase();
+    const typeValue = data.schema.type;
+
+    const rules = [
+      { pattern: /(?:^|\/)mass-id-audit(?:\/|$)/i, type: 'MassID Audit' },
+      { pattern: /(?:^|\/)recycled-id(?:\/|$)/i, type: 'RecycledID' },
+      { pattern: /(?:^|\/)mass-id(?:\/|$)/i, type: 'MassID' },
+      { pattern: /(?:^|\/)gas-id(?:\/|$)/i, type: 'GasID' },
+    ];
+
+    const matchedRule = rules.find((rule) => rule.pattern.test(schemaUrl));
+
+    if (matchedRule) {
+      return typeValue === matchedRule.type;
     }
-    if (schemaUrl.includes('gas-id') && schemaType !== 'GasID') {
-      return false;
-    }
-    if (schemaUrl.includes('recycled-id') && schemaType !== 'RecycledID') {
-      return false;
-    }
+
     return true;
   }, 'Schema type must match the schema URL')
+
   .refine((data) => {
     const createdDate = new Date(data.created_at);
     const now = new Date();
