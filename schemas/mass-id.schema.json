@@ -354,6 +354,7 @@
           }
         },
         "participants": {
+          "description": "All participants referenced in this MassID, indexed by ID",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -666,7 +667,7 @@
         "smart_contract_address": {
           "description": "Smart Contract Address",
           "type": "string",
-          "pattern": "^0x[a-f0-9]{40}$"
+          "pattern": "^0x[a-fA-F0-9]{40}$"
         },
         "chain_id": {
           "description": "Blockchain chain ID",
