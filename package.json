@@ -1,24 +1,70 @@
 {
-  "name": "carrot-schemas",
-  "version": "0.1.0",
+  "name": "@carrot-foundation/ipfs-schemas",
+  "version": "0.1.2",
+  "description": "JSON Schema definitions and Zod validation schemas for Carrot IPFS records",
   "license": "Apache-2.0",
   "private": false,
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./schemas/*": {
+      "import": "./schemas/*",
+      "require": "./schemas/*",
+      "default": "./schemas/*"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "schemas/**/*"
+  ],
   "packageManager": "pnpm@10.14.0",
   "engines": {
-    "node": "22.15.0"
+    "node": ">=22"
+  },
+  "keywords": [
+    "carrot",
+    "ipfs",
+    "schema",
+    "validation",
+    "zod",
+    "typescript",
+    "blockchain",
+    "json-schema"
+  ],
+  "author": "Carrot Foundation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carrot-foundation/schemas.git"
   },
   "scripts": {
+    "build": "tsc",
     "check-refs": "node scripts/check-refs.js",
+    "clean": "rm -rf dist",
+    "generate-schemas": "node scripts/generate-schemas.js",
     "pkgJsonLint": "npmPkgJsonLint .",
+    "prebuild": "pnpm clean",
+    "pregenerate-schemas": "pnpm build",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
+    "prepublishOnly": "pnpm build",
+    "type-check": "tsc --noEmit",
     "validate-schemas": "node scripts/validate-schemas.js"
+  },
+  "dependencies": {
+    "zod": "4.1.9"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@cspell/dict-pt-br": "2.4.2",
+    "@types/node": "22.15.0",
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1",
     "cspell": "9.2.0",
@@ -26,6 +72,10 @@
     "husky": "9.1.7",
     "lint-staged": "16.1.4",
     "npm-package-json-lint": "9.0.0",
-    "npm-package-json-lint-config-default": "8.0.1"
+    "npm-package-json-lint-config-default": "8.0.1",
+    "typescript": "5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

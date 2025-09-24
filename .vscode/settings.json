@@ -20,7 +20,11 @@
     "MassID",
     "offchain",
     "UNFCCC",
-    "usdc"
+    "usdc",
+    "NFTIPFSSchema",
+    "mathieudutour",
+    "softprops",
+    "uuidv4"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
