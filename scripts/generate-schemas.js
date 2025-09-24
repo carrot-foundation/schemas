@@ -2,7 +2,7 @@
 
 import { massIdIPFSSchema } from '../dist/mass-id/index.js';
 import { toJSONSchema } from 'zod';
-import { writeFileSync } from 'fs';
+import { writeFileSync } from 'node:fs';
 
 const schemas = [
   {
