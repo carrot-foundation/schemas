@@ -23,7 +23,8 @@
     "usdc",
     "NFTIPFSSchema",
     "mathieudutour",
-    "softprops"
+    "softprops",
+    "uuidv4"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

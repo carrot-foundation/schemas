@@ -6,18 +6,8 @@ import {
   externalId,
   externalUrl,
   uuid,
+  schemaType,
 } from './definitions.schema.js';
-
-const schemaType = z.enum([
-  'MassID',
-  'MassID Audit',
-  'RecycledID',
-  'GasID',
-  'PurchaseID',
-  'Methodology',
-  'Credit',
-  'Collection',
-]);
 
 const schemaInfo = z
   .object({

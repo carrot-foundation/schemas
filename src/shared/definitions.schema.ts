@@ -1,11 +1,6 @@
 import { z } from 'zod';
 
-export const uuid = z
-  .string()
-  .regex(
-    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/,
-    'Must be a valid UUID v4 string in canonical format',
-  );
+export const uuid = z.uuidv4('Must be a valid UUID v4 string');
 
 export const ethereumAddress = z
   .string()
@@ -99,14 +94,24 @@ export const hexColor = nonEmptyString.regex(
   'Must be a hex color code with # prefix and uppercase',
 );
 
-export const keccak256Hash = nonEmptyString.regex(
-  /^0x[a-fA-F0-9]{64}$/,
-  'Must be a Keccak256 hash as 32-byte hex string',
-);
+export const keccak256Hash = z.hash('sha256', {
+  error: 'Must be a Keccak256 hash as 32-byte hex string',
+});
 
 export const externalId = uuid;
 
 export const externalUrl = z.url('Must be a valid URL');
+
+export const schemaType = z.enum([
+  'MassID',
+  'MassID Audit',
+  'RecycledID',
+  'GasID',
+  'PurchaseID',
+  'Methodology',
+  'Credit',
+  'Collection',
+]);
 
 export const tokenSymbol = nonEmptyString
   .max(10)

@@ -7,9 +7,15 @@ import {
   ipfsUri,
   hexColor,
   nonNegativeFloat,
+  schemaType,
 } from './definitions.schema.js';
 
-const nftSchemaType = z.enum(['MassID', 'RecycledID', 'GasID', 'PurchaseID']);
+const nftSchemaType = schemaType.extract([
+  'MassID',
+  'RecycledID',
+  'GasID',
+  'PurchaseID',
+]);
 
 const blockchain = z
   .object({
