@@ -94,9 +94,11 @@ export const hexColor = nonEmptyString.regex(
   'Must be a hex color code with # prefix and uppercase',
 );
 
-export const sha256Hash = z.hash('sha256', {
-  error: 'Must be a SHA256 hash as 32-byte hex string',
-});
+export const sha256Hash = z
+  .hash('sha256', {
+    error: 'Must be a SHA256 hash as 32-byte hex string',
+  })
+  .meta({ format: undefined });
 
 export const keccak256Hash = sha256Hash.describe(
   'Keccak256 hash as 32-byte hex string',

@@ -15,7 +15,6 @@
         "hash": {
           "description": "Keccak256 hash of the JSON Schema this record was validated against",
           "type": "string",
-          "format": "sha256_hex",
           "pattern": "^[0-9a-fA-F]{64}$"
         },
         "type": {
@@ -57,13 +56,11 @@
     "original_content_hash": {
       "description": "SHA-256 hash of the original JSON content including private data before schema validation",
       "type": "string",
-      "format": "sha256_hex",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
     "content_hash": {
       "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
       "type": "string",
-      "format": "sha256_hex",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
     "creator": {
@@ -685,7 +682,7 @@
           "description": "NFT token ID",
           "type": "string",
           "minLength": 1,
-          "pattern": "^[0-9]+$"
+          "pattern": "^\\d+$"
         }
       },
       "required": [
@@ -765,7 +762,6 @@
       }
     },
     "attributes": {
-      "description": "Fixed set of MassID NFT attributes enforcing order and type for each trait",
       "type": "array",
       "prefixItems": [
         {
@@ -981,7 +977,9 @@
           ],
           "additionalProperties": false
         }
-      ]
+      ],
+      "minItems": 10,
+      "maxItems": 10
     }
   },
   "required": [

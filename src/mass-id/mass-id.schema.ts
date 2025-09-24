@@ -136,9 +136,11 @@ export const massIdIPFSSchema = nftIPFSSchema
       type: z.literal('MassID').describe('MassID NFT schema type'),
     }),
 
-    attributes: massIdAttributes.describe(
-      'Fixed set of MassID NFT attributes enforcing order and type for each trait',
-    ),
+    attributes: massIdAttributes
+      .describe(
+        'Fixed set of MassID NFT attributes enforcing order and type for each trait',
+      )
+      .check(z.minLength(10), z.maxLength(10)),
 
     data: massIdDataSchema.describe(
       'MassID-specific data containing waste tracking and chain of custody information',
