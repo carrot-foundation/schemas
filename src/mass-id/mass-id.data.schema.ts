@@ -194,19 +194,19 @@ export const massIdDataSchema = z
     locations: z
       .array(locationSchema)
       .min(1)
-      .describe('All locations referenced in this MassID, indexed by ID')
       .refine((locations) => {
         const ids = locations.map((loc) => loc.id);
         return ids.length === new Set(ids).size;
-      }, 'Location IDs must be unique'),
+      }, 'Location IDs must be unique')
+      .describe('All locations referenced in this MassID, indexed by ID'),
     participants: z
       .array(participantSchema)
       .min(1)
-      .describe('All participants referenced in this MassID, indexed by ID')
       .refine((participants) => {
         const ids = participants.map((p) => p.id);
         return ids.length === new Set(ids).size;
-      }, 'Participant IDs must be unique'),
+      }, 'Participant IDs must be unique')
+      .describe('All participants referenced in this MassID, indexed by ID'),
     chain_of_custody: chainOfCustody,
     geographic_data: geographicData,
   })

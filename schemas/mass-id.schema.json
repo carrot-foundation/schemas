@@ -30,7 +30,11 @@
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
         }
       },
-      "required": ["hash", "type", "version"],
+      "required": [
+        "hash",
+        "type",
+        "version"
+      ],
       "additionalProperties": false
     },
     "created_at": {
@@ -77,7 +81,10 @@
           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
         }
       },
-      "required": ["name", "id"],
+      "required": [
+        "name",
+        "id"
+      ],
       "additionalProperties": false
     },
     "relationships": {
@@ -108,7 +115,10 @@
             "type": "string"
           }
         },
-        "required": ["target_cid", "type"],
+        "required": [
+          "target_cid",
+          "type"
+        ],
         "additionalProperties": false
       }
     },
@@ -119,20 +129,34 @@
         "blockchain_network": {
           "description": "Blockchain Network Environment",
           "type": "string",
-          "enum": ["mainnet", "testnet"]
+          "enum": [
+            "mainnet",
+            "testnet"
+          ]
         },
         "deployment": {
           "description": "System environment where this record was generated",
           "type": "string",
-          "enum": ["production", "development", "testing"]
+          "enum": [
+            "production",
+            "development",
+            "testing"
+          ]
         },
         "data_set_name": {
           "description": "Name of the data set for this record",
           "type": "string",
-          "enum": ["TEST", "PROD"]
+          "enum": [
+            "TEST",
+            "PROD"
+          ]
         }
       },
-      "required": ["blockchain_network", "deployment", "data_set_name"],
+      "required": [
+        "blockchain_network",
+        "deployment",
+        "data_set_name"
+      ],
       "additionalProperties": false
     },
     "data": {
@@ -177,13 +201,20 @@
                   "maxLength": 50
                 }
               },
-              "required": ["code", "description", "system"],
+              "required": [
+                "code",
+                "description",
+                "system"
+              ],
               "additionalProperties": false
             },
             "measurement_unit": {
               "description": "Unit of measurement for the waste quantity",
               "type": "string",
-              "enum": ["kg", "ton"]
+              "enum": [
+                "kg",
+                "ton"
+              ]
             },
             "net_weight": {
               "description": "Net weight of the waste batch in the specified measurement unit",
@@ -193,7 +224,12 @@
             "contamination_level": {
               "description": "Level of contamination in the waste batch",
               "type": "string",
-              "enum": ["None", "Low", "Medium", "High"]
+              "enum": [
+                "None",
+                "Low",
+                "Medium",
+                "High"
+              ]
             }
           },
           "required": [
@@ -205,6 +241,7 @@
           "additionalProperties": false
         },
         "locations": {
+          "description": "All locations referenced in this MassID, indexed by ID",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -279,7 +316,11 @@
                     ]
                   }
                 },
-                "required": ["latitude", "longitude", "precision_level"],
+                "required": [
+                  "latitude",
+                  "longitude",
+                  "precision_level"
+                ],
                 "additionalProperties": false
               },
               "facility_type": {
@@ -342,7 +383,11 @@
                 }
               }
             },
-            "required": ["id", "name", "roles"],
+            "required": [
+              "id",
+              "name",
+              "roles"
+            ],
             "additionalProperties": false
           }
         },
@@ -437,7 +482,10 @@
                           ]
                         }
                       },
-                      "required": ["name", "value"],
+                      "required": [
+                        "name",
+                        "value"
+                      ],
                       "additionalProperties": false
                     }
                   },
@@ -477,7 +525,10 @@
                           "maxLength": 100
                         }
                       },
-                      "required": ["type", "reference"],
+                      "required": [
+                        "type",
+                        "reference"
+                      ],
                       "additionalProperties": false
                     }
                   },
@@ -511,7 +562,11 @@
               "multipleOf": 0.1
             }
           },
-          "required": ["events", "total_distance_km", "total_duration_hours"],
+          "required": [
+            "events",
+            "total_distance_km",
+            "total_duration_hours"
+          ],
           "additionalProperties": false
         },
         "geographic_data": {
@@ -701,7 +756,10 @@
             "maxLength": 100
           }
         },
-        "required": ["label", "url"],
+        "required": [
+          "label",
+          "url"
+        ],
         "additionalProperties": false
       }
     },
@@ -722,7 +780,10 @@
               "minLength": 1
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -739,7 +800,10 @@
               "maxLength": 100
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -759,7 +823,11 @@
               "const": "number"
             }
           },
-          "required": ["trait_type", "value", "display_type"],
+          "required": [
+            "trait_type",
+            "value",
+            "display_type"
+          ],
           "additionalProperties": false
         },
         {
@@ -776,7 +844,10 @@
               "maxLength": 100
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -793,7 +864,10 @@
               "maxLength": 100
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -810,7 +884,10 @@
               "maxLength": 100
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -827,7 +904,10 @@
               "maxLength": 100
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -844,7 +924,10 @@
               "maxLength": 100
             }
           },
-          "required": ["trait_type", "value"],
+          "required": [
+            "trait_type",
+            "value"
+          ],
           "additionalProperties": false
         },
         {
@@ -865,7 +948,11 @@
               "const": "date"
             }
           },
-          "required": ["trait_type", "value", "display_type"],
+          "required": [
+            "trait_type",
+            "value",
+            "display_type"
+          ],
           "additionalProperties": false
         },
         {
@@ -886,7 +973,11 @@
               "const": "date"
             }
           },
-          "required": ["trait_type", "value", "display_type"],
+          "required": [
+            "trait_type",
+            "value",
+            "display_type"
+          ],
           "additionalProperties": false
         }
       ]
@@ -910,4 +1001,3 @@
   ],
   "additionalProperties": false
 }
-
