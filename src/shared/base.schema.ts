@@ -2,6 +2,7 @@ import { z } from 'zod';
 import {
   keccak256Hash,
   semanticVersion,
+  sha256Hash,
   isoTimestamp,
   externalId,
   externalUrl,
@@ -97,26 +98,12 @@ export const baseIPFSSchema = z
 
     external_url: externalUrl.describe('External URL of the content'),
 
-    original_content_hash: z
-      .string()
-      .regex(/^[a-fA-F0-9]{64}$/, 'Must be a 64-character hex string')
-      .describe(
-        'SHA-256 hash of the original JSON content including private data before schema validation',
-      )
-      .optional(),
-
-    content_hash: z
-      .string()
-      .regex(/^[a-fA-F0-9]{64}$/, 'Must be a 64-character hex string')
-      .describe(
-        'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
-      )
-      .refine(
-        (hash) => hash.length === 64,
-        'Content hash must be exactly 64 characters (256 bits)',
-      )
-      .optional(),
-
+    original_content_hash: sha256Hash.describe(
+      'SHA-256 hash of the original JSON content including private data before schema validation',
+    ),
+    content_hash: sha256Hash.describe(
+      'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
+    ),
     creator: creator.optional(),
 
     relationships: z
