@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import { massIdIPFSSchema } from '../dist/mass-id/index.js';
+import { massIDIPFSSchema } from '../dist/mass-id/index.js';
 import { toJSONSchema } from 'zod';
 import { writeFileSync } from 'node:fs';
 
 const schemas = [
   {
     fileName: 'mass-id.schema',
-    schema: massIdIPFSSchema,
+    schema: massIDIPFSSchema,
   },
 ];
 

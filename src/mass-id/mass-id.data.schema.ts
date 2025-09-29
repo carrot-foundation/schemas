@@ -188,7 +188,7 @@ const geographicData = z
     'Geographic information about waste origin and processing locations',
   );
 
-export const massIdDataSchema = z
+export const massIDDataSchema = z
   .object({
     waste_classification: wasteClassification,
     locations: z
@@ -257,7 +257,7 @@ export const massIdDataSchema = z
     return responsibleParticipantIds.every((id) => participantIds.has(id));
   }, 'All responsible participant IDs in locations must exist in participants array');
 
-export type MassIdDataSchema = z.infer<typeof massIdDataSchema>;
+export type MassIDDataSchema = z.infer<typeof massIDDataSchema>;
 export type WasteClassification = z.infer<typeof wasteClassification>;
 export type LocalClassification = z.infer<typeof localClassification>;
 export type ChainOfCustody = z.infer<typeof chainOfCustody>;

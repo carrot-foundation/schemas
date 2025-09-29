@@ -74,7 +74,7 @@ const environment = z
   .strict()
   .describe('Environment information');
 
-export const baseIPFSSchema = z
+export const baseIpfsSchema = z
   .object({
     $schema: z
       .url('Must be a valid URI')
@@ -154,7 +154,7 @@ export const baseIPFSSchema = z
     return createdDate <= fiveMinutesFromNow;
   }, 'Creation timestamp cannot be in the future');
 
-export type BaseIPFSSchema = z.infer<typeof baseIPFSSchema>;
+export type BaseIpfsSchema = z.infer<typeof baseIpfsSchema>;
 export type SchemaType = z.infer<typeof schemaType>;
 export type SchemaInfo = z.infer<typeof schemaInfo>;
 export type Creator = z.infer<typeof creator>;
