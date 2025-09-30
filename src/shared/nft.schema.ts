@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { baseIPFSSchema } from './base.schema.js';
+import { baseIpfsSchema } from './base.schema.js';
 import {
   ethereumAddress,
   chainId,
@@ -66,9 +66,9 @@ const attribute = z
   })
   .strict();
 
-export const nftIPFSSchema = baseIPFSSchema
+export const nftIpfsSchema = baseIpfsSchema
   .safeExtend({
-    schema: baseIPFSSchema.shape.schema.safeExtend({
+    schema: baseIpfsSchema.shape.schema.safeExtend({
       type: nftSchemaType.describe('Type/category of this NFT schema'),
     }),
 
@@ -132,7 +132,7 @@ export const nftIPFSSchema = baseIPFSSchema
     return traitTypes.length === new Set(traitTypes).size;
   }, 'Attribute trait_type values must be unique');
 
-export type NFTIPFSSchema = z.infer<typeof nftIPFSSchema>;
+export type NFTIpfsSchema = z.infer<typeof nftIpfsSchema>;
 export type NFTSchemaType = z.infer<typeof nftSchemaType>;
 export type Blockchain = z.infer<typeof blockchain>;
 export type ExternalLink = z.infer<typeof externalLink>;

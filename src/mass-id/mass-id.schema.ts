@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { nftIPFSSchema } from '../shared/nft.schema.js';
-import { massIdDataSchema } from './mass-id.data.schema.js';
+import { nftIpfsSchema } from '../shared/nft.schema.js';
+import { massIDDataSchema } from './mass-id.data.schema.js';
 import {
   wasteType,
   wasteSubtype,
@@ -115,7 +115,7 @@ const attributeRecyclingDate = z
   .strict()
   .describe('Recycling date attribute');
 
-const massIdAttributes = z
+const massIDAttributes = z
   .tuple([
     attributeWasteType,
     attributeWasteSubtype,
@@ -130,24 +130,23 @@ const massIdAttributes = z
   ])
   .describe('Fixed set of MassID NFT attributes in required order');
 
-export const massIdIPFSSchema = nftIPFSSchema
+export const massIDIpfsSchema = nftIpfsSchema
   .safeExtend({
-    schema: nftIPFSSchema.shape.schema.safeExtend({
+    schema: nftIpfsSchema.shape.schema.safeExtend({
       type: z.literal('MassID').describe('MassID NFT schema type'),
     }),
 
-    attributes: massIdAttributes
+    attributes: massIDAttributes
       .describe(
         'Fixed set of MassID NFT attributes enforcing order and type for each trait',
       )
       .check(z.minLength(10), z.maxLength(10)),
 
-    data: massIdDataSchema.describe(
+    data: massIDDataSchema.describe(
       'MassID-specific data containing waste tracking and chain of custody information',
     ),
   })
-  .strict()
-  .describe('Complete MassID NFT IPFS record')
+  .describe('Complete MassID NFT Ipfs record')
   .refine((data) => {
     const { net_weight, measurement_unit } = data.data.waste_classification;
     const normalizedKg =
@@ -203,8 +202,8 @@ export const massIdIPFSSchema = nftIPFSSchema
     version: '1.0.0',
   });
 
-export type MassIdIPFSSchema = z.infer<typeof massIdIPFSSchema>;
-export type MassIdAttributes = z.infer<typeof massIdAttributes>;
+export type MassIDIpfsSchema = z.infer<typeof massIDIpfsSchema>;
+export type MassIDAttributes = z.infer<typeof massIDAttributes>;
 export type AttributeWasteType = z.infer<typeof attributeWasteType>;
 export type AttributeWasteSubtype = z.infer<typeof attributeWasteSubtype>;
 export type AttributeWeight = z.infer<typeof attributeWeight>;

@@ -24,7 +24,12 @@
     "NFTIPFSSchema",
     "mathieudutour",
     "softprops",
-    "uuidv4"
+    "uuidv4",
+    "massIDIPFSSchema",
+    "massIDIpfsSchema",
+    "massIDDataSchema",
+    "baseIpfsSchema",
+    "IpfsUri"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
