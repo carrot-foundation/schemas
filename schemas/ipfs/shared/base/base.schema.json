@@ -88,9 +88,8 @@
           "description": "Company or individual name that created this record."
         },
         "id": {
-          "type": "string",
-          "format": "uri",
-          "description": "Unique identifier for the creator, such as a website or DID."
+          "$ref": "../definitions/definitions.schema.json#/$defs/uuid",
+          "description": "Unique identifier for the creator."
         }
       },
       "additionalProperties": false
