@@ -222,43 +222,6 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
 }).meta({
   title: 'NFT IPFS Record',
   description: 'NFT-specific fields for Carrot IPFS records',
-  examples: [
-    {
-      $schema:
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json',
-      schema: {
-        hash: 'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
-        type: 'MassID',
-        version: '0.1.0',
-      },
-      environment: {
-        blockchain_network: 'testnet',
-        deployment: 'development',
-        data_set_name: 'TEST',
-      },
-      blockchain: {
-        token_id: '123',
-        smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
-        chain_id: 1,
-        network_name: 'Polygon',
-      },
-      created_at: '2024-12-05T11:02:47.000Z',
-      external_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
-      external_url:
-        'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
-      name: 'MassID #123 • Organic • 3.0t',
-      short_name: 'MassID #123',
-      description:
-        'This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.',
-      image:
-        'ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png',
-      background_color: '#2D5A27',
-      original_content_hash:
-        '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
-      content_hash:
-        '6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6',
-    },
-  ],
 });
 
 export type NFTIpfsSchemaType = z.infer<typeof NftIpfsSchema>;
