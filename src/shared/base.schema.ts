@@ -8,6 +8,7 @@ import {
   ExternalUrlSchema,
   UuidSchema,
   SchemaTypeSchema,
+  IpfsUriSchema,
 } from './definitions.schema.js';
 
 const SchemaInfoSchema = z
@@ -48,16 +49,10 @@ const CreatorSchema = z
 
 const RelationshipSchema = z
   .strictObject({
-    target_cid: z
-      .string()
-      .regex(
-        /^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]+)$/,
-        'Must be a valid IPFS Content Identifier (CID)',
-      )
-      .meta({
-        title: 'Target CID',
-        description: 'IPFS Content Identifier (CID) of the referenced record',
-      }),
+    target_cid: IpfsUriSchema.meta({
+      title: 'Target CID',
+      description: 'IPFS Content Identifier (CID) of the referenced record',
+    }),
     type: z
       .enum([
         'collection',

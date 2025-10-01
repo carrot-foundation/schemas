@@ -236,8 +236,13 @@
           "target_cid": {
             "title": "Target CID",
             "description": "IPFS Content Identifier (CID) of the referenced record",
+            "examples": [
+              "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+              "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+            ],
             "type": "string",
-            "pattern": "^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]+)$"
+            "minLength": 1,
+            "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
           },
           "type": {
             "title": "Relationship Type",
