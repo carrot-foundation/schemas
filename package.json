@@ -58,6 +58,7 @@
     "validate-schemas": "node scripts/validate-schemas.js"
   },
   "dependencies": {
+    "@tsconfig/recommended": "1.0.10",
     "zod": "4.1.9"
   },
   "devDependencies": {
