@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
-export const uuid = z.uuidv4('Must be a valid UUID v4 string').meta({
+export const UuidSchema = z.uuidv4('Must be a valid UUID v4 string').meta({
   title: 'UUID',
+  description: 'A universally unique identifier version 4',
   examples: [
     'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
     '6f520d88-864d-432d-bf9f-5c3166c4818f',
@@ -9,7 +10,7 @@ export const uuid = z.uuidv4('Must be a valid UUID v4 string').meta({
   ],
 });
 
-export const ethereumAddress = z
+export const EthereumAddressSchema = z
   .string()
   .regex(
     /^0x[a-fA-F0-9]{40}$/,
@@ -17,37 +18,42 @@ export const ethereumAddress = z
   )
   .meta({
     title: 'Ethereum Address',
+    description: 'A valid Ethereum address in hexadecimal format',
     examples: [
       '0x1234567890abcdef1234567890abcdef12345678',
       '0xabcdef1234567890abcdef1234567890abcdef12',
     ],
   });
 
-export const isoTimestamp = z.iso
+export const IsoTimestampSchema = z.iso
   .datetime({
     message: 'Must be a valid ISO 8601 timestamp with timezone',
   })
   .meta({
     title: 'ISO Timestamp',
+    description: 'ISO 8601 formatted timestamp with timezone information',
     examples: ['2024-12-05T11:02:47.000Z', '2025-02-22T10:35:12.000Z'],
   });
 
-export const isoDate = z.iso
+export const IsoDateSchema = z.iso
   .date('Must be a valid ISO 8601 date (YYYY-MM-DD)')
   .meta({
     title: 'ISO Date',
+    description: 'ISO 8601 formatted date in YYYY-MM-DD format',
     examples: ['2024-12-05', '2025-02-22', '2024-02-10'],
   });
 
-export const isoCountryCode = z
+export const IsoCountryCodeSchema = z
   .string()
   .regex(/^[A-Z]{2}$/, 'Must be a valid ISO 3166-1 alpha-2 country code')
   .meta({
     title: 'ISO Country Code',
+    description:
+      'Two-letter country code following ISO 3166-1 alpha-2 standard',
     examples: ['BR', 'US', 'DE'],
   });
 
-export const isoAdministrativeDivisionCode = z
+export const IsoAdministrativeDivisionCodeSchema = z
   .string()
   .regex(
     /^[A-Z]{2}-[A-Z0-9]{1,3}$/,
@@ -55,79 +61,91 @@ export const isoAdministrativeDivisionCode = z
   )
   .meta({
     title: 'ISO Administrative Division Code',
+    description: 'Administrative division code following ISO 3166-2 standard',
     examples: ['BR-AP', 'BR-ES', 'US-CA'],
   });
 
-export const latitude = z
+export const LatitudeSchema = z
   .number()
   .min(-90)
   .max(90)
   .meta({
     title: 'Latitude',
+    description: 'Geographic latitude coordinate in decimal degrees',
     examples: [-0.02, -20.38, 40.7128],
   });
-export const longitude = z
+export const LongitudeSchema = z
   .number()
   .min(-180)
   .max(180)
   .meta({
     title: 'Longitude',
+    description: 'Geographic longitude coordinate in decimal degrees',
     examples: [-51.06, -40.34, -74.006],
   });
 
-export const weightKg = z
+export const WeightKgSchema = z
   .number()
   .min(0)
   .meta({
     title: 'Weight (kg)',
+    description: 'Weight measurement in kilograms',
     examples: [3000, 1500, 500],
   });
 
-export const nonEmptyString = z
+export const NonEmptyStringSchema = z
   .string()
   .min(1, 'Cannot be empty')
   .meta({
     title: 'Non-Empty String',
+    description: 'A string that contains at least one character',
     examples: ['Example text', 'Sample value', 'Test string'],
   });
 
-export const name = nonEmptyString.max(200).meta({
+export const NameSchema = NonEmptyStringSchema.max(200).meta({
   title: 'Name',
+  description: 'A general-purpose name field with maximum 200 characters',
   examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Solutions Ltd'],
 });
 
-export const slug = nonEmptyString
-  .regex(
-    /^[a-z0-9-]+$/,
-    'Must contain only lowercase letters, numbers, and hyphens',
-  )
+export const SlugSchema = NonEmptyStringSchema.regex(
+  /^[a-z0-9-]+$/,
+  'Must contain only lowercase letters, numbers, and hyphens',
+)
   .max(100)
   .meta({
     title: 'Slug',
+    description:
+      'URL-friendly identifier with lowercase letters, numbers, and hyphens',
     examples: ['mass-id-123', 'recycled-plastic', 'organic-waste'],
   });
 
-export const wasteType = nonEmptyString.meta({
+export const WasteTypeSchema = NonEmptyStringSchema.meta({
   title: 'Waste Type',
+  description: 'Category or type of waste material',
   examples: ['Organic', 'Plastic', 'Metal'],
 });
 
-export const wasteSubtype = nonEmptyString.max(100).meta({
+export const WasteSubtypeSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Waste Subtype',
+  description: 'Specific subcategory of waste within a waste type',
   examples: ['Food, Food Waste and Beverages', 'PET Bottles', 'Aluminum Cans'],
 });
 
-export const participantRole = nonEmptyString.max(100).meta({
+export const ParticipantRoleSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Participant Role',
+  description:
+    'Role that a participant plays in the waste management supply chain',
   examples: ['Waste Generator', 'Hauler', 'Recycler'],
 });
 
-export const participantName = nonEmptyString.max(100).meta({
+export const ParticipantNameSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Participant Name',
+  description: 'Name of a participant in the waste management system',
   examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Tech Corp'],
 });
 
-export const facilityType = z
+export const FacilityTypeSchema = z
   .enum([
     'Waste Generation',
     'Collection Point',
@@ -141,139 +159,150 @@ export const facilityType = z
   ])
   .meta({
     title: 'Facility Type',
+    description: 'Type of facility in the waste management infrastructure',
     examples: ['Waste Generation', 'Recycling Facility', 'Collection Point'],
   });
 
-export const chainId = z
+export const ChainIdSchema = z
   .number()
   .int()
   .min(1)
   .meta({
     title: 'Chain ID',
+    description: 'Blockchain network identifier',
     examples: [1, 137, 11155111],
   });
 
-export const percentage = z
+export const PercentageSchema = z
   .number()
   .min(0)
   .max(100)
   .meta({
     title: 'Percentage',
+    description: 'Percentage value between 0 and 100',
     examples: [50, 75.5, 100],
   });
 
-export const nonNegativeInteger = z
+export const NonNegativeIntegerSchema = z
   .number()
   .int()
   .min(0)
   .meta({
     title: 'Non-Negative Integer',
+    description: 'Integer value that is zero or positive',
     examples: [0, 123, 4126],
   });
 
-export const positiveInteger = z
+export const PositiveIntegerSchema = z
   .number()
   .int()
   .min(1)
   .meta({
     title: 'Positive Integer',
+    description: 'Integer value that is greater than zero',
     examples: [1, 123, 456],
   });
 
-export const nonNegativeFloat = z
+export const NonNegativeFloatSchema = z
   .number()
   .min(0)
   .meta({
     title: 'Non-Negative Float',
+    description: 'Floating-point number that is zero or positive',
     examples: [0.0, 45.2, 72.5],
   });
 
-export const hours = z
+export const HoursSchema = z
   .number()
   .min(0)
   .multipleOf(0.1)
   .meta({
     title: 'Hours',
+    description: 'Time duration in hours with 0.1 hour precision',
     examples: [72.5, 24.0, 168.5],
   });
 
-export const ipfsUri = nonEmptyString
-  .regex(/^ipfs:\/\/[a-zA-Z0-9]+(\/.*)?$/, 'Must be a valid IPFS URI with CID')
-  .meta({
-    title: 'IPFS URI',
-    examples: [
-      'ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png',
-      'ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o',
-    ],
-  });
+export const IpfsUriSchema = NonEmptyStringSchema.regex(
+  /^ipfs:\/\/[a-zA-Z0-9]+(\/.*)?$/,
+  'Must be a valid IPFS URI with CID',
+).meta({
+  title: 'IPFS URI',
+  description: 'InterPlanetary File System URI pointing to distributed content',
+  examples: [
+    'ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png',
+    'ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o',
+  ],
+});
 
-export const semanticVersion = nonEmptyString
-  .regex(
-    /^v?\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?(\+[a-zA-Z0-9.-]+)?$/,
-    'Must be a valid semantic version string',
-  )
-  .meta({
-    title: 'Semantic Version',
-    examples: ['0.1.0', '1.0.0', '2.1.3'],
-  });
+export const SemanticVersionSchema = NonEmptyStringSchema.regex(
+  /^v?\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?(\+[a-zA-Z0-9.-]+)?$/,
+  'Must be a valid semantic version string',
+).meta({
+  title: 'Semantic Version',
+  description: 'Version string following semantic versioning specification',
+  examples: ['0.1.0', '1.0.0', '2.1.3'],
+});
 
-export const tokenId = nonEmptyString
-  .regex(/^\d+$/, 'Must be a numeric string (supports uint256)')
-  .meta({
-    title: 'Token ID',
-    examples: ['123', '456789', '1000000'],
-  });
+export const TokenIdSchema = NonEmptyStringSchema.regex(
+  /^\d+$/,
+  'Must be a numeric string (supports uint256)',
+).meta({
+  title: 'Token ID',
+  description: 'Numeric identifier for blockchain tokens as string',
+  examples: ['123', '456789', '1000000'],
+});
 
-export const hexColor = nonEmptyString
-  .regex(
-    /^#[0-9A-F]{6}$/,
-    'Must be a hex color code with # prefix and uppercase',
-  )
-  .meta({
-    title: 'Hex Color',
-    examples: ['#2D5A27', '#FF5733', '#1E90FF'],
-  });
+export const HexColorSchema = NonEmptyStringSchema.regex(
+  /^#[0-9A-F]{6}$/,
+  'Must be a hex color code with # prefix and uppercase',
+).meta({
+  title: 'Hex Color',
+  description: 'Hexadecimal color code with hash prefix',
+  examples: ['#2D5A27', '#FF5733', '#1E90FF'],
+});
 
-export const sha256Hash = z
+export const Sha256HashSchema = z
   .hash('sha256', {
     error: 'Must be a SHA256 hash as 32-byte hex string',
   })
   .meta({
     format: undefined,
     title: 'SHA256 Hash',
+    description: 'SHA-256 cryptographic hash as hexadecimal string',
     examples: [
       '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
       '6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6',
     ],
   });
 
-export const keccak256Hash = sha256Hash
-  .describe('Keccak256 hash as 32-byte hex string')
-  .meta({
-    title: 'Keccak256 Hash',
-    examples: [
-      'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
-      'b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2',
-    ],
-  });
+export const Keccak256HashSchema = Sha256HashSchema.meta({
+  title: 'Keccak256 Hash',
+  description: 'Keccak256 cryptographic hash as hexadecimal string',
+  examples: [
+    'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
+    'b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2',
+  ],
+});
 
-export const externalId = uuid.meta({
+export const ExternalIdSchema = UuidSchema.meta({
   title: 'External ID',
+  description: 'UUID identifier for external system references',
   examples: [
     'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
     'b2c4e6f8-a1b3-4c5d-9e8f-123456789abc',
   ],
 });
 
-export const externalUrl = z.url('Must be a valid URL').meta({
+export const ExternalUrlSchema = z.url('Must be a valid URL').meta({
   title: 'External URL',
+  description: 'Valid URL pointing to external resources',
   examples: [
     'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
     'https://carrot.eco/whitepaper.pdf',
   ],
 });
 
-export const schemaType = z
+export const SchemaTypeSchema = z
   .enum([
     'MassID',
     'MassID Audit',
@@ -286,21 +315,22 @@ export const schemaType = z
   ])
   .meta({
     title: 'Schema Type',
+    description: 'Type of schema in the Carrot ecosystem',
     examples: ['MassID', 'RecycledID', 'GasID'],
   });
 
-export const tokenSymbol = nonEmptyString
-  .max(10)
+export const TokenSymbolSchema = NonEmptyStringSchema.max(10)
   .regex(
     /^[A-Z0-9-]+$/,
     'Must contain only uppercase letters, numbers, and hyphens',
   )
   .meta({
     title: 'Token Symbol',
+    description: 'Symbol representing a token or cryptocurrency',
     examples: ['MASS', 'REC', 'GAS'],
   });
 
-export const relationshipType = z
+export const RelationshipTypeSchema = z
   .enum([
     'collection',
     'credit',
@@ -313,40 +343,42 @@ export const relationshipType = z
   ])
   .meta({
     title: 'Relationship Type',
+    description:
+      'Type of relationship between different entities in the system',
     examples: ['mass-id', 'audit', 'collection'],
   });
 
-export type UUID = z.infer<typeof uuid>;
-export type EthereumAddress = z.infer<typeof ethereumAddress>;
-export type ISOTimestamp = z.infer<typeof isoTimestamp>;
-export type ISODate = z.infer<typeof isoDate>;
-export type ISOCountryCode = z.infer<typeof isoCountryCode>;
+export type UUID = z.infer<typeof UuidSchema>;
+export type EthereumAddress = z.infer<typeof EthereumAddressSchema>;
+export type ISOTimestamp = z.infer<typeof IsoTimestampSchema>;
+export type ISODate = z.infer<typeof IsoDateSchema>;
+export type ISOCountryCode = z.infer<typeof IsoCountryCodeSchema>;
 export type ISOAdministrativeDivisionCode = z.infer<
-  typeof isoAdministrativeDivisionCode
+  typeof IsoAdministrativeDivisionCodeSchema
 >;
-export type Latitude = z.infer<typeof latitude>;
-export type Longitude = z.infer<typeof longitude>;
-export type WeightKg = z.infer<typeof weightKg>;
-export type NonEmptyString = z.infer<typeof nonEmptyString>;
-export type Name = z.infer<typeof name>;
-export type Slug = z.infer<typeof slug>;
-export type WasteType = z.infer<typeof wasteType>;
-export type WasteSubtype = z.infer<typeof wasteSubtype>;
-export type ParticipantRole = z.infer<typeof participantRole>;
-export type ParticipantName = z.infer<typeof participantName>;
-export type FacilityType = z.infer<typeof facilityType>;
-export type ChainId = z.infer<typeof chainId>;
-export type Percentage = z.infer<typeof percentage>;
-export type NonNegativeInteger = z.infer<typeof nonNegativeInteger>;
-export type PositiveInteger = z.infer<typeof positiveInteger>;
-export type NonNegativeFloat = z.infer<typeof nonNegativeFloat>;
-export type Hours = z.infer<typeof hours>;
-export type IpfsUri = z.infer<typeof ipfsUri>;
-export type SemanticVersion = z.infer<typeof semanticVersion>;
-export type TokenId = z.infer<typeof tokenId>;
-export type HexColor = z.infer<typeof hexColor>;
-export type Keccak256Hash = z.infer<typeof keccak256Hash>;
-export type ExternalId = z.infer<typeof externalId>;
-export type ExternalUrl = z.infer<typeof externalUrl>;
-export type TokenSymbol = z.infer<typeof tokenSymbol>;
-export type RelationshipType = z.infer<typeof relationshipType>;
+export type Latitude = z.infer<typeof LatitudeSchema>;
+export type Longitude = z.infer<typeof LongitudeSchema>;
+export type WeightKg = z.infer<typeof WeightKgSchema>;
+export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
+export type Name = z.infer<typeof NameSchema>;
+export type Slug = z.infer<typeof SlugSchema>;
+export type WasteType = z.infer<typeof WasteTypeSchema>;
+export type WasteSubtype = z.infer<typeof WasteSubtypeSchema>;
+export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
+export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
+export type FacilityType = z.infer<typeof FacilityTypeSchema>;
+export type ChainId = z.infer<typeof ChainIdSchema>;
+export type Percentage = z.infer<typeof PercentageSchema>;
+export type NonNegativeInteger = z.infer<typeof NonNegativeIntegerSchema>;
+export type PositiveInteger = z.infer<typeof PositiveIntegerSchema>;
+export type NonNegativeFloat = z.infer<typeof NonNegativeFloatSchema>;
+export type Hours = z.infer<typeof HoursSchema>;
+export type IpfsUri = z.infer<typeof IpfsUriSchema>;
+export type SemanticVersion = z.infer<typeof SemanticVersionSchema>;
+export type TokenId = z.infer<typeof TokenIdSchema>;
+export type HexColor = z.infer<typeof HexColorSchema>;
+export type Keccak256Hash = z.infer<typeof Keccak256HashSchema>;
+export type ExternalId = z.infer<typeof ExternalIdSchema>;
+export type ExternalUrl = z.infer<typeof ExternalUrlSchema>;
+export type TokenSymbol = z.infer<typeof TokenSymbolSchema>;
+export type RelationshipType = z.infer<typeof RelationshipTypeSchema>;
