@@ -209,31 +209,5 @@
         "redirected_rewards": "Discounted rewards from large businesses redirected to accredited NGOs"
       }
     }
-  },
-  "data_signatures": {
-    "content": {
-      "signer": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot RecycledID",
-        "version": "1.0.0",
-        "chain_id": 1
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      "signature": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1c"
-    },
-    "source_data": {
-      "signer": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-      "signing_method": "eip712-offchain",
-      "domain": {
-        "name": "Carrot RecycledID Source",
-        "version": "1.0.0",
-        "chain_id": 1
-      },
-      "hash_algorithm": "keccak256",
-      "hash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-      "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678901c"
-    }
   }
 }
