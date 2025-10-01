@@ -272,26 +272,6 @@ export const MassIDDataSchema = z
       .meta({
         title: 'Locations',
         description: 'All locations referenced in this MassID, indexed by ID',
-        examples: [
-          [
-            {
-              id: 'f77afa89-1c58-40fd-9bf5-8a86703a8af4',
-              municipality: 'Macapá',
-              administrative_division: 'Amapá',
-              administrative_division_code: 'BR-AP',
-              country: 'Brazil',
-              country_code: 'BR',
-              facility_type: 'Waste Generation',
-              coordinates: {
-                latitude: -0.02,
-                longitude: -51.06,
-                precision_level: 'city',
-              },
-              responsible_participant_id:
-                '6f520d88-864d-432d-bf9f-5c3166c4818f',
-            },
-          ],
-        ],
       }),
     participants: uniqueBy(
       ParticipantSchema,
@@ -303,20 +283,6 @@ export const MassIDDataSchema = z
         title: 'Participants',
         description:
           'All participants referenced in this MassID, indexed by ID',
-        examples: [
-          [
-            {
-              id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-              name: 'Enlatados Produção',
-              roles: ['Waste Generator'],
-            },
-            {
-              id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-              name: 'Eco Reciclagem',
-              roles: ['Hauler', 'Recycler'],
-            },
-          ],
-        ],
       }),
     chain_of_custody: ChainOfCustodySchema,
     geographic_data: GeographicDataSchema,
@@ -325,76 +291,6 @@ export const MassIDDataSchema = z
     title: 'MassID Data',
     description:
       'MassID data containing waste tracking and chain of custody information',
-    examples: [
-      {
-        waste_classification: {
-          primary_type: 'Organic',
-          subtype: 'Food, Food Waste and Beverages',
-          local_classification: {
-            code: '04 02 20',
-            description:
-              'Lodos do tratamento local de efluentes não abrangidas em 04 02 19',
-            system: 'Ibama Waste Code',
-          },
-          measurement_unit: 'kg',
-          net_weight: 3000,
-          contamination_level: 'Low',
-        },
-        locations: [
-          {
-            id: 'f77afa89-1c58-40fd-9bf5-8a86703a8af4',
-            municipality: 'Macapá',
-            administrative_division: 'Amapá',
-            administrative_division_code: 'BR-AP',
-            country: 'Brazil',
-            country_code: 'BR',
-            facility_type: 'Waste Generation',
-            coordinates: {
-              latitude: -0.02,
-              longitude: -51.06,
-              precision_level: 'city',
-            },
-            responsible_participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-          },
-        ],
-        participants: [
-          {
-            id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-            name: 'Enlatados Produção',
-            roles: ['Waste Generator'],
-          },
-        ],
-        chain_of_custody: {
-          events: [
-            {
-              event_id: '8f799606-4ed5-49ce-8310-83b0c56ac01e',
-              event_name: 'Pick-up',
-              description:
-                'Waste picked up by hauler Eco Reciclagem at Enlatados Produção',
-              timestamp: '2024-12-05T11:02:47.000Z',
-              participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-              location_id: 'f77afa89-1c58-40fd-9bf5-8a86703a8af4',
-            },
-          ],
-          total_distance_km: 45.2,
-          total_duration_hours: 72.5,
-        },
-        geographic_data: {
-          origin_location_id: 'f77afa89-1c58-40fd-9bf5-8a86703a8af4',
-          processing_location_ids: ['d01217a9-9d21-4f16-8908-0fea6750953e'],
-          final_destination_id: 'd01217a9-9d21-4f16-8908-0fea6750953e',
-          transport_routes: [
-            {
-              from_location_id: 'f77afa89-1c58-40fd-9bf5-8a86703a8af4',
-              to_location_id: 'd01217a9-9d21-4f16-8908-0fea6750953e',
-              distance_km: 45.2,
-              transport_method: 'Truck',
-              duration_hours: 72.5,
-            },
-          ],
-        },
-      },
-    ],
   });
 
 export type MassIDDataSchemaType = z.infer<typeof MassIDDataSchema>;
