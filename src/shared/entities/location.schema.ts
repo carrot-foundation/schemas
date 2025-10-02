@@ -17,6 +17,8 @@ const PrecisionLevelSchema = z
     examples: ['city', 'exact', 'neighborhood'],
   });
 
+export type PrecisionLevel = z.infer<typeof PrecisionLevelSchema>;
+
 export const CoordinatesSchema = z
   .strictObject({
     latitude: LatitudeSchema.meta({
@@ -33,6 +35,7 @@ export const CoordinatesSchema = z
     title: 'Coordinates',
     description: 'GPS coordinates of the location',
   });
+export type Coordinates = z.infer<typeof CoordinatesSchema>;
 
 export const LocationSchema = z
   .strictObject({
@@ -43,10 +46,12 @@ export const LocationSchema = z
     municipality: NonEmptyStringSchema.max(50).meta({
       title: 'Municipality',
       description: 'Municipality or city name',
+      examples: ['New York', 'São Paulo', 'London', 'Tokyo'],
     }),
     administrative_division: NonEmptyStringSchema.max(50).meta({
       title: 'Administrative Division',
       description: 'State, province, or administrative region',
+      examples: ['California', 'Ontario', 'Bavaria', 'Queensland'],
     }),
     administrative_division_code: IsoAdministrativeDivisionCodeSchema.meta({
       title: 'Administrative Division Code',
@@ -55,6 +60,7 @@ export const LocationSchema = z
     country: NonEmptyStringSchema.max(50).meta({
       title: 'Country',
       description: 'Full country name in English',
+      examples: ['United States', 'Canada', 'Germany', 'Australia'],
     }),
     country_code: IsoCountryCodeSchema.meta({
       title: 'Country Code',
@@ -73,40 +79,6 @@ export const LocationSchema = z
   .meta({
     title: 'Location',
     description: 'Geographic location with address and coordinate information',
-    examples: [
-      {
-        id: 'f77afa89-1c58-40fd-9bf5-8a86703a8af4',
-        municipality: 'Macapá',
-        administrative_division: 'Amapá',
-        administrative_division_code: 'BR-AP',
-        country: 'Brazil',
-        country_code: 'BR',
-        facility_type: 'Waste Generation',
-        coordinates: {
-          latitude: -0.02,
-          longitude: -51.06,
-          precision_level: 'city',
-        },
-        responsible_participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-      },
-      {
-        id: 'd01217a9-9d21-4f16-8908-0fea6750953e',
-        municipality: 'Cariacica',
-        administrative_division: 'Espirito Santo',
-        administrative_division_code: 'BR-ES',
-        country: 'Brazil',
-        country_code: 'BR',
-        facility_type: 'Recycling Facility',
-        coordinates: {
-          latitude: -20.38,
-          longitude: -40.34,
-          precision_level: 'city',
-        },
-        responsible_participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-      },
-    ],
   });
 
-export type LocationSchemaType = z.infer<typeof LocationSchema>;
-export type CoordinatesType = z.infer<typeof CoordinatesSchema>;
-export type PrecisionLevelType = z.infer<typeof PrecisionLevelSchema>;
+export type Location = z.infer<typeof LocationSchema>;

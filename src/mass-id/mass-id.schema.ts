@@ -17,6 +17,8 @@ const AttributeWasteTypeSchema = z
     description: 'Waste type attribute',
   });
 
+export type AttributeWasteType = z.infer<typeof AttributeWasteTypeSchema>;
+
 const AttributeWasteSubtypeSchema = z
   .strictObject({
     trait_type: z.literal('Waste Subtype'),
@@ -26,6 +28,8 @@ const AttributeWasteSubtypeSchema = z
     title: 'Waste Subtype Attribute',
     description: 'Waste subtype attribute',
   });
+
+export type AttributeWasteSubtype = z.infer<typeof AttributeWasteSubtypeSchema>;
 
 const AttributeWeightSchema = z
   .strictObject({
@@ -37,6 +41,8 @@ const AttributeWeightSchema = z
     title: 'Weight Attribute',
     description: 'Weight attribute with numeric display',
   });
+
+export type AttributeWeight = z.infer<typeof AttributeWeightSchema>;
 
 const AttributeOriginCountrySchema = z
   .strictObject({
@@ -51,6 +57,10 @@ const AttributeOriginCountrySchema = z
     description: 'Origin country attribute',
   });
 
+export type AttributeOriginCountry = z.infer<
+  typeof AttributeOriginCountrySchema
+>;
+
 const AttributeOriginMunicipalitySchema = z
   .strictObject({
     trait_type: z.literal('Origin Municipality'),
@@ -63,6 +73,10 @@ const AttributeOriginMunicipalitySchema = z
     title: 'Origin Municipality Attribute',
     description: 'Origin municipality attribute',
   });
+
+export type AttributeOriginMunicipality = z.infer<
+  typeof AttributeOriginMunicipalitySchema
+>;
 
 const AttributeOriginDivisionSchema = z
   .strictObject({
@@ -78,6 +92,10 @@ const AttributeOriginDivisionSchema = z
     description: 'Origin administrative division attribute',
   });
 
+export type AttributeOriginDivision = z.infer<
+  typeof AttributeOriginDivisionSchema
+>;
+
 const AttributeRecyclerSchema = z
   .strictObject({
     trait_type: z.literal('Recycler'),
@@ -90,6 +108,8 @@ const AttributeRecyclerSchema = z
     title: 'Recycler Attribute',
     description: 'Recycler attribute',
   });
+
+export type AttributeRecycler = z.infer<typeof AttributeRecyclerSchema>;
 
 const AttributeIntegratorSchema = z
   .strictObject({
@@ -104,6 +124,8 @@ const AttributeIntegratorSchema = z
     title: 'Integrator Attribute',
     description: 'Integrator attribute',
   });
+
+export type AttributeIntegrator = z.infer<typeof AttributeIntegratorSchema>;
 
 const AttributePickupDateSchema = z
   .strictObject({
@@ -122,6 +144,8 @@ const AttributePickupDateSchema = z
     description: 'Pick-up date attribute',
   });
 
+export type AttributePickupDate = z.infer<typeof AttributePickupDateSchema>;
+
 const AttributeRecyclingDateSchema = z
   .strictObject({
     trait_type: z.literal('Recycling Date'),
@@ -138,6 +162,10 @@ const AttributeRecyclingDateSchema = z
     title: 'Recycling Date Attribute',
     description: 'Recycling date attribute',
   });
+
+export type AttributeRecyclingDate = z.infer<
+  typeof AttributeRecyclingDateSchema
+>;
 
 const MassIDAttributesSchema = z
   .tuple([
@@ -156,6 +184,8 @@ const MassIDAttributesSchema = z
     title: 'MassID Attributes',
     description: 'Fixed set of MassID NFT attributes in required order',
   });
+
+export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;
 
 export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
@@ -184,25 +214,4 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
   version: '1.0.0',
 });
 
-export type MassIDIpfsSchemaType = z.infer<typeof MassIDIpfsSchema>;
-export type MassIDAttributesType = z.infer<typeof MassIDAttributesSchema>;
-export type AttributeWasteTypeType = z.infer<typeof AttributeWasteTypeSchema>;
-export type AttributeWasteSubtypeType = z.infer<
-  typeof AttributeWasteSubtypeSchema
->;
-export type AttributeWeightType = z.infer<typeof AttributeWeightSchema>;
-export type AttributeOriginCountryType = z.infer<
-  typeof AttributeOriginCountrySchema
->;
-export type AttributeOriginMunicipalityType = z.infer<
-  typeof AttributeOriginMunicipalitySchema
->;
-export type AttributeOriginDivisionType = z.infer<
-  typeof AttributeOriginDivisionSchema
->;
-export type AttributeRecyclerType = z.infer<typeof AttributeRecyclerSchema>;
-export type AttributeIntegratorType = z.infer<typeof AttributeIntegratorSchema>;
-export type AttributePickupDateType = z.infer<typeof AttributePickupDateSchema>;
-export type AttributeRecyclingDateType = z.infer<
-  typeof AttributeRecyclingDateSchema
->;
+export type MassIDIpfs = z.infer<typeof MassIDIpfsSchema>;
