@@ -13,6 +13,7 @@ export function uniqueArrayItems<T extends z.ZodTypeAny>(
 
 export function uniqueBy<T extends z.ZodTypeAny, K>(
   schema: T,
+  // eslint-disable-next-line no-unused-vars
   selector: (item: z.infer<T>) => K,
   errorMessage: string = 'Items must be unique',
 ) {

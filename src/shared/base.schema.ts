@@ -114,24 +114,19 @@ export const BaseIpfsSchema = z
       example:
         'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json',
     }),
-
     schema: SchemaInfoSchema,
-
     created_at: IsoTimestampSchema.meta({
       title: 'Created At',
       description: 'ISO 8601 creation timestamp for this record',
     }),
-
     external_id: ExternalIdSchema.meta({
       title: 'External ID',
       description: 'Off-chain reference ID (UUID from Carrot backend)',
     }),
-
     external_url: ExternalUrlSchema.meta({
       title: 'External URL',
       description: 'External URL of the content',
     }),
-
     original_content_hash: Sha256HashSchema.meta({
       title: 'Original Content Hash',
       description:
@@ -143,14 +138,11 @@ export const BaseIpfsSchema = z
         'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
     }),
     creator: RecordCreatorSchema.optional(),
-
     relationships: z.array(RecordRelationshipSchema).optional().meta({
       title: 'Relationships',
       description: 'References to other IPFS records this record relates to',
     }),
-
     environment: RecordEnvironmentSchema.optional(),
-
     data: z.record(z.string(), z.unknown()).optional().meta({
       title: 'Custom Data',
       description: "Custom data block that includes the record's data",

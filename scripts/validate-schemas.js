@@ -149,7 +149,7 @@ async function loadMetaSchema() {
       { with: { type: 'json' } }
     );
     return metaSchema;
-  } catch (error) {
+  } catch {
     return fetchOnlineMetaSchema();
   }
 }
@@ -218,21 +218,17 @@ function findSchemaForData(dataPath) {
     return schemaInSameDir;
   }
 
-  try {
-    const content = fs.readFileSync(dataPath, 'utf8');
-    const data = JSON.parse(content);
+  const content = fs.readFileSync(dataPath, 'utf8');
+  const data = JSON.parse(content);
 
-    if (data.metadata_type) {
-      const type = data.metadata_type.toLowerCase();
-      const matches = glob.sync(
-        path.join(CONFIG.schemasDir, `**/${type}.schema.json`),
-      );
-      if (matches.length > 0) {
-        return matches[0];
-      }
+  if (data.metadata_type) {
+    const type = data.metadata_type.toLowerCase();
+    const matches = glob.sync(
+      path.join(CONFIG.schemasDir, `**/${type}.schema.json`),
+    );
+    if (matches.length > 0) {
+      return matches[0];
     }
-  } catch (error) {
-    // Ignore parsing errors
   }
 
   return null;
