@@ -29,7 +29,11 @@
     "massIDIpfsSchema",
     "massIDDataSchema",
     "baseIpfsSchema",
-    "IpfsUri"
+    "IpfsUri",
+    "bafybeigdyrzt",
+    "efuylqabf",
+    "oclgtqy",
+    "fbzdi"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

@@ -9,6 +9,7 @@
     "$schema": {
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
       "type": "string",
       "format": "uri"
     },
@@ -111,6 +112,11 @@
         "name": {
           "title": "Creator Name",
           "description": "Company or individual name that created this record",
+          "examples": [
+            "Carrot Foundation",
+            "Alice",
+            "Bob"
+          ],
           "type": "string"
         },
         "id": {
@@ -175,6 +181,13 @@
           "description": {
             "title": "Relationship Description",
             "description": "Human-readable description of the relationship",
+            "examples": [
+              "This record supersedes the previous version",
+              "Related carbon credit batch",
+              "Source document for this verification",
+              "Child record derived from this parent",
+              "Updated version of original record"
+            ],
             "type": "string"
           }
         },
@@ -267,6 +280,12 @@
                 "code": {
                   "title": "Classification Code",
                   "description": "Local waste classification code",
+                  "examples": [
+                    "20 01 01",
+                    "D001",
+                    "EWC-150101",
+                    "IBAMA-A001"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 20
@@ -274,6 +293,12 @@
                 "description": {
                   "title": "Classification Description",
                   "description": "Local waste classification description",
+                  "examples": [
+                    "Paper and cardboard packaging",
+                    "Ignitable waste",
+                    "Paper and cardboard packaging waste",
+                    "Municipal solid waste - organic fraction"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 200
@@ -281,6 +306,12 @@
                 "system": {
                   "title": "Classification System",
                   "description": "Classification system name (e.g., \"Ibama Waste Code\", \"European Waste Catalogue\", \"US EPA Codes\")",
+                  "examples": [
+                    "European Waste Catalogue",
+                    "US EPA Codes",
+                    "Ibama Waste Code",
+                    "Brazilian ABNT Classification"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 50
@@ -632,6 +663,12 @@
                   "event_name": {
                     "title": "Event Name",
                     "description": "Name of custody or processing event",
+                    "examples": [
+                      "Sorting",
+                      "Processing",
+                      "Recycling",
+                      "Weighing"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 50
@@ -639,6 +676,14 @@
                   "description": {
                     "title": "Event Description",
                     "description": "Detailed description of what happened during this event",
+                    "examples": [
+                      "Waste collected from residential area using collection truck",
+                      "Material sorted into recyclable and non-recyclable fractions",
+                      "Plastic waste processed through shredding and washing",
+                      "Waste transferred to authorized recycling facility",
+                      "Final disposal at licensed landfill site",
+                      "Quality inspection and contamination assessment completed"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 200
@@ -701,6 +746,16 @@
                         "name": {
                           "title": "Attribute Name",
                           "description": "Event attribute name",
+                          "examples": [
+                            "temperature",
+                            "humidity",
+                            "contamination_percentage",
+                            "quality_grade",
+                            "batch_number",
+                            "operator_id",
+                            "equipment_used",
+                            "processing_cost"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 100
@@ -708,6 +763,16 @@
                         "value": {
                           "title": "Attribute Value",
                           "description": "Event attribute value",
+                          "examples": [
+                            25.5,
+                            "Grade A",
+                            true,
+                            "BATCH-2024-001",
+                            12.75,
+                            "Shredder-X200",
+                            false,
+                            "OP-456"
+                          ],
                           "anyOf": [
                             {
                               "type": "string"
@@ -757,6 +822,16 @@
                         "type": {
                           "title": "Document Type",
                           "description": "Type of supporting documentation",
+                          "examples": [
+                            "Waste Transfer Note",
+                            "Certificate of Disposal",
+                            "Certificate of Final Destination",
+                            "Quality Assessment Report",
+                            "Transport Manifest",
+                            "Processing Receipt",
+                            "Environmental Permit",
+                            "Invoice"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 50
@@ -764,6 +839,13 @@
                         "document_number": {
                           "title": "Document Number",
                           "description": "Official document number if applicable",
+                          "examples": [
+                            "WTN-2024-001234",
+                            "CD-ENV-456789",
+                            "INV-2024-QTR1-789",
+                            "PERMIT-EPA-2024-001",
+                            "MANIFEST-DOT-567890"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 50
@@ -772,9 +854,11 @@
                           "title": "Document Reference",
                           "description": "Reference to document (IPFS hash, file name, or external URL)",
                           "examples": [
-                            "Example text",
-                            "Sample value",
-                            "Test string"
+                            "QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o",
+                            "waste_transfer_note_2024_001.pdf",
+                            "https://docs.example.com/certificates/disposal_cert_456.pdf",
+                            "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
+                            "processing_receipt_20240315.jpg"
                           ],
                           "type": "string",
                           "minLength": 1
@@ -794,6 +878,14 @@
                         "issuer": {
                           "title": "Document Issuer",
                           "description": "Entity that issued the document",
+                          "examples": [
+                            "Environmental Protection Agency",
+                            "Waste Management Solutions Ltd",
+                            "Green Recycling Corp",
+                            "City Waste Authority",
+                            "EcoProcess Industries",
+                            "Regional Environmental Office"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 100
@@ -949,6 +1041,16 @@
                   "transport_method": {
                     "title": "Transport Method",
                     "description": "Method of transportation for this segment",
+                    "examples": [
+                      "Truck",
+                      "Rail",
+                      "Barge",
+                      "Container Ship",
+                      "Conveyor Belt",
+                      "Pipeline",
+                      "Walking",
+                      "Forklift"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 50
