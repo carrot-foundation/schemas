@@ -7,11 +7,11 @@ import {
   IpfsUriSchema,
   HexColorSchema,
   NonNegativeFloatSchema,
-  SchemaTypeSchema,
+  RecordSchemaTypeSchema,
 } from './definitions.schema.js';
 import { uniqueBy } from './helpers.schema.js';
 
-const NftSchemaTypeSchema = SchemaTypeSchema.extract([
+const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   'MassID',
   'RecycledID',
   'GasID',
@@ -20,6 +20,8 @@ const NftSchemaTypeSchema = SchemaTypeSchema.extract([
   title: 'NFT Schema Type',
   description: 'Type of schema for NFT records',
 });
+
+export type NftSchemaType = z.infer<typeof NftSchemaTypeSchema>;
 
 const BlockchainSchema = z
   .strictObject({
@@ -44,6 +46,8 @@ const BlockchainSchema = z
     description: 'Blockchain-specific information for the NFT',
   });
 
+export type Blockchain = z.infer<typeof BlockchainSchema>;
+
 const ExternalLinkSchema = z
   .strictObject({
     label: z.string().min(1).max(50).meta({
@@ -64,7 +68,9 @@ const ExternalLinkSchema = z
     description: 'External link with label and description',
   });
 
-const AttributeSchema = z
+export type ExternalLink = z.infer<typeof ExternalLinkSchema>;
+
+const NftAttributeSchema = z
   .strictObject({
     trait_type: z.string().max(50).meta({
       title: 'Trait Type',
@@ -90,6 +96,8 @@ const AttributeSchema = z
     title: 'NFT Attribute',
     description: 'NFT attribute or trait with type and value',
   });
+
+export type NftAttribute = z.infer<typeof NftAttributeSchema>;
 
 export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
@@ -185,7 +193,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     }),
 
   attributes: uniqueBy(
-    AttributeSchema,
+    NftAttributeSchema,
     (attr) => attr.trait_type,
     'Attribute trait_type values must be unique',
   ).meta({
@@ -224,8 +232,4 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   description: 'NFT-specific fields for Carrot IPFS records',
 });
 
-export type NFTIpfsSchemaType = z.infer<typeof NftIpfsSchema>;
-export type NFTSchemaTypeType = z.infer<typeof NftSchemaTypeSchema>;
-export type BlockchainType = z.infer<typeof BlockchainSchema>;
-export type ExternalLinkType = z.infer<typeof ExternalLinkSchema>;
-export type AttributeType = z.infer<typeof AttributeSchema>;
+export type NftIpfs = z.infer<typeof NftIpfsSchema>;

@@ -32,4 +32,4 @@ export const ParticipantSchema = z
     description: 'A participant in the waste management supply chain',
   });
 
-export type ParticipantSchemaType = z.infer<typeof ParticipantSchema>;
+export type Participant = z.infer<typeof ParticipantSchema>;

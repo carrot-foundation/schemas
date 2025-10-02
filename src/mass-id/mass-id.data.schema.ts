@@ -13,14 +13,6 @@ import { LocationSchema } from '../shared/entities/location.schema.js';
 import { ParticipantSchema } from '../shared/entities/participant.schema.js';
 import { uniqueBy } from '../shared/helpers.schema.js';
 
-export type {
-  LocationSchemaType,
-  CoordinatesType,
-  PrecisionLevelType,
-} from '../shared/entities/location.schema';
-
-export type { ParticipantSchemaType } from '../shared/entities/participant.schema';
-
 const LocalClassificationSchema = z
   .strictObject({
     code: NonEmptyStringSchema.max(20).meta({
@@ -56,11 +48,15 @@ const LocalClassificationSchema = z
       'Local or regional waste classification codes and descriptions',
   });
 
+export type LocalClassification = z.infer<typeof LocalClassificationSchema>;
+
 const MeasurementUnitSchema = z.enum(['kg', 'ton']).meta({
   title: 'Measurement Unit',
   description: 'Unit of measurement for the waste quantity',
   examples: ['kg', 'ton'],
 });
+
+export type MeasurementUnit = z.infer<typeof MeasurementUnitSchema>;
 
 const ContaminationLevelSchema = z
   .enum(['None', 'Low', 'Medium', 'High'])
@@ -69,6 +65,8 @@ const ContaminationLevelSchema = z
     description: 'Level of contamination in the waste batch',
     examples: ['Low', 'Medium', 'None'],
   });
+
+export type ContaminationLevel = z.infer<typeof ContaminationLevelSchema>;
 
 const WasteClassificationSchema = z
   .strictObject({
@@ -95,6 +93,8 @@ const WasteClassificationSchema = z
       'Standardized waste material classification and regulatory information',
   });
 
+export type WasteClassification = z.infer<typeof WasteClassificationSchema>;
+
 const EventAttributeFormatSchema = z
   .enum(['KILOGRAM', 'DATE', 'CURRENCY', 'PERCENTAGE', 'COORDINATE'])
   .meta({
@@ -102,6 +102,8 @@ const EventAttributeFormatSchema = z
     description: 'Data format hint for proper display',
     examples: ['KILOGRAM', 'DATE', 'PERCENTAGE'],
   });
+
+export type EventAttributeFormat = z.infer<typeof EventAttributeFormatSchema>;
 
 const EventAttributeSchema = z
   .strictObject({
@@ -139,6 +141,7 @@ const EventAttributeSchema = z
     title: 'Event Attribute',
     description: 'Additional attribute specific to an event',
   });
+export type EventAttribute = z.infer<typeof EventAttributeSchema>;
 
 const EventDocumentationSchema = z
   .strictObject({
@@ -204,6 +207,7 @@ const EventDocumentationSchema = z
     title: 'Event Documentation',
     description: 'Supporting documentation for an event',
   });
+export type EventDocumentation = z.infer<typeof EventDocumentationSchema>;
 
 const ChainOfCustodyEventSchema = z
   .strictObject({
@@ -261,6 +265,7 @@ const ChainOfCustodyEventSchema = z
     title: 'Chain of Custody Event',
     description: 'Chain of custody event',
   });
+export type ChainOfCustodyEvent = z.infer<typeof ChainOfCustodyEventSchema>;
 
 const ChainOfCustodySchema = z
   .strictObject({
@@ -283,6 +288,7 @@ const ChainOfCustodySchema = z
     description:
       'Complete chain of custody tracking from waste generation to final processing',
   });
+export type ChainOfCustody = z.infer<typeof ChainOfCustodySchema>;
 
 const TransportRouteSchema = z
   .strictObject({
@@ -322,6 +328,7 @@ const TransportRouteSchema = z
     title: 'Transport Route',
     description: 'Transport route segment information',
   });
+export type TransportRoute = z.infer<typeof TransportRouteSchema>;
 
 const GeographicDataSchema = z
   .strictObject({
@@ -347,6 +354,7 @@ const GeographicDataSchema = z
     description:
       'Geographic information about waste origin and processing locations',
   });
+export type GeographicData = z.infer<typeof GeographicDataSchema>;
 
 export const MassIDDataSchema = z
   .strictObject({
@@ -411,18 +419,4 @@ export const MassIDDataSchema = z
     description:
       'MassID data containing waste tracking and chain of custody information',
   });
-
-export type MassIDDataSchemaType = z.infer<typeof MassIDDataSchema>;
-export type WasteClassificationType = z.infer<typeof WasteClassificationSchema>;
-export type LocalClassificationType = z.infer<typeof LocalClassificationSchema>;
-export type ChainOfCustodyType = z.infer<typeof ChainOfCustodySchema>;
-export type ChainOfCustodyEventType = z.infer<typeof ChainOfCustodyEventSchema>;
-export type EventAttributeType = z.infer<typeof EventAttributeSchema>;
-export type EventDocumentationType = z.infer<typeof EventDocumentationSchema>;
-export type GeographicDataType = z.infer<typeof GeographicDataSchema>;
-export type TransportRouteType = z.infer<typeof TransportRouteSchema>;
-export type MeasurementUnitType = z.infer<typeof MeasurementUnitSchema>;
-export type ContaminationLevelType = z.infer<typeof ContaminationLevelSchema>;
-export type EventAttributeFormatType = z.infer<
-  typeof EventAttributeFormatSchema
->;
+export type MassIDData = z.infer<typeof MassIDDataSchema>;

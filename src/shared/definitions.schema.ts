@@ -10,6 +10,8 @@ export const UuidSchema = z.uuidv4('Must be a valid UUID v4 string').meta({
   ],
 });
 
+export type Uuid = z.infer<typeof UuidSchema>;
+
 export const EthereumAddressSchema = z
   .string()
   .regex(
@@ -25,6 +27,8 @@ export const EthereumAddressSchema = z
     ],
   });
 
+export type EthereumAddress = z.infer<typeof EthereumAddressSchema>;
+
 export const IsoTimestampSchema = z.iso
   .datetime({
     message: 'Must be a valid ISO 8601 timestamp with timezone',
@@ -35,6 +39,8 @@ export const IsoTimestampSchema = z.iso
     examples: ['2024-12-05T11:02:47.000Z', '2025-02-22T10:35:12.000Z'],
   });
 
+export type IsoTimestamp = z.infer<typeof IsoTimestampSchema>;
+
 export const IsoDateSchema = z.iso
   .date('Must be a valid ISO 8601 date (YYYY-MM-DD)')
   .meta({
@@ -42,6 +48,8 @@ export const IsoDateSchema = z.iso
     description: 'ISO 8601 formatted date in YYYY-MM-DD format',
     examples: ['2024-12-05', '2025-02-22', '2024-02-10'],
   });
+
+export type IsoDate = z.infer<typeof IsoDateSchema>;
 
 export const IsoCountryCodeSchema = z
   .string()
@@ -52,6 +60,8 @@ export const IsoCountryCodeSchema = z
       'Two-letter country code following ISO 3166-1 alpha-2 standard',
     examples: ['BR', 'US', 'DE'],
   });
+
+export type IsoCountryCode = z.infer<typeof IsoCountryCodeSchema>;
 
 export const IsoAdministrativeDivisionCodeSchema = z
   .string()
@@ -65,6 +75,10 @@ export const IsoAdministrativeDivisionCodeSchema = z
     examples: ['BR-AP', 'BR-ES', 'US-CA'],
   });
 
+export type IsoAdministrativeDivisionCode = z.infer<
+  typeof IsoAdministrativeDivisionCodeSchema
+>;
+
 export const LatitudeSchema = z
   .number()
   .min(-90)
@@ -74,6 +88,9 @@ export const LatitudeSchema = z
     description: 'Geographic latitude coordinate in decimal degrees',
     examples: [-0.02, -20.38, 40.7128],
   });
+
+export type Latitude = z.infer<typeof LatitudeSchema>;
+
 export const LongitudeSchema = z
   .number()
   .min(-180)
@@ -84,6 +101,8 @@ export const LongitudeSchema = z
     examples: [-51.06, -40.34, -74.006],
   });
 
+export type Longitude = z.infer<typeof LongitudeSchema>;
+
 export const WeightKgSchema = z
   .number()
   .min(0)
@@ -92,6 +111,8 @@ export const WeightKgSchema = z
     description: 'Weight measurement in kilograms',
     examples: [3000, 1500, 500],
   });
+
+export type WeightKg = z.infer<typeof WeightKgSchema>;
 
 export const NonEmptyStringSchema = z
   .string()
@@ -102,11 +123,7 @@ export const NonEmptyStringSchema = z
     examples: ['Example text', 'Sample value', 'Test string'],
   });
 
-export const NameSchema = NonEmptyStringSchema.max(200).meta({
-  title: 'Name',
-  description: 'A general-purpose name field with maximum 200 characters',
-  examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Solutions Ltd'],
-});
+export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 
 export const SlugSchema = NonEmptyStringSchema.regex(
   /^[a-z0-9-]+$/,
@@ -119,18 +136,21 @@ export const SlugSchema = NonEmptyStringSchema.regex(
       'URL-friendly identifier with lowercase letters, numbers, and hyphens',
     examples: ['mass-id-123', 'recycled-plastic', 'organic-waste'],
   });
+export type Slug = z.infer<typeof SlugSchema>;
 
 export const WasteTypeSchema = NonEmptyStringSchema.meta({
   title: 'Waste Type',
   description: 'Category or type of waste material',
   examples: ['Organic', 'Plastic', 'Metal'],
 });
+export type WasteType = z.infer<typeof WasteTypeSchema>;
 
 export const WasteSubtypeSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Waste Subtype',
   description: 'Specific subcategory of waste within a waste type',
   examples: ['Food, Food Waste and Beverages', 'PET Bottles', 'Aluminum Cans'],
 });
+export type WasteSubtype = z.infer<typeof WasteSubtypeSchema>;
 
 export const ParticipantRoleSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Participant Role',
@@ -138,12 +158,14 @@ export const ParticipantRoleSchema = NonEmptyStringSchema.max(100).meta({
     'Role that a participant plays in the waste management supply chain',
   examples: ['Waste Generator', 'Hauler', 'Recycler'],
 });
+export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
 
 export const ParticipantNameSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Participant Name',
   description: 'Name of a participant in the waste management system',
   examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Tech Corp'],
 });
+export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
 
 export const FacilityTypeSchema = z
   .enum([
@@ -162,6 +184,7 @@ export const FacilityTypeSchema = z
     description: 'Type of facility in the waste management infrastructure',
     examples: ['Waste Generation', 'Recycling Facility', 'Collection Point'],
   });
+export type FacilityType = z.infer<typeof FacilityTypeSchema>;
 
 export const ChainIdSchema = z
   .number()
@@ -172,6 +195,7 @@ export const ChainIdSchema = z
     description: 'Blockchain network identifier',
     examples: [1, 137, 11155111],
   });
+export type ChainId = z.infer<typeof ChainIdSchema>;
 
 export const PercentageSchema = z
   .number()
@@ -183,6 +207,8 @@ export const PercentageSchema = z
     examples: [50, 75.5, 100],
   });
 
+export type Percentage = z.infer<typeof PercentageSchema>;
+
 export const NonNegativeIntegerSchema = z
   .number()
   .int()
@@ -192,6 +218,8 @@ export const NonNegativeIntegerSchema = z
     description: 'Integer value that is zero or positive',
     examples: [0, 123, 4126],
   });
+
+export type NonNegativeInteger = z.infer<typeof NonNegativeIntegerSchema>;
 
 export const PositiveIntegerSchema = z
   .number()
@@ -203,6 +231,8 @@ export const PositiveIntegerSchema = z
     examples: [1, 123, 456],
   });
 
+export type PositiveInteger = z.infer<typeof PositiveIntegerSchema>;
+
 export const NonNegativeFloatSchema = z
   .number()
   .min(0)
@@ -211,6 +241,8 @@ export const NonNegativeFloatSchema = z
     description: 'Floating-point number that is zero or positive',
     examples: [0.0, 45.2, 72.5],
   });
+
+export type NonNegativeFloat = z.infer<typeof NonNegativeFloatSchema>;
 
 export const HoursSchema = z
   .number()
@@ -221,6 +253,8 @@ export const HoursSchema = z
     description: 'Time duration in hours with 0.1 hour precision',
     examples: [72.5, 24.0, 168.5],
   });
+
+export type Hours = z.infer<typeof HoursSchema>;
 
 export const IpfsUriSchema = NonEmptyStringSchema.regex(
   /^ipfs:\/\/[a-zA-Z0-9]+(\/.*)?$/,
@@ -234,6 +268,8 @@ export const IpfsUriSchema = NonEmptyStringSchema.regex(
   ],
 });
 
+export type IpfsUri = z.infer<typeof IpfsUriSchema>;
+
 export const SemanticVersionSchema = NonEmptyStringSchema.regex(
   /^v?\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?(\+[a-zA-Z0-9.-]+)?$/,
   'Must be a valid semantic version string',
@@ -242,6 +278,8 @@ export const SemanticVersionSchema = NonEmptyStringSchema.regex(
   description: 'Version string following semantic versioning specification',
   examples: ['0.1.0', '1.0.0', '2.1.3'],
 });
+
+export type SemanticVersion = z.infer<typeof SemanticVersionSchema>;
 
 export const TokenIdSchema = NonEmptyStringSchema.regex(
   /^\d+$/,
@@ -252,6 +290,8 @@ export const TokenIdSchema = NonEmptyStringSchema.regex(
   examples: ['123', '456789', '1000000'],
 });
 
+export type TokenId = z.infer<typeof TokenIdSchema>;
+
 export const HexColorSchema = NonEmptyStringSchema.regex(
   /^#[0-9A-F]{6}$/,
   'Must be a hex color code with # prefix and uppercase',
@@ -260,6 +300,8 @@ export const HexColorSchema = NonEmptyStringSchema.regex(
   description: 'Hexadecimal color code with hash prefix',
   examples: ['#2D5A27', '#FF5733', '#1E90FF'],
 });
+
+export type HexColor = z.infer<typeof HexColorSchema>;
 
 export const Sha256HashSchema = z
   .hash('sha256', {
@@ -275,6 +317,8 @@ export const Sha256HashSchema = z
     ],
   });
 
+export type Sha256Hash = z.infer<typeof Sha256HashSchema>;
+
 export const Keccak256HashSchema = Sha256HashSchema.meta({
   title: 'Keccak256 Hash',
   description: 'Keccak256 cryptographic hash as hexadecimal string',
@@ -283,6 +327,8 @@ export const Keccak256HashSchema = Sha256HashSchema.meta({
     'b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2',
   ],
 });
+
+export type Keccak256Hash = z.infer<typeof Keccak256HashSchema>;
 
 export const ExternalIdSchema = UuidSchema.meta({
   title: 'External ID',
@@ -293,6 +339,8 @@ export const ExternalIdSchema = UuidSchema.meta({
   ],
 });
 
+export type ExternalId = z.infer<typeof ExternalIdSchema>;
+
 export const ExternalUrlSchema = z.url('Must be a valid URL').meta({
   title: 'External URL',
   description: 'Valid URL pointing to external resources',
@@ -302,7 +350,9 @@ export const ExternalUrlSchema = z.url('Must be a valid URL').meta({
   ],
 });
 
-export const SchemaTypeSchema = z
+export type ExternalUrl = z.infer<typeof ExternalUrlSchema>;
+
+export const RecordSchemaTypeSchema = z
   .enum([
     'MassID',
     'MassID Audit',
@@ -319,6 +369,8 @@ export const SchemaTypeSchema = z
     examples: ['MassID', 'RecycledID', 'GasID'],
   });
 
+export type RecordSchemaType = z.infer<typeof RecordSchemaTypeSchema>;
+
 export const TokenSymbolSchema = NonEmptyStringSchema.max(10)
   .regex(
     /^[A-Z0-9-]+$/,
@@ -330,7 +382,9 @@ export const TokenSymbolSchema = NonEmptyStringSchema.max(10)
     examples: ['MASS', 'REC', 'GAS'],
   });
 
-export const RelationshipTypeSchema = z
+export type TokenSymbol = z.infer<typeof TokenSymbolSchema>;
+
+export const RecordRelationshipTypeSchema = z
   .enum([
     'collection',
     'credit',
@@ -348,37 +402,6 @@ export const RelationshipTypeSchema = z
     examples: ['mass-id', 'audit', 'collection'],
   });
 
-export type UUID = z.infer<typeof UuidSchema>;
-export type EthereumAddress = z.infer<typeof EthereumAddressSchema>;
-export type ISOTimestamp = z.infer<typeof IsoTimestampSchema>;
-export type ISODate = z.infer<typeof IsoDateSchema>;
-export type ISOCountryCode = z.infer<typeof IsoCountryCodeSchema>;
-export type ISOAdministrativeDivisionCode = z.infer<
-  typeof IsoAdministrativeDivisionCodeSchema
+export type RecordRelationshipType = z.infer<
+  typeof RecordRelationshipTypeSchema
 >;
-export type Latitude = z.infer<typeof LatitudeSchema>;
-export type Longitude = z.infer<typeof LongitudeSchema>;
-export type WeightKg = z.infer<typeof WeightKgSchema>;
-export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
-export type Name = z.infer<typeof NameSchema>;
-export type Slug = z.infer<typeof SlugSchema>;
-export type WasteType = z.infer<typeof WasteTypeSchema>;
-export type WasteSubtype = z.infer<typeof WasteSubtypeSchema>;
-export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
-export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
-export type FacilityType = z.infer<typeof FacilityTypeSchema>;
-export type ChainId = z.infer<typeof ChainIdSchema>;
-export type Percentage = z.infer<typeof PercentageSchema>;
-export type NonNegativeInteger = z.infer<typeof NonNegativeIntegerSchema>;
-export type PositiveInteger = z.infer<typeof PositiveIntegerSchema>;
-export type NonNegativeFloat = z.infer<typeof NonNegativeFloatSchema>;
-export type Hours = z.infer<typeof HoursSchema>;
-export type IpfsUri = z.infer<typeof IpfsUriSchema>;
-export type SemanticVersion = z.infer<typeof SemanticVersionSchema>;
-export type TokenId = z.infer<typeof TokenIdSchema>;
-export type HexColor = z.infer<typeof HexColorSchema>;
-export type Keccak256Hash = z.infer<typeof Keccak256HashSchema>;
-export type ExternalId = z.infer<typeof ExternalIdSchema>;
-export type ExternalUrl = z.infer<typeof ExternalUrlSchema>;
-export type TokenSymbol = z.infer<typeof TokenSymbolSchema>;
-export type RelationshipType = z.infer<typeof RelationshipTypeSchema>;

@@ -7,7 +7,7 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   UuidSchema,
-  SchemaTypeSchema,
+  RecordSchemaTypeSchema,
   IpfsUriSchema,
 } from './definitions.schema.js';
 
@@ -18,7 +18,7 @@ const SchemaInfoSchema = z
       description:
         'Keccak256 hash of the JSON Schema this record was validated against',
     }),
-    type: SchemaTypeSchema.meta({
+    type: RecordSchemaTypeSchema.meta({
       title: 'Schema Type',
       description: 'Type/category of this schema',
     }),
@@ -31,7 +31,9 @@ const SchemaInfoSchema = z
     title: 'Schema Information',
   });
 
-const CreatorSchema = z
+export type SchemaInfo = z.infer<typeof SchemaInfoSchema>;
+
+const RecordCreatorSchema = z
   .strictObject({
     name: z.string().meta({
       title: 'Creator Name',
@@ -48,13 +50,15 @@ const CreatorSchema = z
     description: 'Entity that created this record',
   });
 
-const RelationshipSchema = z
+export type RecordCreator = z.infer<typeof RecordCreatorSchema>;
+
+const RecordRelationshipSchema = z
   .strictObject({
     target_cid: IpfsUriSchema.meta({
       title: 'Target CID',
       description: 'IPFS Content Identifier (CID) of the referenced record',
     }),
-    type: SchemaTypeSchema.meta({
+    type: RecordSchemaTypeSchema.meta({
       title: 'Relationship Type',
       description: 'Type of relationship to the referenced record',
     }),
@@ -78,7 +82,9 @@ const RelationshipSchema = z
     description: 'Relationship to another IPFS record',
   });
 
-const EnvironmentSchema = z
+export type RecordRelationship = z.infer<typeof RecordRelationshipSchema>;
+
+export const RecordEnvironmentSchema = z
   .strictObject({
     blockchain_network: z.enum(['mainnet', 'testnet']).meta({
       title: 'Blockchain Network',
@@ -97,6 +103,8 @@ const EnvironmentSchema = z
     title: 'Environment',
     description: 'Environment information',
   });
+
+export type RecordEnvironment = z.infer<typeof RecordEnvironmentSchema>;
 
 export const BaseIpfsSchema = z
   .strictObject({
@@ -134,14 +142,14 @@ export const BaseIpfsSchema = z
       description:
         'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
     }),
-    creator: CreatorSchema.optional(),
+    creator: RecordCreatorSchema.optional(),
 
-    relationships: z.array(RelationshipSchema).optional().meta({
+    relationships: z.array(RecordRelationshipSchema).optional().meta({
       title: 'Relationships',
       description: 'References to other IPFS records this record relates to',
     }),
 
-    environment: EnvironmentSchema.optional(),
+    environment: RecordEnvironmentSchema.optional(),
 
     data: z.record(z.string(), z.unknown()).optional().meta({
       title: 'Custom Data',
@@ -154,9 +162,4 @@ export const BaseIpfsSchema = z
       'Base fields for all Carrot IPFS records, providing common structure for any JSON content stored in IPFS',
   });
 
-export type BaseIpfsSchemaType = z.infer<typeof BaseIpfsSchema>;
-export type SchemaTypeType = z.infer<typeof SchemaTypeSchema>;
-export type SchemaInfoType = z.infer<typeof SchemaInfoSchema>;
-export type CreatorType = z.infer<typeof CreatorSchema>;
-export type RelationshipObjectType = z.infer<typeof RelationshipSchema>;
-export type EnvironmentType = z.infer<typeof EnvironmentSchema>;
+export type BaseIpfs = z.infer<typeof BaseIpfsSchema>;
