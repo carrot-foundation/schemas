@@ -1,50 +1,35 @@
 import { z } from 'zod';
 import {
-  uuid,
-  participantName,
-  participantRole,
+  UuidSchema,
+  ParticipantNameSchema,
+  ParticipantRoleSchema,
 } from '../definitions.schema.js';
+import { uniqueArrayItems } from '../helpers.schema.js';
 
-export const participantSchema = z
+export const ParticipantSchema = z
   .strictObject({
-    id: uuid.describe('Unique identifier for the participant').meta({
+    id: UuidSchema.meta({
       title: 'Participant ID',
-      examples: [
-        '6f520d88-864d-432d-bf9f-5c3166c4818f',
-        '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-      ],
+      description: 'Unique identifier for the participant',
     }),
-    name: participantName.describe('Name of the participant').meta({
+    name: ParticipantNameSchema.meta({
       title: 'Participant Name',
-      examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Recycling Co'],
+      description: 'Name of the participant',
     }),
-    roles: z
-      .array(participantRole)
+    roles: uniqueArrayItems(
+      ParticipantRoleSchema,
+      'Participant roles must be unique',
+    )
       .min(1)
-      .refine((roles) => new Set(roles).size === roles.length, {
-        message: 'Participant roles must be unique',
-      })
-      .describe('Roles of the participant in the waste management supply chain')
       .meta({
         title: 'Participant Roles',
-        examples: [['Waste Generator'], ['Hauler', 'Recycler']],
+        description:
+          'Roles of the participant in the waste management supply chain',
       }),
   })
-  .describe('A participant in the waste management supply chain')
   .meta({
     title: 'Participant',
-    examples: [
-      {
-        id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-        name: 'Enlatados Produção',
-        roles: ['Waste Generator'],
-      },
-      {
-        id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-        name: 'Eco Reciclagem',
-        roles: ['Hauler', 'Recycler'],
-      },
-    ],
+    description: 'A participant in the waste management supply chain',
   });
 
-export type ParticipantSchema = z.infer<typeof participantSchema>;
+export type ParticipantSchemaType = z.infer<typeof ParticipantSchema>;
