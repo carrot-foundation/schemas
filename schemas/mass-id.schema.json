@@ -1,12 +1,101 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
+  "title": "MassID NFT IPFS Record",
+  "examples": [
+    {
+      "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json",
+      "schema": {
+        "hash": "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+        "type": "MassID",
+        "version": "0.1.0"
+      },
+      "environment": {
+        "blockchain_network": "testnet",
+        "deployment": "development",
+        "data_set_name": "TEST"
+      },
+      "blockchain": {
+        "token_id": "123",
+        "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+        "chain_id": 1,
+        "network_name": "Polygon"
+      },
+      "created_at": "2024-12-05T11:02:47.000Z",
+      "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "name": "MassID #123 • Organic • 3.0t",
+      "short_name": "MassID #123",
+      "description": "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
+      "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+      "background_color": "#2D5A27",
+      "external_links": [
+        {
+          "label": "Carrot Explorer",
+          "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "description": "Complete chain of custody and audit trail"
+        }
+      ],
+      "attributes": [
+        {
+          "trait_type": "Waste Type",
+          "value": "Organic"
+        },
+        {
+          "trait_type": "Waste Subtype",
+          "value": "Food, Food Waste and Beverages"
+        },
+        {
+          "trait_type": "Weight (kg)",
+          "value": 3000,
+          "display_type": "number"
+        },
+        {
+          "trait_type": "Origin Country",
+          "value": "Brazil"
+        },
+        {
+          "trait_type": "Origin Municipality",
+          "value": "Macapá"
+        },
+        {
+          "trait_type": "Origin Administrative Division",
+          "value": "Amapá"
+        },
+        {
+          "trait_type": "Recycler",
+          "value": "Eco Reciclagem"
+        },
+        {
+          "trait_type": "Integrator",
+          "value": "Carrot Foundation"
+        },
+        {
+          "trait_type": "Pick-up Date",
+          "value": "2024-12-05",
+          "display_type": "date"
+        },
+        {
+          "trait_type": "Recycling Date",
+          "value": "2025-02-22",
+          "display_type": "date"
+        }
+      ],
+      "original_content_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+      "content_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+    }
+  ],
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json",
   "version": "1.0.0",
   "type": "object",
   "properties": {
     "$schema": {
+      "description": "URI of the JSON Schema used to validate this record",
+      "title": "JSON Schema URI",
+      "examples": [
+        "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json",
+        "https://schemas.carrot.eco/mass-id/v1.0.0/schema.json"
+      ],
       "type": "string",
       "format": "uri"
     },
@@ -14,16 +103,31 @@
       "type": "object",
       "properties": {
         "hash": {
+          "title": "Schema Hash",
+          "examples": [
+            "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+            "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+          ],
           "description": "Keccak256 hash of the JSON Schema this record was validated against",
           "type": "string",
           "pattern": "^[0-9a-fA-F]{64}$"
         },
         "type": {
           "description": "MassID NFT schema type",
+          "title": "MassID Schema Type",
+          "examples": [
+            "MassID"
+          ],
           "type": "string",
           "const": "MassID"
         },
         "version": {
+          "title": "Schema Version",
+          "examples": [
+            "0.1.0",
+            "1.0.0",
+            "2.1.3"
+          ],
           "description": "Version of the schema, using semantic versioning",
           "type": "string",
           "minLength": 1,
@@ -38,41 +142,84 @@
       "additionalProperties": false
     },
     "created_at": {
+      "title": "Created At",
+      "examples": [
+        "2024-12-05T11:02:47.000Z",
+        "2024-03-15T09:30:00.000Z"
+      ],
       "description": "ISO 8601 creation timestamp for this record",
       "type": "string",
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
     },
     "external_id": {
+      "title": "External ID",
+      "examples": [
+        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+      ],
       "description": "Off-chain reference ID (UUID from Carrot backend)",
       "type": "string",
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
     },
     "external_url": {
+      "title": "External URL",
+      "examples": [
+        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+        "https://app.carrot.eco/mass-id/123"
+      ],
       "description": "External URL of the content",
       "type": "string",
       "format": "uri"
     },
     "original_content_hash": {
+      "title": "Original Content Hash",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+      ],
       "description": "SHA-256 hash of the original JSON content including private data before schema validation",
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
     "content_hash": {
+      "title": "Content Hash",
+      "examples": [
+        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
+        "f1e2d3c4b5a6978123456789012345678901bcdef234567890abcdef1234567"
+      ],
       "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
     "creator": {
       "description": "Entity that created this record",
+      "title": "Creator",
+      "examples": [
+        {
+          "name": "Carrot Foundation",
+          "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        }
+      ],
       "type": "object",
       "properties": {
         "name": {
           "description": "Company or individual name that created this record",
+          "title": "Creator Name",
+          "examples": [
+            "Carrot Foundation",
+            "Eco Solutions Ltd",
+            "Green Tech Corp"
+          ],
           "type": "string"
         },
         "id": {
+          "title": "Creator ID",
+          "examples": [
+            "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+          ],
           "description": "Unique identifier for the creator",
           "type": "string",
           "format": "uuid",
@@ -87,17 +234,46 @@
     },
     "relationships": {
       "description": "References to other IPFS records this record relates to",
+      "title": "Relationships",
+      "examples": [
+        [
+          {
+            "target_cid": "QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
+            "type": "audit",
+            "description": "Related audit report for this MassID"
+          }
+        ]
+      ],
       "type": "array",
       "items": {
+        "title": "Relationship",
+        "examples": [
+          {
+            "target_cid": "QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
+            "type": "audit",
+            "description": "Related audit report for this MassID"
+          }
+        ],
         "type": "object",
         "properties": {
           "target_cid": {
             "description": "IPFS Content Identifier (CID) of the referenced record",
+            "title": "Target CID",
+            "examples": [
+              "QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
+              "QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+            ],
             "type": "string",
             "pattern": "^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]+)$"
           },
           "type": {
             "description": "Type of relationship to the referenced record",
+            "title": "Relationship Type",
+            "examples": [
+              "collection",
+              "audit",
+              "reference"
+            ],
             "type": "string",
             "enum": [
               "collection",
@@ -110,6 +286,12 @@
           },
           "description": {
             "description": "Human-readable description of the relationship",
+            "title": "Relationship Description",
+            "examples": [
+              "Related audit report for this MassID",
+              "Collection that includes this record",
+              "Reference documentation"
+            ],
             "type": "string"
           }
         },
@@ -122,10 +304,23 @@
     },
     "environment": {
       "description": "Environment information",
+      "title": "Environment",
+      "examples": [
+        {
+          "blockchain_network": "testnet",
+          "deployment": "development",
+          "data_set_name": "TEST"
+        }
+      ],
       "type": "object",
       "properties": {
         "blockchain_network": {
           "description": "Blockchain Network Environment",
+          "title": "Blockchain Network",
+          "examples": [
+            "testnet",
+            "mainnet"
+          ],
           "type": "string",
           "enum": [
             "mainnet",
@@ -134,6 +329,12 @@
         },
         "deployment": {
           "description": "System environment where this record was generated",
+          "title": "Deployment Environment",
+          "examples": [
+            "development",
+            "production",
+            "testing"
+          ],
           "type": "string",
           "enum": [
             "production",
@@ -143,6 +344,11 @@
         },
         "data_set_name": {
           "description": "Name of the data set for this record",
+          "title": "Data Set Name",
+          "examples": [
+            "TEST",
+            "PROD"
+          ],
           "type": "string",
           "enum": [
             "TEST",
@@ -159,18 +365,113 @@
     },
     "data": {
       "description": "MassID-specific data containing waste tracking and chain of custody information",
+      "title": "MassID Data",
+      "examples": [
+        {
+          "waste_classification": {
+            "primary_type": "Organic",
+            "subtype": "Food, Food Waste and Beverages",
+            "measurement_unit": "kg",
+            "net_weight": 3000,
+            "contamination_level": "Low"
+          },
+          "locations": [
+            {
+              "id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+              "municipality": "Macapá",
+              "administrative_division": "Amapá",
+              "administrative_division_code": "BR-AP",
+              "country": "Brazil",
+              "country_code": "BR",
+              "facility_type": "Waste Generation",
+              "coordinates": {
+                "latitude": -0.02,
+                "longitude": -51.06,
+                "precision_level": "city"
+              },
+              "responsible_participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f"
+            }
+          ],
+          "participants": [
+            {
+              "id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+              "name": "Enlatados Produção",
+              "roles": [
+                "Waste Generator"
+              ]
+            }
+          ],
+          "chain_of_custody": {
+            "events": [
+              {
+                "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+                "event_name": "Pick-up",
+                "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
+                "timestamp": "2024-12-05T11:02:47.000Z",
+                "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                "location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+              }
+            ],
+            "total_distance_km": 45.2,
+            "total_duration_hours": 72.5
+          },
+          "geographic_data": {
+            "origin_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+            "processing_location_ids": [
+              "d01217a9-9d21-4f16-8908-0fea6750953e"
+            ],
+            "final_destination_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+            "transport_routes": [
+              {
+                "from_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                "to_location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+                "distance_km": 45.2,
+                "transport_method": "Truck",
+                "duration_hours": 72.5
+              }
+            ]
+          }
+        }
+      ],
       "type": "object",
       "properties": {
         "waste_classification": {
           "description": "Standardized waste material classification and regulatory information",
+          "title": "Waste Classification",
+          "examples": [
+            {
+              "primary_type": "Organic",
+              "subtype": "Food, Food Waste and Beverages",
+              "local_classification": {
+                "code": "04 02 20",
+                "description": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19",
+                "system": "Ibama Waste Code"
+              },
+              "measurement_unit": "kg",
+              "net_weight": 3000,
+              "contamination_level": "Low"
+            }
+          ],
           "type": "object",
           "properties": {
             "primary_type": {
+              "title": "Primary Waste Type",
+              "examples": [
+                "Organic",
+                "Plastic",
+                "Metal"
+              ],
               "description": "Primary waste material category",
               "type": "string",
               "minLength": 1
             },
             "subtype": {
+              "title": "Waste Subtype",
+              "examples": [
+                "Food, Food Waste and Beverages",
+                "PET Bottles",
+                "Aluminum Cans"
+              ],
               "description": "Specific subcategory of waste material",
               "type": "string",
               "minLength": 1,
@@ -178,22 +479,48 @@
             },
             "local_classification": {
               "description": "Local or regional waste classification codes and descriptions",
+              "title": "Local Classification",
+              "examples": [
+                {
+                  "code": "04 02 20",
+                  "description": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19",
+                  "system": "Ibama Waste Code"
+                }
+              ],
               "type": "object",
               "properties": {
                 "code": {
                   "description": "Local waste classification code",
+                  "title": "Classification Code",
+                  "examples": [
+                    "04 02 20",
+                    "EWC-150106",
+                    "US-D001"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 20
                 },
                 "description": {
                   "description": "Local waste classification description",
+                  "title": "Classification Description",
+                  "examples": [
+                    "Lodos do tratamento local de efluentes não abrangidas em 04 02 19",
+                    "Mixed plastics packaging",
+                    "Ignitable waste"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 200
                 },
                 "system": {
                   "description": "Classification system name (e.g., \"Ibama Waste Code\", \"European Waste Catalogue\", \"US EPA Codes\")",
+                  "title": "Classification System",
+                  "examples": [
+                    "Ibama Waste Code",
+                    "European Waste Catalogue",
+                    "US EPA Codes"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 50
@@ -208,6 +535,11 @@
             },
             "measurement_unit": {
               "description": "Unit of measurement for the waste quantity",
+              "title": "Measurement Unit",
+              "examples": [
+                "kg",
+                "ton"
+              ],
               "type": "string",
               "enum": [
                 "kg",
@@ -215,12 +547,24 @@
               ]
             },
             "net_weight": {
+              "title": "Net Weight",
+              "examples": [
+                3000,
+                1500,
+                2.5
+              ],
               "description": "Net weight of the waste batch in the specified measurement unit",
               "type": "number",
               "minimum": 0
             },
             "contamination_level": {
               "description": "Level of contamination in the waste batch",
+              "title": "Contamination Level",
+              "examples": [
+                "Low",
+                "Medium",
+                "None"
+              ],
               "type": "string",
               "enum": [
                 "None",
@@ -240,13 +584,71 @@
         },
         "locations": {
           "description": "All locations referenced in this MassID, indexed by ID",
+          "title": "Locations",
+          "examples": [
+            [
+              {
+                "id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                "municipality": "Macapá",
+                "administrative_division": "Amapá",
+                "administrative_division_code": "BR-AP",
+                "country": "Brazil",
+                "country_code": "BR",
+                "facility_type": "Waste Generation",
+                "coordinates": {
+                  "latitude": -0.02,
+                  "longitude": -51.06,
+                  "precision_level": "city"
+                },
+                "responsible_participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f"
+              }
+            ]
+          ],
           "minItems": 1,
           "type": "array",
           "items": {
             "description": "Geographic location with address and coordinate information",
+            "title": "Location",
+            "examples": [
+              {
+                "id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                "municipality": "Macapá",
+                "administrative_division": "Amapá",
+                "administrative_division_code": "BR-AP",
+                "country": "Brazil",
+                "country_code": "BR",
+                "facility_type": "Waste Generation",
+                "coordinates": {
+                  "latitude": -0.02,
+                  "longitude": -51.06,
+                  "precision_level": "city"
+                },
+                "responsible_participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f"
+              },
+              {
+                "id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+                "municipality": "Cariacica",
+                "administrative_division": "Espirito Santo",
+                "administrative_division_code": "BR-ES",
+                "country": "Brazil",
+                "country_code": "BR",
+                "facility_type": "Recycling Facility",
+                "coordinates": {
+                  "latitude": -20.38,
+                  "longitude": -40.34,
+                  "precision_level": "city"
+                },
+                "responsible_participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+              }
+            ],
             "type": "object",
             "properties": {
               "id": {
+                "title": "Location ID",
+                "examples": [
+                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                  "d01217a9-9d21-4f16-8908-0fea6750953e"
+                ],
                 "description": "Unique identifier for the location",
                 "type": "string",
                 "format": "uuid",
@@ -254,33 +656,68 @@
               },
               "municipality": {
                 "description": "Municipality or city name",
+                "title": "Municipality",
+                "examples": [
+                  "Macapá",
+                  "Cariacica",
+                  "São Paulo"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
               },
               "administrative_division": {
                 "description": "State, province, or administrative region",
+                "title": "Administrative Division",
+                "examples": [
+                  "Amapá",
+                  "Espirito Santo",
+                  "São Paulo"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
               },
               "administrative_division_code": {
+                "title": "Administrative Division Code",
+                "examples": [
+                  "BR-AP",
+                  "BR-ES",
+                  "BR-SP"
+                ],
                 "description": "ISO 3166-2 administrative division code",
                 "type": "string",
                 "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
               },
               "country": {
                 "description": "Full country name in English",
+                "title": "Country",
+                "examples": [
+                  "Brazil",
+                  "United States",
+                  "Germany"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
               },
               "country_code": {
+                "title": "Country Code",
+                "examples": [
+                  "BR",
+                  "US",
+                  "DE"
+                ],
                 "description": "ISO 3166-1 alpha-2 country code",
                 "type": "string",
                 "pattern": "^[A-Z]{2}$"
               },
               "responsible_participant_id": {
+                "title": "Responsible Participant ID",
+                "examples": [
+                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                  "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+                ],
                 "description": "ID of the participant responsible for this location",
                 "type": "string",
                 "format": "uuid",
@@ -288,15 +725,40 @@
               },
               "coordinates": {
                 "description": "GPS coordinates of the location",
+                "title": "Coordinates",
+                "examples": [
+                  {
+                    "latitude": -0.02,
+                    "longitude": -51.06,
+                    "precision_level": "city"
+                  },
+                  {
+                    "latitude": -20.38,
+                    "longitude": -40.34,
+                    "precision_level": "city"
+                  }
+                ],
                 "type": "object",
                 "properties": {
                   "latitude": {
+                    "title": "Latitude",
+                    "examples": [
+                      -0.02,
+                      -20.38,
+                      40.7128
+                    ],
                     "description": "GPS latitude coordinate",
                     "type": "number",
                     "minimum": -90,
                     "maximum": 90
                   },
                   "longitude": {
+                    "title": "Longitude",
+                    "examples": [
+                      -51.06,
+                      -40.34,
+                      -74.006
+                    ],
                     "description": "GPS longitude coordinate",
                     "type": "number",
                     "minimum": -180,
@@ -304,6 +766,12 @@
                   },
                   "precision_level": {
                     "description": "Level of coordinate precision",
+                    "title": "Precision Level",
+                    "examples": [
+                      "city",
+                      "exact",
+                      "neighborhood"
+                    ],
                     "type": "string",
                     "enum": [
                       "exact",
@@ -322,6 +790,12 @@
                 "additionalProperties": false
               },
               "facility_type": {
+                "title": "Facility Type",
+                "examples": [
+                  "Waste Generation",
+                  "Recycling Facility",
+                  "Collection Point"
+                ],
                 "description": "Type of facility at a location",
                 "type": "string",
                 "enum": [
@@ -353,19 +827,68 @@
         },
         "participants": {
           "description": "All participants referenced in this MassID, indexed by ID",
+          "title": "Participants",
+          "examples": [
+            [
+              {
+                "id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                "name": "Enlatados Produção",
+                "roles": [
+                  "Waste Generator"
+                ]
+              },
+              {
+                "id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+                "name": "Eco Reciclagem",
+                "roles": [
+                  "Hauler",
+                  "Recycler"
+                ]
+              }
+            ]
+          ],
           "minItems": 1,
           "type": "array",
           "items": {
             "description": "A participant in the waste management supply chain",
+            "title": "Participant",
+            "examples": [
+              {
+                "id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                "name": "Enlatados Produção",
+                "roles": [
+                  "Waste Generator"
+                ]
+              },
+              {
+                "id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+                "name": "Eco Reciclagem",
+                "roles": [
+                  "Hauler",
+                  "Recycler"
+                ]
+              }
+            ],
             "type": "object",
             "properties": {
               "id": {
+                "title": "Participant ID",
+                "examples": [
+                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                  "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+                ],
                 "description": "Unique identifier for the participant",
                 "type": "string",
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               },
               "name": {
+                "title": "Participant Name",
+                "examples": [
+                  "Enlatados Produção",
+                  "Eco Reciclagem",
+                  "Green Recycling Co"
+                ],
                 "description": "Name of the participant",
                 "type": "string",
                 "minLength": 1,
@@ -373,9 +896,25 @@
               },
               "roles": {
                 "description": "Roles of the participant in the waste management supply chain",
+                "title": "Participant Roles",
+                "examples": [
+                  [
+                    "Waste Generator"
+                  ],
+                  [
+                    "Hauler",
+                    "Recycler"
+                  ]
+                ],
                 "minItems": 1,
                 "type": "array",
                 "items": {
+                  "title": "Participant Role",
+                  "examples": [
+                    "Waste Generator",
+                    "Hauler",
+                    "Recycler"
+                  ],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 100
@@ -392,17 +931,74 @@
         },
         "chain_of_custody": {
           "description": "Complete chain of custody tracking from waste generation to final processing",
+          "title": "Chain of Custody",
+          "examples": [
+            {
+              "events": [
+                {
+                  "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+                  "event_name": "Pick-up",
+                  "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
+                  "timestamp": "2024-12-05T11:02:47.000Z",
+                  "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                  "location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                }
+              ],
+              "total_distance_km": 45.2,
+              "total_duration_hours": 72.5
+            }
+          ],
           "type": "object",
           "properties": {
             "events": {
               "description": "Chronological sequence of custody transfer and processing events",
+              "title": "Custody Events",
+              "examples": [
+                [
+                  {
+                    "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+                    "event_name": "Pick-up",
+                    "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
+                    "timestamp": "2024-12-05T11:02:47.000Z",
+                    "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                    "location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                  }
+                ]
+              ],
               "minItems": 1,
               "type": "array",
               "items": {
                 "description": "Chain of custody event",
+                "title": "Chain of Custody Event",
+                "examples": [
+                  {
+                    "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+                    "event_name": "Pick-up",
+                    "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
+                    "timestamp": "2024-12-05T11:02:47.000Z",
+                    "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                    "location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                    "attributes": [
+                      {
+                        "name": "Vehicle Type",
+                        "value": "Truck"
+                      },
+                      {
+                        "name": "Driver Identifier",
+                        "value": "645eb901-bc17-497f-b53b-9bdd619ae2ec"
+                      }
+                    ]
+                  }
+                ],
                 "type": "object",
                 "properties": {
                   "event_id": {
+                    "title": "Event ID",
+                    "examples": [
+                      "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+                      "9f6c6855-0a6b-4989-a3fc-1a8a38f919ec",
+                      "591eb414-a678-486d-982c-3c25f3cb52de"
+                    ],
                     "description": "Unique event identifier",
                     "type": "string",
                     "format": "uuid",
@@ -410,29 +1006,57 @@
                   },
                   "event_name": {
                     "description": "Name of custody or processing event",
+                    "title": "Event Name",
+                    "examples": [
+                      "Pick-up",
+                      "Transport",
+                      "Weighing",
+                      "Recycling"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 50
                   },
                   "description": {
                     "description": "Detailed description of what happened during this event",
+                    "title": "Event Description",
+                    "examples": [
+                      "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
+                      "Waste transported to recycling facility",
+                      "Composting process completed"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 200
                   },
                   "timestamp": {
+                    "title": "Event Timestamp",
+                    "examples": [
+                      "2024-12-05T11:02:47.000Z",
+                      "2025-02-22T10:35:12.000Z"
+                    ],
                     "description": "ISO 8601 timestamp when the event occurred",
                     "type": "string",
                     "format": "date-time",
                     "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
                   },
                   "participant_id": {
+                    "title": "Participant ID",
+                    "examples": [
+                      "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                      "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+                    ],
                     "description": "Reference to participant in the participants array",
                     "type": "string",
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
                   "location_id": {
+                    "title": "Location ID",
+                    "examples": [
+                      "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                      "d01217a9-9d21-4f16-8908-0fea6750953e"
+                    ],
                     "description": "Reference to location in the locations array",
                     "type": "string",
                     "format": "uuid",
@@ -440,23 +1064,66 @@
                   },
                   "weight": {
                     "description": "Mass weight after this event",
+                    "title": "Event Weight",
+                    "examples": [
+                      3000,
+                      2950,
+                      2800
+                    ],
                     "type": "number",
                     "minimum": 0
                   },
                   "attributes": {
                     "description": "Additional attributes specific to this event",
+                    "title": "Event Attributes",
+                    "examples": [
+                      [
+                        {
+                          "name": "Vehicle Type",
+                          "value": "Truck"
+                        },
+                        {
+                          "name": "Driver Identifier",
+                          "value": "645eb901-bc17-497f-b53b-9bdd619ae2ec"
+                        }
+                      ]
+                    ],
                     "type": "array",
                     "items": {
+                      "title": "Event Attribute",
+                      "examples": [
+                        {
+                          "name": "Vehicle Type",
+                          "value": "Truck"
+                        },
+                        {
+                          "name": "Gross Weight",
+                          "value": 22700,
+                          "format": "KILOGRAM"
+                        }
+                      ],
                       "type": "object",
                       "properties": {
                         "name": {
                           "description": "Event attribute name",
+                          "title": "Attribute Name",
+                          "examples": [
+                            "Vehicle Type",
+                            "Driver Identifier",
+                            "Document Type"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 100
                         },
                         "value": {
                           "description": "Event attribute value",
+                          "title": "Attribute Value",
+                          "examples": [
+                            "Truck",
+                            "645eb901-bc17-497f-b53b-9bdd619ae2ec",
+                            "MTR"
+                          ],
                           "anyOf": [
                             {
                               "type": "string"
@@ -471,6 +1138,12 @@
                         },
                         "format": {
                           "description": "Data format hint for proper display",
+                          "title": "Event Attribute Format",
+                          "examples": [
+                            "KILOGRAM",
+                            "DATE",
+                            "PERCENTAGE"
+                          ],
                           "type": "string",
                           "enum": [
                             "KILOGRAM",
@@ -490,35 +1163,91 @@
                   },
                   "documentation": {
                     "description": "Associated documentation for this event",
+                    "title": "Event Documentation",
+                    "examples": [
+                      [
+                        {
+                          "type": "Transport Manifest",
+                          "document_number": "MTR-4126",
+                          "reference": "transport-manifest.pdf",
+                          "issue_date": "2024-02-10"
+                        }
+                      ]
+                    ],
                     "type": "array",
                     "items": {
+                      "title": "Event Documentation",
+                      "examples": [
+                        {
+                          "type": "Transport Manifest",
+                          "document_number": "MTR-4126",
+                          "reference": "transport-manifest.pdf",
+                          "issue_date": "2024-02-10"
+                        },
+                        {
+                          "type": "Recycling Certificate",
+                          "document_number": "CDF-2353",
+                          "reference": "recycling-manifest.pdf",
+                          "issue_date": "2024-03-10"
+                        }
+                      ],
                       "type": "object",
                       "properties": {
                         "type": {
                           "description": "Type of supporting documentation",
+                          "title": "Document Type",
+                          "examples": [
+                            "Transport Manifest",
+                            "Recycling Certificate",
+                            "Waste Transfer Note"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 50
                         },
                         "document_number": {
                           "description": "Official document number if applicable",
+                          "title": "Document Number",
+                          "examples": [
+                            "MTR-4126",
+                            "CDF-2353",
+                            "WTN-789"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 50
                         },
                         "reference": {
+                          "title": "Document Reference",
+                          "examples": [
+                            "transport-manifest.pdf",
+                            "recycling-manifest.pdf",
+                            "QmDocument123"
+                          ],
                           "description": "Reference to document (IPFS hash, file name, or external URL)",
                           "type": "string",
                           "minLength": 1
                         },
                         "issue_date": {
                           "description": "Date the document was issued",
+                          "title": "Issue Date",
+                          "examples": [
+                            "2024-02-10",
+                            "2024-03-10",
+                            "2024-12-05"
+                          ],
                           "type": "string",
                           "format": "date",
                           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
                         },
                         "issuer": {
                           "description": "Entity that issued the document",
+                          "title": "Document Issuer",
+                          "examples": [
+                            "Eco Reciclagem",
+                            "Environmental Authority",
+                            "Transport Company"
+                          ],
                           "type": "string",
                           "minLength": 1,
                           "maxLength": 100
@@ -533,6 +1262,12 @@
                   },
                   "notes": {
                     "description": "Additional notes or comments about this event",
+                    "title": "Event Notes",
+                    "examples": [
+                      "Weather conditions were optimal for transport",
+                      "Minor delay due to traffic",
+                      "Processing completed ahead of schedule"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 500
@@ -550,11 +1285,23 @@
               }
             },
             "total_distance_km": {
+              "title": "Total Distance (km)",
+              "examples": [
+                45.2,
+                123.5,
+                89.7
+              ],
               "description": "Total distance traveled across all transport events",
               "type": "number",
               "minimum": 0
             },
             "total_duration_hours": {
+              "title": "Total Duration (hours)",
+              "examples": [
+                72.5,
+                168,
+                96.3
+              ],
               "description": "Total time from first to last event in hours",
               "type": "number",
               "minimum": 0,
@@ -570,9 +1317,33 @@
         },
         "geographic_data": {
           "description": "Geographic information about waste origin and processing locations",
+          "title": "Geographic Data",
+          "examples": [
+            {
+              "origin_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+              "processing_location_ids": [
+                "d01217a9-9d21-4f16-8908-0fea6750953e"
+              ],
+              "final_destination_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+              "transport_routes": [
+                {
+                  "from_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                  "to_location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+                  "distance_km": 45.2,
+                  "transport_method": "Truck",
+                  "duration_hours": 72.5
+                }
+              ]
+            }
+          ],
           "type": "object",
           "properties": {
             "origin_location_id": {
+              "title": "Origin Location ID",
+              "examples": [
+                "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              ],
               "description": "Reference to origin location in the locations array",
               "type": "string",
               "format": "uuid",
@@ -580,14 +1351,35 @@
             },
             "processing_location_ids": {
               "description": "Locations where the waste was processed or handled",
+              "title": "Processing Location IDs",
+              "examples": [
+                [
+                  "d01217a9-9d21-4f16-8908-0fea6750953e"
+                ],
+                [
+                  "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+                  "c3d4e5f6-a7b8-9012-cdef-345678901234"
+                ]
+              ],
               "type": "array",
               "items": {
+                "title": "UUID",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                ],
                 "type": "string",
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               }
             },
             "final_destination_id": {
+              "title": "Final Destination ID",
+              "examples": [
+                "d01217a9-9d21-4f16-8908-0fea6750953e",
+                "e4f5a6b7-c8d9-0123-def4-56789012345a"
+              ],
               "description": "Reference to final destination in the locations array",
               "type": "string",
               "format": "uuid",
@@ -595,35 +1387,85 @@
             },
             "transport_routes": {
               "description": "Detailed transport route information",
+              "title": "Transport Routes",
+              "examples": [
+                [
+                  {
+                    "from_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                    "to_location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+                    "distance_km": 45.2,
+                    "transport_method": "Truck",
+                    "duration_hours": 72.5
+                  }
+                ]
+              ],
               "type": "array",
               "items": {
                 "description": "Transport route segment information",
+                "title": "Transport Route",
+                "examples": [
+                  {
+                    "from_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                    "to_location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+                    "distance_km": 45.2,
+                    "transport_method": "Truck",
+                    "duration_hours": 72.5
+                  }
+                ],
                 "type": "object",
                 "properties": {
                   "from_location_id": {
+                    "title": "From Location ID",
+                    "examples": [
+                      "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+                      "d01217a9-9d21-4f16-8908-0fea6750953e"
+                    ],
                     "description": "Reference to the origin location in the locations array",
                     "type": "string",
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
                   "to_location_id": {
+                    "title": "To Location ID",
+                    "examples": [
+                      "d01217a9-9d21-4f16-8908-0fea6750953e",
+                      "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                    ],
                     "description": "Reference to the destination location in the locations array",
                     "type": "string",
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
                   "distance_km": {
+                    "title": "Distance (km)",
+                    "examples": [
+                      45.2,
+                      123.5,
+                      89.7
+                    ],
                     "description": "Distance for this route segment in kilometers",
                     "type": "number",
                     "minimum": 0
                   },
                   "transport_method": {
                     "description": "Method of transportation for this segment",
+                    "title": "Transport Method",
+                    "examples": [
+                      "Truck",
+                      "Rail",
+                      "Ship"
+                    ],
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 50
                   },
                   "duration_hours": {
+                    "title": "Duration (hours)",
+                    "examples": [
+                      72.5,
+                      24,
+                      48.5
+                    ],
                     "description": "Time taken for this route segment in hours",
                     "type": "number",
                     "minimum": 0,
@@ -660,14 +1502,34 @@
     },
     "blockchain": {
       "description": "Blockchain-specific information for the NFT",
+      "title": "Blockchain Information",
+      "examples": [
+        {
+          "token_id": "123",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+          "chain_id": 1,
+          "network_name": "Polygon"
+        }
+      ],
       "type": "object",
       "properties": {
         "smart_contract_address": {
+          "title": "Smart Contract Address",
+          "examples": [
+            "0x1234567890abcdef1234567890abcdef12345678",
+            "0xabcdef1234567890abcdef1234567890abcdef12"
+          ],
           "description": "Smart Contract Address",
           "type": "string",
           "pattern": "^0x[a-fA-F0-9]{40}$"
         },
         "chain_id": {
+          "title": "Chain ID",
+          "examples": [
+            1,
+            137,
+            11155111
+          ],
           "description": "Blockchain chain ID",
           "type": "integer",
           "minimum": 1,
@@ -675,11 +1537,23 @@
         },
         "network_name": {
           "description": "Name of the blockchain network",
+          "title": "Network Name",
+          "examples": [
+            "Polygon",
+            "Ethereum",
+            "Sepolia"
+          ],
           "type": "string",
           "minLength": 5,
           "maxLength": 100
         },
         "token_id": {
+          "title": "Token ID",
+          "examples": [
+            "123",
+            "456",
+            "789"
+          ],
           "description": "NFT token ID",
           "type": "string",
           "minLength": 1,
@@ -696,23 +1570,45 @@
     },
     "name": {
       "description": "Full display name for this NFT, including extra context",
+      "title": "NFT Name",
+      "examples": [
+        "MassID #123 • Organic • 3.0t",
+        "RecycledID #456 • Plastic • 2.5t",
+        "GasID #789 • Methane • 1000 m³"
+      ],
       "type": "string",
       "minLength": 1,
       "maxLength": 100
     },
     "short_name": {
       "description": "Compact name for UI summaries, tables, or tooltips",
+      "title": "Short Name",
+      "examples": [
+        "MassID #123",
+        "RecycledID #456",
+        "GasID #789"
+      ],
       "type": "string",
       "minLength": 1,
       "maxLength": 50
     },
     "description": {
       "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+      "title": "Description",
+      "examples": [
+        "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
+        "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
+      ],
       "type": "string",
       "minLength": 10,
       "maxLength": 500
     },
     "image": {
+      "title": "Image URI",
+      "examples": [
+        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+        "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o/recycled-plastic.png"
+      ],
       "description": "IPFS URI pointing to the preview image",
       "type": "string",
       "minLength": 1,
@@ -720,35 +1616,91 @@
     },
     "background_color": {
       "description": "Hex color code for marketplace background display",
+      "title": "Background Color",
+      "examples": [
+        "#2D5A27",
+        "#FF5733",
+        "#1E90FF"
+      ],
       "type": "string",
       "minLength": 1,
       "pattern": "^#[0-9A-F]{6}$"
     },
     "animation_url": {
       "description": "IPFS URI pointing to an animated or interactive media file",
+      "title": "Animation URL",
+      "examples": [
+        "ipfs://QmAnimation123/mass-id-animation.mp4",
+        "ipfs://QmInteractive456/recycled-visualization.webm"
+      ],
       "type": "string",
       "minLength": 1,
       "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
     },
     "external_links": {
       "description": "Optional list of public resource links with labels",
+      "title": "External Links",
+      "examples": [
+        [
+          {
+            "label": "Carrot Explorer",
+            "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+            "description": "Complete chain of custody and audit trail"
+          },
+          {
+            "label": "Carrot White Paper",
+            "url": "https://carrot.eco/whitepaper.pdf",
+            "description": "Carrot Foundation technical and impact white paper"
+          }
+        ]
+      ],
       "maxItems": 10,
       "type": "array",
       "items": {
+        "title": "External Link",
+        "examples": [
+          {
+            "label": "Carrot Explorer",
+            "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+            "description": "Complete chain of custody and audit trail"
+          },
+          {
+            "label": "Carrot White Paper",
+            "url": "https://carrot.eco/whitepaper.pdf",
+            "description": "Carrot Foundation technical and impact white paper"
+          }
+        ],
         "type": "object",
         "properties": {
           "label": {
             "description": "Display name for the external link",
+            "title": "Link Label",
+            "examples": [
+              "Carrot Explorer",
+              "Carrot White Paper",
+              "Documentation"
+            ],
             "type": "string",
             "minLength": 1,
             "maxLength": 50
           },
           "url": {
             "description": "Direct URI to the linked resource",
+            "title": "Link URL",
+            "examples": [
+              "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+              "https://carrot.eco/whitepaper.pdf"
+            ],
             "type": "string",
             "format": "uri"
           },
           "description": {
+            "title": "Link Description",
+            "examples": [
+              "Complete chain of custody and audit trail",
+              "Carrot Foundation technical and impact white paper",
+              "Additional documentation and resources"
+            ],
             "description": "Optional context about what the link provides",
             "type": "string",
             "minLength": 10,
@@ -767,6 +1719,13 @@
       "prefixItems": [
         {
           "description": "Waste type attribute",
+          "title": "Waste Type Attribute",
+          "examples": [
+            {
+              "trait_type": "Waste Type",
+              "value": "Organic"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -774,6 +1733,12 @@
               "const": "Waste Type"
             },
             "value": {
+              "title": "Waste Type",
+              "examples": [
+                "Organic",
+                "Plastic",
+                "Metal"
+              ],
               "type": "string",
               "minLength": 1
             }
@@ -786,6 +1751,13 @@
         },
         {
           "description": "Waste subtype attribute",
+          "title": "Waste Subtype Attribute",
+          "examples": [
+            {
+              "trait_type": "Waste Subtype",
+              "value": "Food, Food Waste and Beverages"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -793,6 +1765,12 @@
               "const": "Waste Subtype"
             },
             "value": {
+              "title": "Waste Subtype",
+              "examples": [
+                "Food, Food Waste and Beverages",
+                "PET Bottles",
+                "Aluminum Cans"
+              ],
               "type": "string",
               "minLength": 1,
               "maxLength": 100
@@ -806,6 +1784,14 @@
         },
         {
           "description": "Weight attribute with numeric display",
+          "title": "Weight Attribute",
+          "examples": [
+            {
+              "trait_type": "Weight (kg)",
+              "value": 3000,
+              "display_type": "number"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -813,6 +1799,12 @@
               "const": "Weight (kg)"
             },
             "value": {
+              "title": "Weight (kg)",
+              "examples": [
+                3000,
+                1500,
+                500
+              ],
               "type": "number",
               "minimum": 0
             },
@@ -830,6 +1822,13 @@
         },
         {
           "description": "Origin country attribute",
+          "title": "Origin Country Attribute",
+          "examples": [
+            {
+              "trait_type": "Origin Country",
+              "value": "Brazil"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -838,6 +1837,12 @@
             },
             "value": {
               "description": "Country where the waste was generated",
+              "title": "Origin Country Value",
+              "examples": [
+                "Brazil",
+                "United States",
+                "Germany"
+              ],
               "type": "string",
               "maxLength": 100
             }
@@ -850,6 +1855,13 @@
         },
         {
           "description": "Origin municipality attribute",
+          "title": "Origin Municipality Attribute",
+          "examples": [
+            {
+              "trait_type": "Origin Municipality",
+              "value": "Macapá"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -858,6 +1870,12 @@
             },
             "value": {
               "description": "Municipality where the waste was generated",
+              "title": "Origin Municipality Value",
+              "examples": [
+                "Macapá",
+                "São Paulo",
+                "Rio de Janeiro"
+              ],
               "type": "string",
               "maxLength": 100
             }
@@ -870,6 +1888,13 @@
         },
         {
           "description": "Origin administrative division attribute",
+          "title": "Origin Administrative Division Attribute",
+          "examples": [
+            {
+              "trait_type": "Origin Administrative Division",
+              "value": "Amapá"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -878,6 +1903,12 @@
             },
             "value": {
               "description": "Administrative division (state/province) where the waste was generated",
+              "title": "Origin Division Value",
+              "examples": [
+                "Amapá",
+                "São Paulo",
+                "California"
+              ],
               "type": "string",
               "maxLength": 100
             }
@@ -890,6 +1921,13 @@
         },
         {
           "description": "Recycler attribute",
+          "title": "Recycler Attribute",
+          "examples": [
+            {
+              "trait_type": "Recycler",
+              "value": "Eco Reciclagem"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -898,6 +1936,12 @@
             },
             "value": {
               "description": "Organization that processed the waste",
+              "title": "Recycler Value",
+              "examples": [
+                "Eco Reciclagem",
+                "Green Solutions Ltd",
+                "RecycleCorp"
+              ],
               "type": "string",
               "maxLength": 100
             }
@@ -910,6 +1954,13 @@
         },
         {
           "description": "Integrator attribute",
+          "title": "Integrator Attribute",
+          "examples": [
+            {
+              "trait_type": "Integrator",
+              "value": "Carrot Foundation"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -918,6 +1969,12 @@
             },
             "value": {
               "description": "Organization that integrated the waste into the Carrot network",
+              "title": "Integrator Value",
+              "examples": [
+                "Carrot Foundation",
+                "EcoTech Partners",
+                "Green Network"
+              ],
               "type": "string",
               "maxLength": 100
             }
@@ -930,6 +1987,14 @@
         },
         {
           "description": "Pick-up date attribute",
+          "title": "Pick-up Date Attribute",
+          "examples": [
+            {
+              "trait_type": "Pick-up Date",
+              "value": "2024-12-05",
+              "display_type": "date"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -938,6 +2003,12 @@
             },
             "value": {
               "description": "Date when the waste was picked up from the source",
+              "title": "Pick-up Date Value",
+              "examples": [
+                "2024-12-05",
+                "2024-11-15",
+                "2024-10-20"
+              ],
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
             },
@@ -955,6 +2026,14 @@
         },
         {
           "description": "Recycling date attribute",
+          "title": "Recycling Date Attribute",
+          "examples": [
+            {
+              "trait_type": "Recycling Date",
+              "value": "2025-02-22",
+              "display_type": "date"
+            }
+          ],
           "type": "object",
           "properties": {
             "trait_type": {
@@ -963,6 +2042,12 @@
             },
             "value": {
               "description": "Date when the waste was recycled/processed",
+              "title": "Recycling Date Value",
+              "examples": [
+                "2025-02-22",
+                "2024-12-20",
+                "2024-11-30"
+              ],
               "type": "string",
               "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
             },
