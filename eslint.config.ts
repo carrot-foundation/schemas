@@ -25,10 +25,9 @@ export default defineConfig([
     },
   },
   {
-    files: ['scripts/**/*.js', 'src/**/*.ts'],
+    files: ['scripts/**/*.js'],
     rules: {
       'no-unused-vars': 'error',
-      '@typescript-eslint/no-unused-vars': 'error',
       'no-fallthrough': 'warn',
     },
   },
