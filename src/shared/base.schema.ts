@@ -36,6 +36,7 @@ const CreatorSchema = z
     name: z.string().meta({
       title: 'Creator Name',
       description: 'Company or individual name that created this record',
+      examples: ['Carrot Foundation', 'Alice', 'Bob'],
     }),
     id: UuidSchema.meta({
       title: 'Creator ID',
@@ -57,10 +58,20 @@ const RelationshipSchema = z
       title: 'Relationship Type',
       description: 'Type of relationship to the referenced record',
     }),
-    description: z.string().optional().meta({
-      title: 'Relationship Description',
-      description: 'Human-readable description of the relationship',
-    }),
+    description: z
+      .string()
+      .optional()
+      .meta({
+        title: 'Relationship Description',
+        description: 'Human-readable description of the relationship',
+        examples: [
+          'This record supersedes the previous version',
+          'Related carbon credit batch',
+          'Source document for this verification',
+          'Child record derived from this parent',
+          'Updated version of original record',
+        ],
+      }),
   })
   .meta({
     title: 'Relationship',
@@ -92,6 +103,8 @@ export const BaseIpfsSchema = z
     $schema: z.url('Must be a valid URI').meta({
       title: 'JSON Schema URI',
       description: 'URI of the JSON Schema used to validate this record',
+      example:
+        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json',
     }),
 
     schema: SchemaInfoSchema,
