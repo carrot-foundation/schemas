@@ -176,18 +176,13 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
     description:
       'MassID-specific data containing waste tracking and chain of custody information',
   }),
-})
-  .meta({
-    title: 'MassID IPFS Record',
-    description: 'Complete MassID NFT Ipfs record',
-  })
-  .meta({
-    title: 'MassID NFT IPFS Record',
-    description:
-      'Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data',
-    $id: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json',
-    version: '1.0.0',
-  });
+}).meta({
+  title: 'MassID NFT IPFS Record',
+  description:
+    'Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data',
+  $id: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json',
+  version: '1.0.0',
+});
 
 export type MassIDIpfsSchemaType = z.infer<typeof MassIDIpfsSchema>;
 export type MassIDAttributesType = z.infer<typeof MassIDAttributesSchema>;
