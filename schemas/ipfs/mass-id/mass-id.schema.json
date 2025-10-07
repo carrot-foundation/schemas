@@ -218,15 +218,6 @@
     "relationships": {
       "title": "Relationships",
       "description": "References to other IPFS records this record relates to",
-      "examples": [
-        [
-          {
-            "target_cid": "QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
-            "type": "audit",
-            "description": "Related audit report for this MassID"
-          }
-        ]
-      ],
       "type": "array",
       "items": {
         "title": "Relationship",
@@ -247,14 +238,21 @@
           "type": {
             "title": "Relationship Type",
             "description": "Type of relationship to the referenced record",
+            "examples": [
+              "MassID",
+              "RecycledID",
+              "GasID"
+            ],
             "type": "string",
             "enum": [
-              "collection",
-              "credit",
-              "audit",
-              "update",
-              "derivation",
-              "reference"
+              "MassID",
+              "MassID Audit",
+              "RecycledID",
+              "GasID",
+              "PurchaseID",
+              "Methodology",
+              "Credit",
+              "Collection"
             ]
           },
           "description": {

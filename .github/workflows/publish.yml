@@ -38,6 +38,8 @@ jobs:
         run: pnpm pkgJsonLint
       - name: Build package
         run: pnpm build
+      - name: Validate schemas
+        run: pnpm validate-schemas
       - name: Create version and tag
         id: version
         uses: mathieudutour/github-tag-action@a22cf08638b34d5badda920f9daf6e72c477b07b
