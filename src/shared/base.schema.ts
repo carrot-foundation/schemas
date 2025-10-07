@@ -54,9 +54,10 @@ export type RecordCreator = z.infer<typeof RecordCreatorSchema>;
 
 const RecordRelationshipSchema = z
   .strictObject({
-    target_cid: IpfsUriSchema.meta({
-      title: 'Target CID',
-      description: 'IPFS Content Identifier (CID) of the referenced record',
+    target_cid_uri: IpfsUriSchema.meta({
+      title: 'IPFS Target CID URI',
+      description:
+        'IPFS target Content Identifier (CID) URI of the referenced record',
     }),
     type: RecordSchemaTypeSchema.meta({
       title: 'Relationship Type',
