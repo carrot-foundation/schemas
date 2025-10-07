@@ -287,6 +287,37 @@ export const MassIDDataSchema = z
     chain_of_custody: ChainOfCustodySchema,
     geographic_data: GeographicDataSchema,
   })
+  .refine((data) => {
+    const participantIdSet = new Set(
+      data.participants.map((participant) => participant.id),
+    );
+
+    const eventParticipantIds = data.chain_of_custody.events.map(
+      (event) => event.participant_id,
+    );
+
+    const allEventParticipantsExist = eventParticipantIds.every(
+      (participantId) => participantIdSet.has(participantId),
+    );
+
+    return allEventParticipantsExist;
+  }, 'All participant IDs in chain of custody events must exist in participants array')
+
+  .refine((data) => {
+    const locationIdSet = new Set(
+      data.locations.map((location) => location.id),
+    );
+
+    const eventLocationIds = data.chain_of_custody.events.map(
+      (event) => event.location_id,
+    );
+
+    const allEventLocationsExist = eventLocationIds.every((locationId) =>
+      locationIdSet.has(locationId),
+    );
+
+    return allEventLocationsExist;
+  }, 'All location IDs in chain of custody events must exist in locations array')
   .meta({
     title: 'MassID Data',
     description:
