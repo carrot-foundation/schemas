@@ -9,6 +9,7 @@ import {
   UuidSchema,
   RecordSchemaTypeSchema,
   IpfsUriSchema,
+  RecordRelationshipTypeSchema,
 } from './definitions.schema.js';
 
 const SchemaInfoSchema = z
@@ -59,7 +60,7 @@ const RecordRelationshipSchema = z
       description:
         'IPFS target Content Identifier (CID) URI of the referenced record',
     }),
-    type: RecordSchemaTypeSchema.meta({
+    type: RecordRelationshipTypeSchema.meta({
       title: 'Relationship Type',
       description: 'Type of relationship to the referenced record',
     }),

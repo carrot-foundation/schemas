@@ -143,17 +143,17 @@
           "type": {
             "title": "Relationship Type",
             "description": "Type of relationship to the referenced record",
-            "examples": ["MassID", "RecycledID", "GasID"],
+            "examples": ["mass-id", "audit", "collection"],
             "type": "string",
             "enum": [
-              "MassID",
-              "MassID Audit",
-              "RecycledID",
-              "GasID",
-              "PurchaseID",
-              "Methodology",
-              "Credit",
-              "Collection"
+              "collection",
+              "credit",
+              "gas-id",
+              "mass-id",
+              "mass-id-audit",
+              "methodology",
+              "purchase-id",
+              "recycled-id"
             ]
           },
           "description": {
