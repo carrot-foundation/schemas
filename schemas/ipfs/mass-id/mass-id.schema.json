@@ -35,30 +35,19 @@
         "version": {
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
-          "examples": [
-            "0.1.0",
-            "1.0.0",
-            "2.1.3"
-          ],
+          "examples": ["0.1.0", "1.0.0", "2.1.3"],
           "type": "string",
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
         }
       },
-      "required": [
-        "hash",
-        "type",
-        "version"
-      ],
+      "required": ["hash", "type", "version"],
       "additionalProperties": false
     },
     "created_at": {
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
-      "examples": [
-        "2024-12-05T11:02:47.000Z",
-        "2025-02-22T10:35:12.000Z"
-      ],
+      "examples": ["2024-12-05T11:02:47.000Z", "2025-02-22T10:35:12.000Z"],
       "type": "string",
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
@@ -112,11 +101,7 @@
         "name": {
           "title": "Creator Name",
           "description": "Company or individual name that created this record",
-          "examples": [
-            "Carrot Foundation",
-            "Alice",
-            "Bob"
-          ],
+          "examples": ["Carrot Foundation", "Alice", "Bob"],
           "type": "string"
         },
         "id": {
@@ -132,10 +117,7 @@
           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
         }
       },
-      "required": [
-        "name",
-        "id"
-      ],
+      "required": ["name", "id"],
       "additionalProperties": false
     },
     "relationships": {
@@ -147,9 +129,9 @@
         "description": "Relationship to another IPFS record",
         "type": "object",
         "properties": {
-          "target_cid": {
-            "title": "Target CID",
-            "description": "IPFS Content Identifier (CID) of the referenced record",
+          "target_cid_uri": {
+            "title": "IPFS Target CID URI",
+            "description": "IPFS target Content Identifier (CID) URI of the referenced record",
             "examples": [
               "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
               "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
@@ -161,11 +143,7 @@
           "type": {
             "title": "Relationship Type",
             "description": "Type of relationship to the referenced record",
-            "examples": [
-              "MassID",
-              "RecycledID",
-              "GasID"
-            ],
+            "examples": ["MassID", "RecycledID", "GasID"],
             "type": "string",
             "enum": [
               "MassID",
@@ -191,10 +169,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "target_cid",
-          "type"
-        ],
+        "required": ["target_cid_uri", "type"],
         "additionalProperties": false
       }
     },
@@ -207,36 +182,22 @@
           "title": "Blockchain Network",
           "description": "Blockchain Network Environment",
           "type": "string",
-          "enum": [
-            "mainnet",
-            "testnet"
-          ]
+          "enum": ["mainnet", "testnet"]
         },
         "deployment": {
           "title": "Deployment Environment",
           "description": "System environment where this record was generated",
           "type": "string",
-          "enum": [
-            "production",
-            "development",
-            "testing"
-          ]
+          "enum": ["production", "development", "testing"]
         },
         "data_set_name": {
           "title": "Data Set Name",
           "description": "Name of the data set for this record",
           "type": "string",
-          "enum": [
-            "TEST",
-            "PROD"
-          ]
+          "enum": ["TEST", "PROD"]
         }
       },
-      "required": [
-        "blockchain_network",
-        "deployment",
-        "data_set_name"
-      ],
+      "required": ["blockchain_network", "deployment", "data_set_name"],
       "additionalProperties": false
     },
     "data": {
@@ -252,11 +213,7 @@
             "primary_type": {
               "title": "Primary Waste Type",
               "description": "Primary waste material category",
-              "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
-              ],
+              "examples": ["Organic", "Plastic", "Metal"],
               "type": "string",
               "minLength": 1
             },
@@ -280,12 +237,7 @@
                 "code": {
                   "title": "Classification Code",
                   "description": "Local waste classification code",
-                  "examples": [
-                    "20 01 01",
-                    "D001",
-                    "EWC-150101",
-                    "IBAMA-A001"
-                  ],
+                  "examples": ["20 01 01", "D001", "EWC-150101", "IBAMA-A001"],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 20
@@ -317,52 +269,29 @@
                   "maxLength": 50
                 }
               },
-              "required": [
-                "code",
-                "description",
-                "system"
-              ],
+              "required": ["code", "description", "system"],
               "additionalProperties": false
             },
             "measurement_unit": {
               "title": "Measurement Unit",
               "description": "Unit of measurement for the waste quantity",
-              "examples": [
-                "kg",
-                "ton"
-              ],
+              "examples": ["kg", "ton"],
               "type": "string",
-              "enum": [
-                "kg",
-                "ton"
-              ]
+              "enum": ["kg", "ton"]
             },
             "net_weight": {
               "title": "Net Weight",
               "description": "Net weight of the waste batch in the specified measurement unit",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
+              "examples": [0, 45.2, 72.5],
               "type": "number",
               "minimum": 0
             },
             "contamination_level": {
               "title": "Contamination Level",
               "description": "Level of contamination in the waste batch",
-              "examples": [
-                "Low",
-                "Medium",
-                "None"
-              ],
+              "examples": ["Low", "Medium", "None"],
               "type": "string",
-              "enum": [
-                "None",
-                "Low",
-                "Medium",
-                "High"
-              ]
+              "enum": ["None", "Low", "Medium", "High"]
             }
           },
           "required": [
@@ -398,12 +327,7 @@
               "municipality": {
                 "title": "Municipality",
                 "description": "Municipality or city name",
-                "examples": [
-                  "New York",
-                  "São Paulo",
-                  "London",
-                  "Tokyo"
-                ],
+                "examples": ["New York", "São Paulo", "London", "Tokyo"],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
@@ -411,12 +335,7 @@
               "administrative_division": {
                 "title": "Administrative Division",
                 "description": "State, province, or administrative region",
-                "examples": [
-                  "California",
-                  "Ontario",
-                  "Bavaria",
-                  "Queensland"
-                ],
+                "examples": ["California", "Ontario", "Bavaria", "Queensland"],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
@@ -424,23 +343,14 @@
               "administrative_division_code": {
                 "title": "Administrative Division Code",
                 "description": "ISO 3166-2 administrative division code",
-                "examples": [
-                  "BR-AP",
-                  "BR-ES",
-                  "US-CA"
-                ],
+                "examples": ["BR-AP", "BR-ES", "US-CA"],
                 "type": "string",
                 "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
               },
               "country": {
                 "title": "Country",
                 "description": "Full country name in English",
-                "examples": [
-                  "United States",
-                  "Canada",
-                  "Germany",
-                  "Australia"
-                ],
+                "examples": ["United States", "Canada", "Germany", "Australia"],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
@@ -448,11 +358,7 @@
               "country_code": {
                 "title": "Country Code",
                 "description": "ISO 3166-1 alpha-2 country code",
-                "examples": [
-                  "BR",
-                  "US",
-                  "DE"
-                ],
+                "examples": ["BR", "US", "DE"],
                 "type": "string",
                 "pattern": "^[A-Z]{2}$"
               },
@@ -476,11 +382,7 @@
                   "latitude": {
                     "title": "Latitude",
                     "description": "GPS latitude coordinate",
-                    "examples": [
-                      -0.02,
-                      -20.38,
-                      40.7128
-                    ],
+                    "examples": [-0.02, -20.38, 40.7128],
                     "type": "number",
                     "minimum": -90,
                     "maximum": 90
@@ -488,11 +390,7 @@
                   "longitude": {
                     "title": "Longitude",
                     "description": "GPS longitude coordinate",
-                    "examples": [
-                      -51.06,
-                      -40.34,
-                      -74.006
-                    ],
+                    "examples": [-51.06, -40.34, -74.006],
                     "type": "number",
                     "minimum": -180,
                     "maximum": 180
@@ -500,11 +398,7 @@
                   "precision_level": {
                     "title": "Precision Level",
                     "description": "Level of coordinate precision",
-                    "examples": [
-                      "city",
-                      "exact",
-                      "neighborhood"
-                    ],
+                    "examples": ["city", "exact", "neighborhood"],
                     "type": "string",
                     "enum": [
                       "exact",
@@ -515,11 +409,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "latitude",
-                  "longitude",
-                  "precision_level"
-                ],
+                "required": ["latitude", "longitude", "precision_level"],
                 "additionalProperties": false
               },
               "facility_type": {
@@ -600,22 +490,14 @@
                 "items": {
                   "title": "Participant Role",
                   "description": "Role that a participant plays in the waste management supply chain",
-                  "examples": [
-                    "Waste Generator",
-                    "Hauler",
-                    "Recycler"
-                  ],
+                  "examples": ["Waste Generator", "Hauler", "Recycler"],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 100
                 }
               }
             },
-            "required": [
-              "id",
-              "name",
-              "roles"
-            ],
+            "required": ["id", "name", "roles"],
             "additionalProperties": false
           }
         },
@@ -712,11 +594,7 @@
                   "weight": {
                     "title": "Event Weight",
                     "description": "Mass weight after this event",
-                    "examples": [
-                      0,
-                      45.2,
-                      72.5
-                    ],
+                    "examples": [0, 45.2, 72.5],
                     "type": "number",
                     "minimum": 0
                   },
@@ -774,11 +652,7 @@
                         "format": {
                           "title": "Event Attribute Format",
                           "description": "Data format hint for proper display",
-                          "examples": [
-                            "KILOGRAM",
-                            "DATE",
-                            "PERCENTAGE"
-                          ],
+                          "examples": ["KILOGRAM", "DATE", "PERCENTAGE"],
                           "type": "string",
                           "enum": [
                             "KILOGRAM",
@@ -789,10 +663,7 @@
                           ]
                         }
                       },
-                      "required": [
-                        "name",
-                        "value"
-                      ],
+                      "required": ["name", "value"],
                       "additionalProperties": false
                     }
                   },
@@ -877,10 +748,7 @@
                           "maxLength": 100
                         }
                       },
-                      "required": [
-                        "type",
-                        "reference"
-                      ],
+                      "required": ["type", "reference"],
                       "additionalProperties": false
                     }
                   },
@@ -906,32 +774,20 @@
             "total_distance_km": {
               "title": "Total Distance (km)",
               "description": "Total distance traveled across all transport events",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
+              "examples": [0, 45.2, 72.5],
               "type": "number",
               "minimum": 0
             },
             "total_duration_hours": {
               "title": "Total Duration (hours)",
               "description": "Total time from first to last event in hours",
-              "examples": [
-                72.5,
-                24,
-                168.5
-              ],
+              "examples": [72.5, 24, 168.5],
               "type": "number",
               "minimum": 0,
               "multipleOf": 0.1
             }
           },
-          "required": [
-            "events",
-            "total_distance_km",
-            "total_duration_hours"
-          ],
+          "required": ["events", "total_distance_km", "total_duration_hours"],
           "additionalProperties": false
         },
         "geographic_data": {
@@ -1016,11 +872,7 @@
                   "distance_km": {
                     "title": "Distance (km)",
                     "description": "Distance for this route segment in kilometers",
-                    "examples": [
-                      0,
-                      45.2,
-                      72.5
-                    ],
+                    "examples": [0, 45.2, 72.5],
                     "type": "number",
                     "minimum": 0
                   },
@@ -1044,11 +896,7 @@
                   "duration_hours": {
                     "title": "Duration (hours)",
                     "description": "Time taken for this route segment in hours",
-                    "examples": [
-                      72.5,
-                      24,
-                      168.5
-                    ],
+                    "examples": [72.5, 24, 168.5],
                     "type": "number",
                     "minimum": 0,
                     "multipleOf": 0.1
@@ -1100,11 +948,7 @@
         "chain_id": {
           "title": "Chain ID",
           "description": "Blockchain chain ID",
-          "examples": [
-            1,
-            137,
-            11155111
-          ],
+          "examples": [1, 137, 11155111],
           "type": "integer",
           "minimum": 1,
           "maximum": 9007199254740991
@@ -1119,11 +963,7 @@
         "token_id": {
           "title": "Token ID",
           "description": "NFT token ID",
-          "examples": [
-            "123",
-            "456789",
-            "1000000"
-          ],
+          "examples": ["123", "456789", "1000000"],
           "type": "string",
           "minLength": 1,
           "pattern": "^\\d+$"
@@ -1152,11 +992,7 @@
     "short_name": {
       "title": "Short Name",
       "description": "Compact name for UI summaries, tables, or tooltips",
-      "examples": [
-        "MassID #123",
-        "RecycledID #456",
-        "GasID #789"
-      ],
+      "examples": ["MassID #123", "RecycledID #456", "GasID #789"],
       "type": "string",
       "minLength": 1,
       "maxLength": 50
@@ -1186,11 +1022,7 @@
     "background_color": {
       "title": "Background Color",
       "description": "Hex color code for marketplace background display",
-      "examples": [
-        "#2D5A27",
-        "#FF5733",
-        "#1E90FF"
-      ],
+      "examples": ["#2D5A27", "#FF5733", "#1E90FF"],
       "type": "string",
       "minLength": 1,
       "pattern": "^#[0-9A-F]{6}$"
@@ -1251,10 +1083,7 @@
             "maxLength": 100
           }
         },
-        "required": [
-          "label",
-          "url"
-        ],
+        "required": ["label", "url"],
         "additionalProperties": false
       }
     },
@@ -1273,19 +1102,12 @@
             "value": {
               "title": "Waste Type",
               "description": "Category or type of waste material",
-              "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
-              ],
+              "examples": ["Organic", "Plastic", "Metal"],
               "type": "string",
               "minLength": 1
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1310,10 +1132,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1328,11 +1147,7 @@
             "value": {
               "title": "Weight (kg)",
               "description": "Weight measurement in kilograms",
-              "examples": [
-                3000,
-                1500,
-                500
-              ],
+              "examples": [3000, 1500, 500],
               "type": "number",
               "minimum": 0
             },
@@ -1341,11 +1156,7 @@
               "const": "number"
             }
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
+          "required": ["trait_type", "value", "display_type"],
           "additionalProperties": false
         },
         {
@@ -1364,10 +1175,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1386,10 +1194,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1408,10 +1213,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1430,10 +1232,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1452,10 +1251,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1478,11 +1274,7 @@
               "const": "date"
             }
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
+          "required": ["trait_type", "value", "display_type"],
           "additionalProperties": false
         },
         {
@@ -1505,11 +1297,7 @@
               "const": "date"
             }
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
+          "required": ["trait_type", "value", "display_type"],
           "additionalProperties": false
         }
       ],
