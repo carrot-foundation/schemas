@@ -18,6 +18,7 @@ node_modules
 .cursorrules
 .cursorignore
 .aider.*
+.ai
 
 # IDE - VSCode
 .vscode/*
