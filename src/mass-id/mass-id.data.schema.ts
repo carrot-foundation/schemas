@@ -26,15 +26,28 @@ const LocalClassificationSchema = z
     code: NonEmptyStringSchema.max(20).meta({
       title: 'Classification Code',
       description: 'Local waste classification code',
+      examples: ['20 01 01', 'D001', 'EWC-150101', 'IBAMA-A001'],
     }),
     description: NonEmptyStringSchema.max(200).meta({
       title: 'Classification Description',
       description: 'Local waste classification description',
+      examples: [
+        'Paper and cardboard packaging',
+        'Ignitable waste',
+        'Paper and cardboard packaging waste',
+        'Municipal solid waste - organic fraction',
+      ],
     }),
     system: NonEmptyStringSchema.max(50).meta({
       title: 'Classification System',
       description:
         'Classification system name (e.g., "Ibama Waste Code", "European Waste Catalogue", "US EPA Codes")',
+      examples: [
+        'European Waste Catalogue',
+        'US EPA Codes',
+        'Ibama Waste Code',
+        'Brazilian ABNT Classification',
+      ],
     }),
   })
   .meta({
@@ -95,10 +108,30 @@ const EventAttributeSchema = z
     name: NonEmptyStringSchema.max(100).meta({
       title: 'Attribute Name',
       description: 'Event attribute name',
+      examples: [
+        'temperature',
+        'humidity',
+        'contamination_percentage',
+        'quality_grade',
+        'batch_number',
+        'operator_id',
+        'equipment_used',
+        'processing_cost',
+      ],
     }),
     value: z.union([z.string(), z.number(), z.boolean()]).meta({
       title: 'Attribute Value',
       description: 'Event attribute value',
+      examples: [
+        25.5,
+        'Grade A',
+        true,
+        'BATCH-2024-001',
+        12.75,
+        'Shredder-X200',
+        false,
+        'OP-456',
+      ],
     }),
     format: EventAttributeFormatSchema.optional(),
   })
@@ -112,24 +145,60 @@ const EventDocumentationSchema = z
     type: NonEmptyStringSchema.max(50).meta({
       title: 'Document Type',
       description: 'Type of supporting documentation',
+      examples: [
+        'Waste Transfer Note',
+        'Certificate of Disposal',
+        'Certificate of Final Destination',
+        'Quality Assessment Report',
+        'Transport Manifest',
+        'Processing Receipt',
+        'Environmental Permit',
+        'Invoice',
+      ],
     }),
-    document_number: NonEmptyStringSchema.max(50).optional().meta({
-      title: 'Document Number',
-      description: 'Official document number if applicable',
-    }),
+    document_number: NonEmptyStringSchema.max(50)
+      .optional()
+      .meta({
+        title: 'Document Number',
+        description: 'Official document number if applicable',
+        examples: [
+          'WTN-2024-001234',
+          'CD-ENV-456789',
+          'INV-2024-QTR1-789',
+          'PERMIT-EPA-2024-001',
+          'MANIFEST-DOT-567890',
+        ],
+      }),
     reference: NonEmptyStringSchema.meta({
       title: 'Document Reference',
       description:
         'Reference to document (IPFS hash, file name, or external URL)',
+      examples: [
+        'QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o',
+        'waste_transfer_note_2024_001.pdf',
+        'https://docs.example.com/certificates/disposal_cert_456.pdf',
+        'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+        'processing_receipt_20240315.jpg',
+      ],
     }),
     issue_date: IsoDateSchema.optional().meta({
       title: 'Issue Date',
       description: 'Date the document was issued',
     }),
-    issuer: NonEmptyStringSchema.max(100).optional().meta({
-      title: 'Document Issuer',
-      description: 'Entity that issued the document',
-    }),
+    issuer: NonEmptyStringSchema.max(100)
+      .optional()
+      .meta({
+        title: 'Document Issuer',
+        description: 'Entity that issued the document',
+        examples: [
+          'Environmental Protection Agency',
+          'Waste Management Solutions Ltd',
+          'Green Recycling Corp',
+          'City Waste Authority',
+          'EcoProcess Industries',
+          'Regional Environmental Office',
+        ],
+      }),
   })
   .meta({
     title: 'Event Documentation',
@@ -145,10 +214,19 @@ const ChainOfCustodyEventSchema = z
     event_name: NonEmptyStringSchema.max(50).meta({
       title: 'Event Name',
       description: 'Name of custody or processing event',
+      examples: ['Sorting', 'Processing', 'Recycling', 'Weighing'],
     }),
     description: NonEmptyStringSchema.max(200).meta({
       title: 'Event Description',
       description: 'Detailed description of what happened during this event',
+      examples: [
+        'Waste collected from residential area using collection truck',
+        'Material sorted into recyclable and non-recyclable fractions',
+        'Plastic waste processed through shredding and washing',
+        'Waste transferred to authorized recycling facility',
+        'Final disposal at licensed landfill site',
+        'Quality inspection and contamination assessment completed',
+      ],
     }),
     timestamp: IsoTimestampSchema.meta({
       title: 'Event Timestamp',
@@ -224,6 +302,16 @@ const TransportRouteSchema = z
     transport_method: NonEmptyStringSchema.max(50).meta({
       title: 'Transport Method',
       description: 'Method of transportation for this segment',
+      examples: [
+        'Truck',
+        'Rail',
+        'Barge',
+        'Container Ship',
+        'Conveyor Belt',
+        'Pipeline',
+        'Walking',
+        'Forklift',
+      ],
     }),
     duration_hours: HoursSchema.meta({
       title: 'Duration (hours)',
