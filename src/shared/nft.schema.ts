@@ -106,9 +106,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       description: 'Type/category of this NFT schema',
     }),
   }),
-
   blockchain: BlockchainSchema,
-
   name: z
     .string()
     .min(1)
@@ -122,7 +120,6 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
         'GasID #789 • Methane • 1000 m³',
       ],
     }),
-
   short_name: z
     .string()
     .min(1)
@@ -132,7 +129,6 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       description: 'Compact name for UI summaries, tables, or tooltips',
       examples: ['MassID #123', 'RecycledID #456', 'GasID #789'],
     }),
-
   description: z
     .string()
     .min(10)
@@ -146,17 +142,14 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
         'This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd.',
       ],
     }),
-
   image: IpfsUriSchema.meta({
     title: 'Image URI',
     description: 'IPFS URI pointing to the preview image',
   }),
-
   background_color: HexColorSchema.optional().meta({
     title: 'Background Color',
     description: 'Hex color code for marketplace background display',
   }),
-
   animation_url: IpfsUriSchema.optional().meta({
     title: 'Animation URL',
     description: 'IPFS URI pointing to an animated or interactive media file',
@@ -165,7 +158,6 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       'ipfs://QmInteractive456/recycled-visualization.webm',
     ],
   }),
-
   external_links: uniqueBy(
     ExternalLinkSchema,
     (link) => link.url,
@@ -191,7 +183,6 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
         ],
       ],
     }),
-
   attributes: uniqueBy(
     NftAttributeSchema,
     (attr) => attr.trait_type,

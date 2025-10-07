@@ -194,13 +194,11 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       description: 'MassID NFT schema type',
     }),
   }),
-
   attributes: MassIDAttributesSchema.meta({
     title: 'MassID NFT Attributes',
     description:
       'Fixed set of MassID NFT attributes enforcing order and type for each trait',
   }).check(z.minLength(10), z.maxLength(10)),
-
   data: MassIDDataSchema.meta({
     title: 'MassID Data',
     description:
