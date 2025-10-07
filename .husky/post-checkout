@@ -16,6 +16,14 @@ fi
 echo "$manifest" | while read -r file; do
   [ -z "$file" ] && continue
 
+  # Validate file path to prevent directory traversal
+  case "$file" in
+    *..* | /*)
+      echo "Warning: Skipping unsafe file path: $file"
+      continue
+      ;;
+  esac
+
   # Create subdirectory if needed
   dir=$(dirname "$file")
   [ "$dir" != "." ] && mkdir -p ".ai/$dir"
