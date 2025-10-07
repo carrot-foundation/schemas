@@ -5,7 +5,7 @@ mkdir -p .ai
 base_url="https://raw.githubusercontent.com/carrot-foundation/middle-earth/main/.ai"
 
 # Fetch manifest
-manifest=$(curl -sf "$base_url/manifest.txt")
+manifest=$(curl -sf --max-time 10 "$base_url/manifest.txt")
 
 if [ -z "$manifest" ]; then
   echo "Warning: Failed to fetch AI instructions manifest"
@@ -20,5 +20,5 @@ echo "$manifest" | while read -r file; do
   dir=$(dirname "$file")
   [ "$dir" != "." ] && mkdir -p ".ai/$dir"
 
-  curl -sf "$base_url/$file" -o ".ai/$file" || echo "Warning: Failed to fetch $file"
+  curl -sf --max-time 10 "$base_url/$file" -o ".ai/$file" || echo "Warning: Failed to fetch $file"
 done
