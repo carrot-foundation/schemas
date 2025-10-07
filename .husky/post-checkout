@@ -1,0 +1,32 @@
+#!/bin/sh
+
+mkdir -p .ai
+
+base_url="https://raw.githubusercontent.com/carrot-foundation/middle-earth/main/.ai"
+
+# Fetch manifest
+manifest=$(curl -sf --max-time 10 "$base_url/manifest.txt")
+
+if [ -z "$manifest" ]; then
+  echo "Warning: Failed to fetch AI instructions manifest"
+  exit 0
+fi
+
+# Fetch each file from manifest
+echo "$manifest" | while read -r file; do
+  [ -z "$file" ] && continue
+
+  # Validate file path to prevent directory traversal
+  case "$file" in
+    *..* | /*)
+      echo "Warning: Skipping unsafe file path: $file"
+      continue
+      ;;
+  esac
+
+  # Create subdirectory if needed
+  dir=$(dirname "$file")
+  [ "$dir" != "." ] && mkdir -p ".ai/$dir"
+
+  curl -sf --max-time 10 "$base_url/$file" -o ".ai/$file" || echo "Warning: Failed to fetch $file"
+done
