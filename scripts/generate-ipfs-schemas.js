@@ -13,7 +13,7 @@ const schemas = [
 ];
 
 function getFilePath(fullFileName) {
-  const fileFolder = fullFileName.split('.schema').join('');
+  const fileFolder = fullFileName.replace('.schema', '');
   return resolve('schemas', 'ipfs', `${fileFolder}`, `${fullFileName}.json`);
 }
 
