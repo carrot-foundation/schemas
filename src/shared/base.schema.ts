@@ -53,19 +53,10 @@ const RelationshipSchema = z
       title: 'Target CID',
       description: 'IPFS Content Identifier (CID) of the referenced record',
     }),
-    type: z
-      .enum([
-        'collection',
-        'credit',
-        'audit',
-        'update',
-        'derivation',
-        'reference',
-      ])
-      .meta({
-        title: 'Relationship Type',
-        description: 'Type of relationship to the referenced record',
-      }),
+    type: SchemaTypeSchema.meta({
+      title: 'Relationship Type',
+      description: 'Type of relationship to the referenced record',
+    }),
     description: z.string().optional().meta({
       title: 'Relationship Description',
       description: 'Human-readable description of the relationship',
@@ -132,41 +123,17 @@ export const BaseIpfsSchema = z
     }),
     creator: CreatorSchema.optional(),
 
-    relationships: z
-      .array(RelationshipSchema)
-      .optional()
-      .meta({
-        title: 'Relationships',
-        description: 'References to other IPFS records this record relates to',
-        examples: [
-          [
-            {
-              target_cid: 'QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb',
-              type: 'audit',
-              description: 'Related audit report for this MassID',
-            },
-          ],
-        ],
-      }),
+    relationships: z.array(RelationshipSchema).optional().meta({
+      title: 'Relationships',
+      description: 'References to other IPFS records this record relates to',
+    }),
 
     environment: EnvironmentSchema.optional(),
 
-    data: z
-      .record(z.string(), z.unknown())
-      .optional()
-      .meta({
-        title: 'Custom Data',
-        description: "Custom data block that includes the record's data",
-        examples: [
-          {
-            waste_classification: {
-              primary_type: 'Organic',
-              subtype: 'Food, Food Waste and Beverages',
-              net_weight: 3000,
-            },
-          },
-        ],
-      }),
+    data: z.record(z.string(), z.unknown()).optional().meta({
+      title: 'Custom Data',
+      description: "Custom data block that includes the record's data",
+    }),
   })
   .meta({
     title: 'Base IPFS Record',
