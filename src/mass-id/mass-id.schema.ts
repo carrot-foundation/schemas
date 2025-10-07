@@ -208,7 +208,7 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
   title: 'MassID NFT IPFS Record',
   description:
     'Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data',
-  $id: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json',
+  $id: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json',
   version: '1.0.0',
 });
 
