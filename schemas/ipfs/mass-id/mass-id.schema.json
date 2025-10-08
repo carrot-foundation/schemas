@@ -129,9 +129,9 @@
         "description": "Relationship to another IPFS record",
         "type": "object",
         "properties": {
-          "target_cid_uri": {
-            "title": "IPFS Target CID URI",
-            "description": "IPFS target Content Identifier (CID) URI of the referenced record",
+          "target_uri": {
+            "title": "Target IPFS URI",
+            "description": "Target IPFS URI of the referenced record",
             "examples": [
               "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
               "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
@@ -169,7 +169,7 @@
             "type": "string"
           }
         },
-        "required": ["target_cid_uri", "type"],
+        "required": ["target_uri", "type"],
         "additionalProperties": false
       }
     },
@@ -672,8 +672,8 @@
                     "description": "Associated documentation for this event",
                     "type": "array",
                     "items": {
-                      "title": "Event Documentation",
-                      "description": "Supporting documentation for an event",
+                      "title": "Event Document",
+                      "description": "Supporting event document",
                       "type": "object",
                       "properties": {
                         "type": {

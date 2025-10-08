@@ -143,7 +143,7 @@ const EventAttributeSchema = z
   });
 export type EventAttribute = z.infer<typeof EventAttributeSchema>;
 
-const EventDocumentationSchema = z
+const EventDocumentSchema = z
   .strictObject({
     type: NonEmptyStringSchema.max(50).meta({
       title: 'Document Type',
@@ -204,10 +204,10 @@ const EventDocumentationSchema = z
       }),
   })
   .meta({
-    title: 'Event Documentation',
-    description: 'Supporting documentation for an event',
+    title: 'Event Document',
+    description: 'Supporting event document',
   });
-export type EventDocumentation = z.infer<typeof EventDocumentationSchema>;
+export type EventDocumentation = z.infer<typeof EventDocumentSchema>;
 
 const ChainOfCustodyEventSchema = z
   .strictObject({
@@ -252,7 +252,7 @@ const ChainOfCustodyEventSchema = z
       title: 'Event Attributes',
       description: 'Additional attributes specific to this event',
     }),
-    documentation: z.array(EventDocumentationSchema).optional().meta({
+    documentation: z.array(EventDocumentSchema).optional().meta({
       title: 'Event Documentation',
       description: 'Associated documentation for this event',
     }),

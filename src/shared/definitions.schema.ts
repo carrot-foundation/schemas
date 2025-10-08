@@ -186,7 +186,7 @@ export const FacilityTypeSchema = z
   });
 export type FacilityType = z.infer<typeof FacilityTypeSchema>;
 
-export const ChainIdSchema = z
+export const BlockchainChainIdSchema = z
   .number()
   .int()
   .min(1)
@@ -195,7 +195,7 @@ export const ChainIdSchema = z
     description: 'Blockchain network identifier',
     examples: [1, 137, 11155111],
   });
-export type ChainId = z.infer<typeof ChainIdSchema>;
+export type BlockchainChainId = z.infer<typeof BlockchainChainIdSchema>;
 
 export const PercentageSchema = z
   .number()

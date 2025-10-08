@@ -127,7 +127,7 @@ const AttributeIntegratorSchema = z
 
 export type AttributeIntegrator = z.infer<typeof AttributeIntegratorSchema>;
 
-const AttributePickupDateSchema = z
+const AttributePickUpDateSchema = z
   .strictObject({
     trait_type: z.literal('Pick-up Date'),
     value: z
@@ -144,7 +144,7 @@ const AttributePickupDateSchema = z
     description: 'Pick-up date attribute',
   });
 
-export type AttributePickupDate = z.infer<typeof AttributePickupDateSchema>;
+export type AttributePickUpDate = z.infer<typeof AttributePickUpDateSchema>;
 
 const AttributeRecyclingDateSchema = z
   .strictObject({
@@ -177,7 +177,7 @@ const MassIDAttributesSchema = z
     AttributeOriginDivisionSchema,
     AttributeRecyclerSchema,
     AttributeIntegratorSchema,
-    AttributePickupDateSchema,
+    AttributePickUpDateSchema,
     AttributeRecyclingDateSchema,
   ])
   .meta({

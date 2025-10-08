@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { BaseIpfsSchema } from './base.schema.js';
 import {
   EthereumAddressSchema,
-  ChainIdSchema,
+  BlockchainChainIdSchema,
   TokenIdSchema,
   IpfsUriSchema,
   HexColorSchema,
@@ -23,12 +23,12 @@ const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
 
 export type NftSchemaType = z.infer<typeof NftSchemaTypeSchema>;
 
-const BlockchainSchema = z
+const BlockchainReferenceSchema = z
   .strictObject({
     smart_contract_address: EthereumAddressSchema.meta({
       title: 'Smart Contract Address',
     }),
-    chain_id: ChainIdSchema.meta({
+    chain_id: BlockchainChainIdSchema.meta({
       title: 'Chain ID',
       description: 'Blockchain chain ID',
     }),
@@ -46,7 +46,7 @@ const BlockchainSchema = z
     description: 'Blockchain-specific information for the NFT',
   });
 
-export type Blockchain = z.infer<typeof BlockchainSchema>;
+export type BlockchainReference = z.infer<typeof BlockchainReferenceSchema>;
 
 const ExternalLinkSchema = z
   .strictObject({
@@ -106,7 +106,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       description: 'Type/category of this NFT schema',
     }),
   }),
-  blockchain: BlockchainSchema,
+  blockchain: BlockchainReferenceSchema,
   name: z
     .string()
     .min(1)
