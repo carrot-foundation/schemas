@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 globs: *.schema.json
 alwaysApply: false
 ---
@@ -148,7 +148,7 @@ schemas/*/v*/: JSON schema files
 ### Validation Requirements
 
 - All JSON files must be valid JSON syntax
-- All schema files must be valid JSON Schema draft-07
+- All schema files must be valid JSON Schema 2020-12
 - Example files must validate against their corresponding schemas
 - URI references must be properly formatted
 

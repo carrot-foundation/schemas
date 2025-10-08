@@ -7,7 +7,9 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   UuidSchema,
-  SchemaTypeSchema,
+  RecordSchemaTypeSchema,
+  IpfsUriSchema,
+  RecordRelationshipTypeSchema,
 } from './definitions.schema.js';
 
 const SchemaInfoSchema = z
@@ -17,7 +19,7 @@ const SchemaInfoSchema = z
       description:
         'Keccak256 hash of the JSON Schema this record was validated against',
     }),
-    type: SchemaTypeSchema.meta({
+    type: RecordSchemaTypeSchema.meta({
       title: 'Schema Type',
       description: 'Type/category of this schema',
     }),
@@ -30,11 +32,14 @@ const SchemaInfoSchema = z
     title: 'Schema Information',
   });
 
-const CreatorSchema = z
+export type SchemaInfo = z.infer<typeof SchemaInfoSchema>;
+
+const RecordCreatorSchema = z
   .strictObject({
     name: z.string().meta({
       title: 'Creator Name',
       description: 'Company or individual name that created this record',
+      examples: ['Carrot Foundation', 'Alice', 'Bob'],
     }),
     id: UuidSchema.meta({
       title: 'Creator ID',
@@ -46,42 +51,41 @@ const CreatorSchema = z
     description: 'Entity that created this record',
   });
 
-const RelationshipSchema = z
+export type RecordCreator = z.infer<typeof RecordCreatorSchema>;
+
+const RecordRelationshipSchema = z
   .strictObject({
-    target_cid: z
-      .string()
-      .regex(
-        /^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]+)$/,
-        'Must be a valid IPFS Content Identifier (CID)',
-      )
-      .meta({
-        title: 'Target CID',
-        description: 'IPFS Content Identifier (CID) of the referenced record',
-      }),
-    type: z
-      .enum([
-        'collection',
-        'credit',
-        'audit',
-        'update',
-        'derivation',
-        'reference',
-      ])
-      .meta({
-        title: 'Relationship Type',
-        description: 'Type of relationship to the referenced record',
-      }),
-    description: z.string().optional().meta({
-      title: 'Relationship Description',
-      description: 'Human-readable description of the relationship',
+    target_uri: IpfsUriSchema.meta({
+      title: 'Target IPFS URI',
+      description: 'Target IPFS URI of the referenced record',
     }),
+    type: RecordRelationshipTypeSchema.meta({
+      title: 'Relationship Type',
+      description: 'Type of relationship to the referenced record',
+    }),
+    description: z
+      .string()
+      .optional()
+      .meta({
+        title: 'Relationship Description',
+        description: 'Human-readable description of the relationship',
+        examples: [
+          'This record supersedes the previous version',
+          'Related carbon credit batch',
+          'Source document for this verification',
+          'Child record derived from this parent',
+          'Updated version of original record',
+        ],
+      }),
   })
   .meta({
     title: 'Relationship',
     description: 'Relationship to another IPFS record',
   });
 
-const EnvironmentSchema = z
+export type RecordRelationship = z.infer<typeof RecordRelationshipSchema>;
+
+export const RecordEnvironmentSchema = z
   .strictObject({
     blockchain_network: z.enum(['mainnet', 'testnet']).meta({
       title: 'Blockchain Network',
@@ -101,30 +105,29 @@ const EnvironmentSchema = z
     description: 'Environment information',
   });
 
+export type RecordEnvironment = z.infer<typeof RecordEnvironmentSchema>;
+
 export const BaseIpfsSchema = z
   .strictObject({
     $schema: z.url('Must be a valid URI').meta({
       title: 'JSON Schema URI',
       description: 'URI of the JSON Schema used to validate this record',
+      example:
+        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json',
     }),
-
     schema: SchemaInfoSchema,
-
     created_at: IsoTimestampSchema.meta({
       title: 'Created At',
       description: 'ISO 8601 creation timestamp for this record',
     }),
-
     external_id: ExternalIdSchema.meta({
       title: 'External ID',
       description: 'Off-chain reference ID (UUID from Carrot backend)',
     }),
-
     external_url: ExternalUrlSchema.meta({
       title: 'External URL',
       description: 'External URL of the content',
     }),
-
     original_content_hash: Sha256HashSchema.meta({
       title: 'Original Content Hash',
       description:
@@ -135,43 +138,16 @@ export const BaseIpfsSchema = z
       description:
         'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
     }),
-    creator: CreatorSchema.optional(),
-
-    relationships: z
-      .array(RelationshipSchema)
-      .optional()
-      .meta({
-        title: 'Relationships',
-        description: 'References to other IPFS records this record relates to',
-        examples: [
-          [
-            {
-              target_cid: 'QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb',
-              type: 'audit',
-              description: 'Related audit report for this MassID',
-            },
-          ],
-        ],
-      }),
-
-    environment: EnvironmentSchema.optional(),
-
-    data: z
-      .record(z.string(), z.unknown())
-      .optional()
-      .meta({
-        title: 'Custom Data',
-        description: "Custom data block that includes the record's data",
-        examples: [
-          {
-            waste_classification: {
-              primary_type: 'Organic',
-              subtype: 'Food, Food Waste and Beverages',
-              net_weight: 3000,
-            },
-          },
-        ],
-      }),
+    creator: RecordCreatorSchema.optional(),
+    relationships: z.array(RecordRelationshipSchema).optional().meta({
+      title: 'Relationships',
+      description: 'References to other IPFS records this record relates to',
+    }),
+    environment: RecordEnvironmentSchema.optional(),
+    data: z.record(z.string(), z.unknown()).optional().meta({
+      title: 'Custom Data',
+      description: "Custom data block that includes the record's data",
+    }),
   })
   .meta({
     title: 'Base IPFS Record',
@@ -179,9 +155,4 @@ export const BaseIpfsSchema = z
       'Base fields for all Carrot IPFS records, providing common structure for any JSON content stored in IPFS',
   });
 
-export type BaseIpfsSchemaType = z.infer<typeof BaseIpfsSchema>;
-export type SchemaTypeType = z.infer<typeof SchemaTypeSchema>;
-export type SchemaInfoType = z.infer<typeof SchemaInfoSchema>;
-export type CreatorType = z.infer<typeof CreatorSchema>;
-export type RelationshipObjectType = z.infer<typeof RelationshipSchema>;
-export type EnvironmentType = z.infer<typeof EnvironmentSchema>;
+export type BaseIpfs = z.infer<typeof BaseIpfsSchema>;
