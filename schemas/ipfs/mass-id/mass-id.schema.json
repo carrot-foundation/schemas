@@ -3,7 +3,7 @@
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "object",
   "properties": {
     "$schema": {
@@ -438,12 +438,10 @@
               "id",
               "municipality",
               "administrative_division",
-              "administrative_division_code",
               "country",
               "country_code",
               "responsible_participant_id",
-              "coordinates",
-              "facility_type"
+              "coordinates"
             ],
             "additionalProperties": false
           }
@@ -763,7 +761,6 @@
                 "required": [
                   "event_id",
                   "event_name",
-                  "description",
                   "timestamp",
                   "participant_id",
                   "location_id"
