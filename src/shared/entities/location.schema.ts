@@ -53,10 +53,11 @@ export const LocationSchema = z
       description: 'State, province, or administrative region',
       examples: ['California', 'Ontario', 'Bavaria', 'Queensland'],
     }),
-    administrative_division_code: IsoAdministrativeDivisionCodeSchema.meta({
-      title: 'Administrative Division Code',
-      description: 'ISO 3166-2 administrative division code',
-    }),
+    administrative_division_code:
+      IsoAdministrativeDivisionCodeSchema.optional().meta({
+        title: 'Administrative Division Code',
+        description: 'ISO 3166-2 administrative division code',
+      }),
     country: NonEmptyStringSchema.max(50).meta({
       title: 'Country',
       description: 'Full country name in English',
@@ -71,7 +72,7 @@ export const LocationSchema = z
       description: 'ID of the participant responsible for this location',
     }),
     coordinates: CoordinatesSchema,
-    facility_type: FacilityTypeSchema.meta({
+    facility_type: FacilityTypeSchema.optional().meta({
       title: 'Facility Type',
       description: 'Type of facility at this location',
     }),

@@ -13,7 +13,7 @@ import { LocationSchema } from '../shared/entities/location.schema.js';
 import { ParticipantSchema } from '../shared/entities/participant.schema.js';
 import { uniqueBy } from '../shared/helpers.schema.js';
 
-const LocalClassificationSchema = z
+const MassIDLocalClassificationSchema = z
   .strictObject({
     code: NonEmptyStringSchema.max(20).meta({
       title: 'Classification Code',
@@ -48,15 +48,17 @@ const LocalClassificationSchema = z
       'Local or regional waste classification codes and descriptions',
   });
 
-export type LocalClassification = z.infer<typeof LocalClassificationSchema>;
+export type MassIDLocalClassification = z.infer<
+  typeof MassIDLocalClassificationSchema
+>;
 
-const MeasurementUnitSchema = z.enum(['kg', 'ton']).meta({
+const MassIDMeasurementUnitSchema = z.enum(['kg', 'ton']).meta({
   title: 'Measurement Unit',
   description: 'Unit of measurement for the waste quantity',
   examples: ['kg', 'ton'],
 });
 
-export type MeasurementUnit = z.infer<typeof MeasurementUnitSchema>;
+export type MassIDMeasurementUnit = z.infer<typeof MassIDMeasurementUnitSchema>;
 
 const ContaminationLevelSchema = z
   .enum(['None', 'Low', 'Medium', 'High'])
@@ -68,7 +70,7 @@ const ContaminationLevelSchema = z
 
 export type ContaminationLevel = z.infer<typeof ContaminationLevelSchema>;
 
-const WasteClassificationSchema = z
+const MassIDWasteClassificationSchema = z
   .strictObject({
     primary_type: WasteTypeSchema.meta({
       title: 'Primary Waste Type',
@@ -78,8 +80,8 @@ const WasteClassificationSchema = z
       title: 'Waste Subtype',
       description: 'Specific subcategory of waste material',
     }),
-    local_classification: LocalClassificationSchema.optional(),
-    measurement_unit: MeasurementUnitSchema,
+    local_classification: MassIDLocalClassificationSchema.optional(),
+    measurement_unit: MassIDMeasurementUnitSchema,
     net_weight: NonNegativeFloatSchema.meta({
       title: 'Net Weight',
       description:
@@ -93,7 +95,9 @@ const WasteClassificationSchema = z
       'Standardized waste material classification and regulatory information',
   });
 
-export type WasteClassification = z.infer<typeof WasteClassificationSchema>;
+export type MassIDWasteClassification = z.infer<
+  typeof MassIDWasteClassificationSchema
+>;
 
 const EventAttributeFormatSchema = z
   .enum(['KILOGRAM', 'DATE', 'CURRENCY', 'PERCENTAGE', 'COORDINATE'])
@@ -209,7 +213,7 @@ const EventDocumentSchema = z
   });
 export type EventDocumentation = z.infer<typeof EventDocumentSchema>;
 
-const ChainOfCustodyEventSchema = z
+const MassIDChainOfCustodyEventSchema = z
   .strictObject({
     event_id: UuidSchema.meta({
       title: 'Event ID',
@@ -220,18 +224,20 @@ const ChainOfCustodyEventSchema = z
       description: 'Name of custody or processing event',
       examples: ['Sorting', 'Processing', 'Recycling', 'Weighing'],
     }),
-    description: NonEmptyStringSchema.max(200).meta({
-      title: 'Event Description',
-      description: 'Detailed description of what happened during this event',
-      examples: [
-        'Waste collected from residential area using collection truck',
-        'Material sorted into recyclable and non-recyclable fractions',
-        'Plastic waste processed through shredding and washing',
-        'Waste transferred to authorized recycling facility',
-        'Final disposal at licensed landfill site',
-        'Quality inspection and contamination assessment completed',
-      ],
-    }),
+    description: NonEmptyStringSchema.max(200)
+      .optional()
+      .meta({
+        title: 'Event Description',
+        description: 'Detailed description of what happened during this event',
+        examples: [
+          'Waste collected from residential area using collection truck',
+          'Material sorted into recyclable and non-recyclable fractions',
+          'Plastic waste processed through shredding and washing',
+          'Waste transferred to authorized recycling facility',
+          'Final disposal at licensed landfill site',
+          'Quality inspection and contamination assessment completed',
+        ],
+      }),
     timestamp: IsoTimestampSchema.meta({
       title: 'Event Timestamp',
       description: 'ISO 8601 timestamp when the event occurred',
@@ -265,11 +271,14 @@ const ChainOfCustodyEventSchema = z
     title: 'Chain of Custody Event',
     description: 'Chain of custody event',
   });
-export type ChainOfCustodyEvent = z.infer<typeof ChainOfCustodyEventSchema>;
 
-const ChainOfCustodySchema = z
+export type MassIDChainOfCustodyEvent = z.infer<
+  typeof MassIDChainOfCustodyEventSchema
+>;
+
+const MassIDChainOfCustodySchema = z
   .strictObject({
-    events: z.array(ChainOfCustodyEventSchema).min(1).meta({
+    events: z.array(MassIDChainOfCustodyEventSchema).min(1).meta({
       title: 'Custody Events',
       description:
         'Chronological sequence of custody transfer and processing events',
@@ -288,9 +297,10 @@ const ChainOfCustodySchema = z
     description:
       'Complete chain of custody tracking from waste generation to final processing',
   });
-export type ChainOfCustody = z.infer<typeof ChainOfCustodySchema>;
 
-const TransportRouteSchema = z
+export type MassIDChainOfCustody = z.infer<typeof MassIDChainOfCustodySchema>;
+
+const MassIDTransportRouteSchema = z
   .strictObject({
     from_location_id: UuidSchema.meta({
       title: 'From Location ID',
@@ -328,9 +338,10 @@ const TransportRouteSchema = z
     title: 'Transport Route',
     description: 'Transport route segment information',
   });
-export type TransportRoute = z.infer<typeof TransportRouteSchema>;
 
-const GeographicDataSchema = z
+export type MassIDTransportRoute = z.infer<typeof MassIDTransportRouteSchema>;
+
+const MassIDGeographicDataSchema = z
   .strictObject({
     origin_location_id: UuidSchema.meta({
       title: 'Origin Location ID',
@@ -344,7 +355,7 @@ const GeographicDataSchema = z
       title: 'Final Destination ID',
       description: 'Reference to final destination in the locations array',
     }),
-    transport_routes: z.array(TransportRouteSchema).meta({
+    transport_routes: z.array(MassIDTransportRouteSchema).meta({
       title: 'Transport Routes',
       description: 'Detailed transport route information',
     }),
@@ -354,11 +365,12 @@ const GeographicDataSchema = z
     description:
       'Geographic information about waste origin and processing locations',
   });
-export type GeographicData = z.infer<typeof GeographicDataSchema>;
+
+export type MassIDGeographicData = z.infer<typeof MassIDGeographicDataSchema>;
 
 export const MassIDDataSchema = z
   .strictObject({
-    waste_classification: WasteClassificationSchema,
+    waste_classification: MassIDWasteClassificationSchema,
     locations: uniqueBy(
       LocationSchema,
       (loc) => loc.id,
@@ -380,8 +392,8 @@ export const MassIDDataSchema = z
         description:
           'All participants referenced in this MassID, indexed by ID',
       }),
-    chain_of_custody: ChainOfCustodySchema,
-    geographic_data: GeographicDataSchema,
+    chain_of_custody: MassIDChainOfCustodySchema,
+    geographic_data: MassIDGeographicDataSchema,
   })
   .refine((data) => {
     const participantIdSet = new Set(
@@ -419,4 +431,5 @@ export const MassIDDataSchema = z
     description:
       'MassID data containing waste tracking and chain of custody information',
   });
+
 export type MassIDData = z.infer<typeof MassIDDataSchema>;
