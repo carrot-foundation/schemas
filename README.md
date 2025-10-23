@@ -2,18 +2,19 @@
 
 This repository contains all JSON Schemas used across the Carrot ecosystem.
 
-These schemas define the structure of IPFS metadata for tokenized assets.
+These schemas define the structure of IPFS metadata for tokenized assets and other schemas.
+
 They are versioned, publicly referenceable, and used for validation, traceability, and frontend/backend integration.
 
 ## 📦 Structure
 
 - Schemas are organized by type (e.g., `mass-id`, `gas-id`, `shared`) and follow [Semantic Versioning](https://semver.org/), but folder names are not versioned.
 - Each schema lives in its own folder and includes an `example.json` for testing and documentation.
-- Shared components like `signature`, `attribute`, and the `root` schema are located in `schemas/ipfs/shared`.
+- Shared components are located in `src/shared/**`.
 
 ## 🔖 Versioning
 
-- Schemas are versioned using Git tags (`vX.Y.Z`); directory names are not versioned.
+- Schemas are versioned using isolated versioning; each schema can evolve independently.
 - For released versions, each schema’s `$id` must point to the tagged raw URL to remain immutable.
 - During development on `main`, `$id` may reference `refs/heads/main`, but consumers should pin to tags in production.
 - Keep `$ref` paths relative; they resolve against the `$id` base (the tag) at validation time.
