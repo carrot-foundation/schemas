@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { BaseIpfsSchema } from './base.schema.js';
+import { BaseIpfsSchema } from './base.schema';
 import {
   EthereumAddressSchema,
   BlockchainChainIdSchema,
@@ -8,8 +8,8 @@ import {
   HexColorSchema,
   NonNegativeFloatSchema,
   RecordSchemaTypeSchema,
-} from './definitions.schema.js';
-import { uniqueBy } from './helpers.schema.js';
+} from './definitions.schema';
+import { uniqueBy } from './helpers.schema';
 
 const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   'MassID',

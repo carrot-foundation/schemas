@@ -1,1 +1,1 @@
-export * from './mass-id';
+export * from './mass-id/index';

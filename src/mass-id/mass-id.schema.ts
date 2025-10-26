@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { NftIpfsSchema } from '../shared/nft.schema.js';
-import { MassIDDataSchema } from './mass-id.data.schema.js';
+import { NftIpfsSchema } from '../shared/nft.schema';
+import { MassIDDataSchema } from './mass-id.data.schema';
 import {
   WasteTypeSchema,
   WasteSubtypeSchema,
   WeightKgSchema,
-} from '../shared/definitions.schema.js';
+} from '../shared/definitions.schema';
 
 const AttributeWasteTypeSchema = z
   .strictObject({
