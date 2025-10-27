@@ -7,7 +7,7 @@ import {
   IsoCountryCodeSchema,
   IsoAdministrativeDivisionCodeSchema,
   FacilityTypeSchema,
-} from '../definitions.schema.js';
+} from '../definitions.schema';
 
 const PrecisionLevelSchema = z
   .enum(['exact', 'neighborhood', 'city', 'region', 'country'])

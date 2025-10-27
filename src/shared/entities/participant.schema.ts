@@ -3,8 +3,8 @@ import {
   UuidSchema,
   ParticipantNameSchema,
   ParticipantRoleSchema,
-} from '../definitions.schema.js';
-import { uniqueArrayItems } from '../helpers.schema.js';
+} from '../definitions.schema';
+import { uniqueArrayItems } from '../helpers.schema';
 
 export const ParticipantSchema = z
   .strictObject({

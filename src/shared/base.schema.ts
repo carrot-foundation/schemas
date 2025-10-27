@@ -10,7 +10,7 @@ import {
   RecordSchemaTypeSchema,
   IpfsUriSchema,
   RecordRelationshipTypeSchema,
-} from './definitions.schema.js';
+} from './definitions.schema';
 
 const SchemaInfoSchema = z
   .strictObject({

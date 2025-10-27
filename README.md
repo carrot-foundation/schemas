@@ -25,6 +25,54 @@ Example `$id` pinned to a tag:
 "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.1.0/schemas/ipfs/collection/collection.schema.json"
 ```
 
+## 📚 Package Usage
+
+This package is published to npm as `@carrot-foundation/schemas` and supports both **ESM** and **CommonJS** module formats.
+
+### Installation
+
+```bash
+npm install @carrot-foundation/schemas
+# or
+pnpm add @carrot-foundation/schemas
+# or
+yarn add @carrot-foundation/schemas
+```
+
+### ESM (ECMAScript Modules)
+
+```typescript
+import { MassIDIpfsSchema, MassIDDataSchema } from '@carrot-foundation/schemas';
+
+// Use the schemas for validation
+const result = MassIDIpfsSchema.safeParse(data);
+```
+
+### CommonJS
+
+```javascript
+const {
+  MassIDIpfsSchema,
+  MassIDDataSchema,
+} = require('@carrot-foundation/schemas');
+
+// Use the schemas for validation
+const result = MassIDIpfsSchema.safeParse(data);
+```
+
+### TypeScript Support
+
+The package includes full TypeScript definitions:
+
+```typescript
+import { MassIDIpfs, MassIDData } from '@carrot-foundation/schemas';
+
+// Types are automatically inferred from the schemas
+const massIdData: MassIDData = {
+  // ...
+};
+```
+
 ## ✅ Usage
 
 You may:

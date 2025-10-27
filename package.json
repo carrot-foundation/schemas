@@ -1,17 +1,18 @@
 {
   "name": "@carrot-foundation/schemas",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "Carrot schema definitions and zod validation schemas",
   "license": "Apache-2.0",
   "private": false,
   "type": "module",
-  "main": "dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
     "./schemas/*": {
@@ -44,7 +45,7 @@
     "url": "https://github.com/carrot-foundation/schemas.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "check-refs": "node scripts/check-refs.js",
     "clean": "rm -rf dist",
     "generate-ipfs-schemas": "node scripts/generate-ipfs-schemas.js",
@@ -80,6 +81,7 @@
     "lint-staged": "16.1.4",
     "npm-package-json-lint": "9.0.0",
     "npm-package-json-lint-config-default": "8.0.1",
+    "tsup": "8.5.0",
     "typescript": "5.3.3",
     "typescript-eslint": "8.45.0"
   },

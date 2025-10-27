@@ -8,10 +8,10 @@ import {
   IsoTimestampSchema,
   IsoDateSchema,
   HoursSchema,
-} from '../shared/definitions.schema.js';
-import { LocationSchema } from '../shared/entities/location.schema.js';
-import { ParticipantSchema } from '../shared/entities/participant.schema.js';
-import { uniqueBy } from '../shared/helpers.schema.js';
+} from '../shared/definitions.schema';
+import { LocationSchema } from '../shared/entities/location.schema';
+import { ParticipantSchema } from '../shared/entities/participant.schema';
+import { uniqueBy } from '../shared/helpers.schema';
 
 const MassIDLocalClassificationSchema = z
   .strictObject({
