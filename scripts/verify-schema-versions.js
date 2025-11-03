@@ -48,7 +48,7 @@ function verifySchemaVersion(filePath) {
   return { valid: true };
 }
 
-async function main() {
+function main() {
   console.log(`Verifying schema versions against: ${EXPECTED_REF}`);
   console.log(`Expected version: ${EXPECTED_VERSION}\n`);
 
