@@ -95,8 +95,8 @@ jobs:
         if: steps.npm_publish.outcome == 'success'
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
-          git tag $NEW_VERSION
           git pull --rebase
+          git tag $NEW_VERSION
           git push origin main
           git push origin $NEW_VERSION
       - name: Create GitHub Release
