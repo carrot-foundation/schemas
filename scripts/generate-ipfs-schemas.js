@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { MassIDIpfsSchema } from '../dist/mass-id/index.js';
+import { MassIDIpfsSchema } from '../dist/index.js';
 import { toJSONSchema } from 'zod';
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';

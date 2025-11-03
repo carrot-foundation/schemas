@@ -14,15 +14,69 @@ They are versioned, publicly referenceable, and used for validation, traceabilit
 
 ## 🔖 Versioning
 
-- Schemas are versioned using isolated versioning; each schema can evolve independently.
-- For released versions, each schema’s `$id` must point to the tagged raw URL to remain immutable.
-- During development on `main`, `$id` may reference `refs/heads/main`, but consumers should pin to tags in production.
-- Keep `$ref` paths relative; they resolve against the `$id` base (the tag) at validation time.
+This project uses automated schema reference versioning with a **unified versioning approach** for both development and production environments. All schema `$id` fields always reference Git tags, ensuring consistency across all environments.
 
-Example `$id` pinned to a tag:
+### How It Works
+
+- **All builds**: Schemas reference `refs/tags/{version}` where version is set via `SCHEMA_VERSION` environment variable
+- **Default version**: If `SCHEMA_VERSION` is not set, defaults to `0.0.0-dev`
+- **No special cases**: Development and production use the exact same versioning mechanism
+
+### Local Development
+
+For local development, the default version `0.0.0-dev` is used automatically:
+
+```bash
+# Build with default dev version (0.0.0-dev)
+pnpm build
+pnpm generate-ipfs-schemas
+```
+
+### Development Tag Management
+
+The `0.0.0-dev` tag should be maintained to point to the latest development state. To update it:
+
+```bash
+# Update the dev tag to current HEAD
+./scripts/update-dev-tag.sh
+```
+
+This ensures that schemas referencing `0.0.0-dev` always resolve to the current development version.
+
+To test a versioned build locally:
+
+```bash
+# Build with a specific version
+SCHEMA_VERSION=1.2.3 pnpm build
+SCHEMA_VERSION=1.2.3 pnpm generate-ipfs-schemas
+SCHEMA_VERSION=1.2.3 pnpm verify-schema-versions
+```
+
+### Release Process
+
+The release process automatically:
+
+1. Calculates the next version based on conventional commits
+2. Builds the package with the new version embedded
+3. Generates JSON schemas with versioned `$id` references
+4. Creates a Git tag
+5. Publishes to npm
+6. Creates a GitHub release
+
+All of this happens automatically via the GitHub Actions workflow when you push to `main`.
+
+### Example Schema References
+
+**Development (default):**
 
 ```json
-"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.1.0/schemas/ipfs/collection/collection.schema.json"
+"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/schemas/ipfs/mass-id/mass-id.schema.json"
+```
+
+**Production (versioned):**
+
+```json
+"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.2.3/schemas/ipfs/mass-id/mass-id.schema.json"
 ```
 
 ## 📚 Package Usage

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { NftIpfsSchema } from '../shared/nft.schema';
 import { MassIDDataSchema } from './mass-id.data.schema';
+import { buildSchemaUrl } from '../shared/schema-version';
 import {
   WasteTypeSchema,
   WasteSubtypeSchema,
@@ -191,7 +192,7 @@ export const MassIDIpfsSchemaMeta = {
   title: 'MassID NFT IPFS Record',
   description:
     'Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data',
-  $id: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json',
+  $id: buildSchemaUrl('mass-id/mass-id.schema.json'),
   version: '1.0.1',
 } as const;
 

@@ -9,4 +9,7 @@ export default defineConfig({
   splitting: false,
   treeshake: true,
   outDir: 'dist',
+  env: {
+    SCHEMA_VERSION: process.env.SCHEMA_VERSION || '0.0.0-dev',
+  },
 });

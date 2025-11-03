@@ -35,16 +35,13 @@ jobs:
         run: pnpm type-check
       - name: Lint package.json
         run: pnpm pkgJsonLint
-      - name: Build package
-        run: pnpm build
-      - name: Validate schemas
-        run: pnpm validate-schemas
-      - name: Create version and tag
-        id: version
+      - name: Calculate next version
+        id: calculate_version
         uses: mathieudutour/github-tag-action@a22cf08638b34d5badda920f9daf6e72c477b07b
         with:
           github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           default_bump: patch
+          dry_run: true
           custom_release_rules: |
             *:patch:Patch Release
             feat:minor:Minor Release
@@ -58,27 +55,46 @@ jobs:
             ci:patch:Continuous Integration
             chore:patch:Chores
             revert:patch:Reverts
-      - name: Update package.json version
-        if: steps.version.outputs.new_tag
+      - name: Build package
+        env:
+          SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
+        run: pnpm build
+      - name: Generate IPFS schemas
+        env:
+          SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
+        run: pnpm generate-ipfs-schemas
+      - name: Validate schemas
+        run: pnpm validate-schemas
+      - name: Verify schema versions
+        env:
+          SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
+        run: pnpm verify-schema-versions
+      - name: Create version tag
+        if: steps.calculate_version.outputs.new_tag
         run: |
-          NEW_VERSION="${{ steps.version.outputs.new_version }}"
+          git tag ${{ steps.calculate_version.outputs.new_tag }}
+      - name: Update package.json version
+        if: steps.calculate_version.outputs.new_tag
+        run: |
+          NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
           npm version $NEW_VERSION --no-git-tag-version
           git add package.json
           git commit -m "chore: bump version to $NEW_VERSION [skip ci]" --no-verify
           git pull --rebase
           git push origin main
+          git push origin ${{ steps.calculate_version.outputs.new_tag }}
       - name: Publish to npm
-        if: steps.version.outputs.new_tag
+        if: steps.calculate_version.outputs.new_tag
         run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create GitHub Release
-        if: steps.version.outputs.new_tag
+        if: steps.calculate_version.outputs.new_tag
         uses: softprops/action-gh-release@6cbd405e2c4e67a21c47fa9e383d020e4e28b836
         with:
-          tag_name: ${{ steps.version.outputs.new_tag }}
-          name: Release ${{ steps.version.outputs.new_version }}
-          body: ${{ steps.version.outputs.changelog }}
+          tag_name: ${{ steps.calculate_version.outputs.new_tag }}
+          name: Release ${{ steps.calculate_version.outputs.new_version }}
+          body: ${{ steps.calculate_version.outputs.changelog }}
           draft: false
           prerelease: false
         env:
