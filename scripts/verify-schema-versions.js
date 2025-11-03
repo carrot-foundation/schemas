@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const SCHEMAS_DIR = path.join(process.cwd(), 'schemas');
 const EXPECTED_VERSION = process.env.SCHEMA_VERSION || '0.0.0-dev';
@@ -70,7 +70,7 @@ function main() {
       ...result,
     });
 
-    if (!result.valid) {
+    if (result.valid === false) {
       hasErrors = true;
       console.error(`❌ ${relativePath}`);
       console.error(`   ${result.reason}\n`);
@@ -92,7 +92,4 @@ function main() {
   console.log('✅ All schema versions are correct');
 }
 
-main().catch((error) => {
-  console.error('Error:', error);
-  process.exit(1);
-});
+main();
