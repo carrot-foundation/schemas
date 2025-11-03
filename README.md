@@ -34,15 +34,6 @@ pnpm generate-ipfs-schemas
 
 ### Development Tag Management
 
-The `0.0.0-dev` tag should be maintained to point to the latest development state. To update it:
-
-```bash
-# Update the dev tag to current HEAD
-./scripts/update-dev-tag.sh
-```
-
-This ensures that schemas referencing `0.0.0-dev` always resolve to the current development version.
-
 To test a versioned build locally:
 
 ```bash
