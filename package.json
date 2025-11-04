@@ -58,7 +58,8 @@
     "prepare": "husky",
     "prepublishOnly": "pnpm build",
     "type-check": "tsc --noEmit",
-    "validate-schemas": "node scripts/validate-schemas.js"
+    "validate-schemas": "node scripts/validate-schemas.js",
+    "verify-schema-versions": "node scripts/verify-schema-versions.js"
   },
   "dependencies": {
     "zod": "4.1.9"
