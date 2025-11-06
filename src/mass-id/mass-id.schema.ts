@@ -1,7 +1,10 @@
 import { z } from 'zod';
 import { NftIpfsSchema } from '../shared/nft.schema';
 import { MassIDDataSchema } from './mass-id.data.schema';
-import { buildSchemaUrl } from '../shared/schema-version';
+import {
+  buildSchemaUrl,
+  getSchemaVersionOrDefault,
+} from '../shared/schema-version';
 import {
   WasteTypeSchema,
   WasteSubtypeSchema,
@@ -192,7 +195,7 @@ export const MassIDIpfsSchemaMeta = {
   description:
     'Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data',
   $id: buildSchemaUrl('mass-id/mass-id.schema.json'),
-  version: '1.0.1',
+  version: getSchemaVersionOrDefault(),
 } as const;
 
 export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
