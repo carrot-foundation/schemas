@@ -169,20 +169,19 @@ export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
 
 export const FacilityTypeSchema = z
   .enum([
-    'Waste Generation',
     'Collection Point',
-    'Transfer Station',
-    'Sorting Facility',
-    'Composting Facility',
     'Recycling Facility',
-    'Processing Facility',
-    'Disposal Facility',
     'Administrative Office',
+    'Other',
   ])
   .meta({
     title: 'Facility Type',
-    description: 'Type of facility in the waste management infrastructure',
-    examples: ['Waste Generation', 'Recycling Facility', 'Collection Point'],
+    description: 'Type of facility in the waste management chain',
+    examples: [
+      'Collection Point',
+      'Recycling Facility',
+      'Administrative Office',
+    ],
   });
 export type FacilityType = z.infer<typeof FacilityTypeSchema>;
 
