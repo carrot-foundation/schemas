@@ -72,7 +72,7 @@
     },
     {
       "trait_type": "Pick-up Date",
-      "value": "2024-12-05",
+      "value": 1733396567000,
       "display_type": "date"
     },
     {
@@ -84,13 +84,13 @@
   "original_content_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
   "content_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
   "data": {
-    "waste_classification": {
-      "primary_type": "Organic",
+    "waste_properties": {
+      "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
       "local_classification": {
         "code": "04 02 20",
         "description": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19",
-        "system": "Ibama Waste Code"
+        "system": "IBAMA"
       },
       "measurement_unit": "kg",
       "net_weight": 3000,
