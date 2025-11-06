@@ -60,9 +60,6 @@ export const UnixTimestampSchema = z
     description:
       'Unix timestamp in milliseconds since epoch (January 1, 1970 00:00:00 UTC)',
     examples: [1704067200000, 1735689600000, 1762371245149],
-  })
-  .refine((val) => !isNaN(new Date(val).getTime()), {
-    message: 'Invalid Unix Timestamp',
   });
 
 export type UnixTimestamp = z.infer<typeof UnixTimestampSchema>;
