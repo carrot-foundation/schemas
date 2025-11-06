@@ -189,10 +189,10 @@ const PrecisionLevelSchema = z.enum([
   'country',
 ]);
 const FacilityTypeSchema = z.enum([
-  'Waste Generation',
   'Collection Point',
-  'Sorting Facility',
   'Recycling Facility',
+  'Administrative Office',
+  'Other',
 ]);
 ```
 

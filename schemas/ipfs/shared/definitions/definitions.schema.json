@@ -112,18 +112,13 @@
     "facility_type": {
       "type": "string",
       "enum": [
-        "Waste Generation",
         "Collection Point",
-        "Transfer Station",
-        "Sorting Facility",
-        "Composting Facility",
         "Recycling Facility",
-        "Processing Facility",
-        "Disposal Facility",
-        "Administrative Office"
+        "Administrative Office",
+        "Other"
       ],
       "title": "Facility Type",
-      "description": "Type of facility at a location.",
+      "description": "Type of facility in the waste management chain.",
       "example": "Recycling Facility"
     },
     "chain_id": {
