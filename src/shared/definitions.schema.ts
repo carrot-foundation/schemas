@@ -62,7 +62,7 @@ export const UnixTimestampSchema = z
     examples: [1704067200000, 1735689600000, 1762371245149],
   })
   .refine((val) => !isNaN(new Date(val).getTime()), {
-    message: 'Invalid Unit Timestamp',
+    message: 'Invalid Unix Timestamp',
   });
 
 export type UnixTimestamp = z.infer<typeof UnixTimestampSchema>;
