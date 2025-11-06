@@ -145,7 +145,7 @@
         "longitude": -51.07045,
         "precision_level": "city"
       },
-      "facility_type": "Waste Generation",
+      "facility_type": "Collection Point",
       "responsible_participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
     },
     "accredited_participants": [
