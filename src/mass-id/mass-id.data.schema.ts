@@ -30,16 +30,11 @@ const MassIDLocalClassificationSchema = z
         'Municipal solid waste - organic fraction',
       ],
     }),
-    system: NonEmptyStringSchema.max(50).meta({
+    system: z.enum(['IBAMA']).meta({
       title: 'Classification System',
       description:
-        'Classification system name (e.g., "Ibama Waste Code", "European Waste Catalogue", "US EPA Codes")',
-      examples: [
-        'European Waste Catalogue',
-        'US EPA Codes',
-        'Ibama Waste Code',
-        'Brazilian ABNT Classification',
-      ],
+        'Classification system name - currently supports IBAMA (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)',
+      examples: ['IBAMA'],
     }),
   })
   .meta({
@@ -70,11 +65,11 @@ const ContaminationLevelSchema = z
 
 export type ContaminationLevel = z.infer<typeof ContaminationLevelSchema>;
 
-const MassIDWasteClassificationSchema = z
+const MassIDWastePropertiesSchema = z
   .strictObject({
-    primary_type: WasteTypeSchema.meta({
-      title: 'Primary Waste Type',
-      description: 'Primary waste material category',
+    type: WasteTypeSchema.meta({
+      title: 'Waste Type',
+      description: 'Waste material category',
     }),
     subtype: WasteSubtypeSchema.meta({
       title: 'Waste Subtype',
@@ -90,14 +85,12 @@ const MassIDWasteClassificationSchema = z
     contamination_level: ContaminationLevelSchema.optional(),
   })
   .meta({
-    title: 'Waste Classification',
+    title: 'Waste Properties',
     description:
-      'Standardized waste material classification and regulatory information',
+      'Standardized waste material properties and regulatory information',
   });
 
-export type MassIDWasteClassification = z.infer<
-  typeof MassIDWasteClassificationSchema
->;
+export type MassIDWasteProperties = z.infer<typeof MassIDWastePropertiesSchema>;
 
 const EventAttributeFormatSchema = z
   .enum(['KILOGRAM', 'DATE', 'CURRENCY', 'PERCENTAGE', 'COORDINATE'])
@@ -125,19 +118,27 @@ const EventAttributeSchema = z
         'processing_cost',
       ],
     }),
-    value: z.union([z.string(), z.number(), z.boolean()]).meta({
-      title: 'Attribute Value',
-      description: 'Event attribute value',
-      examples: [
-        25.5,
-        'Grade A',
-        true,
-        'BATCH-2024-001',
-        12.75,
-        'Shredder-X200',
-        false,
-        'OP-456',
-      ],
+    value: z
+      .union([z.string(), z.number(), z.boolean()])
+      .optional()
+      .meta({
+        title: 'Attribute Value',
+        description: 'Event attribute value',
+        examples: [
+          25.5,
+          'Grade A',
+          true,
+          'BATCH-2024-001',
+          12.75,
+          'Shredder-X200',
+          false,
+          'OP-456',
+        ],
+      }),
+    preserved_sensitivity: z.boolean().optional().meta({
+      title: 'Preserved Sensitivity',
+      description:
+        'Indicates if the attribute contains sensitive information that was preserved',
     }),
     format: EventAttributeFormatSchema.optional(),
   })
@@ -370,7 +371,7 @@ export type MassIDGeographicData = z.infer<typeof MassIDGeographicDataSchema>;
 
 export const MassIDDataSchema = z
   .strictObject({
-    waste_classification: MassIDWasteClassificationSchema,
+    waste_properties: MassIDWastePropertiesSchema,
     locations: uniqueBy(
       LocationSchema,
       (loc) => loc.id,

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.21/schemas/ipfs/mass-id/mass-id.schema.json",
   "version": "1.0.1",
   "type": "object",
   "properties": {
@@ -205,14 +205,14 @@
       "description": "MassID-specific data containing waste tracking and chain of custody information",
       "type": "object",
       "properties": {
-        "waste_classification": {
-          "title": "Waste Classification",
-          "description": "Standardized waste material classification and regulatory information",
+        "waste_properties": {
+          "title": "Waste Properties",
+          "description": "Standardized waste material properties and regulatory information",
           "type": "object",
           "properties": {
-            "primary_type": {
-              "title": "Primary Waste Type",
-              "description": "Primary waste material category",
+            "type": {
+              "title": "Waste Type",
+              "description": "Waste material category",
               "examples": ["Organic", "Plastic", "Metal"],
               "type": "string",
               "minLength": 1
@@ -257,16 +257,10 @@
                 },
                 "system": {
                   "title": "Classification System",
-                  "description": "Classification system name (e.g., \"Ibama Waste Code\", \"European Waste Catalogue\", \"US EPA Codes\")",
-                  "examples": [
-                    "European Waste Catalogue",
-                    "US EPA Codes",
-                    "Ibama Waste Code",
-                    "Brazilian ABNT Classification"
-                  ],
+                  "description": "Classification system name - currently supports IBAMA (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)",
+                  "examples": ["IBAMA"],
                   "type": "string",
-                  "minLength": 1,
-                  "maxLength": 50
+                  "enum": ["IBAMA"]
                 }
               },
               "required": ["code", "description", "system"],
@@ -294,12 +288,7 @@
               "enum": ["None", "Low", "Medium", "High"]
             }
           },
-          "required": [
-            "primary_type",
-            "subtype",
-            "measurement_unit",
-            "net_weight"
-          ],
+          "required": ["type", "subtype", "measurement_unit", "net_weight"],
           "additionalProperties": false
         },
         "locations": {
@@ -382,10 +371,11 @@
                   "latitude": {
                     "title": "Latitude",
                     "description": "GPS latitude coordinate",
-                    "examples": [-0.02, -20.38, 40.7128],
+                    "examples": [-0.02, -20.38, 40.713],
                     "type": "number",
                     "minimum": -90,
-                    "maximum": 90
+                    "maximum": 90,
+                    "multipleOf": 0.001
                   },
                   "longitude": {
                     "title": "Longitude",
@@ -393,7 +383,8 @@
                     "examples": [-51.06, -40.34, -74.006],
                     "type": "number",
                     "minimum": -180,
-                    "maximum": 180
+                    "maximum": 180,
+                    "multipleOf": 0.001
                   },
                   "precision_level": {
                     "title": "Precision Level",
@@ -642,6 +633,11 @@
                             }
                           ]
                         },
+                        "preserved_sensitivity": {
+                          "title": "Preserved Sensitivity",
+                          "description": "Indicates if the attribute contains sensitive information that was preserved",
+                          "type": "boolean"
+                        },
                         "format": {
                           "title": "Event Attribute Format",
                           "description": "Data format hint for proper display",
@@ -656,7 +652,7 @@
                           ]
                         }
                       },
-                      "required": ["name", "value"],
+                      "required": ["name"],
                       "additionalProperties": false
                     }
                   },
@@ -914,7 +910,7 @@
         }
       },
       "required": [
-        "waste_classification",
+        "waste_properties",
         "locations",
         "participants",
         "chain_of_custody",
@@ -1248,7 +1244,7 @@
         },
         {
           "title": "Pick-up Date Attribute",
-          "description": "Pick-up date attribute",
+          "description": "Pick-up date attribute with Unix timestamp",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1257,9 +1253,11 @@
             },
             "value": {
               "title": "Pick-up Date Value",
-              "description": "Date when the waste was picked up from the source",
-              "type": "string",
-              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
+              "examples": [1704067200000, 1735689600000, 1762371245149],
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
             },
             "display_type": {
               "type": "string",
