@@ -407,21 +407,16 @@
                 "title": "Facility Type",
                 "description": "Type of facility at this location",
                 "examples": [
-                  "Waste Generation",
+                  "Collection Point",
                   "Recycling Facility",
-                  "Collection Point"
+                  "Administrative Office"
                 ],
                 "type": "string",
                 "enum": [
-                  "Waste Generation",
                   "Collection Point",
-                  "Transfer Station",
-                  "Sorting Facility",
-                  "Composting Facility",
                   "Recycling Facility",
-                  "Processing Facility",
-                  "Disposal Facility",
-                  "Administrative Office"
+                  "Administrative Office",
+                  "Other"
                 ]
               }
             },
@@ -471,23 +466,6 @@
                 "minLength": 1,
                 "maxLength": 100
               },
-              "preserved_anonymity": {
-                "title": "Preserved Anonymity",
-                "description": "Indicates if the participant has chosen to preserve their anonymity",
-                "type": "boolean"
-              },
-              "participant_code": {
-                "title": "Participant Code",
-                "description": "Unique participant identifier combining country code, tax ID type, and tax ID",
-                "examples": [
-                  "BR-CNPJ-12345678000190",
-                  "US-EIN-123456789",
-                  "DE-VAT-DE123456789"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^[A-Z]{2}-[A-Z0-9]+-[A-Z0-9]+$"
-              },
               "roles": {
                 "title": "Participant Roles",
                 "description": "Roles of the participant in the waste management supply chain",
@@ -503,7 +481,7 @@
                 }
               }
             },
-            "required": ["id", "roles"],
+            "required": ["id", "name", "roles"],
             "additionalProperties": false
           }
         },
@@ -1276,6 +1254,7 @@
             "value": {
               "title": "Pick-up Date Value",
               "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
+              "examples": [1704067200000, 1735689600000, 1762371245149],
               "type": "integer",
               "exclusiveMinimum": 0,
               "maximum": 9007199254740991
