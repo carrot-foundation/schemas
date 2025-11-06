@@ -2,14 +2,14 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.2.3/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.21/schemas/ipfs/mass-id/mass-id.schema.json",
   "version": "1.0.1",
   "type": "object",
   "properties": {
     "$schema": {
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.2.3/schemas/ipfs/shared/base/base.schema.json",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
       "type": "string",
       "format": "uri"
     },
@@ -35,30 +35,19 @@
         "version": {
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
-          "examples": [
-            "0.1.0",
-            "1.0.0",
-            "2.1.3"
-          ],
+          "examples": ["0.1.0", "1.0.0", "2.1.3"],
           "type": "string",
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
         }
       },
-      "required": [
-        "hash",
-        "type",
-        "version"
-      ],
+      "required": ["hash", "type", "version"],
       "additionalProperties": false
     },
     "created_at": {
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
-      "examples": [
-        "2024-12-05T11:02:47.000Z",
-        "2025-02-22T10:35:12.000Z"
-      ],
+      "examples": ["2024-12-05T11:02:47.000Z", "2025-02-22T10:35:12.000Z"],
       "type": "string",
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
@@ -112,11 +101,7 @@
         "name": {
           "title": "Creator Name",
           "description": "Company or individual name that created this record",
-          "examples": [
-            "Carrot Foundation",
-            "Alice",
-            "Bob"
-          ],
+          "examples": ["Carrot Foundation", "Alice", "Bob"],
           "type": "string"
         },
         "id": {
@@ -132,10 +117,7 @@
           "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
         }
       },
-      "required": [
-        "name",
-        "id"
-      ],
+      "required": ["name", "id"],
       "additionalProperties": false
     },
     "relationships": {
@@ -161,11 +143,7 @@
           "type": {
             "title": "Relationship Type",
             "description": "Type of relationship to the referenced record",
-            "examples": [
-              "mass-id",
-              "audit",
-              "collection"
-            ],
+            "examples": ["mass-id", "audit", "collection"],
             "type": "string",
             "enum": [
               "collection",
@@ -191,10 +169,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "target_uri",
-          "type"
-        ],
+        "required": ["target_uri", "type"],
         "additionalProperties": false
       }
     },
@@ -207,36 +182,22 @@
           "title": "Blockchain Network",
           "description": "Blockchain Network Environment",
           "type": "string",
-          "enum": [
-            "mainnet",
-            "testnet"
-          ]
+          "enum": ["mainnet", "testnet"]
         },
         "deployment": {
           "title": "Deployment Environment",
           "description": "System environment where this record was generated",
           "type": "string",
-          "enum": [
-            "production",
-            "development",
-            "testing"
-          ]
+          "enum": ["production", "development", "testing"]
         },
         "data_set_name": {
           "title": "Data Set Name",
           "description": "Name of the data set for this record",
           "type": "string",
-          "enum": [
-            "TEST",
-            "PROD"
-          ]
+          "enum": ["TEST", "PROD"]
         }
       },
-      "required": [
-        "blockchain_network",
-        "deployment",
-        "data_set_name"
-      ],
+      "required": ["blockchain_network", "deployment", "data_set_name"],
       "additionalProperties": false
     },
     "data": {
@@ -244,19 +205,15 @@
       "description": "MassID-specific data containing waste tracking and chain of custody information",
       "type": "object",
       "properties": {
-        "waste_classification": {
-          "title": "Waste Classification",
-          "description": "Standardized waste material classification and regulatory information",
+        "waste_properties": {
+          "title": "Waste Properties",
+          "description": "Standardized waste material properties and regulatory information",
           "type": "object",
           "properties": {
-            "primary_type": {
-              "title": "Primary Waste Type",
-              "description": "Primary waste material category",
-              "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
-              ],
+            "type": {
+              "title": "Waste Type",
+              "description": "Waste material category",
+              "examples": ["Organic", "Plastic", "Metal"],
               "type": "string",
               "minLength": 1
             },
@@ -280,12 +237,7 @@
                 "code": {
                   "title": "Classification Code",
                   "description": "Local waste classification code",
-                  "examples": [
-                    "20 01 01",
-                    "D001",
-                    "EWC-150101",
-                    "IBAMA-A001"
-                  ],
+                  "examples": ["20 01 01", "D001", "EWC-150101", "IBAMA-A001"],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 20
@@ -305,72 +257,38 @@
                 },
                 "system": {
                   "title": "Classification System",
-                  "description": "Classification system name (e.g., \"Ibama Waste Code\", \"European Waste Catalogue\", \"US EPA Codes\")",
-                  "examples": [
-                    "European Waste Catalogue",
-                    "US EPA Codes",
-                    "Ibama Waste Code",
-                    "Brazilian ABNT Classification"
-                  ],
+                  "description": "Classification system name - currently supports IBAMA (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)",
+                  "examples": ["IBAMA"],
                   "type": "string",
-                  "minLength": 1,
-                  "maxLength": 50
+                  "enum": ["IBAMA"]
                 }
               },
-              "required": [
-                "code",
-                "description",
-                "system"
-              ],
+              "required": ["code", "description", "system"],
               "additionalProperties": false
             },
             "measurement_unit": {
               "title": "Measurement Unit",
               "description": "Unit of measurement for the waste quantity",
-              "examples": [
-                "kg",
-                "ton"
-              ],
+              "examples": ["kg", "ton"],
               "type": "string",
-              "enum": [
-                "kg",
-                "ton"
-              ]
+              "enum": ["kg", "ton"]
             },
             "net_weight": {
               "title": "Net Weight",
               "description": "Net weight of the waste batch in the specified measurement unit",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
+              "examples": [0, 45.2, 72.5],
               "type": "number",
               "minimum": 0
             },
             "contamination_level": {
               "title": "Contamination Level",
               "description": "Level of contamination in the waste batch",
-              "examples": [
-                "Low",
-                "Medium",
-                "None"
-              ],
+              "examples": ["Low", "Medium", "None"],
               "type": "string",
-              "enum": [
-                "None",
-                "Low",
-                "Medium",
-                "High"
-              ]
+              "enum": ["None", "Low", "Medium", "High"]
             }
           },
-          "required": [
-            "primary_type",
-            "subtype",
-            "measurement_unit",
-            "net_weight"
-          ],
+          "required": ["type", "subtype", "measurement_unit", "net_weight"],
           "additionalProperties": false
         },
         "locations": {
@@ -398,12 +316,7 @@
               "municipality": {
                 "title": "Municipality",
                 "description": "Municipality or city name",
-                "examples": [
-                  "New York",
-                  "São Paulo",
-                  "London",
-                  "Tokyo"
-                ],
+                "examples": ["New York", "São Paulo", "London", "Tokyo"],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
@@ -411,12 +324,7 @@
               "administrative_division": {
                 "title": "Administrative Division",
                 "description": "State, province, or administrative region",
-                "examples": [
-                  "California",
-                  "Ontario",
-                  "Bavaria",
-                  "Queensland"
-                ],
+                "examples": ["California", "Ontario", "Bavaria", "Queensland"],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
@@ -424,23 +332,14 @@
               "administrative_division_code": {
                 "title": "Administrative Division Code",
                 "description": "ISO 3166-2 administrative division code",
-                "examples": [
-                  "BR-AP",
-                  "BR-ES",
-                  "US-CA"
-                ],
+                "examples": ["BR-AP", "BR-ES", "US-CA"],
                 "type": "string",
                 "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
               },
               "country": {
                 "title": "Country",
                 "description": "Full country name in English",
-                "examples": [
-                  "United States",
-                  "Canada",
-                  "Germany",
-                  "Australia"
-                ],
+                "examples": ["United States", "Canada", "Germany", "Australia"],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
@@ -448,11 +347,7 @@
               "country_code": {
                 "title": "Country Code",
                 "description": "ISO 3166-1 alpha-2 country code",
-                "examples": [
-                  "BR",
-                  "US",
-                  "DE"
-                ],
+                "examples": ["BR", "US", "DE"],
                 "type": "string",
                 "pattern": "^[A-Z]{2}$"
               },
@@ -476,35 +371,25 @@
                   "latitude": {
                     "title": "Latitude",
                     "description": "GPS latitude coordinate",
-                    "examples": [
-                      -0.02,
-                      -20.38,
-                      40.7128
-                    ],
+                    "examples": [-0.02, -20.38, 40.713],
                     "type": "number",
                     "minimum": -90,
-                    "maximum": 90
+                    "maximum": 90,
+                    "multipleOf": 0.001
                   },
                   "longitude": {
                     "title": "Longitude",
                     "description": "GPS longitude coordinate",
-                    "examples": [
-                      -51.06,
-                      -40.34,
-                      -74.006
-                    ],
+                    "examples": [-51.06, -40.34, -74.006],
                     "type": "number",
                     "minimum": -180,
-                    "maximum": 180
+                    "maximum": 180,
+                    "multipleOf": 0.001
                   },
                   "precision_level": {
                     "title": "Precision Level",
                     "description": "Level of coordinate precision",
-                    "examples": [
-                      "city",
-                      "exact",
-                      "neighborhood"
-                    ],
+                    "examples": ["city", "exact", "neighborhood"],
                     "type": "string",
                     "enum": [
                       "exact",
@@ -515,11 +400,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "latitude",
-                  "longitude",
-                  "precision_level"
-                ],
+                "required": ["latitude", "longitude", "precision_level"],
                 "additionalProperties": false
               },
               "facility_type": {
@@ -590,6 +471,23 @@
                 "minLength": 1,
                 "maxLength": 100
               },
+              "preserved_anonymity": {
+                "title": "Preserved Anonymity",
+                "description": "Indicates if the participant has chosen to preserve their anonymity",
+                "type": "boolean"
+              },
+              "participant_code": {
+                "title": "Participant Code",
+                "description": "Unique participant identifier combining country code, tax ID type, and tax ID",
+                "examples": [
+                  "BR-CNPJ-12345678000190",
+                  "US-EIN-123456789",
+                  "DE-VAT-DE123456789"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[A-Z]{2}-[A-Z0-9]+-[A-Z0-9]+$"
+              },
               "roles": {
                 "title": "Participant Roles",
                 "description": "Roles of the participant in the waste management supply chain",
@@ -598,22 +496,14 @@
                 "items": {
                   "title": "Participant Role",
                   "description": "Role that a participant plays in the waste management supply chain",
-                  "examples": [
-                    "Waste Generator",
-                    "Hauler",
-                    "Recycler"
-                  ],
+                  "examples": ["Waste Generator", "Hauler", "Recycler"],
                   "type": "string",
                   "minLength": 1,
                   "maxLength": 100
                 }
               }
             },
-            "required": [
-              "id",
-              "name",
-              "roles"
-            ],
+            "required": ["id", "roles"],
             "additionalProperties": false
           }
         },
@@ -710,11 +600,7 @@
                   "weight": {
                     "title": "Event Weight",
                     "description": "Mass weight after this event",
-                    "examples": [
-                      0,
-                      45.2,
-                      72.5
-                    ],
+                    "examples": [0, 45.2, 72.5],
                     "type": "number",
                     "minimum": 0
                   },
@@ -769,14 +655,15 @@
                             }
                           ]
                         },
+                        "preserved_sensitivity": {
+                          "title": "Preserved Sensitivity",
+                          "description": "Indicates if the attribute contains sensitive information that was preserved",
+                          "type": "boolean"
+                        },
                         "format": {
                           "title": "Event Attribute Format",
                           "description": "Data format hint for proper display",
-                          "examples": [
-                            "KILOGRAM",
-                            "DATE",
-                            "PERCENTAGE"
-                          ],
+                          "examples": ["KILOGRAM", "DATE", "PERCENTAGE"],
                           "type": "string",
                           "enum": [
                             "KILOGRAM",
@@ -787,10 +674,7 @@
                           ]
                         }
                       },
-                      "required": [
-                        "name",
-                        "value"
-                      ],
+                      "required": ["name"],
                       "additionalProperties": false
                     }
                   },
@@ -875,10 +759,7 @@
                           "maxLength": 100
                         }
                       },
-                      "required": [
-                        "type",
-                        "reference"
-                      ],
+                      "required": ["type", "reference"],
                       "additionalProperties": false
                     }
                   },
@@ -903,32 +784,20 @@
             "total_distance_km": {
               "title": "Total Distance (km)",
               "description": "Total distance traveled across all transport events",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
+              "examples": [0, 45.2, 72.5],
               "type": "number",
               "minimum": 0
             },
             "total_duration_hours": {
               "title": "Total Duration (hours)",
               "description": "Total time from first to last event in hours",
-              "examples": [
-                72.5,
-                24,
-                168.5
-              ],
+              "examples": [72.5, 24, 168.5],
               "type": "number",
               "minimum": 0,
               "multipleOf": 0.1
             }
           },
-          "required": [
-            "events",
-            "total_distance_km",
-            "total_duration_hours"
-          ],
+          "required": ["events", "total_distance_km", "total_duration_hours"],
           "additionalProperties": false
         },
         "geographic_data": {
@@ -1013,11 +882,7 @@
                   "distance_km": {
                     "title": "Distance (km)",
                     "description": "Distance for this route segment in kilometers",
-                    "examples": [
-                      0,
-                      45.2,
-                      72.5
-                    ],
+                    "examples": [0, 45.2, 72.5],
                     "type": "number",
                     "minimum": 0
                   },
@@ -1041,11 +906,7 @@
                   "duration_hours": {
                     "title": "Duration (hours)",
                     "description": "Time taken for this route segment in hours",
-                    "examples": [
-                      72.5,
-                      24,
-                      168.5
-                    ],
+                    "examples": [72.5, 24, 168.5],
                     "type": "number",
                     "minimum": 0,
                     "multipleOf": 0.1
@@ -1071,7 +932,7 @@
         }
       },
       "required": [
-        "waste_classification",
+        "waste_properties",
         "locations",
         "participants",
         "chain_of_custody",
@@ -1097,11 +958,7 @@
         "chain_id": {
           "title": "Chain ID",
           "description": "Blockchain chain ID",
-          "examples": [
-            1,
-            137,
-            11155111
-          ],
+          "examples": [1, 137, 11155111],
           "type": "integer",
           "minimum": 1,
           "maximum": 9007199254740991
@@ -1116,11 +973,7 @@
         "token_id": {
           "title": "Token ID",
           "description": "NFT token ID",
-          "examples": [
-            "123",
-            "456789",
-            "1000000"
-          ],
+          "examples": ["123", "456789", "1000000"],
           "type": "string",
           "minLength": 1,
           "pattern": "^\\d+$"
@@ -1149,11 +1002,7 @@
     "short_name": {
       "title": "Short Name",
       "description": "Compact name for UI summaries, tables, or tooltips",
-      "examples": [
-        "MassID #123",
-        "RecycledID #456",
-        "GasID #789"
-      ],
+      "examples": ["MassID #123", "RecycledID #456", "GasID #789"],
       "type": "string",
       "minLength": 1,
       "maxLength": 50
@@ -1183,11 +1032,7 @@
     "background_color": {
       "title": "Background Color",
       "description": "Hex color code for marketplace background display",
-      "examples": [
-        "#2D5A27",
-        "#FF5733",
-        "#1E90FF"
-      ],
+      "examples": ["#2D5A27", "#FF5733", "#1E90FF"],
       "type": "string",
       "minLength": 1,
       "pattern": "^#[0-9A-F]{6}$"
@@ -1248,10 +1093,7 @@
             "maxLength": 100
           }
         },
-        "required": [
-          "label",
-          "url"
-        ],
+        "required": ["label", "url"],
         "additionalProperties": false
       }
     },
@@ -1270,19 +1112,12 @@
             "value": {
               "title": "Waste Type",
               "description": "Category or type of waste material",
-              "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
-              ],
+              "examples": ["Organic", "Plastic", "Metal"],
               "type": "string",
               "minLength": 1
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1307,10 +1142,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1325,11 +1157,7 @@
             "value": {
               "title": "Weight (kg)",
               "description": "Weight measurement in kilograms",
-              "examples": [
-                3000,
-                1500,
-                500
-              ],
+              "examples": [3000, 1500, 500],
               "type": "number",
               "minimum": 0
             },
@@ -1338,11 +1166,7 @@
               "const": "number"
             }
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
+          "required": ["trait_type", "value", "display_type"],
           "additionalProperties": false
         },
         {
@@ -1361,10 +1185,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1383,10 +1204,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1405,10 +1223,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1427,10 +1242,7 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
@@ -1449,15 +1261,12 @@
               "maxLength": 100
             }
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
+          "required": ["trait_type", "value"],
           "additionalProperties": false
         },
         {
           "title": "Pick-up Date Attribute",
-          "description": "Pick-up date attribute",
+          "description": "Pick-up date attribute with Unix timestamp",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1466,20 +1275,17 @@
             },
             "value": {
               "title": "Pick-up Date Value",
-              "description": "Date when the waste was picked up from the source",
-              "type": "string",
-              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+              "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
             },
             "display_type": {
               "type": "string",
               "const": "date"
             }
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
+          "required": ["trait_type", "value", "display_type"],
           "additionalProperties": false
         },
         {
@@ -1502,11 +1308,7 @@
               "const": "date"
             }
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
+          "required": ["trait_type", "value", "display_type"],
           "additionalProperties": false
         }
       ],

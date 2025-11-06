@@ -6,6 +6,7 @@ import {
   WasteTypeSchema,
   WasteSubtypeSchema,
   WeightKgSchema,
+  UnixTimestampSchema,
 } from '../shared/definitions.schema';
 
 const AttributeWasteTypeSchema = z
@@ -131,18 +132,16 @@ export type AttributeIntegrator = z.infer<typeof AttributeIntegratorSchema>;
 const AttributePickUpDateSchema = z
   .strictObject({
     trait_type: z.literal('Pick-up Date'),
-    value: z
-      .string()
-      .regex(/^\d{4}-\d{2}-\d{2}$/, 'Must be a valid date in YYYY-MM-DD format')
-      .meta({
-        title: 'Pick-up Date Value',
-        description: 'Date when the waste was picked up from the source',
-      }),
+    value: UnixTimestampSchema.meta({
+      title: 'Pick-up Date Value',
+      description:
+        'Unix timestamp in milliseconds when the waste was picked up from the source',
+    }),
     display_type: z.literal('date'),
   })
   .meta({
     title: 'Pick-up Date Attribute',
-    description: 'Pick-up date attribute',
+    description: 'Pick-up date attribute with Unix timestamp',
   });
 
 export type AttributePickUpDate = z.infer<typeof AttributePickUpDateSchema>;

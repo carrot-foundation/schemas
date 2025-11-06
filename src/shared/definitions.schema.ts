@@ -51,6 +51,19 @@ export const IsoDateSchema = z.iso
 
 export type IsoDate = z.infer<typeof IsoDateSchema>;
 
+export const UnixTimestampSchema = z
+  .number()
+  .int()
+  .positive()
+  .meta({
+    title: 'Unix Timestamp',
+    description:
+      'Unix timestamp in milliseconds since epoch (January 1, 1970 00:00:00 UTC)',
+    examples: [1704067200000, 1735689600000, 1762371245149],
+  });
+
+export type UnixTimestamp = z.infer<typeof UnixTimestampSchema>;
+
 export const IsoCountryCodeSchema = z
   .string()
   .regex(/^[A-Z]{2}$/, 'Must be a valid ISO 3166-1 alpha-2 country code')
@@ -83,10 +96,12 @@ export const LatitudeSchema = z
   .number()
   .min(-90)
   .max(90)
+  .multipleOf(0.001)
   .meta({
     title: 'Latitude',
-    description: 'Geographic latitude coordinate in decimal degrees',
-    examples: [-0.02, -20.38, 40.7128],
+    description:
+      'Geographic latitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level, non-PII compliance)',
+    examples: [-0.02, -20.38, 40.713],
   });
 
 export type Latitude = z.infer<typeof LatitudeSchema>;
@@ -95,9 +110,11 @@ export const LongitudeSchema = z
   .number()
   .min(-180)
   .max(180)
+  .multipleOf(0.001)
   .meta({
     title: 'Longitude',
-    description: 'Geographic longitude coordinate in decimal degrees',
+    description:
+      'Geographic longitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level, non-PII compliance)',
     examples: [-51.06, -40.34, -74.006],
   });
 
