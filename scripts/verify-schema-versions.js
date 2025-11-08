@@ -32,8 +32,12 @@ function collectSchemaFiles(dir, collected = []) {
 function verifySchemaVersion(filePath) {
   const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
+  if (!content.version) {
+    return { valid: true, reason: 'Legacy schema (no version field)' };
+  }
+
   if (!content.$id) {
-    return { valid: true, reason: 'No $id field (optional)' };
+    return { valid: false, reason: 'Zod-generated schema missing $id field' };
   }
 
   const expectedPattern = `https://raw.githubusercontent.com/carrot-foundation/schemas/${EXPECTED_REF}/`;
@@ -42,6 +46,13 @@ function verifySchemaVersion(filePath) {
     return {
       valid: false,
       reason: `Expected $id to start with "${expectedPattern}", but got "${content.$id}"`,
+    };
+  }
+
+  if (content.version !== EXPECTED_VERSION) {
+    return {
+      valid: false,
+      reason: `Expected version "${EXPECTED_VERSION}", but got "${content.version}"`,
     };
   }
 
