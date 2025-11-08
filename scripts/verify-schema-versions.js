@@ -37,7 +37,7 @@ function verifySchemaVersion(filePath) {
   }
 
   if (!content.$id) {
-    return { valid: false, reason: 'Zod-generated schema missing $id field' };
+    return { valid: false, reason: 'Schema missing required $id field' };
   }
 
   const expectedPattern = `https://raw.githubusercontent.com/carrot-foundation/schemas/${EXPECTED_REF}/`;
