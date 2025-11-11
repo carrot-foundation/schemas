@@ -98,7 +98,7 @@
     },
     "locations": [
       {
-        "id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+        "id_hash": "a1b2c3d4e5f67890123456789012345678901234567890abcdef1234567890ab",
         "municipality": "Macapá",
         "administrative_division": "Amapá",
         "administrative_division_code": "BR-AP",
@@ -110,10 +110,10 @@
           "longitude": -51.06,
           "precision_level": "city"
         },
-        "responsible_participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f"
+        "responsible_participant_id_hash": "fed0ba0987654321fed0ba0987654321fed0ba0987654321fed0ba0987654321"
       },
       {
-        "id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+        "id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
         "municipality": "Cariacica",
         "administrative_division": "Espirito Santo",
         "administrative_division_code": "BR-ES",
@@ -125,17 +125,17 @@
           "longitude": -40.34,
           "precision_level": "city"
         },
-        "responsible_participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf"
+        "responsible_participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef"
       }
     ],
     "participants": [
       {
-        "id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+        "id_hash": "fed0ba0987654321fed0ba0987654321fed0ba0987654321fed0ba0987654321",
         "name": "Enlatados Produção",
         "roles": ["Waste Generator"]
       },
       {
-        "id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+        "id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
         "name": "Eco Reciclagem",
         "roles": ["Hauler", "Recycler"]
       }
@@ -147,8 +147,8 @@
           "event_name": "Pick-up",
           "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
           "timestamp": "2024-12-05T11:02:47.000Z",
-          "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
-          "location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
+          "participant_id_hash": "fed0ba0987654321fed0ba0987654321fed0ba0987654321fed0ba0987654321",
+          "location_id_hash": "a1b2c3d4e5f67890123456789012345678901234567890abcdef1234567890ab",
           "attributes": [
             {
               "name": "Vehicle Type",
@@ -165,8 +165,8 @@
           "event_name": "Transport",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "description": "Waste transported to recycling facility",
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+          "participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
+          "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
           "weight": 3000,
           "attributes": [
             {
@@ -197,8 +197,8 @@
           "event_name": "Weighing",
           "timestamp": "2024-12-05T11:02:47.000Z",
           "description": "Waste weighed at recycling facility",
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+          "participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
+          "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
           "attributes": [
             {
               "name": "Weighing Capture Method",
@@ -234,8 +234,8 @@
           "event_name": "Drop-off",
           "description": "Waste deposited in Windrow number 1",
           "timestamp": "2024-12-05T11:02:47.000Z",
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+          "participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
+          "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
           "attributes": [
             {
               "name": "Recycler Operator Identifier",
@@ -248,8 +248,8 @@
           "event_name": "Sorting",
           "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
           "timestamp": "2024-12-05T11:02:47.000Z",
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+          "participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
+          "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
           "attributes": [
             {
               "name": "Sorting Factor",
@@ -262,8 +262,8 @@
           "event_name": "Documentation",
           "description": "Attached the recycling manifest documentation",
           "timestamp": "2024-12-05T11:02:47.000Z",
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+          "participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
+          "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
           "attributes": [
             {
               "name": "Document Type",
@@ -293,21 +293,23 @@
           "event_name": "Recycling",
           "description": "Composting process completed",
           "timestamp": "2025-02-22T10:35:12.000Z",
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "location_id": "d01217a9-9d21-4f16-8908-0fea6750953e"
+          "participant_id_hash": "c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567890",
+          "location_id_hash": "b2c3d4e5f678901234567890abcdef1234567890abcdef1234567890abcdef12"
         }
       ],
       "total_distance_km": 45.2,
       "total_duration_hours": 72.5
     },
     "geographic_data": {
-      "origin_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
-      "processing_location_ids": ["d01217a9-9d21-4f16-8908-0fea6750953e"],
-      "final_destination_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+      "origin_location_id_hash": "a1b2c3d4e5f67890123456789012345678901234567890abcdef1234567890ab",
+      "processing_location_id_hashes": [
+        "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef"
+      ],
+      "final_destination_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
       "transport_routes": [
         {
-          "from_location_id": "f77afa89-1c58-40fd-9bf5-8a86703a8af4",
-          "to_location_id": "d01217a9-9d21-4f16-8908-0fea6750953e",
+          "from_location_id_hash": "a1b2c3d4e5f67890123456789012345678901234567890abcdef1234567890ab",
+          "to_location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef",
           "distance_km": 45.2,
           "transport_method": "Truck",
           "duration_hours": 72.5
