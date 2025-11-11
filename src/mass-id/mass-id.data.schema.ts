@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   UuidSchema,
+  Sha256HashSchema,
   WasteTypeSchema,
   WasteSubtypeSchema,
   NonEmptyStringSchema,
@@ -243,12 +244,12 @@ const MassIDChainOfCustodyEventSchema = z
       title: 'Event Timestamp',
       description: 'ISO 8601 timestamp when the event occurred',
     }),
-    participant_id: UuidSchema.meta({
-      title: 'Participant ID',
+    participant_id_hash: Sha256HashSchema.meta({
+      title: 'Participant ID Hash',
       description: 'Reference to participant in the participants array',
     }),
-    location_id: UuidSchema.meta({
-      title: 'Location ID',
+    location_id_hash: Sha256HashSchema.meta({
+      title: 'Location ID Hash',
       description: 'Reference to location in the locations array',
     }),
     weight: NonNegativeFloatSchema.optional().meta({
@@ -303,12 +304,12 @@ export type MassIDChainOfCustody = z.infer<typeof MassIDChainOfCustodySchema>;
 
 const MassIDTransportRouteSchema = z
   .strictObject({
-    from_location_id: UuidSchema.meta({
-      title: 'From Location ID',
+    from_location_id_hash: Sha256HashSchema.meta({
+      title: 'From Location ID Hash',
       description: 'Reference to the origin location in the locations array',
     }),
-    to_location_id: UuidSchema.meta({
-      title: 'To Location ID',
+    to_location_id_hash: Sha256HashSchema.meta({
+      title: 'To Location ID Hash',
       description:
         'Reference to the destination location in the locations array',
     }),
@@ -344,16 +345,16 @@ export type MassIDTransportRoute = z.infer<typeof MassIDTransportRouteSchema>;
 
 const MassIDGeographicDataSchema = z
   .strictObject({
-    origin_location_id: UuidSchema.meta({
-      title: 'Origin Location ID',
+    origin_location_id_hash: Sha256HashSchema.meta({
+      title: 'Origin Location ID Hash',
       description: 'Reference to origin location in the locations array',
     }),
-    processing_location_ids: z.array(UuidSchema).optional().meta({
-      title: 'Processing Location IDs',
+    processing_location_id_hashes: z.array(Sha256HashSchema).optional().meta({
+      title: 'Processing Location ID Hashes',
       description: 'Locations where the waste was processed or handled',
     }),
-    final_destination_id: UuidSchema.meta({
-      title: 'Final Destination ID',
+    final_destination_id_hash: Sha256HashSchema.meta({
+      title: 'Final Destination ID Hash',
       description: 'Reference to final destination in the locations array',
     }),
     transport_routes: z.array(MassIDTransportRouteSchema).meta({
@@ -374,8 +375,8 @@ export const MassIDDataSchema = z
     waste_properties: MassIDWastePropertiesSchema,
     locations: uniqueBy(
       LocationSchema,
-      (loc) => loc.id,
-      'Location IDs must be unique',
+      (loc) => loc.id_hash,
+      'Location ID hashes must be unique',
     )
       .min(1)
       .meta({
@@ -384,8 +385,8 @@ export const MassIDDataSchema = z
       }),
     participants: uniqueBy(
       ParticipantSchema,
-      (p) => p.id,
-      'Participant IDs must be unique',
+      (p) => p.id_hash,
+      'Participant ID hashes must be unique',
     )
       .min(1)
       .meta({
@@ -398,11 +399,11 @@ export const MassIDDataSchema = z
   })
   .refine((data) => {
     const participantIdSet = new Set(
-      data.participants.map((participant) => participant.id),
+      data.participants.map((participant) => participant.id_hash),
     );
 
     const eventParticipantIds = data.chain_of_custody.events.map(
-      (event) => event.participant_id,
+      (event) => event.participant_id_hash,
     );
 
     const allEventParticipantsExist = eventParticipantIds.every(
@@ -410,15 +411,15 @@ export const MassIDDataSchema = z
     );
 
     return allEventParticipantsExist;
-  }, 'All participant IDs in chain of custody events must exist in participants array')
+  }, 'All participant ID hashes in chain of custody events must exist in participants array')
 
   .refine((data) => {
     const locationIdSet = new Set(
-      data.locations.map((location) => location.id),
+      data.locations.map((location) => location.id_hash),
     );
 
     const eventLocationIds = data.chain_of_custody.events.map(
-      (event) => event.location_id,
+      (event) => event.location_id_hash,
     );
 
     const allEventLocationsExist = eventLocationIds.every((locationId) =>
@@ -426,7 +427,7 @@ export const MassIDDataSchema = z
     );
 
     return allEventLocationsExist;
-  }, 'All location IDs in chain of custody events must exist in locations array')
+  }, 'All location ID hashes in chain of custody events must exist in locations array')
   .meta({
     title: 'MassID Data',
     description:

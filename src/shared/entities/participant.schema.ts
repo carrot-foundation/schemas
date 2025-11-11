@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  UuidSchema,
+  Sha256HashSchema,
   ParticipantNameSchema,
   ParticipantRoleSchema,
 } from '../definitions.schema';
@@ -8,9 +8,9 @@ import { uniqueArrayItems } from '../helpers.schema';
 
 export const ParticipantSchema = z
   .strictObject({
-    id: UuidSchema.meta({
-      title: 'Participant ID',
-      description: 'Unique identifier for the participant',
+    id_hash: Sha256HashSchema.meta({
+      title: 'Participant ID Hash',
+      description: 'Anonymized identifier for the participant',
     }),
     name: ParticipantNameSchema.meta({
       title: 'Participant Name',

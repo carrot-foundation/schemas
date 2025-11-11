@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.21/schemas/ipfs/mass-id/mass-id.schema.json",
-  "version": "0.1.21",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.22/schemas/ipfs/mass-id/mass-id.schema.json",
+  "version": "0.1.22",
   "type": "object",
   "properties": {
     "$schema": {
@@ -301,17 +301,15 @@
             "description": "Geographic location with address and coordinate information",
             "type": "object",
             "properties": {
-              "id": {
-                "title": "Location ID",
-                "description": "Unique identifier for the location",
+              "id_hash": {
+                "title": "Location ID Hash",
+                "description": "Anonymized identifier for the location",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                  "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                 ],
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                "pattern": "^[0-9a-fA-F]{64}$"
               },
               "municipality": {
                 "title": "Municipality",
@@ -351,17 +349,15 @@
                 "type": "string",
                 "pattern": "^[A-Z]{2}$"
               },
-              "responsible_participant_id": {
-                "title": "Responsible Participant ID",
-                "description": "ID of the participant responsible for this location",
+              "responsible_participant_id_hash": {
+                "title": "Responsible Participant ID Hash",
+                "description": "Anonymized ID of the participant responsible for this location",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                  "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                 ],
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                "pattern": "^[0-9a-fA-F]{64}$"
               },
               "coordinates": {
                 "title": "Coordinates",
@@ -421,12 +417,12 @@
               }
             },
             "required": [
-              "id",
+              "id_hash",
               "municipality",
               "administrative_division",
               "country",
               "country_code",
-              "responsible_participant_id",
+              "responsible_participant_id_hash",
               "coordinates"
             ],
             "additionalProperties": false
@@ -442,17 +438,15 @@
             "description": "A participant in the waste management supply chain",
             "type": "object",
             "properties": {
-              "id": {
-                "title": "Participant ID",
-                "description": "Unique identifier for the participant",
+              "id_hash": {
+                "title": "Participant ID Hash",
+                "description": "Anonymized identifier for the participant",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                  "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                 ],
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                "pattern": "^[0-9a-fA-F]{64}$"
               },
               "name": {
                 "title": "Participant Name",
@@ -481,7 +475,7 @@
                 }
               }
             },
-            "required": ["id", "name", "roles"],
+            "required": ["id_hash", "name", "roles"],
             "additionalProperties": false
           }
         },
@@ -551,29 +545,25 @@
                     "format": "date-time",
                     "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
                   },
-                  "participant_id": {
-                    "title": "Participant ID",
+                  "participant_id_hash": {
+                    "title": "Participant ID Hash",
                     "description": "Reference to participant in the participants array",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                      "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                      "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                      "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                     ],
                     "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    "pattern": "^[0-9a-fA-F]{64}$"
                   },
-                  "location_id": {
-                    "title": "Location ID",
+                  "location_id_hash": {
+                    "title": "Location ID Hash",
                     "description": "Reference to location in the locations array",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                      "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                      "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                      "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                     ],
                     "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    "pattern": "^[0-9a-fA-F]{64}$"
                   },
                   "weight": {
                     "title": "Event Weight",
@@ -753,8 +743,8 @@
                   "event_id",
                   "event_name",
                   "timestamp",
-                  "participant_id",
-                  "location_id"
+                  "participant_id_hash",
+                  "location_id_hash"
                 ],
                 "additionalProperties": false
               }
@@ -783,46 +773,40 @@
           "description": "Geographic information about waste origin and processing locations",
           "type": "object",
           "properties": {
-            "origin_location_id": {
-              "title": "Origin Location ID",
+            "origin_location_id_hash": {
+              "title": "Origin Location ID Hash",
               "description": "Reference to origin location in the locations array",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
               ],
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              "pattern": "^[0-9a-fA-F]{64}$"
             },
-            "processing_location_ids": {
-              "title": "Processing Location IDs",
+            "processing_location_id_hashes": {
+              "title": "Processing Location ID Hashes",
               "description": "Locations where the waste was processed or handled",
               "type": "array",
               "items": {
-                "title": "UUID",
-                "description": "A universally unique identifier version 4",
+                "title": "SHA256 Hash",
+                "description": "SHA-256 cryptographic hash as hexadecimal string",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                  "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                 ],
                 "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                "pattern": "^[0-9a-fA-F]{64}$"
               }
             },
-            "final_destination_id": {
-              "title": "Final Destination ID",
+            "final_destination_id_hash": {
+              "title": "Final Destination ID Hash",
               "description": "Reference to final destination in the locations array",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
               ],
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              "pattern": "^[0-9a-fA-F]{64}$"
             },
             "transport_routes": {
               "title": "Transport Routes",
@@ -833,29 +817,25 @@
                 "description": "Transport route segment information",
                 "type": "object",
                 "properties": {
-                  "from_location_id": {
-                    "title": "From Location ID",
+                  "from_location_id_hash": {
+                    "title": "From Location ID Hash",
                     "description": "Reference to the origin location in the locations array",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                      "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                      "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                      "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                     ],
                     "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    "pattern": "^[0-9a-fA-F]{64}$"
                   },
-                  "to_location_id": {
-                    "title": "To Location ID",
+                  "to_location_id_hash": {
+                    "title": "To Location ID Hash",
                     "description": "Reference to the destination location in the locations array",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                      "6f520d88-864d-432d-bf9f-5c3166c4818f",
-                      "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+                      "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
                     ],
                     "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    "pattern": "^[0-9a-fA-F]{64}$"
                   },
                   "distance_km": {
                     "title": "Distance (km)",
@@ -891,8 +871,8 @@
                   }
                 },
                 "required": [
-                  "from_location_id",
-                  "to_location_id",
+                  "from_location_id_hash",
+                  "to_location_id_hash",
                   "distance_km",
                   "transport_method",
                   "duration_hours"
@@ -902,8 +882,8 @@
             }
           },
           "required": [
-            "origin_location_id",
-            "final_destination_id",
+            "origin_location_id_hash",
+            "final_destination_id_hash",
             "transport_routes"
           ],
           "additionalProperties": false
