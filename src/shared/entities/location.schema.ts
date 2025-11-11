@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  UuidSchema,
+  Sha256HashSchema,
   NonEmptyStringSchema,
   LatitudeSchema,
   LongitudeSchema,
@@ -39,9 +39,9 @@ export type Coordinates = z.infer<typeof CoordinatesSchema>;
 
 export const LocationSchema = z
   .strictObject({
-    id: UuidSchema.meta({
-      title: 'Location ID',
-      description: 'Unique identifier for the location',
+    id_hash: Sha256HashSchema.meta({
+      title: 'Location ID Hash',
+      description: 'Anonymized identifier for the location',
     }),
     municipality: NonEmptyStringSchema.max(50).meta({
       title: 'Municipality',
@@ -67,9 +67,10 @@ export const LocationSchema = z
       title: 'Country Code',
       description: 'ISO 3166-1 alpha-2 country code',
     }),
-    responsible_participant_id: UuidSchema.meta({
-      title: 'Responsible Participant ID',
-      description: 'ID of the participant responsible for this location',
+    responsible_participant_id_hash: Sha256HashSchema.meta({
+      title: 'Responsible Participant ID Hash',
+      description:
+        'Anonymized ID of the participant responsible for this location',
     }),
     coordinates: CoordinatesSchema,
     facility_type: FacilityTypeSchema.optional().meta({

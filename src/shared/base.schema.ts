@@ -39,7 +39,7 @@ const RecordCreatorSchema = z
     name: z.string().meta({
       title: 'Creator Name',
       description: 'Company or individual name that created this record',
-      examples: ['Carrot Foundation', 'Alice', 'Bob'],
+      examples: ['Carrot Foundation'],
     }),
     id: UuidSchema.meta({
       title: 'Creator ID',
