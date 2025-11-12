@@ -781,18 +781,18 @@
                       "additionalProperties": false
                     }
                   },
-                  "documentation": {
-                    "title": "Event Documentation",
-                    "description": "Associated documentation for this event",
+                  "attachments": {
+                    "title": "Event Attachments",
+                    "description": "Associated attachments for this event",
                     "type": "array",
                     "items": {
-                      "title": "Event Document",
-                      "description": "Supporting event document",
+                      "title": "Event Attachment",
+                      "description": "Supporting event attachment",
                       "type": "object",
                       "properties": {
                         "type": {
-                          "title": "Document Type",
-                          "description": "Type of supporting documentation",
+                          "title": "Attachment Type",
+                          "description": "Type of supporting attachment",
                           "examples": [
                             "Waste Transfer Note",
                             "Certificate of Disposal",
@@ -822,8 +822,8 @@
                           "maxLength": 50
                         },
                         "reference": {
-                          "title": "Document Reference",
-                          "description": "Reference to document (IPFS hash, file name, or external URL)",
+                          "title": "Attachment Reference",
+                          "description": "Reference to attachment (IPFS hash, file name, or external URL)",
                           "examples": [
                             "QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o",
                             "waste_transfer_note_2024_001.pdf",
@@ -836,7 +836,7 @@
                         },
                         "issue_date": {
                           "title": "Issue Date",
-                          "description": "Date the document was issued",
+                          "description": "Date the attachment was issued",
                           "examples": [
                             "2024-12-05",
                             "2025-02-22",
@@ -847,8 +847,8 @@
                           "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
                         },
                         "issuer": {
-                          "title": "Document Issuer",
-                          "description": "Entity that issued the document",
+                          "title": "Attachment Issuer",
+                          "description": "Entity that issued the attachment",
                           "examples": [
                             "Environmental Protection Agency",
                             "Waste Management Solutions Ltd",
@@ -868,13 +868,6 @@
                       ],
                       "additionalProperties": false
                     }
-                  },
-                  "notes": {
-                    "title": "Event Notes",
-                    "description": "Additional notes or comments about this event",
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 500
                   }
                 },
                 "required": [
@@ -886,17 +879,6 @@
                 ],
                 "additionalProperties": false
               }
-            },
-            "total_distance_km": {
-              "title": "Total Distance (km)",
-              "description": "Total distance traveled across all transport events",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
             },
             "total_duration_hours": {
               "title": "Total Duration (hours)",
@@ -913,7 +895,6 @@
           },
           "required": [
             "events",
-            "total_distance_km",
             "total_duration_hours"
           ],
           "additionalProperties": false
