@@ -302,70 +302,38 @@ const MassIDChainOfCustodySchema = z
 
 export type MassIDChainOfCustody = z.infer<typeof MassIDChainOfCustodySchema>;
 
-const MassIDTransportRouteSchema = z
+const MassIDGeographicDataSchema = z
   .strictObject({
     from_location_id_hash: Sha256HashSchema.meta({
       title: 'From Location ID Hash',
-      description: 'Reference to the origin location in the locations array',
+      description:
+        'Reference hash of the location where the waste started movement',
     }),
     to_location_id_hash: Sha256HashSchema.meta({
       title: 'To Location ID Hash',
       description:
-        'Reference to the destination location in the locations array',
+        'Reference hash of the location where the waste ended movement',
     }),
-    distance_km: NonNegativeFloatSchema.meta({
-      title: 'Distance (km)',
-      description: 'Distance for this route segment in kilometers',
+    first_reported_timestamp: IsoTimestampSchema.meta({
+      title: 'First Reported Timestamp',
+      description:
+        'ISO 8601 timestamp when the waste was first reported/collected at the origin location',
     }),
-    transport_method: NonEmptyStringSchema.max(50).meta({
-      title: 'Transport Method',
-      description: 'Method of transportation for this segment',
-      examples: [
-        'Truck',
-        'Rail',
-        'Barge',
-        'Container Ship',
-        'Conveyor Belt',
-        'Pipeline',
-        'Walking',
-        'Forklift',
-      ],
-    }),
-    duration_hours: HoursSchema.meta({
-      title: 'Duration (hours)',
-      description: 'Time taken for this route segment in hours',
+    last_reported_timestamp: IsoTimestampSchema.meta({
+      title: 'Last Reported Timestamp',
+      description:
+        'ISO 8601 timestamp when the waste was last reported/processed at the destination location',
     }),
   })
-  .meta({
-    title: 'Transport Route',
-    description: 'Transport route segment information',
-  });
-
-export type MassIDTransportRoute = z.infer<typeof MassIDTransportRouteSchema>;
-
-const MassIDGeographicDataSchema = z
-  .strictObject({
-    origin_location_id_hash: Sha256HashSchema.meta({
-      title: 'Origin Location ID Hash',
-      description: 'Reference to origin location in the locations array',
-    }),
-    processing_location_id_hashes: z.array(Sha256HashSchema).optional().meta({
-      title: 'Processing Location ID Hashes',
-      description: 'Locations where the waste was processed or handled',
-    }),
-    final_destination_id_hash: Sha256HashSchema.meta({
-      title: 'Final Destination ID Hash',
-      description: 'Reference to final destination in the locations array',
-    }),
-    transport_routes: z.array(MassIDTransportRouteSchema).meta({
-      title: 'Transport Routes',
-      description: 'Detailed transport route information',
-    }),
-  })
+  .refine((data) => {
+    const first = new Date(data.first_reported_timestamp);
+    const last = new Date(data.last_reported_timestamp);
+    return first <= last;
+  }, 'first_reported_timestamp must be before or equal to last_reported_timestamp')
   .meta({
     title: 'Geographic Data',
     description:
-      'Geographic information about waste origin and processing locations',
+      'Simplified geographic information tracking waste movement from origin to destination with temporal bounds',
   });
 
 export type MassIDGeographicData = z.infer<typeof MassIDGeographicDataSchema>;

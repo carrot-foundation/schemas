@@ -920,12 +920,12 @@
         },
         "geographic_data": {
           "title": "Geographic Data",
-          "description": "Geographic information about waste origin and processing locations",
+          "description": "Simplified geographic information tracking waste movement from origin to destination with temporal bounds",
           "type": "object",
           "properties": {
-            "origin_location_id_hash": {
-              "title": "Origin Location ID Hash",
-              "description": "Reference to origin location in the locations array",
+            "from_location_id_hash": {
+              "title": "From Location ID Hash",
+              "description": "Reference hash of the location where the waste started movement",
               "examples": [
                 "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
                 "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
@@ -933,24 +933,9 @@
               "type": "string",
               "pattern": "^[0-9a-fA-F]{64}$"
             },
-            "processing_location_id_hashes": {
-              "title": "Processing Location ID Hashes",
-              "description": "Locations where the waste was processed or handled",
-              "type": "array",
-              "items": {
-                "title": "SHA256 Hash",
-                "description": "SHA-256 cryptographic hash as hexadecimal string",
-                "examples": [
-                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-                  "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
-                ],
-                "type": "string",
-                "pattern": "^[0-9a-fA-F]{64}$"
-              }
-            },
-            "final_destination_id_hash": {
-              "title": "Final Destination ID Hash",
-              "description": "Reference to final destination in the locations array",
+            "to_location_id_hash": {
+              "title": "To Location ID Hash",
+              "description": "Reference hash of the location where the waste ended movement",
               "examples": [
                 "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
                 "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
@@ -958,91 +943,34 @@
               "type": "string",
               "pattern": "^[0-9a-fA-F]{64}$"
             },
-            "transport_routes": {
-              "title": "Transport Routes",
-              "description": "Detailed transport route information",
-              "type": "array",
-              "items": {
-                "title": "Transport Route",
-                "description": "Transport route segment information",
-                "type": "object",
-                "properties": {
-                  "from_location_id_hash": {
-                    "title": "From Location ID Hash",
-                    "description": "Reference to the origin location in the locations array",
-                    "examples": [
-                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-                      "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
-                  },
-                  "to_location_id_hash": {
-                    "title": "To Location ID Hash",
-                    "description": "Reference to the destination location in the locations array",
-                    "examples": [
-                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-                      "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
-                  },
-                  "distance_km": {
-                    "title": "Distance (km)",
-                    "description": "Distance for this route segment in kilometers",
-                    "examples": [
-                      0,
-                      45.2,
-                      72.5
-                    ],
-                    "type": "number",
-                    "minimum": 0
-                  },
-                  "transport_method": {
-                    "title": "Transport Method",
-                    "description": "Method of transportation for this segment",
-                    "examples": [
-                      "Truck",
-                      "Rail",
-                      "Barge",
-                      "Container Ship",
-                      "Conveyor Belt",
-                      "Pipeline",
-                      "Walking",
-                      "Forklift"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 50
-                  },
-                  "duration_hours": {
-                    "title": "Duration (hours)",
-                    "description": "Time taken for this route segment in hours",
-                    "examples": [
-                      72.5,
-                      24,
-                      168.5
-                    ],
-                    "type": "number",
-                    "minimum": 0,
-                    "multipleOf": 0.1
-                  }
-                },
-                "required": [
-                  "from_location_id_hash",
-                  "to_location_id_hash",
-                  "distance_km",
-                  "transport_method",
-                  "duration_hours"
-                ],
-                "additionalProperties": false
-              }
+            "first_reported_timestamp": {
+              "title": "First Reported Timestamp",
+              "description": "ISO 8601 timestamp when the waste was first reported/collected at the origin location. Must be before or equal to last_reported_timestamp.",
+              "examples": [
+                "2024-12-05T11:02:47.000Z",
+                "2025-02-22T10:35:12.000Z"
+              ],
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+            },
+            "last_reported_timestamp": {
+              "title": "Last Reported Timestamp",
+              "description": "ISO 8601 timestamp when the waste was last reported/processed at the destination location. Must be after or equal to first_reported_timestamp.",
+              "examples": [
+                "2024-12-05T11:02:47.000Z",
+                "2025-02-22T10:35:12.000Z"
+              ],
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
             }
           },
           "required": [
-            "origin_location_id_hash",
-            "final_destination_id_hash",
-            "transport_routes"
+            "from_location_id_hash",
+            "to_location_id_hash",
+            "first_reported_timestamp",
+            "last_reported_timestamp"
           ],
           "additionalProperties": false
         }
