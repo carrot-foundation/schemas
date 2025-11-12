@@ -4,6 +4,7 @@ import {
   WasteSubtypeSchema,
   WeightKgSchema,
   UnixTimestampSchema,
+  NonEmptyStringSchema,
 } from '../shared/definitions.schema';
 
 const AttributeWasteTypeSchema = z
@@ -46,7 +47,7 @@ export type AttributeWeight = z.infer<typeof AttributeWeightSchema>;
 const AttributeOriginCountrySchema = z
   .strictObject({
     trait_type: z.literal('Origin Country'),
-    value: z.string().max(100).meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Origin Country Value',
       description: 'Country where the waste was generated',
     }),
@@ -63,7 +64,7 @@ export type AttributeOriginCountry = z.infer<
 const AttributeOriginMunicipalitySchema = z
   .strictObject({
     trait_type: z.literal('Origin Municipality'),
-    value: z.string().max(100).meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Origin Municipality Value',
       description: 'Municipality where the waste was generated',
     }),
@@ -80,7 +81,7 @@ export type AttributeOriginMunicipality = z.infer<
 const AttributeOriginDivisionSchema = z
   .strictObject({
     trait_type: z.literal('Origin Administrative Division'),
-    value: z.string().max(100).meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Origin Division Value',
       description:
         'Administrative division (state/province) where the waste was generated',
@@ -98,7 +99,7 @@ export type AttributeOriginDivision = z.infer<
 const AttributeRecyclerSchema = z
   .strictObject({
     trait_type: z.literal('Recycler'),
-    value: z.string().max(100).meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Recycler Value',
       description: 'Organization that processed the waste',
     }),
@@ -113,7 +114,7 @@ export type AttributeRecycler = z.infer<typeof AttributeRecyclerSchema>;
 const AttributeVehicleTypeSchema = z
   .strictObject({
     trait_type: z.literal('Vehicle Type'),
-    value: z.string().max(100).meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Vehicle Type Value',
       description: 'Type of vehicle used for waste transportation',
     }),
@@ -128,18 +129,15 @@ export type AttributeVehicleType = z.infer<typeof AttributeVehicleTypeSchema>;
 const AttributeRecyclingMethodSchema = z
   .strictObject({
     trait_type: z.literal('Recycling Method'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Recycling Method Value',
-        description: 'Method used for recycling or processing the waste',
-        examples: [
-          'Composting',
-          'Mechanical Recycling',
-          'Incineration with Energy Recovery',
-        ],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Recycling Method Value',
+      description: 'Method used for recycling or processing the waste',
+      examples: [
+        'Composting',
+        'Mechanical Recycling',
+        'Incineration with Energy Recovery',
+      ],
+    }),
   })
   .meta({
     title: 'Recycling Method Attribute',
@@ -153,11 +151,11 @@ export type AttributeRecyclingMethod = z.infer<
 const AttributeProcessingTimeSchema = z
   .strictObject({
     trait_type: z.literal('Processing Time'),
-    value: z.string().max(100).meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Processing Time Value',
       description: 'Duration or timestamp of processing',
     }),
-    trait_description: z.string().max(200).optional().meta({
+    trait_description: NonEmptyStringSchema.max(200).optional().meta({
       title: 'Processing Time Description',
       description: 'Custom description for the processing time',
     }),
@@ -174,14 +172,11 @@ export type AttributeProcessingTime = z.infer<
 const AttributeLocalWasteClassificationIdSchema = z
   .strictObject({
     trait_type: z.literal('Local Waste Classification ID'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Local Waste Classification ID Value',
-        description: 'Local or regional waste classification identifier',
-        examples: ['04 02 20', 'IBAMA-A001', 'EWC-150101'],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Local Waste Classification ID Value',
+      description: 'Local or regional waste classification identifier',
+      examples: ['04 02 20', 'IBAMA-A001', 'EWC-150101'],
+    }),
   })
   .meta({
     title: 'Local Waste Classification ID Attribute',
@@ -195,15 +190,12 @@ export type AttributeLocalWasteClassificationId = z.infer<
 const AttributeRecyclingManifestCodeSchema = z
   .strictObject({
     trait_type: z.literal('Recycling Manifest Code'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Recycling Manifest Code Value',
-        description:
-          'Concatenated recycling manifest code (Document Type + Document Number)',
-        examples: ['CDF-2353', 'RC-12345', 'REC-MANIFEST-789'],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Recycling Manifest Code Value',
+      description:
+        'Concatenated recycling manifest code (Document Type + Document Number)',
+      examples: ['CDF-2353', 'RC-12345', 'REC-MANIFEST-789'],
+    }),
   })
   .meta({
     title: 'Recycling Manifest Code Attribute',
@@ -217,15 +209,12 @@ export type AttributeRecyclingManifestCode = z.infer<
 const AttributeTransportManifestCodeSchema = z
   .strictObject({
     trait_type: z.literal('Transport Manifest Code'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Transport Manifest Code Value',
-        description:
-          'Concatenated transport manifest code (Document Type + Document Number)',
-        examples: ['MTR-4126', 'TRN-67890', 'TRANS-MANIFEST-456'],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Transport Manifest Code Value',
+      description:
+        'Concatenated transport manifest code (Document Type + Document Number)',
+      examples: ['MTR-4126', 'TRN-67890', 'TRANS-MANIFEST-456'],
+    }),
   })
   .meta({
     title: 'Transport Manifest Code Attribute',
@@ -239,14 +228,11 @@ export type AttributeTransportManifestCode = z.infer<
 const AttributeWeighingCaptureMethodSchema = z
   .strictObject({
     trait_type: z.literal('Weighing Capture Method'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Weighing Capture Method Value',
-        description: 'Method used to capture weight data',
-        examples: ['Digital', 'Manual', 'Automated', 'Electronic Scale'],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Weighing Capture Method Value',
+      description: 'Method used to capture weight data',
+      examples: ['Digital', 'Manual', 'Automated', 'Electronic Scale'],
+    }),
   })
   .meta({
     title: 'Weighing Capture Method Attribute',
@@ -260,19 +246,16 @@ export type AttributeWeighingCaptureMethod = z.infer<
 const AttributeScaleTypeSchema = z
   .strictObject({
     trait_type: z.literal('Scale Type'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Scale Type Value',
-        description: 'Type of scale used for weighing',
-        examples: [
-          'Weighbridge (Truck Scale)',
-          'Floor Scale',
-          'Bench Scale',
-          'Crane Scale',
-        ],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Scale Type Value',
+      description: 'Type of scale used for weighing',
+      examples: [
+        'Weighbridge (Truck Scale)',
+        'Floor Scale',
+        'Bench Scale',
+        'Crane Scale',
+      ],
+    }),
   })
   .meta({
     title: 'Scale Type Attribute',
@@ -284,20 +267,11 @@ export type AttributeScaleType = z.infer<typeof AttributeScaleTypeSchema>;
 const AttributeContainerTypeSchema = z
   .strictObject({
     trait_type: z.literal('Container Type'),
-    value: z
-      .string()
-      .max(100)
-      .meta({
-        title: 'Container Type Value',
-        description: 'Type of container used for waste storage or transport',
-        examples: [
-          'Truck',
-          'Dumpster',
-          'Roll-off Container',
-          'Compactor',
-          'Bin',
-        ],
-      }),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Container Type Value',
+      description: 'Type of container used for waste storage or transport',
+      examples: ['Truck', 'Dumpster', 'Roll-off Container', 'Compactor', 'Bin'],
+    }),
   })
   .meta({
     title: 'Container Type Attribute',

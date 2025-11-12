@@ -1249,6 +1249,7 @@
                 "title": "Origin Country Value",
                 "description": "Country where the waste was generated",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1271,6 +1272,7 @@
                 "title": "Origin Municipality Value",
                 "description": "Municipality where the waste was generated",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1293,6 +1295,7 @@
                 "title": "Origin Division Value",
                 "description": "Administrative division (state/province) where the waste was generated",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1315,6 +1318,7 @@
                 "title": "Recycler Value",
                 "description": "Organization that processed the waste",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1337,6 +1341,7 @@
                 "title": "Vehicle Type Value",
                 "description": "Type of vehicle used for waste transportation",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1364,6 +1369,7 @@
                   "Incineration with Energy Recovery"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1386,12 +1392,14 @@
                 "title": "Processing Time Value",
                 "description": "Duration or timestamp of processing",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               },
               "trait_description": {
                 "title": "Processing Time Description",
                 "description": "Custom description for the processing time",
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 200
               }
             },
@@ -1419,6 +1427,7 @@
                   "EWC-150101"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1446,6 +1455,7 @@
                   "REC-MANIFEST-789"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1473,6 +1483,7 @@
                   "TRANS-MANIFEST-456"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1501,6 +1512,7 @@
                   "Electronic Scale"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1529,6 +1541,7 @@
                   "Crane Scale"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
@@ -1558,6 +1571,7 @@
                   "Bin"
                 ],
                 "type": "string",
+                "minLength": 1,
                 "maxLength": 100
               }
             },
