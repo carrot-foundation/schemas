@@ -149,11 +149,11 @@ const EventAttributeSchema = z
   });
 export type EventAttribute = z.infer<typeof EventAttributeSchema>;
 
-const EventDocumentSchema = z
+const EventAttachmentSchema = z
   .strictObject({
     type: NonEmptyStringSchema.max(50).meta({
-      title: 'Document Type',
-      description: 'Type of supporting documentation',
+      title: 'Attachment Type',
+      description: 'Type of supporting attachment',
       examples: [
         'Waste Transfer Note',
         'Certificate of Disposal',
@@ -179,9 +179,9 @@ const EventDocumentSchema = z
         ],
       }),
     reference: NonEmptyStringSchema.meta({
-      title: 'Document Reference',
+      title: 'Attachment Reference',
       description:
-        'Reference to document (IPFS hash, file name, or external URL)',
+        'Reference to attachment (IPFS hash, file name, or external URL)',
       examples: [
         'QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o',
         'waste_transfer_note_2024_001.pdf',
@@ -192,13 +192,13 @@ const EventDocumentSchema = z
     }),
     issue_date: IsoDateSchema.optional().meta({
       title: 'Issue Date',
-      description: 'Date the document was issued',
+      description: 'Date the attachment was issued',
     }),
     issuer: NonEmptyStringSchema.max(100)
       .optional()
       .meta({
-        title: 'Document Issuer',
-        description: 'Entity that issued the document',
+        title: 'Attachment Issuer',
+        description: 'Entity that issued the attachment',
         examples: [
           'Environmental Protection Agency',
           'Waste Management Solutions Ltd',
@@ -210,10 +210,10 @@ const EventDocumentSchema = z
       }),
   })
   .meta({
-    title: 'Event Document',
-    description: 'Supporting event document',
+    title: 'Event Attachment',
+    description: 'Supporting event attachment',
   });
-export type EventDocumentation = z.infer<typeof EventDocumentSchema>;
+export type EventAttachment = z.infer<typeof EventAttachmentSchema>;
 
 const MassIDChainOfCustodyEventSchema = z
   .strictObject({
@@ -260,13 +260,9 @@ const MassIDChainOfCustodyEventSchema = z
       title: 'Event Attributes',
       description: 'Additional attributes specific to this event',
     }),
-    documentation: z.array(EventDocumentSchema).optional().meta({
-      title: 'Event Documentation',
-      description: 'Associated documentation for this event',
-    }),
-    notes: NonEmptyStringSchema.max(500).optional().meta({
-      title: 'Event Notes',
-      description: 'Additional notes or comments about this event',
+    attachments: z.array(EventAttachmentSchema).optional().meta({
+      title: 'Event Attachments',
+      description: 'Associated attachments for this event',
     }),
   })
   .meta({
@@ -284,10 +280,6 @@ const MassIDChainOfCustodySchema = z
       title: 'Custody Events',
       description:
         'Chronological sequence of custody transfer and processing events',
-    }),
-    total_distance_km: NonNegativeFloatSchema.meta({
-      title: 'Total Distance (km)',
-      description: 'Total distance traveled across all transport events',
     }),
     total_duration_hours: HoursSchema.meta({
       title: 'Total Duration (hours)',
