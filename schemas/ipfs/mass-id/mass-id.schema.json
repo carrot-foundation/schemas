@@ -945,7 +945,7 @@
             },
             "first_reported_timestamp": {
               "title": "First Reported Timestamp",
-              "description": "ISO 8601 timestamp when the waste was first reported/collected at the origin location",
+              "description": "ISO 8601 timestamp when the waste was first reported/collected at the origin location. Must be before or equal to last_reported_timestamp.",
               "examples": [
                 "2024-12-05T11:02:47.000Z",
                 "2025-02-22T10:35:12.000Z"
@@ -956,7 +956,7 @@
             },
             "last_reported_timestamp": {
               "title": "Last Reported Timestamp",
-              "description": "ISO 8601 timestamp when the waste was last reported/processed at the destination location",
+              "description": "ISO 8601 timestamp when the waste was last reported/processed at the destination location. Must be after or equal to first_reported_timestamp.",
               "examples": [
                 "2024-12-05T11:02:47.000Z",
                 "2025-02-22T10:35:12.000Z"
