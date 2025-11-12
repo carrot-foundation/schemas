@@ -1142,268 +1142,497 @@
       }
     },
     "attributes": {
+      "minItems": 13,
+      "maxItems": 18,
       "type": "array",
-      "prefixItems": [
-        {
-          "title": "Waste Type Attribute",
-          "description": "Waste type attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Waste Type"
+      "items": {
+        "anyOf": [
+          {
+            "title": "Waste Type Attribute",
+            "description": "Waste type attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Waste Type"
+              },
+              "value": {
+                "title": "Waste Type",
+                "description": "Category or type of waste material",
+                "examples": [
+                  "Organic",
+                  "Plastic",
+                  "Metal"
+                ],
+                "type": "string",
+                "minLength": 1
+              }
             },
-            "value": {
-              "title": "Waste Type",
-              "description": "Category or type of waste material",
-              "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
-              ],
-              "type": "string",
-              "minLength": 1
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Waste Subtype Attribute",
-          "description": "Waste subtype attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Waste Subtype"
+          {
+            "title": "Waste Subtype Attribute",
+            "description": "Waste subtype attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Waste Subtype"
+              },
+              "value": {
+                "title": "Waste Subtype",
+                "description": "Specific subcategory of waste within a waste type",
+                "examples": [
+                  "Food, Food Waste and Beverages",
+                  "PET Bottles",
+                  "Aluminum Cans"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Waste Subtype",
-              "description": "Specific subcategory of waste within a waste type",
-              "examples": [
-                "Food, Food Waste and Beverages",
-                "PET Bottles",
-                "Aluminum Cans"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Weight Attribute",
-          "description": "Weight attribute with numeric display",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Weight (kg)"
+          {
+            "title": "Weight Attribute",
+            "description": "Weight attribute with numeric display",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Weight (kg)"
+              },
+              "value": {
+                "title": "Weight (kg)",
+                "description": "Weight measurement in kilograms",
+                "examples": [
+                  3000,
+                  1500,
+                  500
+                ],
+                "type": "number",
+                "minimum": 0
+              },
+              "display_type": {
+                "type": "string",
+                "const": "number"
+              }
             },
-            "value": {
-              "title": "Weight (kg)",
-              "description": "Weight measurement in kilograms",
-              "examples": [
-                3000,
-                1500,
-                500
-              ],
-              "type": "number",
-              "minimum": 0
-            },
-            "display_type": {
-              "type": "string",
-              "const": "number"
-            }
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Origin Country Attribute",
-          "description": "Origin country attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Origin Country"
+          {
+            "title": "Origin Country Attribute",
+            "description": "Origin country attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Origin Country"
+              },
+              "value": {
+                "title": "Origin Country Value",
+                "description": "Country where the waste was generated",
+                "type": "string",
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Origin Country Value",
-              "description": "Country where the waste was generated",
-              "type": "string",
-              "maxLength": 100
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Origin Municipality Attribute",
-          "description": "Origin municipality attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Origin Municipality"
+          {
+            "title": "Origin Municipality Attribute",
+            "description": "Origin municipality attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Origin Municipality"
+              },
+              "value": {
+                "title": "Origin Municipality Value",
+                "description": "Municipality where the waste was generated",
+                "type": "string",
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Origin Municipality Value",
-              "description": "Municipality where the waste was generated",
-              "type": "string",
-              "maxLength": 100
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Origin Administrative Division Attribute",
-          "description": "Origin administrative division attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Origin Administrative Division"
+          {
+            "title": "Origin Administrative Division Attribute",
+            "description": "Origin administrative division attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Origin Administrative Division"
+              },
+              "value": {
+                "title": "Origin Division Value",
+                "description": "Administrative division (state/province) where the waste was generated",
+                "type": "string",
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Origin Division Value",
-              "description": "Administrative division (state/province) where the waste was generated",
-              "type": "string",
-              "maxLength": 100
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Recycler Attribute",
-          "description": "Recycler attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Recycler"
+          {
+            "title": "Recycler Attribute",
+            "description": "Recycler attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Recycler"
+              },
+              "value": {
+                "title": "Recycler Value",
+                "description": "Organization that processed the waste",
+                "type": "string",
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Recycler Value",
-              "description": "Organization that processed the waste",
-              "type": "string",
-              "maxLength": 100
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Integrator Attribute",
-          "description": "Integrator attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Integrator"
+          {
+            "title": "Vehicle Type Attribute",
+            "description": "Vehicle type attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Vehicle Type"
+              },
+              "value": {
+                "title": "Vehicle Type Value",
+                "description": "Type of vehicle used for waste transportation",
+                "type": "string",
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Integrator Value",
-              "description": "Organization that integrated the waste into the Carrot network",
-              "type": "string",
-              "maxLength": 100
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Pick-up Date Attribute",
-          "description": "Pick-up date attribute with Unix timestamp",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Pick-up Date"
+          {
+            "title": "Recycling Method Attribute",
+            "description": "Recycling method attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Recycling Method"
+              },
+              "value": {
+                "title": "Recycling Method Value",
+                "description": "Method used for recycling or processing the waste",
+                "examples": [
+                  "Composting",
+                  "Mechanical Recycling",
+                  "Incineration with Energy Recovery"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
             },
-            "value": {
-              "title": "Pick-up Date Value",
-              "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
-              "examples": [
-                1704067200000,
-                1735689600000,
-                1762371245149
-              ],
-              "type": "integer",
-              "exclusiveMinimum": 0,
-              "maximum": 9007199254740991
-            },
-            "display_type": {
-              "type": "string",
-              "const": "date"
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Recycling Date Attribute",
-          "description": "Recycling date attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Recycling Date"
+          {
+            "title": "Processing Time Attribute",
+            "description": "Processing time attribute with optional trait description",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Processing Time"
+              },
+              "value": {
+                "title": "Processing Time Value",
+                "description": "Duration or timestamp of processing",
+                "type": "string",
+                "maxLength": 100
+              },
+              "trait_description": {
+                "title": "Processing Time Description",
+                "description": "Custom description for the processing time",
+                "type": "string",
+                "maxLength": 200
+              }
             },
-            "value": {
-              "title": "Recycling Date Value",
-              "description": "Date when the waste was recycled/processed",
-              "type": "string",
-              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
-            },
-            "display_type": {
-              "type": "string",
-              "const": "date"
-            }
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
           },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        }
-      ],
-      "minItems": 10,
-      "maxItems": 10
+          {
+            "title": "Local Waste Classification ID Attribute",
+            "description": "Local waste classification ID attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Local Waste Classification ID"
+              },
+              "value": {
+                "title": "Local Waste Classification ID Value",
+                "description": "Local or regional waste classification identifier",
+                "examples": [
+                  "04 02 20",
+                  "IBAMA-A001",
+                  "EWC-150101"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Recycling Manifest Code Attribute",
+            "description": "Recycling manifest code attribute (optional)",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Recycling Manifest Code"
+              },
+              "value": {
+                "title": "Recycling Manifest Code Value",
+                "description": "Concatenated recycling manifest code (Document Type + Document Number)",
+                "examples": [
+                  "CDF-2353",
+                  "RC-12345",
+                  "REC-MANIFEST-789"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Transport Manifest Code Attribute",
+            "description": "Transport manifest code attribute (optional)",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Transport Manifest Code"
+              },
+              "value": {
+                "title": "Transport Manifest Code Value",
+                "description": "Concatenated transport manifest code (Document Type + Document Number)",
+                "examples": [
+                  "MTR-4126",
+                  "TRN-67890",
+                  "TRANS-MANIFEST-456"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Weighing Capture Method Attribute",
+            "description": "Weighing capture method attribute (optional)",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Weighing Capture Method"
+              },
+              "value": {
+                "title": "Weighing Capture Method Value",
+                "description": "Method used to capture weight data",
+                "examples": [
+                  "Digital",
+                  "Manual",
+                  "Automated",
+                  "Electronic Scale"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Scale Type Attribute",
+            "description": "Scale type attribute (optional)",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Scale Type"
+              },
+              "value": {
+                "title": "Scale Type Value",
+                "description": "Type of scale used for weighing",
+                "examples": [
+                  "Weighbridge (Truck Scale)",
+                  "Floor Scale",
+                  "Bench Scale",
+                  "Crane Scale"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Container Type Attribute",
+            "description": "Container type attribute (optional)",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Container Type"
+              },
+              "value": {
+                "title": "Container Type Value",
+                "description": "Type of container used for waste storage or transport",
+                "examples": [
+                  "Truck",
+                  "Dumpster",
+                  "Roll-off Container",
+                  "Compactor",
+                  "Bin"
+                ],
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Pick-up Date Attribute",
+            "description": "Pick-up date attribute with Unix timestamp",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Pick-up Date"
+              },
+              "value": {
+                "title": "Pick-up Date Value",
+                "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
+                "examples": [
+                  1704067200000,
+                  1735689600000,
+                  1762371245149
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Recycling Date Attribute",
+            "description": "Recycling date attribute with Unix timestamp",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Recycling Date"
+              },
+              "value": {
+                "title": "Recycling Date Value",
+                "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
+                "examples": [
+                  1704067200000,
+                  1735689600000,
+                  1762371245149
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
     }
   },
   "required": [
