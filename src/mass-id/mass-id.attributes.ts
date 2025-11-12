@@ -372,7 +372,7 @@ export const MassIDAttributesSchema = z
   .meta({
     title: 'MassID Attributes',
     description:
-      'MassID NFT attributes array with 13 required and up to 5 optional attributes (min 13, max 18)',
+      'MassID NFT attributes array containing between 13 and 18 attributes selected from the available attribute types. The schema validates array length (13-18 items) but does not enforce which specific attributes must be present.',
   });
 
 export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;

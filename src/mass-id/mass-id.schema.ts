@@ -15,7 +15,7 @@ export const MassIDIpfsSchemaMeta = {
   version: getSchemaVersionOrDefault(),
 } as const;
 
-export const MassIDIpfsSchema = NftIpfsSchema.extend({
+export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('MassID').meta({
       title: 'MassID Schema Type',
@@ -25,8 +25,8 @@ export const MassIDIpfsSchema = NftIpfsSchema.extend({
   attributes: MassIDAttributesSchema.meta({
     title: 'MassID NFT Attributes',
     description:
-      'MassID NFT attributes with 13 required and up to 5 optional items',
-  }).check(z.minLength(13), z.maxLength(18)),
+      'MassID NFT attributes array containing between 13 and 18 attributes selected from the available attribute types',
+  }),
   data: MassIDDataSchema.meta({
     title: 'MassID Data',
     description:

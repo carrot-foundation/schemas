@@ -1142,6 +1142,8 @@
       }
     },
     "attributes": {
+      "title": "MassID NFT Attributes",
+      "description": "MassID NFT attributes array containing between 13 and 18 attributes selected from the available attribute types",
       "minItems": 13,
       "maxItems": 18,
       "type": "array",
