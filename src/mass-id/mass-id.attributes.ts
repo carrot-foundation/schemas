@@ -344,7 +344,7 @@ export const MassIDAttributesSchema = z
       MassIDAttributeRecyclingDateSchema,
     ]),
   )
-  .min(13)
+  .min(12)
   .max(17)
   .meta({
     title: 'MassID Attributes',
