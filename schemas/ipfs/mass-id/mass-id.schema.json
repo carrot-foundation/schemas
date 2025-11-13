@@ -239,7 +239,7 @@
     },
     "data": {
       "title": "MassID Data",
-      "description": "MassID-specific data containing waste tracking and chain of custody information",
+      "description": "MassID data containing waste tracking and chain of custody information",
       "type": "object",
       "properties": {
         "waste_properties": {
@@ -1142,10 +1142,10 @@
       }
     },
     "attributes": {
-      "title": "MassID NFT Attributes",
-      "description": "MassID NFT attributes array containing between 13 and 18 attributes selected from the available attribute types",
+      "title": "MassID Attributes",
+      "description": "MassID NFT attributes array containing attributes selected from the available attribute types. The schema validates array length but does not enforce which specific attributes must be present.",
       "minItems": 13,
-      "maxItems": 18,
+      "maxItems": 17,
       "type": "array",
       "items": {
         "anyOf": [
@@ -1248,6 +1248,12 @@
               "value": {
                 "title": "Origin Country Value",
                 "description": "Country where the waste was generated",
+                "examples": [
+                  "Brazil",
+                  "United States",
+                  "Germany",
+                  "Japan"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100
@@ -1271,6 +1277,12 @@
               "value": {
                 "title": "Origin Municipality Value",
                 "description": "Municipality where the waste was generated",
+                "examples": [
+                  "São Paulo",
+                  "New York",
+                  "Berlin",
+                  "Tokyo"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100
@@ -1294,29 +1306,11 @@
               "value": {
                 "title": "Origin Division Value",
                 "description": "Administrative division (state/province) where the waste was generated",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
-              }
-            },
-            "required": [
-              "trait_type",
-              "value"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "title": "Recycler Attribute",
-            "description": "Recycler attribute",
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "type": "string",
-                "const": "Recycler"
-              },
-              "value": {
-                "title": "Recycler Value",
-                "description": "Organization that processed the waste",
+                "examples": [
+                  "São Paulo",
+                  "California",
+                  "Bavaria"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100
@@ -1340,6 +1334,12 @@
               "value": {
                 "title": "Vehicle Type Value",
                 "description": "Type of vehicle used for waste transportation",
+                "examples": [
+                  "Garbage Truck",
+                  "Box Truck",
+                  "Flatbed Truck",
+                  "Roll-off Truck"
+                ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100
@@ -1386,14 +1386,19 @@
             "properties": {
               "trait_type": {
                 "type": "string",
-                "const": "Processing Time"
+                "const": "Processing Time (hours)"
               },
               "value": {
-                "title": "Processing Time Value",
-                "description": "Duration or timestamp of processing",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "title": "Hours",
+                "description": "Time duration in hours with 0.1 hour precision",
+                "examples": [
+                  72.5,
+                  24,
+                  168.5
+                ],
+                "type": "number",
+                "minimum": 0,
+                "multipleOf": 0.1
               },
               "trait_description": {
                 "title": "Processing Time Description",
@@ -1594,9 +1599,9 @@
                 "title": "Pick-up Date Value",
                 "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
                 "examples": [
+                  1710518400000,
                   1704067200000,
-                  1735689600000,
-                  1762371245149
+                  1715270400000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,
@@ -1627,9 +1632,9 @@
                 "title": "Recycling Date Value",
                 "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
                 "examples": [
-                  1704067200000,
-                  1735689600000,
-                  1762371245149
+                  1710604800000,
+                  1704153600000,
+                  1715356800000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,

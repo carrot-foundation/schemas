@@ -63,10 +63,6 @@
       "value": "Amapá"
     },
     {
-      "trait_type": "Recycler",
-      "value": "Eco Reciclagem"
-    },
-    {
       "trait_type": "Vehicle Type",
       "value": "Truck"
     },
@@ -75,9 +71,8 @@
       "value": "Composting"
     },
     {
-      "trait_type": "Processing Time",
-      "value": "72.5 hours",
-      "trait_description": "Time from collection to completion of composting process"
+      "trait_type": "Processing Time (hours)",
+      "value": 72.5
     },
     {
       "trait_type": "Local Waste Classification ID",

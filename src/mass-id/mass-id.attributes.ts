@@ -5,9 +5,10 @@ import {
   WeightKgSchema,
   UnixTimestampSchema,
   NonEmptyStringSchema,
+  HoursSchema,
 } from '../shared/definitions.schema';
 
-const AttributeWasteTypeSchema = z
+const MassIDAttributeWasteTypeSchema = z
   .strictObject({
     trait_type: z.literal('Waste Type'),
     value: WasteTypeSchema,
@@ -17,9 +18,11 @@ const AttributeWasteTypeSchema = z
     description: 'Waste type attribute',
   });
 
-export type AttributeWasteType = z.infer<typeof AttributeWasteTypeSchema>;
+export type MassIDAttributeWasteType = z.infer<
+  typeof MassIDAttributeWasteTypeSchema
+>;
 
-const AttributeWasteSubtypeSchema = z
+const MassIDAttributeWasteSubtypeSchema = z
   .strictObject({
     trait_type: z.literal('Waste Subtype'),
     value: WasteSubtypeSchema,
@@ -29,9 +32,11 @@ const AttributeWasteSubtypeSchema = z
     description: 'Waste subtype attribute',
   });
 
-export type AttributeWasteSubtype = z.infer<typeof AttributeWasteSubtypeSchema>;
+export type MassIDAttributeWasteSubtype = z.infer<
+  typeof MassIDAttributeWasteSubtypeSchema
+>;
 
-const AttributeWeightSchema = z
+const MassIDAttributeWeightSchema = z
   .strictObject({
     trait_type: z.literal('Weight (kg)'),
     value: WeightKgSchema,
@@ -42,14 +47,15 @@ const AttributeWeightSchema = z
     description: 'Weight attribute with numeric display',
   });
 
-export type AttributeWeight = z.infer<typeof AttributeWeightSchema>;
+export type MassIDAttributeWeight = z.infer<typeof MassIDAttributeWeightSchema>;
 
-const AttributeOriginCountrySchema = z
+const MassIDAttributeOriginCountrySchema = z
   .strictObject({
     trait_type: z.literal('Origin Country'),
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Origin Country Value',
       description: 'Country where the waste was generated',
+      examples: ['Brazil', 'United States', 'Germany', 'Japan'],
     }),
   })
   .meta({
@@ -57,16 +63,17 @@ const AttributeOriginCountrySchema = z
     description: 'Origin country attribute',
   });
 
-export type AttributeOriginCountry = z.infer<
-  typeof AttributeOriginCountrySchema
+export type MassIDAttributeOriginCountry = z.infer<
+  typeof MassIDAttributeOriginCountrySchema
 >;
 
-const AttributeOriginMunicipalitySchema = z
+const MassIDAttributeOriginMunicipalitySchema = z
   .strictObject({
     trait_type: z.literal('Origin Municipality'),
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Origin Municipality Value',
       description: 'Municipality where the waste was generated',
+      examples: ['São Paulo', 'New York', 'Berlin', 'Tokyo'],
     }),
   })
   .meta({
@@ -74,17 +81,18 @@ const AttributeOriginMunicipalitySchema = z
     description: 'Origin municipality attribute',
   });
 
-export type AttributeOriginMunicipality = z.infer<
-  typeof AttributeOriginMunicipalitySchema
+export type MassIDAttributeOriginMunicipality = z.infer<
+  typeof MassIDAttributeOriginMunicipalitySchema
 >;
 
-const AttributeOriginDivisionSchema = z
+const MassIDAttributeOriginDivisionSchema = z
   .strictObject({
     trait_type: z.literal('Origin Administrative Division'),
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Origin Division Value',
       description:
         'Administrative division (state/province) where the waste was generated',
+      examples: ['São Paulo', 'California', 'Bavaria'],
     }),
   })
   .meta({
@@ -92,31 +100,22 @@ const AttributeOriginDivisionSchema = z
     description: 'Origin administrative division attribute',
   });
 
-export type AttributeOriginDivision = z.infer<
-  typeof AttributeOriginDivisionSchema
+export type MassIDAttributeOriginDivision = z.infer<
+  typeof MassIDAttributeOriginDivisionSchema
 >;
 
-const AttributeRecyclerSchema = z
-  .strictObject({
-    trait_type: z.literal('Recycler'),
-    value: NonEmptyStringSchema.max(100).meta({
-      title: 'Recycler Value',
-      description: 'Organization that processed the waste',
-    }),
-  })
-  .meta({
-    title: 'Recycler Attribute',
-    description: 'Recycler attribute',
-  });
-
-export type AttributeRecycler = z.infer<typeof AttributeRecyclerSchema>;
-
-const AttributeVehicleTypeSchema = z
+const MassIDAttributeVehicleTypeSchema = z
   .strictObject({
     trait_type: z.literal('Vehicle Type'),
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Vehicle Type Value',
       description: 'Type of vehicle used for waste transportation',
+      examples: [
+        'Garbage Truck',
+        'Box Truck',
+        'Flatbed Truck',
+        'Roll-off Truck',
+      ],
     }),
   })
   .meta({
@@ -124,9 +123,11 @@ const AttributeVehicleTypeSchema = z
     description: 'Vehicle type attribute',
   });
 
-export type AttributeVehicleType = z.infer<typeof AttributeVehicleTypeSchema>;
+export type MassIDAttributeVehicleType = z.infer<
+  typeof MassIDAttributeVehicleTypeSchema
+>;
 
-const AttributeRecyclingMethodSchema = z
+const MassIDAttributeRecyclingMethodSchema = z
   .strictObject({
     trait_type: z.literal('Recycling Method'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -144,17 +145,14 @@ const AttributeRecyclingMethodSchema = z
     description: 'Recycling method attribute',
   });
 
-export type AttributeRecyclingMethod = z.infer<
-  typeof AttributeRecyclingMethodSchema
+export type MassIDAttributeRecyclingMethod = z.infer<
+  typeof MassIDAttributeRecyclingMethodSchema
 >;
 
-const AttributeProcessingTimeSchema = z
+const MassIDAttributeProcessingTimeSchema = z
   .strictObject({
-    trait_type: z.literal('Processing Time'),
-    value: NonEmptyStringSchema.max(100).meta({
-      title: 'Processing Time Value',
-      description: 'Duration or timestamp of processing',
-    }),
+    trait_type: z.literal('Processing Time (hours)'),
+    value: HoursSchema,
     trait_description: NonEmptyStringSchema.max(200).optional().meta({
       title: 'Processing Time Description',
       description: 'Custom description for the processing time',
@@ -165,11 +163,11 @@ const AttributeProcessingTimeSchema = z
     description: 'Processing time attribute with optional trait description',
   });
 
-export type AttributeProcessingTime = z.infer<
-  typeof AttributeProcessingTimeSchema
+export type MassIDAttributeProcessingTime = z.infer<
+  typeof MassIDAttributeProcessingTimeSchema
 >;
 
-const AttributeLocalWasteClassificationIdSchema = z
+const MassIDAttributeLocalWasteClassificationIdSchema = z
   .strictObject({
     trait_type: z.literal('Local Waste Classification ID'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -183,11 +181,11 @@ const AttributeLocalWasteClassificationIdSchema = z
     description: 'Local waste classification ID attribute',
   });
 
-export type AttributeLocalWasteClassificationId = z.infer<
-  typeof AttributeLocalWasteClassificationIdSchema
+export type MassIDAttributeLocalWasteClassificationId = z.infer<
+  typeof MassIDAttributeLocalWasteClassificationIdSchema
 >;
 
-const AttributeRecyclingManifestCodeSchema = z
+const MassIDAttributeRecyclingManifestCodeSchema = z
   .strictObject({
     trait_type: z.literal('Recycling Manifest Code'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -202,11 +200,11 @@ const AttributeRecyclingManifestCodeSchema = z
     description: 'Recycling manifest code attribute (optional)',
   });
 
-export type AttributeRecyclingManifestCode = z.infer<
-  typeof AttributeRecyclingManifestCodeSchema
+export type MassIDAttributeRecyclingManifestCode = z.infer<
+  typeof MassIDAttributeRecyclingManifestCodeSchema
 >;
 
-const AttributeTransportManifestCodeSchema = z
+const MassIDAttributeTransportManifestCodeSchema = z
   .strictObject({
     trait_type: z.literal('Transport Manifest Code'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -221,11 +219,11 @@ const AttributeTransportManifestCodeSchema = z
     description: 'Transport manifest code attribute (optional)',
   });
 
-export type AttributeTransportManifestCode = z.infer<
-  typeof AttributeTransportManifestCodeSchema
+export type MassIDAttributeTransportManifestCode = z.infer<
+  typeof MassIDAttributeTransportManifestCodeSchema
 >;
 
-const AttributeWeighingCaptureMethodSchema = z
+const MassIDAttributeWeighingCaptureMethodSchema = z
   .strictObject({
     trait_type: z.literal('Weighing Capture Method'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -239,11 +237,11 @@ const AttributeWeighingCaptureMethodSchema = z
     description: 'Weighing capture method attribute (optional)',
   });
 
-export type AttributeWeighingCaptureMethod = z.infer<
-  typeof AttributeWeighingCaptureMethodSchema
+export type MassIDAttributeWeighingCaptureMethod = z.infer<
+  typeof MassIDAttributeWeighingCaptureMethodSchema
 >;
 
-const AttributeScaleTypeSchema = z
+const MassIDAttributeScaleTypeSchema = z
   .strictObject({
     trait_type: z.literal('Scale Type'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -262,9 +260,11 @@ const AttributeScaleTypeSchema = z
     description: 'Scale type attribute (optional)',
   });
 
-export type AttributeScaleType = z.infer<typeof AttributeScaleTypeSchema>;
+export type MassIDAttributeScaleType = z.infer<
+  typeof MassIDAttributeScaleTypeSchema
+>;
 
-const AttributeContainerTypeSchema = z
+const MassIDAttributeContainerTypeSchema = z
   .strictObject({
     trait_type: z.literal('Container Type'),
     value: NonEmptyStringSchema.max(100).meta({
@@ -278,17 +278,18 @@ const AttributeContainerTypeSchema = z
     description: 'Container type attribute (optional)',
   });
 
-export type AttributeContainerType = z.infer<
-  typeof AttributeContainerTypeSchema
+export type MassIDAttributeContainerType = z.infer<
+  typeof MassIDAttributeContainerTypeSchema
 >;
 
-const AttributePickUpDateSchema = z
+const MassIDAttributePickUpDateSchema = z
   .strictObject({
     trait_type: z.literal('Pick-up Date'),
     value: UnixTimestampSchema.meta({
       title: 'Pick-up Date Value',
       description:
         'Unix timestamp in milliseconds when the waste was picked up from the source',
+      examples: [1710518400000, 1704067200000, 1715270400000],
     }),
     display_type: z.literal('date'),
   })
@@ -297,15 +298,18 @@ const AttributePickUpDateSchema = z
     description: 'Pick-up date attribute with Unix timestamp',
   });
 
-export type AttributePickUpDate = z.infer<typeof AttributePickUpDateSchema>;
+export type MassIDAttributePickUpDate = z.infer<
+  typeof MassIDAttributePickUpDateSchema
+>;
 
-const AttributeRecyclingDateSchema = z
+const MassIDAttributeRecyclingDateSchema = z
   .strictObject({
     trait_type: z.literal('Recycling Date'),
     value: UnixTimestampSchema.meta({
       title: 'Recycling Date Value',
       description:
         'Unix timestamp in milliseconds when the waste was recycled/processed',
+      examples: [1710604800000, 1704153600000, 1715356800000],
     }),
     display_type: z.literal('date'),
   })
@@ -314,39 +318,38 @@ const AttributeRecyclingDateSchema = z
     description: 'Recycling date attribute with Unix timestamp',
   });
 
-export type AttributeRecyclingDate = z.infer<
-  typeof AttributeRecyclingDateSchema
+export type MassIDAttributeRecyclingDate = z.infer<
+  typeof MassIDAttributeRecyclingDateSchema
 >;
 
 export const MassIDAttributesSchema = z
   .array(
     z.union([
-      AttributeWasteTypeSchema,
-      AttributeWasteSubtypeSchema,
-      AttributeWeightSchema,
-      AttributeOriginCountrySchema,
-      AttributeOriginMunicipalitySchema,
-      AttributeOriginDivisionSchema,
-      AttributeRecyclerSchema,
-      AttributeVehicleTypeSchema,
-      AttributeRecyclingMethodSchema,
-      AttributeProcessingTimeSchema,
-      AttributeLocalWasteClassificationIdSchema,
-      AttributeRecyclingManifestCodeSchema,
-      AttributeTransportManifestCodeSchema,
-      AttributeWeighingCaptureMethodSchema,
-      AttributeScaleTypeSchema,
-      AttributeContainerTypeSchema,
-      AttributePickUpDateSchema,
-      AttributeRecyclingDateSchema,
+      MassIDAttributeWasteTypeSchema,
+      MassIDAttributeWasteSubtypeSchema,
+      MassIDAttributeWeightSchema,
+      MassIDAttributeOriginCountrySchema,
+      MassIDAttributeOriginMunicipalitySchema,
+      MassIDAttributeOriginDivisionSchema,
+      MassIDAttributeVehicleTypeSchema,
+      MassIDAttributeRecyclingMethodSchema,
+      MassIDAttributeProcessingTimeSchema,
+      MassIDAttributeLocalWasteClassificationIdSchema,
+      MassIDAttributeRecyclingManifestCodeSchema,
+      MassIDAttributeTransportManifestCodeSchema,
+      MassIDAttributeWeighingCaptureMethodSchema,
+      MassIDAttributeScaleTypeSchema,
+      MassIDAttributeContainerTypeSchema,
+      MassIDAttributePickUpDateSchema,
+      MassIDAttributeRecyclingDateSchema,
     ]),
   )
   .min(13)
-  .max(18)
+  .max(17)
   .meta({
     title: 'MassID Attributes',
     description:
-      'MassID NFT attributes array containing between 13 and 18 attributes selected from the available attribute types. The schema validates array length (13-18 items) but does not enforce which specific attributes must be present.',
+      'MassID NFT attributes array containing attributes selected from the available attribute types. The schema validates array length but does not enforce which specific attributes must be present.',
   });
 
 export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;

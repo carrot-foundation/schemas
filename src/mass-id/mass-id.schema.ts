@@ -22,16 +22,8 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       description: 'MassID NFT schema type',
     }),
   }),
-  attributes: MassIDAttributesSchema.meta({
-    title: 'MassID NFT Attributes',
-    description:
-      'MassID NFT attributes array containing between 13 and 18 attributes selected from the available attribute types',
-  }),
-  data: MassIDDataSchema.meta({
-    title: 'MassID Data',
-    description:
-      'MassID-specific data containing waste tracking and chain of custody information',
-  }),
+  attributes: MassIDAttributesSchema,
+  data: MassIDDataSchema,
 }).meta(MassIDIpfsSchemaMeta);
 
 export type MassIDIpfs = z.infer<typeof MassIDIpfsSchema>;
