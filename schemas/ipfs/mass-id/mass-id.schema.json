@@ -256,7 +256,8 @@
                 "Metal"
               ],
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "maxLength": 100
             },
             "subtype": {
               "title": "Waste Subtype",
@@ -1144,7 +1145,7 @@
     "attributes": {
       "title": "MassID Attributes",
       "description": "MassID NFT attributes array containing attributes selected from the available attribute types. The schema validates array length but does not enforce which specific attributes must be present.",
-      "minItems": 13,
+      "minItems": 12,
       "maxItems": 17,
       "type": "array",
       "items": {
@@ -1167,7 +1168,8 @@
                   "Metal"
                 ],
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "maxLength": 100
               }
             },
             "required": [

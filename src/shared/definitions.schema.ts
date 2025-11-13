@@ -155,7 +155,7 @@ export const SlugSchema = NonEmptyStringSchema.regex(
   });
 export type Slug = z.infer<typeof SlugSchema>;
 
-export const WasteTypeSchema = NonEmptyStringSchema.meta({
+export const WasteTypeSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Waste Type',
   description: 'Category or type of waste material',
   examples: ['Organic', 'Plastic', 'Metal'],
