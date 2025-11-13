@@ -70,7 +70,7 @@ const ExternalLinkSchema = z
 
 export type ExternalLink = z.infer<typeof ExternalLinkSchema>;
 
-const NftAttributeSchema = z
+export const NftAttributeSchema = z
   .strictObject({
     trait_type: z.string().max(50).meta({
       title: 'Trait Type',

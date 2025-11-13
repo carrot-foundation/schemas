@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
     "hash": "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
     "type": "MassID",
@@ -63,12 +63,40 @@
       "value": "Amapá"
     },
     {
-      "trait_type": "Recycler",
-      "value": "Eco Reciclagem"
+      "trait_type": "Vehicle Type",
+      "value": "Truck"
     },
     {
-      "trait_type": "Integrator",
-      "value": "Carrot Foundation"
+      "trait_type": "Recycling Method",
+      "value": "Composting"
+    },
+    {
+      "trait_type": "Processing Time (hours)",
+      "value": 72.5
+    },
+    {
+      "trait_type": "Local Waste Classification ID",
+      "value": "04 02 20"
+    },
+    {
+      "trait_type": "Recycling Manifest Code",
+      "value": "CDF-2353"
+    },
+    {
+      "trait_type": "Transport Manifest Code",
+      "value": "MTR-4126"
+    },
+    {
+      "trait_type": "Weighing Capture Method",
+      "value": "Digital"
+    },
+    {
+      "trait_type": "Scale Type",
+      "value": "Weighbridge (Truck Scale)"
+    },
+    {
+      "trait_type": "Container Type",
+      "value": "Truck"
     },
     {
       "trait_type": "Pick-up Date",
@@ -77,7 +105,7 @@
     },
     {
       "trait_type": "Recycling Date",
-      "value": "2025-02-22",
+      "value": 1740182400000,
       "display_type": "date"
     }
   ],
