@@ -346,6 +346,13 @@ export const MassIDAttributesSchema = z
   )
   .min(12)
   .max(17)
+  .refine(
+    (attributes) => {
+      const traitTypes = attributes.map((attribute) => attribute.trait_type);
+      return new Set(traitTypes).size === traitTypes.length;
+    },
+    { message: 'Attribute trait_type values must be unique' },
+  )
   .meta({
     title: 'MassID Attributes',
     description:
