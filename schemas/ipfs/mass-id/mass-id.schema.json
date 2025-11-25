@@ -344,22 +344,6 @@
               ],
               "type": "number",
               "minimum": 0
-            },
-            "contamination_level": {
-              "title": "Contamination Level",
-              "description": "Level of contamination in the waste batch",
-              "examples": [
-                "Low",
-                "Medium",
-                "None"
-              ],
-              "type": "string",
-              "enum": [
-                "None",
-                "Low",
-                "Medium",
-                "High"
-              ]
             }
           },
           "required": [
@@ -662,14 +646,15 @@
                   },
                   "timestamp": {
                     "title": "Event Timestamp",
-                    "description": "ISO 8601 timestamp when the event occurred",
+                    "description": "Unix timestamp in milliseconds when the event occurred",
                     "examples": [
-                      "2024-12-05T11:02:47.000Z",
-                      "2025-02-22T10:35:12.000Z"
+                      1710518400000,
+                      1704067200000,
+                      1715270400000
                     ],
-                    "type": "string",
-                    "format": "date-time",
-                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991
                   },
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
@@ -837,15 +822,15 @@
                         },
                         "issue_date": {
                           "title": "Issue Date",
-                          "description": "Date the attachment was issued",
+                          "description": "Unix timestamp in milliseconds when the attachment was issued",
                           "examples": [
-                            "2024-12-05",
-                            "2025-02-22",
-                            "2024-02-10"
+                            1710518400000,
+                            1704067200000,
+                            1715270400000
                           ],
-                          "type": "string",
-                          "format": "date",
-                          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                          "type": "integer",
+                          "exclusiveMinimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "issuer": {
                           "title": "Attachment Issuer",
@@ -883,12 +868,13 @@
             },
             "total_duration_hours": {
               "title": "Total Duration (hours)",
-              "description": "Total time from first to last event in hours",
+              "description": "Time duration in hours with 0.1 hour precision",
               "examples": [
                 72.5,
                 24,
                 168.5
               ],
+              "description": "Total time from first to last event in hours",
               "type": "number",
               "minimum": 0,
               "multipleOf": 0.1
@@ -927,25 +913,27 @@
             },
             "first_reported_timestamp": {
               "title": "First Reported Timestamp",
-              "description": "ISO 8601 timestamp when the waste was first reported/collected at the origin location",
+              "description": "Unix timestamp in milliseconds when the waste was first reported/collected at the origin location",
               "examples": [
-                "2024-12-05T11:02:47.000Z",
-                "2025-02-22T10:35:12.000Z"
+                1710518400000,
+                1704067200000,
+                1715270400000
               ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
             },
             "last_reported_timestamp": {
               "title": "Last Reported Timestamp",
-              "description": "ISO 8601 timestamp when the waste was last reported/processed at the destination location",
+              "description": "Unix timestamp in milliseconds when the waste was last reported/processed at the destination location",
               "examples": [
-                "2024-12-05T11:02:47.000Z",
-                "2025-02-22T10:35:12.000Z"
+                1710604800000,
+                1704153600000,
+                1715356800000
               ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
             }
           },
           "required": [
