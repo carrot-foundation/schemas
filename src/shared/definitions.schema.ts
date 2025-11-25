@@ -272,6 +272,18 @@ export const HoursSchema = z
 
 export type Hours = z.infer<typeof HoursSchema>;
 
+export const MinutesSchema = z
+  .number()
+  .int()
+  .min(0)
+  .meta({
+    title: 'Minutes',
+    description: 'Time duration in minutes',
+    examples: [4350, 1440, 10110],
+  });
+
+export type Minutes = z.infer<typeof MinutesSchema>;
+
 export const IpfsUriSchema = NonEmptyStringSchema.regex(
   /^ipfs:\/\/[a-zA-Z0-9]+(\/.*)?$/,
   'Must be a valid IPFS URI with CID',

@@ -324,7 +324,7 @@
           "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef"
         }
       ],
-      "total_duration_hours": 72.5
+      "total_duration_minutes": 4350
     },
     "geographic_data": {
       "from_location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",

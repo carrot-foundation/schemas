@@ -866,23 +866,22 @@
                 "additionalProperties": false
               }
             },
-            "total_duration_hours": {
-              "title": "Total Duration (hours)",
-              "description": "Time duration in hours with 0.1 hour precision",
+            "total_duration_minutes": {
+              "title": "Total Duration (minutes)",
+              "description": "Total time from first to last event in minutes",
               "examples": [
-                72.5,
-                24,
-                168.5
+                4350,
+                1440,
+                10110
               ],
-              "description": "Total time from first to last event in hours",
-              "type": "number",
+              "type": "integer",
               "minimum": 0,
-              "multipleOf": 0.1
+              "maximum": 9007199254740991
             }
           },
           "required": [
             "events",
-            "total_duration_hours"
+            "total_duration_minutes"
           ],
           "additionalProperties": false
         },

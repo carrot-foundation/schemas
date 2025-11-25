@@ -7,7 +7,7 @@ import {
   NonEmptyStringSchema,
   NonNegativeFloatSchema,
   UnixTimestampSchema,
-  HoursSchema,
+  MinutesSchema,
 } from '../shared/definitions.schema';
 import { LocationSchema } from '../shared/entities/location.schema';
 import { ParticipantSchema } from '../shared/entities/participant.schema';
@@ -272,9 +272,9 @@ const MassIDChainOfCustodySchema = z
       description:
         'Chronological sequence of custody transfer and processing events',
     }),
-    total_duration_hours: HoursSchema.meta({
-      title: 'Total Duration (hours)',
-      description: 'Total time from first to last event in hours',
+    total_duration_minutes: MinutesSchema.meta({
+      title: 'Total Duration (minutes)',
+      description: 'Total time from first to last event in minutes',
     }),
   })
   .meta({
