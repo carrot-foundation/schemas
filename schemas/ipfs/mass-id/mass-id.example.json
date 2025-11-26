@@ -121,8 +121,7 @@
         "system": "IBAMA"
       },
       "measurement_unit": "kg",
-      "net_weight": 3000,
-      "contamination_level": "Low"
+      "net_weight": 3000
     },
     "locations": [
       {
@@ -174,7 +173,7 @@
           "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
           "event_name": "Pick-up",
           "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
-          "timestamp": "2024-12-05T11:02:47.000Z",
+          "timestamp": 1733396567000,
           "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
           "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
           "attributes": [
@@ -191,7 +190,7 @@
         {
           "event_id": "9f6c6855-0a6b-4989-a3fc-1a8a38f919ec",
           "event_name": "Transport",
-          "timestamp": "2024-12-05T11:02:47.000Z",
+          "timestamp": 1733396567000,
           "description": "Waste transported to recycling facility",
           "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
           "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
@@ -211,19 +210,19 @@
               "format": "DATE"
             }
           ],
-          "attachments": [
-            {
-              "type": "Transport Manifest",
-              "document_number": "MTR-4126",
-              "reference": "transport-manifest.pdf",
-              "issue_date": "2024-02-10"
-            }
-          ]
+            "attachments": [
+              {
+                "type": "Transport Manifest",
+                "document_number": "MTR-4126",
+                "reference": "transport-manifest.pdf",
+                "issue_timestamp": 1707523200000
+              }
+            ]
         },
         {
           "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
           "event_name": "Weighing",
-          "timestamp": "2024-12-05T11:02:47.000Z",
+          "timestamp": 1733396567000,
           "description": "Waste weighed at recycling facility",
           "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
           "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
@@ -261,7 +260,7 @@
           "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
           "event_name": "Drop-off",
           "description": "Waste deposited in Windrow number 1",
-          "timestamp": "2024-12-05T11:02:47.000Z",
+          "timestamp": 1733396567000,
           "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
           "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
           "attributes": [
@@ -275,7 +274,7 @@
           "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
           "event_name": "Sorting",
           "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
-          "timestamp": "2024-12-05T11:02:47.000Z",
+          "timestamp": 1733396567000,
           "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
           "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
           "attributes": [
@@ -289,7 +288,7 @@
           "event_id": "df7d3cac-81a1-46db-8486-b3fe4ec4ea32",
           "event_name": "Documentation",
           "description": "Attached the recycling manifest documentation",
-          "timestamp": "2024-12-05T11:02:47.000Z",
+          "timestamp": 1733396567000,
           "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
           "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
           "attributes": [
@@ -307,31 +306,31 @@
               "format": "DATE"
             }
           ],
-          "attachments": [
-            {
-              "type": "Recycling Certificate",
-              "document_number": "CDF-2353",
-              "reference": "recycling-manifest.pdf",
-              "issue_date": "2024-03-10"
-            }
-          ]
+            "attachments": [
+              {
+                "type": "Recycling Certificate",
+                "document_number": "CDF-2353",
+                "reference": "recycling-manifest.pdf",
+                "issue_timestamp": 1710028800000
+              }
+            ]
         },
         {
           "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
           "event_name": "Recycling",
           "description": "Composting process completed",
-          "timestamp": "2025-02-22T10:35:12.000Z",
+          "timestamp": 1740213312000,
           "participant_id_hash": "c3d4e5f67890123456789012345678901234567890abcdef1234567890abcdef",
           "location_id_hash": "b2c3d4e5f67890123456789012345678901234567890abcdef1234567890cdef"
         }
       ],
-      "total_duration_hours": 72.5
+      "total_duration_minutes": 4350
     },
     "geographic_data": {
       "from_location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
       "to_location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-      "first_reported_timestamp": "2024-12-05T11:02:47.000Z",
-      "last_reported_timestamp": "2025-02-22T10:35:12.000Z"
+      "first_reported_timestamp": 1733396567000,
+      "last_reported_timestamp": 1740213312000
     }
   }
 }

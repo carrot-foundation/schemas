@@ -6,9 +6,8 @@ import {
   WasteSubtypeSchema,
   NonEmptyStringSchema,
   NonNegativeFloatSchema,
-  IsoTimestampSchema,
-  IsoDateSchema,
-  HoursSchema,
+  UnixTimestampSchema,
+  MinutesSchema,
 } from '../shared/definitions.schema';
 import { LocationSchema } from '../shared/entities/location.schema';
 import { ParticipantSchema } from '../shared/entities/participant.schema';
@@ -56,16 +55,6 @@ const MassIDMeasurementUnitSchema = z.enum(['kg', 'ton']).meta({
 
 export type MassIDMeasurementUnit = z.infer<typeof MassIDMeasurementUnitSchema>;
 
-const ContaminationLevelSchema = z
-  .enum(['None', 'Low', 'Medium', 'High'])
-  .meta({
-    title: 'Contamination Level',
-    description: 'Level of contamination in the waste batch',
-    examples: ['Low', 'Medium', 'None'],
-  });
-
-export type ContaminationLevel = z.infer<typeof ContaminationLevelSchema>;
-
 const MassIDWastePropertiesSchema = z
   .strictObject({
     type: WasteTypeSchema.meta({
@@ -83,7 +72,6 @@ const MassIDWastePropertiesSchema = z
       description:
         'Net weight of the waste batch in the specified measurement unit',
     }),
-    contamination_level: ContaminationLevelSchema.optional(),
   })
   .meta({
     title: 'Waste Properties',
@@ -190,9 +178,11 @@ const EventAttachmentSchema = z
         'processing_receipt_20240315.jpg',
       ],
     }),
-    issue_date: IsoDateSchema.optional().meta({
-      title: 'Issue Date',
-      description: 'Date the attachment was issued',
+    issue_timestamp: UnixTimestampSchema.optional().meta({
+      title: 'Issue Timestamp',
+      description:
+        'Unix timestamp in milliseconds when the attachment was issued',
+      examples: [1710518400000, 1704067200000, 1715270400000],
     }),
     issuer: NonEmptyStringSchema.max(100)
       .optional()
@@ -240,9 +230,10 @@ const MassIDChainOfCustodyEventSchema = z
           'Quality inspection and contamination assessment completed',
         ],
       }),
-    timestamp: IsoTimestampSchema.meta({
+    timestamp: UnixTimestampSchema.meta({
       title: 'Event Timestamp',
-      description: 'ISO 8601 timestamp when the event occurred',
+      description: 'Unix timestamp in milliseconds when the event occurred',
+      examples: [1710518400000, 1704067200000, 1715270400000],
     }),
     participant_id_hash: Sha256HashSchema.meta({
       title: 'Participant ID Hash',
@@ -281,9 +272,9 @@ const MassIDChainOfCustodySchema = z
       description:
         'Chronological sequence of custody transfer and processing events',
     }),
-    total_duration_hours: HoursSchema.meta({
-      title: 'Total Duration (hours)',
-      description: 'Total time from first to last event in hours',
+    total_duration_minutes: MinutesSchema.meta({
+      title: 'Total Duration (minutes)',
+      description: 'Total time from first to last event in minutes',
     }),
   })
   .meta({
@@ -306,21 +297,21 @@ const MassIDGeographicDataSchema = z
       description:
         'Reference hash of the location where the waste ended movement',
     }),
-    first_reported_timestamp: IsoTimestampSchema.meta({
+    first_reported_timestamp: UnixTimestampSchema.meta({
       title: 'First Reported Timestamp',
       description:
-        'ISO 8601 timestamp when the waste was first reported/collected at the origin location',
+        'Unix timestamp in milliseconds when the waste was first reported/collected at the origin location',
+      examples: [1710518400000, 1704067200000, 1715270400000],
     }),
-    last_reported_timestamp: IsoTimestampSchema.meta({
+    last_reported_timestamp: UnixTimestampSchema.meta({
       title: 'Last Reported Timestamp',
       description:
-        'ISO 8601 timestamp when the waste was last reported/processed at the destination location',
+        'Unix timestamp in milliseconds when the waste was last reported/processed at the destination location',
+      examples: [1710604800000, 1704153600000, 1715356800000],
     }),
   })
   .refine((data) => {
-    const first = new Date(data.first_reported_timestamp);
-    const last = new Date(data.last_reported_timestamp);
-    return first <= last;
+    return data.first_reported_timestamp <= data.last_reported_timestamp;
   }, 'first_reported_timestamp must be before or equal to last_reported_timestamp')
   .meta({
     title: 'Geographic Data',
