@@ -820,8 +820,8 @@
                           "type": "string",
                           "minLength": 1
                         },
-                        "issue_date": {
-                          "title": "Issue Date",
+                        "issue_timestamp": {
+                          "title": "Issue Timestamp",
                           "description": "Unix timestamp in milliseconds when the attachment was issued",
                           "examples": [
                             1710518400000,

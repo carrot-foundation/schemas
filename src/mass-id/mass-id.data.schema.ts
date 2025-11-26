@@ -178,8 +178,8 @@ const EventAttachmentSchema = z
         'processing_receipt_20240315.jpg',
       ],
     }),
-    issue_date: UnixTimestampSchema.optional().meta({
-      title: 'Issue Date',
+    issue_timestamp: UnixTimestampSchema.optional().meta({
+      title: 'Issue Timestamp',
       description:
         'Unix timestamp in milliseconds when the attachment was issued',
       examples: [1710518400000, 1704067200000, 1715270400000],

@@ -210,14 +210,14 @@
               "format": "DATE"
             }
           ],
-          "attachments": [
-            {
-              "type": "Transport Manifest",
-              "document_number": "MTR-4126",
-              "reference": "transport-manifest.pdf",
-              "issue_date": 1707523200000
-            }
-          ]
+            "attachments": [
+              {
+                "type": "Transport Manifest",
+                "document_number": "MTR-4126",
+                "reference": "transport-manifest.pdf",
+                "issue_timestamp": 1707523200000
+              }
+            ]
         },
         {
           "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
@@ -306,14 +306,14 @@
               "format": "DATE"
             }
           ],
-          "attachments": [
-            {
-              "type": "Recycling Certificate",
-              "document_number": "CDF-2353",
-              "reference": "recycling-manifest.pdf",
-              "issue_date": 1710028800000
-            }
-          ]
+            "attachments": [
+              {
+                "type": "Recycling Certificate",
+                "document_number": "CDF-2353",
+                "reference": "recycling-manifest.pdf",
+                "issue_timestamp": 1710028800000
+              }
+            ]
         },
         {
           "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
