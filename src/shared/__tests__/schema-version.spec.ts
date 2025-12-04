@@ -1,6 +1,14 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import * as fs from 'node:fs';
 import { resolve } from 'node:path';
+
+vi.mock('node:fs', async () => {
+  const actual = await vi.importActual<typeof import('node:fs')>('node:fs');
+  return {
+    ...actual,
+  };
+});
+
 import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
@@ -9,7 +17,7 @@ import {
 
 function getPackageJsonVersion(): string {
   const packageJsonPath = resolve(process.cwd(), 'package.json');
-  const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
   return packageJson.version;
 }
 
@@ -38,6 +46,34 @@ describe('schema-version utilities', () => {
       delete process.env['SCHEMA_VERSION'];
 
       expect(getSchemaVersionOrDefault()).toBe(packageJsonVersion);
+    });
+
+    it('returns default version when package.json cannot be read', () => {
+      delete process.env['SCHEMA_VERSION'];
+
+      // Mock readFileSync to throw an error to test the catch block
+      const readFileSyncSpy = vi
+        .spyOn(fs, 'readFileSync')
+        .mockImplementation(() => {
+          throw new Error('File not found');
+        });
+
+      expect(getSchemaVersionOrDefault()).toBe('0.0.0-dev');
+
+      readFileSyncSpy.mockRestore();
+    });
+
+    it('returns default version when package.json has no version field', () => {
+      delete process.env['SCHEMA_VERSION'];
+
+      // Mock readFileSync to return package.json without version field
+      const readFileSyncSpy = vi
+        .spyOn(fs, 'readFileSync')
+        .mockReturnValue('{"name": "test-package"}');
+
+      expect(getSchemaVersionOrDefault()).toBe('0.0.0-dev');
+
+      readFileSyncSpy.mockRestore();
     });
   });
 
