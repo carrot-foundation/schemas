@@ -4,6 +4,7 @@ import {
   MethodologyComplianceSchema,
 } from '../audit-reference.schema';
 import { validAuditReference } from '../../../test-utils/fixtures';
+import exampleJson from '../../../../schemas/ipfs/shared/references/audit-reference/example.json';
 
 describe('AuditReferenceSchema', () => {
   it('validates valid audit reference successfully', () => {
@@ -164,6 +165,12 @@ describe('AuditReferenceSchema', () => {
     const result = AuditReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    const result = AuditReferenceSchema.safeParse(exampleJson);
+
+    expect(result.success).toBe(true);
   });
 });
 
