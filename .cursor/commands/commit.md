@@ -42,7 +42,40 @@ Ask user to choose:
 2. AI creates commits sequentially (pause per commit)
 3. User executes manually
 
-### 4. Challenge Points
+### 4. Output Format
+
+When proposing commits, always present commands as copyable markdown blocks:
+
+**Single commit example:**
+
+```bash
+git add path/to/file1.ts path/to/file2.ts
+git commit -m "feat(schema): add mass-id data schema"
+```
+
+**Batch commits example:**
+
+```bash
+# Commit 1: Schema changes
+git add src/mass-id/mass-id.data.schema.ts
+git commit -m "feat(schema): add mass-id data schema"
+
+# Commit 2: Test updates
+git add src/mass-id/__tests__/mass-id.schema.spec.ts
+git commit -m "test(schema): add tests for mass-id schema"
+```
+
+**With body:**
+
+```bash
+git add src/shared/definitions.schema.ts
+git commit -m "fix(shared): resolve UUID validation edge case
+
+Handle edge case where UUID validation failed for uppercase hex values.
+Updates regex pattern to accept both uppercase and lowercase hex digits."
+```
+
+### 5. Challenge Points
 
 - Mixed concerns? → Suggest splitting
 - Unclear value? → Ask what problem this solves
