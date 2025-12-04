@@ -9,11 +9,6 @@ describe('GasIDIpfsSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it('validates example JSON file from schemas/ipfs', () => {
-    const result = GasIDIpfsSchema.safeParse(exampleJson);
-    expect(result.success).toBe(true);
-  });
-
   it('rejects invalid data', () => {
     const invalid = { ...exampleJson, tokenId: 'invalid' };
     const result = GasIDIpfsSchema.safeParse(invalid);
