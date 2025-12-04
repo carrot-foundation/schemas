@@ -1,16 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { MethodologyReferenceSchema } from '../methodology-reference.schema';
+import { validMethodologyReference } from '../../../test-utils/fixtures';
 
 describe('MethodologyReferenceSchema', () => {
-  const validMethodologyReference = {
-    external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d480',
-    name: 'BOLD Carbon (CH₄)',
-    version: '1.3.0',
-    external_url:
-      'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
-    uri: 'ipfs://QmMethodologyHash/bold-carbon-ch4-v1.3.0.pdf',
-  };
-
   it('validates valid methodology reference successfully', () => {
     const result = MethodologyReferenceSchema.safeParse(
       validMethodologyReference,

@@ -1,15 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { GasIdReferenceSchema } from '../gas-id-reference.schema';
+import { validGasIdReference } from '../../../test-utils/fixtures';
 
 describe('GasIdReferenceSchema', () => {
-  const validGasIdReference = {
-    external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
-    token_id: '456',
-    external_url:
-      'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-    uri: 'ipfs://QmGasIdHash456/gas-id.json',
-  };
-
   it('validates valid GasID reference successfully', () => {
     const result = GasIdReferenceSchema.safeParse(validGasIdReference);
 
