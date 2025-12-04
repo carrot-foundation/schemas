@@ -48,7 +48,7 @@
     "build": "tsup",
     "check": "pnpm lint:fix && pnpm format && pnpm type-check && pnpm spell-check && pnpm pkgJsonLint && pnpm build && pnpm validate-schemas && pnpm verify-schema-versions && pnpm check-refs && pnpm test",
     "check-refs": "node scripts/check-refs.js",
-    "check:parallel": "concurrently -n lint,format,type-check,spell-check,pkgJsonLint,test,build,validate-schemas,verify-schema-versions,check-refs \"pnpm lint:fix\" \"pnpm format\" \"pnpm type-check\" \"pnpm spell-check\" \"pnpm pkgJsonLint\" \"pnpm test\" \"pnpm build\" \"pnpm validate-schemas\" \"pnpm verify-schema-versions\" \"pnpm check-refs\"",
+    "check:parallel": "concurrently -n lint:fix,format,type-check,spell-check,pkgJsonLint,test,build,validate-schemas,verify-schema-versions,check-refs \"pnpm lint:fix\" \"pnpm format\" \"pnpm type-check\" \"pnpm spell-check\" \"pnpm pkgJsonLint\" \"pnpm test\" \"pnpm build\" \"pnpm validate-schemas\" \"pnpm verify-schema-versions\" \"pnpm check-refs\"",
     "clean": "rm -rf dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
