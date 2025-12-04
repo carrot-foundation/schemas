@@ -6,7 +6,7 @@ import {
   IpfsUriSchema,
 } from '../definitions.schema';
 
-export const MassIdReferenceSchema = z
+export const MassIDReferenceSchema = z
   .strictObject({
     external_id: ExternalIdSchema.meta({
       title: 'MassID External ID',
@@ -30,4 +30,4 @@ export const MassIdReferenceSchema = z
     description: 'Reference to a MassID record',
   });
 
-export type MassIdReference = z.infer<typeof MassIdReferenceSchema>;
+export type MassIDReference = z.infer<typeof MassIDReferenceSchema>;

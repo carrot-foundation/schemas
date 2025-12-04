@@ -1,7 +1,7 @@
 import type {
   AuditReference,
-  GasIdReference,
-  MassIdReference,
+  GasIDReference,
+  MassIDReference,
   MethodologyReference,
 } from '../../shared/references';
 
@@ -15,15 +15,15 @@ export const validAuditReference: AuditReference = {
   report: 'ipfs://QmVerificationHash/mass-id-audit.json',
 };
 
-export const validGasIdReference: GasIdReference = {
+export const validGasIDReference: GasIDReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://QmGasIdHash456/gas-id.json',
+  uri: 'ipfs://QmGasIDHash456/gas-id.json',
 };
 
-export const validMassIdReference: MassIdReference = {
+export const validMassIDReference: MassIDReference = {
   external_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
   token_id: '123',
   external_url:

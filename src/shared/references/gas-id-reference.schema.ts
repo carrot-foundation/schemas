@@ -6,7 +6,7 @@ import {
   IpfsUriSchema,
 } from '../definitions.schema';
 
-export const GasIdReferenceSchema = z
+export const GasIDReferenceSchema = z
   .strictObject({
     external_id: ExternalIdSchema.meta({
       title: 'GasID External ID',
@@ -30,4 +30,4 @@ export const GasIdReferenceSchema = z
     description: 'Reference to a GasID record',
   });
 
-export type GasIdReference = z.infer<typeof GasIdReferenceSchema>;
+export type GasIDReference = z.infer<typeof GasIDReferenceSchema>;
