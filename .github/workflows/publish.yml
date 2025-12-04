@@ -121,12 +121,39 @@ jobs:
           if [ "$NPM_EXISTS" = "true" ] && [ "$GIT_TAG_EXISTS" = "false" ]; then
             echo "::warning::Version $NEW_VERSION exists on npm but git tag $NEW_TAG is missing. Attempting to fix inconsistent state..."
             
-            # Find the commit that has this version in package.json
-            VERSION_COMMIT=$(git log --all --grep="bump version to $NEW_VERSION" --format=%H -1)
+            VERSION_COMMIT=""
             
+            # Strategy 1: Check if current package.json has this version (use current HEAD)
+            if [ -f package.json ]; then
+              CURRENT_VERSION=$(node -p "require('./package.json').version" 2>/dev/null || echo "")
+              if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then
+                VERSION_COMMIT=$(git rev-parse HEAD)
+                echo "::notice::Current package.json has version $NEW_VERSION. Using current HEAD: $VERSION_COMMIT"
+              fi
+            fi
+            
+            # Strategy 2: Search commit messages for version bump
             if [ -z "$VERSION_COMMIT" ]; then
-              # Try to find commit by searching for the version string in package.json
+              VERSION_COMMIT=$(git log --all --grep="bump version to $NEW_VERSION" --format=%H -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via message search: $VERSION_COMMIT"
+            fi
+            
+            # Strategy 3: Search for version string in package.json changes
+            if [ -z "$VERSION_COMMIT" ]; then
               VERSION_COMMIT=$(git log --all -S "\"version\": \"$NEW_VERSION\"" --format=%H -- package.json | head -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via package.json content search: $VERSION_COMMIT"
+            fi
+            
+            # Strategy 4: Search for version without quotes (handles different formatting)
+            if [ -z "$VERSION_COMMIT" ]; then
+              VERSION_COMMIT=$(git log --all -S "version.*$NEW_VERSION" --format=%H -- package.json | head -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via pattern search: $VERSION_COMMIT"
+            fi
+            
+            # Strategy 5: Search commits that mention the version number
+            if [ -z "$VERSION_COMMIT" ]; then
+              VERSION_COMMIT=$(git log --all --grep="$NEW_VERSION" --format=%H -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via version number search: $VERSION_COMMIT"
             fi
             
             if [ -n "$VERSION_COMMIT" ]; then
@@ -140,7 +167,11 @@ jobs:
               echo "skip_publish=true" >> $GITHUB_OUTPUT
               exit 0
             else
-              echo "::error::Version $NEW_VERSION exists on npm but git tag $NEW_TAG is missing, and cannot find commit with this version. Manual intervention required."
+              echo "::error::Version $NEW_VERSION exists on npm but git tag $NEW_TAG is missing, and cannot find commit with this version."
+              echo "::error::Manual fix required: Find the commit that published $NEW_VERSION and create tag manually:"
+              echo "::error::  git tag $NEW_TAG <commit-sha>"
+              echo "::error::  git push origin $NEW_TAG"
+              echo "::error::Or if version was published manually without a commit, create tag at appropriate commit."
               exit 1
             fi
           fi
