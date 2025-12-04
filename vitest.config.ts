@@ -4,15 +4,12 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: [
-      'src/**/__tests__/**/*.{test,spec}.{ts,js}',
-      'src/**/*.{test,spec}.{ts,js}',
-    ],
+    include: ['src/**/__tests__/**/*.spec.{ts,js}', 'src/**/*.spec.{ts,js}'],
     exclude: ['**/node_modules/**', '**/dist/**', '**/coverage/**'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
-      exclude: ['**/*.spec.ts', '**/*.test.ts', '**/index.ts'],
+      exclude: ['**/*.spec.ts', '**/index.ts'],
       thresholds: {
         branches: 100,
         functions: 100,
