@@ -1,7 +1,11 @@
 name: Publish Package
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ['Check Code']
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
 
 permissions: write-all
@@ -13,11 +17,14 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Only run if check-code workflow completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }} # required for bypassing branch protection
       - name: Configure Git
         run: |
@@ -35,14 +42,6 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: ESLint
-        run: pnpm lint
-      - name: Type check
-        run: pnpm type-check
-      - name: Run tests
-        run: pnpm test:coverage
-      - name: Lint package.json
-        run: pnpm pkgJsonLint
       - name: Calculate next version
         id: calculate_version
         uses: mathieudutour/github-tag-action@a22cf08638b34d5badda920f9daf6e72c477b07b
@@ -74,6 +73,7 @@ jobs:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
           pnpm validate-schemas
+          pnpm check-refs
           pnpm verify-schema-versions
       - name: Update package.json version
         if: steps.calculate_version.outputs.new_tag
