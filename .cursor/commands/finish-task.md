@@ -4,7 +4,7 @@ Complete work by orchestrating branch validation, commits, and PR creation.
 
 ## Usage
 
-```
+```bash
 /finish-task
 ```
 
@@ -54,7 +54,7 @@ Execute complete `/create-pr` workflow:
 
 **5c. Generate description** (follow template, challenge weak value)
 
-**5d. Save and output**
+#### 5d. Save and output
 
 - Save to `tmp/pull-requests/{sanitized-branch}.md`
 - Output exact `gh pr create` command with all flags

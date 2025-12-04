@@ -4,7 +4,7 @@ Generate Conventional Commit messages following project standards.
 
 ## Usage
 
-```
+```bash
 /commit [single]
 ```
 
