@@ -1,0 +1,137 @@
+---
+description: Creating commit messages
+---
+
+# Commit Message Rules (Conventional Commits)
+
+These rules define how to write clear, consistent commit messages using the Conventional Commits specification.
+
+## Format
+
+- **Structure**: `<type>(optional scope): <description>`
+- **Examples**:
+  - `feat(schema): add mass-id data schema`
+  - `fix(shared): resolve UUID validation edge case`
+
+## Requirements
+
+- **MUST** follow Conventional Commits
+- **MUST** use imperative mood (add, fix, update; not added, fixed, updated)
+- **MUST** start description with lowercase letter
+- **MUST NOT** end description with a period
+- **MUST** keep full header ≤ 100 characters
+- **SHOULD** keep the description (subject) ≤ 72 characters for readability
+- **SHOULD** include a scope when the change affects a specific module or area
+- **SHOULD** include a body for complex or multi-part changes
+
+## Allowed types (ordered by frequency)
+
+- **feat**: new feature or functionality
+- **fix**: bug fix or error correction
+- **refactor**: code restructuring without functional changes
+- **docs**: documentation changes only
+- **test**: adding or modifying tests
+- **style**: formatting, whitespace, semicolons (no logic changes)
+- **perf**: performance improvements
+- **build**: build system or dependency changes
+- **ci**: CI/CD configuration changes
+- **chore**: maintenance tasks, tooling, configuration
+- **revert**: revert a previous commit
+
+## Scopes for this repository
+
+This repository uses a single, optional scope aligned with commitlint configuration.
+
+- Allowed scopes: `schema`, `shared`
+- Use at most one scope. Do not combine domain/main scopes
+- Omit the scope for repo-wide changes (tooling, CI, configs, README)
+
+Examples:
+
+```text
+feat(schema): add mass-id data schema
+fix(shared): harden UUID validation
+docs: update README with build instructions
+ci: add schema validation job
+```
+
+### Scope selection for this repo
+
+- `src/shared/**` → `shared`
+- `src/*/**` (type-specific schemas, helpers, attributes) → `schema`
+- `schemas/ipfs/**` → generated artifacts; pair with `schema` when changing sources
+- `scripts/**`, `README.md`, `.github/**`, `package.json`, config files → no scope
+
+## Infrastructure and DevOps
+
+- Prefer specific scopes: **docker**, **terraform**, **ci**, **deploy**, **infra**
+- Include the environment or service affected when helpful
+
+Examples:
+
+```text
+build: add multi-stage Docker build for production
+fix: resolve IAM permissions for S3 access
+ci: update Node.js version in pipeline
+ci: add automated rollback mechanism
+```
+
+## Documentation
+
+- Use **docs** for general documentation; **readme** for README files
+- Specify the section or topic
+
+Examples:
+
+```text
+docs(schema): add mass-id schema documentation
+docs: update installation instructions
+docs: add schema validation examples
+```
+
+## Examples by change type
+
+```text
+feat(schema): add mass-id data schema
+feat(shared): add zod helpers for timestamps
+
+fix(schema): correct attribute constraints in gas-id schema
+fix(shared): resolve UUID validation edge case
+
+refactor(shared): extract common validation utilities
+refactor(schema): simplify mass-id schema composition
+
+docs(schema): add function documentation and examples
+docs: add troubleshooting section to README
+
+test(schema): add unit tests for mass-id schema
+test(shared): add tests for helper utilities
+
+chore: update dev dependencies
+ci: add automated schema validation step
+build: pin tsup version
+```
+
+## Context analysis (to choose a scope)
+
+- File patterns:
+  - `src/shared/**` → shared
+  - `src/*/**` (type directories, helpers, attributes) → schema
+  - `schemas/ipfs/**` → generated artifacts (commit with related schema/source change)
+  - `scripts/**`, `.github/**`, `*.md`, `package.json`, config files → no scope
+
+## AI generation checklist
+
+1. Analyze the diff to understand what changed
+2. Pick the most specific applicable scope
+3. Use imperative mood and start with lowercase
+4. Keep header ≤ 72 chars; prefer subject ≤ 50 chars
+5. Include technical details when relevant (functions, endpoints, contracts)
+6. Follow Conventional Commits strictly
+7. Consider the Carrot Foundation business context
+8. Use appropriate Web3/AI/fintech terminology
+9. Optimize for clarity and searchability
+10. Prefer more specific scopes when in doubt
+11. Never suggest reverting or discarding existing code; see `code-preservation.mdc` for preservation rules
+
+Remember: Good commit messages make history readable and debugging easier.

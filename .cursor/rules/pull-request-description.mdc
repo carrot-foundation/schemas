@@ -1,0 +1,315 @@
+---
+description: Pull request description formatting and quality standards using the project template
+---
+
+# Pull Request Description Standards
+
+This rule enforces proper pull request description formatting using the project's [pull request template](.github/pull_request_template.md). For the end-to-end PR creation workflow (analysis, branching, CLI usage), see `pull-request.mdc`.
+
+## Template Compliance Requirements
+
+### Core Required Sections
+
+Every PR description MUST include these sections (unless explicitly marked as removable):
+
+1. **🧾 Summary** - Concise 1-2 sentence description focusing on user/business value
+2. **🧩 Context** - Business problem explanation with structured prompts:
+   - Why this change?
+   - Problem it solves
+   - Business value
+3. **🧱 Scope of this PR** - What's included/excluded with checkboxes
+4. **🧪 How to test** - Specific testing instructions and commands
+5. **🧠 Considerations for Review** - Focus areas and key files
+6. **✅ Pre-merge Checklist** - Complete quality gates
+
+### Optional Sections (Remove if Not Applicable)
+
+- **🔗 Related Links** - Only if relevant links exist
+- **🚨 Breaking Changes & Migration** - Only if breaking changes exist
+- **📦 Deployment Notes** - Only if non-standard deployment required
+
+Include these only when you have meaningful content. Do not add sections with "None", "N/A", or empty placeholders—remove the section entirely.
+
+## PR Title Standards
+
+### Title Format Requirements
+
+PR titles should be **clear, descriptive, and user-focused** rather than following Conventional Commit format:
+
+- **Start with capital letter** - First word capitalized, rest in sentence case
+- **Be concise** - Aim for 50-60 characters maximum
+- **Focus on the outcome** - What the PR accomplishes, not how it's implemented
+- **Use plain English** - Avoid technical jargon when simpler words convey the same meaning
+- **Match PR content** - Title should align with the summary and scope sections
+
+### Title Examples
+
+❌ **Avoid**: Conventional commit format in titles
+
+```
+feat(schema): add mass-id IPFS schema
+fix(shared): correct UUID validation pattern
+chore: update schema generation dependencies
+```
+
+✅ **Good**: Clear, descriptive titles
+
+```
+Add MassID IPFS and JSON schema definitions
+Fix UUID validation pattern in shared definitions
+Update schema generation dependencies to latest versions
+```
+
+### Title Guidelines by Change Type
+
+**New Features:**
+
+- "Add [feature] for [benefit]"
+- "Implement [functionality] to enable [capability]"
+- "Introduce [component] for improved [aspect]"
+
+**Bug Fixes:**
+
+- "Fix [issue] in [component]"
+- "Resolve [problem] when [condition]"
+- "Correct [behavior] for [scenario]"
+
+**Improvements:**
+
+- "Improve [aspect] by [method]"
+- "Optimize [component] for better [outcome]"
+- "Enhance [feature] with [addition]"
+
+**Configuration/Maintenance:**
+
+- "Update [component] configuration"
+- "Upgrade [dependency] to version [X]"
+- "Refactor [module] for better maintainability"
+
+### Title Content Alignment
+
+The PR title should reflect:
+
+- **Summary section** - The main accomplishment described
+- **Scope section** - The type of change being made
+- **Business value** - The user or system benefit achieved
+
+Example alignment:
+
+- **Title**: "Add MassID IPFS schema for waste tracking metadata"
+- **Summary**: "Implements MassID IPFS schema with data structure and attributes..."
+- **Scope**: "New features" checked
+- **Business value**: "Enables standardized waste tracking metadata for Carrot ecosystem"
+
+## Content Quality Standards
+
+### Summary Section
+
+❌ **Avoid**: Generic placeholders, vague descriptions
+
+```markdown
+### 🧾 Summary
+
+Updated some files
+```
+
+✅ **Good**: Specific, value-focused descriptions
+
+```markdown
+### 🧾 Summary
+
+Implements MassID IPFS schema with data structure, attributes, and JSON Schema generation, enabling standardized waste tracking metadata for the Carrot ecosystem.
+```
+
+### Context Section
+
+❌ **Avoid**: Empty structured prompts
+
+```markdown
+**Why this change?**
+**Problem it solves:**
+**Business value:**
+```
+
+✅ **Good**: Completed structured information
+
+```markdown
+**Why this change?** Implement missing MassID schema for waste tracking metadata
+**Problem it solves:** No standardized schema exists for MassID IPFS metadata
+**Business value:** Enables consistent waste tracking metadata across Carrot ecosystem applications
+```
+
+### Scope Section
+
+❌ **Avoid**: Unchecked boxes without selection
+
+```markdown
+**This PR includes:**
+
+- [ ] New features
+- [ ] Bug fixes
+- [ ] Refactoring
+```
+
+✅ **Good**: Properly checked relevant items
+
+```markdown
+**This PR includes:**
+
+- [x] New features
+- [ ] Bug fixes
+- [ ] Refactoring
+- [ ] Documentation updates
+- [ ] Configuration changes
+
+**Intentionally excluded**: Gas optimization improvements (scheduled for next PR)
+```
+
+### Testing Instructions
+
+❌ **Avoid**: Generic placeholder text
+
+```markdown
+_Provide specific testing instructions..._
+```
+
+✅ **Good**: Actual commands and steps
+
+```markdown
+1. Build schemas: `pnpm build`
+2. Generate JSON schemas: `pnpm generate-ipfs-schemas`
+3. Validate schemas: `pnpm validate-schemas`
+4. Verify MassID schema: Check `schemas/ipfs/mass-id/mass-id.schema.json` exists and validates
+```
+
+### Review Considerations
+
+❌ **Avoid**: Uncustomized template content
+
+```markdown
+**Key files to review:**
+
+- `path/to/file.ts` - _description of changes_
+```
+
+✅ **Good**: Actual files with meaningful descriptions
+
+```markdown
+**Key files to review:**
+
+- `src/mass-id/mass-id.schema.ts` - IPFS MassID schema composition and metadata
+- `src/shared/definitions.schema.ts` - Shared field definitions (UUIDs, timestamps, hashes)
+- `schemas/ipfs/mass-id/mass-id.schema.json` - Generated JSON Schema for MassID (for consumers/validators)
+```
+
+## Empty or Non-Applicable Sections
+
+❌ **Avoid**: Declaring a section with "None" or empty content
+
+```markdown
+### 🚨 Breaking Changes & Migration
+
+None
+```
+
+✅ **Good**: Omit the section entirely when not applicable. Do not include the header if there is nothing meaningful to say.
+
+## Checklist Enforcement
+
+### Required Checklist Completion
+
+All checklist items must be either:
+
+- **Checked** `- [x]` if completed/applicable
+- **Explained** if not applicable (add comment explaining why)
+
+Note: “N/A + reason” is acceptable for checklist items but NOT as the sole content of a section.
+
+❌ **Avoid**: Unchecked items without explanation
+
+```markdown
+- [ ] Code follows project style guidelines and naming conventions
+- [ ] All new code has appropriate test coverage
+```
+
+✅ **Good**: Properly addressed items
+
+```markdown
+- [x] Code follows project style guidelines and naming conventions
+- [x] All new code has appropriate test coverage
+- [x] Linter warnings and errors have been resolved
+- [x] No debugging code or console logs remain
+- [x] TypeScript strict mode compliance verified
+- [ ] End-to-end tests updated — N/A (documentation-only PR)
+```
+
+## Format Consistency Standards
+
+### Markdown Structure
+
+- Use consistent header levels (`###` for main sections)
+- Maintain emoji prefixes for section headers
+- Include horizontal rule before checklist: `---`
+- Use proper checkbox syntax: `- [ ]` and `- [x]`
+
+### Linking Standards
+
+- Use descriptive link text: `[Schema Architecture](mdc:CLAUDE.md)`
+- Reference specific issues/tickets: `Closes #123` or `Related to #456`
+- Include Notion page links: `[Project Spec](https://notion.so/...)`
+
+### Content Organization
+
+- Remove irrelevant sections rather than leaving empty
+- Keep sections concise but informative
+- Use bullet points for lists and structured data
+- Include code snippets for complex testing steps
+
+### Prohibited content and footers
+
+- Do not include any footer messages, signatures, boilerplate closings, or meta commentary in PR descriptions. Keep the description limited to the template sections only.
+- Examples of prohibited footers: "This standard ensures consistent, high-quality PR descriptions...", "Submitted by <team>", or auto-generated disclaimers.
+- When writing content of any section, avoid words like: "to keep consistency and integrity", "to ensure quality", or "to maintain standards". Focus on the specific changes and their impact.
+
+## Quality Gates
+
+### Before Submitting PR
+
+1. **PR title quality** - Clear, descriptive title following title standards
+1. **Template completeness** - All relevant sections filled
+1. **Content meaningfulness** - No placeholder text remains
+1. **Checklist verification** - All items addressed or explained
+1. **Link validation** - All references are accessible
+1. **Grammar/spelling** - Professional communication standards
+
+### Common Issues to Avoid
+
+- Using conventional commit format in PR titles
+- Leaving empty structured prompts
+- Generic or vague summaries
+- Unchecked checklists without explanation
+- Missing testing instructions
+- Broken or missing links to related work
+- Adding footer messages/signatures/meta commentary at the end of the PR description
+
+## Integration with Development Workflow
+
+### Pre-PR Creation
+
+Use this checklist before opening PR:
+
+- [ ] Template sections completed with meaningful content
+- [ ] All checklist items verified and checked
+- [ ] Testing instructions validated
+- [ ] Related links verified and accessible
+- [ ] Breaking changes documented (if applicable)
+
+### During Review Process
+
+Reviewers should verify:
+
+- [ ] PR title follows title standards (clear, descriptive, not conventional commit format)
+- [ ] Description follows template structure
+- [ ] Content quality meets standards
+- [ ] Checklist completion is thorough
+- [ ] Testing instructions are clear and complete
