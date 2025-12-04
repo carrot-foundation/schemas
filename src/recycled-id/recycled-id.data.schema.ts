@@ -13,7 +13,7 @@ import {
 import {
   MethodologyReferenceSchema,
   AuditReferenceSchema,
-  MassIdReferenceSchema,
+  MassIDReferenceSchema,
 } from '../shared/references';
 
 const RecycledIDSummarySchema = z
@@ -44,7 +44,7 @@ export const RecycledIDDataSchema = z
     summary: RecycledIDSummarySchema,
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
-    mass_id: MassIdReferenceSchema,
+    mass_id: MassIDReferenceSchema,
     waste_classification: WasteClassificationSchema,
     origin_location: LocationSchema.meta({
       title: 'Source Waste Origin Location',

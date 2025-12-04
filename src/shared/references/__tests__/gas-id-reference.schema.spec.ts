@@ -1,107 +1,107 @@
 import { describe, it, expect } from 'vitest';
-import { GasIdReferenceSchema } from '../gas-id-reference.schema';
-import { validGasIdReference } from '../../../test-utils/fixtures';
+import { GasIDReferenceSchema } from '../gas-id-reference.schema';
+import { validGasIDReference } from '../../../test-utils/fixtures';
 
-describe('GasIdReferenceSchema', () => {
+describe('GasIDReferenceSchema', () => {
   it('validates valid GasID reference successfully', () => {
-    const result = GasIdReferenceSchema.safeParse(validGasIdReference);
+    const result = GasIDReferenceSchema.safeParse(validGasIDReference);
 
     expect(result.success).toBe(true);
   });
 
   it('rejects missing external_id', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { external_id, ...withoutExternalId } = validGasIdReference;
-    const result = GasIdReferenceSchema.safeParse(withoutExternalId);
+    const { external_id, ...withoutExternalId } = validGasIDReference;
+    const result = GasIDReferenceSchema.safeParse(withoutExternalId);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects missing token_id', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { token_id, ...withoutTokenId } = validGasIdReference;
-    const result = GasIdReferenceSchema.safeParse(withoutTokenId);
+    const { token_id, ...withoutTokenId } = validGasIDReference;
+    const result = GasIDReferenceSchema.safeParse(withoutTokenId);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects missing external_url', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { external_url, ...withoutExternalUrl } = validGasIdReference;
-    const result = GasIdReferenceSchema.safeParse(withoutExternalUrl);
+    const { external_url, ...withoutExternalUrl } = validGasIDReference;
+    const result = GasIDReferenceSchema.safeParse(withoutExternalUrl);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects missing uri', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { uri, ...withoutUri } = validGasIdReference;
-    const result = GasIdReferenceSchema.safeParse(withoutUri);
+    const { uri, ...withoutUri } = validGasIDReference;
+    const result = GasIDReferenceSchema.safeParse(withoutUri);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects invalid UUID for external_id', () => {
     const invalid = {
-      ...validGasIdReference,
+      ...validGasIDReference,
       external_id: 'not-a-uuid',
     };
-    const result = GasIdReferenceSchema.safeParse(invalid);
+    const result = GasIDReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects invalid token_id (non-numeric)', () => {
     const invalid = {
-      ...validGasIdReference,
+      ...validGasIDReference,
       token_id: 'abc',
     };
-    const result = GasIdReferenceSchema.safeParse(invalid);
+    const result = GasIDReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects invalid URL for external_url', () => {
     const invalid = {
-      ...validGasIdReference,
+      ...validGasIDReference,
       external_url: 'not-a-url',
     };
-    const result = GasIdReferenceSchema.safeParse(invalid);
+    const result = GasIDReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
 
   it('rejects invalid IPFS URI format', () => {
     const invalid = {
-      ...validGasIdReference,
+      ...validGasIDReference,
       uri: 'https://example.com/file.json',
     };
-    const result = GasIdReferenceSchema.safeParse(invalid);
+    const result = GasIDReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
 
   it('validates type inference works correctly', () => {
-    const result = GasIdReferenceSchema.safeParse(validGasIdReference);
+    const result = GasIDReferenceSchema.safeParse(validGasIDReference);
 
     expect(result.success).toBe(true);
 
     if (result.success) {
       const data: typeof result.data = result.data;
 
-      expect(data.external_id).toBe(validGasIdReference.external_id);
-      expect(data.token_id).toBe(validGasIdReference.token_id);
-      expect(data.external_url).toBe(validGasIdReference.external_url);
-      expect(data.uri).toBe(validGasIdReference.uri);
+      expect(data.external_id).toBe(validGasIDReference.external_id);
+      expect(data.token_id).toBe(validGasIDReference.token_id);
+      expect(data.external_url).toBe(validGasIDReference.external_url);
+      expect(data.uri).toBe(validGasIDReference.uri);
     }
   });
 
   it('rejects additional properties', () => {
     const invalid = {
-      ...validGasIdReference,
+      ...validGasIDReference,
       extra_field: 'not allowed',
     };
-    const result = GasIdReferenceSchema.safeParse(invalid);
+    const result = GasIDReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
