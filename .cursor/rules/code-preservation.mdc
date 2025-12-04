@@ -1,0 +1,61 @@
+---
+description: Code preservation rules - never delete or revert code without explicit approval
+globs:
+alwaysApply: true
+---
+
+# Code Preservation Rules
+
+## 🚨 CRITICAL RULE: NEVER DELETE/REVERT/STASH CODE
+
+### ABSOLUTE PROHIBITION
+
+❌ **NEVER** run these commands without EXPLICIT user approval:
+
+- `git checkout <file>` to revert changes
+- `git restore <file>` to discard changes
+- `git stash` to hide changes
+- `git reset` to undo changes
+- Delete or revert ANY code changes
+- Delete files
+- Suggest "removing unrelated changes"
+- Suggest "reverting unrelated changes"
+
+### ALWAYS
+
+✅ **ALWAYS** follow these principles:
+
+- Commit ALL changes that exist
+- Build upon existing code
+- Ask user about changes that seem unrelated: "I see changes in X and Y. Should these be in separate commits or one commit?"
+- Let the user decide what to do with their changes
+- Trust that the developer made those changes for a reason
+- Preserve ALL existing changes
+
+### If Changes Seem Unrelated
+
+When you encounter changes that appear unrelated to the current task:
+
+1. **Create separate commits** for different concerns
+2. **Ask the user** if they want separate PRs
+3. **NEVER** delete or revert the changes yourself
+4. **Include ALL** existing changes in commits/PRs
+
+## Rationale
+
+- Developers make changes intentionally
+- "Unrelated" changes may have context you don't see
+- User can always discard changes themselves if needed
+- Better to commit everything than lose work
+- Separate commits/PRs can be created for different concerns
+
+## Application
+
+This rule applies to ALL commands and workflows:
+
+- `/commit` - Commit all changes, ask about grouping
+- `/create-pr` - Include all changes, suggest separate PRs if needed
+- `/finish-task` - Preserve all work
+- `/task-exec` - Build on existing code
+
+**Trust the developer. Preserve their work. Ask before destructive actions.**

@@ -1,0 +1,143 @@
+---
+description: Standardized Zod schema authoring patterns for the repository
+globs: src/**/*.schema.ts
+alwaysApply: true
+---
+
+# Zod Schema Authoring Rules
+
+Purpose
+
+- Standardize how Zod schemas are authored in this repository.
+- Zod is the single source of truth; JSON Schemas are generated artifacts.
+- Keep guidance concise and aligned with existing code and ZOD_SCHEMA_PATTERNS.md.
+
+Scope
+
+- Applies to all schema work in src/ and generated outputs in schemas/.
+- Complements JSON/JSON Schema rules and code comment standards.
+
+Core Rules
+
+- Use z.strictObject({...}); do not use object().strict().
+- Compose schemas via layers: Base → NFT → type-specific using .safeExtend().
+- Add .meta({ title, description, example(s) }) to every field and object schema.
+- Use snake_case for all property names. Avoid abbreviations except id, url.
+- Prefer built-in validators over refine(); reserve refine() for cross-field/domain rules.
+- Export both the schema and inferred type:
+  - Schema export: [Entity]Schema (e.g., MassIDDataSchema)
+  - Type export: [Entity] (e.g., MassID)
+- Place type-specific schemas under src/{type}/ and shared under src/shared/.
+- Timestamps and dates:
+  - Top-level metadata: ISO 8601 (string, format: date-time)
+  - Attributes/events/on-chain: Unix timestamp in milliseconds (integer)
+  - Date-only values: ISO 8601 date (string, format: date)
+- Enums:
+  - User-facing values: Title Case (e.g., 'None', 'Low')
+  - Technical/system values: lowercase (e.g., 'mainnet')
+  - Constants: UPPERCASE (e.g., 'TEST')
+- Examples in meta should be realistic and representative of production data.
+- Never manually edit files in schemas/. Generate from Zod via build + generation.
+
+Versioning and Interop Notes
+
+- Schema $id URLs are versioned from the environment. See src/shared/schema-version.ts and CLAUDE.md.
+- Ensure JSON Schema output aligns with .cursor/rules/json-schema.mdc (title, description, $schema, $id, properties, required, additionalProperties false).
+
+Minimal Examples
+
+Strict object with meta
+
+```ts
+import { z } from 'zod';
+
+export const ExampleSchema = z
+  .strictObject({
+    example_field: z
+      .string()
+      .min(1)
+      .meta({
+        title: 'Example Field',
+        description: 'A non-empty string.',
+        examples: ['alpha', 'beta'],
+      }),
+  })
+  .meta({
+    title: 'Example',
+    description: 'Example object schema.',
+  });
+
+export type Example = z.infer<typeof ExampleSchema>;
+```
+
+Layered composition using safeExtend
+
+```ts
+import { z } from 'zod';
+// Assume BaseIpfsSchema, NftIpfsSchema exist in src/shared/
+
+export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
+  // nft-specific additions...
+});
+
+export const SomeTypeIpfsSchema = NftIpfsSchema.safeExtend({
+  data: z.strictObject({
+    primary_type: z.string().meta({
+      title: 'Primary Type',
+      description: 'Primary domain-specific type.',
+      examples: ['Plastic', 'Metal'],
+    }),
+  }),
+}).meta({
+  title: 'Some Type IPFS Schema',
+  description: 'IPFS metadata schema for Some Type.',
+});
+
+export type SomeTypeIpfs = z.infer<typeof SomeTypeIpfsSchema>;
+```
+
+Constrained enums
+
+```ts
+import { z } from 'zod';
+
+export const ContaminationLevelSchema = z
+  .enum(['None', 'Low', 'Medium', 'High'])
+  .meta({
+    title: 'Contamination Level',
+    description: 'Level of contamination in the waste batch.',
+    examples: ['Low', 'None'],
+  });
+```
+
+Author Checklist
+
+- z.strictObject used for all object schemas; no object().strict().
+- Every field and object has meta with title, description, and example(s).
+- Property names use snake_case across all schemas.
+- Built-in validators used where possible; refine() only for cross-field/domain rules.
+- Schema export name ends with Schema; type export name omits Schema.
+- Timestamps and dates follow repository conventions.
+- Layered composition via .safeExtend() aligns with Base → NFT → type-specific.
+- No manual edits in schemas/; run:
+  - pnpm build
+  - pnpm generate-ipfs-schemas
+
+Reviewer Checklist
+
+- Naming patterns for schemas/types are correct and consistent.
+- Meta coverage is complete and meaningful (titles, descriptions, examples).
+- snake_case property names; enums follow title/lower/UPPERCASE conventions.
+- Composition pattern (Base → NFT → type-specific) is followed; .safeExtend used.
+- No custom refine() unless necessary for cross-field/domain logic.
+- Generated JSON Schemas include required fields and constraints per json-schema rules.
+- Build and schema generation commands pass locally/CI.
+
+References
+
+- ZOD schema patterns: ZOD_SCHEMA_PATTERNS.md
+- Project overview and versioning: CLAUDE.md
+- JSON data rules: .cursor/rules/json.mdc
+- JSON Schema rules: .cursor/rules/json-schema.mdc
+- Code comment standards: .cursor/rules/code-comments.mdc
+- PR rules and descriptions: .cursor/rules/pull-request.mdc, .cursor/rules/pull-request-description.mdc

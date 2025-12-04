@@ -1,0 +1,394 @@
+---
+description: ClickUp task creation and management standards for Carrot Network
+globs:
+alwaysApply: false
+---
+
+# ClickUp Task Management Rules
+
+Define clear scope, actionable deliverables, and appropriate sizing for ClickUp tasks.
+
+## Core Principles
+
+- **Question everything**: Challenge unclear, oversized, or low-value work
+- **Be concise**: Provide context and hints without fluff
+- **Be ruthless with scope**: Push to break down >3 day efforts
+- **Remove noise**: Delete template sections adding no value
+- **Stay actively critical**: Never passively transcribe requests
+
+## Task Metadata Standards
+
+### Required Fields
+
+- **Category**: Feature | Bug | Tech. Debt | Spike | Other
+- **Scope**: Back | Front | Infra | Web3 | Other
+- **Priority**: Low | Normal | High | Urgent
+- **Effort (Fibonacci)**: 1 (≤1 day) | 2 (1-2 days) | 3 (2-3 days) | 5 (3-5 days)
+
+### Default List
+
+https://app.clickup.com/3005225/v/li/901321091597
+
+Use unless user specifies different. This URL is environment- and workspace-specific—if it changes, confirm the correct default list with the team and update this rule.
+
+## Automation Rules
+
+- Always use ClickUp custom fields for metadata (not tags)
+- Emojis allowed in titles; include in proposed title
+- After creation, return task link and follow-up:
+  1. Review description wording/scope
+  2. Remove blank lines around headings
+  3. Add sprint points (MCP may miss)
+  4. Verify formatting (emojis, checklists, code)
+
+## Task Template Structure
+
+```markdown
+#### TL;DR
+
+[Single sentence with context not in title - max 25 words]
+[OPTIONAL - remove if redundant]
+
+---
+
+### 📖 Context
+
+[Why this exists, background, related work - 2-4 sentences max]
+[OPTIONAL - remove if not adding value]
+
+### ⚙️ Business Rules
+
+- [ ] [Specific constraint or requirement]
+- [ ] [Another rule]
+
+### 🎯 Value Delivery
+
+**Why:** [Strategic/business reason - 1 sentence]
+**Value:** [Concrete benefit - 1 sentence]
+**For whom:** [Specific stakeholder/user group]
+
+### 💡 Implementation Suggestions
+
+[Non-prescriptive hints, code snippets, gotchas]
+[OPTIONAL - remove if nothing specific]
+
+### 🔗 References
+
+- [Link to Figma/Notion/Slack/docs]
+  [OPTIONAL - remove if no relevant links]
+
+### ✅ Definition of Done
+
+- [ ] Implement and test [...]
+- [ ] Verify [...]
+```
+
+## Definition of Done by Type
+
+**Feature**: Implementation + tests + docs + integration verification
+**Bug**: Fix + regression test + affected flow verification
+**Tech. Debt**: Refactor + compatibility validation + performance check
+**Spike**: Research output + recommendation + estimate
+
+### DoD Format
+
+Use specific, testable statements:
+
+- ✅ `Implement and test MassID schema generation`
+- ✅ `Add error handling for invalid UUID formats`
+- ✅ `Verify JSON schema validates against example data`
+- ❌ `Code works correctly` (too vague)
+- ❌ `Testing complete` (not specific)
+
+## Template Optimization
+
+### Always Remove
+
+- TL;DR restating title
+- Context duplicating TL;DR
+- Empty Implementation Suggestions
+- Empty References
+- Obvious Business Rules
+
+### Always Keep
+
+- Value Delivery (mandatory)
+- Definition of Done (mandatory)
+
+### Conditional Sections
+
+Keep only when adding new information:
+
+- **TL;DR**: Only if context beyond title
+- **Context**: Only if explains "why now" or "what changed"
+- **Business Rules**: Only non-obvious constraints
+- **Implementation Suggestions**: Only with code snippets, gotchas, architecture notes
+- **References**: Only with actual URLs
+
+## Effort Estimation
+
+**1 point (≤1 day)**: Script changes, config updates, minor bugs, docs
+
+**2 points (1-2 days)**: Single schema type, isolated feature, straightforward integration
+
+**3 points (2-3 days)**: Multiple schema interactions, cross-schema feature, moderate refactor
+
+**5 points (3-5 days)**: **RED FLAG** - Must break down. Challenge: "What's the MVP?"
+
+## Value Delivery Standards
+
+Challenge weak statements:
+
+❌ **Weak** → ✅ **Specific**
+
+- "Improves platform" → "Reduces schema validation errors from 12% to <1%"
+- "Better UX" → "Eliminates manual schema validation—auto-validates on generation"
+- "Code quality" → "Reduces deployment gas by 23% through storage optimization"
+- "Bug fix" → "Fixes validation issue where invalid timestamps were accepted (HIGH)"
+- "Refactor" → "Consolidates 3 duplicate functions, reducing bundle by 15KB"
+
+Ask when vague:
+
+- "What specific metric improves?"
+- "What was broken and now works?"
+- "How will we measure success?"
+
+## Critical Analysis Requirements
+
+Challenge immediately when:
+
+**Scope Red Flags:**
+
+- Effort ≥5: "Split into: (1) [A] (3pts), (2) [B] (2pts). Which first?"
+- Multiple concerns: "Combines [X], [Y], [Z]. Should we split?"
+- Long exclusion list: "Too much scope. Can we narrow?"
+
+**Clarity Red Flags:**
+
+- Vague value: "Says 'improves security' but no risk. What vulnerability?"
+- Unclear requirements: "Ambiguous. Clarify [specific aspect]?"
+- Generic wording: "Uses generic terms. What specifically changes?"
+
+**Priority Red Flags:**
+
+- Urgent without blockers: "Marked urgent but no blockers. Can this wait?"
+- High effort + urgent: "5 points AND urgent. What drives timeline?"
+- Low value + high priority: "Priority High but value weak. What am I missing?"
+
+## Critical Thinking Patterns
+
+### Challenge Scope Creep
+
+**Signals:**
+
+- DoD has 8+ items
+- Description includes "also" or "while we're here"
+- Task requires Y but doesn't mention it
+
+**Response:** "⚠️ Seems outside scope. Include [X], or separate task?"
+
+### Push Back on Bad Decisions
+
+**Signals:**
+
+- Violates architecture patterns
+- Breaks conventions
+- Creates tight coupling
+- Introduces tech debt
+
+**Response:**
+
+```markdown
+⚠️ **CONCERN**: [specific issue]
+
+**Problem:** This leads to [concrete problem]
+
+**Alternative:** [better solution]
+
+**Question:** Should we reconsider?
+```
+
+### Demand Clarity
+
+**Signals:**
+
+- Vague requirements
+- Ambiguous business rules
+- Missing edge cases
+- Unclear integration points
+
+**Response:**
+
+```markdown
+❓ **CLARIFICATION NEEDED**
+
+**Context:** [what you're implementing]
+**Ambiguity:** [unclear requirement]
+**Interpretations:**
+
+1. [Option A] - [implications]
+2. [Option B] - [implications]
+
+**Question:** Which interpretation correct?
+**Impact:** [what breaks if wrong]
+```
+
+## Workflow: New Task
+
+### Step 1: Gather Context
+
+Ask before drafting:
+
+1. What problem are we solving?
+2. Which component/system affected?
+3. Who benefits and how?
+4. Expected effort (Fibonacci)? If >3 days, flag.
+
+If missing or vague, pause and ask.
+
+### Step 2: Assess Scope and Value
+
+- Challenge effort ≥5: propose smaller increments
+- Question urgency if value weak
+- Flag mixed deliverables, suggest split
+- Surface architectural risks
+- Identify missing metadata
+
+### Step 3: Draft Task
+
+1. Propose metadata with justification
+2. Craft emoji-friendly title (include emoji)
+3. Populate template, remove non-value sections
+4. Ensure DoD items testable, tied to scope
+5. Include hints, snippets, warnings when helpful
+
+### Step 4: Deliver Output
+
+Return:
+
+1. Outstanding questions or challenges (if any)
+2. Recommended metadata summary
+3. Proposed title
+4. Task body in fenced markdown
+5. ClickUp link (default or supplied)
+6. Post-creation reminders
+
+## Workflow: Task Refinement
+
+### Step 1: Analyze Existing
+
+Check for:
+
+- Missing metadata
+- Vague TL;DR ("improve", "enhance" without specifics)
+- Missing/weak DoD
+- Context-less business rules
+- Generic value delivery
+
+### Step 2: Ask Questions
+
+Don't assume—ask:
+
+- "Says 'improve X'—what metric defines success?"
+- "Business Rule 2 vague—example of violation?"
+- "Blocking something? Affects priority."
+
+### Step 3: Rewrite Aggressively
+
+- Strengthen weak language
+- Add missing business rules
+- Rewrite vague DoD as testable
+- Remove fluff and redundancy
+
+### Step 4: Challenge Scope Again
+
+Even in refinement:
+
+- "Seems like 2-3 tasks. Split?"
+- "DoD has 8 items—5-pointer. Reduce scope?"
+
+## Output Format Templates
+
+### For New Tasks
+
+```markdown
+**Questions before creating:**
+
+1. [Critical scope/value question]
+2. [Clarification needed]
+
+**Initial Assessment:**
+
+- Estimated effort: [X points] - [reasoning]
+- Suggested Category: [X] because [reason]
+- ⚠️ [Red flags or suggestions]
+
+**Proposed Task** (refine after answers):
+[Template with current understanding]
+```
+
+### For Refinement
+
+```markdown
+**Issues Found:**
+
+- [ ] [Specific problem]
+- [ ] [Another issue]
+
+**Questions/Suggestions:**
+
+1. [Challenge or clarification]
+2. [Improvement suggestion]
+
+**Refined Task:**
+[Complete template]
+
+**Changes Made:**
+
+- Removed: [...]
+- Added: [...]
+- Clarified: [...]
+```
+
+## Special Considerations
+
+### TODO Comments
+
+When user provides `// TODO:`:
+
+1. Extract context from surrounding code
+2. Identify component from path
+3. Ask: "Immediate work or reminder?"
+4. Suggest priority based on location
+
+### Value Validation
+
+Convert vague to concrete:
+
+- From: "Improves developer experience"
+- To: "Reduces deployment from 10min to 2min via automation"
+
+## Examples of Active Criticism
+
+**✅ Good:**
+
+- "5-pointer has 3 deliverables. Split: (1) Schema implementation (3pts), (2) Generation script (2pts), (3) Docs (1pt). Which first?"
+- "Value says 'improves security' but no risk. What vulnerability?"
+- "Marked urgent but no blockers. Wait until next sprint?"
+
+**❌ Passive (Avoid):**
+
+- "Looks good!"
+- "Template completed."
+- "Let me know if changes needed."
+
+## Integration
+
+Align with:
+
+- `@commit.mdc` - Commit conventions (scopes, types)
+- `@branch-naming.mdc` - Branch naming (types, scopes, IDs)
+- `@pull-request.mdc` - PR standards
+- `/task-exec` - Task execution workflow
+
+Ensure consistency across commits, branches, and task metadata.
