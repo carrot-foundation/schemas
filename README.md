@@ -118,6 +118,39 @@ const massIdData: MassIDData = {
 };
 ```
 
+## 🧪 Testing
+
+This repository uses [Vitest](https://vitest.dev/) for automated testing. Tests validate that schemas correctly validate example data and reject invalid inputs.
+
+### Running Tests
+
+```bash
+# Run all tests once
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage report
+pnpm test:coverage
+
+# Open Vitest UI for interactive testing
+pnpm test:ui
+```
+
+### Test Structure
+
+Tests are located alongside their schemas in `src/**/*.spec.ts` files. Each test file validates:
+
+- Example JSON files pass schema validation
+- Invalid data is properly rejected
+- Type inference works correctly
+- Edge cases are handled appropriately
+
+### Coverage
+
+Coverage thresholds are set at **100%** for branches, functions, lines, and statements.
+
 ## ✅ Usage
 
 You may:

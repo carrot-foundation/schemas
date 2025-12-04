@@ -39,6 +39,8 @@ jobs:
         run: pnpm lint
       - name: Type check
         run: pnpm type-check
+      - name: Run tests
+        run: pnpm test:coverage
       - name: Lint package.json
         run: pnpm pkgJsonLint
       - name: Calculate next version

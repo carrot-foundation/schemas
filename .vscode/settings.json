@@ -1,5 +1,5 @@
 {
-  "eslint.validate": ["yaml", "json"],
+  "eslint.validate": ["yaml", "json", "typescript", "javascript"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",

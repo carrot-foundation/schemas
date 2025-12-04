@@ -1,0 +1,137 @@
+---
+description: Testing patterns and standards for Vitest tests in the schemas repository
+globs: src/**/__tests__/**/*.spec.ts
+alwaysApply: true
+---
+
+# Testing Rules
+
+Purpose
+
+- Standardize test organization, fixtures, and patterns across the repository.
+- Ensure consistent test structure and maintainability.
+- Achieve and maintain 100% code coverage.
+
+Scope
+
+- Applies to all test files in `src/**/__tests__/**/*.spec.ts`.
+- Complements Zod schema rules and code comment standards.
+
+Test Organization
+
+- Tests MUST be placed in `__tests__` folders next to their source files.
+- Test file names MUST match source file names with `.spec.ts` suffix.
+- Example: `src/mass-id/mass-id.schema.ts` → `src/mass-id/__tests__/mass-id.schema.spec.ts`
+
+Fixture Structure
+
+- Use centralized `src/test-utils/fixtures/` for reusable test data.
+- Import fixtures from `src/test-utils/fixtures/` barrel export.
+- Create module-specific fixtures only when needed for complex test scenarios.
+- Fixtures MUST be typed and well-documented with JSDoc comments.
+
+Naming Conventions
+
+- Test files: `*.spec.ts` (not `*.test.ts`).
+- Test files MUST match source file names.
+- Use descriptive `describe` blocks for schema/function grouping.
+- Use clear `it` statements describing what is being tested.
+
+Coverage Requirements
+
+- 100% coverage thresholds for branches, functions, lines, and statements.
+- All schema validation logic MUST be tested.
+- Edge cases MUST be covered (empty arrays, optional fields, invalid data).
+
+Test Patterns
+
+- Use `describe` blocks to group related tests by schema or function.
+- Test both valid and invalid inputs for every schema.
+- Test edge cases:
+  - Empty arrays/objects where allowed
+  - Optional fields (present and absent)
+  - Boundary values (min/max lengths, numbers)
+  - Invalid data types
+- Use fixtures for consistent test data across tests.
+- Validate type inference in tests when applicable.
+- Use `safeParse` for Zod schema validation tests.
+- Check error messages for invalid inputs to ensure proper validation.
+
+Import Patterns
+
+- Import fixtures from `src/test-utils/fixtures/` (barrel export).
+- Import schemas with relative paths from test file location.
+- Import example JSON files from `schemas/ipfs/` for integration tests.
+- Example:
+  ```typescript
+  import { minimalValidNft } from '../../test-utils/fixtures';
+  import { MassIDIpfsSchema } from '../mass-id.schema';
+  import exampleJson from '../../../schemas/ipfs/mass-id/mass-id.example.json';
+  ```
+
+Example JSON Files
+
+- Use example JSON files from `schemas/ipfs/` for integration tests.
+- Example files validate that schemas correctly parse production-like data.
+- Test that example files pass validation.
+- Test modifications to example files to verify rejection of invalid data.
+
+Test Structure Example
+
+```typescript
+import { describe, it, expect } from 'vitest';
+import { SomeSchema } from '../some.schema';
+import { someFixture } from '../../test-utils/fixtures';
+
+describe('SomeSchema', () => {
+  it('validates valid data successfully', () => {
+    const result = SomeSchema.safeParse(someFixture);
+
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects invalid data', () => {
+    const invalid = { ...someFixture, invalidField: 'invalid' };
+    const result = SomeSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('validates type inference works correctly', () => {
+    const result = SomeSchema.safeParse(someFixture);
+
+    expect(result.success).toBe(true);
+    
+    if (result.success) {
+      const data: typeof result.data = result.data;
+      
+      expect(data.someField).toBeDefined();
+    }
+  });
+});
+```
+
+Author Checklist
+
+- Test file is in `__tests__` folder next to source file.
+- Test file name matches source file name with `.spec.ts` suffix.
+- Fixtures are imported from `src/test-utils/fixtures/`.
+- Both valid and invalid inputs are tested.
+- Edge cases are covered.
+- Type inference is validated where applicable.
+- All tests pass with 100% coverage.
+
+Reviewer Checklist
+
+- Test organization follows `__tests__` folder structure.
+- Fixtures are used consistently from centralized location.
+- Test patterns follow repository standards.
+- Coverage meets 100% thresholds.
+- Test names are descriptive and clear.
+- Invalid data tests verify proper error messages.
+
+References
+
+- Vitest Documentation: https://vitest.dev/
+- Zod Testing Guide: https://zod.dev/?id=testing
+- Project testing patterns: See existing test files in `src/**/__tests__/`

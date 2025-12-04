@@ -36,3 +36,8 @@ Thumbs.db
 
 # Custom
 local/
+
+# Testing
+coverage
+*.lcov
+.vitest
