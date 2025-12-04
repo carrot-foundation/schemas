@@ -38,7 +38,7 @@ const GasIDAttributeGasTypeSchema = NftAttributeSchema.extend({
 
 export type GasIDAttributeGasType = z.infer<typeof GasIDAttributeGasTypeSchema>;
 
-const GasIDAttributeCO2ePreventedSchema = NftAttributeSchema.extend({
+const GasIDAttributeCo2ePreventedSchema = NftAttributeSchema.extend({
   trait_type: z.literal('CO₂e Prevented (kg)'),
   value: NonNegativeFloatSchema.meta({
     title: 'CO₂e Prevented Value',
@@ -50,8 +50,8 @@ const GasIDAttributeCO2ePreventedSchema = NftAttributeSchema.extend({
   description: 'CO₂e prevented attribute with numeric display',
 });
 
-export type GasIDAttributeCO2ePrevented = z.infer<
-  typeof GasIDAttributeCO2ePreventedSchema
+export type GasIDAttributeCo2ePrevented = z.infer<
+  typeof GasIDAttributeCo2ePreventedSchema
 >;
 
 const GasIDAttributeCreditAmountSchema = NftAttributeSchema.extend({
@@ -199,7 +199,7 @@ export const GasIDAttributesSchema = z
   .tuple([
     GasIDAttributeMethodologySchema,
     GasIDAttributeGasTypeSchema,
-    GasIDAttributeCO2ePreventedSchema,
+    GasIDAttributeCo2ePreventedSchema,
     GasIDAttributeCreditAmountSchema,
     GasIDAttributeCreditTypeSchema,
     GasIDAttributeSourceWasteTypeSchema,
