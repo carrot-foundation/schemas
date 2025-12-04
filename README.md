@@ -19,15 +19,15 @@ This project uses automated schema reference versioning with a **unified version
 ### How It Works
 
 - **All builds**: Schemas reference `refs/tags/{version}` where version is set via `SCHEMA_VERSION` environment variable
-- **Default version**: If `SCHEMA_VERSION` is not set, defaults to `0.0.0-dev`
+- **Default version**: If `SCHEMA_VERSION` is not set, defaults to the version from `package.json`
 - **No special cases**: Development and production use the exact same versioning mechanism
 
 ### Local Development
 
-For local development, the default version `0.0.0-dev` is used automatically:
+For local development, the version from `package.json` is used automatically:
 
 ```bash
-# Build with default dev version (0.0.0-dev)
+# Build with package.json version as default
 pnpm build
 pnpm generate-ipfs-schemas
 ```
@@ -58,13 +58,13 @@ All of this happens automatically via the GitHub Actions workflow when you push 
 
 ### Example Schema References
 
-**Development (default):**
+**Development (uses package.json version by default):**
 
 ```json
-"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/schemas/ipfs/mass-id/mass-id.schema.json"
+"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.28/schemas/ipfs/mass-id/mass-id.schema.json"
 ```
 
-**Production (versioned):**
+**Production (versioned via SCHEMA_VERSION env var):**
 
 ```json
 "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.2.3/schemas/ipfs/mass-id/mass-id.schema.json"

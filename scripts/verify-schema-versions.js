@@ -3,8 +3,18 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+function getPackageJsonVersion() {
+  try {
+    const packageJsonPath = path.join(process.cwd(), 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    return packageJson.version || '0.0.0-dev';
+  } catch {
+    return '0.0.0-dev';
+  }
+}
+
 const SCHEMAS_DIR = path.join(process.cwd(), 'schemas');
-const EXPECTED_VERSION = process.env.SCHEMA_VERSION || '0.0.0-dev';
+const EXPECTED_VERSION = process.env.SCHEMA_VERSION || getPackageJsonVersion();
 const EXPECTED_REF = `refs/tags/${EXPECTED_VERSION}`;
 
 function collectSchemaFiles(dir, collected = []) {
@@ -85,11 +95,11 @@ function main() {
       hasErrors = true;
       console.error(`❌ ${relativePath}`);
       console.error(`   ${result.reason}\n`);
+    } else if (result.reason) {
+      console.log(`⚠️  ${relativePath}`);
+      console.log(`   ${result.reason}`);
     } else {
       console.log(`✅ ${relativePath}`);
-      if (result.reason) {
-        console.log(`   ${result.reason}`);
-      }
     }
   }
 

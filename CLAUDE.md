@@ -132,7 +132,7 @@ See `.cursor/rules/testing.mdc` for comprehensive testing guidance and patterns.
 ### Schema Versioning System
 
 - **Unified approach**: All builds (dev and prod) use the same versioning mechanism
-- **Default version**: `0.0.0-dev` (when `SCHEMA_VERSION` env var not set)
+- **Default version**: Version from `package.json` (when `SCHEMA_VERSION` env var not set)
 - **Production**: Version is set automatically during release via GitHub Actions
 - **Schema `$id` format**: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json`
 
