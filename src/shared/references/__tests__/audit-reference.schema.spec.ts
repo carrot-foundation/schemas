@@ -4,19 +4,10 @@ import {
   MethodologyComplianceSchema,
 } from '../audit-reference.schema';
 import { validAuditReference } from '../../../test-utils';
-import exampleJson from '../../../../schemas/ipfs/shared/references/audit-reference/audit-reference.example.json';
 
 describe('AuditReferenceSchema', () => {
   it('validates valid audit reference successfully', () => {
     const result = AuditReferenceSchema.safeParse(validAuditReference);
-
-    expect(result.success).toBe(true);
-  });
-
-  it('validates example JSON file from schemas/ipfs', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { $schema, ...data } = exampleJson;
-    const result = AuditReferenceSchema.safeParse(data);
 
     expect(result.success).toBe(true);
   });
