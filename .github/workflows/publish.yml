@@ -8,15 +8,18 @@ on:
       - main
   workflow_dispatch:
 
-permissions: write-all
+permissions:
+  contents: write # For pushing commits, tags, and creating releases
+  packages: read # For npm operations
 
 concurrency:
-  group: publish-${{ github.ref }}
+  group: publish-${{ github.event.workflow_run.head_branch || 'main' }}
   cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     # Only run if check-code workflow completed successfully
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
@@ -24,8 +27,12 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_branch || 'main' }}
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }} # required for bypassing branch protection
+      - name: Reset to specific commit
+        if: github.event.workflow_run.head_sha
+        run: |
+          git reset --hard ${{ github.event.workflow_run.head_sha }}
       - name: Configure Git
         run: |
           git config --local user.name "GitHub Action"
@@ -62,13 +69,35 @@ jobs:
             ci:patch:Continuous Integration
             chore:patch:Chores
             revert:patch:Reverts
+      - name: Show calculated version
+        run: |
+          if [ -n "${{ steps.calculate_version.outputs.new_tag }}" ]; then
+            echo "### 🚀 Publishing version ${{ steps.calculate_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Current version: ${{ steps.calculate_version.outputs.previous_tag }}" >> $GITHUB_STEP_SUMMARY
+            echo "- New version: ${{ steps.calculate_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ℹ️ No new version to publish" >> $GITHUB_STEP_SUMMARY
+            echo "No conventional commits found since last release" >> $GITHUB_STEP_SUMMARY
+            echo "Workflow will exit without publishing" >> $GITHUB_STEP_SUMMARY
+          fi
+      - name: Check if version already exists on npm
+        if: steps.calculate_version.outputs.new_tag
+        run: |
+          NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
+          if npm view @carrot-foundation/schemas@$NEW_VERSION version 2>/dev/null; then
+            echo "::error::Version $NEW_VERSION already exists on npm. This might indicate a race condition or manual publish."
+            exit 1
+          fi
+          echo "Version $NEW_VERSION is available for publishing"
       - name: Build package and generate schemas
+        if: steps.calculate_version.outputs.new_tag
         env:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
           pnpm build
           pnpm generate-ipfs-schemas
       - name: Validate and verify schemas
+        if: steps.calculate_version.outputs.new_tag
         env:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
@@ -87,6 +116,11 @@ jobs:
           echo "### ✅ Version $NEW_VERSION Published" >> $GITHUB_STEP_SUMMARY
           echo "- **Tag**: $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "- **Package**: [@carrot-foundation/schemas@$NEW_VERSION](https://www.npmjs.com/package/@carrot-foundation/schemas/v/$NEW_VERSION)" >> $GITHUB_STEP_SUMMARY
+      - name: Dry-run npm publish
+        if: steps.calculate_version.outputs.new_tag
+        run: pnpm publish --dry-run --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to npm
         if: steps.calculate_version.outputs.new_tag
         id: npm_publish
@@ -97,9 +131,22 @@ jobs:
         if: steps.npm_publish.outcome == 'success'
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
-          git pull --rebase
+          BRANCH="${{ github.event.workflow_run.head_branch || 'main' }}"
+
+          # Fetch latest changes and rebase our version commit on top
+          git fetch origin $BRANCH
+          git rebase origin/$BRANCH || {
+            echo "::error::Rebase failed - another commit was pushed to $BRANCH after workflow started"
+            echo "Attempting to abort rebase..."
+            git rebase --abort || true
+            exit 1
+          }
+
+          # Create tag at current HEAD (after rebase)
           git tag $NEW_VERSION
-          git push origin main
+
+          # Push branch and tag
+          git push origin $BRANCH
           git push origin $NEW_VERSION
       - name: Create GitHub Release
         if: steps.npm_publish.outcome == 'success'
