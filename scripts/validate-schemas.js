@@ -190,24 +190,7 @@ async function validateData(dataPath, schemaPath) {
 
     const ajv = createAjv(path.resolve(schemaPath));
     const validate = await ajv.compileAsync(schema);
-
-    // Strip $schema field before validation only if it's not defined in the schema
-    const hasSchemaProperty =
-      schema.properties?.$schema ||
-      schema.required?.includes('$schema') ||
-      schema.allOf?.some(
-        (item) =>
-          item.$ref?.includes('base.schema.json') ||
-          item.$ref?.includes('nft.schema.json'),
-      );
-    const dataToValidate = hasSchemaProperty
-      ? data
-      : (() => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-          const { $schema, ...rest } = data;
-          return rest;
-        })();
-    const valid = validate(dataToValidate);
+    const valid = validate(data);
 
     return {
       valid,
