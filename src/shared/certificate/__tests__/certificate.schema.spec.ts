@@ -4,6 +4,9 @@ import {
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
 } from '../certificate.schema';
+import wasteClassificationExample from '../../../../schemas/ipfs/shared/certificate/waste-classification.example.json';
+import accreditedParticipantsExample from '../../../../schemas/ipfs/shared/certificate/accredited-participants.example.json';
+import participantRewardsExample from '../../../../schemas/ipfs/shared/certificate/participant-rewards.example.json';
 
 describe('WasteClassificationSchema', () => {
   const validWasteClassification = {
@@ -89,6 +92,14 @@ describe('WasteClassificationSchema', () => {
 
     expect(result.success).toBe(false);
   });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    const result = WasteClassificationSchema.safeParse(
+      wasteClassificationExample,
+    );
+
+    expect(result.success).toBe(true);
+  });
 });
 
 describe('AccreditedParticipantsSchema', () => {
@@ -162,6 +173,14 @@ describe('AccreditedParticipantsSchema', () => {
         validAccreditedParticipants[0].participant_id,
       );
     }
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    const result = AccreditedParticipantsSchema.safeParse(
+      accreditedParticipantsExample,
+    );
+
+    expect(result.success).toBe(true);
   });
 });
 
@@ -312,5 +331,13 @@ describe('ParticipantRewardsSchema', () => {
     const result = ParticipantRewardsSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    const result = ParticipantRewardsSchema.safeParse(
+      participantRewardsExample,
+    );
+
+    expect(result.success).toBe(true);
   });
 });

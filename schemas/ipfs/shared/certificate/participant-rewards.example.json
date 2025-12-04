@@ -1,0 +1,21 @@
+{
+  "distribution_basis": "BOLD Carbon (CH₄) methodology rewards calculation",
+  "reward_allocations": [
+    {
+      "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+      "participant_name": "Enlatados Produção",
+      "role": "Generator",
+      "reward_percentage": 50.0,
+      "effective_percentage": 50.0
+    },
+    {
+      "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
+      "participant_name": "Eco Reciclagem",
+      "role": "Recycler",
+      "reward_percentage": 30.0,
+      "large_business_discount_applied": true,
+      "effective_percentage": 15.0
+    }
+  ]
+}
+
