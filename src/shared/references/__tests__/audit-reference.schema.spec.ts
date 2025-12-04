@@ -3,18 +3,9 @@ import {
   AuditReferenceSchema,
   MethodologyComplianceSchema,
 } from '../audit-reference.schema';
+import { validAuditReference } from '../../../test-utils/fixtures';
 
 describe('AuditReferenceSchema', () => {
-  const validAuditReference = {
-    date: '2025-06-24',
-    external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
-    external_url:
-      'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
-    methodology_compliance: 'PASSED' as const,
-    rules_executed: 21,
-    report: 'ipfs://QmVerificationHash/mass-id-audit.json',
-  };
-
   it('validates valid audit reference successfully', () => {
     const result = AuditReferenceSchema.safeParse(validAuditReference);
 

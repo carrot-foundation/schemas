@@ -1,15 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { MassIdReferenceSchema } from '../mass-id-reference.schema';
+import { validMassIdReference } from '../../../test-utils/fixtures';
 
 describe('MassIdReferenceSchema', () => {
-  const validMassIdReference = {
-    external_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-    token_id: '123',
-    external_url:
-      'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-    uri: 'ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json',
-  };
-
   it('validates valid MassID reference successfully', () => {
     const result = MassIdReferenceSchema.safeParse(validMassIdReference);
 
