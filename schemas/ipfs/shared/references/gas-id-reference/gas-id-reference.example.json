@@ -1,8 +1,0 @@
-{
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/references/gas-id-reference/gas-id-reference.schema.json",
-  "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "token_id": "456",
-  "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "uri": "ipfs://QmGasIDHash456/gas-id.json"
-}
-
