@@ -192,7 +192,7 @@ describe('ParticipantRewardsSchema', () => {
         participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
         participant_name: 'Enlatados Produção',
         role: 'Waste Generator',
-        reward_percentage: 25.0,
+        reward_percentage: 25,
         large_business_discount_applied: true,
         effective_percentage: 12.5,
       },
@@ -200,8 +200,8 @@ describe('ParticipantRewardsSchema', () => {
         participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
         participant_name: 'Eco Reciclagem',
         role: 'Hauler',
-        reward_percentage: 20.0,
-        effective_percentage: 20.0,
+        reward_percentage: 20,
+        effective_percentage: 20,
       },
     ],
     distribution_notes: {
@@ -269,7 +269,7 @@ describe('ParticipantRewardsSchema', () => {
       reward_allocations: [
         {
           ...validParticipantRewards.reward_allocations[0],
-          reward_percentage: 150.0,
+          reward_percentage: 150,
         },
       ],
     };
@@ -284,7 +284,7 @@ describe('ParticipantRewardsSchema', () => {
       reward_allocations: [
         {
           ...validParticipantRewards.reward_allocations[0],
-          reward_percentage: -10.0,
+          reward_percentage: -10,
         },
       ],
     };
@@ -299,7 +299,7 @@ describe('ParticipantRewardsSchema', () => {
       reward_allocations: [
         {
           ...validParticipantRewards.reward_allocations[0],
-          effective_percentage: 150.0,
+          effective_percentage: 150,
         },
       ],
     };
