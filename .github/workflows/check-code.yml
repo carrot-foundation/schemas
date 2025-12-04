@@ -23,16 +23,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
-        run: pnpm lint
-      - name: Spell check
-        run: pnpm spell-check
+        run: pnpm lint:fix
+      - name: Format
+        run: pnpm format
       - name: Type check
         run: pnpm type-check
-      - name: Run tests
-        run: pnpm test:coverage
+      - name: Spell check
+        run: pnpm spell-check
+      - name: Package JSON lint
+        run: pnpm pkgJsonLint
       - name: Build
         run: pnpm build
       - name: Validate schemas
         run: pnpm validate-schemas
+      - name: Verify schema versions
+        run: pnpm verify-schema-versions
       - name: Check schema references
         run: pnpm check-refs
+      - name: Run tests
+        run: pnpm test
