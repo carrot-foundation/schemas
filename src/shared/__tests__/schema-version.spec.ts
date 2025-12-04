@@ -1,12 +1,21 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
   getSchemaBaseUrl,
 } from '../schema-version';
 
+function getPackageJsonVersion(): string {
+  const packageJsonPath = resolve(process.cwd(), 'package.json');
+  const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+  return packageJson.version;
+}
+
 describe('schema-version utilities', () => {
   const originalEnv = process.env;
+  const packageJsonVersion = getPackageJsonVersion();
 
   beforeEach(() => {
     // Reset process.env before each test
@@ -25,10 +34,10 @@ describe('schema-version utilities', () => {
       expect(getSchemaVersionOrDefault()).toBe('1.2.3');
     });
 
-    it('returns default when SCHEMA_VERSION is not set', () => {
+    it('returns package.json version when SCHEMA_VERSION is not set', () => {
       delete process.env['SCHEMA_VERSION'];
 
-      expect(getSchemaVersionOrDefault()).toBe('0.0.0-dev');
+      expect(getSchemaVersionOrDefault()).toBe(packageJsonVersion);
     });
   });
 
@@ -42,12 +51,12 @@ describe('schema-version utilities', () => {
       );
     });
 
-    it('constructs base URL with default version when env var not set', () => {
+    it('constructs base URL with package.json version when env var not set', () => {
       delete process.env['SCHEMA_VERSION'];
       const baseUrl = getSchemaBaseUrl();
 
       expect(baseUrl).toBe(
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/schemas/ipfs',
+        `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/${packageJsonVersion}/schemas/ipfs`,
       );
     });
   });
