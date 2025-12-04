@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { GasIDReferenceSchema } from '../gas-id-reference.schema';
-import { validGasIDReference } from '../../../test-utils/fixtures';
+import { validGasIDReference } from '../../../test-utils';
 
 describe('GasIDReferenceSchema', () => {
   it('validates valid GasID reference successfully', () => {

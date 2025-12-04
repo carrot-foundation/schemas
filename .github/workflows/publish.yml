@@ -8,15 +8,18 @@ on:
       - main
   workflow_dispatch:
 
-permissions: write-all
+permissions:
+  contents: write # For pushing commits, tags, and creating releases
+  packages: read # For npm operations
 
 concurrency:
-  group: publish-${{ github.ref }}
+  group: publish-${{ github.event.workflow_run.head_branch || 'main' }}
   cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     # Only run if check-code workflow completed successfully
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
@@ -24,8 +27,20 @@ jobs:
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 0
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_branch || 'main' }}
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }} # required for bypassing branch protection
+      - name: Reset to specific commit
+        if: github.event.workflow_run.head_sha
+        run: |
+          git reset --hard ${{ github.event.workflow_run.head_sha }}
+      - name: Verify main branch
+        run: |
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          if [ "$CURRENT_BRANCH" != "main" ]; then
+            echo "::error::This workflow can only run on the main branch. Current branch: $CURRENT_BRANCH"
+            exit 1
+          fi
+          echo "✓ Running on main branch"
       - name: Configure Git
         run: |
           git config --local user.name "GitHub Action"
@@ -62,13 +77,124 @@ jobs:
             ci:patch:Continuous Integration
             chore:patch:Chores
             revert:patch:Reverts
+      - name: Show calculated version
+        run: |
+          if [ -n "${{ steps.calculate_version.outputs.new_tag }}" ]; then
+            echo "### 🚀 Publishing version ${{ steps.calculate_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Current version: ${{ steps.calculate_version.outputs.previous_tag }}" >> $GITHUB_STEP_SUMMARY
+            echo "- New version: ${{ steps.calculate_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ℹ️ No new version to publish" >> $GITHUB_STEP_SUMMARY
+            echo "No conventional commits found since last release" >> $GITHUB_STEP_SUMMARY
+            echo "Workflow will exit without publishing" >> $GITHUB_STEP_SUMMARY
+          fi
+      - name: Check if version already exists
+        if: steps.calculate_version.outputs.new_tag
+        id: version_check
+        run: |
+          NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
+          NEW_TAG="${{ steps.calculate_version.outputs.new_tag }}"
+
+          # Fetch all tags to ensure we have the latest
+          git fetch --tags --force
+
+          # Check if version exists on npm
+          NPM_EXISTS=false
+          if npm view @carrot-foundation/schemas@$NEW_VERSION version 2>/dev/null; then
+            NPM_EXISTS=true
+          fi
+
+          # Check if git tag exists (local or remote)
+          GIT_TAG_EXISTS=false
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1 || git rev-parse "refs/tags/$NEW_TAG" >/dev/null 2>&1; then
+            GIT_TAG_EXISTS=true
+          fi
+
+          # Case 1: Both exist - version is already fully released
+          if [ "$NPM_EXISTS" = "true" ] && [ "$GIT_TAG_EXISTS" = "true" ]; then
+            echo "::notice::Version $NEW_VERSION already fully released (exists on both npm and as git tag). Skipping publish."
+            echo "skip_publish=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Case 2: npm exists but git tag doesn't - try to fix by creating the tag
+          if [ "$NPM_EXISTS" = "true" ] && [ "$GIT_TAG_EXISTS" = "false" ]; then
+            echo "::warning::Version $NEW_VERSION exists on npm but git tag $NEW_TAG is missing. Attempting to fix inconsistent state..."
+            
+            VERSION_COMMIT=""
+            
+            # Strategy 1: Check if current package.json has this version (use current HEAD)
+            if [ -f package.json ]; then
+              CURRENT_VERSION=$(node -p "require('./package.json').version" 2>/dev/null || echo "")
+              if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then
+                VERSION_COMMIT=$(git rev-parse HEAD)
+                echo "::notice::Current package.json has version $NEW_VERSION. Using current HEAD: $VERSION_COMMIT"
+              fi
+            fi
+            
+            # Strategy 2: Search commit messages for version bump
+            if [ -z "$VERSION_COMMIT" ]; then
+              VERSION_COMMIT=$(git log --all --grep="bump version to $NEW_VERSION" --format=%H -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via message search: $VERSION_COMMIT"
+            fi
+            
+            # Strategy 3: Search for version string in package.json changes
+            if [ -z "$VERSION_COMMIT" ]; then
+              VERSION_COMMIT=$(git log --all -S "\"version\": \"$NEW_VERSION\"" --format=%H -- package.json | head -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via package.json content search: $VERSION_COMMIT"
+            fi
+            
+            # Strategy 4: Search for version without quotes (handles different formatting)
+            if [ -z "$VERSION_COMMIT" ]; then
+              VERSION_COMMIT=$(git log --all -S "version.*$NEW_VERSION" --format=%H -- package.json | head -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via pattern search: $VERSION_COMMIT"
+            fi
+            
+            # Strategy 5: Search commits that mention the version number
+            if [ -z "$VERSION_COMMIT" ]; then
+              VERSION_COMMIT=$(git log --all --grep="$NEW_VERSION" --format=%H -1)
+              [ -n "$VERSION_COMMIT" ] && echo "::notice::Found commit via version number search: $VERSION_COMMIT"
+            fi
+            
+            if [ -n "$VERSION_COMMIT" ]; then
+              echo "::notice::Found commit $VERSION_COMMIT with version $NEW_VERSION. Creating missing tag..."
+              git tag "$NEW_TAG" "$VERSION_COMMIT"
+              git push origin "$NEW_TAG" || {
+                echo "::error::Failed to push tag. Tag created locally but push failed."
+                exit 1
+              }
+              echo "::notice::Successfully created and pushed tag $NEW_TAG. Inconsistent state fixed."
+              echo "skip_publish=true" >> $GITHUB_OUTPUT
+              exit 0
+            else
+              echo "::error::Version $NEW_VERSION exists on npm but git tag $NEW_TAG is missing, and cannot find commit with this version."
+              echo "::error::Manual fix required: Find the commit that published $NEW_VERSION and create tag manually:"
+              echo "::error::  git tag $NEW_TAG <commit-sha>"
+              echo "::error::  git push origin $NEW_TAG"
+              echo "::error::Or if version was published manually without a commit, create tag at appropriate commit."
+              exit 1
+            fi
+          fi
+
+          # Case 3: Tag exists but npm doesn't - tag might have been created manually/in error
+          if [ "$NPM_EXISTS" = "false" ] && [ "$GIT_TAG_EXISTS" = "true" ]; then
+            echo "::warning::Git tag $NEW_TAG exists but version $NEW_VERSION is not on npm. Tag may have been created manually. Proceeding with publish to sync state."
+            echo "skip_publish=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Case 4: Neither exists - normal case, proceed with publish
+          echo "Version $NEW_VERSION is available for publishing"
+          echo "skip_publish=false" >> $GITHUB_OUTPUT
       - name: Build package and generate schemas
+        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
         env:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
           pnpm build
           pnpm generate-ipfs-schemas
       - name: Validate and verify schemas
+        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
         env:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
@@ -76,7 +202,7 @@ jobs:
           pnpm check-refs
           pnpm verify-schema-versions
       - name: Update package.json version
-        if: steps.calculate_version.outputs.new_tag
+        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
         id: version_update
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
@@ -87,8 +213,13 @@ jobs:
           echo "### ✅ Version $NEW_VERSION Published" >> $GITHUB_STEP_SUMMARY
           echo "- **Tag**: $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "- **Package**: [@carrot-foundation/schemas@$NEW_VERSION](https://www.npmjs.com/package/@carrot-foundation/schemas/v/$NEW_VERSION)" >> $GITHUB_STEP_SUMMARY
+      - name: Dry-run npm publish
+        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
+        run: pnpm publish --dry-run --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to npm
-        if: steps.calculate_version.outputs.new_tag
+        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
         id: npm_publish
         run: pnpm publish --access public --no-git-checks
         env:
@@ -97,10 +228,51 @@ jobs:
         if: steps.npm_publish.outcome == 'success'
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
-          git pull --rebase
-          git tag $NEW_VERSION
-          git push origin main
-          git push origin $NEW_VERSION
+          NEW_TAG="${{ steps.calculate_version.outputs.new_tag }}"
+          BRANCH="${{ github.event.workflow_run.head_branch || 'main' }}"
+
+          # Fetch latest changes and rebase our version commit on top
+          git fetch origin $BRANCH
+          git fetch --tags --force
+          git rebase origin/$BRANCH || {
+            echo "::error::Rebase failed - another commit was pushed to $BRANCH after workflow started"
+            echo "Attempting to abort rebase..."
+            git rebase --abort || true
+            exit 1
+          }
+
+          # Check if tag already exists
+          CURRENT_HEAD=$(git rev-parse HEAD)
+          TAG_EXISTS=false
+          TAG_NEEDS_UPDATE=false
+
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
+            TAG_EXISTS=true
+            TAG_COMMIT=$(git rev-parse "$NEW_TAG")
+            if [ "$TAG_COMMIT" != "$CURRENT_HEAD" ]; then
+              TAG_NEEDS_UPDATE=true
+            fi
+          fi
+
+          if [ "$TAG_EXISTS" = "true" ] && [ "$TAG_NEEDS_UPDATE" = "false" ]; then
+            echo "::notice::Tag $NEW_TAG already exists and points to current HEAD. Skipping tag creation."
+          elif [ "$TAG_EXISTS" = "true" ] && [ "$TAG_NEEDS_UPDATE" = "true" ]; then
+            echo "::warning::Tag $NEW_TAG exists but points to different commit ($TAG_COMMIT vs $CURRENT_HEAD). Updating tag to current HEAD."
+            git tag -f "$NEW_TAG" "$CURRENT_HEAD"
+          else
+            # Create tag at current HEAD (after rebase)
+            git tag "$NEW_TAG"
+          fi
+
+          # Push branch and tag
+          git push origin $BRANCH
+
+          # Push tag (with force only if we updated an existing tag)
+          if [ "$TAG_NEEDS_UPDATE" = "true" ]; then
+            git push origin "$NEW_TAG" --force
+          else
+            git push origin "$NEW_TAG"
+          fi
       - name: Create GitHub Release
         if: steps.npm_publish.outcome == 'success'
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0

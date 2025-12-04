@@ -3,7 +3,7 @@ import type {
   GasIDReference,
   MassIDReference,
   MethodologyReference,
-} from '../../shared/references';
+} from '../../shared';
 
 export const validAuditReference: AuditReference = {
   date: '2025-06-24',

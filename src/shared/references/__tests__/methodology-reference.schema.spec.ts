@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { MethodologyReferenceSchema } from '../methodology-reference.schema';
-import { validMethodologyReference } from '../../../test-utils/fixtures';
+import { validMethodologyReference } from '../../../test-utils';
 
 describe('MethodologyReferenceSchema', () => {
   it('validates valid methodology reference successfully', () => {

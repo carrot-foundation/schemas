@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { MassIDReferenceSchema } from '../mass-id-reference.schema';
-import { validMassIDReference } from '../../../test-utils/fixtures';
+import { validMassIDReference } from '../../../test-utils';
 
 describe('MassIDReferenceSchema', () => {
   it('validates valid MassID reference successfully', () => {

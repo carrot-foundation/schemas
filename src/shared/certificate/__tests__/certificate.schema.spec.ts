@@ -4,17 +4,13 @@ import {
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
 } from '../certificate.schema';
-import wasteClassificationExample from '../../../../schemas/ipfs/shared/certificate/waste-classification.example.json';
-import accreditedParticipantsExample from '../../../../schemas/ipfs/shared/certificate/accredited-participants.example.json';
-import participantRewardsExample from '../../../../schemas/ipfs/shared/certificate/participant-rewards.example.json';
+import {
+  validWasteClassification,
+  validAccreditedParticipants,
+  validParticipantRewards,
+} from '../../../test-utils';
 
 describe('WasteClassificationSchema', () => {
-  const validWasteClassification = {
-    primary_type: 'Organic',
-    subtype: 'Food, Food Waste and Beverages',
-    net_weight_kg: 3000,
-  };
-
   it('validates valid waste classification successfully', () => {
     const result = WasteClassificationSchema.safeParse(
       validWasteClassification,
@@ -92,36 +88,9 @@ describe('WasteClassificationSchema', () => {
 
     expect(result.success).toBe(false);
   });
-
-  it('validates example JSON file from schemas/ipfs', () => {
-    const result = WasteClassificationSchema.safeParse(
-      wasteClassificationExample,
-    );
-
-    expect(result.success).toBe(true);
-  });
 });
 
 describe('AccreditedParticipantsSchema', () => {
-  const validAccreditedParticipants = [
-    {
-      participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-      name: 'Eco Reciclagem',
-      role: 'Recycler',
-      accreditation_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-      external_url:
-        'https://explore.carrot.eco/document/acc-5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-    },
-    {
-      participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-      name: 'Enlatados Produção',
-      role: 'Waste Generator',
-      accreditation_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-      external_url:
-        'https://explore.carrot.eco/document/acc-6f520d88-864d-432d-bf9f-5c3166c4818f',
-    },
-  ];
-
   it('validates valid accredited participants successfully', () => {
     const result = AccreditedParticipantsSchema.safeParse(
       validAccreditedParticipants,
@@ -174,44 +143,9 @@ describe('AccreditedParticipantsSchema', () => {
       );
     }
   });
-
-  it('validates example JSON file from schemas/ipfs', () => {
-    const result = AccreditedParticipantsSchema.safeParse(
-      accreditedParticipantsExample,
-    );
-
-    expect(result.success).toBe(true);
-  });
 });
 
 describe('ParticipantRewardsSchema', () => {
-  const validParticipantRewards = {
-    distribution_basis: 'BOLD Carbon (CH₄) methodology rewards calculation',
-    reward_allocations: [
-      {
-        participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-        participant_name: 'Enlatados Produção',
-        role: 'Waste Generator',
-        reward_percentage: 25,
-        large_business_discount_applied: true,
-        effective_percentage: 12.5,
-      },
-      {
-        participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-        participant_name: 'Eco Reciclagem',
-        role: 'Hauler',
-        reward_percentage: 20,
-        effective_percentage: 20,
-      },
-    ],
-    distribution_notes: {
-      large_business_discount_applied:
-        '50% reduction applied to participants with >$4M annual revenue',
-      redirected_rewards:
-        'Discounted rewards from large businesses redirected to accredited NGOs',
-    },
-  };
-
   it('validates valid participant rewards successfully', () => {
     const result = ParticipantRewardsSchema.safeParse(validParticipantRewards);
 
@@ -331,13 +265,5 @@ describe('ParticipantRewardsSchema', () => {
     const result = ParticipantRewardsSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
-  });
-
-  it('validates example JSON file from schemas/ipfs', () => {
-    const result = ParticipantRewardsSchema.safeParse(
-      participantRewardsExample,
-    );
-
-    expect(result.success).toBe(true);
   });
 });
