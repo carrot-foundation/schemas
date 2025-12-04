@@ -97,7 +97,7 @@ For a higher-level overview of timestamp and date conventions across the project
   - Always include protocol (https:// or http://)
   - Use for: `external_url`, external links
 - **Schema references**: Use GitHub raw URLs with appropriate ref
-  - Development: `"https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/..."`
+  - Development: `"https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/..."`
   - Production: `"https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.27/..."`
 
 ### Numeric Values

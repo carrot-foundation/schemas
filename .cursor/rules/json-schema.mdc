@@ -121,11 +121,11 @@ schemas/*/v*/: JSON schema files
 
 - Use GitHub raw URLs for `$id` and `$schema` references
 - **Versioning patterns** (determined by `SCHEMA_VERSION` environment variable):
-  - **Development builds**: `refs/heads/main` (default when `SCHEMA_VERSION` not set or set to `0.0.0-dev`)
+  - **All builds (including development)**: `refs/tags/{version}` where version defaults to `0.0.0-dev` when `SCHEMA_VERSION` is not set
   - **Production builds**: `refs/tags/{version}` (e.g., `refs/tags/0.1.27`)
 - Pattern: `https://raw.githubusercontent.com/carrot-foundation/schemas/{ref}/{path}`
 - Examples:
-  - Dev: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json`
+  - Dev: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/schemas/ipfs/mass-id/mass-id.schema.json`
   - Prod: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.27/schemas/ipfs/mass-id/mass-id.schema.json`
 - Version is automatically injected during build process via scripts
 

@@ -4,7 +4,7 @@ Create PR following project conventions with critical analysis.
 
 ## Usage
 
-```
+```bash
 /create-pr [base-branch]
 ```
 
@@ -22,24 +22,24 @@ Create PR following project conventions with critical analysis.
 
 Output analysis per `@pull-request.mdc`:
 
-**Size assessment:**
+#### Size assessment
 
 - Lines/files changed vs limits
-- Reasonable or needs split?
+- Reasonable or should be split?
 
-**Clarity assessment:**
+#### Clarity assessment
 
 - Commit message quality
 - Business value clarity
 - Testing requirements
 
-**Red flags:**
+#### Red flags
 
 - Scope: >400 lines or >20 files? → Suggest splits
 - Clarity: Vague commits/value? → Demand clarification
 - Quality: No tests? Breaking changes? → Question approach
 
-**Do not proceed until clear or questions answered**
+#### Do not proceed until clear or questions answered
 
 ### 3. Create Description
 
