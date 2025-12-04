@@ -60,6 +60,10 @@
     "prepare": "husky",
     "prepublishOnly": "pnpm build",
     "spell-check": "cspell lint --no-must-find-files \"src/**/*\"",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
     "type-check": "tsc --noEmit",
     "validate-schemas": "node scripts/validate-schemas.js",
     "verify-schema-versions": "node scripts/verify-schema-versions.js"
@@ -74,10 +78,13 @@
     "@eslint/js": "9.39.1",
     "@tsconfig/recommended": "1.0.13",
     "@types/node": "24.10.1",
+    "@vitest/coverage-v8": "4.0.15",
+    "@vitest/ui": "4.0.15",
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1",
     "cspell": "9.4.0",
     "eslint": "9.39.1",
+    "eslint-plugin-vitest-globals": "1.5.0",
     "glob": "13.0.0",
     "globals": "16.5.0",
     "husky": "9.1.7",
@@ -88,7 +95,8 @@
     "prettier": "3.7.4",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.48.1"
+    "typescript-eslint": "8.48.1",
+    "vitest": "4.0.15"
   },
   "publishConfig": {
     "access": "public"

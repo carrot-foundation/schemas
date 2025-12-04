@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
+import vitestGlobals from 'eslint-plugin-vitest-globals';
 
 export default defineConfig([
   {
@@ -15,6 +16,17 @@ export default defineConfig([
       globals: {
         ...globals.node,
         ...globals.es2022,
+      },
+    },
+  },
+  {
+    files: ['**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}'],
+    plugins: {
+      vitest: vitestGlobals,
+    },
+    languageOptions: {
+      globals: {
+        ...vitestGlobals.environments.env.globals,
       },
     },
   },

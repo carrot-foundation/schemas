@@ -68,6 +68,44 @@ SCHEMA_VERSION=1.2.3 pnpm generate-ipfs-schemas
 SCHEMA_VERSION=1.2.3 pnpm verify-schema-versions
 ```
 
+### Testing
+
+```bash
+# Run all tests once
+pnpm test
+
+# Run tests in watch mode (useful during development)
+pnpm test:watch
+
+# Run tests with coverage report
+pnpm test:coverage
+
+# Open Vitest UI for interactive testing
+pnpm test:ui
+```
+
+**Test Structure:**
+
+- Tests are placed in `__tests__/` folders next to their source files
+- Test file names match source file names with `.spec.ts` suffix (NOT `.test.ts`)
+- Example: `src/mass-id/mass-id.schema.ts` → `src/mass-id/__tests__/mass-id.schema.spec.ts`
+
+**Coverage Requirements:**
+
+- **100% coverage thresholds** for branches, functions, lines, and statements
+- All schema validation logic must be tested
+- Edge cases must be covered (empty arrays, optional fields, invalid data, boundary values)
+
+**Testing Patterns:**
+
+- Use centralized fixtures from `src/test-utils/fixtures/`
+- Test both valid and invalid inputs for every schema
+- Use `.safeParse()` for Zod schema validation tests
+- Validate type inference in tests
+- Test example JSON files from `schemas/ipfs/` for integration validation
+
+See `.cursor/rules/testing.mdc` for comprehensive testing guidance and patterns.
+
 ## Architecture
 
 ### Source Structure
@@ -232,6 +270,7 @@ Every JSON schema must include:
 
 Detailed guidance for specific scenarios is available in `.cursor/rules/`:
 
+- **`testing.mdc`**: Testing patterns, fixture structure, coverage requirements, and Vitest standards
 - **`zod.mdc`**: Comprehensive Zod schema authoring patterns and checklist
 - **`json-schema.mdc`**: JSON Schema structure and validation requirements
 - **`json.mdc`**: JSON data formatting conventions and type patterns
