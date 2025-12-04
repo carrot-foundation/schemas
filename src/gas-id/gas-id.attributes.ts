@@ -162,7 +162,7 @@ export type GasIDAttributeRecycler = z.infer<
 const GasIDAttributeMassIDTokenIdSchema = NftAttributeSchema.extend({
   trait_type: z.literal('MassID'),
   value: NonEmptyStringSchema.regex(
-    /^#[0-9]+$/,
+    /^#\d+$/,
     'Must match pattern #<token_id>',
   ).meta({
     title: 'MassID Token ID Value',
