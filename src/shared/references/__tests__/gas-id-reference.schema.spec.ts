@@ -1,10 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { GasIDReferenceSchema } from '../gas-id-reference.schema';
-import { validGasIDReference } from '../../../test-utils/fixtures';
+import { validGasIDReference } from '../../../test-utils';
+import exampleJson from '../../../../schemas/ipfs/shared/references/gas-id-reference/gas-id-reference.example.json';
 
 describe('GasIDReferenceSchema', () => {
   it('validates valid GasID reference successfully', () => {
     const result = GasIDReferenceSchema.safeParse(validGasIDReference);
+
+    expect(result.success).toBe(true);
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { $schema, ...data } = exampleJson;
+    const result = GasIDReferenceSchema.safeParse(data);
 
     expect(result.success).toBe(true);
   });

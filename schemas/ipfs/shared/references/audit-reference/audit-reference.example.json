@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/references/audit-reference/audit-reference.schema.json",
   "date": "2025-06-24",
   "external_id": "a1b2c3d4-e5f6-4890-8234-567890abcdef",
   "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef",

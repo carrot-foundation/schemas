@@ -1,11 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { MassIDReferenceSchema } from '../mass-id-reference.schema';
-import { validMassIDReference } from '../../../test-utils/fixtures';
+import { validMassIDReference } from '../../../test-utils';
+import exampleJson from '../../../../schemas/ipfs/shared/references/mass-id-reference/mass-id-reference.example.json';
 
 describe('MassIDReferenceSchema', () => {
   it('validates valid MassID reference successfully', () => {
     const result = MassIDReferenceSchema.safeParse(validMassIDReference);
 
+    expect(result.success).toBe(true);
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { $schema, ...data } = exampleJson;
+    const result = MassIDReferenceSchema.safeParse(data);
     expect(result.success).toBe(true);
   });
 

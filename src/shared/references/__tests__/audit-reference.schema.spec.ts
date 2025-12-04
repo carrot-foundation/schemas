@@ -3,12 +3,20 @@ import {
   AuditReferenceSchema,
   MethodologyComplianceSchema,
 } from '../audit-reference.schema';
-import { validAuditReference } from '../../../test-utils/fixtures';
-import exampleJson from '../../../../schemas/ipfs/shared/references/audit-reference/example.json';
+import { validAuditReference } from '../../../test-utils';
+import exampleJson from '../../../../schemas/ipfs/shared/references/audit-reference/audit-reference.example.json';
 
 describe('AuditReferenceSchema', () => {
   it('validates valid audit reference successfully', () => {
     const result = AuditReferenceSchema.safeParse(validAuditReference);
+
+    expect(result.success).toBe(true);
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { $schema, ...data } = exampleJson;
+    const result = AuditReferenceSchema.safeParse(data);
 
     expect(result.success).toBe(true);
   });
@@ -165,12 +173,6 @@ describe('AuditReferenceSchema', () => {
     const result = AuditReferenceSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
-  });
-
-  it('validates example JSON file from schemas/ipfs', () => {
-    const result = AuditReferenceSchema.safeParse(exampleJson);
-
-    expect(result.success).toBe(true);
   });
 });
 

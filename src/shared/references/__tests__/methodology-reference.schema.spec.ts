@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { MethodologyReferenceSchema } from '../methodology-reference.schema';
-import { validMethodologyReference } from '../../../test-utils/fixtures';
+import { validMethodologyReference } from '../../../test-utils';
+import exampleJson from '../../../../schemas/ipfs/shared/references/methodology-reference/methodology-reference.example.json';
 
 describe('MethodologyReferenceSchema', () => {
   it('validates valid methodology reference successfully', () => {
@@ -8,6 +9,13 @@ describe('MethodologyReferenceSchema', () => {
       validMethodologyReference,
     );
 
+    expect(result.success).toBe(true);
+  });
+
+  it('validates example JSON file from schemas/ipfs', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { $schema, ...data } = exampleJson;
+    const result = MethodologyReferenceSchema.safeParse(data);
     expect(result.success).toBe(true);
   });
 
