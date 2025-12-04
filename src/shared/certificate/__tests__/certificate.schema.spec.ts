@@ -8,7 +8,7 @@ import {
   validWasteClassification,
   validAccreditedParticipants,
   validParticipantRewards,
-} from '../../../test-utils/fixtures';
+} from '../../../test-utils';
 
 describe('WasteClassificationSchema', () => {
   it('validates valid waste classification successfully', () => {
