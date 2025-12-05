@@ -44,7 +44,7 @@ const fieldName = z.string().meta({
 
 - **Use `examples` (plural array) by default** to show variety and valid options
 - **Use `example` (singular) only** for canonical patterns or when one example is sufficient
-- **2-4 examples** is typically optimal for showing variety
+- **2–4 examples** is typically optimal for showing variety without overwhelming—adjust based on domain complexity and the number of valid enum values or distinct use cases.
 
 ```typescript
 // ✅ Multiple examples showing variety
@@ -429,7 +429,7 @@ Extract array schemas with extra logic (like `uniqueBy()` wrappers) based on com
 
 **Keep inline when:**
 
-1. **Simple wrapper** - Just `uniqueBy()` or `uniqueArrayItems()` with basic constraints
+1. **Simple wrapper** - Just `uniqueBy()` or `uniqueArrayItems()` with basic constraints (typically 1–4 item schemas)
 
    ```typescript
    // ✅ Keep inline - Simple wrapper
