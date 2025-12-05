@@ -37,6 +37,15 @@ Core Rules
   - Technical/system values: lowercase (e.g., 'mainnet')
   - Constants: UPPERCASE (e.g., 'TEST')
 - Examples in meta should be realistic and representative of production data.
+- Example usage:
+  - Use `examples` (plural array) by default to show variety
+  - Use `example` (singular) only for canonical patterns or when one is sufficient
+  - Add array/object examples for complex nested structures
+  - Rely on item schema examples for simple arrays of primitives
+- Schema extraction:
+  - Extract when: reusable (2+ uses), complex (3+ fields), domain entity, or needs testing
+  - Keep inline when: simple primitive, schema-specific enum, or single-field wrapper
+  - Extract array schemas based on complexity (union types, domain constraints), not just wrapper functions
 - Never manually edit files in schemas/. Generate from Zod via build + generation.
 
 Versioning and Interop Notes
@@ -119,6 +128,9 @@ Author Checklist
 - Schema export name ends with Schema; type export name omits Schema.
 - Timestamps and dates follow repository conventions.
 - Layered composition via .safeExtend() aligns with Base → NFT → type-specific.
+- Examples use `examples` (plural) by default; `example` (singular) only for canonical patterns.
+- Array/object examples provided for complex nested structures; item examples sufficient for simple arrays.
+- Schema extraction decisions based on reusability, complexity, and domain cohesion.
 - No manual edits in schemas/; run:
   - pnpm build
   - pnpm generate-ipfs-schemas
@@ -130,6 +142,9 @@ Reviewer Checklist
 - snake_case property names; enums follow title/lower/UPPERCASE conventions.
 - Composition pattern (Base → NFT → type-specific) is followed; .safeExtend used.
 - No custom refine() unless necessary for cross-field/domain logic.
+- Example usage follows guidelines (plural for variety, singular for canonical patterns).
+- Array/object examples provided where complex structures benefit from full examples.
+- Schema extraction decisions are appropriate (complex/reusable extracted, simple inline).
 - Generated JSON Schemas include required fields and constraints per json-schema rules.
 - Build and schema generation commands pass locally/CI.
 
