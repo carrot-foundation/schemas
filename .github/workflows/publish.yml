@@ -64,6 +64,7 @@ jobs:
           github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
           default_bump: patch
           dry_run: true
+          tag_prefix: ''
           custom_release_rules: |
             *:patch:Patch Release
             feat:minor:Minor Release
@@ -79,9 +80,9 @@ jobs:
             revert:patch:Reverts
       - name: Show calculated version
         run: |
-          if [ -n "${{ steps.calculate_version.outputs.new_tag }}" ]; then
+          if [ -n "${{ steps.calculate_version.outputs.new_version }}" ]; then
             echo "### 🚀 Publishing version ${{ steps.calculate_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
-            echo "- Current version: ${{ steps.calculate_version.outputs.previous_tag }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Current version: ${{ steps.calculate_version.outputs.previous_version }}" >> $GITHUB_STEP_SUMMARY
             echo "- New version: ${{ steps.calculate_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
           else
             echo "### ℹ️ No new version to publish" >> $GITHUB_STEP_SUMMARY
@@ -89,11 +90,11 @@ jobs:
             echo "Workflow will exit without publishing" >> $GITHUB_STEP_SUMMARY
           fi
       - name: Check if version already exists
-        if: steps.calculate_version.outputs.new_tag
+        if: steps.calculate_version.outputs.new_version
         id: version_check
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
-          NEW_TAG="${{ steps.calculate_version.outputs.new_tag }}"
+          NEW_TAG="$NEW_VERSION"
 
           # Fetch all tags to ensure we have the latest
           git fetch --tags --force
@@ -187,14 +188,14 @@ jobs:
           echo "Version $NEW_VERSION is available for publishing"
           echo "skip_publish=false" >> $GITHUB_OUTPUT
       - name: Build package and generate schemas
-        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
+        if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         env:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
           pnpm build
           pnpm generate-ipfs-schemas
       - name: Validate and verify schemas
-        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
+        if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         env:
           SCHEMA_VERSION: ${{ steps.calculate_version.outputs.new_version }}
         run: |
@@ -202,7 +203,7 @@ jobs:
           pnpm check-refs
           pnpm verify-schema-versions
       - name: Update package.json version
-        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
+        if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         id: version_update
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
@@ -214,12 +215,12 @@ jobs:
           echo "- **Tag**: $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "- **Package**: [@carrot-foundation/schemas@$NEW_VERSION](https://www.npmjs.com/package/@carrot-foundation/schemas/v/$NEW_VERSION)" >> $GITHUB_STEP_SUMMARY
       - name: Dry-run npm publish
-        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
+        if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         run: pnpm publish --dry-run --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to npm
-        if: steps.calculate_version.outputs.new_tag && steps.version_check.outputs.skip_publish != 'true'
+        if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         id: npm_publish
         run: pnpm publish --access public --no-git-checks
         env:
@@ -228,7 +229,7 @@ jobs:
         if: steps.npm_publish.outcome == 'success'
         run: |
           NEW_VERSION="${{ steps.calculate_version.outputs.new_version }}"
-          NEW_TAG="${{ steps.calculate_version.outputs.new_tag }}"
+          NEW_TAG="$NEW_VERSION"
           BRANCH="${{ github.event.workflow_run.head_branch || 'main' }}"
 
           # Fetch latest changes and rebase our version commit on top
@@ -277,7 +278,7 @@ jobs:
         if: steps.npm_publish.outcome == 'success'
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
         with:
-          tag_name: ${{ steps.calculate_version.outputs.new_tag }}
+          tag_name: ${{ steps.calculate_version.outputs.new_version }}
           name: Release ${{ steps.calculate_version.outputs.new_version }}
           body: ${{ steps.calculate_version.outputs.changelog }}
           draft: false
