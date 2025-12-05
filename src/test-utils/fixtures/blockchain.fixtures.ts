@@ -14,20 +14,6 @@ export const minimalBlockchainReferenceStub: BlockchainReference = {
 };
 
 /**
- * Polygon blockchain reference fixture for testing.
- *
- * Represents blockchain metadata for the Polygon network.
- * Used in tests to validate blockchain reference schema validation and
- * as a component of NFT fixtures that require blockchain information.
- */
-export const polygonBlockchainReferenceFixture: BlockchainReference = {
-  smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
-  chain_id: 137,
-  network_name: 'Polygon',
-  token_id: '123',
-};
-
-/**
  * Creates a blockchain reference fixture with optional overrides.
  *
  * @param overrides - Optional partial blockchain reference to override default values

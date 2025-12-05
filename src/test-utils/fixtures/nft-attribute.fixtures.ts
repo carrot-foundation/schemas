@@ -12,17 +12,6 @@ export const minimalNftAttributeStub: NftAttribute = {
 };
 
 /**
- * Valid NFT attribute fixture with string value for testing.
- *
- * Represents a complete NFT attribute with string value that satisfies the NFT attribute schema.
- * Used in tests to validate NFT attribute schema parsing and validation.
- */
-export const validNftAttributeStringFixture: NftAttribute = {
-  trait_type: 'Type',
-  value: 'Organic',
-};
-
-/**
  * Valid NFT attribute fixture with number value for testing.
  *
  * Represents a complete NFT attribute with number value that satisfies the NFT attribute schema.
