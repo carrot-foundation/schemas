@@ -5,6 +5,12 @@ import type {
   MethodologyReference,
 } from '../../shared';
 
+/**
+ * Valid audit reference fixture for testing.
+ *
+ * Represents a complete audit reference that satisfies the audit reference schema.
+ * Used in tests to validate audit reference schema parsing and validation.
+ */
 export const validAuditReference: AuditReference = {
   date: '2025-06-24',
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
@@ -15,6 +21,12 @@ export const validAuditReference: AuditReference = {
   report: 'ipfs://QmVerificationHash/mass-id-audit.json',
 };
 
+/**
+ * Valid GasID reference fixture for testing.
+ *
+ * Represents a complete GasID reference that satisfies the GasID reference schema.
+ * Used in tests to validate GasID reference schema parsing and validation.
+ */
 export const validGasIDReference: GasIDReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
   token_id: '456',
@@ -23,6 +35,12 @@ export const validGasIDReference: GasIDReference = {
   uri: 'ipfs://QmGasIDHash456/gas-id.json',
 };
 
+/**
+ * Valid MassID reference fixture for testing.
+ *
+ * Represents a complete MassID reference that satisfies the MassID reference schema.
+ * Used in tests to validate MassID reference schema parsing and validation.
+ */
 export const validMassIDReference: MassIDReference = {
   external_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
   token_id: '123',
@@ -31,6 +49,12 @@ export const validMassIDReference: MassIDReference = {
   uri: 'ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json',
 };
 
+/**
+ * Valid methodology reference fixture for testing.
+ *
+ * Represents a complete methodology reference that satisfies the methodology reference schema.
+ * Used in tests to validate methodology reference schema parsing and validation.
+ */
 export const validMethodologyReference: MethodologyReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d480',
   name: 'BOLD Carbon (CH₄)',

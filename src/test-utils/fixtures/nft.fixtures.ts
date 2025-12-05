@@ -1,6 +1,12 @@
 import type { NftIpfs } from '../../shared/nft.schema';
 import { polygonBlockchain } from './blockchain.fixtures';
 
+/**
+ * Minimal valid NFT IPFS record fixture for testing.
+ *
+ * Represents a complete NFT IPFS metadata record that satisfies the NFT schema.
+ * Used in tests to validate NFT schema parsing and type inference.
+ */
 export const minimalValidNft: NftIpfs = {
   $schema:
     'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/nft/nft.schema.json',
