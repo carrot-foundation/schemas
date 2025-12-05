@@ -37,6 +37,59 @@ Naming Conventions
 - Use descriptive `describe` blocks for schema/function grouping.
 - Use clear `it` statements describing what is being tested.
 
+Fixture Naming Conventions
+
+- **Static Fixtures (Constants)**: Use format `[descriptor][TypeName]Fixture` or `[descriptor][TypeName]Stub`
+  - `Fixture` suffix: Complete, realistic test data representing valid instances
+  - `Stub` suffix: Minimal test data with only required fields
+  - Always include the TypeScript type name in the fixture name
+  - Use descriptive prefixes for variants (e.g., `valid`, `minimal`, `invalid`, `polygon`)
+  - Examples:
+    - `polygonBlockchainReferenceFixture: BlockchainReference`
+    - `minimalNftIpfsFixture: NftIpfs`
+    - `validAuditReferenceFixture: AuditReference`
+    - `minimalBlockchainReferenceStub: BlockchainReference`
+
+- **Factory Functions**: Use format `create[TypeName]Fixture(overrides?)`
+  - Use `create` prefix followed by the TypeScript type name
+  - Accept optional `overrides` parameter for customization
+  - Return typed fixture data
+  - Examples:
+    - `createBlockchainReferenceFixture(overrides?: Partial<BlockchainReference>): BlockchainReference`
+    - `createNftIpfsFixture(overrides?: Partial<NftIpfs>): NftIpfs`
+
+- **When to Use Each**:
+  - `Fixture`: Complete, realistic test data for validation tests
+  - `Stub`: Minimal required fields only, useful for testing optional fields
+  - Factory Function: When you need to generate variations with custom overrides
+
+- **Complete Pattern Example**:
+
+  ```typescript
+  // Static fixtures
+  export const polygonBlockchainReferenceFixture: BlockchainReference = { ... };
+  export const minimalBlockchainReferenceStub: BlockchainReference = { ... };
+
+  // Factory function
+  export function createBlockchainReferenceFixture(
+    overrides?: Partial<BlockchainReference>
+  ): BlockchainReference {
+    return {
+      ...minimalBlockchainReferenceStub,
+      ...overrides,
+    };
+  }
+  ```
+
+- **Avoid Nested Fixtures**: Each schema MUST have its own fixture/stub file
+  - DO NOT define nested objects inline within fixtures
+  - DO create separate fixture files for each exported schema type
+  - DO reuse fixtures from other schemas when composing complex fixtures
+  - Example: `NftAttributeSchema` should have its own `nft-attribute.fixtures.ts` file
+  - Example: `ExternalLinkSchema` should have its own `external-link.fixtures.ts` file
+  - When creating `NftIpfs` fixtures, import and reuse `NftAttribute` and `ExternalLink` fixtures instead of defining them inline
+  - This ensures fixtures are reusable, maintainable, and testable independently
+
 Coverage Requirements
 
 - 100% coverage thresholds for branches, functions, lines, and statements.
@@ -64,7 +117,7 @@ Import Patterns
 - Import example JSON files from `schemas/ipfs/` for integration tests.
 - Example:
   ```typescript
-  import { minimalValidNft } from '../../test-utils/fixtures';
+  import { minimalNftIpfsFixture } from '../../test-utils/fixtures';
   import { MassIDIpfsSchema } from '../mass-id.schema';
   import exampleJson from '../../../schemas/ipfs/mass-id/mass-id.example.json';
   ```
@@ -81,30 +134,30 @@ Test Structure Example
 ```typescript
 import { describe, it, expect } from 'vitest';
 import { SomeSchema } from '../some.schema';
-import { someFixture } from '../../test-utils/fixtures';
+import { validSomeTypeFixture } from '../../test-utils/fixtures';
 
 describe('SomeSchema', () => {
   it('validates valid data successfully', () => {
-    const result = SomeSchema.safeParse(someFixture);
+    const result = SomeSchema.safeParse(validSomeTypeFixture);
 
     expect(result.success).toBe(true);
   });
 
   it('rejects invalid data', () => {
-    const invalid = { ...someFixture, invalidField: 'invalid' };
+    const invalid = { ...validSomeTypeFixture, invalidField: 'invalid' };
     const result = SomeSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
 
   it('validates type inference works correctly', () => {
-    const result = SomeSchema.safeParse(someFixture);
+    const result = SomeSchema.safeParse(validSomeTypeFixture);
 
     expect(result.success).toBe(true);
-    
+
     if (result.success) {
       const data: typeof result.data = result.data;
-      
+
       expect(data.someField).toBeDefined();
     }
   });
