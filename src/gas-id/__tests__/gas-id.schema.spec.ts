@@ -10,7 +10,13 @@ describe('GasIDIpfsSchema', () => {
   });
 
   it('rejects invalid data', () => {
-    const invalid = { ...exampleJson, tokenId: 'invalid' };
+    const invalid = {
+      ...exampleJson,
+      blockchain: {
+        ...exampleJson.blockchain,
+        token_id: 'invalid',
+      },
+    };
     const result = GasIDIpfsSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);

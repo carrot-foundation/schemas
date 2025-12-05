@@ -8,6 +8,18 @@ import type {
 } from '../../shared';
 
 /**
+ * Minimal waste classification stub for testing.
+ *
+ * Contains only required fields for waste classification schema validation.
+ * Used as a base for creating custom waste classification fixtures in tests.
+ */
+export const minimalWasteClassificationStub: WasteClassification = {
+  primary_type: 'Organic',
+  subtype: 'Food, Food Waste and Beverages',
+  net_weight_kg: 3000,
+};
+
+/**
  * Valid waste classification fixture for testing.
  *
  * Represents a complete waste classification that satisfies the waste classification schema.
@@ -17,6 +29,36 @@ export const validWasteClassificationFixture: WasteClassification = {
   primary_type: 'Organic',
   subtype: 'Food, Food Waste and Beverages',
   net_weight_kg: 3000,
+};
+
+/**
+ * Creates a waste classification fixture with optional overrides.
+ *
+ * @param overrides - Optional partial waste classification to override default values
+ * @returns A complete waste classification fixture
+ */
+export function createWasteClassificationFixture(
+  overrides?: Partial<WasteClassification>,
+): WasteClassification {
+  return {
+    ...minimalWasteClassificationStub,
+    ...overrides,
+  };
+}
+
+/**
+ * Minimal accredited participant stub for testing.
+ *
+ * Contains only required fields for accredited participant schema validation.
+ * Used as a base for creating custom accredited participant fixtures in tests.
+ */
+export const minimalAccreditedParticipantStub: AccreditedParticipant = {
+  participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
+  name: 'Eco Reciclagem',
+  role: 'Recycler',
+  accreditation_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
+  external_url:
+    'https://explore.carrot.eco/document/acc-5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
 };
 
 /**
@@ -33,6 +75,31 @@ export const validAccreditedParticipantFixture: AccreditedParticipant = {
   external_url:
     'https://explore.carrot.eco/document/acc-5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
 };
+
+/**
+ * Creates an accredited participant fixture with optional overrides.
+ *
+ * @param overrides - Optional partial accredited participant to override default values
+ * @returns A complete accredited participant fixture
+ */
+export function createAccreditedParticipantFixture(
+  overrides?: Partial<AccreditedParticipant>,
+): AccreditedParticipant {
+  return {
+    ...minimalAccreditedParticipantStub,
+    ...overrides,
+  };
+}
+
+/**
+ * Minimal accredited participants stub for testing.
+ *
+ * Contains only the minimum required participants (one) for accredited participants schema validation.
+ * Used as a base for creating custom accredited participants fixtures in tests.
+ */
+export const minimalAccreditedParticipantsStub: AccreditedParticipants = [
+  minimalAccreditedParticipantStub,
+];
 
 /**
  * Valid accredited participants fixture for testing.
@@ -53,6 +120,32 @@ export const validAccreditedParticipantsFixture: AccreditedParticipants = [
 ];
 
 /**
+ * Creates an accredited participants fixture with optional overrides.
+ *
+ * @param overrides - Optional array of accredited participants to use instead of default
+ * @returns A complete accredited participants fixture
+ */
+export function createAccreditedParticipantsFixture(
+  overrides?: AccreditedParticipants,
+): AccreditedParticipants {
+  return overrides ?? validAccreditedParticipantsFixture;
+}
+
+/**
+ * Minimal reward allocation stub for testing.
+ *
+ * Contains only required fields for reward allocation schema validation.
+ * Used as a base for creating custom reward allocation fixtures in tests.
+ */
+export const minimalRewardAllocationStub: RewardAllocation = {
+  participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
+  participant_name: 'Eco Reciclagem',
+  role: 'Hauler',
+  reward_percentage: 20,
+  effective_percentage: 20,
+};
+
+/**
  * Valid reward allocation fixture for testing.
  *
  * Represents a complete reward allocation that satisfies the reward allocation schema.
@@ -65,6 +158,21 @@ export const validRewardAllocationFixture: RewardAllocation = {
   reward_percentage: 20,
   effective_percentage: 20,
 };
+
+/**
+ * Creates a reward allocation fixture with optional overrides.
+ *
+ * @param overrides - Optional partial reward allocation to override default values
+ * @returns A complete reward allocation fixture
+ */
+export function createRewardAllocationFixture(
+  overrides?: Partial<RewardAllocation>,
+): RewardAllocation {
+  return {
+    ...minimalRewardAllocationStub,
+    ...overrides,
+  };
+}
 
 /**
  * Valid reward allocation fixture with discount for testing.
@@ -82,6 +190,15 @@ export const validRewardAllocationWithDiscountFixture: RewardAllocation = {
 };
 
 /**
+ * Minimal distribution notes stub for testing.
+ *
+ * Contains only required fields for distribution notes schema validation.
+ * Since all fields are optional, this is an empty object.
+ * Used as a base for creating custom distribution notes fixtures in tests.
+ */
+export const minimalDistributionNotesStub: DistributionNotes = {};
+
+/**
  * Valid distribution notes fixture for testing.
  *
  * Represents a complete distribution notes object that satisfies the distribution notes schema.
@@ -92,6 +209,32 @@ export const validDistributionNotesFixture: DistributionNotes = {
     '50% reduction applied to participants with >$4M annual revenue',
   redirected_rewards:
     'Discounted rewards from large businesses redirected to accredited NGOs',
+};
+
+/**
+ * Creates a distribution notes fixture with optional overrides.
+ *
+ * @param overrides - Optional partial distribution notes to override default values
+ * @returns A complete distribution notes fixture
+ */
+export function createDistributionNotesFixture(
+  overrides?: Partial<DistributionNotes>,
+): DistributionNotes {
+  return {
+    ...minimalDistributionNotesStub,
+    ...overrides,
+  };
+}
+
+/**
+ * Minimal participant rewards stub for testing.
+ *
+ * Contains only required fields for participant rewards schema validation.
+ * Used as a base for creating custom participant rewards fixtures in tests.
+ */
+export const minimalParticipantRewardsStub: ParticipantRewards = {
+  distribution_basis: 'BOLD Carbon (CH₄) methodology rewards calculation',
+  reward_allocations: [minimalRewardAllocationStub],
 };
 
 /**
@@ -108,3 +251,18 @@ export const validParticipantRewardsFixture: ParticipantRewards = {
   ],
   distribution_notes: validDistributionNotesFixture,
 };
+
+/**
+ * Creates a participant rewards fixture with optional overrides.
+ *
+ * @param overrides - Optional partial participant rewards to override default values
+ * @returns A complete participant rewards fixture
+ */
+export function createParticipantRewardsFixture(
+  overrides?: Partial<ParticipantRewards>,
+): ParticipantRewards {
+  return {
+    ...minimalParticipantRewardsStub,
+    ...overrides,
+  };
+}
