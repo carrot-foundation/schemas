@@ -36,12 +36,12 @@ export const minimalNftIpfsStub: NftIpfs = {
 };
 
 /**
- * Minimal valid NFT IPFS record fixture for testing.
+ * Valid NFT IPFS record fixture for testing.
  *
  * Represents a complete NFT IPFS metadata record that satisfies the NFT schema.
  * Used in tests to validate NFT schema parsing and type inference.
  */
-export const minimalNftIpfsFixture: NftIpfs = {
+export const validNftIpfsFixture: NftIpfs = {
   $schema:
     'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/nft/nft.schema.json',
   schema: {

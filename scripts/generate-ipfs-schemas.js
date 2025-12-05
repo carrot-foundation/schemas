@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { MassIDIpfsSchema } from '../dist/index.js';
+import { MassIDIpfsSchema, GasIDIpfsSchema } from '../dist/index.js';
 import { toJSONSchema } from 'zod';
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -9,6 +9,10 @@ const schemas = [
   {
     fileName: 'mass-id.schema',
     schema: MassIDIpfsSchema,
+  },
+  {
+    fileName: 'gas-id.schema',
+    schema: GasIDIpfsSchema,
   },
 ];
 

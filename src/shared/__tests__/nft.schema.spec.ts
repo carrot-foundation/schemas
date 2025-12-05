@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { NftIpfsSchema } from '../nft.schema';
-import { minimalNftIpfsFixture } from '../../test-utils';
+import { validNftIpfsFixture } from '../../test-utils';
 
 describe('NftIpfsSchema', () => {
   it('rejects duplicate trait_type in attributes', () => {
     const invalid = {
-      ...minimalNftIpfsFixture,
+      ...validNftIpfsFixture,
       attributes: [
-        ...minimalNftIpfsFixture.attributes,
+        ...validNftIpfsFixture.attributes,
         {
           trait_type: 'Type',
           value: 'Plastic',
