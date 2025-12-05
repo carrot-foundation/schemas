@@ -3,18 +3,18 @@ import {
   AuditReferenceSchema,
   MethodologyComplianceSchema,
 } from '../audit-reference.schema';
-import { validAuditReference } from '../../../test-utils';
+import { validAuditReferenceFixture } from '../../../test-utils';
 
 describe('AuditReferenceSchema', () => {
   it('validates valid audit reference successfully', () => {
-    const result = AuditReferenceSchema.safeParse(validAuditReference);
+    const result = AuditReferenceSchema.safeParse(validAuditReferenceFixture);
 
     expect(result.success).toBe(true);
   });
 
   it('validates FAILED compliance status', () => {
     const failedAudit = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       methodology_compliance: 'FAILED' as const,
     };
     const result = AuditReferenceSchema.safeParse(failedAudit);
@@ -24,7 +24,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects missing date', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { date, ...withoutDate } = validAuditReference;
+    const { date, ...withoutDate } = validAuditReferenceFixture;
     const result = AuditReferenceSchema.safeParse(withoutDate);
 
     expect(result.success).toBe(false);
@@ -32,7 +32,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects missing external_id', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { external_id, ...withoutExternalId } = validAuditReference;
+    const { external_id, ...withoutExternalId } = validAuditReferenceFixture;
     const result = AuditReferenceSchema.safeParse(withoutExternalId);
 
     expect(result.success).toBe(false);
@@ -40,7 +40,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects missing external_url', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { external_url, ...withoutExternalUrl } = validAuditReference;
+    const { external_url, ...withoutExternalUrl } = validAuditReferenceFixture;
     const result = AuditReferenceSchema.safeParse(withoutExternalUrl);
 
     expect(result.success).toBe(false);
@@ -49,7 +49,7 @@ describe('AuditReferenceSchema', () => {
   it('rejects missing methodology_compliance', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { methodology_compliance, ...withoutCompliance } =
-      validAuditReference;
+      validAuditReferenceFixture;
     const result = AuditReferenceSchema.safeParse(withoutCompliance);
 
     expect(result.success).toBe(false);
@@ -57,7 +57,8 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects missing rules_executed', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { rules_executed, ...withoutRulesExecuted } = validAuditReference;
+    const { rules_executed, ...withoutRulesExecuted } =
+      validAuditReferenceFixture;
     const result = AuditReferenceSchema.safeParse(withoutRulesExecuted);
 
     expect(result.success).toBe(false);
@@ -65,7 +66,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects missing report', () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { report, ...withoutReport } = validAuditReference;
+    const { report, ...withoutReport } = validAuditReferenceFixture;
     const result = AuditReferenceSchema.safeParse(withoutReport);
 
     expect(result.success).toBe(false);
@@ -73,7 +74,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects invalid date format', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       date: '2025/06/24',
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -83,7 +84,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects invalid UUID for external_id', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       external_id: 'not-a-uuid',
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -93,7 +94,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects invalid URL for external_url', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       external_url: 'not-a-url',
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -103,7 +104,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects invalid compliance status', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       methodology_compliance: 'INVALID' as unknown as 'PASSED' | 'FAILED',
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -113,7 +114,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects negative rules_executed', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       rules_executed: -1,
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -123,7 +124,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects non-integer rules_executed', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       rules_executed: 21.5,
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -133,7 +134,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects invalid IPFS URI format', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       report: 'https://example.com/file.json',
     };
     const result = AuditReferenceSchema.safeParse(invalid);
@@ -142,15 +143,15 @@ describe('AuditReferenceSchema', () => {
   });
 
   it('validates type inference works correctly', () => {
-    const result = AuditReferenceSchema.safeParse(validAuditReference);
+    const result = AuditReferenceSchema.safeParse(validAuditReferenceFixture);
 
     expect(result.success).toBe(true);
 
     if (result.success) {
       const data: typeof result.data = result.data;
 
-      expect(data.date).toBe(validAuditReference.date);
-      expect(data.external_id).toBe(validAuditReference.external_id);
+      expect(data.date).toBe(validAuditReferenceFixture.date);
+      expect(data.external_id).toBe(validAuditReferenceFixture.external_id);
       expect(data.methodology_compliance).toBe('PASSED');
       expect(data.rules_executed).toBe(21);
     }
@@ -158,7 +159,7 @@ describe('AuditReferenceSchema', () => {
 
   it('rejects additional properties', () => {
     const invalid = {
-      ...validAuditReference,
+      ...validAuditReferenceFixture,
       extra_field: 'not allowed',
     };
     const result = AuditReferenceSchema.safeParse(invalid);
