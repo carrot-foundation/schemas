@@ -215,15 +215,24 @@ jobs:
           echo "### ✅ Version $NEW_VERSION Published" >> $GITHUB_STEP_SUMMARY
           echo "- **Tag**: $NEW_VERSION" >> $GITHUB_STEP_SUMMARY
           echo "- **Package**: [@carrot-foundation/schemas@$NEW_VERSION](https://www.npmjs.com/package/@carrot-foundation/schemas/v/$NEW_VERSION)" >> $GITHUB_STEP_SUMMARY
+      - name: Clear npm auth (use OIDC)
+        if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
+        run: |
+          rm -f ~/.npmrc
+          npm config delete //registry.npmjs.org/:_authToken || true
       - name: Dry-run npm publish
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         env:
+          NODE_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
           NPM_CONFIG_PROVENANCE: true
         run: pnpm publish --provenance --dry-run --access public --no-git-checks
       - name: Publish to npm
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         id: npm_publish
         env:
+          NODE_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
           NPM_CONFIG_PROVENANCE: true
         run: pnpm publish --provenance --access public --no-git-checks
       - name: Create Git tag and push changes
