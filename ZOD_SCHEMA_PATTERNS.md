@@ -25,6 +25,85 @@ const fieldName = z.string().meta({
 - **API Documentation**: Facilitates creation of interactive API documentation with realistic examples
 - **Testing**: Examples provide ready-to-use test data
 
+#### Example Usage Guidelines
+
+**Always add examples when:**
+
+- The field is user-facing or requires clarification
+- The format/pattern isn't obvious (UUIDs, hashes, timestamps)
+- Enum values need to show variety
+- Complex objects/arrays benefit from full examples
+
+**Can skip examples when:**
+
+- Field is a simple reference to a well-documented base schema that already has examples
+- Field is clearly self-explanatory from the description and base type
+- Example would be redundant with a referenced schema's examples
+
+**Single vs Multiple Examples:**
+
+- **Use `examples` (plural array) by default** to show variety and valid options
+- **Use `example` (singular) only** for canonical patterns or when one example is sufficient
+- **2–4 examples** is typically optimal for showing variety without overwhelming—adjust based on domain complexity and the number of valid enum values or distinct use cases.
+
+```typescript
+// ✅ Multiple examples showing variety
+const WasteTypeSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Waste Type',
+  description: 'Category or type of waste material',
+  examples: ['Organic', 'Plastic', 'Metal'], // Shows variety
+});
+
+// ✅ Single example for canonical pattern
+$schema: z.url().meta({
+  title: 'JSON Schema URI',
+  description: 'URI of the JSON Schema used to validate this record',
+  example: 'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json',
+}),
+
+// ✅ Base schema has examples, field just adds context
+external_id: ExternalIdSchema.meta({
+  title: 'External ID',
+  description: 'UUID identifier for external system references',
+  // No examples needed - ExternalIdSchema (UuidSchema) already has examples
+}),
+```
+
+**Array and Object Examples:**
+
+- **Add full array examples** for complex nested structures where the complete structure helps understanding
+- **Add object examples** when relationships between fields need demonstration
+- **Rely on item schema examples** for simple arrays of primitives or when item examples are sufficient
+
+```typescript
+// ✅ Complex nested array - full example shows structure
+external_links: uniqueBy(ExternalLinkSchema, ...).optional().meta({
+  title: 'External Links',
+  description: 'Optional list of public resource links with labels',
+  examples: [
+    [
+      {
+        label: 'Carrot Explorer',
+        url: 'https://explore.carrot.eco/document/...',
+        description: 'Complete chain of custody and audit trail',
+      },
+      {
+        label: 'Carrot White Paper',
+        url: 'https://carrot.eco/whitepaper.pdf',
+        description: 'Carrot Foundation technical and impact white paper',
+      },
+    ],
+  ],
+}),
+
+// ✅ Simple array - item schema examples are sufficient
+roles: uniqueArrayItems(ParticipantRoleSchema, ...).meta({
+  title: 'Participant Roles',
+  description: 'Roles of the participant',
+  // No array example needed - ParticipantRoleSchema has examples
+}),
+```
+
 ### 2. Replacing `strict()` with `strictObject()`
 
 Use `strictObject()` instead of combining `object()` with `strict()` for cleaner, more explicit schema definitions.
@@ -241,6 +320,149 @@ const AttributeWeightSchema = z.strictObject({...});
 const MassIDAttributesSchema = z.tuple([...]);
 const NftIpfsSchema = BaseIpfsSchema.safeExtend({...});
 ```
+
+### Schema Extraction Guidelines
+
+Extract a schema into its own definition when:
+
+#### 1. Reusability
+
+Used in 2+ schemas or likely to be reused across the codebase.
+
+```typescript
+// ✅ Extract - Used in multiple places
+export const ExternalLinkSchema = z.strictObject({
+  label: z.string().min(1).max(50).meta({...}),
+  url: z.url().meta({...}),
+  description: z.string().optional().meta({...}),
+});
+```
+
+#### 2. Complexity
+
+Multi-field object (3+ fields) representing a domain concept.
+
+```typescript
+// ✅ Extract - Complex object representing domain entity
+export const CoordinatesSchema = z.strictObject({
+  latitude: LatitudeSchema,
+  longitude: LongitudeSchema,
+  precision_level: PrecisionLevelSchema,
+});
+```
+
+#### 3. Testability
+
+Needs independent validation and testing.
+
+```typescript
+// ✅ Extract - Can be tested independently
+export const ParticipantSchema = z.strictObject({
+  id_hash: Sha256HashSchema,
+  name: ParticipantNameSchema,
+  roles: uniqueArrayItems(ParticipantRoleSchema, ...),
+});
+```
+
+#### 4. Logical Grouping
+
+Represents a cohesive domain entity worth documenting separately.
+
+```typescript
+// ✅ Extract - Logical grouping representing domain concept
+export const BlockchainReferenceSchema = z.strictObject({
+  smart_contract_address: EthereumAddressSchema,
+  chain_id: BlockchainChainIdSchema,
+  network_name: z.string(),
+  token_id: TokenIdSchema,
+});
+```
+
+**Keep inline when:**
+
+- Simple primitive with constraints used only once
+- Schema-specific enum not reused elsewhere
+- Single-field wrapper that only adds metadata
+
+```typescript
+// ✅ Keep inline - Simple, single-use
+name: z.string().min(1).max(100).meta({
+  title: 'Name',
+  description: 'Name of the entity',
+  examples: ['Example Name'],
+}),
+
+// ✅ Keep inline - Schema-specific enum
+const MeasurementUnitSchema = z.enum(['kg', 'ton']).meta({
+  title: 'Measurement Unit',
+  description: 'Unit of measurement',
+  examples: ['kg', 'ton'],
+});
+```
+
+#### Array Schema Extraction
+
+Extract array schemas with extra logic (like `uniqueBy()` wrappers) based on complexity, not just the presence of wrapper functions.
+
+**Extract when:**
+
+1. **Complex type composition** - Union/intersection with multiple schemas
+
+   ```typescript
+   // ✅ Extract - Complex union of 17 attribute types
+   export const MassIDAttributesSchema = uniqueBy(
+     z.union([Attribute1Schema, Attribute2Schema, ..., Attribute17Schema]),
+     (attr) => attr.trait_type,
+   ).min(12).max(17);
+   ```
+
+2. **Domain-specific constraints** - Business rules beyond basic validation
+
+   ```typescript
+   // ✅ Extract - Specific min/max represents domain rules
+   .min(12).max(17)  // Must have 12-17 specific attributes
+   ```
+
+3. **Reusability** - Used in multiple places or likely to be reused
+
+4. **Cohesive domain entity** - Represents a distinct business concept worth documenting separately
+
+**Keep inline when:**
+
+1. **Simple wrapper** - Just `uniqueBy()` or `uniqueArrayItems()` with basic constraints (typically 1–4 item schemas)
+
+   ```typescript
+   // ✅ Keep inline - Simple wrapper
+   external_links: uniqueBy(ExternalLinkSchema, ...).max(10).optional()
+   ```
+
+2. **Generic/context-specific** - Tied to a specific schema context
+
+   ```typescript
+   // ✅ Keep inline - Context-specific to NFT records
+   attributes: uniqueBy(NftAttributeSchema, ...)
+   ```
+
+3. **Single constraint** - Just `.min()`, `.max()`, or `.optional()` added
+   ```typescript
+   // ✅ Keep inline - Simple constraint
+   locations: uniqueBy(LocationSchema, ...).min(1)
+   ```
+
+**Decision Matrix:**
+
+| Factor                                                | Extract | Keep Inline |
+| ----------------------------------------------------- | ------- | ----------- |
+| Complex union/intersection type                       | ✅      | ❌          |
+| Multiple domain-specific constraints                  | ✅      | ❌          |
+| 5+ item union/complex composition                     | ✅      | ❌          |
+| Reusable across schemas                               | ✅      | ❌          |
+| Represents cohesive domain entity                     | ✅      | ❌          |
+| Simple wrapper (`uniqueBy` + basic constraints)       | ❌      | ✅          |
+| Context-specific to parent schema                     | ❌      | ✅          |
+| Single constraint (`.min()`, `.max()`, `.optional()`) | ❌      | ✅          |
+
+**Guideline:** Extract based on structural complexity and domain cohesion, not just the presence of a wrapper function. A wrapper function is just a validation pattern; the complexity of what's inside determines extraction.
 
 ## Implementation Examples
 

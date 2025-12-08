@@ -413,6 +413,7 @@ function parseArgs() {
       case '-h':
         showHelp();
         process.exit(0);
+        break;
       default:
         console.error(`Unknown option: ${args[i]}`);
         showHelp();
