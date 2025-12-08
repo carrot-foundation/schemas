@@ -217,11 +217,15 @@ jobs:
           echo "- **Package**: [@carrot-foundation/schemas@$NEW_VERSION](https://www.npmjs.com/package/@carrot-foundation/schemas/v/$NEW_VERSION)" >> $GITHUB_STEP_SUMMARY
       - name: Dry-run npm publish
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
-        run: pnpm publish --dry-run --access public --no-git-checks
+        env:
+          NPM_CONFIG_PROVENANCE: true
+        run: pnpm publish --provenance --dry-run --access public --no-git-checks
       - name: Publish to npm
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         id: npm_publish
-        run: pnpm publish --access public --no-git-checks
+        env:
+          NPM_CONFIG_PROVENANCE: true
+        run: pnpm publish --provenance --access public --no-git-checks
       - name: Create Git tag and push changes
         if: steps.npm_publish.outcome == 'success'
         run: |
