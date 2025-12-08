@@ -219,12 +219,15 @@ jobs:
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         run: |
           rm -f ~/.npmrc
+          [ -n "${NPM_CONFIG_USERCONFIG:-}" ] && rm -f "$NPM_CONFIG_USERCONFIG"
           npm config delete //registry.npmjs.org/:_authToken || true
+          npm config set //registry.npmjs.org/:_authToken ""
       - name: Dry-run npm publish
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         env:
           NODE_AUTH_TOKEN: ''
           NPM_TOKEN: ''
+          NPM_CONFIG_USERCONFIG: ''
           NPM_CONFIG_PROVENANCE: true
         run: pnpm publish --provenance --dry-run --access public --no-git-checks
       - name: Publish to npm
@@ -233,6 +236,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ''
           NPM_TOKEN: ''
+          NPM_CONFIG_USERCONFIG: ''
           NPM_CONFIG_PROVENANCE: true
         run: pnpm publish --provenance --access public --no-git-checks
       - name: Create Git tag and push changes
