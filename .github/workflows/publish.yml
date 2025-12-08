@@ -11,6 +11,7 @@ on:
 permissions:
   contents: write # For pushing commits, tags, and creating releases
   packages: read # For npm operations
+  id-token: write # Required for OIDC
 
 concurrency:
   group: publish-${{ github.event.workflow_run.head_branch || 'main' }}
@@ -217,14 +218,10 @@ jobs:
       - name: Dry-run npm publish
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         run: pnpm publish --dry-run --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to npm
         if: steps.calculate_version.outputs.new_version && steps.version_check.outputs.skip_publish != 'true'
         id: npm_publish
         run: pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create Git tag and push changes
         if: steps.npm_publish.outcome == 'success'
         run: |
