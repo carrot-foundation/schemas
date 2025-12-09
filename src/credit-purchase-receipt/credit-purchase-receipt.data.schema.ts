@@ -257,7 +257,7 @@ export type CreditPurchaseReceiptCredit = z.infer<
 const MassIDReferenceWithContractSchema = MassIDReferenceSchema.omit({
   external_id: true,
 })
-  .extend({
+  .safeExtend({
     external_id: CreditPurchaseReceiptExternalIdSchema.meta({
       title: 'MassID External ID',
       description: 'Unique identifier for the referenced MassID',
