@@ -1686,28 +1686,6 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100
-              },
-              "display_type": {
-                "title": "Display Type",
-                "description": "How the trait should be displayed in marketplace UIs",
-                "type": "string",
-                "enum": [
-                  "number",
-                  "date",
-                  "boost_number",
-                  "boost_percentage"
-                ]
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [

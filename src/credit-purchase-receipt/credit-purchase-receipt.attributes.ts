@@ -81,8 +81,11 @@ const CreditPurchaseReceiptCertificatesAttributeSchema =
     description: 'Attribute representing how many certificates were purchased',
   });
 
-const CreditPurchaseReceiptReceiverAttributeSchema =
-  NftAttributeSchema.safeExtend({
+const CreditPurchaseReceiptReceiverAttributeSchema = NftAttributeSchema.omit({
+  display_type: true,
+  max_value: true,
+})
+  .safeExtend({
     trait_type: z.literal('Receiver'),
     value: ParticipantNameSchema.meta({
       title: 'Receiver',
@@ -90,7 +93,8 @@ const CreditPurchaseReceiptReceiverAttributeSchema =
         'Organization or individual receiving the credits from the purchase',
       examples: ['EcoTech Solutions Inc.'],
     }),
-  }).meta({
+  })
+  .meta({
     title: 'Receiver Attribute',
     description: 'Attribute containing the receiver display name',
   });
