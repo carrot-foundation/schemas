@@ -225,8 +225,8 @@
       {
         "token_id": "890",
         "type": "RecycledID",
-        "external_id": "0f1e2d3c-4b5a-6978-9012-3456789abcde",
-        "external_url": "https://explore.carrot.eco/document/0f1e2d3c-4b5a-6978-9012-3456789abcde",
+        "external_id": "0f1e2d3c-4b5a-4d78-8c12-3456789abcde",
+        "external_url": "https://explore.carrot.eco/document/0f1e2d3c-4b5a-4d78-8c12-3456789abcde",
         "uri": "ipfs://QmRecycledIdHash890/recycled-id.json",
         "smart_contract": {
           "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
@@ -240,8 +240,8 @@
         "credit_slug": "organic",
         "mass_id": {
           "token_id": "125",
-          "external_id": "0d9c8b7a-6e5f-4d3c-2b1a-0987654321ff",
-          "external_url": "https://explore.carrot.eco/document/0d9c8b7a-6e5f-4d3c-2b1a-0987654321ff",
+          "external_id": "0d9c8b7a-6e5f-4d3c-8b1a-0987654321ff",
+          "external_url": "https://explore.carrot.eco/document/0d9c8b7a-6e5f-4d3c-8b1a-0987654321ff",
           "uri": "ipfs://QmMassIdHash125/mass-id.json",
           "smart_contract": {
             "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
@@ -272,11 +272,11 @@
       }
     ],
     "retirement": {
-      "beneficiary_id": "c3d4e5f6-a7b8-9012-3456-789012cdef01",
+      "beneficiary_id": "c3d4e5f6-a7b8-4c12-8d56-789012cdef01",
       "retirement_receipt": {
         "token_id": "1200",
-        "external_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
-        "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+        "external_id": "a1b2c3d4-e5f6-4b90-8a34-567890abcdef",
+        "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-4b90-8a34-567890abcdef",
         "uri": "ipfs://QmRetirementReceipt1200/credit-retirement-receipt.json",
         "smart_contract": {
           "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
