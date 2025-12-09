@@ -15,7 +15,7 @@ import {
   SlugSchema,
   SmartContractSchema,
   TokenIdSchema,
-  TokenSymbolSchema,
+  CreditTokenSymbolSchema,
   EthereumAddressSchema,
   uniqueArrayItems,
   uniqueBy,
@@ -60,7 +60,7 @@ const CreditPurchaseReceiptSummarySchema = z
       examples: ['2025-02-03'],
     }),
     credit_symbols: uniqueArrayItems(
-      TokenSymbolSchema,
+      CreditTokenSymbolSchema,
       'Credit symbols must be unique',
     )
       .min(1)
@@ -216,7 +216,7 @@ const CreditPurchaseReceiptCreditSchema = z
       description: 'URL-friendly identifier for the credit',
       examples: ['carbon', 'organic'],
     }),
-    symbol: TokenSymbolSchema.meta({
+    symbol: CreditTokenSymbolSchema.meta({
       title: 'Credit Token Symbol',
       description: 'Symbol of the credit token',
       examples: ['C-CARB', 'C-BIOW'],

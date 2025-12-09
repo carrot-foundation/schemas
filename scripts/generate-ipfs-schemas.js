@@ -4,6 +4,7 @@ import {
   CollectionSchema,
   CreditSchema,
   CreditPurchaseReceiptIpfsSchema,
+  CreditRetirementReceiptIpfsSchema,
   GasIDIpfsSchema,
   MassIDIpfsSchema,
   MassIdAuditSchema,
@@ -67,6 +68,10 @@ const schemas = [
   {
     fileName: 'credit-purchase-receipt.schema',
     schema: CreditPurchaseReceiptIpfsSchema,
+  },
+  {
+    fileName: 'credit-retirement-receipt.schema',
+    schema: CreditRetirementReceiptIpfsSchema,
   },
 ];
 
