@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { MassIdAuditSchema } from '../mass-id-audit.schema';
+import { MassIDAuditSchema } from '../mass-id-audit.schema';
 import exampleJson from '../../../schemas/ipfs/mass-id-audit/mass-id-audit.example.json';
 
-describe('MassIdAuditSchema', () => {
+describe('MassIDAuditSchema', () => {
   it('validates example.json successfully', () => {
-    const result = MassIdAuditSchema.safeParse(exampleJson);
+    const result = MassIDAuditSchema.safeParse(exampleJson);
 
     expect(result.success).toBe(true);
   });
@@ -18,7 +18,7 @@ describe('MassIdAuditSchema', () => {
       },
     };
 
-    const result = MassIdAuditSchema.safeParse(invalid);
+    const result = MassIDAuditSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
@@ -41,7 +41,7 @@ describe('MassIdAuditSchema', () => {
       },
     };
 
-    const result = MassIdAuditSchema.safeParse(invalid);
+    const result = MassIDAuditSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
@@ -54,13 +54,13 @@ describe('MassIdAuditSchema', () => {
       data: dataWithoutSummary,
     };
 
-    const result = MassIdAuditSchema.safeParse(invalid);
+    const result = MassIDAuditSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
   });
 
   it('validates type inference works correctly', () => {
-    const result = MassIdAuditSchema.safeParse(exampleJson);
+    const result = MassIDAuditSchema.safeParse(exampleJson);
 
     expect(result.success).toBe(true);
 

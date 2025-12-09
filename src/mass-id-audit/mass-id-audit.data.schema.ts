@@ -9,7 +9,7 @@ import {
   NonNegativeIntegerSchema,
 } from '../shared';
 
-const MassIdAuditSummarySchema = z
+const MassIDAuditSummarySchema = z
   .strictObject({
     audit_date: IsoDateSchema.meta({
       title: 'Audit Date',
@@ -37,14 +37,14 @@ const MassIdAuditSummarySchema = z
     description: 'Summary of audit execution results',
   });
 
-export type MassIdAuditSummary = z.infer<typeof MassIdAuditSummarySchema>;
+export type MassIDAuditSummary = z.infer<typeof MassIDAuditSummarySchema>;
 
-export const MassIdAuditDataSchema = z
+export const MassIDAuditDataSchema = z
   .strictObject({
     methodology: MethodologyReferenceSchema,
     mass_id: MassIDReferenceSchema,
     gas_id: GasIDReferenceSchema,
-    audit_summary: MassIdAuditSummarySchema,
+    audit_summary: MassIDAuditSummarySchema,
     rules_execution_results: AuditRuleExecutionResultsSchema,
   })
   .meta({
@@ -52,4 +52,4 @@ export const MassIdAuditDataSchema = z
     description: 'Complete data structure for MassID Audit records',
   });
 
-export type MassIdAuditData = z.infer<typeof MassIdAuditDataSchema>;
+export type MassIDAuditData = z.infer<typeof MassIDAuditDataSchema>;
