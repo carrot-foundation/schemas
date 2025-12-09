@@ -4,9 +4,9 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
 } from '../shared';
-import { MassIdAuditDataSchema } from './mass-id-audit.data.schema';
+import { MassIDAuditDataSchema } from './mass-id-audit.data.schema';
 
-export const MassIdAuditSchemaMeta = {
+export const MassIDAuditSchemaMeta = {
   title: 'MassID Audit IPFS Record',
   description:
     'MassID audit metadata stored in IPFS, extending the base schema with audit results and references',
@@ -14,14 +14,14 @@ export const MassIdAuditSchemaMeta = {
   version: getSchemaVersionOrDefault(),
 } as const;
 
-export const MassIdAuditSchema = BaseIpfsSchema.safeExtend({
+export const MassIDAuditSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('MassID Audit').meta({
       title: 'MassID Audit Schema Type',
       description: 'MassID Audit schema type',
     }),
   }),
-  data: MassIdAuditDataSchema,
-}).meta(MassIdAuditSchemaMeta);
+  data: MassIDAuditDataSchema,
+}).meta(MassIDAuditSchemaMeta);
 
-export type MassIdAudit = z.infer<typeof MassIdAuditSchema>;
+export type MassIDAudit = z.infer<typeof MassIDAuditSchema>;

@@ -254,7 +254,7 @@ export type CreditPurchaseReceiptCredit = z.infer<
   typeof CreditPurchaseReceiptCreditSchema
 >;
 
-const MassIdReferenceWithContractSchema = MassIDReferenceSchema.omit({
+const MassIDReferenceWithContractSchema = MassIDReferenceSchema.omit({
   external_id: true,
 })
   .extend({
@@ -270,8 +270,8 @@ const MassIdReferenceWithContractSchema = MassIDReferenceSchema.omit({
       'Reference to a MassID record including smart contract details',
   });
 
-export type MassIdReferenceWithContract = z.infer<
-  typeof MassIdReferenceWithContractSchema
+export type MassIDReferenceWithContract = z.infer<
+  typeof MassIDReferenceWithContractSchema
 >;
 
 const CreditPurchaseReceiptCertificateSchema = z
@@ -320,7 +320,7 @@ const CreditPurchaseReceiptCertificateSchema = z
       description: 'Slug of the credit type for this certificate',
       examples: ['carbon', 'organic'],
     }),
-    mass_id: MassIdReferenceWithContractSchema,
+    mass_id: MassIDReferenceWithContractSchema,
   })
   .meta({
     title: 'Certificate',

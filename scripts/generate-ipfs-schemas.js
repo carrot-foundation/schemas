@@ -6,7 +6,7 @@ import {
   CreditPurchaseReceiptIpfsSchema,
   GasIDIpfsSchema,
   MassIDIpfsSchema,
-  MassIdAuditSchema,
+  MassIDAuditSchema,
   MethodologySchema,
   RecycledIDIpfsSchema,
 } from '../dist/index.js';
@@ -62,7 +62,7 @@ const schemas = [
   },
   {
     fileName: 'mass-id-audit.schema',
-    schema: MassIdAuditSchema,
+    schema: MassIDAuditSchema,
   },
   {
     fileName: 'credit-purchase-receipt.schema',
