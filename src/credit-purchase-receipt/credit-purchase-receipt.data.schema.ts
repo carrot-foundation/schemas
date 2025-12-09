@@ -464,6 +464,37 @@ export const CreditPurchaseReceiptDataSchema = z
     retirement: CreditPurchaseReceiptRetirementSchema.optional(),
   })
   .superRefine((data, ctx) => {
+    const retirementProvided = Boolean(data.retirement);
+    const creditsWithRetirement = data.credits.reduce<number[]>(
+      (indices, credit, index) => {
+        if ((credit.retirement_amount ?? 0) > 0) {
+          indices.push(index);
+        }
+        return indices;
+      },
+      [],
+    );
+
+    if (retirementProvided && creditsWithRetirement.length === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'retirement is present but no credit has retirement_amount greater than 0',
+        path: ['retirement'],
+      });
+    }
+
+    if (!retirementProvided && creditsWithRetirement.length > 0) {
+      creditsWithRetirement.forEach((index) => {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'credit retirement_amount greater than 0 requires retirement details',
+          path: ['credits', index, 'retirement_amount'],
+        });
+      });
+    }
+
     const collectionSlugs = new Set(
       data.collections.map((collection) => collection.slug),
     );

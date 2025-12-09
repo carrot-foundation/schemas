@@ -62,6 +62,56 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     expect(result.success).toBe(false);
   });
 
+  it('rejects receiver attribute that does not match receiver identity name', () => {
+    const invalid = structuredClone(exampleJson);
+    invalid.attributes = invalid.attributes.map((attribute) =>
+      attribute.trait_type === 'Receiver'
+        ? { ...attribute, value: 'Wrong Receiver' }
+        : attribute,
+    ) as typeof invalid.attributes;
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects purchase date attribute that does not match summary purchase date', () => {
+    const invalid = structuredClone(exampleJson);
+    invalid.attributes = invalid.attributes.map((attribute) =>
+      attribute.trait_type === 'Purchase Date'
+        ? { ...attribute, value: 1738627200000 }
+        : attribute,
+    ) as typeof invalid.attributes;
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects missing credit symbol attribute', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
+    invalid.attributes = invalid.attributes.filter(
+      (attribute) => attribute.trait_type !== firstCreditSymbol,
+    ) as typeof invalid.attributes;
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects missing collection name attribute', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCollectionName = invalid.data.collections[0].name;
+    invalid.attributes = invalid.attributes.filter(
+      (attribute) => attribute.trait_type !== firstCollectionName,
+    ) as typeof invalid.attributes;
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
   it('validates type inference works correctly', () => {
     const result = CreditPurchaseReceiptIpfsSchema.safeParse(exampleJson);
 
