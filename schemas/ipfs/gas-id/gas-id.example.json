@@ -102,7 +102,7 @@
     },
     {
       "trait_type": "MassID Recycling Date",
-      "value": "2025-02-22",
+      "value": 1740182400000,
       "display_type": "date"
     }
   ],

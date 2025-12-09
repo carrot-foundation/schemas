@@ -199,7 +199,7 @@
     },
     "sha256_hash": {
       "$ref": "#/$defs/non_empty_string",
-      "pattern": "^[a-fA-F0-9]{64}$",
+      "pattern": "^[a-f0-9]{64}$",
       "title": "SHA-256 Hash",
       "description": "SHA-256 cryptographic hash as hexadecimal string.",
       "examples": [
