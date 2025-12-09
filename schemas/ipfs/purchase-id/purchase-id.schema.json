@@ -367,7 +367,7 @@
                 "0xabcdef1234567890abcdef1234567890abcdef12"
               ],
               "type": "string",
-              "pattern": "^0x[a-fA-F0-9]{40}$"
+              "pattern": "^0x[a-f0-9]{40}$"
             },
             "identity": {
               "title": "Buyer Identity",
@@ -574,7 +574,7 @@
                       "0xabcdef1234567890abcdef1234567890abcdef12"
                     ],
                     "type": "string",
-                    "pattern": "^0x[a-fA-F0-9]{40}$"
+                    "pattern": "^0x[a-f0-9]{40}$"
                   },
                   "chain_id": {
                     "title": "Chain ID",
@@ -919,7 +919,7 @@
             "0xabcdef1234567890abcdef1234567890abcdef12"
           ],
           "type": "string",
-          "pattern": "^0x[a-fA-F0-9]{40}$"
+          "pattern": "^0x[a-f0-9]{40}$"
         },
         "chain_id": {
           "title": "Chain ID",

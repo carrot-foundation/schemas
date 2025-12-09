@@ -15,7 +15,7 @@ export type Uuid = z.infer<typeof UuidSchema>;
 export const EthereumAddressSchema = z
   .string()
   .regex(
-    /^0x[a-fA-F0-9]{40}$/,
+    /^0x[a-f0-9]{40}$/,
     'Must be a valid Ethereum address in lowercase hexadecimal format',
   )
   .meta({
