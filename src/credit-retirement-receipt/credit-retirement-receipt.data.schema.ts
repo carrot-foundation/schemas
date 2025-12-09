@@ -8,7 +8,6 @@ import {
   ExternalUrlSchema,
   IpfsUriSchema,
   IsoDateSchema,
-  NonNegativeFloatSchema,
   ParticipantNameSchema,
   PositiveIntegerSchema,
   RecordSchemaTypeSchema,
@@ -21,31 +20,19 @@ import {
 } from '../shared';
 import { MassIDReferenceSchema } from '../shared/references/mass-id-reference.schema';
 
-const CreditRetirementReceiptExternalIdSchema = ExternalIdSchema.meta({
-  title: 'External ID',
-  description: 'UUID identifier for external references',
-  examples: [
-    'f1a2b3c4-d5e6-4789-9012-34567890abcd',
-    '0f1e2d3c-4b5a-6978-9012-3456789abcde',
-  ],
-});
-
 const CreditRetirementReceiptSummarySchema = z
   .strictObject({
-    total_retirement_amount: NonNegativeFloatSchema.meta({
+    total_retirement_amount: CreditAmountSchema.meta({
       title: 'Total Retirement Amount',
       description: 'Total amount of credits retired',
-      examples: [10.5],
     }),
     total_certificates: PositiveIntegerSchema.meta({
       title: 'Total Certificates',
       description: 'Total number of certificates retired',
-      examples: [3],
     }),
     retirement_date: IsoDateSchema.meta({
       title: 'Retirement Date',
       description: 'Date when the retirement occurred (YYYY-MM-DD)',
-      examples: ['2025-01-20'],
     }),
     credit_symbols: uniqueArrayItems(
       CreditTokenSymbolSchema,
@@ -55,7 +42,6 @@ const CreditRetirementReceiptSummarySchema = z
       .meta({
         title: 'Credit Symbols',
         description: 'Array of credit token symbols retired',
-        examples: [['C-CARB', 'C-BIOW']],
       }),
     certificate_types: uniqueArrayItems(
       RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']),
@@ -65,7 +51,6 @@ const CreditRetirementReceiptSummarySchema = z
       .meta({
         title: 'Certificate Types',
         description: 'Array of certificate types included in the retirement',
-        examples: [['GasID', 'RecycledID']],
       }),
     collection_slugs: uniqueArrayItems(
       CollectionSlugSchema,
@@ -75,7 +60,6 @@ const CreditRetirementReceiptSummarySchema = z
       .meta({
         title: 'Collection Slugs',
         description: 'Array of collection slugs represented in the retirement',
-        examples: [['bold-cold-start-carazinho', 'bold-brazil']],
       }),
   })
   .meta({
@@ -95,7 +79,7 @@ const CreditRetirementReceiptIdentitySchema = z
       description: 'Display name for the participant',
       examples: ['Climate Action Corp'],
     }),
-    external_id: CreditRetirementReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Identity External ID',
       description: 'External identifier for the participant',
     }),
@@ -115,7 +99,7 @@ export type CreditRetirementReceiptIdentity = z.infer<
 
 const CreditRetirementReceiptBeneficiarySchema = z
   .strictObject({
-    beneficiary_id: CreditRetirementReceiptExternalIdSchema.meta({
+    beneficiary_id: ExternalIdSchema.meta({
       title: 'Retirement Beneficiary ID',
       description:
         'UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)',
@@ -151,7 +135,7 @@ export type CreditRetirementReceiptCreditHolder = z.infer<
 const CreditRetirementReceiptCollectionSchema = z
   .strictObject({
     slug: CollectionSlugSchema,
-    external_id: CreditRetirementReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Collection External ID',
       description: 'External identifier for the collection',
     }),
@@ -167,7 +151,6 @@ const CreditRetirementReceiptCollectionSchema = z
     amount: CreditAmountSchema.meta({
       title: 'Collection Retirement Amount',
       description: 'Total credits retired from this collection',
-      examples: [6.5],
     }),
   })
   .meta({
@@ -189,9 +172,8 @@ const CreditRetirementReceiptCreditSchema = z
     symbol: CreditTokenSymbolSchema.meta({
       title: 'Credit Token Symbol',
       description: 'Symbol of the credit token',
-      examples: ['C-CARB', 'C-BIOW'],
     }),
-    external_id: CreditRetirementReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Credit External ID',
       description: 'External identifier for the credit',
     }),
@@ -223,7 +205,6 @@ const CreditRetirementReceiptCertificateCreditSchema = z
     credit_symbol: CreditTokenSymbolSchema.meta({
       title: 'Credit Token Symbol',
       description: 'Symbol of the credit token retired from the certificate',
-      examples: ['C-CARB', 'C-BIOW'],
     }),
     credit_slug: SlugSchema.meta({
       title: 'Credit Slug',
@@ -234,7 +215,7 @@ const CreditRetirementReceiptCertificateCreditSchema = z
       title: 'Retired Credit Amount',
       description: 'Credits retired of this type from the certificate',
     }),
-    external_id: CreditRetirementReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Retired Credit External ID',
       description: 'External identifier for the retired credit entry',
     }),
@@ -269,7 +250,7 @@ const CreditPurchaseReceiptReferenceSchema = z
       title: 'Purchase Receipt Token ID',
       description: 'Token ID of the credit purchase receipt',
     }),
-    external_id: CreditRetirementReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Purchase Receipt External ID',
       description: 'External identifier for the purchase receipt',
     }),
@@ -303,7 +284,7 @@ const CreditRetirementReceiptCertificateSchema = z
       title: 'Certificate Type',
       description: 'Type of certificate (e.g., GasID, RecycledID)',
     }),
-    external_id: CreditRetirementReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Certificate External ID',
       description: 'External identifier for the certificate',
     }),
