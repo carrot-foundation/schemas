@@ -15,7 +15,7 @@ import {
   NftAttributeSchema,
 } from '../shared';
 
-const MassIDAttributeWasteTypeSchema = NftAttributeSchema.extend({
+const MassIDAttributeWasteTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Waste Type'),
   value: WasteTypeSchema,
 }).meta({
@@ -27,7 +27,7 @@ export type MassIDAttributeWasteType = z.infer<
   typeof MassIDAttributeWasteTypeSchema
 >;
 
-const MassIDAttributeWasteSubtypeSchema = NftAttributeSchema.extend({
+const MassIDAttributeWasteSubtypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Waste Subtype'),
   value: WasteSubtypeSchema,
 }).meta({
@@ -39,7 +39,7 @@ export type MassIDAttributeWasteSubtype = z.infer<
   typeof MassIDAttributeWasteSubtypeSchema
 >;
 
-const MassIDAttributeWeightSchema = NftAttributeSchema.extend({
+const MassIDAttributeWeightSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Weight (kg)'),
   value: WeightKgSchema,
   display_type: z.literal('number'),
@@ -50,16 +50,17 @@ const MassIDAttributeWeightSchema = NftAttributeSchema.extend({
 
 export type MassIDAttributeWeight = z.infer<typeof MassIDAttributeWeightSchema>;
 
-const MassIDAttributeOriginCountrySchema = OriginCountryAttributeSchema.extend({
-  value: CountryNameSchema,
-});
+const MassIDAttributeOriginCountrySchema =
+  OriginCountryAttributeSchema.safeExtend({
+    value: CountryNameSchema,
+  });
 
 export type MassIDAttributeOriginCountry = z.infer<
   typeof MassIDAttributeOriginCountrySchema
 >;
 
 const MassIDAttributeOriginMunicipalitySchema =
-  OriginMunicipalityAttributeSchema.extend({
+  OriginMunicipalityAttributeSchema.safeExtend({
     value: MunicipalitySchema,
   });
 
@@ -67,7 +68,7 @@ export type MassIDAttributeOriginMunicipality = z.infer<
   typeof MassIDAttributeOriginMunicipalitySchema
 >;
 
-const MassIDAttributeOriginDivisionSchema = NftAttributeSchema.extend({
+const MassIDAttributeOriginDivisionSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Origin Administrative Division'),
   value: AdministrativeDivisionSchema,
 }).meta({
@@ -79,7 +80,7 @@ export type MassIDAttributeOriginDivision = z.infer<
   typeof MassIDAttributeOriginDivisionSchema
 >;
 
-const MassIDAttributeVehicleTypeSchema = NftAttributeSchema.extend({
+const MassIDAttributeVehicleTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Vehicle Type'),
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Vehicle Type',
@@ -95,7 +96,7 @@ export type MassIDAttributeVehicleType = z.infer<
   typeof MassIDAttributeVehicleTypeSchema
 >;
 
-const MassIDAttributeRecyclingMethodSchema = NftAttributeSchema.extend({
+const MassIDAttributeRecyclingMethodSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Recycling Method'),
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Recycling Method',
@@ -115,7 +116,7 @@ export type MassIDAttributeRecyclingMethod = z.infer<
   typeof MassIDAttributeRecyclingMethodSchema
 >;
 
-const MassIDAttributeProcessingTimeSchema = NftAttributeSchema.extend({
+const MassIDAttributeProcessingTimeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Processing Time (hours)'),
   value: HoursSchema,
   trait_description: NonEmptyStringSchema.max(200).optional().meta({
@@ -132,7 +133,7 @@ export type MassIDAttributeProcessingTime = z.infer<
 >;
 
 const MassIDAttributeLocalWasteClassificationIdSchema =
-  NftAttributeSchema.extend({
+  NftAttributeSchema.safeExtend({
     trait_type: z.literal('Local Waste Classification ID'),
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Local Waste Classification ID',
@@ -148,57 +149,60 @@ export type MassIDAttributeLocalWasteClassificationId = z.infer<
   typeof MassIDAttributeLocalWasteClassificationIdSchema
 >;
 
-const MassIDAttributeRecyclingManifestCodeSchema = NftAttributeSchema.extend({
-  trait_type: z.literal('Recycling Manifest Code'),
-  value: NonEmptyStringSchema.max(100).meta({
-    title: 'Recycling Manifest Code',
-    description:
-      'Concatenated recycling manifest code (Document Type + Document Number)',
-    examples: ['CDF-2353', 'RC-12345', 'REC-MANIFEST-789'],
-  }),
-}).meta({
-  title: 'Recycling Manifest Code Attribute',
-  description: 'Recycling manifest code attribute (optional)',
-});
+const MassIDAttributeRecyclingManifestCodeSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Recycling Manifest Code'),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Recycling Manifest Code',
+      description:
+        'Concatenated recycling manifest code (Document Type + Document Number)',
+      examples: ['CDF-2353', 'RC-12345', 'REC-MANIFEST-789'],
+    }),
+  }).meta({
+    title: 'Recycling Manifest Code Attribute',
+    description: 'Recycling manifest code attribute (optional)',
+  });
 
 export type MassIDAttributeRecyclingManifestCode = z.infer<
   typeof MassIDAttributeRecyclingManifestCodeSchema
 >;
 
-const MassIDAttributeTransportManifestCodeSchema = NftAttributeSchema.extend({
-  trait_type: z.literal('Transport Manifest Code'),
-  value: NonEmptyStringSchema.max(100).meta({
-    title: 'Transport Manifest Code',
-    description:
-      'Concatenated transport manifest code (Document Type + Document Number)',
-    examples: ['MTR-4126', 'TRN-67890', 'TRANS-MANIFEST-456'],
-  }),
-}).meta({
-  title: 'Transport Manifest Code Attribute',
-  description: 'Transport manifest code attribute (optional)',
-});
+const MassIDAttributeTransportManifestCodeSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Transport Manifest Code'),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Transport Manifest Code',
+      description:
+        'Concatenated transport manifest code (Document Type + Document Number)',
+      examples: ['MTR-4126', 'TRN-67890', 'TRANS-MANIFEST-456'],
+    }),
+  }).meta({
+    title: 'Transport Manifest Code Attribute',
+    description: 'Transport manifest code attribute (optional)',
+  });
 
 export type MassIDAttributeTransportManifestCode = z.infer<
   typeof MassIDAttributeTransportManifestCodeSchema
 >;
 
-const MassIDAttributeWeighingCaptureMethodSchema = NftAttributeSchema.extend({
-  trait_type: z.literal('Weighing Capture Method'),
-  value: NonEmptyStringSchema.max(100).meta({
-    title: 'Weighing Capture Method',
-    description: 'Method used to capture weight data',
-    examples: ['Digital', 'Manual', 'Automated', 'Electronic Scale'],
-  }),
-}).meta({
-  title: 'Weighing Capture Method Attribute',
-  description: 'Weighing capture method attribute (optional)',
-});
+const MassIDAttributeWeighingCaptureMethodSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Weighing Capture Method'),
+    value: NonEmptyStringSchema.max(100).meta({
+      title: 'Weighing Capture Method',
+      description: 'Method used to capture weight data',
+      examples: ['Digital', 'Manual', 'Automated', 'Electronic Scale'],
+    }),
+  }).meta({
+    title: 'Weighing Capture Method Attribute',
+    description: 'Weighing capture method attribute (optional)',
+  });
 
 export type MassIDAttributeWeighingCaptureMethod = z.infer<
   typeof MassIDAttributeWeighingCaptureMethodSchema
 >;
 
-const MassIDAttributeScaleTypeSchema = NftAttributeSchema.extend({
+const MassIDAttributeScaleTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Scale Type'),
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Scale Type',
@@ -219,7 +223,7 @@ export type MassIDAttributeScaleType = z.infer<
   typeof MassIDAttributeScaleTypeSchema
 >;
 
-const MassIDAttributeContainerTypeSchema = NftAttributeSchema.extend({
+const MassIDAttributeContainerTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Container Type'),
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Container Type',
@@ -235,7 +239,7 @@ export type MassIDAttributeContainerType = z.infer<
   typeof MassIDAttributeContainerTypeSchema
 >;
 
-const MassIDAttributePickUpDateSchema = NftAttributeSchema.extend({
+const MassIDAttributePickUpDateSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Pick-up Date'),
   value: UnixTimestampSchema.meta({
     title: 'Pick-up Date',
@@ -253,7 +257,7 @@ export type MassIDAttributePickUpDate = z.infer<
   typeof MassIDAttributePickUpDateSchema
 >;
 
-const MassIDAttributeRecyclingDateSchema = NftAttributeSchema.extend({
+const MassIDAttributeRecyclingDateSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Recycling Date'),
   value: UnixTimestampSchema.meta({
     title: 'Recycling Date',
