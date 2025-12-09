@@ -1,104 +1,36 @@
 import { z } from 'zod';
 import {
-  CollectionNameSchema,
-  CollectionSlugSchema,
   CreditAmountSchema,
+  EthereumAddressSchema,
+  ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-  IsoDateSchema,
   NonNegativeFloatSchema,
   ParticipantNameSchema,
   ParticipantRoleSchema,
-  PositiveIntegerSchema,
-  RecordSchemaTypeSchema,
   Sha256HashSchema,
   SlugSchema,
   SmartContractSchema,
   TokenIdSchema,
-  CreditTokenSymbolSchema,
-  EthereumAddressSchema,
   uniqueArrayItems,
   uniqueBy,
-  ExternalIdSchema,
+  CreditPurchaseReceiptSummarySchema,
+  MassIdReferenceWithContractSchema,
+  ReceiptIdentitySchema,
+  createReceiptCertificateSchema,
+  createReceiptCollectionSchema,
+  createReceiptCreditSchema,
+  nearlyEqual,
+  validateCountMatches,
+  validateSummaryListMatchesData,
+  validateTotalMatches,
 } from '../shared';
-import { MassIDReferenceSchema } from '../shared/references/mass-id-reference.schema';
-
-const CreditPurchaseReceiptSummarySchema = z
-  .strictObject({
-    total_usdc_amount: NonNegativeFloatSchema.meta({
-      title: 'Total USDC Amount',
-      description: 'Total amount paid in USDC for the purchase',
-    }),
-    total_credits: CreditAmountSchema.meta({
-      title: 'Total Credits',
-      description: 'Total amount of credits purchased',
-    }),
-    total_certificates: PositiveIntegerSchema.meta({
-      title: 'Total Certificates',
-      description: 'Total number of certificates purchased',
-    }),
-    purchase_date: IsoDateSchema.meta({
-      title: 'Purchase Date',
-      description: 'Date when the purchase was made (YYYY-MM-DD)',
-    }),
-    credit_symbols: uniqueArrayItems(
-      CreditTokenSymbolSchema,
-      'Credit symbols must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Credit Symbols',
-        description: 'Array of credit token symbols included in the purchase',
-      }),
-    certificate_types: uniqueArrayItems(
-      RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']),
-      'Certificate types must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Certificate Types',
-        description: 'Array of certificate types included in the purchase',
-      }),
-    collection_slugs: uniqueArrayItems(
-      CollectionSlugSchema,
-      'Collection slugs must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Collection Slugs',
-        description: 'Array of collection slugs represented in the purchase',
-      }),
-  })
-  .meta({
-    title: 'Credit Purchase Receipt Summary',
-    description:
-      'Summary totals for the credit purchase including amounts and collections represented',
-  });
 
 export type CreditPurchaseReceiptSummary = z.infer<
   typeof CreditPurchaseReceiptSummarySchema
 >;
 
-const CreditPurchaseReceiptIdentitySchema = z
-  .strictObject({
-    name: ParticipantNameSchema.meta({
-      title: 'Identity Name',
-      description: 'Display name for the participant',
-      examples: ['EcoTech Solutions Inc.'],
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Identity External ID',
-      description: 'External identifier for the participant',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Identity External URL',
-      description: 'External URL for the participant profile',
-    }),
-  })
-  .meta({
-    title: 'Identity',
-    description: 'Participant identity information',
-  });
+const CreditPurchaseReceiptIdentitySchema = ReceiptIdentitySchema;
 
 export type CreditPurchaseReceiptIdentity = z.infer<
   typeof CreditPurchaseReceiptIdentitySchema
@@ -157,130 +89,49 @@ export type CreditPurchaseReceiptParties = z.infer<
   typeof CreditPurchaseReceiptPartiesSchema
 >;
 
-const CreditPurchaseReceiptCollectionSchema = z
-  .strictObject({
-    slug: CollectionSlugSchema,
-    external_id: ExternalIdSchema.meta({
-      title: 'Collection External ID',
-      description: 'External identifier for the collection',
-    }),
-    name: CollectionNameSchema,
-    external_url: ExternalUrlSchema.meta({
-      title: 'Collection External URL',
-      description: 'External URL for the collection',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Collection URI',
-      description: 'IPFS URI for the collection metadata',
-    }),
-    credit_amount: CreditAmountSchema.meta({
-      title: 'Collection Credit Amount',
-      description: 'Total credits purchased from this collection',
-    }),
-  })
-  .meta({
+const CreditPurchaseReceiptCollectionSchema = createReceiptCollectionSchema({
+  amountKey: 'credit_amount',
+  amountMeta: {
+    title: 'Collection Credit Amount',
+    description: 'Total credits purchased from this collection',
+  },
+  meta: {
     title: 'Collection',
     description: 'Collection included in the purchase',
-  });
+  },
+});
 
 export type CreditPurchaseReceiptCollection = z.infer<
   typeof CreditPurchaseReceiptCollectionSchema
 >;
 
-const CreditPurchaseReceiptCreditSchema = z
-  .strictObject({
-    slug: SlugSchema.meta({
-      title: 'Credit Slug',
-      description: 'URL-friendly identifier for the credit',
-    }),
-    symbol: CreditTokenSymbolSchema.meta({
-      title: 'Credit Token Symbol',
-      description: 'Symbol of the credit token',
-      examples: ['C-CARB', 'C-BIOW'],
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Credit External ID',
-      description: 'External identifier for the credit',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Credit External URL',
-      description: 'External URL for the credit',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Credit URI',
-      description: 'IPFS URI for the credit details',
-    }),
-    smart_contract: SmartContractSchema,
-    purchase_amount: CreditAmountSchema.meta({
-      title: 'Credit Purchase Amount',
-      description: 'Total credits purchased for this credit type',
-    }),
-    retirement_amount: CreditAmountSchema.optional().meta({
-      title: 'Credit Retirement Amount',
-      description:
-        'Credits retired immediately for this credit type during purchase',
-    }),
-  })
-  .meta({
+const CreditPurchaseReceiptCreditSchema = createReceiptCreditSchema({
+  amountKey: 'purchase_amount',
+  amountMeta: {
+    title: 'Credit Purchase Amount',
+    description: 'Total credits purchased for this credit type',
+  },
+  retirementAmountMeta: {
+    title: 'Credit Retirement Amount',
+    description:
+      'Credits retired immediately for this credit type during purchase',
+  },
+  meta: {
     title: 'Credit',
     description: 'Credit token included in the purchase',
-  });
+  },
+});
 
 export type CreditPurchaseReceiptCredit = z.infer<
   typeof CreditPurchaseReceiptCreditSchema
 >;
 
-const MassIDReferenceWithContractSchema = MassIDReferenceSchema.omit({
-  external_id: true,
-})
-  .safeExtend({
-    external_id: ExternalIdSchema.meta({
-      title: 'MassID External ID',
-      description: 'Unique identifier for the referenced MassID',
-    }),
-    smart_contract: SmartContractSchema,
-  })
-  .meta({
-    title: 'MassID Reference with Smart Contract',
-    description:
-      'Reference to a MassID record including smart contract details',
-  });
-
 export type MassIDReferenceWithContract = z.infer<
-  typeof MassIDReferenceWithContractSchema
+  typeof MassIdReferenceWithContractSchema
 >;
 
-const CreditPurchaseReceiptCertificateSchema = z
-  .strictObject({
-    token_id: TokenIdSchema.meta({
-      title: 'Certificate Token ID',
-      description: 'Token ID of the certificate',
-    }),
-    type: RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']).meta({
-      title: 'Certificate Type',
-      description: 'Type of certificate (e.g., GasID, RecycledID)',
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Certificate External ID',
-      description: 'External identifier for the certificate',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Certificate External URL',
-      description: 'External URL for the certificate',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Certificate URI',
-      description: 'IPFS URI for the certificate metadata',
-    }),
-    smart_contract: SmartContractSchema,
-    collection_slug: CollectionSlugSchema.meta({
-      title: 'Collection Slug',
-      description: 'Slug of the collection this certificate belongs to',
-    }),
-    total_amount: CreditAmountSchema.meta({
-      title: 'Certificate Total Amount',
-      description: 'Total credits available in this certificate',
-    }),
+const CreditPurchaseReceiptCertificateSchema = createReceiptCertificateSchema({
+  additionalShape: {
     purchased_amount: CreditAmountSchema.meta({
       title: 'Certificate Purchased Amount',
       description: 'Credits purchased from this certificate',
@@ -295,12 +146,12 @@ const CreditPurchaseReceiptCertificateSchema = z
       description: 'Slug of the credit type for this certificate',
       examples: ['carbon', 'organic'],
     }),
-    mass_id: MassIDReferenceWithContractSchema,
-  })
-  .meta({
+  },
+  meta: {
     title: 'Certificate',
     description: 'Certificate associated with the purchase',
-  });
+  },
+});
 
 export type CreditPurchaseReceiptCertificate = z.infer<
   typeof CreditPurchaseReceiptCertificateSchema
@@ -387,12 +238,6 @@ export type CreditPurchaseReceiptRetirement = z.infer<
   typeof CreditPurchaseReceiptRetirementSchema
 >;
 
-const EPSILON = 1e-9;
-
-function nearlyEqual(a: number, b: number) {
-  return Math.abs(a - b) <= EPSILON;
-}
-
 export const CreditPurchaseReceiptDataSchema = z
   .strictObject({
     summary: CreditPurchaseReceiptSummarySchema,
@@ -444,7 +289,8 @@ export const CreditPurchaseReceiptDataSchema = z
     const retirementProvided = Boolean(data.retirement);
     const creditsWithRetirement = data.credits.reduce<number[]>(
       (indices, credit, index) => {
-        if ((credit.retirement_amount ?? 0) > 0) {
+        const retirementAmount = Number(credit.retirement_amount ?? 0);
+        if (retirementAmount > 0) {
           indices.push(index);
         }
         return indices;
@@ -472,90 +318,59 @@ export const CreditPurchaseReceiptDataSchema = z
       });
     }
 
-    const collectionSlugs = new Set(
-      data.collections.map((collection) => collection.slug),
+    validateCountMatches({
+      ctx,
+      actualCount: data.certificates.length,
+      expectedCount: data.summary.total_certificates,
+      path: ['summary', 'total_certificates'],
+      message:
+        'summary.total_certificates must equal the number of certificates',
+    });
+
+    const collectionSlugs = new Set<string>(
+      data.collections.map((collection) => String(collection.slug)),
     );
-    const creditSlugs = new Set(data.credits.map((credit) => credit.slug));
-    const creditSymbols = new Set(data.credits.map((credit) => credit.symbol));
-    const summaryCreditSymbols = new Set(data.summary.credit_symbols);
-    const summaryCollectionSlugs = new Set(data.summary.collection_slugs);
-    const summaryCertificateTypes = new Set(data.summary.certificate_types);
-
-    if (data.summary.total_certificates !== data.certificates.length) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_certificates must equal the number of certificates',
-        path: ['summary', 'total_certificates'],
-      });
-    }
-
-    data.summary.credit_symbols.forEach((symbol) => {
-      if (!creditSymbols.has(symbol)) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'summary.credit_symbols must reference symbols from credits',
-          path: ['summary', 'credit_symbols'],
-        });
-      }
-    });
-
-    creditSymbols.forEach((symbol) => {
-      if (!summaryCreditSymbols.has(symbol)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'All credit symbols must be listed in summary.credit_symbols',
-          path: ['summary', 'credit_symbols'],
-        });
-      }
-    });
-
-    data.summary.collection_slugs.forEach((slug) => {
-      if (!collectionSlugs.has(slug)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'summary.collection_slugs must reference slugs from collections',
-          path: ['summary', 'collection_slugs'],
-        });
-      }
-    });
-
-    collectionSlugs.forEach((slug) => {
-      if (!summaryCollectionSlugs.has(slug)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'All collection slugs must be listed in summary.collection_slugs',
-          path: ['summary', 'collection_slugs'],
-        });
-      }
-    });
-
-    const certificateTypes = new Set(
-      data.certificates.map((certificate) => certificate.type),
+    const creditSlugs = new Set<string>(
+      data.credits.map((credit) => String(credit.slug)),
     );
-    data.summary.certificate_types.forEach((type) => {
-      if (!certificateTypes.has(type)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'summary.certificate_types must reference types present in certificates',
-          path: ['summary', 'certificate_types'],
-        });
-      }
+    const creditSymbols = new Set<string>(
+      data.credits.map((credit) => String(credit.symbol)),
+    );
+    const certificateTypes = new Set<string>(
+      data.certificates.map((certificate) => String(certificate.type)),
+    );
+
+    validateSummaryListMatchesData({
+      ctx,
+      summaryValues: data.summary.credit_symbols,
+      dataValues: creditSymbols,
+      summaryPath: ['summary', 'credit_symbols'],
+      missingFromDataMessage:
+        'summary.credit_symbols must reference symbols from credits',
+      missingFromSummaryMessage:
+        'All credit symbols must be listed in summary.credit_symbols',
     });
 
-    certificateTypes.forEach((type) => {
-      if (!summaryCertificateTypes.has(type)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'All certificate types must be listed in summary.certificate_types',
-          path: ['summary', 'certificate_types'],
-        });
-      }
+    validateSummaryListMatchesData({
+      ctx,
+      summaryValues: data.summary.collection_slugs,
+      dataValues: collectionSlugs,
+      summaryPath: ['summary', 'collection_slugs'],
+      missingFromDataMessage:
+        'summary.collection_slugs must reference slugs from collections',
+      missingFromSummaryMessage:
+        'All collection slugs must be listed in summary.collection_slugs',
+    });
+
+    validateSummaryListMatchesData({
+      ctx,
+      summaryValues: data.summary.certificate_types,
+      dataValues: certificateTypes,
+      summaryPath: ['summary', 'certificate_types'],
+      missingFromDataMessage:
+        'summary.certificate_types must reference types present in certificates',
+      missingFromSummaryMessage:
+        'All certificate types must be listed in summary.certificate_types',
     });
 
     const creditPurchaseTotalsBySlug = new Map<string, number>();
@@ -597,67 +412,66 @@ export const CreditPurchaseReceiptDataSchema = z
         });
       }
 
-      totalCreditsFromCertificates += certificate.purchased_amount;
+      totalCreditsFromCertificates += Number(certificate.purchased_amount);
 
       creditPurchaseTotalsBySlug.set(
-        certificate.credit_slug,
+        String(certificate.credit_slug),
         (creditPurchaseTotalsBySlug.get(certificate.credit_slug) ?? 0) +
-          certificate.purchased_amount,
+          Number(certificate.purchased_amount),
       );
       creditRetiredTotalsBySlug.set(
-        certificate.credit_slug,
+        String(certificate.credit_slug),
         (creditRetiredTotalsBySlug.get(certificate.credit_slug) ?? 0) +
-          certificate.retired_amount,
+          Number(certificate.retired_amount),
       );
       collectionTotalsBySlug.set(
-        certificate.collection_slug,
+        String(certificate.collection_slug),
         (collectionTotalsBySlug.get(certificate.collection_slug) ?? 0) +
-          certificate.purchased_amount,
+          Number(certificate.purchased_amount),
       );
     });
 
     const totalCreditsFromCollections = data.collections.reduce(
-      (sum, collection) => sum + collection.credit_amount,
+      (sum, collection) => sum + Number(collection.credit_amount),
       0,
     );
 
     const totalCreditsFromCredits = data.credits.reduce(
-      (sum, credit) => sum + credit.purchase_amount,
+      (sum, credit) => sum + Number(credit.purchase_amount),
       0,
     );
 
-    if (
-      !nearlyEqual(totalCreditsFromCertificates, data.summary.total_credits)
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_credits must equal sum of certificates.purchased_amount',
-        path: ['summary', 'total_credits'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: totalCreditsFromCertificates,
+      expectedTotal: data.summary.total_credits,
+      path: ['summary', 'total_credits'],
+      message:
+        'summary.total_credits must equal sum of certificates.purchased_amount',
+    });
 
-    if (!nearlyEqual(totalCreditsFromCredits, data.summary.total_credits)) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_credits must equal sum of credits.purchase_amount',
-        path: ['summary', 'total_credits'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: totalCreditsFromCredits,
+      expectedTotal: data.summary.total_credits,
+      path: ['summary', 'total_credits'],
+      message:
+        'summary.total_credits must equal sum of credits.purchase_amount',
+    });
 
-    if (!nearlyEqual(totalCreditsFromCollections, data.summary.total_credits)) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_credits must equal sum of collections.credit_amount',
-        path: ['summary', 'total_credits'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: totalCreditsFromCollections,
+      expectedTotal: data.summary.total_credits,
+      path: ['summary', 'total_credits'],
+      message:
+        'summary.total_credits must equal sum of collections.credit_amount',
+    });
 
     data.credits.forEach((credit, index) => {
-      const purchasedTotal = creditPurchaseTotalsBySlug.get(credit.slug) ?? 0;
-      if (!nearlyEqual(credit.purchase_amount, purchasedTotal)) {
+      const purchasedTotal =
+        creditPurchaseTotalsBySlug.get(String(credit.slug)) ?? 0;
+      if (!nearlyEqual(Number(credit.purchase_amount), purchasedTotal)) {
         ctx.addIssue({
           code: 'custom',
           message:
@@ -666,8 +480,9 @@ export const CreditPurchaseReceiptDataSchema = z
         });
       }
 
-      const retiredTotal = creditRetiredTotalsBySlug.get(credit.slug) ?? 0;
-      const retirementAmount = credit.retirement_amount ?? 0;
+      const retiredTotal =
+        creditRetiredTotalsBySlug.get(String(credit.slug)) ?? 0;
+      const retirementAmount = Number(credit.retirement_amount ?? 0);
       if (!nearlyEqual(retirementAmount, retiredTotal)) {
         ctx.addIssue({
           code: 'custom',
@@ -679,8 +494,9 @@ export const CreditPurchaseReceiptDataSchema = z
     });
 
     data.collections.forEach((collection, index) => {
-      const purchasedTotal = collectionTotalsBySlug.get(collection.slug) ?? 0;
-      if (!nearlyEqual(collection.credit_amount, purchasedTotal)) {
+      const purchasedTotal =
+        collectionTotalsBySlug.get(String(collection.slug)) ?? 0;
+      if (!nearlyEqual(Number(collection.credit_amount), purchasedTotal)) {
         ctx.addIssue({
           code: 'custom',
           message:
@@ -691,18 +507,18 @@ export const CreditPurchaseReceiptDataSchema = z
     });
 
     const participantRewardTotal = data.participant_rewards.reduce(
-      (sum, reward) => sum + reward.usdc_amount,
+      (sum, reward) => sum + Number(reward.usdc_amount),
       0,
     );
 
-    if (!nearlyEqual(participantRewardTotal, data.summary.total_usdc_amount)) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_usdc_amount must equal sum of participant_rewards.usdc_amount',
-        path: ['summary', 'total_usdc_amount'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: participantRewardTotal,
+      expectedTotal: data.summary.total_usdc_amount,
+      path: ['summary', 'total_usdc_amount'],
+      message:
+        'summary.total_usdc_amount must equal sum of participant_rewards.usdc_amount',
+    });
   })
   .meta({
     title: 'Credit Purchase Receipt Data',

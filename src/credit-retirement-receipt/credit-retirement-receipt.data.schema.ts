@@ -1,97 +1,36 @@
 import { z } from 'zod';
 import {
-  CollectionNameSchema,
-  CollectionSlugSchema,
   CreditAmountSchema,
+  CreditTokenSymbolSchema,
   EthereumAddressSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-  IsoDateSchema,
-  ParticipantNameSchema,
-  PositiveIntegerSchema,
-  RecordSchemaTypeSchema,
   SlugSchema,
   SmartContractSchema,
   TokenIdSchema,
-  CreditTokenSymbolSchema,
-  uniqueArrayItems,
   uniqueBy,
 } from '../shared';
-import { MassIDReferenceSchema } from '../shared/references/mass-id-reference.schema';
-
-const CreditRetirementReceiptSummarySchema = z
-  .strictObject({
-    total_retirement_amount: CreditAmountSchema.meta({
-      title: 'Total Retirement Amount',
-      description: 'Total amount of credits retired',
-    }),
-    total_certificates: PositiveIntegerSchema.meta({
-      title: 'Total Certificates',
-      description: 'Total number of certificates retired',
-    }),
-    retirement_date: IsoDateSchema.meta({
-      title: 'Retirement Date',
-      description: 'Date when the retirement occurred (YYYY-MM-DD)',
-    }),
-    credit_symbols: uniqueArrayItems(
-      CreditTokenSymbolSchema,
-      'Credit symbols must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Credit Symbols',
-        description: 'Array of credit token symbols retired',
-      }),
-    certificate_types: uniqueArrayItems(
-      RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']),
-      'Certificate types must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Certificate Types',
-        description: 'Array of certificate types included in the retirement',
-      }),
-    collection_slugs: uniqueArrayItems(
-      CollectionSlugSchema,
-      'Collection slugs must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Collection Slugs',
-        description: 'Array of collection slugs represented in the retirement',
-      }),
-  })
-  .meta({
-    title: 'Credit Retirement Receipt Summary',
-    description:
-      'Summary totals for the credit retirement including amounts and collections represented',
-  });
+import {
+  CreditRetirementReceiptSummarySchema,
+  MassIdReferenceWithContractSchema,
+  ReceiptIdentitySchema,
+  createReceiptCertificateSchema,
+  createReceiptCollectionSchema,
+  createReceiptCreditSchema,
+  nearlyEqual,
+} from '../shared/receipt';
+import {
+  validateCountMatches,
+  validateSummaryListMatchesData,
+  validateTotalMatches,
+} from '../shared/receipt/receipt.validation';
 
 export type CreditRetirementReceiptSummary = z.infer<
   typeof CreditRetirementReceiptSummarySchema
 >;
 
-const CreditRetirementReceiptIdentitySchema = z
-  .strictObject({
-    name: ParticipantNameSchema.meta({
-      title: 'Identity Name',
-      description: 'Display name for the participant',
-      examples: ['Climate Action Corp'],
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Identity External ID',
-      description: 'External identifier for the participant',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Identity External URL',
-      description: 'External URL for the participant profile',
-    }),
-  })
-  .meta({
-    title: 'Identity',
-    description: 'Participant identity information',
-  });
+const CreditRetirementReceiptIdentitySchema = ReceiptIdentitySchema;
 
 export type CreditRetirementReceiptIdentity = z.infer<
   typeof CreditRetirementReceiptIdentitySchema
@@ -132,69 +71,33 @@ export type CreditRetirementReceiptCreditHolder = z.infer<
   typeof CreditRetirementReceiptCreditHolderSchema
 >;
 
-const CreditRetirementReceiptCollectionSchema = z
-  .strictObject({
-    slug: CollectionSlugSchema,
-    external_id: ExternalIdSchema.meta({
-      title: 'Collection External ID',
-      description: 'External identifier for the collection',
-    }),
-    name: CollectionNameSchema,
-    external_url: ExternalUrlSchema.meta({
-      title: 'Collection External URL',
-      description: 'External URL for the collection',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Collection URI',
-      description: 'IPFS URI for the collection metadata',
-    }),
-    amount: CreditAmountSchema.meta({
-      title: 'Collection Retirement Amount',
-      description: 'Total credits retired from this collection',
-    }),
-  })
-  .meta({
+const CreditRetirementReceiptCollectionSchema = createReceiptCollectionSchema({
+  amountKey: 'amount',
+  amountMeta: {
+    title: 'Collection Retirement Amount',
+    description: 'Total credits retired from this collection',
+  },
+  meta: {
     title: 'Collection',
     description: 'Collection included in the retirement',
-  });
+  },
+});
 
 export type CreditRetirementReceiptCollection = z.infer<
   typeof CreditRetirementReceiptCollectionSchema
 >;
 
-const CreditRetirementReceiptCreditSchema = z
-  .strictObject({
-    slug: SlugSchema.meta({
-      title: 'Credit Slug',
-      description: 'URL-friendly identifier for the credit',
-      examples: ['carbon', 'organic'],
-    }),
-    symbol: CreditTokenSymbolSchema.meta({
-      title: 'Credit Token Symbol',
-      description: 'Symbol of the credit token',
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Credit External ID',
-      description: 'External identifier for the credit',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Credit External URL',
-      description: 'External URL for the credit',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Credit URI',
-      description: 'IPFS URI for the credit details',
-    }),
-    smart_contract: SmartContractSchema,
-    amount: CreditAmountSchema.meta({
-      title: 'Credit Retirement Amount',
-      description: 'Total credits retired for this credit type',
-    }),
-  })
-  .meta({
+const CreditRetirementReceiptCreditSchema = createReceiptCreditSchema({
+  amountKey: 'amount',
+  amountMeta: {
+    title: 'Credit Retirement Amount',
+    description: 'Total credits retired for this credit type',
+  },
+  meta: {
     title: 'Credit',
     description: 'Credit token retired in this receipt',
-  });
+  },
+});
 
 export type CreditRetirementReceiptCredit = z.infer<
   typeof CreditRetirementReceiptCreditSchema
@@ -233,15 +136,8 @@ export type CreditRetirementReceiptCertificateCredit = z.infer<
   typeof CreditRetirementReceiptCertificateCreditSchema
 >;
 
-const CreditRetirementMassIdReferenceSchema = MassIDReferenceSchema.extend({
-  smart_contract: SmartContractSchema,
-}).meta({
-  title: 'MassID Reference with Smart Contract',
-  description: 'Reference to a MassID record including smart contract details',
-});
-
 export type CreditRetirementMassIdReference = z.infer<
-  typeof CreditRetirementMassIdReferenceSchema
+  typeof MassIdReferenceWithContractSchema
 >;
 
 const CreditPurchaseReceiptReferenceSchema = z
@@ -274,68 +170,35 @@ export type CreditPurchaseReceiptReference = z.infer<
   typeof CreditPurchaseReceiptReferenceSchema
 >;
 
-const CreditRetirementReceiptCertificateSchema = z
-  .strictObject({
-    token_id: TokenIdSchema.meta({
-      title: 'Certificate Token ID',
-      description: 'Token ID of the certificate',
-    }),
-    type: RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']).meta({
-      title: 'Certificate Type',
-      description: 'Type of certificate (e.g., GasID, RecycledID)',
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Certificate External ID',
-      description: 'External identifier for the certificate',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Certificate External URL',
-      description: 'External URL for the certificate',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Certificate URI',
-      description: 'IPFS URI for the certificate metadata',
-    }),
-    smart_contract: SmartContractSchema,
-    collection_slug: CollectionSlugSchema.meta({
-      title: 'Collection Slug',
-      description: 'Slug of the collection this certificate belongs to',
-    }),
-    total_amount: CreditAmountSchema.meta({
-      title: 'Certificate Total Amount',
-      description: 'Total credits available in this certificate',
-    }),
-    retired_amount: CreditAmountSchema.meta({
-      title: 'Certificate Retired Amount',
-      description: 'Credits retired from this certificate',
-    }),
-    credits_retired: uniqueBy(
-      CreditRetirementReceiptCertificateCreditSchema,
-      (credit) => credit.credit_symbol,
-      'Credit symbols within credits_retired must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Credits Retired',
-        description:
-          'Breakdown of credits retired from this certificate by symbol',
+const CreditRetirementReceiptCertificateSchema = createReceiptCertificateSchema(
+  {
+    additionalShape: {
+      retired_amount: CreditAmountSchema.meta({
+        title: 'Certificate Retired Amount',
+        description: 'Credits retired from this certificate',
       }),
-    mass_id: CreditRetirementMassIdReferenceSchema,
-  })
-  .meta({
-    title: 'Certificate',
-    description: 'Certificate associated with the retirement',
-  });
+      credits_retired: uniqueBy(
+        CreditRetirementReceiptCertificateCreditSchema,
+        (credit) => credit.credit_symbol,
+        'Credit symbols within credits_retired must be unique',
+      )
+        .min(1)
+        .meta({
+          title: 'Credits Retired',
+          description:
+            'Breakdown of credits retired from this certificate by symbol',
+        }),
+    },
+    meta: {
+      title: 'Certificate',
+      description: 'Certificate associated with the retirement',
+    },
+  },
+);
 
 export type CreditRetirementReceiptCertificate = z.infer<
   typeof CreditRetirementReceiptCertificateSchema
 >;
-
-const EPSILON = 1e-9;
-
-function nearlyEqual(a: number, b: number) {
-  return Math.abs(a - b) <= EPSILON;
-}
 
 export const CreditRetirementReceiptDataSchema = z
   .strictObject({
@@ -375,92 +238,59 @@ export const CreditRetirementReceiptDataSchema = z
     purchase_receipt: CreditPurchaseReceiptReferenceSchema.optional(),
   })
   .superRefine((data, ctx) => {
-    const creditSymbols = new Set(data.credits.map((credit) => credit.symbol));
+    const creditSymbols = new Set<string>(
+      data.credits.map((credit) => String(credit.symbol)),
+    );
     const creditBySlug = new Map(
       data.credits.map((credit) => [credit.slug, credit]),
     );
-    const collectionSlugs = new Set(
-      data.collections.map((collection) => collection.slug),
+    const collectionSlugs = new Set<string>(
+      data.collections.map((collection) => String(collection.slug)),
     );
-    const summaryCreditSymbols = new Set(data.summary.credit_symbols);
-    const summaryCollectionSlugs = new Set(data.summary.collection_slugs);
-    const summaryCertificateTypes = new Set(data.summary.certificate_types);
-    const certificateTypes = new Set(
-      data.certificates.map((certificate) => certificate.type),
+    const certificateTypes = new Set<string>(
+      data.certificates.map((certificate) => String(certificate.type)),
     );
 
-    if (data.summary.total_certificates !== data.certificates.length) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_certificates must equal the number of certificates',
-        path: ['summary', 'total_certificates'],
-      });
-    }
-
-    data.summary.credit_symbols.forEach((symbol) => {
-      if (!creditSymbols.has(symbol)) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'summary.credit_symbols must reference symbols from credits',
-          path: ['summary', 'credit_symbols'],
-        });
-      }
+    validateCountMatches({
+      ctx,
+      actualCount: data.certificates.length,
+      expectedCount: data.summary.total_certificates,
+      path: ['summary', 'total_certificates'],
+      message:
+        'summary.total_certificates must equal the number of certificates',
     });
 
-    creditSymbols.forEach((symbol) => {
-      if (!summaryCreditSymbols.has(symbol)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'All credit symbols must be listed in summary.credit_symbols',
-          path: ['summary', 'credit_symbols'],
-        });
-      }
+    validateSummaryListMatchesData({
+      ctx,
+      summaryValues: data.summary.credit_symbols,
+      dataValues: creditSymbols,
+      summaryPath: ['summary', 'credit_symbols'],
+      missingFromDataMessage:
+        'summary.credit_symbols must reference symbols from credits',
+      missingFromSummaryMessage:
+        'All credit symbols must be listed in summary.credit_symbols',
     });
 
-    data.summary.collection_slugs.forEach((slug) => {
-      if (!collectionSlugs.has(slug)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'summary.collection_slugs must reference slugs from collections',
-          path: ['summary', 'collection_slugs'],
-        });
-      }
+    validateSummaryListMatchesData({
+      ctx,
+      summaryValues: data.summary.collection_slugs,
+      dataValues: collectionSlugs,
+      summaryPath: ['summary', 'collection_slugs'],
+      missingFromDataMessage:
+        'summary.collection_slugs must reference slugs from collections',
+      missingFromSummaryMessage:
+        'All collection slugs must be listed in summary.collection_slugs',
     });
 
-    collectionSlugs.forEach((slug) => {
-      if (!summaryCollectionSlugs.has(slug)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'All collection slugs must be listed in summary.collection_slugs',
-          path: ['summary', 'collection_slugs'],
-        });
-      }
-    });
-
-    data.summary.certificate_types.forEach((type) => {
-      if (!certificateTypes.has(type)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'summary.certificate_types must reference types present in certificates',
-          path: ['summary', 'certificate_types'],
-        });
-      }
-    });
-
-    certificateTypes.forEach((type) => {
-      if (!summaryCertificateTypes.has(type)) {
-        ctx.addIssue({
-          code: 'custom',
-          message:
-            'All certificate types must be listed in summary.certificate_types',
-          path: ['summary', 'certificate_types'],
-        });
-      }
+    validateSummaryListMatchesData({
+      ctx,
+      summaryValues: data.summary.certificate_types,
+      dataValues: certificateTypes,
+      summaryPath: ['summary', 'certificate_types'],
+      missingFromDataMessage:
+        'summary.certificate_types must reference types present in certificates',
+      missingFromSummaryMessage:
+        'All certificate types must be listed in summary.certificate_types',
     });
 
     const creditTotalsBySymbol = new Map<string, number>();
@@ -486,7 +316,7 @@ export const CreditRetirementReceiptDataSchema = z
       }
 
       const creditsRetiredTotal = certificate.credits_retired.reduce(
-        (sum, credit) => sum + credit.amount,
+        (sum, credit) => sum + Number(credit.amount),
         0,
       );
 
@@ -554,21 +384,21 @@ export const CreditRetirementReceiptDataSchema = z
       });
 
       collectionTotalsBySlug.set(
-        certificate.collection_slug,
+        String(certificate.collection_slug),
         (collectionTotalsBySlug.get(certificate.collection_slug) ?? 0) +
-          certificate.retired_amount,
+          Number(certificate.retired_amount),
       );
 
-      totalRetiredFromCertificates += certificate.retired_amount;
+      totalRetiredFromCertificates += Number(certificate.retired_amount);
     });
 
     const totalRetiredFromCollections = data.collections.reduce(
-      (sum, collection) => sum + collection.amount,
+      (sum, collection) => sum + Number(collection.amount),
       0,
     );
 
     const totalRetiredFromCredits = data.credits.reduce(
-      (sum, credit) => sum + credit.amount,
+      (sum, credit) => sum + Number(credit.amount),
       0,
     );
 
@@ -583,51 +413,36 @@ export const CreditRetirementReceiptDataSchema = z
       }
     });
 
-    if (
-      !nearlyEqual(
-        totalRetiredFromCertificates,
-        data.summary.total_retirement_amount,
-      )
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_retirement_amount must equal sum of certificates.retired_amount',
-        path: ['summary', 'total_retirement_amount'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: totalRetiredFromCertificates,
+      expectedTotal: data.summary.total_retirement_amount,
+      path: ['summary', 'total_retirement_amount'],
+      message:
+        'summary.total_retirement_amount must equal sum of certificates.retired_amount',
+    });
 
-    if (
-      !nearlyEqual(
-        totalRetiredFromCredits,
-        data.summary.total_retirement_amount,
-      )
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_retirement_amount must equal sum of credits.amount',
-        path: ['summary', 'total_retirement_amount'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: totalRetiredFromCredits,
+      expectedTotal: data.summary.total_retirement_amount,
+      path: ['summary', 'total_retirement_amount'],
+      message:
+        'summary.total_retirement_amount must equal sum of credits.amount',
+    });
 
-    if (
-      !nearlyEqual(
-        totalRetiredFromCollections,
-        data.summary.total_retirement_amount,
-      )
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'summary.total_retirement_amount must equal sum of collections.amount',
-        path: ['summary', 'total_retirement_amount'],
-      });
-    }
+    validateTotalMatches({
+      ctx,
+      actualTotal: totalRetiredFromCollections,
+      expectedTotal: data.summary.total_retirement_amount,
+      path: ['summary', 'total_retirement_amount'],
+      message:
+        'summary.total_retirement_amount must equal sum of collections.amount',
+    });
 
     data.credits.forEach((credit, index) => {
-      const retiredTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
-      if (!nearlyEqual(credit.amount, retiredTotal)) {
+      const retiredTotal = creditTotalsBySymbol.get(String(credit.symbol)) ?? 0;
+      if (!nearlyEqual(Number(credit.amount), retiredTotal)) {
         ctx.addIssue({
           code: 'custom',
           message:
@@ -638,8 +453,9 @@ export const CreditRetirementReceiptDataSchema = z
     });
 
     data.collections.forEach((collection, index) => {
-      const retiredTotal = collectionTotalsBySlug.get(collection.slug) ?? 0;
-      if (!nearlyEqual(collection.amount, retiredTotal)) {
+      const retiredTotal =
+        collectionTotalsBySlug.get(String(collection.slug)) ?? 0;
+      if (!nearlyEqual(Number(collection.amount), retiredTotal)) {
         ctx.addIssue({
           code: 'custom',
           message:
