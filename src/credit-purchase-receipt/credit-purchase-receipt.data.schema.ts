@@ -19,45 +19,27 @@ import {
   EthereumAddressSchema,
   uniqueArrayItems,
   uniqueBy,
+  ExternalIdSchema,
 } from '../shared';
 import { MassIDReferenceSchema } from '../shared/references/mass-id-reference.schema';
-
-const CreditPurchaseReceiptExternalIdSchema = z
-  .string()
-  .regex(
-    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
-    'Must be a valid UUID string',
-  )
-  .meta({
-    title: 'External ID',
-    description: 'UUID string identifier for external references',
-    examples: [
-      'f1a2b3c4-d5e6-4789-9012-34567890abcd',
-      '0f1e2d3c-4b5a-6978-9012-3456789abcde',
-    ],
-  });
 
 const CreditPurchaseReceiptSummarySchema = z
   .strictObject({
     total_usdc_amount: NonNegativeFloatSchema.meta({
       title: 'Total USDC Amount',
       description: 'Total amount paid in USDC for the purchase',
-      examples: [1950],
     }),
-    total_credits: NonNegativeFloatSchema.meta({
+    total_credits: CreditAmountSchema.meta({
       title: 'Total Credits',
       description: 'Total amount of credits purchased',
-      examples: [8.5],
     }),
     total_certificates: PositiveIntegerSchema.meta({
       title: 'Total Certificates',
       description: 'Total number of certificates purchased',
-      examples: [3],
     }),
     purchase_date: IsoDateSchema.meta({
       title: 'Purchase Date',
       description: 'Date when the purchase was made (YYYY-MM-DD)',
-      examples: ['2025-02-03'],
     }),
     credit_symbols: uniqueArrayItems(
       TokenSymbolSchema,
@@ -67,7 +49,6 @@ const CreditPurchaseReceiptSummarySchema = z
       .meta({
         title: 'Credit Symbols',
         description: 'Array of credit token symbols included in the purchase',
-        examples: [['C-CARB', 'C-BIOW']],
       }),
     certificate_types: uniqueArrayItems(
       RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']),
@@ -77,7 +58,6 @@ const CreditPurchaseReceiptSummarySchema = z
       .meta({
         title: 'Certificate Types',
         description: 'Array of certificate types included in the purchase',
-        examples: [['GasID', 'RecycledID']],
       }),
     collection_slugs: uniqueArrayItems(
       CollectionSlugSchema,
@@ -87,7 +67,6 @@ const CreditPurchaseReceiptSummarySchema = z
       .meta({
         title: 'Collection Slugs',
         description: 'Array of collection slugs represented in the purchase',
-        examples: [['bold-cold-start-carazinho', 'bold-brazil']],
       }),
   })
   .meta({
@@ -107,7 +86,7 @@ const CreditPurchaseReceiptIdentitySchema = z
       description: 'Display name for the participant',
       examples: ['EcoTech Solutions Inc.'],
     }),
-    external_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Identity External ID',
       description: 'External identifier for the participant',
     }),
@@ -144,7 +123,7 @@ export type CreditPurchaseReceiptReceiver = z.infer<
 
 const CreditPurchaseReceiptBuyerSchema = z
   .strictObject({
-    buyer_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    buyer_id: ExternalIdSchema.meta({
       title: 'Buyer ID',
       description: 'Unique identifier for the buyer',
     }),
@@ -181,7 +160,7 @@ export type CreditPurchaseReceiptParties = z.infer<
 const CreditPurchaseReceiptCollectionSchema = z
   .strictObject({
     slug: CollectionSlugSchema,
-    external_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Collection External ID',
       description: 'External identifier for the collection',
     }),
@@ -197,7 +176,6 @@ const CreditPurchaseReceiptCollectionSchema = z
     credit_amount: CreditAmountSchema.meta({
       title: 'Collection Credit Amount',
       description: 'Total credits purchased from this collection',
-      examples: [5, 3.5],
     }),
   })
   .meta({
@@ -214,14 +192,13 @@ const CreditPurchaseReceiptCreditSchema = z
     slug: SlugSchema.meta({
       title: 'Credit Slug',
       description: 'URL-friendly identifier for the credit',
-      examples: ['carbon', 'organic'],
     }),
     symbol: TokenSymbolSchema.meta({
       title: 'Credit Token Symbol',
       description: 'Symbol of the credit token',
       examples: ['C-CARB', 'C-BIOW'],
     }),
-    external_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Credit External ID',
       description: 'External identifier for the credit',
     }),
@@ -242,7 +219,6 @@ const CreditPurchaseReceiptCreditSchema = z
       title: 'Credit Retirement Amount',
       description:
         'Credits retired immediately for this credit type during purchase',
-      examples: [0, 2],
     }),
   })
   .meta({
@@ -258,7 +234,7 @@ const MassIDReferenceWithContractSchema = MassIDReferenceSchema.omit({
   external_id: true,
 })
   .safeExtend({
-    external_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'MassID External ID',
       description: 'Unique identifier for the referenced MassID',
     }),
@@ -279,13 +255,12 @@ const CreditPurchaseReceiptCertificateSchema = z
     token_id: TokenIdSchema.meta({
       title: 'Certificate Token ID',
       description: 'Token ID of the certificate',
-      examples: ['456', '789'],
     }),
     type: RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']).meta({
       title: 'Certificate Type',
       description: 'Type of certificate (e.g., GasID, RecycledID)',
     }),
-    external_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Certificate External ID',
       description: 'External identifier for the certificate',
     }),
@@ -354,7 +329,6 @@ const CreditPurchaseReceiptParticipantRewardSchema = z
     usdc_amount: NonNegativeFloatSchema.meta({
       title: 'USDC Reward Amount',
       description: 'USDC amount allocated to this participant',
-      examples: [487.5],
     }),
   })
   .meta({
@@ -372,7 +346,7 @@ const CreditPurchaseReceiptRetirementReceiptSchema = z
       title: 'Retirement Receipt Token ID',
       description: 'Token ID of the retirement receipt NFT',
     }),
-    external_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    external_id: ExternalIdSchema.meta({
       title: 'Retirement Receipt External ID',
       description: 'External identifier for the retirement receipt',
     }),
@@ -397,7 +371,7 @@ export type CreditPurchaseReceiptRetirementReceipt = z.infer<
 
 const CreditPurchaseReceiptRetirementSchema = z
   .strictObject({
-    beneficiary_id: CreditPurchaseReceiptExternalIdSchema.meta({
+    beneficiary_id: ExternalIdSchema.meta({
       title: 'Retirement Beneficiary ID',
       description:
         'UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)',
