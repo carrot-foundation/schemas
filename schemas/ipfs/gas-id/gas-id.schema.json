@@ -175,8 +175,8 @@
             "description": "Type of relationship to the referenced record",
             "examples": [
               "mass-id",
-              "audit",
-              "collection"
+              "collection",
+              "credit-purchase-receipt"
             ],
             "type": "string",
             "enum": [
@@ -186,7 +186,7 @@
               "mass-id",
               "mass-id-audit",
               "methodology",
-              "purchase-id",
+              "credit-purchase-receipt",
               "recycled-id"
             ]
           },

@@ -15,7 +15,7 @@ const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   'MassID',
   'RecycledID',
   'GasID',
-  'PurchaseID',
+  'CreditPurchaseReceipt',
 ]).meta({
   title: 'NFT Schema Type',
   description: 'Type of schema for NFT records',
