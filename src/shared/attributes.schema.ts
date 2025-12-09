@@ -100,7 +100,7 @@ export const RecyclerAttributeSchema = NftAttributeSchema.extend({
 });
 export type RecyclerAttribute = z.infer<typeof RecyclerAttributeSchema>;
 
-export const MassIdTokenIdAttributeSchema = NftAttributeSchema.extend({
+export const MassIDTokenIdAttributeSchema = NftAttributeSchema.extend({
   trait_type: z.literal('MassID'),
   value: StringifiedTokenIdSchema.meta({
     title: 'MassID Token ID',
@@ -110,11 +110,11 @@ export const MassIdTokenIdAttributeSchema = NftAttributeSchema.extend({
   title: 'MassID Token ID Attribute',
   description: 'MassID token ID attribute',
 });
-export type MassIdTokenIdAttribute = z.infer<
-  typeof MassIdTokenIdAttributeSchema
+export type MassIDTokenIdAttribute = z.infer<
+  typeof MassIDTokenIdAttributeSchema
 >;
 
-export const MassIdRecyclingDateAttributeSchema = NftAttributeSchema.extend({
+export const MassIDRecyclingDateAttributeSchema = NftAttributeSchema.extend({
   trait_type: z.literal('MassID Recycling Date'),
   value: IsoDateSchema.meta({
     title: 'MassID Recycling Date',
@@ -125,6 +125,6 @@ export const MassIdRecyclingDateAttributeSchema = NftAttributeSchema.extend({
   title: 'MassID Recycling Date Attribute',
   description: 'MassID recycling date attribute with date display',
 });
-export type MassIdRecyclingDateAttribute = z.infer<
-  typeof MassIdRecyclingDateAttributeSchema
+export type MassIDRecyclingDateAttribute = z.infer<
+  typeof MassIDRecyclingDateAttributeSchema
 >;

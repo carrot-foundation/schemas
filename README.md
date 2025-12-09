@@ -113,7 +113,7 @@ The package includes full TypeScript definitions:
 import { MassIDIpfs, MassIDData } from '@carrot-foundation/schemas';
 
 // Types are automatically inferred from the schemas
-const massIdData: MassIDData = {
+const massIDData: MassIDData = {
   // ...
 };
 ```
