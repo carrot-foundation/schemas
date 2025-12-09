@@ -9,7 +9,7 @@ import {
   CollectionNameSchema,
 } from '../shared';
 
-const PurchaseIDAttributeCreditSchema = NftAttributeSchema.extend({
+const PurchaseIDAttributeCreditSchema = NftAttributeSchema.safeExtend({
   trait_type: TokenSymbolSchema.meta({
     title: 'Credit Token Symbol',
     description: 'Symbol of the credit token (e.g., C-CARB, C-BIOW)',
@@ -28,7 +28,7 @@ export type PurchaseIDAttributeCredit = z.infer<
   typeof PurchaseIDAttributeCreditSchema
 >;
 
-const PurchaseIDAttributeBuyerSchema = NftAttributeSchema.extend({
+const PurchaseIDAttributeBuyerSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Buyer'),
   value: ParticipantNameSchema.meta({
     title: 'Buyer Name',
@@ -45,7 +45,7 @@ export type PurchaseIDAttributeBuyer = z.infer<
   typeof PurchaseIDAttributeBuyerSchema
 >;
 
-const PurchaseIDAttributePurchaseDateSchema = NftAttributeSchema.extend({
+const PurchaseIDAttributePurchaseDateSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Purchase Date'),
   value: UnixTimestampSchema.meta({
     title: 'Purchase Date',
@@ -63,7 +63,7 @@ export type PurchaseIDAttributePurchaseDate = z.infer<
   typeof PurchaseIDAttributePurchaseDateSchema
 >;
 
-const PurchaseIDAttributeCollectionSchema = NftAttributeSchema.extend({
+const PurchaseIDAttributeCollectionSchema = NftAttributeSchema.safeExtend({
   trait_type: CollectionNameSchema,
   value: CreditAmountSchema.meta({
     title: 'Credits from Collection',

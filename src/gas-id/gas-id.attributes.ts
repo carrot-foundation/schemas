@@ -21,7 +21,7 @@ export type GasIDAttributeMethodology = z.infer<
   typeof GasIDAttributeMethodologySchema
 >;
 
-const GasIDAttributeGasTypeSchema = NftAttributeSchema.extend({
+const GasIDAttributeGasTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Gas Type'),
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Gas Type',
@@ -35,7 +35,7 @@ const GasIDAttributeGasTypeSchema = NftAttributeSchema.extend({
 
 export type GasIDAttributeGasType = z.infer<typeof GasIDAttributeGasTypeSchema>;
 
-const GasIDAttributeCo2ePreventedSchema = NftAttributeSchema.extend({
+const GasIDAttributeCo2ePreventedSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('CO₂e Prevented (kg)'),
   value: NonNegativeFloatSchema.meta({
     title: 'CO₂e Prevented',

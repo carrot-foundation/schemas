@@ -13,7 +13,7 @@ import {
   CreditTypeSchema,
 } from './definitions.schema';
 
-export const MethodologyAttributeSchema = NftAttributeSchema.extend({
+export const MethodologyAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Methodology'),
   value: MethodologyNameSchema,
 }).meta({
@@ -22,7 +22,7 @@ export const MethodologyAttributeSchema = NftAttributeSchema.extend({
 });
 export type MethodologyAttribute = z.infer<typeof MethodologyAttributeSchema>;
 
-export const CreditAmountAttributeSchema = NftAttributeSchema.extend({
+export const CreditAmountAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Credit Amount'),
   value: CreditAmountSchema,
   display_type: z.literal('number'),
@@ -32,7 +32,7 @@ export const CreditAmountAttributeSchema = NftAttributeSchema.extend({
 });
 export type CreditAmountAttribute = z.infer<typeof CreditAmountAttributeSchema>;
 
-export const CreditTypeAttributeSchema = NftAttributeSchema.extend({
+export const CreditTypeAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Credit Type'),
   value: CreditTypeSchema,
 }).meta({
@@ -41,7 +41,7 @@ export const CreditTypeAttributeSchema = NftAttributeSchema.extend({
 });
 export type CreditTypeAttribute = z.infer<typeof CreditTypeAttributeSchema>;
 
-export const SourceWasteTypeAttributeSchema = NftAttributeSchema.extend({
+export const SourceWasteTypeAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Source Waste Type'),
   value: WasteTypeSchema,
 }).meta({
@@ -52,7 +52,7 @@ export type SourceWasteTypeAttribute = z.infer<
   typeof SourceWasteTypeAttributeSchema
 >;
 
-export const SourceWeightAttributeSchema = NftAttributeSchema.extend({
+export const SourceWeightAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Source Weight (kg)'),
   value: WeightKgSchema.meta({
     title: 'Source Weight',
@@ -65,7 +65,7 @@ export const SourceWeightAttributeSchema = NftAttributeSchema.extend({
 });
 export type SourceWeightAttribute = z.infer<typeof SourceWeightAttributeSchema>;
 
-export const OriginCountryAttributeSchema = NftAttributeSchema.extend({
+export const OriginCountryAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Origin Country'),
   value: CountryNameSchema,
 }).meta({
@@ -76,7 +76,7 @@ export type OriginCountryAttribute = z.infer<
   typeof OriginCountryAttributeSchema
 >;
 
-export const OriginMunicipalityAttributeSchema = NftAttributeSchema.extend({
+export const OriginMunicipalityAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Origin Municipality'),
   value: MunicipalitySchema,
 }).meta({
@@ -87,7 +87,7 @@ export type OriginMunicipalityAttribute = z.infer<
   typeof OriginMunicipalityAttributeSchema
 >;
 
-export const RecyclerAttributeSchema = NftAttributeSchema.extend({
+export const RecyclerAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Recycler'),
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Recycler',
@@ -100,7 +100,7 @@ export const RecyclerAttributeSchema = NftAttributeSchema.extend({
 });
 export type RecyclerAttribute = z.infer<typeof RecyclerAttributeSchema>;
 
-export const MassIDTokenIdAttributeSchema = NftAttributeSchema.extend({
+export const MassIDTokenIdAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('MassID'),
   value: StringifiedTokenIdSchema.meta({
     title: 'MassID Token ID',
@@ -117,7 +117,7 @@ export type MassIDTokenIdAttribute = z.infer<
 export const MassIDRecyclingDateAttributeSchema = NftAttributeSchema.omit({
   max_value: true,
 })
-  .extend({
+  .safeExtend({
     trait_type: z.literal('MassID Recycling Date'),
     value: UnixTimestampSchema.meta({
       title: 'MassID Recycling Date',

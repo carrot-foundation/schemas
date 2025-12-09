@@ -20,17 +20,18 @@ export type RecycledIDAttributeMethodology = z.infer<
   typeof RecycledIDAttributeMethodologySchema
 >;
 
-const RecycledIDAttributeRecycledMassWeightSchema = NftAttributeSchema.extend({
-  trait_type: z.literal('Recycled Mass Weight (kg)'),
-  value: WeightKgSchema.meta({
-    title: 'Recycled Mass Weight',
-    description: 'Total weight of recycled materials in kilograms',
-  }),
-  display_type: z.literal('number'),
-}).meta({
-  title: 'Recycled Mass Weight Attribute',
-  description: 'Recycled mass weight attribute with numeric display',
-});
+const RecycledIDAttributeRecycledMassWeightSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Recycled Mass Weight (kg)'),
+    value: WeightKgSchema.meta({
+      title: 'Recycled Mass Weight',
+      description: 'Total weight of recycled materials in kilograms',
+    }),
+    display_type: z.literal('number'),
+  }).meta({
+    title: 'Recycled Mass Weight Attribute',
+    description: 'Recycled mass weight attribute with numeric display',
+  });
 
 export type RecycledIDAttributeRecycledMassWeight = z.infer<
   typeof RecycledIDAttributeRecycledMassWeightSchema
