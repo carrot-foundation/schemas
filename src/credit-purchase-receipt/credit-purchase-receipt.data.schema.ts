@@ -453,8 +453,11 @@ export const CreditPurchaseReceiptDataSchema = z
         title: 'Certificates',
         description: 'Certificates involved in the purchase',
       }),
-    participant_rewards: z
-      .array(CreditPurchaseReceiptParticipantRewardSchema)
+    participant_rewards: uniqueBy(
+      CreditPurchaseReceiptParticipantRewardSchema,
+      (reward) => reward.id_hash,
+      'Participant id_hash must be unique',
+    )
       .min(1)
       .meta({
         title: 'Participant Rewards',
