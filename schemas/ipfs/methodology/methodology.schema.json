@@ -260,6 +260,7 @@
           "title": "Methodology Name",
           "description": "Full official name of the methodology",
           "examples": [
+            "BOLD Recycling",
             "BOLD Carbon (CH₄)"
           ],
           "type": "string",
@@ -270,7 +271,8 @@
           "title": "Methodology Short Name",
           "description": "Abbreviated name for UI display and references",
           "examples": [
-            "BOLD Carbon"
+            "BOLD Carbon",
+            "BOLD Recycling"
           ],
           "type": "string",
           "minLength": 1,
@@ -280,7 +282,8 @@
           "title": "Methodology Slug",
           "description": "URL-friendly identifier for the methodology",
           "examples": [
-            "bold-carbon-ch4"
+            "bold-carbon-ch4",
+            "bold-recycling"
           ],
           "type": "string",
           "minLength": 1,
@@ -409,9 +412,6 @@
               "mandatory": {
                 "title": "Mandatory",
                 "description": "Whether this rule is mandatory for methodology compliance",
-                "examples": [
-                  true
-                ],
                 "type": "boolean"
               },
               "execution_order": {
@@ -419,8 +419,8 @@
                 "description": "Sequential order in which this rule must be executed",
                 "examples": [
                   1,
-                  2,
-                  3
+                  123,
+                  456
                 ],
                 "type": "integer",
                 "minimum": 1,
