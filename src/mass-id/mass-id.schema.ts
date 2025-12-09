@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { NftIpfsSchema } from '../shared/nft.schema';
 import { MassIDDataSchema } from './mass-id.data.schema';
 import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
-} from '../shared/schema-version';
+  NftIpfsSchema,
+} from '../shared';
 import { MassIDAttributesSchema } from './mass-id.attributes';
 
 export const MassIDIpfsSchemaMeta = {

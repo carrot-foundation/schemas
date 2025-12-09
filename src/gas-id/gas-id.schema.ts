@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { NftIpfsSchema } from '../shared/nft.schema';
 import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
-} from '../shared/schema-version';
+  NftIpfsSchema,
+} from '../shared';
 import { GasIDDataSchema } from './gas-id.data.schema';
 import { GasIDAttributesSchema } from './gas-id.attributes';
 
