@@ -3,7 +3,7 @@ import { NftAttributeSchema } from './nft.schema';
 import {
   NonEmptyStringSchema,
   WeightKgSchema,
-  IsoDateSchema,
+  UnixTimestampSchema,
   WasteTypeSchema,
   MethodologyNameSchema,
   StringifiedTokenIdSchema,
@@ -114,17 +114,23 @@ export type MassIDTokenIdAttribute = z.infer<
   typeof MassIDTokenIdAttributeSchema
 >;
 
-export const MassIDRecyclingDateAttributeSchema = NftAttributeSchema.extend({
-  trait_type: z.literal('MassID Recycling Date'),
-  value: IsoDateSchema.meta({
-    title: 'MassID Recycling Date',
-    description: 'Date when the source waste was recycled',
-  }),
-  display_type: z.literal('date'),
-}).meta({
-  title: 'MassID Recycling Date Attribute',
-  description: 'MassID recycling date attribute with date display',
-});
+export const MassIDRecyclingDateAttributeSchema = NftAttributeSchema.omit({
+  max_value: true,
+})
+  .extend({
+    trait_type: z.literal('MassID Recycling Date'),
+    value: UnixTimestampSchema.meta({
+      title: 'MassID Recycling Date',
+      description:
+        'Unix timestamp in milliseconds when the source waste was recycled',
+    }),
+    display_type: z.literal('date'),
+  })
+  .meta({
+    title: 'MassID Recycling Date Attribute',
+    description:
+      'MassID recycling date attribute using Unix timestamp in milliseconds',
+  });
 export type MassIDRecyclingDateAttribute = z.infer<
   typeof MassIDRecyclingDateAttributeSchema
 >;

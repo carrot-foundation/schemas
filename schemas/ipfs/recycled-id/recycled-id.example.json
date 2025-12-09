@@ -98,7 +98,7 @@
     },
     {
       "trait_type": "MassID Recycling Date",
-      "value": "2025-02-22",
+      "value": 1740182400000,
       "display_type": "date"
     }
   ],
@@ -118,7 +118,7 @@
     "audit": {
       "date": "2025-06-24",
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d499",
-      "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "methodology_compliance": "PASSED",
       "rules_executed": 18,
       "report": "ipfs://QmVerificationHash/recycled-id-audit.json"
