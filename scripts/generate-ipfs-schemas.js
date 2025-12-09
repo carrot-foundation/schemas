@@ -3,11 +3,11 @@
 import {
   CollectionSchema,
   CreditSchema,
+  CreditPurchaseReceiptIpfsSchema,
   GasIDIpfsSchema,
   MassIDIpfsSchema,
   MassIdAuditSchema,
   MethodologySchema,
-  PurchaseIDIpfsSchema,
   RecycledIDIpfsSchema,
 } from '../dist/index.js';
 import { toJSONSchema } from 'zod';
@@ -49,10 +49,6 @@ const schemas = [
     schema: RecycledIDIpfsSchema,
   },
   {
-    fileName: 'purchase-id.schema',
-    schema: PurchaseIDIpfsSchema,
-  },
-  {
     fileName: 'collection.schema',
     schema: CollectionSchema,
   },
@@ -67,6 +63,10 @@ const schemas = [
   {
     fileName: 'mass-id-audit.schema',
     schema: MassIdAuditSchema,
+  },
+  {
+    fileName: 'credit-purchase-receipt.schema',
+    schema: CreditPurchaseReceiptIpfsSchema,
   },
 ];
 

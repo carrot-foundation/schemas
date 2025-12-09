@@ -490,7 +490,7 @@ export const RecordSchemaTypeSchema = z
     'MassID Audit',
     'RecycledID',
     'GasID',
-    'PurchaseID',
+    'CreditPurchaseReceipt',
     'Methodology',
     'Credit',
     'Collection',
@@ -524,14 +524,14 @@ export const RecordRelationshipTypeSchema = z
     'mass-id',
     'mass-id-audit',
     'methodology',
-    'purchase-id',
+    'credit-purchase-receipt',
     'recycled-id',
   ])
   .meta({
     title: 'Relationship Type',
     description:
       'Type of relationship between different entities in the system',
-    examples: ['mass-id', 'audit', 'collection'],
+    examples: ['mass-id', 'collection', 'credit-purchase-receipt'],
   });
 
 export type RecordRelationshipType = z.infer<
