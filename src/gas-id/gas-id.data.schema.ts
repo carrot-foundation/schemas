@@ -4,18 +4,16 @@ import {
   NonNegativeFloatSchema,
   WeightKgSchema,
   IsoDateSchema,
-} from '../shared/definitions.schema';
-import { LocationSchema } from '../shared/entities/location.schema';
-import {
+  LocationSchema,
   WasteClassificationSchema,
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
-} from '../shared/certificate/certificate.schema';
-import {
   MethodologyReferenceSchema,
   AuditReferenceSchema,
   MassIDReferenceSchema,
-} from '../shared/references';
+  CreditTypeSchema,
+  CreditAmountSchema,
+} from '../shared';
 
 const GasIDSummarySchema = z
   .strictObject({
@@ -24,15 +22,8 @@ const GasIDSummarySchema = z
       description: 'Type of gas prevented',
       examples: ['Methane (CH₄)', 'Carbon Dioxide (CO₂)'],
     }),
-    credit_type: NonEmptyStringSchema.meta({
-      title: 'Credit Type',
-      description: 'Type of credit issued',
-      examples: ['Carrot Carbon (C-CARB)', 'Carbon Credit'],
-    }),
-    credit_amount: NonNegativeFloatSchema.meta({
-      title: 'Credit Amount',
-      description: 'Amount of credits issued',
-    }),
+    credit_type: CreditTypeSchema,
+    credit_amount: CreditAmountSchema,
     prevented_co2e_kg: WeightKgSchema.meta({
       title: 'Prevented Emissions (CO₂e kg)',
       description: 'CO₂e weight of the prevented emissions',

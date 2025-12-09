@@ -5,21 +5,21 @@
   "description": "Geographic location with address and coordinate information.",
   "type": "object",
   "required": [
-    "id",
+    "id_hash",
     "municipality",
     "administrative_division",
     "administrative_division_code",
     "country",
     "country_code",
-    "responsible_participant_id",
+    "responsible_participant_id_hash",
     "coordinates",
     "facility_type"
   ],
   "properties": {
-    "id": {
-      "$ref": "../../definitions/definitions.schema.json#/$defs/uuid",
-      "title": "Location ID",
-      "description": "Unique identifier for the location."
+    "id_hash": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/sha256_hash",
+      "title": "Location ID Hash",
+      "description": "Anonymized identifier for the location."
     },
     "municipality": {
       "$ref": "../../definitions/definitions.schema.json#/$defs/non_empty_string",
@@ -46,10 +46,10 @@
     "country_code": {
       "$ref": "../../definitions/definitions.schema.json#/$defs/iso_country_code"
     },
-    "responsible_participant_id": {
-      "$ref": "../../definitions/definitions.schema.json#/$defs/uuid",
-      "title": "Responsible Participant ID",
-      "description": "ID of the participant responsible for this location."
+    "responsible_participant_id_hash": {
+      "$ref": "../../definitions/definitions.schema.json#/$defs/sha256_hash",
+      "title": "Responsible Participant ID Hash",
+      "description": "Anonymized ID of the participant responsible for this location."
     },
     "coordinates": {
       "type": "object",

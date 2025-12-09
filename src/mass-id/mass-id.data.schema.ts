@@ -8,10 +8,10 @@ import {
   NonNegativeFloatSchema,
   UnixTimestampSchema,
   MinutesSchema,
-} from '../shared/definitions.schema';
-import { LocationSchema } from '../shared/entities/location.schema';
-import { ParticipantSchema } from '../shared/entities/participant.schema';
-import { uniqueBy } from '../shared/helpers.schema';
+  LocationSchema,
+  ParticipantSchema,
+  uniqueBy,
+} from '../shared';
 
 const MassIDLocalClassificationSchema = z
   .strictObject({
