@@ -265,7 +265,9 @@
               "title": "Total USDC Amount",
               "description": "Total amount paid in USDC for the purchase",
               "examples": [
-                1950
+                0,
+                45.2,
+                72.5
               ],
               "type": "number",
               "minimum": 0
@@ -274,7 +276,9 @@
               "title": "Total Credits",
               "description": "Total amount of credits purchased",
               "examples": [
-                8.5
+                0,
+                45.2,
+                72.5
               ],
               "type": "number",
               "minimum": 0
@@ -283,7 +287,9 @@
               "title": "Total Certificates",
               "description": "Total number of certificates purchased",
               "examples": [
-                3
+                1,
+                123,
+                456
               ],
               "type": "integer",
               "minimum": 1,
@@ -293,7 +299,9 @@
               "title": "Purchase Date",
               "description": "Date when the purchase was made (YYYY-MM-DD)",
               "examples": [
-                "2025-02-03"
+                "2024-12-05",
+                "2025-02-22",
+                "2024-02-10"
               ],
               "type": "string",
               "format": "date",
@@ -302,12 +310,6 @@
             "credit_symbols": {
               "title": "Credit Symbols",
               "description": "Array of credit token symbols included in the purchase",
-              "examples": [
-                [
-                  "C-CARB",
-                  "C-BIOW"
-                ]
-              ],
               "minItems": 1,
               "type": "array",
               "items": {
@@ -327,12 +329,6 @@
             "certificate_types": {
               "title": "Certificate Types",
               "description": "Array of certificate types included in the purchase",
-              "examples": [
-                [
-                  "GasID",
-                  "RecycledID"
-                ]
-              ],
               "minItems": 1,
               "type": "array",
               "items": {
@@ -346,12 +342,6 @@
             "collection_slugs": {
               "title": "Collection Slugs",
               "description": "Array of collection slugs represented in the purchase",
-              "examples": [
-                [
-                  "bold-cold-start-carazinho",
-                  "bold-brazil"
-                ]
-              ],
               "minItems": 1,
               "type": "array",
               "items": {
@@ -428,11 +418,12 @@
                       "title": "Identity External ID",
                       "description": "External identifier for the participant",
                       "examples": [
-                        "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                        "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                       ],
                       "type": "string",
-                      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                     },
                     "external_url": {
                       "title": "Identity External URL",
@@ -467,11 +458,12 @@
                   "title": "Buyer ID",
                   "description": "Unique identifier for the buyer",
                   "examples": [
-                    "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                    "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                    "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                   ],
                   "type": "string",
-                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                 },
                 "identity": {
                   "title": "Identity",
@@ -492,11 +484,12 @@
                       "title": "Identity External ID",
                       "description": "External identifier for the participant",
                       "examples": [
-                        "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                        "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                       ],
                       "type": "string",
-                      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                     },
                     "external_url": {
                       "title": "Identity External URL",
@@ -555,11 +548,12 @@
                 "title": "Collection External ID",
                 "description": "External identifier for the collection",
                 "examples": [
-                  "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                  "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                 ],
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               },
               "name": {
                 "title": "Collection Name",
@@ -597,8 +591,9 @@
                 "title": "Collection Credit Amount",
                 "description": "Total credits purchased from this collection",
                 "examples": [
-                  5,
-                  3.5
+                  0,
+                  45.2,
+                  72.5
                 ],
                 "type": "number",
                 "minimum": 0
@@ -629,8 +624,9 @@
                 "title": "Credit Slug",
                 "description": "URL-friendly identifier for the credit",
                 "examples": [
-                  "carbon",
-                  "organic"
+                  "mass-id-123",
+                  "recycled-plastic",
+                  "organic-waste"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -653,11 +649,12 @@
                 "title": "Credit External ID",
                 "description": "External identifier for the credit",
                 "examples": [
-                  "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                  "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                 ],
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               },
               "external_url": {
                 "title": "Credit External URL",
@@ -743,7 +740,8 @@
                 "description": "Credits retired immediately for this credit type during purchase",
                 "examples": [
                   0,
-                  2
+                  45.2,
+                  72.5
                 ],
                 "type": "number",
                 "minimum": 0
@@ -775,8 +773,9 @@
                 "title": "Certificate Token ID",
                 "description": "Token ID of the certificate",
                 "examples": [
-                  "456",
-                  "789"
+                  "123",
+                  "456789",
+                  "1000000"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -795,11 +794,12 @@
                 "title": "Certificate External ID",
                 "description": "External identifier for the certificate",
                 "examples": [
-                  "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                  "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                 ],
                 "type": "string",
-                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               },
               "external_url": {
                 "title": "Certificate External URL",
@@ -968,11 +968,12 @@
                     "title": "MassID External ID",
                     "description": "Unique identifier for the referenced MassID",
                     "examples": [
-                      "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                      "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                      "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                     ],
                     "type": "string",
-                    "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
                   "smart_contract": {
                     "title": "Smart Contract",
@@ -1103,7 +1104,9 @@
                 "title": "USDC Reward Amount",
                 "description": "USDC amount allocated to this participant",
                 "examples": [
-                  487.5
+                  0,
+                  45.2,
+                  72.5
                 ],
                 "type": "number",
                 "minimum": 0
@@ -1127,11 +1130,12 @@
               "title": "Retirement Beneficiary ID",
               "description": "UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)",
               "examples": [
-                "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
               ],
               "type": "string",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
             },
             "retirement_receipt": {
               "title": "Retirement Receipt Reference",
@@ -1154,11 +1158,12 @@
                   "title": "Retirement Receipt External ID",
                   "description": "External identifier for the retirement receipt",
                   "examples": [
-                    "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-                    "0f1e2d3c-4b5a-6978-9012-3456789abcde"
+                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                    "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
                   ],
                   "type": "string",
-                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                 },
                 "external_url": {
                   "title": "Retirement Receipt External URL",
