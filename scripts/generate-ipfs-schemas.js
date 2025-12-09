@@ -4,6 +4,7 @@ import {
   MassIDIpfsSchema,
   GasIDIpfsSchema,
   RecycledIDIpfsSchema,
+  PurchaseIDIpfsSchema,
 } from '../dist/index.js';
 import { toJSONSchema } from 'zod';
 import { writeFileSync } from 'node:fs';
@@ -42,6 +43,10 @@ const schemas = [
   {
     fileName: 'recycled-id.schema',
     schema: RecycledIDIpfsSchema,
+  },
+  {
+    fileName: 'purchase-id.schema',
+    schema: PurchaseIDIpfsSchema,
   },
 ];
 
