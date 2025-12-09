@@ -7,3 +7,4 @@ export * from './definitions.schema';
 export * from './helpers.schema';
 export * from './schema-version';
 export * from './attributes.schema';
+export * from './audit.schema';

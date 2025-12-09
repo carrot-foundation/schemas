@@ -28,7 +28,7 @@
     },
     "methodology": {
       "external_id": "8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9",
-      "name": "BOLD Carbon (CH₄)",
+      "name": "BOLD Carbon (CH\u2084)",
       "version": "v1.4.2",
       "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
       "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/bold-carbon-ch4-v1.4.2.json"
@@ -49,7 +49,7 @@
       {
         "rule_name": "Waste Mass is Unique",
         "rule_slug": "waste-mass-is-unique",
-        "rule_id": "12345678-1234-1234-1234-000000000001",
+        "rule_id": "00000000-0000-4000-8000-000000000001",
         "execution_order": 1,
         "result": "PASSED",
         "description": "Validates that each MassID is unique within the system to prevent duplicate entries and double counting",
@@ -59,7 +59,7 @@
       {
         "rule_name": "No Conflicting GasID or Credit",
         "rule_slug": "no-conflicting-gas-id-or-credit",
-        "rule_id": "12345678-1234-1234-1234-000000000002",
+        "rule_id": "00000000-0000-4000-8000-000000000002",
         "execution_order": 2,
         "result": "PASSED",
         "description": "Verifies that the MassID has not been previously registered in other carbon certificates or carbon credits to prevent double issuance",
@@ -69,7 +69,7 @@
       {
         "rule_name": "Project Period Limit",
         "rule_slug": "project-period-limit",
-        "rule_id": "12345678-1234-1234-1234-000000000003",
+        "rule_id": "00000000-0000-4000-8000-000000000003",
         "execution_order": 3,
         "result": "PASSED",
         "description": "Confirms that the MassID processing occurred within the valid project timeframe as defined by methodology guidelines",
@@ -79,7 +79,7 @@
       {
         "rule_name": "Participant Accreditations Requirements",
         "rule_slug": "participant-accreditations-requirements",
-        "rule_id": "12345678-1234-1234-1234-000000000004",
+        "rule_id": "00000000-0000-4000-8000-000000000004",
         "execution_order": 4,
         "result": "PASSED",
         "description": "Checks if all participating entities (waste generator, hauler, recycler) have valid certifications and environmental permits",
@@ -89,7 +89,7 @@
       {
         "rule_name": "MassID Qualifications",
         "rule_slug": "mass-id-qualifications",
-        "rule_id": "12345678-1234-1234-1234-000000000005",
+        "rule_id": "00000000-0000-4000-8000-000000000005",
         "execution_order": 5,
         "result": "PASSED",
         "description": "Validates the proper categorization, composition analysis, and definition of the organic waste mass according to methodology standards",
@@ -99,7 +99,7 @@
       {
         "rule_name": "Regional Waste Classification",
         "rule_slug": "regional-waste-classification",
-        "rule_id": "12345678-1234-1234-1234-000000000006",
+        "rule_id": "00000000-0000-4000-8000-000000000006",
         "execution_order": 6,
         "result": "PASSED",
         "description": "Ensures the waste is properly classified according to Brazilian ABNT NBR 10004 standards and local municipal regulations",
@@ -109,7 +109,7 @@
       {
         "rule_name": "Geolocation and Address Precision",
         "rule_slug": "geolocation-and-address-precision",
-        "rule_id": "12345678-1234-1234-1234-000000000007",
+        "rule_id": "00000000-0000-4000-8000-000000000007",
         "execution_order": 7,
         "result": "PASSED",
         "description": "Verifies the accuracy of geographical coordinates for waste collection and processing locations within 10-meter precision",
@@ -119,7 +119,7 @@
       {
         "rule_name": "Waste Origin Identification",
         "rule_slug": "waste-origin-identification",
-        "rule_id": "12345678-1234-1234-1234-000000000008",
+        "rule_id": "00000000-0000-4000-8000-000000000008",
         "execution_order": 8,
         "result": "PASSED",
         "description": "Validates the documented source and origin point of the organic waste with complete chain of custody documentation",
@@ -129,7 +129,7 @@
       {
         "rule_name": "Hauler Identification",
         "rule_slug": "hauler-identification",
-        "rule_id": "12345678-1234-1234-1234-000000000009",
+        "rule_id": "00000000-0000-4000-8000-000000000009",
         "execution_order": 9,
         "result": "PASSED",
         "description": "Confirms the identity, ANTT registration, and environmental credentials of the waste transportation company",
@@ -139,7 +139,7 @@
       {
         "rule_name": "Vehicle Identification",
         "rule_slug": "vehicle-identification",
-        "rule_id": "12345678-1234-1234-1234-000000000010",
+        "rule_id": "00000000-0000-4000-8000-000000000010",
         "execution_order": 10,
         "result": "PASSED",
         "description": "Verifies the registration, inspection certificates, and environmental compliance of vehicles used in waste transportation",
@@ -149,7 +149,7 @@
       {
         "rule_name": "Driver Identification",
         "rule_slug": "driver-identification",
-        "rule_id": "12345678-1234-1234-1234-000000000011",
+        "rule_id": "00000000-0000-4000-8000-000000000011",
         "execution_order": 11,
         "result": "PASSED",
         "description": "Validates the identity, CNH (driver's license), and proper licensing of the waste transport driver",
@@ -159,7 +159,7 @@
       {
         "rule_name": "Transport Manifest Data",
         "rule_slug": "transport-manifest-data",
-        "rule_id": "12345678-1234-1234-1234-000000000012",
+        "rule_id": "00000000-0000-4000-8000-000000000012",
         "execution_order": 12,
         "result": "PASSED",
         "description": "Checks the completeness and accuracy of MTR (Waste Transport Manifest) documentation and digital signatures",
@@ -169,7 +169,7 @@
       {
         "rule_name": "Processor Identification",
         "rule_slug": "processor-identification",
-        "rule_id": "12345678-1234-1234-1234-000000000013",
+        "rule_id": "00000000-0000-4000-8000-000000000013",
         "execution_order": 13,
         "result": "PASSED",
         "description": "Validates the identity, environmental licensing, and ISO 14001 certification of the waste processing facility",
@@ -179,7 +179,7 @@
       {
         "rule_name": "Recycler Identification",
         "rule_slug": "recycler-identification",
-        "rule_id": "12345678-1234-1234-1234-000000000014",
+        "rule_id": "00000000-0000-4000-8000-000000000014",
         "execution_order": 14,
         "result": "PASSED",
         "description": "Confirms the identity, CETESB licensing, and operational credentials of the composting facility operator",
@@ -189,7 +189,7 @@
       {
         "rule_name": "Weighing Verification",
         "rule_slug": "weighing-verification",
-        "rule_id": "12345678-1234-1234-1234-000000000015",
+        "rule_id": "00000000-0000-4000-8000-000000000015",
         "execution_order": 15,
         "result": "PASSED",
         "description": "Verifies the accurate measurement using INMETRO-certified scales and recording of waste MassID quantities with traceability",
@@ -199,7 +199,7 @@
       {
         "rule_name": "Drop-off at Recycler",
         "rule_slug": "drop-off-at-recycler",
-        "rule_id": "12345678-1234-1234-1234-000000000016",
+        "rule_id": "00000000-0000-4000-8000-000000000016",
         "execution_order": 16,
         "result": "PASSED",
         "description": "Validates the proper reception, inspection, and documentation of waste material at the composting facility with photographic evidence",
@@ -209,7 +209,7 @@
       {
         "rule_name": "MassID Sorting and Classification",
         "rule_slug": "mass-id-sorting-classification",
-        "rule_id": "12345678-1234-1234-1234-000000000017",
+        "rule_id": "00000000-0000-4000-8000-000000000017",
         "execution_order": 17,
         "result": "PASSED",
         "description": "Confirms the proper segregation, contamination analysis, and classification of organic waste materials according to composting requirements",
@@ -219,7 +219,7 @@
       {
         "rule_name": "Composting Process Initiation",
         "rule_slug": "composting-process-initiation",
-        "rule_id": "12345678-1234-1234-1234-000000000018",
+        "rule_id": "00000000-0000-4000-8000-000000000018",
         "execution_order": 18,
         "result": "PASSED",
         "description": "Validates the proper start of aerobic composting process with correct carbon-nitrogen ratio and moisture content monitoring",
@@ -229,17 +229,17 @@
       {
         "rule_name": "Temperature Monitoring Compliance",
         "rule_slug": "temperature-monitoring-compliance",
-        "rule_id": "12345678-1234-1234-1234-000000000019",
+        "rule_id": "00000000-0000-4000-8000-000000000019",
         "execution_order": 19,
         "result": "PASSED",
-        "description": "Ensures continuous temperature monitoring during thermophilic phase (55-65°C) for pathogen elimination and process optimization",
+        "description": "Ensures continuous temperature monitoring during thermophilic phase (55-65\u00b0C) for pathogen elimination and process optimization",
         "rule_processor_checksum": "a9b0c1d2-e3f4-f012-3456-789012345678",
         "rule_source_code_version": "v2.1.3-e6d7c8cd-c0d1-6789-0123-456789012345"
       },
       {
         "rule_name": "Composting Cycle Timeframe",
         "rule_slug": "composting-cycle-timeframe",
-        "rule_id": "12345678-1234-1234-1234-000000000020",
+        "rule_id": "00000000-0000-4000-8000-000000000020",
         "execution_order": 20,
         "result": "PASSED",
         "description": "Validates that the complete composting process follows required 90-120 day duration with proper turning schedule and maturation",
@@ -249,7 +249,7 @@
       {
         "rule_name": "Compost Quality Assessment",
         "rule_slug": "compost-quality-assessment",
-        "rule_id": "12345678-1234-1234-1234-000000000021",
+        "rule_id": "00000000-0000-4000-8000-000000000021",
         "execution_order": 21,
         "result": "PASSED",
         "description": "Verifies the final compost meets quality standards including pH, conductivity, germination index, and pathogen absence",
@@ -259,7 +259,7 @@
       {
         "rule_name": "Recycling Manifest Data",
         "rule_slug": "recycling-manifest-data",
-        "rule_id": "12345678-1234-1234-1234-000000000022",
+        "rule_id": "00000000-0000-4000-8000-000000000022",
         "execution_order": 22,
         "result": "PASSED",
         "description": "Verifies the completion, accuracy, and digital signatures of final recycling documentation including compost analysis and outcomes",
@@ -269,7 +269,7 @@
       {
         "rule_name": "Project Boundary Compliance",
         "rule_slug": "project-boundary-compliance",
-        "rule_id": "12345678-1234-1234-1234-000000000023",
+        "rule_id": "00000000-0000-4000-8000-000000000023",
         "execution_order": 23,
         "result": "PASSED",
         "description": "Validate that the MassID processing activities are within the approved project geographical and operational boundaries",
@@ -277,15 +277,16 @@
         "rule_source_code_version": "v2.1.3-c0b1a2ab-a4b5-abcd-0123-89012345ef01"
       },
       {
-        "rule_name": "CO₂e Emissions Calculation",
+        "rule_name": "CO\u2082e Emissions Calculation",
         "rule_slug": "co2e-emissions-calculation",
-        "rule_id": "12345678-1234-1234-1234-000000000024",
+        "rule_id": "00000000-0000-4000-8000-000000000024",
         "execution_order": 24,
         "result": "PASSED",
-        "description": "Calculate the prevented CO₂e emissions based on methane emission factors and the processed organic waste mass using IPCC 2019 guidelines",
+        "description": "Calculate the prevented CO\u2082e emissions based on methane emission factors and the processed organic waste mass using IPCC 2019 guidelines",
         "rule_processor_checksum": "f4a5b6c7-d8e9-4567-89ab-012345678ef0",
         "rule_source_code_version": "v2.1.3-d1c2b3bc-b5c6-bcde-0123-9012345f0123"
       }
     ]
-  }
+  },
+  "original_content_hash": "7d9f82c4e1b6a5f3d8e2c1b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9"
 }

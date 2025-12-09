@@ -2,4 +2,8 @@ export * from './mass-id';
 export * from './gas-id';
 export * from './recycled-id';
 export * from './purchase-id';
+export * from './collection';
+export * from './credit';
+export * from './methodology';
+export * from './mass-id-audit';
 export * from './shared';

@@ -1,26 +1,468 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/methodology/methodology.schema.json",
   "title": "Methodology IPFS Record",
-  "unevaluatedProperties": false,
-  "allOf": [
-    {
-      "$ref": "../shared/base/base.schema.json"
+  "description": "Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.34/schemas/ipfs/methodology/methodology.schema.json",
+  "version": "0.1.34",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "title": "JSON Schema URI",
+      "description": "URI of the JSON Schema used to validate this record",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
+      "type": "string",
+      "format": "uri"
     },
-    {
+    "schema": {
       "type": "object",
       "properties": {
-        "schema": {
-          "properties": {
-            "type": {
-              "const": "Methodology"
+        "hash": {
+          "title": "Schema Hash",
+          "description": "Keccak256 hash of the JSON Schema this record was validated against",
+          "examples": [
+            "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+            "0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f"
+          ],
+          "anyOf": [
+            {
+              "title": "Keccak256 Hash",
+              "description": "Keccak256 cryptographic hash as hexadecimal string",
+              "examples": [
+                "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+                "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+              ],
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$"
+            },
+            {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{64}$"
             }
+          ]
+        },
+        "type": {
+          "title": "Methodology Schema Type",
+          "description": "Methodology schema type",
+          "type": "string",
+          "const": "Methodology"
+        },
+        "version": {
+          "title": "Schema Version",
+          "description": "Version of the schema, using semantic versioning",
+          "examples": [
+            "0.1.0",
+            "1.0.0",
+            "2.1.3"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        }
+      },
+      "required": [
+        "hash",
+        "type",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "created_at": {
+      "title": "Created At",
+      "description": "ISO 8601 creation timestamp for this record",
+      "examples": [
+        "2024-12-05T11:02:47.000Z",
+        "2025-02-22T10:35:12.000Z"
+      ],
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+    },
+    "external_id": {
+      "title": "External ID",
+      "description": "Off-chain reference ID (UUID from Carrot backend)",
+      "examples": [
+        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+      ],
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+    },
+    "external_url": {
+      "title": "External URL",
+      "description": "External URL of the content",
+      "examples": [
+        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+        "https://carrot.eco/whitepaper.pdf"
+      ],
+      "type": "string",
+      "format": "uri"
+    },
+    "original_content_hash": {
+      "title": "Original Content Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      ],
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "content_hash": {
+      "title": "Content Hash",
+      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      ],
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "creator": {
+      "title": "Creator",
+      "description": "Entity that created this record",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Creator Name",
+          "description": "Company or individual name that created this record",
+          "examples": [
+            "Carrot Foundation"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "title": "Creator ID",
+          "description": "Unique identifier for the creator",
+          "examples": [
+            "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+            "6f520d88-864d-432d-bf9f-5c3166c4818f",
+            "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+          ],
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+        }
+      },
+      "required": [
+        "name",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "relationships": {
+      "title": "Relationships",
+      "description": "References to other IPFS records this record relates to",
+      "type": "array",
+      "items": {
+        "title": "Relationship",
+        "description": "Relationship to another IPFS record",
+        "type": "object",
+        "properties": {
+          "target_uri": {
+            "title": "Target IPFS URI",
+            "description": "Target IPFS URI of the referenced record",
+            "examples": [
+              "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+              "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+            ],
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+          },
+          "type": {
+            "title": "Relationship Type",
+            "description": "Type of relationship to the referenced record",
+            "examples": [
+              "mass-id",
+              "audit",
+              "collection"
+            ],
+            "type": "string",
+            "enum": [
+              "collection",
+              "credit",
+              "gas-id",
+              "mass-id",
+              "mass-id-audit",
+              "methodology",
+              "purchase-id",
+              "recycled-id"
+            ]
+          },
+          "description": {
+            "title": "Relationship Description",
+            "description": "Human-readable description of the relationship",
+            "examples": [
+              "This record supersedes the previous version",
+              "Related carbon credit batch",
+              "Source document for this verification",
+              "Child record derived from this parent",
+              "Updated version of original record"
+            ],
+            "type": "string"
           }
         },
-        "data": {
-          "$ref": "./methodology.data.schema.json"
-        }
+        "required": [
+          "target_uri",
+          "type"
+        ],
+        "additionalProperties": false
       }
+    },
+    "environment": {
+      "title": "Environment",
+      "description": "Environment information",
+      "type": "object",
+      "properties": {
+        "blockchain_network": {
+          "title": "Blockchain Network",
+          "description": "Blockchain Network Environment",
+          "type": "string",
+          "enum": [
+            "mainnet",
+            "testnet"
+          ]
+        },
+        "deployment": {
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated",
+          "type": "string",
+          "enum": [
+            "production",
+            "development",
+            "testing"
+          ]
+        },
+        "data_set_name": {
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record",
+          "type": "string",
+          "enum": [
+            "TEST",
+            "PROD"
+          ]
+        }
+      },
+      "required": [
+        "blockchain_network",
+        "deployment",
+        "data_set_name"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "title": "Methodology Data",
+      "description": "Methodology-specific data including audit rules",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Methodology Name",
+          "description": "Full official name of the methodology",
+          "examples": [
+            "BOLD Carbon (CH₄)"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "short_name": {
+          "title": "Methodology Short Name",
+          "description": "Abbreviated name for UI display and references",
+          "examples": [
+            "BOLD Carbon"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "slug": {
+          "title": "Methodology Slug",
+          "description": "URL-friendly identifier for the methodology",
+          "examples": [
+            "bold-carbon-ch4"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "version": {
+          "title": "Methodology Version",
+          "description": "Version of the methodology",
+          "examples": [
+            "0.1.0",
+            "1.0.0",
+            "2.1.3"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        },
+        "description": {
+          "title": "Methodology Description",
+          "description": "Comprehensive methodology description including purpose, scope, and implementation approach",
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 2000
+        },
+        "revision_date": {
+          "title": "Revision Date",
+          "description": "ISO 8601 date of the last revision to this methodology",
+          "examples": [
+            "2024-12-05",
+            "2025-02-22",
+            "2024-02-10"
+          ],
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        },
+        "publication_date": {
+          "title": "Publication Date",
+          "description": "ISO 8601 date of the original publication of this methodology",
+          "examples": [
+            "2024-12-05",
+            "2025-02-22",
+            "2024-02-10"
+          ],
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        },
+        "methodology_pdf": {
+          "title": "Methodology PDF",
+          "description": "IPFS URI pointing to the complete methodology PDF document",
+          "examples": [
+            "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+            "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+        },
+        "mass_id_audit_rules": {
+          "title": "MassID Audit Rules",
+          "description": "Audit rules that must be executed to check MassID compliance with the methodology",
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "title": "Audit Rule Definition",
+            "description": "Definition of an audit rule that must be executed for methodology compliance",
+            "type": "object",
+            "properties": {
+              "rule_id": {
+                "title": "Rule ID",
+                "description": "Unique identifier for the audit rule",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "rule_slug": {
+                "title": "Rule Slug",
+                "description": "URL-friendly identifier for the rule",
+                "examples": [
+                  "mass-id-123",
+                  "recycled-plastic",
+                  "organic-waste"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "rule_name": {
+                "title": "Rule Name",
+                "description": "Human-readable name of the rule",
+                "examples": [
+                  "Waste Mass is Unique",
+                  "No Conflicting GasID or Credit"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "description": {
+                "title": "Rule Description",
+                "description": "Detailed description of what the rule validates and why it is necessary",
+                "examples": [
+                  "Validates that each MassID is unique within the system to prevent duplicate entries"
+                ],
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 500
+              },
+              "source_code_url": {
+                "title": "Rule Source Code URL",
+                "description": "GitHub URL pointing to the implementation source code for this rule",
+                "examples": [
+                  "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js"
+                ],
+                "type": "string",
+                "pattern": "^https:\\/\\/github\\.com\\/.*$"
+              },
+              "mandatory": {
+                "title": "Mandatory",
+                "description": "Whether this rule is mandatory for methodology compliance",
+                "examples": [
+                  true
+                ],
+                "type": "boolean"
+              },
+              "execution_order": {
+                "title": "Rule Execution Order",
+                "description": "Sequential order in which this rule must be executed",
+                "examples": [
+                  1,
+                  2,
+                  3
+                ],
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "rule_id",
+              "rule_slug",
+              "rule_name",
+              "description",
+              "source_code_url",
+              "mandatory",
+              "execution_order"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "name",
+        "short_name",
+        "slug",
+        "version",
+        "description",
+        "revision_date",
+        "publication_date",
+        "methodology_pdf",
+        "mass_id_audit_rules"
+      ],
+      "additionalProperties": false
     }
-  ]
+  },
+  "required": [
+    "$schema",
+    "schema",
+    "created_at",
+    "external_id",
+    "external_url",
+    "original_content_hash",
+    "content_hash",
+    "data"
+  ],
+  "additionalProperties": false
 }

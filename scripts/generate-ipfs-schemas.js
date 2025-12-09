@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
 import {
-  MassIDIpfsSchema,
+  CollectionSchema,
+  CreditSchema,
   GasIDIpfsSchema,
-  RecycledIDIpfsSchema,
+  MassIDIpfsSchema,
+  MassIdAuditSchema,
+  MethodologySchema,
   PurchaseIDIpfsSchema,
+  RecycledIDIpfsSchema,
 } from '../dist/index.js';
 import { toJSONSchema } from 'zod';
 import { writeFileSync } from 'node:fs';
@@ -47,6 +51,22 @@ const schemas = [
   {
     fileName: 'purchase-id.schema',
     schema: PurchaseIDIpfsSchema,
+  },
+  {
+    fileName: 'collection.schema',
+    schema: CollectionSchema,
+  },
+  {
+    fileName: 'credit.schema',
+    schema: CreditSchema,
+  },
+  {
+    fileName: 'methodology.schema',
+    schema: MethodologySchema,
+  },
+  {
+    fileName: 'mass-id-audit.schema',
+    schema: MassIdAuditSchema,
   },
 ];
 
