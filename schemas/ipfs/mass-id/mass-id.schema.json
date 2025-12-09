@@ -21,10 +21,24 @@
           "description": "Keccak256 hash of the JSON Schema this record was validated against",
           "examples": [
             "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
-            "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+            "0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f"
           ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          "anyOf": [
+            {
+              "title": "Keccak256 Hash",
+              "description": "Keccak256 cryptographic hash as hexadecimal string",
+              "examples": [
+                "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+                "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+              ],
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$"
+            },
+            {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{64}$"
+            }
+          ]
         },
         "type": {
           "title": "MassID Schema Type",
@@ -378,9 +392,10 @@
                 "title": "Municipality",
                 "description": "Municipality or city name",
                 "examples": [
-                  "New York",
+                  "Macapá",
                   "São Paulo",
-                  "London",
+                  "New York",
+                  "Berlin",
                   "Tokyo"
                 ],
                 "type": "string",
@@ -389,20 +404,19 @@
               },
               "administrative_division": {
                 "title": "Administrative Division",
-                "description": "State, province, or administrative region",
+                "description": "State, province, or administrative region name",
                 "examples": [
+                  "Amapá",
                   "California",
-                  "Ontario",
-                  "Bavaria",
-                  "Queensland"
+                  "Bavaria"
                 ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
               },
               "administrative_division_code": {
-                "title": "Administrative Division Code",
-                "description": "ISO 3166-2 administrative division code",
+                "title": "ISO Administrative Division Code",
+                "description": "Administrative division code following ISO 3166-2 standard",
                 "examples": [
                   "BR-AP",
                   "BR-ES",
@@ -415,18 +429,18 @@
                 "title": "Country",
                 "description": "Full country name in English",
                 "examples": [
+                  "Brazil",
                   "United States",
-                  "Canada",
                   "Germany",
-                  "Australia"
+                  "Japan"
                 ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
               },
               "country_code": {
-                "title": "Country Code",
-                "description": "ISO 3166-1 alpha-2 country code",
+                "title": "ISO Country Code",
+                "description": "Two-letter country code following ISO 3166-1 alpha-2 standard",
                 "examples": [
                   "BR",
                   "US",
@@ -452,7 +466,7 @@
                 "properties": {
                   "latitude": {
                     "title": "Latitude",
-                    "description": "GPS latitude coordinate",
+                    "description": "Geographic latitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level, non-PII compliance)",
                     "examples": [
                       -0.02,
                       -20.38,
@@ -465,7 +479,7 @@
                   },
                   "longitude": {
                     "title": "Longitude",
-                    "description": "GPS longitude coordinate",
+                    "description": "Geographic longitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level, non-PII compliance)",
                     "examples": [
                       -51.06,
                       -40.34,
@@ -477,7 +491,7 @@
                     "multipleOf": 0.001
                   },
                   "precision_level": {
-                    "title": "Precision Level",
+                    "title": "Coordinate Precision Level",
                     "description": "Level of coordinate precision",
                     "examples": [
                       "city",
@@ -503,7 +517,7 @@
               },
               "facility_type": {
                 "title": "Facility Type",
-                "description": "Type of facility at this location",
+                "description": "Type of facility in the waste management chain",
                 "examples": [
                   "Collection Point",
                   "Recycling Facility",
@@ -1281,8 +1295,6 @@
             "additionalProperties": false
           },
           {
-            "title": "Origin Country Attribute",
-            "description": "Origin country attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1290,8 +1302,8 @@
                 "const": "Origin Country"
               },
               "value": {
-                "title": "Origin Country Value",
-                "description": "Country where the waste was generated",
+                "title": "Country",
+                "description": "Full country name in English",
                 "examples": [
                   "Brazil",
                   "United States",
@@ -1300,7 +1312,7 @@
                 ],
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 100
+                "maxLength": 50
               },
               "display_type": {
                 "title": "Display Type",
@@ -1332,8 +1344,6 @@
             "additionalProperties": false
           },
           {
-            "title": "Origin Municipality Attribute",
-            "description": "Origin municipality attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1341,9 +1351,10 @@
                 "const": "Origin Municipality"
               },
               "value": {
-                "title": "Origin Municipality Value",
-                "description": "Municipality where the waste was generated",
+                "title": "Municipality",
+                "description": "Municipality or city name",
                 "examples": [
+                  "Macapá",
                   "São Paulo",
                   "New York",
                   "Berlin",
@@ -1351,7 +1362,7 @@
                 ],
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 100
+                "maxLength": 50
               },
               "display_type": {
                 "title": "Display Type",
@@ -1392,16 +1403,16 @@
                 "const": "Origin Administrative Division"
               },
               "value": {
-                "title": "Origin Division Value",
-                "description": "Administrative division (state/province) where the waste was generated",
+                "title": "Administrative Division",
+                "description": "State, province, or administrative region name",
                 "examples": [
-                  "São Paulo",
+                  "Amapá",
                   "California",
                   "Bavaria"
                 ],
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 100
+                "maxLength": 50
               },
               "display_type": {
                 "title": "Display Type",
@@ -1442,7 +1453,7 @@
                 "const": "Vehicle Type"
               },
               "value": {
-                "title": "Vehicle Type Value",
+                "title": "Vehicle Type",
                 "description": "Type of vehicle used for waste transportation",
                 "examples": [
                   "Garbage Truck",
@@ -1493,7 +1504,7 @@
                 "const": "Recycling Method"
               },
               "value": {
-                "title": "Recycling Method Value",
+                "title": "Recycling Method",
                 "description": "Method used for recycling or processing the waste",
                 "examples": [
                   "Composting",
@@ -1600,7 +1611,7 @@
                 "const": "Local Waste Classification ID"
               },
               "value": {
-                "title": "Local Waste Classification ID Value",
+                "title": "Local Waste Classification ID",
                 "description": "Local or regional waste classification identifier",
                 "examples": [
                   "04 02 20",
@@ -1650,7 +1661,7 @@
                 "const": "Recycling Manifest Code"
               },
               "value": {
-                "title": "Recycling Manifest Code Value",
+                "title": "Recycling Manifest Code",
                 "description": "Concatenated recycling manifest code (Document Type + Document Number)",
                 "examples": [
                   "CDF-2353",
@@ -1700,7 +1711,7 @@
                 "const": "Transport Manifest Code"
               },
               "value": {
-                "title": "Transport Manifest Code Value",
+                "title": "Transport Manifest Code",
                 "description": "Concatenated transport manifest code (Document Type + Document Number)",
                 "examples": [
                   "MTR-4126",
@@ -1750,7 +1761,7 @@
                 "const": "Weighing Capture Method"
               },
               "value": {
-                "title": "Weighing Capture Method Value",
+                "title": "Weighing Capture Method",
                 "description": "Method used to capture weight data",
                 "examples": [
                   "Digital",
@@ -1801,7 +1812,7 @@
                 "const": "Scale Type"
               },
               "value": {
-                "title": "Scale Type Value",
+                "title": "Scale Type",
                 "description": "Type of scale used for weighing",
                 "examples": [
                   "Weighbridge (Truck Scale)",
@@ -1852,7 +1863,7 @@
                 "const": "Container Type"
               },
               "value": {
-                "title": "Container Type Value",
+                "title": "Container Type",
                 "description": "Type of container used for waste storage or transport",
                 "examples": [
                   "Truck",
@@ -1904,7 +1915,7 @@
                 "const": "Pick-up Date"
               },
               "value": {
-                "title": "Pick-up Date Value",
+                "title": "Pick-up Date",
                 "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
                 "examples": [
                   1710518400000,
@@ -1948,7 +1959,7 @@
                 "const": "Recycling Date"
               },
               "value": {
-                "title": "Recycling Date Value",
+                "title": "Recycling Date",
                 "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
                 "examples": [
                   1710604800000,

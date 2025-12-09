@@ -21,10 +21,24 @@
           "description": "Keccak256 hash of the JSON Schema this record was validated against",
           "examples": [
             "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
-            "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+            "0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f"
           ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          "anyOf": [
+            {
+              "title": "Keccak256 Hash",
+              "description": "Keccak256 cryptographic hash as hexadecimal string",
+              "examples": [
+                "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+                "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+              ],
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$"
+            },
+            {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{64}$"
+            }
+          ]
         },
         "type": {
           "title": "GasID Schema Type",
@@ -261,11 +275,12 @@
               "title": "Credit Type",
               "description": "Type of credit issued",
               "examples": [
-                "Carrot Carbon (C-CARB)",
+                "Carrot Carbon (C-CARB), Carrot Organic (C-BIOW)",
                 "Carbon Credit"
               ],
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "maxLength": 100
             },
             "credit_amount": {
               "title": "Credit Amount",
@@ -577,9 +592,10 @@
               "title": "Municipality",
               "description": "Municipality or city name",
               "examples": [
-                "New York",
+                "Macapá",
                 "São Paulo",
-                "London",
+                "New York",
+                "Berlin",
                 "Tokyo"
               ],
               "type": "string",
@@ -588,20 +604,19 @@
             },
             "administrative_division": {
               "title": "Administrative Division",
-              "description": "State, province, or administrative region",
+              "description": "State, province, or administrative region name",
               "examples": [
+                "Amapá",
                 "California",
-                "Ontario",
-                "Bavaria",
-                "Queensland"
+                "Bavaria"
               ],
               "type": "string",
               "minLength": 1,
               "maxLength": 50
             },
             "administrative_division_code": {
-              "title": "Administrative Division Code",
-              "description": "ISO 3166-2 administrative division code",
+              "title": "ISO Administrative Division Code",
+              "description": "Administrative division code following ISO 3166-2 standard",
               "examples": [
                 "BR-AP",
                 "BR-ES",
@@ -614,18 +629,18 @@
               "title": "Country",
               "description": "Full country name in English",
               "examples": [
+                "Brazil",
                 "United States",
-                "Canada",
                 "Germany",
-                "Australia"
+                "Japan"
               ],
               "type": "string",
               "minLength": 1,
               "maxLength": 50
             },
             "country_code": {
-              "title": "Country Code",
-              "description": "ISO 3166-1 alpha-2 country code",
+              "title": "ISO Country Code",
+              "description": "Two-letter country code following ISO 3166-1 alpha-2 standard",
               "examples": [
                 "BR",
                 "US",
@@ -651,7 +666,7 @@
               "properties": {
                 "latitude": {
                   "title": "Latitude",
-                  "description": "GPS latitude coordinate",
+                  "description": "Geographic latitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level, non-PII compliance)",
                   "examples": [
                     -0.02,
                     -20.38,
@@ -664,7 +679,7 @@
                 },
                 "longitude": {
                   "title": "Longitude",
-                  "description": "GPS longitude coordinate",
+                  "description": "Geographic longitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level, non-PII compliance)",
                   "examples": [
                     -51.06,
                     -40.34,
@@ -676,7 +691,7 @@
                   "multipleOf": 0.001
                 },
                 "precision_level": {
-                  "title": "Precision Level",
+                  "title": "Coordinate Precision Level",
                   "description": "Level of coordinate precision",
                   "examples": [
                     "city",
@@ -702,7 +717,7 @@
             },
             "facility_type": {
               "title": "Facility Type",
-              "description": "Type of facility at this location",
+              "description": "Type of facility in the waste management chain",
               "examples": [
                 "Collection Point",
                 "Recycling Facility",
@@ -1236,7 +1251,7 @@
       "prefixItems": [
         {
           "title": "Methodology Attribute",
-          "description": "Methodology attribute",
+          "description": "Methodology used for certification",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1244,9 +1259,10 @@
               "const": "Methodology"
             },
             "value": {
-              "title": "Methodology Value",
-              "description": "Name of the carbon methodology used for certification",
+              "title": "Methodology Name",
+              "description": "Name of the methodology used for certification",
               "examples": [
+                "BOLD Recycling",
                 "BOLD Carbon (CH₄)"
               ],
               "type": "string",
@@ -1292,7 +1308,7 @@
               "const": "Gas Type"
             },
             "value": {
-              "title": "Gas Type Value",
+              "title": "Gas Type",
               "description": "Type of gas prevented",
               "examples": [
                 "Methane (CH₄)",
@@ -1341,7 +1357,7 @@
               "const": "CO₂e Prevented (kg)"
             },
             "value": {
-              "title": "CO₂e Prevented Value",
+              "title": "CO₂e Prevented",
               "description": "Total CO₂ equivalent emissions prevented in kilograms",
               "examples": [
                 0,
@@ -1384,7 +1400,7 @@
               "const": "Credit Amount"
             },
             "value": {
-              "title": "Credit Amount Value",
+              "title": "Credit Amount",
               "description": "Amount of credits issued",
               "examples": [
                 0,
@@ -1427,10 +1443,11 @@
               "const": "Credit Type"
             },
             "value": {
-              "title": "Credit Type Value",
+              "title": "Credit Type",
               "description": "Type of credit issued",
               "examples": [
-                "Carrot Carbon"
+                "Carrot Organic",
+                "Carrot Carbon (C-CARB)"
               ],
               "type": "string",
               "minLength": 1,
@@ -1525,8 +1542,8 @@
               "const": "Source Weight (kg)"
             },
             "value": {
-              "title": "Weight (kg)",
-              "description": "Weight measurement in kilograms",
+              "title": "Source Weight",
+              "description": "Weight of the source waste in kilograms",
               "examples": [
                 3000,
                 1500,
@@ -1568,14 +1585,17 @@
               "const": "Origin Country"
             },
             "value": {
-              "title": "Origin Country Value",
-              "description": "Country where the waste was generated",
+              "title": "Country",
+              "description": "Full country name in English",
               "examples": [
-                "Brazil"
+                "Brazil",
+                "United States",
+                "Germany",
+                "Japan"
               ],
               "type": "string",
               "minLength": 1,
-              "maxLength": 100
+              "maxLength": 50
             },
             "display_type": {
               "title": "Display Type",
@@ -1616,14 +1636,18 @@
               "const": "Origin Municipality"
             },
             "value": {
-              "title": "Origin Municipality Value",
-              "description": "Municipality where the waste was generated",
+              "title": "Municipality",
+              "description": "Municipality or city name",
               "examples": [
-                "Macapá"
+                "Macapá",
+                "São Paulo",
+                "New York",
+                "Berlin",
+                "Tokyo"
               ],
               "type": "string",
               "minLength": 1,
-              "maxLength": 100
+              "maxLength": 50
             },
             "display_type": {
               "title": "Display Type",
@@ -1664,11 +1688,9 @@
               "const": "Recycler"
             },
             "value": {
-              "title": "Recycler Value",
+              "title": "Recycler",
               "description": "Organization that processed the waste",
-              "examples": [
-                "Eco Reciclagem"
-              ],
+              "example": "Eco Reciclagem",
               "type": "string",
               "minLength": 1,
               "maxLength": 100
@@ -1712,11 +1734,9 @@
               "const": "MassID"
             },
             "value": {
-              "title": "MassID Token ID Value",
-              "description": "Token ID of the source MassID NFT",
-              "examples": [
-                "#123"
-              ],
+              "title": "MassID Token ID",
+              "description": "Token ID of the source MassID NFT as #<token_id>",
+              "example": "#123",
               "type": "string",
               "minLength": 1,
               "pattern": "^#\\d+$"
@@ -1760,10 +1780,12 @@
               "const": "MassID Recycling Date"
             },
             "value": {
-              "title": "MassID Recycling Date Value",
+              "title": "MassID Recycling Date",
               "description": "Date when the source waste was recycled",
               "examples": [
-                "2025-02-22"
+                "2024-12-05",
+                "2025-02-22",
+                "2024-02-10"
               ],
               "type": "string",
               "format": "date",

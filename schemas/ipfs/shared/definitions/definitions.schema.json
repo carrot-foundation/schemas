@@ -197,6 +197,16 @@
       "description": "Hex color code with # prefix and uppercase.",
       "example": "#FFFFFF"
     },
+    "sha256_hash": {
+      "$ref": "#/$defs/non_empty_string",
+      "pattern": "^[a-fA-F0-9]{64}$",
+      "title": "SHA-256 Hash",
+      "description": "SHA-256 cryptographic hash as hexadecimal string.",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      ]
+    },
     "keccak256_hash": {
       "$ref": "#/$defs/non_empty_string",
       "pattern": "^0x[a-fA-F0-9]{64}$",

@@ -1,18 +1,20 @@
 import { z } from 'zod';
 import {
   Sha256HashSchema,
-  NonEmptyStringSchema,
   LatitudeSchema,
   LongitudeSchema,
   IsoCountryCodeSchema,
   IsoAdministrativeDivisionCodeSchema,
   FacilityTypeSchema,
+  MunicipalitySchema,
+  AdministrativeDivisionSchema,
+  CountryNameSchema,
 } from '../definitions.schema';
 
 const PrecisionLevelSchema = z
   .enum(['exact', 'neighborhood', 'city', 'region', 'country'])
   .meta({
-    title: 'Precision Level',
+    title: 'Coordinate Precision Level',
     description: 'Level of coordinate precision',
     examples: ['city', 'exact', 'neighborhood'],
   });
@@ -21,14 +23,8 @@ export type PrecisionLevel = z.infer<typeof PrecisionLevelSchema>;
 
 export const CoordinatesSchema = z
   .strictObject({
-    latitude: LatitudeSchema.meta({
-      title: 'Latitude',
-      description: 'GPS latitude coordinate',
-    }),
-    longitude: LongitudeSchema.meta({
-      title: 'Longitude',
-      description: 'GPS longitude coordinate',
-    }),
+    latitude: LatitudeSchema,
+    longitude: LongitudeSchema,
     precision_level: PrecisionLevelSchema,
   })
   .meta({
@@ -43,40 +39,19 @@ export const LocationSchema = z
       title: 'Location ID Hash',
       description: 'Anonymized identifier for the location',
     }),
-    municipality: NonEmptyStringSchema.max(50).meta({
-      title: 'Municipality',
-      description: 'Municipality or city name',
-      examples: ['New York', 'São Paulo', 'London', 'Tokyo'],
-    }),
-    administrative_division: NonEmptyStringSchema.max(50).meta({
-      title: 'Administrative Division',
-      description: 'State, province, or administrative region',
-      examples: ['California', 'Ontario', 'Bavaria', 'Queensland'],
-    }),
+    municipality: MunicipalitySchema,
+    administrative_division: AdministrativeDivisionSchema,
     administrative_division_code:
-      IsoAdministrativeDivisionCodeSchema.optional().meta({
-        title: 'Administrative Division Code',
-        description: 'ISO 3166-2 administrative division code',
-      }),
-    country: NonEmptyStringSchema.max(50).meta({
-      title: 'Country',
-      description: 'Full country name in English',
-      examples: ['United States', 'Canada', 'Germany', 'Australia'],
-    }),
-    country_code: IsoCountryCodeSchema.meta({
-      title: 'Country Code',
-      description: 'ISO 3166-1 alpha-2 country code',
-    }),
+      IsoAdministrativeDivisionCodeSchema.optional(),
+    country: CountryNameSchema,
+    country_code: IsoCountryCodeSchema,
     responsible_participant_id_hash: Sha256HashSchema.meta({
       title: 'Responsible Participant ID Hash',
       description:
         'Anonymized ID of the participant responsible for this location',
     }),
     coordinates: CoordinatesSchema,
-    facility_type: FacilityTypeSchema.optional().meta({
-      title: 'Facility Type',
-      description: 'Type of facility at this location',
-    }),
+    facility_type: FacilityTypeSchema.optional(),
   })
   .meta({
     title: 'Location',

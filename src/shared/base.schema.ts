@@ -12,13 +12,29 @@ import {
   RecordRelationshipTypeSchema,
 } from './definitions.schema';
 
+const SchemaHashSchema = z
+  .union([
+    Keccak256HashSchema,
+    z
+      .string()
+      .regex(
+        /^0x[a-fA-F0-9]{64}$/,
+        'Must be a Keccak256 hash as 0x-prefixed hex string',
+      ),
+  ])
+  .meta({
+    title: 'Schema Hash',
+    description:
+      'Keccak256 hash of the JSON Schema this record was validated against',
+    examples: [
+      'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
+      '0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
+    ],
+  });
+
 const SchemaInfoSchema = z
   .strictObject({
-    hash: Keccak256HashSchema.meta({
-      title: 'Schema Hash',
-      description:
-        'Keccak256 hash of the JSON Schema this record was validated against',
-    }),
+    hash: SchemaHashSchema,
     type: RecordSchemaTypeSchema.meta({
       title: 'Schema Type',
       description: 'Type/category of this schema',

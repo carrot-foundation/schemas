@@ -142,6 +142,51 @@ export const NonEmptyStringSchema = z
 
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 
+export const MunicipalitySchema = NonEmptyStringSchema.max(50).meta({
+  title: 'Municipality',
+  description: 'Municipality or city name',
+  examples: ['Macapá', 'São Paulo', 'New York', 'Berlin', 'Tokyo'],
+});
+
+export type Municipality = z.infer<typeof MunicipalitySchema>;
+
+export const AdministrativeDivisionSchema = NonEmptyStringSchema.max(50).meta({
+  title: 'Administrative Division',
+  description: 'State, province, or administrative region name',
+  examples: ['Amapá', 'California', 'Bavaria'],
+});
+
+export type AdministrativeDivision = z.infer<
+  typeof AdministrativeDivisionSchema
+>;
+
+export const CountryNameSchema = NonEmptyStringSchema.max(50).meta({
+  title: 'Country',
+  description: 'Full country name in English',
+  examples: ['Brazil', 'United States', 'Germany', 'Japan'],
+});
+
+export type CountryName = z.infer<typeof CountryNameSchema>;
+
+export const MethodologyNameSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Methodology Name',
+  description: 'Name of the methodology used for certification',
+  examples: ['BOLD Recycling', 'BOLD Carbon (CH₄)'],
+});
+
+export type MethodologyName = z.infer<typeof MethodologyNameSchema>;
+
+export const StringifiedTokenIdSchema = NonEmptyStringSchema.regex(
+  /^#\d+$/,
+  'Must match pattern #<token_id>',
+).meta({
+  title: 'Token ID',
+  description: 'Token ID represented as #<token_id>',
+  example: '#123',
+});
+
+export type StringifiedTokenId = z.infer<typeof StringifiedTokenIdSchema>;
+
 export const SlugSchema = NonEmptyStringSchema.regex(
   /^[a-z0-9-]+$/,
   'Must contain only lowercase letters, numbers, and hyphens',
@@ -255,10 +300,25 @@ export const NonNegativeFloatSchema = z
   .meta({
     title: 'Non-Negative Float',
     description: 'Floating-point number that is zero or positive',
-    examples: [0.0, 45.2, 72.5],
+    examples: [0, 45.2, 72.5],
   });
 
 export type NonNegativeFloat = z.infer<typeof NonNegativeFloatSchema>;
+
+export const CreditTypeSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Credit Type',
+  description: 'Type of credit issued',
+  examples: ['Organic', 'Carbon (CH₄)'],
+});
+
+export type CreditType = z.infer<typeof CreditTypeSchema>;
+
+export const CreditAmountSchema = NonNegativeFloatSchema.meta({
+  title: 'Credit Amount',
+  description: 'Amount of credits issued',
+});
+
+export type CreditAmount = z.infer<typeof CreditAmountSchema>;
 
 export const HoursSchema = z
   .number()
@@ -267,7 +327,7 @@ export const HoursSchema = z
   .meta({
     title: 'Hours',
     description: 'Time duration in hours with 0.1 hour precision',
-    examples: [72.5, 24.0, 168.5],
+    examples: [72.5, 24, 168.5],
   });
 
 export type Hours = z.infer<typeof HoursSchema>;
