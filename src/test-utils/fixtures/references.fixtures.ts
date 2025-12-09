@@ -101,7 +101,7 @@ export function createGasIdReferenceFixture(
  * Contains only required fields for MassID reference schema validation.
  * Used as a base for creating custom MassID reference fixtures in tests.
  */
-export const minimalMassIdReferenceStub: MassIDReference = {
+export const minimalMassIDReferenceStub: MassIDReference = {
   external_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
   token_id: '123',
   external_url:
@@ -115,7 +115,7 @@ export const minimalMassIdReferenceStub: MassIDReference = {
  * Represents a complete MassID reference that satisfies the MassID reference schema.
  * Used in tests to validate MassID reference schema parsing and validation.
  */
-export const validMassIdReferenceFixture: MassIDReference = {
+export const validMassIDReferenceFixture: MassIDReference = {
   external_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
   token_id: '123',
   external_url:
@@ -129,11 +129,11 @@ export const validMassIdReferenceFixture: MassIDReference = {
  * @param overrides - Optional partial MassID reference to override default values
  * @returns A complete MassID reference fixture
  */
-export function createMassIdReferenceFixture(
+export function createMassIDReferenceFixture(
   overrides?: Partial<MassIDReference>,
 ): MassIDReference {
   return {
-    ...minimalMassIdReferenceStub,
+    ...minimalMassIDReferenceStub,
     ...overrides,
   };
 }

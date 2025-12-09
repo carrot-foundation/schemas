@@ -10,8 +10,8 @@ import {
   OriginCountryAttributeSchema,
   OriginMunicipalityAttributeSchema,
   RecyclerAttributeSchema,
-  MassIdTokenIdAttributeSchema,
-  MassIdRecyclingDateAttributeSchema,
+  MassIDTokenIdAttributeSchema,
+  MassIDRecyclingDateAttributeSchema,
 } from '../shared';
 import { NftAttributeSchema } from '../shared/nft.schema';
 
@@ -94,14 +94,14 @@ export type GasIDAttributeRecycler = z.infer<
   typeof GasIDAttributeRecyclerSchema
 >;
 
-const GasIDAttributeMassIDTokenIdSchema = MassIdTokenIdAttributeSchema;
+const GasIDAttributeMassIDTokenIdSchema = MassIDTokenIdAttributeSchema;
 
 export type GasIDAttributeMassIDTokenId = z.infer<
   typeof GasIDAttributeMassIDTokenIdSchema
 >;
 
 const GasIDAttributeMassIDRecyclingDateSchema =
-  MassIdRecyclingDateAttributeSchema;
+  MassIDRecyclingDateAttributeSchema;
 
 export type GasIDAttributeMassIDRecyclingDate = z.infer<
   typeof GasIDAttributeMassIDRecyclingDateSchema

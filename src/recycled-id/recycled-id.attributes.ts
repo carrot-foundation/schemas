@@ -10,8 +10,8 @@ import {
   OriginCountryAttributeSchema,
   OriginMunicipalityAttributeSchema,
   RecyclerAttributeSchema,
-  MassIdTokenIdAttributeSchema,
-  MassIdRecyclingDateAttributeSchema,
+  MassIDTokenIdAttributeSchema,
+  MassIDRecyclingDateAttributeSchema,
 } from '../shared';
 
 const RecycledIDAttributeMethodologySchema = MethodologyAttributeSchema;
@@ -79,14 +79,14 @@ export type RecycledIDAttributeRecycler = z.infer<
   typeof RecycledIDAttributeRecyclerSchema
 >;
 
-const RecycledIDAttributeMassIDTokenIdSchema = MassIdTokenIdAttributeSchema;
+const RecycledIDAttributeMassIDTokenIdSchema = MassIDTokenIdAttributeSchema;
 
 export type RecycledIDAttributeMassIDTokenId = z.infer<
   typeof RecycledIDAttributeMassIDTokenIdSchema
 >;
 
 const RecycledIDAttributeMassIDRecyclingDateSchema =
-  MassIdRecyclingDateAttributeSchema;
+  MassIDRecyclingDateAttributeSchema;
 
 export type RecycledIDAttributeMassIDRecyclingDate = z.infer<
   typeof RecycledIDAttributeMassIDRecyclingDateSchema
