@@ -3,7 +3,7 @@
   "schema": {
     "hash": "0xa1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
     "type": "RecycledID",
-    "version": "0.1.0"
+    "version": "0.1.34"
   },
   "environment": {
     "blockchain_network": "mainnet",
