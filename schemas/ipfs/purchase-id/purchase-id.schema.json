@@ -1,29 +1,1306 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/purchase-id/purchase-id.schema.json",
   "title": "PurchaseID NFT IPFS Record",
-  "unevaluatedProperties": false,
-  "allOf": [
-    {
-      "$ref": "../shared/nft/nft.schema.json"
+  "description": "Complete PurchaseID NFT IPFS record including attributes and purchase receipt data",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.34/schemas/ipfs/purchase-id/purchase-id.schema.json",
+  "version": "0.1.34",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "title": "JSON Schema URI",
+      "description": "URI of the JSON Schema used to validate this record",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
+      "type": "string",
+      "format": "uri"
     },
-    {
+    "schema": {
       "type": "object",
       "properties": {
-        "schema": {
-          "properties": {
-            "type": {
-              "const": "PurchaseID"
+        "hash": {
+          "title": "Schema Hash",
+          "description": "Keccak256 hash of the JSON Schema this record was validated against",
+          "examples": [
+            "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+            "0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f"
+          ],
+          "anyOf": [
+            {
+              "title": "Keccak256 Hash",
+              "description": "Keccak256 cryptographic hash as hexadecimal string",
+              "examples": [
+                "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+                "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
+              ],
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$"
+            },
+            {
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{64}$"
             }
+          ]
+        },
+        "type": {
+          "title": "PurchaseID Schema Type",
+          "description": "PurchaseID NFT schema type",
+          "type": "string",
+          "const": "PurchaseID"
+        },
+        "version": {
+          "title": "Schema Version",
+          "description": "Version of the schema, using semantic versioning",
+          "examples": [
+            "0.1.0",
+            "1.0.0",
+            "2.1.3"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        }
+      },
+      "required": [
+        "hash",
+        "type",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "created_at": {
+      "title": "Created At",
+      "description": "ISO 8601 creation timestamp for this record",
+      "examples": [
+        "2024-12-05T11:02:47.000Z",
+        "2025-02-22T10:35:12.000Z"
+      ],
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+    },
+    "external_id": {
+      "title": "External ID",
+      "description": "Off-chain reference ID (UUID from Carrot backend)",
+      "examples": [
+        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+      ],
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+    },
+    "external_url": {
+      "title": "External URL",
+      "description": "External URL of the content",
+      "examples": [
+        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+        "https://carrot.eco/whitepaper.pdf"
+      ],
+      "type": "string",
+      "format": "uri"
+    },
+    "original_content_hash": {
+      "title": "Original Content Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      ],
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "content_hash": {
+      "title": "Content Hash",
+      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      ],
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "creator": {
+      "title": "Creator",
+      "description": "Entity that created this record",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Creator Name",
+          "description": "Company or individual name that created this record",
+          "examples": [
+            "Carrot Foundation"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "title": "Creator ID",
+          "description": "Unique identifier for the creator",
+          "examples": [
+            "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+            "6f520d88-864d-432d-bf9f-5c3166c4818f",
+            "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+          ],
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+        }
+      },
+      "required": [
+        "name",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "relationships": {
+      "title": "Relationships",
+      "description": "References to other IPFS records this record relates to",
+      "type": "array",
+      "items": {
+        "title": "Relationship",
+        "description": "Relationship to another IPFS record",
+        "type": "object",
+        "properties": {
+          "target_uri": {
+            "title": "Target IPFS URI",
+            "description": "Target IPFS URI of the referenced record",
+            "examples": [
+              "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+              "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+            ],
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+          },
+          "type": {
+            "title": "Relationship Type",
+            "description": "Type of relationship to the referenced record",
+            "examples": [
+              "mass-id",
+              "audit",
+              "collection"
+            ],
+            "type": "string",
+            "enum": [
+              "collection",
+              "credit",
+              "gas-id",
+              "mass-id",
+              "mass-id-audit",
+              "methodology",
+              "purchase-id",
+              "recycled-id"
+            ]
+          },
+          "description": {
+            "title": "Relationship Description",
+            "description": "Human-readable description of the relationship",
+            "examples": [
+              "This record supersedes the previous version",
+              "Related carbon credit batch",
+              "Source document for this verification",
+              "Child record derived from this parent",
+              "Updated version of original record"
+            ],
+            "type": "string"
           }
         },
-        "attributes": {
-          "$ref": "./purchase-id.attributes.schema.json"
+        "required": [
+          "target_uri",
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "environment": {
+      "title": "Environment",
+      "description": "Environment information",
+      "type": "object",
+      "properties": {
+        "blockchain_network": {
+          "title": "Blockchain Network",
+          "description": "Blockchain Network Environment",
+          "type": "string",
+          "enum": [
+            "mainnet",
+            "testnet"
+          ]
         },
-        "data": {
-          "$ref": "./purchase-id.data.schema.json"
+        "deployment": {
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated",
+          "type": "string",
+          "enum": [
+            "production",
+            "development",
+            "testing"
+          ]
+        },
+        "data_set_name": {
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record",
+          "type": "string",
+          "enum": [
+            "TEST",
+            "PROD"
+          ]
         }
+      },
+      "required": [
+        "blockchain_network",
+        "deployment",
+        "data_set_name"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "title": "PurchaseID Data",
+      "description": "Complete data structure for a PurchaseID receipt",
+      "type": "object",
+      "properties": {
+        "summary": {
+          "title": "PurchaseID Summary",
+          "description": "Summary of the purchase totals and included certificate types",
+          "type": "object",
+          "properties": {
+            "total_usdc_amount": {
+              "title": "Total USDC Amount",
+              "description": "Total amount paid in USDC for the purchase",
+              "examples": [
+                1250
+              ],
+              "type": "number",
+              "minimum": 0
+            },
+            "total_certificates": {
+              "title": "Total Certificates",
+              "description": "Total number of certificates purchased",
+              "examples": [
+                3
+              ],
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "total_credits": {
+              "title": "Total Credits",
+              "description": "Total amount of credits purchased",
+              "examples": [
+                5.5
+              ],
+              "type": "number",
+              "minimum": 0
+            },
+            "purchase_date": {
+              "title": "Purchase Date",
+              "description": "Date when the purchase was made",
+              "examples": [
+                "2025-01-15"
+              ],
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            },
+            "credit_symbols": {
+              "title": "Credit Symbols",
+              "description": "Array of credit token symbols included in the purchase",
+              "examples": [
+                [
+                  "C-CARB",
+                  "C-BIOW"
+                ]
+              ],
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "title": "Token Symbol",
+                "description": "Symbol representing a token or cryptocurrency",
+                "examples": [
+                  "MASS",
+                  "REC",
+                  "GAS"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10,
+                "pattern": "^[A-Z0-9-]+$"
+              }
+            },
+            "certificate_types": {
+              "title": "Certificate Types",
+              "description": "Array of certificate types included in the purchase",
+              "examples": [
+                [
+                  "GasID",
+                  "RecycledID"
+                ]
+              ],
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "GasID",
+                  "RecycledID"
+                ]
+              }
+            }
+          },
+          "required": [
+            "total_usdc_amount",
+            "total_certificates",
+            "total_credits",
+            "purchase_date",
+            "credit_symbols",
+            "certificate_types"
+          ],
+          "additionalProperties": false
+        },
+        "buyer": {
+          "title": "Buyer",
+          "description": "Buyer wallet and optional identity information",
+          "type": "object",
+          "properties": {
+            "wallet_address": {
+              "title": "Buyer Wallet Address",
+              "description": "Ethereum address of the buyer",
+              "examples": [
+                "0x1234567890abcdef1234567890abcdef12345678",
+                "0xabcdef1234567890abcdef1234567890abcdef12"
+              ],
+              "type": "string",
+              "pattern": "^0x[a-fA-F0-9]{40}$"
+            },
+            "identity": {
+              "title": "Buyer Identity",
+              "description": "Optional buyer identity information",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "Buyer Name",
+                  "description": "Legal name of the buyer organization",
+                  "examples": [
+                    "EcoTech Solutions Inc."
+                  ],
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "external_id": {
+                  "title": "Buyer External ID",
+                  "description": "External identifier for the buyer",
+                  "examples": [
+                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                    "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                  ],
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                },
+                "external_url": {
+                  "title": "Buyer External URL",
+                  "description": "External URL for the buyer profile",
+                  "examples": [
+                    "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                    "https://carrot.eco/whitepaper.pdf"
+                  ],
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "name",
+                "external_id",
+                "external_url"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "wallet_address"
+          ],
+          "additionalProperties": false
+        },
+        "collections": {
+          "title": "Collections",
+          "description": "Collections included in the purchase",
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "title": "Collection",
+            "description": "Collection included in the purchase",
+            "type": "object",
+            "properties": {
+              "slug": {
+                "title": "Collection Slug",
+                "description": "URL-friendly identifier for a collection",
+                "examples": [
+                  "bold-cold-start-carazinho",
+                  "bold-brazil"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "external_id": {
+                "title": "Collection External ID",
+                "description": "External identifier for the collection",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "name": {
+                "title": "Collection Name",
+                "description": "Display name of the collection",
+                "examples": [
+                  "BOLD Cold Start - Carazinho",
+                  "BOLD Brazil"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150
+              },
+              "external_url": {
+                "title": "Collection External URL",
+                "description": "External URL for the collection",
+                "examples": [
+                  "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "https://carrot.eco/whitepaper.pdf"
+                ],
+                "type": "string",
+                "format": "uri"
+              },
+              "uri": {
+                "title": "Collection URI",
+                "description": "IPFS URI for the collection metadata",
+                "examples": [
+                  "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+                  "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              }
+            },
+            "required": [
+              "slug",
+              "external_id",
+              "name",
+              "external_url",
+              "uri"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "credits": {
+          "title": "Credits",
+          "description": "Credits included in the purchase",
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "title": "Credit",
+            "description": "Credit token included in the purchase",
+            "type": "object",
+            "properties": {
+              "slug": {
+                "title": "Credit Slug",
+                "description": "URL-friendly identifier for the credit",
+                "examples": [
+                  "carbon",
+                  "organic"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "symbol": {
+                "title": "Credit Token Symbol",
+                "description": "Symbol of the credit token",
+                "examples": [
+                  "C-CARB",
+                  "C-BIOW"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10,
+                "pattern": "^[A-Z0-9-]+$"
+              },
+              "external_id": {
+                "title": "Credit External ID",
+                "description": "External identifier for the credit",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "external_url": {
+                "title": "Credit External URL",
+                "description": "External URL for the credit",
+                "examples": [
+                  "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "https://carrot.eco/whitepaper.pdf"
+                ],
+                "type": "string",
+                "format": "uri"
+              },
+              "uri": {
+                "title": "Credit URI",
+                "description": "IPFS URI for the credit details",
+                "examples": [
+                  "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+                  "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              },
+              "smart_contract": {
+                "title": "Smart Contract",
+                "description": "Smart contract details for on-chain references",
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "title": "Smart Contract Address",
+                    "description": "Address of the smart contract",
+                    "examples": [
+                      "0x1234567890abcdef1234567890abcdef12345678",
+                      "0xabcdef1234567890abcdef1234567890abcdef12"
+                    ],
+                    "type": "string",
+                    "pattern": "^0x[a-fA-F0-9]{40}$"
+                  },
+                  "chain_id": {
+                    "title": "Chain ID",
+                    "description": "Blockchain network identifier",
+                    "examples": [
+                      1,
+                      137,
+                      11155111
+                    ],
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "network_name": {
+                    "title": "Blockchain Network Name",
+                    "description": "Name of the blockchain network",
+                    "examples": [
+                      "Polygon",
+                      "Ethereum mainnet",
+                      "Sepolia"
+                    ],
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  }
+                },
+                "required": [
+                  "address",
+                  "chain_id",
+                  "network_name"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "slug",
+              "symbol",
+              "external_id",
+              "external_url",
+              "uri",
+              "smart_contract"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "items": {
+          "title": "Purchase Items",
+          "description": "Array of individual items purchased",
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "title": "Purchase Item",
+            "description": "Individual purchased item linking a certificate to credit data",
+            "type": "object",
+            "properties": {
+              "certificate": {
+                "title": "Certificate",
+                "description": "Certificate associated with a purchased item",
+                "type": "object",
+                "properties": {
+                  "token_id": {
+                    "title": "Certificate Token ID",
+                    "description": "Token ID of the certificate",
+                    "examples": [
+                      "456",
+                      "789"
+                    ],
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^\\d+$"
+                  },
+                  "type": {
+                    "title": "Certificate Type",
+                    "description": "Type of certificate (e.g., GasID, RecycledID)",
+                    "type": "string",
+                    "enum": [
+                      "GasID",
+                      "RecycledID"
+                    ]
+                  },
+                  "external_id": {
+                    "title": "Certificate External ID",
+                    "description": "External identifier for the certificate",
+                    "examples": [
+                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                      "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                    ],
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                  },
+                  "external_url": {
+                    "title": "Certificate External URL",
+                    "description": "External URL for the certificate",
+                    "examples": [
+                      "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                      "https://carrot.eco/whitepaper.pdf"
+                    ],
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "uri": {
+                    "title": "Certificate URI",
+                    "description": "IPFS URI for the certificate metadata",
+                    "examples": [
+                      "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+                      "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                    ],
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+                  },
+                  "mass_id": {
+                    "title": "MassID Reference",
+                    "description": "Reference to a MassID record",
+                    "type": "object",
+                    "properties": {
+                      "external_id": {
+                        "title": "MassID External ID",
+                        "description": "Unique identifier for the MassID",
+                        "examples": [
+                          "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                          "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                        ],
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                      },
+                      "token_id": {
+                        "title": "MassID Token ID",
+                        "description": "NFT token ID of the MassID",
+                        "examples": [
+                          "123",
+                          "456789",
+                          "1000000"
+                        ],
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^\\d+$"
+                      },
+                      "external_url": {
+                        "title": "MassID External URL",
+                        "description": "URL to view the MassID on Carrot Explorer",
+                        "examples": [
+                          "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                          "https://carrot.eco/whitepaper.pdf"
+                        ],
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "uri": {
+                        "title": "MassID IPFS URI",
+                        "description": "IPFS URI of the MassID record",
+                        "examples": [
+                          "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+                          "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                        ],
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+                      }
+                    },
+                    "required": [
+                      "external_id",
+                      "token_id",
+                      "external_url",
+                      "uri"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "token_id",
+                  "type",
+                  "external_id",
+                  "external_url",
+                  "uri",
+                  "mass_id"
+                ],
+                "additionalProperties": false
+              },
+              "collection_slug": {
+                "title": "Collection Slug",
+                "description": "Slug of the collection this item belongs to",
+                "examples": [
+                  "bold-cold-start-carazinho",
+                  "bold-brazil"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "credit_slug": {
+                "title": "Credit Slug",
+                "description": "Slug of the credit type for this item",
+                "examples": [
+                  "carbon",
+                  "organic"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$"
+              },
+              "credit_amount": {
+                "title": "Credit Amount",
+                "description": "Amount of credits for this item",
+                "examples": [
+                  2.5,
+                  3
+                ],
+                "type": "number",
+                "minimum": 0
+              },
+              "usdc_amount": {
+                "title": "USDC Amount",
+                "description": "USDC amount paid for this item",
+                "examples": [
+                  500,
+                  450
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "certificate",
+              "collection_slug",
+              "credit_slug",
+              "credit_amount",
+              "usdc_amount"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "participant_rewards": {
+          "title": "Participant Rewards",
+          "description": "Rewards distributed to participants in the supply chain for this purchase",
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "title": "Participant Reward",
+            "description": "Reward distribution for a participant",
+            "type": "object",
+            "properties": {
+              "participant_id": {
+                "title": "Participant ID",
+                "description": "Unique identifier for the participant",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+                  "6f520d88-864d-432d-bf9f-5c3166c4818f",
+                  "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "participant_name": {
+                "title": "Participant Name",
+                "description": "Legal name of the participant",
+                "examples": [
+                  "Enlatados Produção",
+                  "Eco Reciclagem",
+                  "Green Tech Corp"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "roles": {
+                "title": "Participant Roles",
+                "description": "Roles the participant has in the supply chain",
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "title": "Participant Role",
+                  "description": "Role that a participant plays in the waste management supply chain",
+                  "examples": [
+                    "Waste Generator",
+                    "Hauler",
+                    "Recycler"
+                  ],
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                }
+              },
+              "percentage": {
+                "title": "Reward Percentage",
+                "description": "Percentage of the total purchase amount allocated to this participant",
+                "examples": [
+                  12.5,
+                  60
+                ],
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "usdc_amount": {
+                "title": "USDC Reward Amount",
+                "description": "USDC amount allocated to this participant",
+                "examples": [
+                  156.25,
+                  750
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "participant_id",
+              "participant_name",
+              "roles",
+              "percentage",
+              "usdc_amount"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "summary",
+        "buyer",
+        "collections",
+        "credits",
+        "items",
+        "participant_rewards"
+      ],
+      "additionalProperties": false
+    },
+    "blockchain": {
+      "title": "Blockchain Information",
+      "description": "Blockchain-specific information for the NFT",
+      "type": "object",
+      "properties": {
+        "smart_contract_address": {
+          "title": "Smart Contract Address",
+          "description": "A valid Ethereum address in hexadecimal format",
+          "examples": [
+            "0x1234567890abcdef1234567890abcdef12345678",
+            "0xabcdef1234567890abcdef1234567890abcdef12"
+          ],
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "chain_id": {
+          "title": "Chain ID",
+          "description": "Blockchain chain ID",
+          "examples": [
+            1,
+            137,
+            11155111
+          ],
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "network_name": {
+          "title": "Network Name",
+          "description": "Name of the blockchain network",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 100
+        },
+        "token_id": {
+          "title": "Token ID",
+          "description": "NFT token ID",
+          "examples": [
+            "123",
+            "456789",
+            "1000000"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\d+$"
+        }
+      },
+      "required": [
+        "smart_contract_address",
+        "chain_id",
+        "network_name",
+        "token_id"
+      ],
+      "additionalProperties": false
+    },
+    "name": {
+      "title": "NFT Name",
+      "description": "Full display name for this NFT, including extra context",
+      "examples": [
+        "MassID #123 • Organic • 3.0t",
+        "RecycledID #456 • Plastic • 2.5t",
+        "GasID #789 • Methane • 1000 m³"
+      ],
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "short_name": {
+      "title": "Short Name",
+      "description": "Compact name for UI summaries, tables, or tooltips",
+      "examples": [
+        "MassID #123",
+        "RecycledID #456",
+        "GasID #789"
+      ],
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "description": {
+      "title": "Description",
+      "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+      "examples": [
+        "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
+        "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
+      ],
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "image": {
+      "title": "Image URI",
+      "description": "IPFS URI pointing to the preview image",
+      "examples": [
+        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+        "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+      ],
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+    },
+    "background_color": {
+      "title": "Background Color",
+      "description": "Hex color code for marketplace background display",
+      "examples": [
+        "#2D5A27",
+        "#FF5733",
+        "#1E90FF"
+      ],
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^#[0-9A-F]{6}$"
+    },
+    "animation_url": {
+      "title": "Animation URL",
+      "description": "IPFS URI pointing to an animated or interactive media file",
+      "examples": [
+        "ipfs://QmAnimation123/mass-id-animation.mp4",
+        "ipfs://QmInteractive456/recycled-visualization.webm"
+      ],
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+    },
+    "external_links": {
+      "title": "External Links",
+      "description": "Optional list of public resource links with labels",
+      "examples": [
+        [
+          {
+            "label": "Carrot Explorer",
+            "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+            "description": "Complete chain of custody and audit trail"
+          },
+          {
+            "label": "Carrot White Paper",
+            "url": "https://carrot.eco/whitepaper.pdf",
+            "description": "Carrot Foundation technical and impact white paper"
+          }
+        ]
+      ],
+      "maxItems": 10,
+      "type": "array",
+      "items": {
+        "title": "External Link",
+        "description": "External link with label and description",
+        "type": "object",
+        "properties": {
+          "label": {
+            "title": "Link Label",
+            "description": "Display name for the external link",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "url": {
+            "title": "Link URL",
+            "description": "Direct URI to the linked resource",
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "title": "Link Description",
+            "description": "Optional context about what the link provides",
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 100
+          }
+        },
+        "required": [
+          "label",
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "attributes": {
+      "title": "PurchaseID NFT Attribute Array",
+      "description": "Schema for PurchaseID NFT attributes including credit breakdowns, buyer, purchase date, and per-collection credit amounts. Attributes must have unique trait types.",
+      "minItems": 4,
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "title": "Credit Attribute",
+            "description": "Attribute representing the amount purchased for a credit token",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "title": "Credit Token Symbol",
+                "description": "Symbol of the credit token (e.g., C-CARB, C-BIOW)",
+                "examples": [
+                  "C-CARB",
+                  "C-BIOW"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 10,
+                "pattern": "^[A-Z0-9-]+$"
+              },
+              "value": {
+                "title": "Credit Amount",
+                "description": "Amount of credits purchased",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              },
+              "display_type": {
+                "type": "string",
+                "const": "number"
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Buyer Attribute",
+            "description": "Attribute containing the buyer name",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Buyer"
+              },
+              "value": {
+                "title": "Buyer Name",
+                "description": "Organization or individual that purchased the credits and received the receipt",
+                "examples": [
+                  "EcoTech Solutions Inc."
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "display_type": {
+                "title": "Display Type",
+                "description": "How the trait should be displayed in marketplace UIs",
+                "type": "string",
+                "enum": [
+                  "number",
+                  "date",
+                  "boost_number",
+                  "boost_percentage"
+                ]
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Purchase Date Attribute",
+            "description": "Attribute representing the purchase date with date display type",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Purchase Date"
+              },
+              "value": {
+                "title": "Purchase Date",
+                "description": "Unix timestamp in milliseconds when the purchase was completed",
+                "examples": [
+                  1704067200000,
+                  1735689600000,
+                  1762371245149
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Collection Attribute",
+            "description": "Attribute representing the number of credits purchased from a collection",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "title": "Collection Name",
+                "description": "Display name of the collection",
+                "examples": [
+                  "BOLD Cold Start - Carazinho",
+                  "BOLD Brazil"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 150
+              },
+              "value": {
+                "title": "Credits from Collection",
+                "description": "Amount of credits purchased from the collection",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              },
+              "display_type": {
+                "type": "string",
+                "const": "number"
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          }
+        ]
       }
     }
-  ]
+  },
+  "required": [
+    "$schema",
+    "schema",
+    "created_at",
+    "external_id",
+    "external_url",
+    "original_content_hash",
+    "content_hash",
+    "data",
+    "blockchain",
+    "name",
+    "short_name",
+    "description",
+    "image",
+    "attributes"
+  ],
+  "additionalProperties": false
 }

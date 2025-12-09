@@ -168,6 +168,14 @@ export const CountryNameSchema = NonEmptyStringSchema.max(50).meta({
 
 export type CountryName = z.infer<typeof CountryNameSchema>;
 
+export const CollectionNameSchema = NonEmptyStringSchema.max(150).meta({
+  title: 'Collection Name',
+  description: 'Display name of the collection',
+  examples: ['BOLD Cold Start - Carazinho', 'BOLD Brazil'],
+});
+
+export type CollectionName = z.infer<typeof CollectionNameSchema>;
+
 export const MethodologyNameSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Methodology Name',
   description: 'Name of the methodology used for certification',
@@ -199,6 +207,14 @@ export const SlugSchema = NonEmptyStringSchema.regex(
     examples: ['mass-id-123', 'recycled-plastic', 'organic-waste'],
   });
 export type Slug = z.infer<typeof SlugSchema>;
+
+export const CollectionSlugSchema = SlugSchema.meta({
+  title: 'Collection Slug',
+  description: 'URL-friendly identifier for a collection',
+  examples: ['bold-cold-start-carazinho', 'bold-brazil'],
+});
+
+export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
 
 export const WasteTypeSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Waste Type',
@@ -257,6 +273,34 @@ export const BlockchainChainIdSchema = z
     examples: [1, 137, 11155111],
   });
 export type BlockchainChainId = z.infer<typeof BlockchainChainIdSchema>;
+
+export const BlockchainNetworkNameSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Blockchain Network Name',
+  description: 'Name of the blockchain network',
+  examples: ['Polygon', 'Ethereum mainnet', 'Sepolia'],
+});
+
+export type BlockchainNetworkName = z.infer<typeof BlockchainNetworkNameSchema>;
+
+export const SmartContractAddressSchema = EthereumAddressSchema.meta({
+  title: 'Smart Contract Address',
+  description: 'Address of the smart contract',
+});
+
+export type SmartContractAddress = z.infer<typeof SmartContractAddressSchema>;
+
+export const SmartContractSchema = z
+  .strictObject({
+    address: SmartContractAddressSchema,
+    chain_id: BlockchainChainIdSchema,
+    network_name: BlockchainNetworkNameSchema,
+  })
+  .meta({
+    title: 'Smart Contract',
+    description: 'Smart contract details for on-chain references',
+  });
+
+export type SmartContract = z.infer<typeof SmartContractSchema>;
 
 export const PercentageSchema = z
   .number()
