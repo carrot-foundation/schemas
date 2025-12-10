@@ -45,31 +45,34 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
 
   it('rejects attributes that do not align with data totals', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === 'Total USDC Amount'
-          ? { ...attribute, value: 999999 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === 'Total USDC Amount') {
+          return { ...attribute, value: 999999 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
   it('rejects receiver attribute that does not match receiver identity name', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === 'Receiver'
-          ? { ...attribute, value: 'Wrong Receiver' }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === 'Receiver') {
+          return { ...attribute, value: 'Wrong Receiver' };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
   it('rejects purchase date attribute that does not match summary purchase date', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === 'Purchase Date'
-          ? { ...attribute, value: 1738627200000 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === 'Purchase Date') {
+          return { ...attribute, value: 1738627200000 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
@@ -85,11 +88,12 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
   it('rejects credit attribute value that does not match purchase amount', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === firstCreditSymbol
-          ? { ...attribute, value: Number(attribute.value) + 1 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === firstCreditSymbol) {
+          return { ...attribute, value: Number(attribute.value) + 1 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
@@ -105,11 +109,12 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
   it('rejects collection attribute value that does not match credit amount', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       const firstCollectionName = invalid.data.collections[0].name;
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === firstCollectionName
-          ? { ...attribute, value: Number(attribute.value) + 1 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === firstCollectionName) {
+          return { ...attribute, value: Number(attribute.value) + 1 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 

@@ -46,21 +46,23 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
 
   it('rejects attributes that do not align with data totals', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === 'Total Credits Retired'
-          ? { ...attribute, value: 999999 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === 'Total Credits Retired') {
+          return { ...attribute, value: 999999 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
   it('rejects retirement date attribute that does not match summary retirement date', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === 'Retirement Date'
-          ? { ...attribute, value: 1737410400000 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === 'Retirement Date') {
+          return { ...attribute, value: 1737410400000 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
@@ -75,22 +77,24 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
   it('rejects credit attribute value that does not match retired amount', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === firstCreditSymbol
-          ? { ...attribute, value: Number(attribute.value) + 1 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === firstCreditSymbol) {
+          return { ...attribute, value: Number(attribute.value) + 1 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
   it('rejects collection attribute value that does not match retired amount', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       const firstCollectionName = invalid.data.collections[0].name;
-      invalid.attributes = invalid.attributes.map((attribute) =>
-        attribute.trait_type === firstCollectionName
-          ? { ...attribute, value: Number(attribute.value) + 1 }
-          : attribute,
-      ) as typeof invalid.attributes;
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === firstCollectionName) {
+          return { ...attribute, value: Number(attribute.value) + 1 };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 
@@ -100,6 +104,31 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
       invalid.attributes = invalid.attributes.filter(
         (attribute) => attribute.trait_type !== firstCreditSymbol,
       );
+    });
+  });
+
+  it('rejects missing credit holder attribute when identity is provided', () => {
+    expectSchemaInvalid(schema, base, (invalid) => {
+      const creditHolderName = invalid.data.credit_holder.identity?.name;
+      expect(creditHolderName).toBeDefined();
+
+      invalid.attributes = invalid.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Credit Holder',
+      );
+    });
+  });
+
+  it('rejects credit holder attribute that does not match identity name', () => {
+    expectSchemaInvalid(schema, base, (invalid) => {
+      const creditHolderName = invalid.data.credit_holder.identity?.name;
+      expect(creditHolderName).toBeDefined();
+
+      invalid.attributes = invalid.attributes.map((attribute) => {
+        if (attribute.trait_type === 'Credit Holder') {
+          return { ...attribute, value: `${creditHolderName}-mismatch` };
+        }
+        return attribute;
+      }) as typeof invalid.attributes;
     });
   });
 

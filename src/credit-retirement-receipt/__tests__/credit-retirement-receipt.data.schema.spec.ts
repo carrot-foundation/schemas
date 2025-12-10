@@ -138,7 +138,7 @@ describe('CreditRetirementReceiptDataSchema', () => {
     });
   });
 
-  it('handles collections without certificate references', () => {
+  it('rejects collections without certificate references', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.collections.push({
         slug: 'unused-collection',
@@ -158,6 +158,20 @@ describe('CreditRetirementReceiptDataSchema', () => {
   it('requires collection amounts to equal retired totals', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.collections[0].amount = 0;
+    });
+  });
+
+  it('rejects mismatched summary total_certificates', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.total_certificates =
+        invalid.summary.total_certificates + 1;
+    });
+  });
+
+  it('rejects mismatched summary total_retirement_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.total_retirement_amount =
+        invalid.summary.total_retirement_amount + 1;
     });
   });
 });

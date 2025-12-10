@@ -102,6 +102,19 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
+  it('rejects mismatched summary total_certificates', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.total_certificates =
+        invalid.summary.total_certificates + 1;
+    });
+  });
+
+  it('rejects mismatched summary total_usdc_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.total_usdc_amount = invalid.summary.total_usdc_amount + 1;
+    });
+  });
+
   it('requires certificate retired amounts to align with credit retirement totals', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].retired_amount = 0;
@@ -127,13 +140,10 @@ describe('CreditPurchaseReceiptDataSchema', () => {
   it('allows undefined retirement_amount when no retirement details are provided', () => {
     expectSchemaValid(schema, () => {
       const valid = structuredClone(baseData);
-      Reflect.deleteProperty(valid as Record<string, unknown>, 'retirement');
+      Reflect.deleteProperty(valid, 'retirement');
       valid.credits = valid.credits.map((credit) => {
         const creditWithoutRetirement = structuredClone(credit);
-        Reflect.deleteProperty(
-          creditWithoutRetirement as Record<string, unknown>,
-          'retirement_amount',
-        );
+        Reflect.deleteProperty(creditWithoutRetirement, 'retirement_amount');
         return creditWithoutRetirement;
       });
       valid.certificates = valid.certificates.map((certificate) => ({

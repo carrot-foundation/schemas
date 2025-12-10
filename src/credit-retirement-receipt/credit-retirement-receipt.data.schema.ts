@@ -455,6 +455,21 @@ export const CreditRetirementReceiptDataSchema = z
     data.collections.forEach((collection, index) => {
       const retiredTotal =
         collectionTotalsBySlug.get(String(collection.slug)) ?? 0;
+      if (retiredTotal === 0) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'collection must be referenced by at least one certificate with retired_amount > 0',
+          path: ['collections', index, 'slug'],
+        });
+      }
+      if (Number(collection.amount) <= 0) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'collection.amount must be greater than zero',
+          path: ['collections', index, 'amount'],
+        });
+      }
       if (!nearlyEqual(Number(collection.amount), retiredTotal)) {
         ctx.addIssue({
           code: 'custom',
