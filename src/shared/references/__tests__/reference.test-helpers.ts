@@ -47,7 +47,7 @@ export function runReferenceSchemaTests<T extends Record<string, unknown>>({
 
   requiredFields.forEach((field) => {
     it(`rejects missing ${String(field)}`, () => {
-      expectSchemaInvalidWithout(schema, base, field as string);
+      expectSchemaInvalidWithout(schema, base, field);
     });
   });
 
@@ -59,15 +59,17 @@ export function runReferenceSchemaTests<T extends Record<string, unknown>>({
     });
   });
 
-  it('validates type inference works correctly', () => {
-    expectSchemaTyped(
-      schema,
-      () => structuredClone(base),
-      (data) => {
-        typeCheck?.(data, base);
-      },
-    );
-  });
+  if (typeCheck) {
+    it('validates type inference works correctly', () => {
+      expectSchemaTyped(
+        schema,
+        () => structuredClone(base),
+        (data) => {
+          typeCheck(data, base);
+        },
+      );
+    });
+  }
 
   it('rejects additional properties', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
