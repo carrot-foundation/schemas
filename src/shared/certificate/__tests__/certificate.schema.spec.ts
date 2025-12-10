@@ -1,281 +1,205 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import {
+  expectSchemaInvalid,
+  expectSchemaInvalidWithout,
+  expectSchemaTyped,
+  expectSchemaValid,
+  validWasteClassificationFixture,
+  validAccreditedParticipantsFixture,
+  validParticipantRewardsFixture,
+} from '../../../test-utils';
 import {
   WasteClassificationSchema,
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
 } from '../certificate.schema';
-import {
-  validWasteClassificationFixture,
-  validAccreditedParticipantsFixture,
-  validParticipantRewardsFixture,
-} from '../../../test-utils';
 
 describe('WasteClassificationSchema', () => {
-  it('validates valid waste classification successfully', () => {
-    const result = WasteClassificationSchema.safeParse(
-      validWasteClassificationFixture,
-    );
+  const schema = WasteClassificationSchema;
+  const base = validWasteClassificationFixture;
 
-    expect(result.success).toBe(true);
+  it('validates valid waste classification successfully', () => {
+    expectSchemaValid(schema, () => ({ ...base }));
   });
 
   it('rejects missing primary_type', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { primary_type, ...withoutPrimaryType } =
-      validWasteClassificationFixture;
-    const result = WasteClassificationSchema.safeParse(withoutPrimaryType);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'primary_type');
   });
 
   it('rejects missing subtype', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { subtype, ...withoutSubtype } = validWasteClassificationFixture;
-    const result = WasteClassificationSchema.safeParse(withoutSubtype);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'subtype');
   });
 
   it('rejects missing net_weight_kg', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { net_weight_kg, ...withoutNetWeight } =
-      validWasteClassificationFixture;
-    const result = WasteClassificationSchema.safeParse(withoutNetWeight);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'net_weight_kg');
   });
 
   it('rejects empty primary_type', () => {
-    const invalid = {
-      ...validWasteClassificationFixture,
-      primary_type: '',
-    };
-    const result = WasteClassificationSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.primary_type = '';
+    });
   });
 
   it('rejects negative net_weight_kg', () => {
-    const invalid = {
-      ...validWasteClassificationFixture,
-      net_weight_kg: -100,
-    };
-    const result = WasteClassificationSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.net_weight_kg = -100;
+    });
   });
 
   it('validates type inference works correctly', () => {
-    const result = WasteClassificationSchema.safeParse(
-      validWasteClassificationFixture,
+    expectSchemaTyped(
+      schema,
+      () => ({ ...base }),
+      (data) => {
+        expect(data.primary_type).toBe(base.primary_type);
+        expect(data.subtype).toBe(base.subtype);
+        expect(data.net_weight_kg).toBe(base.net_weight_kg);
+      },
     );
-
-    expect(result.success).toBe(true);
-
-    if (result.success) {
-      const data: typeof result.data = result.data;
-
-      expect(data.primary_type).toBe(
-        validWasteClassificationFixture.primary_type,
-      );
-      expect(data.subtype).toBe(validWasteClassificationFixture.subtype);
-      expect(data.net_weight_kg).toBe(
-        validWasteClassificationFixture.net_weight_kg,
-      );
-    }
   });
 
   it('rejects additional properties', () => {
-    const invalid = {
-      ...validWasteClassificationFixture,
-      extra_field: 'not allowed',
-    };
-    const result = WasteClassificationSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      (invalid as typeof base & { extra_field?: string }).extra_field =
+        'not allowed';
+    });
   });
 });
 
 describe('AccreditedParticipantsSchema', () => {
-  it('validates valid accredited participants successfully', () => {
-    const result = AccreditedParticipantsSchema.safeParse(
-      validAccreditedParticipantsFixture,
-    );
+  const schema = AccreditedParticipantsSchema;
+  const base = validAccreditedParticipantsFixture;
 
-    expect(result.success).toBe(true);
+  it('validates valid accredited participants successfully', () => {
+    expectSchemaValid(schema, () => [...base]);
   });
 
   it('rejects empty array', () => {
-    const result = AccreditedParticipantsSchema.safeParse([]);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.length = 0;
+    });
   });
 
   it('rejects missing participant_id', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { participant_id, ...withoutParticipantId } =
-      validAccreditedParticipantsFixture[0];
-    const invalidArray = [withoutParticipantId];
-    const result = AccreditedParticipantsSchema.safeParse(invalidArray);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid[0] = {
+        ...invalid[0],
+      };
+      Reflect.deleteProperty(
+        invalid[0] as Record<string, unknown>,
+        'participant_id',
+      );
+    });
   });
 
   it('rejects invalid UUID for participant_id', () => {
-    const invalid = [
-      {
-        ...validAccreditedParticipantsFixture[0],
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid[0] = {
+        ...invalid[0],
         participant_id: 'not-a-uuid',
-      },
-    ];
-    const result = AccreditedParticipantsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+      };
+    });
   });
 
   it('validates type inference works correctly', () => {
-    const result = AccreditedParticipantsSchema.safeParse(
-      validAccreditedParticipantsFixture,
+    expectSchemaTyped(
+      schema,
+      () => [...base],
+      (data) => {
+        expect(data.length).toBe(2);
+        expect(data[0].participant_id).toBe(base[0].participant_id);
+      },
     );
-
-    expect(result.success).toBe(true);
-
-    if (result.success) {
-      const data: typeof result.data = result.data;
-
-      expect(data.length).toBe(2);
-      expect(data[0].participant_id).toBe(
-        validAccreditedParticipantsFixture[0].participant_id,
-      );
-    }
   });
 });
 
 describe('ParticipantRewardsSchema', () => {
-  it('validates valid participant rewards successfully', () => {
-    const result = ParticipantRewardsSchema.safeParse(
-      validParticipantRewardsFixture,
-    );
+  const schema = ParticipantRewardsSchema;
+  const base = validParticipantRewardsFixture;
 
-    expect(result.success).toBe(true);
+  it('validates valid participant rewards successfully', () => {
+    expectSchemaValid(schema, () => ({ ...base }));
   });
 
   it('validates without optional distribution_notes', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { distribution_notes, ...withoutNotes } =
-      validParticipantRewardsFixture;
-    const result = ParticipantRewardsSchema.safeParse(withoutNotes);
-
-    expect(result.success).toBe(true);
+    expectSchemaValid(schema, () => {
+      const withoutNotes = structuredClone(base);
+      Reflect.deleteProperty(
+        withoutNotes as Record<string, unknown>,
+        'distribution_notes',
+      );
+      return withoutNotes;
+    });
   });
 
   it('rejects missing distribution_basis', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { distribution_basis, ...withoutBasis } =
-      validParticipantRewardsFixture;
-    const result = ParticipantRewardsSchema.safeParse(withoutBasis);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'distribution_basis');
   });
 
   it('rejects missing reward_allocations', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { reward_allocations, ...withoutAllocations } =
-      validParticipantRewardsFixture;
-    const result = ParticipantRewardsSchema.safeParse(withoutAllocations);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'reward_allocations');
   });
 
   it('rejects empty reward_allocations array', () => {
-    const invalid = {
-      ...validParticipantRewardsFixture,
-      reward_allocations: [],
-    };
-    const result = ParticipantRewardsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.reward_allocations = [];
+    });
   });
 
   it('rejects distribution_basis longer than 200 characters', () => {
-    const invalid = {
-      ...validParticipantRewardsFixture,
-      distribution_basis: 'A'.repeat(201),
-    };
-    const result = ParticipantRewardsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.distribution_basis = 'A'.repeat(201);
+    });
   });
 
   it('rejects reward_percentage greater than 100', () => {
-    const invalid = {
-      ...validParticipantRewardsFixture,
-      reward_allocations: [
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.reward_allocations = [
         {
-          ...validParticipantRewardsFixture.reward_allocations[0],
+          ...invalid.reward_allocations[0],
           reward_percentage: 150,
         },
-      ],
-    };
-    const result = ParticipantRewardsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+      ];
+    });
   });
 
   it('rejects reward_percentage less than 0', () => {
-    const invalid = {
-      ...validParticipantRewardsFixture,
-      reward_allocations: [
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.reward_allocations = [
         {
-          ...validParticipantRewardsFixture.reward_allocations[0],
+          ...invalid.reward_allocations[0],
           reward_percentage: -10,
         },
-      ],
-    };
-    const result = ParticipantRewardsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+      ];
+    });
   });
 
   it('rejects effective_percentage greater than 100', () => {
-    const invalid = {
-      ...validParticipantRewardsFixture,
-      reward_allocations: [
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.reward_allocations = [
         {
-          ...validParticipantRewardsFixture.reward_allocations[0],
+          ...invalid.reward_allocations[0],
           effective_percentage: 150,
         },
-      ],
-    };
-    const result = ParticipantRewardsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+      ];
+    });
   });
 
   it('validates type inference works correctly', () => {
-    const result = ParticipantRewardsSchema.safeParse(
-      validParticipantRewardsFixture,
+    expectSchemaTyped(
+      schema,
+      () => ({ ...base }),
+      (data) => {
+        expect(data.distribution_basis).toBe(base.distribution_basis);
+        expect(data.reward_allocations.length).toBe(2);
+      },
     );
-
-    expect(result.success).toBe(true);
-
-    if (result.success) {
-      const data: typeof result.data = result.data;
-
-      expect(data.distribution_basis).toBe(
-        validParticipantRewardsFixture.distribution_basis,
-      );
-      expect(data.reward_allocations.length).toBe(2);
-    }
   });
 
   it('rejects additional properties', () => {
-    const invalid = {
-      ...validParticipantRewardsFixture,
-      extra_field: 'not allowed',
-    };
-    const result = ParticipantRewardsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      (invalid as typeof base & { extra_field?: string }).extra_field =
+        'not allowed';
+    });
   });
 });

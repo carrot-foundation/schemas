@@ -491,6 +491,7 @@ export const RecordSchemaTypeSchema = z
     'RecycledID',
     'GasID',
     'CreditPurchaseReceipt',
+    'CreditRetirementReceipt',
     'Methodology',
     'Credit',
     'Collection',
@@ -516,6 +517,14 @@ export const TokenSymbolSchema = NonEmptyStringSchema.max(10)
 
 export type TokenSymbol = z.infer<typeof TokenSymbolSchema>;
 
+export const CreditTokenSymbolSchema = TokenSymbolSchema.meta({
+  title: 'Credit Token Symbol',
+  description: 'Symbol of the credit token (e.g., C-CARB, C-BIOW)',
+  examples: ['C-CARB', 'C-BIOW'],
+});
+
+export type CreditTokenSymbol = z.infer<typeof CreditTokenSymbolSchema>;
+
 export const RecordRelationshipTypeSchema = z
   .enum([
     'collection',
@@ -525,6 +534,7 @@ export const RecordRelationshipTypeSchema = z
     'mass-id-audit',
     'methodology',
     'credit-purchase-receipt',
+    'credit-retirement-receipt',
     'recycled-id',
   ])
   .meta({

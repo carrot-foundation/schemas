@@ -8,3 +8,4 @@ export * from './helpers.schema';
 export * from './schema-version';
 export * from './attributes.schema';
 export * from './audit.schema';
+export * from './receipt';

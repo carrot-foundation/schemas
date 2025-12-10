@@ -1,31 +1,18 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'vitest';
+import { expectIssuesContain, validNftIpfsFixture } from '../../test-utils';
 import { NftIpfsSchema } from '../nft.schema';
-import { validNftIpfsFixture } from '../../test-utils';
 
 describe('NftIpfsSchema', () => {
   it('rejects duplicate trait_type in attributes', () => {
-    const invalid = {
-      ...validNftIpfsFixture,
-      attributes: [
-        ...validNftIpfsFixture.attributes,
-        {
-          trait_type: 'Type',
-          value: 'Plastic',
-        },
-      ],
-    };
-    const result = NftIpfsSchema.safeParse(invalid);
+    const [firstAttribute] = validNftIpfsFixture.attributes;
 
-    expect(result.success).toBe(false);
-
-    if (!result.success) {
-      const errorMessages = result.error.issues
-        .map((issue) => issue.message)
-        .join(' ');
-
-      expect(errorMessages).toContain(
-        'Attribute trait_type values must be unique',
-      );
-    }
+    expectIssuesContain(
+      NftIpfsSchema,
+      () => ({
+        ...validNftIpfsFixture,
+        attributes: [...validNftIpfsFixture.attributes, { ...firstAttribute }],
+      }),
+      ['Attribute trait_type values must be unique'],
+    );
   });
 });

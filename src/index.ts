@@ -2,6 +2,7 @@ export * from './mass-id';
 export * from './gas-id';
 export * from './recycled-id';
 export * from './credit-purchase-receipt';
+export * from './credit-retirement-receipt';
 export * from './collection';
 export * from './credit';
 export * from './methodology';
