@@ -13,7 +13,7 @@
   "blockchain": {
     "token_id": "123",
     "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
-    "chain_id": 1,
+    "chain_id": 137,
     "network_name": "Polygon"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
