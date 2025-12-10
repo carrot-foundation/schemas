@@ -81,7 +81,77 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
     const invalid = structuredClone(exampleJson);
     invalid.attributes = invalid.attributes.filter(
       (attribute) => attribute.trait_type !== 'Beneficiary',
+    );
+
+    const result = CreditRetirementReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects credit attribute value that does not match retired amount', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
+    invalid.attributes = invalid.attributes.map((attribute) =>
+      attribute.trait_type === firstCreditSymbol
+        ? { ...attribute, value: Number(attribute.value) + 1 }
+        : attribute,
     ) as typeof invalid.attributes;
+
+    const result = CreditRetirementReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects collection attribute value that does not match retired amount', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCollectionName = invalid.data.collections[0].name;
+    invalid.attributes = invalid.attributes.map((attribute) =>
+      attribute.trait_type === firstCollectionName
+        ? { ...attribute, value: Number(attribute.value) + 1 }
+        : attribute,
+    ) as typeof invalid.attributes;
+
+    const result = CreditRetirementReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects missing credit symbol attribute', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
+    invalid.attributes = invalid.attributes.filter(
+      (attribute) => attribute.trait_type !== firstCreditSymbol,
+    );
+
+    const result = CreditRetirementReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('allows credit holder identity to be omitted', () => {
+    const withoutCreditHolderIdentity = structuredClone(exampleJson);
+    Reflect.deleteProperty(
+      withoutCreditHolderIdentity.data.credit_holder as Record<string, unknown>,
+      'identity',
+    );
+    withoutCreditHolderIdentity.attributes =
+      withoutCreditHolderIdentity.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Credit Holder',
+      );
+
+    const result = CreditRetirementReceiptIpfsSchema.safeParse(
+      withoutCreditHolderIdentity,
+    );
+
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects missing collection attribute', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCollectionName = invalid.data.collections[0].name;
+    invalid.attributes = invalid.attributes.filter(
+      (attribute) => attribute.trait_type !== firstCollectionName,
+    );
 
     const result = CreditRetirementReceiptIpfsSchema.safeParse(invalid);
 

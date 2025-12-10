@@ -93,6 +93,20 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
     invalid.attributes = invalid.attributes.filter(
       (attribute) => attribute.trait_type !== firstCreditSymbol,
+    );
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects credit attribute value that does not match purchase amount', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
+    invalid.attributes = invalid.attributes.map((attribute) =>
+      attribute.trait_type === firstCreditSymbol
+        ? { ...attribute, value: Number(attribute.value) + 1 }
+        : attribute,
     ) as typeof invalid.attributes;
 
     const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
@@ -105,11 +119,43 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     const firstCollectionName = invalid.data.collections[0].name;
     invalid.attributes = invalid.attributes.filter(
       (attribute) => attribute.trait_type !== firstCollectionName,
+    );
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
+
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects collection attribute value that does not match credit amount', () => {
+    const invalid = structuredClone(exampleJson);
+    const firstCollectionName = invalid.data.collections[0].name;
+    invalid.attributes = invalid.attributes.map((attribute) =>
+      attribute.trait_type === firstCollectionName
+        ? { ...attribute, value: Number(attribute.value) + 1 }
+        : attribute,
     ) as typeof invalid.attributes;
 
     const result = CreditPurchaseReceiptIpfsSchema.safeParse(invalid);
 
     expect(result.success).toBe(false);
+  });
+
+  it('allows receiver identity to be omitted', () => {
+    const withoutReceiverIdentity = structuredClone(exampleJson);
+    Reflect.deleteProperty(
+      withoutReceiverIdentity.data.parties.receiver as Record<string, unknown>,
+      'identity',
+    );
+    withoutReceiverIdentity.attributes =
+      withoutReceiverIdentity.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Receiver',
+      );
+
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(
+      withoutReceiverIdentity,
+    );
+
+    expect(result.success).toBe(true);
   });
 
   it('validates type inference works correctly', () => {
