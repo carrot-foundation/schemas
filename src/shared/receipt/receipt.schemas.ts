@@ -178,7 +178,7 @@ export function createReceiptCreditSchema(params: {
     symbol: CreditTokenSymbolSchema.meta({
       title: 'Credit Token Symbol',
       description: 'Symbol of the credit token',
-      examples: ['carbon', 'organic', 'C-CARB', 'C-BIOW'],
+      examples: ['CARBON', 'ORGANIC', 'C-CARB', 'C-BIOW'],
     }),
     external_id: ExternalIdSchema.meta({
       title: 'Credit External ID',

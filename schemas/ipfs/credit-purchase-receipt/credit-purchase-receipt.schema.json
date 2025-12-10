@@ -639,8 +639,8 @@
                 "title": "Credit Token Symbol",
                 "description": "Symbol of the credit token",
                 "examples": [
-                  "carbon",
-                  "organic",
+                  "CARBON",
+                  "ORGANIC",
                   "C-CARB",
                   "C-BIOW"
                 ],
