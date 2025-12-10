@@ -1,96 +1,87 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { z } from 'zod';
+import {
+  expectSchemaInvalid,
+  expectSchemaInvalidWithout,
+  expectSchemaTyped,
+  expectSchemaValid,
+} from '../../test-utils';
 import { RecycledIDIpfsSchema } from '../recycled-id.schema';
 import exampleJson from '../../../schemas/ipfs/recycled-id/recycled-id.example.json';
 
 describe('RecycledIDIpfsSchema', () => {
-  it('validates example.json successfully', () => {
-    const result = RecycledIDIpfsSchema.safeParse(exampleJson);
+  const schema = RecycledIDIpfsSchema;
+  const base = exampleJson as z.input<typeof schema>;
 
-    expect(result.success).toBe(true);
+  it('validates example.json successfully', () => {
+    expectSchemaValid(schema, () => structuredClone(base));
   });
 
   it('rejects invalid schema type', () => {
-    const invalid = {
-      ...exampleJson,
-      schema: {
-        ...exampleJson.schema,
-        type: 'InvalidType',
-      },
-    };
-    const result = RecycledIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.schema = {
+        ...invalid.schema,
+        type: 'InvalidType' as unknown as typeof invalid.schema.type,
+      };
+    });
   });
 
   it('rejects missing required fields', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { schema, ...withoutSchema } = exampleJson;
-    const result = RecycledIDIpfsSchema.safeParse(withoutSchema);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'schema');
   });
 
   it('rejects attributes array with wrong length', () => {
-    const invalid = {
-      ...exampleJson,
-      attributes: exampleJson.attributes.slice(0, 10),
-    };
-    const result = RecycledIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.attributes = invalid.attributes.slice(
+        0,
+        10,
+      ) as typeof invalid.attributes;
+    });
   });
 
   it('rejects attributes array with wrong order', () => {
-    const attributes = [...exampleJson.attributes];
-    [attributes[0], attributes[1]] = [attributes[1], attributes[0]];
-    const invalid = {
-      ...exampleJson,
-      attributes,
-    };
-    const result = RecycledIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      const attributes = invalid.attributes.slice() as unknown[];
+      [attributes[0], attributes[1]] = [attributes[1], attributes[0]];
+      invalid.attributes = attributes as typeof invalid.attributes;
+    });
   });
 
   it('rejects missing summary in data', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { summary, ...dataWithoutSummary } = exampleJson.data;
-    const invalidData = {
-      ...exampleJson,
-      data: dataWithoutSummary,
-    };
-    const result = RecycledIDIpfsSchema.safeParse(invalidData);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.data as Record<string, unknown>,
+        'summary',
+      );
+    });
   });
 
   it('rejects invalid facility type', () => {
-    const invalid = {
-      ...exampleJson,
-      data: {
-        ...exampleJson.data,
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.data = {
+        ...invalid.data,
         origin_location: {
-          ...exampleJson.data.origin_location,
-          facility_type: 'Invalid Facility',
+          ...invalid.data.origin_location,
+          facility_type: 'Invalid Facility' as unknown as
+            | 'Collection Point'
+            | 'Recycling Facility'
+            | 'Administrative Office'
+            | 'Other'
+            | undefined,
         },
-      },
-    };
-    const result = RecycledIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+      };
+    });
   });
 
   it('validates type inference works correctly', () => {
-    const result = RecycledIDIpfsSchema.safeParse(exampleJson);
-
-    expect(result.success).toBe(true);
-
-    if (result.success) {
-      const data: typeof result.data = result.data;
-
-      expect(data.schema.type).toBe('RecycledID');
-      expect(data.attributes).toHaveLength(11);
-      expect(data.data.summary.recycled_mass_kg).toBeGreaterThan(0);
-    }
+    expectSchemaTyped(
+      schema,
+      () => structuredClone(base),
+      (data) => {
+        expect(data.schema.type).toBe('RecycledID');
+        expect(data.attributes).toHaveLength(11);
+        expect(data.data.summary.recycled_mass_kg).toBeGreaterThan(0);
+      },
+    );
   });
 });

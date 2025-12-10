@@ -1,100 +1,82 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { z } from 'zod';
+import {
+  expectSchemaInvalid,
+  expectSchemaInvalidWithout,
+  expectSchemaTyped,
+  expectSchemaValid,
+} from '../../test-utils';
 import { GasIDIpfsSchema } from '../gas-id.schema';
 import exampleJson from '../../../schemas/ipfs/gas-id/gas-id.example.json';
 
 describe('GasIDIpfsSchema', () => {
-  it('validates example.json successfully', () => {
-    const result = GasIDIpfsSchema.safeParse(exampleJson);
+  const schema = GasIDIpfsSchema;
+  const base = exampleJson as z.input<typeof schema>;
 
-    expect(result.success).toBe(true);
+  it('validates example.json successfully', () => {
+    expectSchemaValid(schema, () => structuredClone(base));
   });
 
   it('rejects invalid data', () => {
-    const invalid = {
-      ...exampleJson,
-      blockchain: {
-        ...exampleJson.blockchain,
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.blockchain = {
+        ...invalid.blockchain,
         token_id: 'invalid',
-      },
-    };
-    const result = GasIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+      };
+    });
   });
 
   it('rejects missing required fields', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { schema, ...withoutSchema } = exampleJson;
-    const result = GasIDIpfsSchema.safeParse(withoutSchema);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'schema');
   });
 
   it('validates type inference works correctly', () => {
-    const result = GasIDIpfsSchema.safeParse(exampleJson);
-
-    expect(result.success).toBe(true);
-
-    if (result.success) {
-      const data: typeof result.data = result.data;
-
-      expect(data.schema.type).toBe('GasID');
-      expect(data.blockchain.token_id).toBe('456');
-    }
+    expectSchemaTyped(
+      schema,
+      () => structuredClone(base),
+      (data) => {
+        expect(data.schema.type).toBe('GasID');
+        expect(data.blockchain.token_id).toBe('456');
+      },
+    );
   });
 
   it('rejects invalid schema type', () => {
-    const invalid = {
-      ...exampleJson,
-      schema: {
-        ...exampleJson.schema,
-        type: 'InvalidType',
-      },
-    };
-    const result = GasIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.schema = {
+        ...invalid.schema,
+        type: 'InvalidType' as unknown as typeof invalid.schema.type,
+      };
+    });
   });
 
   it('rejects attributes array with wrong length', () => {
-    const invalid = {
-      ...exampleJson,
-      attributes: exampleJson.attributes.slice(0, 11),
-    };
-    const result = GasIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.attributes = invalid.attributes.slice(
+        0,
+        11,
+      ) as typeof invalid.attributes;
+    });
   });
 
   it('rejects attributes array with wrong order', () => {
-    const attributes = [...exampleJson.attributes];
-    [attributes[0], attributes[1]] = [attributes[1], attributes[0]];
-    const invalid = {
-      ...exampleJson,
-      attributes,
-    };
-    const result = GasIDIpfsSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      const attributes = invalid.attributes.slice() as unknown[];
+      [attributes[0], attributes[1]] = [attributes[1], attributes[0]];
+      invalid.attributes = attributes as typeof invalid.attributes;
+    });
   });
 
   it('rejects missing data fields', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, ...withoutData } = exampleJson;
-    const result = GasIDIpfsSchema.safeParse(withoutData);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalidWithout(schema, base, 'data');
   });
 
   it('rejects missing summary in data', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { summary, ...dataWithoutSummary } = exampleJson.data;
-    const invalidData = {
-      ...exampleJson,
-      data: dataWithoutSummary,
-    };
-    const result = GasIDIpfsSchema.safeParse(invalidData);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, base, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.data as Record<string, unknown>,
+        'summary',
+      );
+    });
   });
 });

@@ -37,3 +37,46 @@ export function expectIssues<T>(
     expect(messages).toEqual(expectedMessages);
   }
 }
+
+export function expectIssuesContain<T>(
+  schema: z.ZodType<T>,
+  buildData: () => T,
+  expectedSubstrings: string[],
+) {
+  const result = schema.safeParse(buildData());
+
+  expect(result.success).toBe(false);
+
+  if (!result.success) {
+    const messages = result.error.issues.map((issue) => issue.message);
+    expectedSubstrings.forEach((substring) => {
+      expect(messages.some((message) => message.includes(substring))).toBe(
+        true,
+      );
+    });
+  }
+}
+
+export function expectSchemaInvalidWithout<T extends Record<string, unknown>>(
+  schema: z.ZodType<T>,
+  exampleData: T,
+  key: keyof T,
+) {
+  expectSchemaInvalid(schema, exampleData, (draft) => {
+    Reflect.deleteProperty(draft, key);
+  });
+}
+
+export function expectSchemaTyped<T>(
+  schema: z.ZodType<T>,
+  buildData: () => T,
+  assert: (data: T) => void,
+) {
+  const result = schema.safeParse(buildData());
+
+  expect(result.success).toBe(true);
+
+  if (result.success) {
+    assert(result.data);
+  }
+}
