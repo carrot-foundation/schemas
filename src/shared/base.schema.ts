@@ -6,7 +6,6 @@ import {
   IsoTimestampSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
-  UuidSchema,
   RecordSchemaTypeSchema,
   IpfsUriSchema,
   RecordRelationshipTypeSchema,
@@ -49,25 +48,6 @@ const SchemaInfoSchema = z
   });
 
 export type SchemaInfo = z.infer<typeof SchemaInfoSchema>;
-
-const RecordCreatorSchema = z
-  .strictObject({
-    name: z.string().meta({
-      title: 'Creator Name',
-      description: 'Company or individual name that created this record',
-      examples: ['Carrot Foundation'],
-    }),
-    id: UuidSchema.meta({
-      title: 'Creator ID',
-      description: 'Unique identifier for the creator',
-    }),
-  })
-  .meta({
-    title: 'Creator',
-    description: 'Entity that created this record',
-  });
-
-export type RecordCreator = z.infer<typeof RecordCreatorSchema>;
 
 const RecordRelationshipSchema = z
   .strictObject({
@@ -154,7 +134,6 @@ export const BaseIpfsSchema = z
       description:
         'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
     }),
-    creator: RecordCreatorSchema.optional(),
     relationships: z.array(RecordRelationshipSchema).optional().meta({
       title: 'Relationships',
       description: 'References to other IPFS records this record relates to',

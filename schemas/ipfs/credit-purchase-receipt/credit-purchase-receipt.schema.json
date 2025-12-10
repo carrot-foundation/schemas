@@ -118,38 +118,6 @@
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
-    "creator": {
-      "title": "Creator",
-      "description": "Entity that created this record",
-      "type": "object",
-      "properties": {
-        "name": {
-          "title": "Creator Name",
-          "description": "Company or individual name that created this record",
-          "examples": [
-            "Carrot Foundation"
-          ],
-          "type": "string"
-        },
-        "id": {
-          "title": "Creator ID",
-          "description": "Unique identifier for the creator",
-          "examples": [
-            "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-            "6f520d88-864d-432d-bf9f-5c3166c4818f",
-            "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
-          ],
-          "type": "string",
-          "format": "uuid",
-          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-        }
-      },
-      "required": [
-        "name",
-        "id"
-      ],
-      "additionalProperties": false
-    },
     "relationships": {
       "title": "Relationships",
       "description": "References to other IPFS records this record relates to",
