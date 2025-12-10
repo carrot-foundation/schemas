@@ -5,7 +5,6 @@ import {
   LongitudeSchema,
   IsoCountryCodeSchema,
   IsoAdministrativeDivisionCodeSchema,
-  FacilityTypeSchema,
   MunicipalitySchema,
   AdministrativeDivisionSchema,
   CountryNameSchema,
@@ -51,7 +50,6 @@ export const LocationSchema = z
         'Anonymized ID of the participant responsible for this location',
     }),
     coordinates: CoordinatesSchema,
-    facility_type: FacilityTypeSchema.optional(),
   })
   .meta({
     title: 'Location',

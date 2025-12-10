@@ -67,4 +67,93 @@ describe('MassIDIpfsSchema', () => {
       };
     }, ['External link URLs must be unique']);
   });
+
+  it('requires attributes to mirror waste properties', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.data.waste_properties.type = 'Plastic';
+      return next;
+    }, ['Waste Type attribute must equal waste_properties.type']);
+  });
+
+  it('requires pick-up date attribute to match pick-up event', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const pickUpDateIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Pick-up Date',
+      );
+
+      if (pickUpDateIndex >= 0) {
+        next.attributes[pickUpDateIndex].value = 0;
+      }
+
+      return next;
+    }, ['Pick-up Date attribute must equal Pick-up event timestamp']);
+  });
+
+  it('requires local waste classification attribute to be omitted when missing data', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      Reflect.deleteProperty(
+        next.data.waste_properties as Record<string, unknown>,
+        'local_classification',
+      );
+      return next;
+    }, [
+      'Local Waste Classification ID attribute must be omitted when waste_properties.local_classification.code is not provided',
+    ]);
+  });
+
+  it('allows omitting optional attributes when source data is absent', () => {
+    expectSchemaValid(schema, () => {
+      const next = structuredClone(base);
+      Reflect.deleteProperty(
+        next.data.waste_properties as Record<string, unknown>,
+        'local_classification',
+      );
+      next.attributes = next.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Local Waste Classification ID',
+      );
+      return next;
+    });
+  });
+
+  it('requires pick-up date attribute to be omitted when timestamp is absent', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.data.events = next.data.events.filter(
+        (event) => event.event_name !== 'Pick-up',
+      );
+
+      return next;
+    }, [
+      'Pick-up Date attribute must be omitted when Pick-up event timestamp is not provided',
+    ]);
+  });
+
+  it('ignores timestamp comparison when parsing fails', () => {
+    const originalParse = Date.parse;
+    Date.parse = () => Number.NaN;
+
+    try {
+      expectSchemaValid(schema, () => structuredClone(base));
+    } finally {
+      Date.parse = originalParse;
+    }
+  });
+
+  it('requires manifest attributes when attachments exist', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.attributes = next.attributes.filter(
+        (attribute) =>
+          attribute.trait_type !== 'Transport Manifest Number' &&
+          attribute.trait_type !== 'Recycling Manifest Number',
+      );
+      return next;
+    }, [
+      'Transport Manifest Number attribute must be present and match Transport Manifest attachment document_number',
+      'Recycling Manifest Number attribute must be present and match Recycling Manifest attachment document_number',
+    ]);
+  });
 });

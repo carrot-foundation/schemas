@@ -33,7 +33,7 @@ export function runReferenceSchemaTests<T extends Record<string, unknown>>({
   requiredFields,
   invalidCases = [],
   validCases = [],
-  typeCheck,
+  typeCheck = () => {},
 }: ReferenceTestConfig<T>) {
   it('validates valid reference successfully', () => {
     expectSchemaValid(schema, () => structuredClone(base));
@@ -59,17 +59,15 @@ export function runReferenceSchemaTests<T extends Record<string, unknown>>({
     });
   });
 
-  if (typeCheck) {
-    it('validates type inference works correctly', () => {
-      expectSchemaTyped(
-        schema,
-        () => structuredClone(base),
-        (data) => {
-          typeCheck(data, base);
-        },
-      );
-    });
-  }
+  it('validates type inference works correctly', () => {
+    expectSchemaTyped(
+      schema,
+      () => structuredClone(base),
+      (data) => {
+        typeCheck(data, base);
+      },
+    );
+  });
 
   it('rejects additional properties', () => {
     expectSchemaInvalid(schema, base, (invalid) => {

@@ -146,7 +146,6 @@
         "longitude": -51.070,
         "precision_level": "city"
       },
-      "facility_type": "Collection Point",
       "responsible_participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef"
     },
     "accredited_participants": [

@@ -29,15 +29,11 @@ export const EthereumAddressSchema = z
 
 export type EthereumAddress = z.infer<typeof EthereumAddressSchema>;
 
-export const IsoTimestampSchema = z.iso
-  .datetime({
-    message: 'Must be a valid ISO 8601 timestamp with timezone',
-  })
-  .meta({
-    title: 'ISO Timestamp',
-    description: 'ISO 8601 formatted timestamp with timezone information',
-    examples: ['2024-12-05T11:02:47.000Z', '2025-02-22T10:35:12.000Z'],
-  });
+export const IsoTimestampSchema = z.iso.datetime().meta({
+  title: 'ISO Timestamp',
+  description: 'ISO 8601 formatted timestamp with timezone information',
+  examples: ['2024-12-05T11:02:47.000Z', '2025-02-22T10:35:12.000Z'],
+});
 
 export type IsoTimestamp = z.infer<typeof IsoTimestampSchema>;
 
@@ -245,24 +241,6 @@ export const ParticipantNameSchema = NonEmptyStringSchema.max(100).meta({
 });
 export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
 
-export const FacilityTypeSchema = z
-  .enum([
-    'Collection Point',
-    'Recycling Facility',
-    'Administrative Office',
-    'Other',
-  ])
-  .meta({
-    title: 'Facility Type',
-    description: 'Type of facility in the waste management chain',
-    examples: [
-      'Collection Point',
-      'Recycling Facility',
-      'Administrative Office',
-    ],
-  });
-export type FacilityType = z.infer<typeof FacilityTypeSchema>;
-
 export const BlockchainChainIdSchema = z
   .number()
   .int()
@@ -270,14 +248,14 @@ export const BlockchainChainIdSchema = z
   .meta({
     title: 'Chain ID',
     description: 'Blockchain network identifier',
-    examples: [1, 137, 11155111],
+    examples: [137, 80002],
   });
 export type BlockchainChainId = z.infer<typeof BlockchainChainIdSchema>;
 
 export const BlockchainNetworkNameSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Blockchain Network Name',
   description: 'Name of the blockchain network',
-  examples: ['Polygon', 'Ethereum mainnet', 'Sepolia'],
+  examples: ['Polygon', 'Amoy'],
 });
 
 export type BlockchainNetworkName = z.infer<typeof BlockchainNetworkNameSchema>;

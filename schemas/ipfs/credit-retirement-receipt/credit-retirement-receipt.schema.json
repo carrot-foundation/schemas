@@ -657,9 +657,8 @@
                     "title": "Chain ID",
                     "description": "Blockchain network identifier",
                     "examples": [
-                      1,
                       137,
-                      11155111
+                      80002
                     ],
                     "type": "integer",
                     "minimum": 1,
@@ -670,8 +669,7 @@
                     "description": "Name of the blockchain network",
                     "examples": [
                       "Polygon",
-                      "Ethereum mainnet",
-                      "Sepolia"
+                      "Amoy"
                     ],
                     "type": "string",
                     "minLength": 1,
@@ -791,9 +789,8 @@
                     "title": "Chain ID",
                     "description": "Blockchain network identifier",
                     "examples": [
-                      1,
                       137,
-                      11155111
+                      80002
                     ],
                     "type": "integer",
                     "minimum": 1,
@@ -804,8 +801,7 @@
                     "description": "Name of the blockchain network",
                     "examples": [
                       "Polygon",
-                      "Ethereum mainnet",
-                      "Sepolia"
+                      "Amoy"
                     ],
                     "type": "string",
                     "minLength": 1,
@@ -910,9 +906,8 @@
                         "title": "Chain ID",
                         "description": "Blockchain network identifier",
                         "examples": [
-                          1,
                           137,
-                          11155111
+                          80002
                         ],
                         "type": "integer",
                         "minimum": 1,
@@ -923,8 +918,7 @@
                         "description": "Name of the blockchain network",
                         "examples": [
                           "Polygon",
-                          "Ethereum mainnet",
-                          "Sepolia"
+                          "Amoy"
                         ],
                         "type": "string",
                         "minLength": 1,
@@ -1121,9 +1115,8 @@
                   "title": "Chain ID",
                   "description": "Blockchain network identifier",
                   "examples": [
-                    1,
                     137,
-                    11155111
+                    80002
                   ],
                   "type": "integer",
                   "minimum": 1,
@@ -1134,8 +1127,7 @@
                   "description": "Name of the blockchain network",
                   "examples": [
                     "Polygon",
-                    "Ethereum mainnet",
-                    "Sepolia"
+                    "Amoy"
                   ],
                   "type": "string",
                   "minLength": 1,
@@ -1189,9 +1181,8 @@
           "title": "Chain ID",
           "description": "Blockchain chain ID",
           "examples": [
-            1,
             137,
-            11155111
+            80002
           ],
           "type": "integer",
           "minimum": 1,

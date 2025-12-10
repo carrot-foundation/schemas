@@ -5,72 +5,63 @@ import {
   WasteTypeSchema,
   WasteSubtypeSchema,
   NonEmptyStringSchema,
-  NonNegativeFloatSchema,
-  UnixTimestampSchema,
-  MinutesSchema,
+  WeightKgSchema,
+  IsoTimestampSchema,
   LocationSchema,
   ParticipantSchema,
   uniqueBy,
 } from '../shared';
 
+export const IbamaWasteClassificationSchema = z
+  .string()
+  .regex(/^\d{2} \d{2} \d{2}\*?$/, 'Invalid Ibama code format')
+  .meta({
+    title: 'Ibama Classification Code',
+    description:
+      'Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *',
+    examples: ['20 01 01', '20 01 01*', '04 02 20'],
+  });
+
 const MassIDLocalClassificationSchema = z
   .strictObject({
-    code: NonEmptyStringSchema.max(20).meta({
-      title: 'Classification Code',
-      description: 'Local waste classification code',
-      examples: ['20 01 01', 'D001', 'EWC-150101', 'Ibama-A001'],
-    }),
-    description: NonEmptyStringSchema.max(200).meta({
-      title: 'Classification Description',
-      description: 'Local waste classification description',
-      examples: [
-        'Paper and cardboard packaging',
-        'Ignitable waste',
-        'Paper and cardboard packaging waste',
-        'Municipal solid waste - organic fraction',
-      ],
-    }),
-    system: z.enum(['Ibama']).meta({
+    code: IbamaWasteClassificationSchema,
+    system: z.literal('Ibama').meta({
       title: 'Classification System',
-      description:
-        'Classification system name - currently supports Ibama (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)',
+      description: 'Authority or standard providing the classification code',
       examples: ['Ibama'],
     }),
   })
   .meta({
     title: 'Local Classification',
-    description:
-      'Local or regional waste classification codes and descriptions',
+    description: 'Regulatory classification reference for the waste material',
+    examples: [{ code: '04 02 20', system: 'Ibama' }],
   });
+
+export type IbamaWasteClassification = z.infer<
+  typeof IbamaWasteClassificationSchema
+>;
 
 export type MassIDLocalClassification = z.infer<
   typeof MassIDLocalClassificationSchema
 >;
-
-const MassIDMeasurementUnitSchema = z.enum(['kg', 'ton']).meta({
-  title: 'Measurement Unit',
-  description: 'Unit of measurement for the waste quantity',
-  examples: ['kg', 'ton'],
-});
-
-export type MassIDMeasurementUnit = z.infer<typeof MassIDMeasurementUnitSchema>;
 
 const MassIDWastePropertiesSchema = z
   .strictObject({
     type: WasteTypeSchema.meta({
       title: 'Waste Type',
       description: 'Waste material category',
+      examples: ['Organic'],
     }),
     subtype: WasteSubtypeSchema.meta({
       title: 'Waste Subtype',
       description: 'Specific subcategory of waste material',
+      examples: ['Food, Food Waste and Beverages'],
     }),
     local_classification: MassIDLocalClassificationSchema.optional(),
-    measurement_unit: MassIDMeasurementUnitSchema,
-    net_weight: NonNegativeFloatSchema.meta({
-      title: 'Net Weight',
-      description:
-        'Net weight of the waste batch in the specified measurement unit',
+    net_weight: WeightKgSchema.meta({
+      title: 'Net Weight (kg)',
+      description: 'Net weight of the waste batch in kilograms (kg)',
+      examples: [3000],
     }),
   })
   .meta({
@@ -81,140 +72,48 @@ const MassIDWastePropertiesSchema = z
 
 export type MassIDWasteProperties = z.infer<typeof MassIDWastePropertiesSchema>;
 
-const EventAttributeFormatSchema = z
-  .enum(['KILOGRAM', 'DATE', 'CURRENCY', 'PERCENTAGE', 'COORDINATE'])
+const MassIDAttachmentTypeSchema = z
+  .enum(['Recycling Manifest', 'Transport Manifest'])
   .meta({
-    title: 'Event Attribute Format',
-    description: 'Data format hint for proper display',
-    examples: ['KILOGRAM', 'DATE', 'PERCENTAGE'],
+    title: 'Attachment Type',
+    description: 'Type of supporting attachment linked to a MassID event',
+    examples: ['Recycling Manifest', 'Transport Manifest'],
   });
 
-export type EventAttributeFormat = z.infer<typeof EventAttributeFormatSchema>;
+export type MassIDAttachmentType = z.infer<typeof MassIDAttachmentTypeSchema>;
 
-const EventAttributeSchema = z
+const MassIDAttachmentSchema = z
   .strictObject({
-    name: NonEmptyStringSchema.max(100).meta({
-      title: 'Attribute Name',
-      description: 'Event attribute name',
-      examples: [
-        'temperature',
-        'humidity',
-        'contamination_percentage',
-        'quality_grade',
-        'batch_number',
-        'operator_id',
-        'equipment_used',
-        'processing_cost',
-      ],
-    }),
-    value: z
-      .union([z.string(), z.number(), z.boolean()])
-      .optional()
-      .meta({
-        title: 'Attribute Value',
-        description: 'Event attribute value',
-        examples: [
-          25.5,
-          'Grade A',
-          true,
-          'BATCH-2024-001',
-          12.75,
-          'Shredder-X200',
-          false,
-          'OP-456',
-        ],
-      }),
-    preserved_sensitivity: z.boolean().optional().meta({
-      title: 'Preserved Sensitivity',
-      description:
-        'Indicates if the attribute contains sensitive information that was preserved',
-    }),
-    format: EventAttributeFormatSchema.optional(),
-  })
-  .meta({
-    title: 'Event Attribute',
-    description: 'Additional attribute specific to an event',
-  });
-export type EventAttribute = z.infer<typeof EventAttributeSchema>;
-
-const EventAttachmentSchema = z
-  .strictObject({
-    type: NonEmptyStringSchema.max(50).meta({
-      title: 'Attachment Type',
-      description: 'Type of supporting attachment',
-      examples: [
-        'Waste Transfer Note',
-        'Certificate of Disposal',
-        'Certificate of Final Destination',
-        'Quality Assessment Report',
-        'Transport Manifest',
-        'Processing Receipt',
-        'Environmental Permit',
-        'Invoice',
-      ],
-    }),
+    type: MassIDAttachmentTypeSchema,
     document_number: NonEmptyStringSchema.max(50)
       .optional()
       .meta({
         title: 'Document Number',
         description: 'Official document number if applicable',
-        examples: [
-          'WTN-2024-001234',
-          'CD-ENV-456789',
-          'INV-2024-QTR1-789',
-          'PERMIT-EPA-2024-001',
-          'MANIFEST-DOT-567890',
-        ],
+        examples: ['2353', '12345'],
       }),
-    reference: NonEmptyStringSchema.meta({
-      title: 'Attachment Reference',
-      description:
-        'Reference to attachment (IPFS hash, file name, or external URL)',
-      examples: [
-        'QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o',
-        'waste_transfer_note_2024_001.pdf',
-        'https://docs.example.com/certificates/disposal_cert_456.pdf',
-        'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
-        'processing_receipt_20240315.jpg',
-      ],
+    issued_at: IsoTimestampSchema.optional().meta({
+      title: 'Issued At',
+      description: 'ISO 8601 timestamp when the attachment was issued',
     }),
-    issue_timestamp: UnixTimestampSchema.optional().meta({
-      title: 'Issue Timestamp',
-      description:
-        'Unix timestamp in milliseconds when the attachment was issued',
-      examples: [1710518400000, 1704067200000, 1715270400000],
+    event_id: UuidSchema.meta({
+      title: 'Event ID',
+      description: 'Identifier of the event this attachment belongs to',
     }),
-    issuer: NonEmptyStringSchema.max(100)
-      .optional()
-      .meta({
-        title: 'Attachment Issuer',
-        description: 'Entity that issued the attachment',
-        examples: [
-          'Environmental Protection Agency',
-          'Waste Management Solutions Ltd',
-          'Green Recycling Corp',
-          'City Waste Authority',
-          'EcoProcess Industries',
-          'Regional Environmental Office',
-        ],
-      }),
   })
   .meta({
-    title: 'Event Attachment',
-    description: 'Supporting event attachment',
+    title: 'MassID Attachment',
+    description:
+      'Attachment associated with a specific MassID event, linked by event_id',
   });
-export type EventAttachment = z.infer<typeof EventAttachmentSchema>;
 
-const MassIDChainOfCustodyEventSchema = z
+export type MassIDAttachment = z.infer<typeof MassIDAttachmentSchema>;
+
+const MassIDBaseEventSchema = z
   .strictObject({
     event_id: UuidSchema.meta({
       title: 'Event ID',
       description: 'Unique event identifier',
-    }),
-    event_name: NonEmptyStringSchema.max(50).meta({
-      title: 'Event Name',
-      description: 'Name of custody or processing event',
-      examples: ['Sorting', 'Processing', 'Recycling', 'Weighing'],
     }),
     description: NonEmptyStringSchema.max(200)
       .optional()
@@ -224,16 +123,12 @@ const MassIDChainOfCustodyEventSchema = z
         examples: [
           'Waste collected from residential area using collection truck',
           'Material sorted into recyclable and non-recyclable fractions',
-          'Plastic waste processed through shredding and washing',
           'Waste transferred to authorized recycling facility',
-          'Final disposal at licensed landfill site',
-          'Quality inspection and contamination assessment completed',
         ],
       }),
-    timestamp: UnixTimestampSchema.meta({
+    timestamp: IsoTimestampSchema.meta({
       title: 'Event Timestamp',
-      description: 'Unix timestamp in milliseconds when the event occurred',
-      examples: [1710518400000, 1704067200000, 1715270400000],
+      description: 'ISO 8601 timestamp when the event occurred',
     }),
     participant_id_hash: Sha256HashSchema.meta({
       title: 'Participant ID Hash',
@@ -243,43 +138,171 @@ const MassIDChainOfCustodyEventSchema = z
       title: 'Location ID Hash',
       description: 'Reference to location in the locations array',
     }),
-    weight: NonNegativeFloatSchema.optional().meta({
-      title: 'Event Weight',
-      description: 'Mass weight after this event',
-    }),
-    attributes: z.array(EventAttributeSchema).optional().meta({
-      title: 'Event Attributes',
-      description: 'Additional attributes specific to this event',
-    }),
-    attachments: z.array(EventAttachmentSchema).optional().meta({
-      title: 'Event Attachments',
-      description: 'Associated attachments for this event',
+    weight: WeightKgSchema.optional().meta({
+      title: 'Event Weight (kg)',
+      description: 'Mass weight after this event in kilograms (kg)',
     }),
   })
   .meta({
-    title: 'Chain of Custody Event',
-    description: 'Chain of custody event',
+    title: 'MassID Base Event',
+    description: 'Base MassID event definition shared across event types',
   });
 
-export type MassIDChainOfCustodyEvent = z.infer<
-  typeof MassIDChainOfCustodyEventSchema
->;
+const buildMassIDEventSchema = <TEventName extends string>(
+  eventName: TEventName,
+  description: string,
+) =>
+  MassIDBaseEventSchema.safeExtend({
+    event_name: z.literal(eventName).meta({
+      title: 'Event Name',
+      description: `${eventName} event discriminator`,
+      examples: [eventName],
+    }),
+  }).meta({
+    title: `${eventName} Event`,
+    description,
+  });
 
-const MassIDChainOfCustodySchema = z
-  .strictObject({
-    events: z.array(MassIDChainOfCustodyEventSchema).min(1).meta({
-      title: 'Custody Events',
+const PickUpEventSchema = buildMassIDEventSchema(
+  'Pick-up',
+  'Waste picked up from the origin location',
+).safeExtend({
+  data: z
+    .strictObject({
+      vehicle_type: NonEmptyStringSchema.max(50)
+        .optional()
+        .meta({
+          title: 'Vehicle Type',
+          description: 'Type of vehicle used for pick-up operations',
+          examples: ['Truck', 'Van', 'Compactor'],
+        }),
+    })
+    .optional()
+    .meta({
+      title: 'Pick-up Event Data',
+      description: 'Vehicle information associated with the pick-up event',
+    }),
+});
+
+const WeighingEventSchema = buildMassIDEventSchema(
+  'Weighing',
+  'Waste weighed at a facility',
+).safeExtend({
+  data: z
+    .strictObject({
+      weighing_capture_method: NonEmptyStringSchema.max(100)
+        .optional()
+        .meta({
+          title: 'Weighing Capture Method',
+          description: 'Method used to capture the weight measurement',
+          examples: [
+            'Digital scale integration',
+            'Manual entry',
+            'Automated capture via IoT scale',
+          ],
+        }),
+      scale_type: NonEmptyStringSchema.max(50)
+        .optional()
+        .meta({
+          title: 'Scale Type',
+          description: 'Type of scale used to weigh the load',
+          examples: ['Weighbridge (Truck Scale)', 'Axle scale'],
+        }),
+      container_type: NonEmptyStringSchema.max(50)
+        .optional()
+        .meta({
+          title: 'Container Type',
+          description: 'Type of container holding the waste during weighing',
+          examples: ['Roll-off container', 'Front loader bin'],
+        }),
+      vehicle_type: NonEmptyStringSchema.max(50)
+        .optional()
+        .meta({
+          title: 'Vehicle Type',
+          description: 'Type of vehicle used during weighing',
+          examples: ['Truck', 'Trailer'],
+        }),
+      container_capacity: WeightKgSchema.optional().meta({
+        title: 'Container Capacity (kg)',
+        description: 'Maximum container capacity in kilograms',
+        examples: [12000],
+      }),
+      gross_weight: WeightKgSchema.optional().meta({
+        title: 'Gross Weight (kg)',
+        description: 'Total weight including vehicle/container before tare',
+        examples: [9500],
+      }),
+      tare: WeightKgSchema.optional().meta({
+        title: 'Tare Weight (kg)',
+        description: 'Weight of the empty vehicle or container',
+        examples: [3500],
+      }),
+    })
+    .optional()
+    .meta({
+      title: 'Weighing Event Data',
       description:
-        'Chronological sequence of custody transfer and processing events',
+        'Weighing operational details including capture method, equipment, and weights',
     }),
-    total_duration_minutes: MinutesSchema.meta({
-      title: 'Total Duration (minutes)',
-      description: 'Total time from first to last event in minutes',
-    }),
-  })
-  .superRefine((value, ctx) => {
-    const { events, total_duration_minutes } = value;
+});
 
+const DropOffEventSchema = buildMassIDEventSchema(
+  'Drop-off',
+  'Waste delivered to a destination location',
+);
+
+const SortingEventSchema = buildMassIDEventSchema(
+  'Sorting',
+  'Sorting or segregation of waste materials',
+).safeExtend({
+  data: z
+    .strictObject({
+      initial_weight: WeightKgSchema.optional().meta({
+        title: 'Initial Weight (kg)',
+        description:
+          'Weight of the material entering the sorting process in kilograms',
+        examples: [5000],
+      }),
+      deducted_weight: WeightKgSchema.optional().meta({
+        title: 'Deducted Weight (kg)',
+        description:
+          'Weight removed during sorting (e.g., contaminants or moisture) in kilograms',
+        examples: [250],
+      }),
+    })
+    .optional()
+    .meta({
+      title: 'Sorting Event Data',
+      description:
+        'Weights associated with sorting, including initial and deducted amounts',
+    }),
+});
+
+const RecyclingEventSchema = buildMassIDEventSchema(
+  'Recycling',
+  'Waste processed or recycled at the destination',
+);
+
+const MassIDEventSchema = z
+  .discriminatedUnion('event_name', [
+    PickUpEventSchema,
+    WeighingEventSchema,
+    DropOffEventSchema,
+    SortingEventSchema,
+    RecyclingEventSchema,
+  ])
+  .meta({
+    title: 'MassID Event',
+    description:
+      'Lifecycle event describing custody, processing, documentation, or recycling steps',
+  });
+
+export type MassIDEvent = z.infer<typeof MassIDEventSchema>;
+
+const MassIDEventsSchema = z
+  .array(MassIDEventSchema)
+  .min(1)
+  .superRefine((events, ctx) => {
     events.forEach((event, index) => {
       if (index === 0) {
         return;
@@ -290,81 +313,19 @@ const MassIDChainOfCustodySchema = z
       if (event.timestamp < previousEvent.timestamp) {
         ctx.addIssue({
           code: 'custom',
-          path: ['events', index, 'timestamp'],
-          message: 'Custody events must be ordered by timestamp',
+          path: [index, 'timestamp'],
+          message: 'Events must be ordered by timestamp',
         });
       }
     });
-
-    if (events.length > 0) {
-      const firstTimestamp = events[0]?.timestamp;
-      const lastTimestamp = events[events.length - 1]?.timestamp;
-
-      if (lastTimestamp < firstTimestamp) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['events'],
-          message:
-            'Last custody event timestamp must be greater than or equal to first event timestamp',
-        });
-      }
-
-      const elapsedMs = lastTimestamp - firstTimestamp;
-      const allowedMs = total_duration_minutes * 60 * 1000;
-
-      if (elapsedMs > allowedMs) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['total_duration_minutes'],
-          message:
-            'total_duration_minutes must cover the elapsed time between first and last event',
-        });
-      }
-    }
   })
   .meta({
-    title: 'Chain of Custody',
+    title: 'MassID Events',
     description:
-      'Complete chain of custody tracking from waste generation to final processing',
+      'Chronological sequence of custody transfer, processing, and recycling events',
   });
 
-export type MassIDChainOfCustody = z.infer<typeof MassIDChainOfCustodySchema>;
-
-const MassIDGeographicDataSchema = z
-  .strictObject({
-    from_location_id_hash: Sha256HashSchema.meta({
-      title: 'From Location ID Hash',
-      description:
-        'Reference hash of the location where the waste started movement',
-    }),
-    to_location_id_hash: Sha256HashSchema.meta({
-      title: 'To Location ID Hash',
-      description:
-        'Reference hash of the location where the waste ended movement',
-    }),
-    first_reported_timestamp: UnixTimestampSchema.meta({
-      title: 'First Reported Timestamp',
-      description:
-        'Unix timestamp in milliseconds when the waste was first reported/collected at the origin location',
-      examples: [1710518400000, 1704067200000, 1715270400000],
-    }),
-    last_reported_timestamp: UnixTimestampSchema.meta({
-      title: 'Last Reported Timestamp',
-      description:
-        'Unix timestamp in milliseconds when the waste was last reported/processed at the destination location',
-      examples: [1710604800000, 1704153600000, 1715356800000],
-    }),
-  })
-  .refine((data) => {
-    return data.first_reported_timestamp <= data.last_reported_timestamp;
-  }, 'first_reported_timestamp must be before or equal to last_reported_timestamp')
-  .meta({
-    title: 'Geographic Data',
-    description:
-      'Simplified geographic information tracking waste movement from origin to destination with temporal bounds',
-  });
-
-export type MassIDGeographicData = z.infer<typeof MassIDGeographicDataSchema>;
+export type MassIDEvents = z.infer<typeof MassIDEventsSchema>;
 
 export const MassIDDataSchema = z
   .strictObject({
@@ -381,7 +342,7 @@ export const MassIDDataSchema = z
       }),
     participants: uniqueBy(
       ParticipantSchema,
-      (p) => p.id_hash,
+      (participant) => participant.id_hash,
       'Participant ID hashes must be unique',
     )
       .min(1)
@@ -390,15 +351,19 @@ export const MassIDDataSchema = z
         description:
           'All participants referenced in this MassID, indexed by ID',
       }),
-    chain_of_custody: MassIDChainOfCustodySchema,
-    geographic_data: MassIDGeographicDataSchema,
+    events: MassIDEventsSchema,
+    attachments: z.array(MassIDAttachmentSchema).optional().meta({
+      title: 'Attachments',
+      description:
+        'Supporting documents associated with events, linked by event_id',
+    }),
   })
   .refine((data) => {
     const participantIdSet = new Set(
       data.participants.map((participant) => participant.id_hash),
     );
 
-    const eventParticipantIds = data.chain_of_custody.events.map(
+    const eventParticipantIds = data.events.map(
       (event) => event.participant_id_hash,
     );
 
@@ -407,23 +372,32 @@ export const MassIDDataSchema = z
     );
 
     return allEventParticipantsExist;
-  }, 'All participant ID hashes in chain of custody events must exist in participants array')
+  }, 'All participant ID hashes in events must exist in participants array')
 
   .refine((data) => {
     const locationIdSet = new Set(
       data.locations.map((location) => location.id_hash),
     );
 
-    const eventLocationIds = data.chain_of_custody.events.map(
-      (event) => event.location_id_hash,
-    );
+    const eventLocationIds = data.events.map((event) => event.location_id_hash);
 
     const allEventLocationsExist = eventLocationIds.every((locationId) =>
       locationIdSet.has(locationId),
     );
 
     return allEventLocationsExist;
-  }, 'All location ID hashes in chain of custody events must exist in locations array')
+  }, 'All location ID hashes in events must exist in locations array')
+  .refine((data) => {
+    if (!data.attachments || data.attachments.length === 0) {
+      return true;
+    }
+
+    const eventIdSet = new Set(data.events.map((event) => event.event_id));
+
+    return data.attachments.every((attachment) =>
+      eventIdSet.has(attachment.event_id),
+    );
+  }, 'All attachments must reference an existing event by event_id')
   .refine((data) => {
     const participantIdSet = new Set(
       data.participants.map((participant) => participant.id_hash),
@@ -436,7 +410,7 @@ export const MassIDDataSchema = z
   .meta({
     title: 'MassID Data',
     description:
-      'MassID data containing waste tracking and chain of custody information',
+      'MassID data containing waste tracking events and supporting information',
   });
 
 export type MassIDData = z.infer<typeof MassIDDataSchema>;

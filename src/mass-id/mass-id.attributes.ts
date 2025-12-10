@@ -4,7 +4,6 @@ import {
   WasteSubtypeSchema,
   WeightKgSchema,
   UnixTimestampSchema,
-  HoursSchema,
   NonEmptyStringSchema,
   CountryNameSchema,
   MunicipalitySchema,
@@ -14,13 +13,15 @@ import {
   OriginMunicipalityAttributeSchema,
   NftAttributeSchema,
 } from '../shared';
+import { IbamaWasteClassificationSchema } from './mass-id.data.schema';
 
 const MassIDAttributeWasteTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Waste Type'),
   value: WasteTypeSchema,
 }).meta({
   title: 'Waste Type Attribute',
-  description: 'Waste type attribute',
+  description:
+    'Primary waste material category (e.g., Organic, Paper, Glass, Metal)',
 });
 
 export type MassIDAttributeWasteType = z.infer<
@@ -32,7 +33,8 @@ const MassIDAttributeWasteSubtypeSchema = NftAttributeSchema.safeExtend({
   value: WasteSubtypeSchema,
 }).meta({
   title: 'Waste Subtype Attribute',
-  description: 'Waste subtype attribute',
+  description:
+    'Regulatory or operational waste subtype (e.g., Food, Food Waste and Beverages)',
 });
 
 export type MassIDAttributeWasteSubtype = z.infer<
@@ -44,8 +46,8 @@ const MassIDAttributeWeightSchema = NftAttributeSchema.safeExtend({
   value: WeightKgSchema,
   display_type: z.literal('number'),
 }).meta({
-  title: 'Weight Attribute',
-  description: 'Weight attribute with numeric display',
+  title: 'Weight Attribute (kg)',
+  description: 'Net batch weight in kilograms (kg) for this MassID',
 });
 
 export type MassIDAttributeWeight = z.infer<typeof MassIDAttributeWeightSchema>;
@@ -73,27 +75,28 @@ const MassIDAttributeOriginDivisionSchema = NftAttributeSchema.safeExtend({
   value: AdministrativeDivisionSchema,
 }).meta({
   title: 'Origin Administrative Division Attribute',
-  description: 'Origin administrative division attribute',
+  description:
+    'State/province where the waste was generated (ISO 3166-2 preferred)',
 });
 
 export type MassIDAttributeOriginDivision = z.infer<
   typeof MassIDAttributeOriginDivisionSchema
 >;
 
-const MassIDAttributeVehicleTypeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Vehicle Type'),
+const MassIDAttributePickUpVehicleTypeSchema = NftAttributeSchema.safeExtend({
+  trait_type: z.literal('Pick-up Vehicle Type'),
   value: NonEmptyStringSchema.max(100).meta({
-    title: 'Vehicle Type',
-    description: 'Type of vehicle used for waste transportation',
-    examples: ['Garbage Truck', 'Box Truck', 'Flatbed Truck', 'Roll-off Truck'],
+    title: 'Pick-up Vehicle Type',
+    description: 'Type of vehicle used for waste pick-up operations',
+    examples: ['Truck', 'Box Truck', 'Flatbed Truck', 'Roll-off Truck'],
   }),
 }).meta({
-  title: 'Vehicle Type Attribute',
-  description: 'Vehicle type attribute',
+  title: 'Pick-up Vehicle Type Attribute',
+  description: 'Vehicle type used during pick-up',
 });
 
-export type MassIDAttributeVehicleType = z.infer<
-  typeof MassIDAttributeVehicleTypeSchema
+export type MassIDAttributePickUpVehicleType = z.infer<
+  typeof MassIDAttributePickUpVehicleTypeSchema
 >;
 
 const MassIDAttributeRecyclingMethodSchema = NftAttributeSchema.safeExtend({
@@ -101,48 +104,27 @@ const MassIDAttributeRecyclingMethodSchema = NftAttributeSchema.safeExtend({
   value: NonEmptyStringSchema.max(100).meta({
     title: 'Recycling Method',
     description: 'Method used for recycling or processing the waste',
-    examples: [
-      'Composting',
-      'Mechanical Recycling',
-      'Incineration with Energy Recovery',
-    ],
+    examples: ['Composting', 'Mechanical Recycling', 'Anaerobic Digestion'],
   }),
 }).meta({
   title: 'Recycling Method Attribute',
-  description: 'Recycling method attribute',
+  description:
+    'Process applied to this mass (e.g., composting, mechanical recycling)',
 });
 
 export type MassIDAttributeRecyclingMethod = z.infer<
   typeof MassIDAttributeRecyclingMethodSchema
 >;
 
-const MassIDAttributeProcessingTimeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Processing Time (hours)'),
-  value: HoursSchema,
-  trait_description: NonEmptyStringSchema.max(200).optional().meta({
-    title: 'Processing Time Description',
-    description: 'Custom description for the processing time',
-  }),
-}).meta({
-  title: 'Processing Time Attribute',
-  description: 'Processing time attribute with optional trait description',
-});
-
-export type MassIDAttributeProcessingTime = z.infer<
-  typeof MassIDAttributeProcessingTimeSchema
->;
-
 const MassIDAttributeLocalWasteClassificationIdSchema =
   NftAttributeSchema.safeExtend({
     trait_type: z.literal('Local Waste Classification ID'),
-    value: NonEmptyStringSchema.max(100).meta({
-      title: 'Local Waste Classification ID',
-      description: 'Local or regional waste classification identifier',
-      examples: ['04 02 20', 'Ibama-A001', 'EWC-150101'],
-    }),
+    value: IbamaWasteClassificationSchema,
   }).meta({
     title: 'Local Waste Classification ID Attribute',
-    description: 'Local waste classification ID attribute',
+    description:
+      'Regulatory waste classification code (e.g., Ibama format NN NN NN[*])',
+    examples: ['20 01 01', '20 01 01*', '04 02 20'],
   });
 
 export type MassIDAttributeLocalWasteClassificationId = z.infer<
@@ -151,16 +133,16 @@ export type MassIDAttributeLocalWasteClassificationId = z.infer<
 
 const MassIDAttributeRecyclingManifestCodeSchema =
   NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Recycling Manifest Code'),
+    trait_type: z.literal('Recycling Manifest Number'),
     value: NonEmptyStringSchema.max(100).meta({
-      title: 'Recycling Manifest Code',
-      description:
-        'Concatenated recycling manifest code (Document Type + Document Number)',
-      examples: ['CDF-2353', 'RC-12345', 'REC-MANIFEST-789'],
+      title: 'Recycling Manifest Number',
+      description: 'Official recycling manifest identifier',
+      examples: ['2353', 'REC-MANIFEST-789', 'RC12345'],
     }),
   }).meta({
-    title: 'Recycling Manifest Code Attribute',
-    description: 'Recycling manifest code attribute (optional)',
+    title: 'Recycling Manifest Number Attribute',
+    description:
+      'Official recycling manifest number issued by recycling authority (optional)',
   });
 
 export type MassIDAttributeRecyclingManifestCode = z.infer<
@@ -169,16 +151,16 @@ export type MassIDAttributeRecyclingManifestCode = z.infer<
 
 const MassIDAttributeTransportManifestCodeSchema =
   NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Transport Manifest Code'),
+    trait_type: z.literal('Transport Manifest Number'),
     value: NonEmptyStringSchema.max(100).meta({
-      title: 'Transport Manifest Code',
-      description:
-        'Concatenated transport manifest code (Document Type + Document Number)',
-      examples: ['MTR-4126', 'TRN-67890', 'TRANS-MANIFEST-456'],
+      title: 'Transport Manifest Number',
+      description: 'Official transport manifest identifier',
+      examples: ['4126', 'TRN-67890', 'TRANS-MANIFEST-456'],
     }),
   }).meta({
-    title: 'Transport Manifest Code Attribute',
-    description: 'Transport manifest code attribute (optional)',
+    title: 'Transport Manifest Number Attribute',
+    description:
+      'Official transport manifest number issued by logistics/transport authority (optional)',
   });
 
 export type MassIDAttributeTransportManifestCode = z.infer<
@@ -191,7 +173,11 @@ const MassIDAttributeWeighingCaptureMethodSchema =
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Weighing Capture Method',
       description: 'Method used to capture weight data',
-      examples: ['Digital', 'Manual', 'Automated', 'Electronic Scale'],
+      examples: [
+        'Digital scale integration',
+        'Manual entry',
+        'Automated capture via IoT scale',
+      ],
     }),
   }).meta({
     title: 'Weighing Capture Method Attribute',
@@ -209,8 +195,8 @@ const MassIDAttributeScaleTypeSchema = NftAttributeSchema.safeExtend({
     description: 'Type of scale used for weighing',
     examples: [
       'Weighbridge (Truck Scale)',
+      'Axle scale',
       'Floor Scale',
-      'Bench Scale',
       'Crane Scale',
     ],
   }),
@@ -223,29 +209,13 @@ export type MassIDAttributeScaleType = z.infer<
   typeof MassIDAttributeScaleTypeSchema
 >;
 
-const MassIDAttributeContainerTypeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Container Type'),
-  value: NonEmptyStringSchema.max(100).meta({
-    title: 'Container Type',
-    description: 'Type of container used for waste storage or transport',
-    examples: ['Truck', 'Dumpster', 'Roll-off Container', 'Compactor', 'Bin'],
-  }),
-}).meta({
-  title: 'Container Type Attribute',
-  description: 'Container type attribute (optional)',
-});
-
-export type MassIDAttributeContainerType = z.infer<
-  typeof MassIDAttributeContainerTypeSchema
->;
-
 const MassIDAttributePickUpDateSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Pick-up Date'),
   value: UnixTimestampSchema.meta({
     title: 'Pick-up Date',
     description:
       'Unix timestamp in milliseconds when the waste was picked up from the source',
-    examples: [1710518400000, 1704067200000, 1715270400000],
+    examples: [1733396567000],
   }),
   display_type: z.literal('date'),
 }).meta({
@@ -257,13 +227,31 @@ export type MassIDAttributePickUpDate = z.infer<
   typeof MassIDAttributePickUpDateSchema
 >;
 
+const MassIDAttributeDropOffDateSchema = NftAttributeSchema.safeExtend({
+  trait_type: z.literal('Drop-off Date'),
+  value: UnixTimestampSchema.meta({
+    title: 'Drop-off Date',
+    description:
+      'Unix timestamp in milliseconds when the waste was dropped off at the destination',
+    examples: [1733407367000],
+  }),
+  display_type: z.literal('date'),
+}).meta({
+  title: 'Drop-off Date Attribute',
+  description: 'Drop-off date attribute with Unix timestamp',
+});
+
+export type MassIDAttributeDropOffDate = z.infer<
+  typeof MassIDAttributeDropOffDateSchema
+>;
+
 const MassIDAttributeRecyclingDateSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Recycling Date'),
   value: UnixTimestampSchema.meta({
     title: 'Recycling Date',
     description:
       'Unix timestamp in milliseconds when the waste was recycled/processed',
-    examples: [1710604800000, 1704153600000, 1715356800000],
+    examples: [1733657567000],
   }),
   display_type: z.literal('date'),
 }).meta({
@@ -283,26 +271,25 @@ export const MassIDAttributesSchema = uniqueBy(
     MassIDAttributeOriginCountrySchema,
     MassIDAttributeOriginMunicipalitySchema,
     MassIDAttributeOriginDivisionSchema,
-    MassIDAttributeVehicleTypeSchema,
+    MassIDAttributePickUpVehicleTypeSchema,
     MassIDAttributeRecyclingMethodSchema,
-    MassIDAttributeProcessingTimeSchema,
     MassIDAttributeLocalWasteClassificationIdSchema,
     MassIDAttributeRecyclingManifestCodeSchema,
     MassIDAttributeTransportManifestCodeSchema,
     MassIDAttributeWeighingCaptureMethodSchema,
     MassIDAttributeScaleTypeSchema,
-    MassIDAttributeContainerTypeSchema,
     MassIDAttributePickUpDateSchema,
+    MassIDAttributeDropOffDateSchema,
     MassIDAttributeRecyclingDateSchema,
   ]),
   (attr) => attr.trait_type,
 )
-  .min(12)
-  .max(17)
+  .min(11)
+  .max(16)
   .meta({
     title: 'MassID Attributes',
     description:
-      'MassID NFT attributes array containing attributes selected from the available attribute types. The schema validates array length but does not enforce which specific attributes must be present.',
+      'MassID NFT attributes array. Provide the canonical set covering waste (type, subtype, net weight), origin (country, municipality, administrative division), logistics (vehicle, manifests, weighing method/scale), and lifecycle timestamps (pick-up, drop-off, recycling). Length is validated; specific composition is producer-controlled.',
   });
 
 export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;
