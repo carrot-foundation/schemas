@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.37/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
     "hash": "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
     "type": "MassID",
-    "version": "0.1.0"
+    "version": "0.1.37"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -13,7 +13,7 @@
   "blockchain": {
     "token_id": "123",
     "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
-    "chain_id": 1,
+    "chain_id": 137,
     "network_name": "Polygon"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
@@ -63,7 +63,7 @@
       "value": "Amapá"
     },
     {
-      "trait_type": "Vehicle Type",
+      "trait_type": "Pick-up Vehicle Type",
       "value": "Truck"
     },
     {
@@ -71,32 +71,24 @@
       "value": "Composting"
     },
     {
-      "trait_type": "Processing Time (hours)",
-      "value": 72.5
-    },
-    {
       "trait_type": "Local Waste Classification ID",
       "value": "04 02 20"
     },
     {
-      "trait_type": "Recycling Manifest Code",
-      "value": "CDF-2353"
+      "trait_type": "Recycling Manifest Number",
+      "value": "2353"
     },
     {
-      "trait_type": "Transport Manifest Code",
-      "value": "MTR-4126"
+      "trait_type": "Transport Manifest Number",
+      "value": "4126"
     },
     {
       "trait_type": "Weighing Capture Method",
-      "value": "Digital"
+      "value": "Digital scale integration"
     },
     {
       "trait_type": "Scale Type",
       "value": "Weighbridge (Truck Scale)"
-    },
-    {
-      "trait_type": "Container Type",
-      "value": "Truck"
     },
     {
       "trait_type": "Pick-up Date",
@@ -104,8 +96,13 @@
       "display_type": "date"
     },
     {
+      "trait_type": "Drop-off Date",
+      "value": 1733407367000,
+      "display_type": "date"
+    },
+    {
       "trait_type": "Recycling Date",
-      "value": 1740182400000,
+      "value": 1733657567000,
       "display_type": "date"
     }
   ],
@@ -117,10 +114,8 @@
       "subtype": "Food, Food Waste and Beverages",
       "local_classification": {
         "code": "04 02 20",
-        "description": "Lodos do tratamento local de efluentes não abrangidas em 04 02 19",
-        "system": "IBAMA"
+        "system": "Ibama"
       },
-      "measurement_unit": "kg",
       "net_weight": 3000
     },
     "locations": [
@@ -131,7 +126,6 @@
         "administrative_division_code": "BR-AP",
         "country": "Brazil",
         "country_code": "BR",
-        "facility_type": "Collection Point",
         "coordinates": {
           "latitude": -0.02,
           "longitude": -51.06,
@@ -146,7 +140,6 @@
         "administrative_division_code": "BR-ES",
         "country": "Brazil",
         "country_code": "BR",
-        "facility_type": "Recycling Facility",
         "coordinates": {
           "latitude": -20.38,
           "longitude": -40.34,
@@ -167,170 +160,77 @@
         "roles": ["Hauler", "Recycler"]
       }
     ],
-    "chain_of_custody": {
-      "events": [
-        {
-          "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
-          "event_name": "Pick-up",
-          "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
-          "timestamp": 1733396567000,
-          "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
-          "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-          "attributes": [
-            {
-              "name": "Vehicle Type",
-              "value": "Truck"
-            },
-            {
-              "name": "Driver Identifier",
-              "value": "645eb901-bc17-497f-b53b-9bdd619ae2ec"
-            }
-          ]
-        },
-        {
-          "event_id": "9f6c6855-0a6b-4989-a3fc-1a8a38f919ec",
-          "event_name": "Transport",
-          "timestamp": 1733396567000,
-          "description": "Waste transported to recycling facility",
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-          "weight": 3000,
-          "attributes": [
-            {
-              "name": "Document Type",
-              "value": "MTR"
-            },
-            {
-              "name": "Document Number",
-              "value": "4126"
-            },
-            {
-              "name": "Issue Date",
-              "value": "2024-02-10",
-              "format": "DATE"
-            }
-          ],
-            "attachments": [
-              {
-                "type": "Transport Manifest",
-                "document_number": "MTR-4126",
-                "reference": "transport-manifest.pdf",
-                "issue_timestamp": 1707523200000
-              }
-            ]
-        },
-        {
-          "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
-          "event_name": "Weighing",
-          "timestamp": 1733396567000,
-          "description": "Waste weighed at recycling facility",
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-          "attributes": [
-            {
-              "name": "Weighing Capture Method",
-              "value": "Digital"
-            },
-            {
-              "name": "Scale Type",
-              "value": "Weighbridge (Truck Scale)"
-            },
-            {
-              "name": "Container Type",
-              "value": "Truck"
-            },
-            {
-              "name": "Container Capacity",
-              "value": 12000,
-              "format": "KILOGRAM"
-            },
-            {
-              "name": "Gross Weight",
-              "value": 22700,
-              "format": "KILOGRAM"
-            },
-            {
-              "name": "Tare",
-              "value": 19700,
-              "format": "KILOGRAM"
-            }
-          ]
-        },
-        {
-          "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
-          "event_name": "Drop-off",
-          "description": "Waste deposited in Windrow number 1",
-          "timestamp": 1733396567000,
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-          "attributes": [
-            {
-              "name": "Recycler Operator Identifier",
-              "value": "d596521f-8f98-401d-ba55-93246d57c6fb"
-            }
-          ]
-        },
-        {
-          "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
-          "event_name": "Sorting",
-          "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
-          "timestamp": 1733396567000,
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-          "attributes": [
-            {
-              "name": "Sorting Factor",
-              "value": 0.5
-            }
-          ]
-        },
-        {
-          "event_id": "df7d3cac-81a1-46db-8486-b3fe4ec4ea32",
-          "event_name": "Documentation",
-          "description": "Attached the recycling manifest documentation",
-          "timestamp": 1733396567000,
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-          "attributes": [
-            {
-              "name": "Document Type",
-              "value": "CDF"
-            },
-            {
-              "name": "Document Number",
-              "value": "2353"
-            },
-            {
-              "name": "Issue Date",
-              "value": "2024-03-10",
-              "format": "DATE"
-            }
-          ],
-            "attachments": [
-              {
-                "type": "Recycling Certificate",
-                "document_number": "CDF-2353",
-                "reference": "recycling-manifest.pdf",
-                "issue_timestamp": 1710028800000
-              }
-            ]
-        },
-        {
-          "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
-          "event_name": "Recycling",
-          "description": "Composting process completed",
-          "timestamp": 1740213312000,
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+    "events": [
+      {
+        "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+        "event_name": "Pick-up",
+        "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
+        "timestamp": "2024-12-05T11:02:47.000Z",
+        "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
+        "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "data": {
+          "vehicle_type": "Truck"
         }
-      ],
-      "total_duration_minutes": 4350
-    },
-    "geographic_data": {
-      "from_location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-      "to_location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-      "first_reported_timestamp": 1733396567000,
-      "last_reported_timestamp": 1740213312000
-    }
+      },
+      {
+        "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
+        "event_name": "Weighing",
+        "timestamp": "2024-12-05T13:02:47.000Z",
+        "description": "Waste weighed at recycling facility",
+        "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
+        "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
+        "data": {
+          "weighing_capture_method": "Digital scale integration",
+          "scale_type": "Weighbridge (Truck Scale)",
+          "container_type": "Roll-off container",
+          "vehicle_type": "Truck",
+          "container_capacity": 12000,
+          "gross_weight": 9500,
+          "tare": 3500
+        }
+      },
+      {
+        "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
+        "event_name": "Drop-off",
+        "description": "Waste deposited in Windrow number 1",
+        "timestamp": "2024-12-05T14:02:47.000Z",
+        "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
+        "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      },
+      {
+        "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
+        "event_name": "Sorting",
+        "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
+        "timestamp": "2024-12-05T15:02:47.000Z",
+        "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
+        "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
+        "data": {
+          "initial_weight": 5000,
+          "deducted_weight": 250
+        }
+      },
+      {
+        "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
+        "event_name": "Recycling",
+        "description": "Composting process completed",
+        "timestamp": "2024-12-08T11:32:47.000Z",
+        "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
+        "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+      }
+    ],
+    "attachments": [
+      {
+        "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
+        "type": "Transport Manifest",
+        "document_number": "4126",
+        "issued_at": "2024-02-10T00:00:00.000Z"
+      },
+      {
+        "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
+        "type": "Recycling Manifest",
+        "document_number": "2353",
+        "issued_at": "2024-03-10T00:00:00.000Z"
+      }
+    ]
   }
 }

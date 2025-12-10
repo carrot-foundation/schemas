@@ -12,7 +12,7 @@
   },
   "blockchain": {
     "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-    "chain_id": 1,
+    "chain_id": 137,
     "network_name": "Ethereum Mainnet",
     "token_id": "456"
   },
@@ -151,7 +151,6 @@
         "longitude": -51.070,
         "precision_level": "city"
       },
-      "facility_type": "Collection Point",
       "responsible_participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef"
     },
     "prevented_emissions_calculation": {

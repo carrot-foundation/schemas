@@ -58,23 +58,6 @@ describe('RecycledIDIpfsSchema', () => {
         );
       },
     },
-    {
-      description: 'rejects invalid facility type',
-      mutate: (invalid: z.input<typeof schema>) => {
-        invalid.data = {
-          ...invalid.data,
-          origin_location: {
-            ...invalid.data.origin_location,
-            facility_type: 'Invalid Facility' as unknown as
-              | 'Collection Point'
-              | 'Recycling Facility'
-              | 'Administrative Office'
-              | 'Other'
-              | undefined,
-          },
-        };
-      },
-    },
   ])('$description', ({ mutate }) => {
     expectSchemaInvalid(schema, base, mutate);
   });

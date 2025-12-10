@@ -1,4 +1,4 @@
-import { describe, expect } from 'vitest';
+import { describe } from 'vitest';
 
 import { validMethodologyReferenceFixture } from '../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
@@ -77,12 +77,5 @@ describe('MethodologyReferenceSchema', () => {
         },
       },
     ],
-    typeCheck: (data, base) => {
-      expect(data.external_id).toBe(base.external_id);
-      expect(data.name).toBe(base.name);
-      expect(data.version).toBe(base.version);
-      expect(data.external_url).toBe(base.external_url);
-      expect(data.uri).toBe(base.uri);
-    },
   });
 });

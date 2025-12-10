@@ -715,22 +715,6 @@
                 "precision_level"
               ],
               "additionalProperties": false
-            },
-            "facility_type": {
-              "title": "Facility Type",
-              "description": "Type of facility in the waste management chain",
-              "examples": [
-                "Collection Point",
-                "Recycling Facility",
-                "Administrative Office"
-              ],
-              "type": "string",
-              "enum": [
-                "Collection Point",
-                "Recycling Facility",
-                "Administrative Office",
-                "Other"
-              ]
             }
           },
           "required": [
@@ -1088,9 +1072,8 @@
           "title": "Chain ID",
           "description": "Blockchain chain ID",
           "examples": [
-            1,
             137,
-            11155111
+            80002
           ],
           "type": "integer",
           "minimum": 1,
