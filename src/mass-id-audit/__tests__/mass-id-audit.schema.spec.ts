@@ -16,36 +16,41 @@ describe('MassIDAuditSchema', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
 
-  it('rejects invalid schema type', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.schema = {
-        ...invalid.schema,
-        type: 'Invalid' as unknown as typeof invalid.schema.type,
-      };
-    });
-  });
-
-  it('rejects invalid rule execution result', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.data.rules_execution_results =
-        invalid.data.rules_execution_results.map((rule, index) =>
-          index === 0
-            ? {
-                ...rule,
-                result: 'UNKNOWN',
-              }
-            : rule,
-        ) as typeof invalid.data.rules_execution_results;
-    });
-  });
-
-  it('rejects missing audit summary', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      Reflect.deleteProperty(
-        invalid.data as Record<string, unknown>,
-        'audit_summary',
-      );
-    });
+  it.each([
+    {
+      description: 'rejects invalid schema type',
+      mutate: (invalid: z.input<typeof schema>) => {
+        invalid.schema = {
+          ...invalid.schema,
+          type: 'Invalid' as unknown as typeof invalid.schema.type,
+        };
+      },
+    },
+    {
+      description: 'rejects invalid rule execution result',
+      mutate: (invalid: z.input<typeof schema>) => {
+        invalid.data.rules_execution_results =
+          invalid.data.rules_execution_results.map((rule, index) =>
+            index === 0
+              ? {
+                  ...rule,
+                  result: 'UNKNOWN',
+                }
+              : rule,
+          ) as typeof invalid.data.rules_execution_results;
+      },
+    },
+    {
+      description: 'rejects missing audit summary',
+      mutate: (invalid: z.input<typeof schema>) => {
+        Reflect.deleteProperty(
+          invalid.data as Record<string, unknown>,
+          'audit_summary',
+        );
+      },
+    },
+  ])('$description', ({ mutate }) => {
+    expectSchemaInvalid(schema, base, mutate);
   });
 
   it('validates type inference works correctly', () => {

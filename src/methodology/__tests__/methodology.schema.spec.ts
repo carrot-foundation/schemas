@@ -16,36 +16,41 @@ describe('MethodologySchema', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
 
-  it('rejects invalid schema type', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.schema = {
-        ...invalid.schema,
-        type: 'Invalid' as unknown as typeof invalid.schema.type,
-      };
-    });
-  });
-
-  it('rejects missing audit rules', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.data = {
-        ...invalid.data,
-        mass_id_audit_rules:
-          undefined as unknown as typeof invalid.data.mass_id_audit_rules,
-      };
-    });
-  });
-
-  it('rejects non-GitHub source_code_url', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      const rules = invalid.data.mass_id_audit_rules.map((rule) => ({
-        ...rule,
-      }));
-      rules[0] = {
-        ...rules[0],
-        source_code_url: 'https://example.com/not-github',
-      };
-      invalid.data.mass_id_audit_rules = rules;
-    });
+  it.each([
+    {
+      description: 'rejects invalid schema type',
+      mutate: (invalid: z.input<typeof schema>) => {
+        invalid.schema = {
+          ...invalid.schema,
+          type: 'Invalid' as unknown as typeof invalid.schema.type,
+        };
+      },
+    },
+    {
+      description: 'rejects missing audit rules',
+      mutate: (invalid: z.input<typeof schema>) => {
+        invalid.data = {
+          ...invalid.data,
+          mass_id_audit_rules:
+            undefined as unknown as typeof invalid.data.mass_id_audit_rules,
+        };
+      },
+    },
+    {
+      description: 'rejects non-GitHub source_code_url',
+      mutate: (invalid: z.input<typeof schema>) => {
+        const rules = invalid.data.mass_id_audit_rules.map((rule) => ({
+          ...rule,
+        }));
+        rules[0] = {
+          ...rules[0],
+          source_code_url: 'https://example.com/not-github',
+        };
+        invalid.data.mass_id_audit_rules = rules;
+      },
+    },
+  ])('$description', ({ mutate }) => {
+    expectSchemaInvalid(schema, base, mutate);
   });
 
   it('validates type inference works correctly', () => {

@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
   expectSchemaInvalid,
-  expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
 } from '../../test-utils';
@@ -17,17 +16,24 @@ describe('CollectionSchema', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
 
-  it('rejects invalid schema type', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.schema = {
-        ...invalid.schema,
-        type: 'Invalid' as unknown as typeof invalid.schema.type,
-      };
-    });
-  });
-
-  it('rejects missing required fields', () => {
-    expectSchemaInvalidWithout(schema, base, 'image');
+  it.each([
+    {
+      description: 'rejects invalid schema type',
+      mutate: (invalid: z.input<typeof schema>) => {
+        invalid.schema = {
+          ...invalid.schema,
+          type: 'Invalid' as unknown as typeof invalid.schema.type,
+        };
+      },
+    },
+    {
+      description: 'rejects missing required fields',
+      mutate: (invalid: z.input<typeof schema>) => {
+        Reflect.deleteProperty(invalid as Record<string, unknown>, 'image');
+      },
+    },
+  ])('$description', ({ mutate }) => {
+    expectSchemaInvalid(schema, base, mutate);
   });
 
   it('validates type inference works correctly', () => {
