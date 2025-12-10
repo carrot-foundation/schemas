@@ -138,7 +138,7 @@ const MassIDAttributeLocalWasteClassificationIdSchema =
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Local Waste Classification ID',
       description: 'Local or regional waste classification identifier',
-      examples: ['04 02 20', 'IBAMA-A001', 'EWC-150101'],
+      examples: ['04 02 20', 'Ibama-A001', 'EWC-150101'],
     }),
   }).meta({
     title: 'Local Waste Classification ID Attribute',

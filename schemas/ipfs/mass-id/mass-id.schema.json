@@ -298,7 +298,7 @@
                     "20 01 01",
                     "D001",
                     "EWC-150101",
-                    "IBAMA-A001"
+                    "Ibama-A001"
                   ],
                   "type": "string",
                   "minLength": 1,
@@ -319,13 +319,13 @@
                 },
                 "system": {
                   "title": "Classification System",
-                  "description": "Classification system name - currently supports IBAMA (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)",
+                  "description": "Classification system name - currently supports Ibama (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)",
                   "examples": [
-                    "IBAMA"
+                    "Ibama"
                   ],
                   "type": "string",
                   "enum": [
-                    "IBAMA"
+                    "Ibama"
                   ]
                 }
               },
@@ -1616,7 +1616,7 @@
                 "description": "Local or regional waste classification identifier",
                 "examples": [
                   "04 02 20",
-                  "IBAMA-A001",
+                  "Ibama-A001",
                   "EWC-150101"
                 ],
                 "type": "string",

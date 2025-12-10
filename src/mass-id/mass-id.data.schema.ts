@@ -18,7 +18,7 @@ const MassIDLocalClassificationSchema = z
     code: NonEmptyStringSchema.max(20).meta({
       title: 'Classification Code',
       description: 'Local waste classification code',
-      examples: ['20 01 01', 'D001', 'EWC-150101', 'IBAMA-A001'],
+      examples: ['20 01 01', 'D001', 'EWC-150101', 'Ibama-A001'],
     }),
     description: NonEmptyStringSchema.max(200).meta({
       title: 'Classification Description',
@@ -30,11 +30,11 @@ const MassIDLocalClassificationSchema = z
         'Municipal solid waste - organic fraction',
       ],
     }),
-    system: z.enum(['IBAMA']).meta({
+    system: z.enum(['Ibama']).meta({
       title: 'Classification System',
       description:
-        'Classification system name - currently supports IBAMA (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)',
-      examples: ['IBAMA'],
+        'Classification system name - currently supports Ibama (Instituto Brasileiro do Meio Ambiente e dos Recursos Naturais Renováveis)',
+      examples: ['Ibama'],
     }),
   })
   .meta({
@@ -277,6 +277,51 @@ const MassIDChainOfCustodySchema = z
       description: 'Total time from first to last event in minutes',
     }),
   })
+  .superRefine((value, ctx) => {
+    const { events, total_duration_minutes } = value;
+
+    events.forEach((event, index) => {
+      if (index === 0) {
+        return;
+      }
+
+      const previousEvent = events[index - 1];
+
+      if (event.timestamp < previousEvent.timestamp) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['events', index, 'timestamp'],
+          message: 'Custody events must be ordered by timestamp',
+        });
+      }
+    });
+
+    if (events.length > 0) {
+      const firstTimestamp = events[0]?.timestamp;
+      const lastTimestamp = events[events.length - 1]?.timestamp;
+
+      if (lastTimestamp < firstTimestamp) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['events'],
+          message:
+            'Last custody event timestamp must be greater than or equal to first event timestamp',
+        });
+      }
+
+      const elapsedMs = lastTimestamp - firstTimestamp;
+      const allowedMs = total_duration_minutes * 60 * 1000;
+
+      if (elapsedMs > allowedMs) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['total_duration_minutes'],
+          message:
+            'total_duration_minutes must cover the elapsed time between first and last event',
+        });
+      }
+    }
+  })
   .meta({
     title: 'Chain of Custody',
     description:
@@ -379,6 +424,15 @@ export const MassIDDataSchema = z
 
     return allEventLocationsExist;
   }, 'All location ID hashes in chain of custody events must exist in locations array')
+  .refine((data) => {
+    const participantIdSet = new Set(
+      data.participants.map((participant) => participant.id_hash),
+    );
+
+    return data.locations.every((location) =>
+      participantIdSet.has(location.responsible_participant_id_hash),
+    );
+  }, 'All responsible participant ID hashes in locations must exist in participants array')
   .meta({
     title: 'MassID Data',
     description:
