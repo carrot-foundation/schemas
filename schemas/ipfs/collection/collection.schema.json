@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Collection IPFS Record",
   "description": "Collection metadata stored in IPFS, extending the base schema with collection-specific fields required for NFT collection definitions in Carrot's ecosystem",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.38/schemas/ipfs/collection/collection.schema.json",
-  "version": "0.1.38",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.39/schemas/ipfs/collection/collection.schema.json",
+  "version": "0.1.39",
   "type": "object",
   "properties": {
     "$schema": {
