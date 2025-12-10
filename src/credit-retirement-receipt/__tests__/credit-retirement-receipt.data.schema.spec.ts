@@ -1,202 +1,163 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it } from 'vitest';
 
-import { CreditRetirementReceiptDataSchema } from '../credit-retirement-receipt.data.schema';
+import { expectSchemaInvalid, expectSchemaValid } from '../../test-utils';
+import {
+  CreditRetirementReceiptData,
+  CreditRetirementReceiptDataSchema,
+} from '../credit-retirement-receipt.data.schema';
 import exampleJson from '../../../schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.example.json';
 
-describe('CreditRetirementReceiptDataSchema', () => {
-  it('validates example data', () => {
-    const result = CreditRetirementReceiptDataSchema.safeParse(
-      exampleJson.data,
-    );
+function applyCreditSymbolOverride(
+  certificates: CreditRetirementReceiptData['certificates'],
+  creditSymbol: string,
+) {
+  return certificates.map((certificate) => ({
+    ...certificate,
+    credits_retired: certificate.credits_retired.map((credit) => ({
+      ...credit,
+      credit_symbol: creditSymbol,
+    })),
+  }));
+}
 
-    expect(result.success).toBe(true);
+describe('CreditRetirementReceiptDataSchema', () => {
+  const schema = CreditRetirementReceiptDataSchema;
+  const baseData = exampleJson.data as CreditRetirementReceiptData;
+
+  it('validates example data', () => {
+    expectSchemaValid(schema, () => structuredClone(baseData));
   });
 
   it('rejects retired_amount greater than total_amount', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates[0].retired_amount =
-      invalid.certificates[0].total_amount + 1;
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].retired_amount =
+        invalid.certificates[0].total_amount + 1;
+    });
   });
 
   it('requires credits_retired amounts to sum to retired_amount', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates[0].credits_retired[0].amount =
-      invalid.certificates[0].retired_amount - 1;
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].credits_retired[0].amount =
+        invalid.certificates[0].retired_amount - 1;
+    });
   });
 
   it('requires credit_symbol to exist in credits list', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates[0].credits_retired[0].credit_symbol = 'UNKNOWN';
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].credits_retired[0].credit_symbol = 'UNKNOWN';
+    });
   });
 
   it('requires credit_symbol to match referenced credit slug symbol', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates[0].credits_retired[0].credit_symbol = 'C-BIOW';
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].credits_retired[0].credit_symbol = 'C-BIOW';
+    });
   });
 
   it('requires certificate collection slug to exist in collections', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates[0].collection_slug = 'unknown-collection';
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].collection_slug = 'unknown-collection';
+    });
   });
 
   it('requires summary collection_slugs to include all collections', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.summary.collection_slugs =
-      invalid.summary.collection_slugs.slice(1);
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.collection_slugs =
+        invalid.summary.collection_slugs.slice(1);
+    });
   });
 
   it('requires summary certificate_types to include all certificates', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.summary.certificate_types =
-      invalid.summary.certificate_types.slice(1);
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.certificate_types =
+        invalid.summary.certificate_types.slice(1);
+    });
   });
 
   it('requires summary credit symbols to appear in certificate retirements', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates.forEach((certificate) => {
-      certificate.credits_retired = certificate.credits_retired.map(
-        (credit) => ({
-          ...credit,
-          credit_symbol: 'C-CARB',
-        }),
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates = applyCreditSymbolOverride(
+        invalid.certificates,
+        'C-CARB',
       );
     });
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
   });
 
   it('requires credit amounts to equal retired totals by symbol', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.credits[0].amount = 0;
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.credits[0].amount = 0;
+    });
   });
 
   it('requires certificate credit slug to exist in credits', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates[0].credits_retired[0].credit_slug = 'unknown-credit';
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].credits_retired[0].credit_slug = 'unknown-credit';
+    });
   });
 
   it('requires summary credit_symbols to include all credits', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.summary.credit_symbols = invalid.summary.credit_symbols.slice(1);
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.credit_symbols = invalid.summary.credit_symbols.slice(1);
+    });
   });
 
   it('rejects summary credit_symbols not present in credits', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.summary.credit_symbols = [
-      ...invalid.summary.credit_symbols,
-      'EXTRA-CREDIT',
-    ];
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.credit_symbols = [
+        ...invalid.summary.credit_symbols,
+        'EXTRA-CREDIT',
+      ];
+    });
   });
 
   it('rejects summary collection_slugs not present in collections', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.summary.collection_slugs = [
-      ...invalid.summary.collection_slugs,
-      'extra-collection',
-    ];
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.collection_slugs = [
+        ...invalid.summary.collection_slugs,
+        'extra-collection',
+      ];
+    });
   });
 
   it('rejects summary certificate_types not present in certificates', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.summary.certificate_types = [
-      ...invalid.summary.certificate_types,
-      'ExtraType',
-    ];
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.certificate_types = [
+        ...invalid.summary.certificate_types,
+        'ExtraType',
+      ] as unknown as typeof invalid.summary.certificate_types;
+    });
   });
 
   it('validates totals when certificates lack matching slugs', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.certificates = invalid.certificates.map((certificate) => ({
-      ...certificate,
-      collection_slug: 'unknown-collection',
-      credit_slug: 'unknown-credit',
-    }));
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates = invalid.certificates.map((certificate) => ({
+        ...certificate,
+        collection_slug: 'unknown-collection',
+        credit_slug: 'unknown-credit',
+      }));
+    });
   });
 
   it('handles collections without certificate references', () => {
-    const valid = structuredClone(exampleJson.data);
-    valid.collections.push({
-      slug: 'unused-collection',
-      external_id: '00000000-0000-0000-0000-000000000000',
-      name: 'Unused Collection',
-      external_url: 'https://example.com/unused-collection',
-      uri: 'ipfs://unused-collection',
-      amount: 0,
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections.push({
+        slug: 'unused-collection',
+        external_id: '00000000-0000-0000-0000-000000000000',
+        name: 'Unused Collection',
+        external_url: 'https://example.com/unused-collection',
+        uri: 'ipfs://unused-collection',
+        amount: 0,
+      });
+      invalid.summary.collection_slugs = [
+        ...invalid.summary.collection_slugs,
+        'unused-collection',
+      ];
     });
-    valid.summary.collection_slugs = [
-      ...valid.summary.collection_slugs,
-      'unused-collection',
-    ];
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(valid);
-
-    expect(result.success).toBe(false);
   });
 
   it('requires collection amounts to equal retired totals', () => {
-    const invalid = structuredClone(exampleJson.data);
-    invalid.collections[0].amount = 0;
-
-    const result = CreditRetirementReceiptDataSchema.safeParse(invalid);
-
-    expect(result.success).toBe(false);
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections[0].amount = 0;
+    });
   });
 });
