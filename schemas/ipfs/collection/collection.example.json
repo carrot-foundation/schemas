@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/credit/credit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/collection/collection.schema.json",
   "schema": {
     "hash": "0x8b33fe7f20e0b71c003e63f7db6da83fedef22b4229b5089b78554fc8a2cb987",
     "type": "Collection",
-    "version": "v0.1.0"
+    "version": "0.1.40"
   },
   "environment": {
     "blockchain_network": "testnet",

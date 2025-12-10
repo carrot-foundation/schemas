@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
     "hash": "0xa1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
     "type": "RecycledID",
-    "version": "0.1.34"
+    "version": "0.1.40"
   },
   "environment": {
     "blockchain_network": "mainnet",
