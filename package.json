@@ -46,9 +46,9 @@
   },
   "scripts": {
     "build": "tsup",
-    "check": "run-s lint:fix format type-check spell-check pkgJsonLint build generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test",
+    "check": "run-s lint:fix format type-check spell-check pkgJsonLint generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test",
     "check-refs": "node scripts/check-refs.js",
-    "check:parallel": "run-p lint:fix format type-check spell-check pkgJsonLint test build generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
+    "check:parallel": "run-p lint:fix format type-check spell-check pkgJsonLint test generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
     "clean": "rm -rf dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -70,7 +70,7 @@
     "test:watch": "vitest",
     "type-check": "tsc --noEmit",
     "update-examples": "node scripts/update-examples.js",
-    "validate-all": "run-s build generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
+    "validate-all": "run-s generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
     "validate-examples": "node scripts/validate-schemas.js --data-only",
     "validate-schemas": "node scripts/validate-schemas.js",
     "verify-schema-versions": "node scripts/verify-schema-versions.js"
