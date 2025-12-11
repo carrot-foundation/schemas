@@ -74,8 +74,7 @@
         "2025-02-22T10:35:12.000Z"
       ],
       "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
     },
     "external_id": {
       "title": "External ID",
@@ -117,67 +116,6 @@
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
-    },
-    "relationships": {
-      "title": "Relationships",
-      "description": "References to other IPFS records this record relates to",
-      "type": "array",
-      "items": {
-        "title": "Relationship",
-        "description": "Relationship to another IPFS record",
-        "type": "object",
-        "properties": {
-          "target_uri": {
-            "title": "Target IPFS URI",
-            "description": "Target IPFS URI of the referenced record",
-            "examples": [
-              "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-              "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
-            ],
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
-          },
-          "type": {
-            "title": "Relationship Type",
-            "description": "Type of relationship to the referenced record",
-            "examples": [
-              "mass-id",
-              "collection",
-              "credit-purchase-receipt"
-            ],
-            "type": "string",
-            "enum": [
-              "collection",
-              "credit",
-              "gas-id",
-              "mass-id",
-              "mass-id-audit",
-              "methodology",
-              "credit-purchase-receipt",
-              "credit-retirement-receipt",
-              "recycled-id"
-            ]
-          },
-          "description": {
-            "title": "Relationship Description",
-            "description": "Human-readable description of the relationship",
-            "examples": [
-              "This record supersedes the previous version",
-              "Related carbon credit batch",
-              "Source document for this verification",
-              "Child record derived from this parent",
-              "Updated version of original record"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "target_uri",
-          "type"
-        ],
-        "additionalProperties": false
-      }
     },
     "environment": {
       "title": "Environment",
@@ -929,16 +867,29 @@
             137,
             80002
           ],
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 9007199254740991
+          "anyOf": [
+            {
+              "type": "number",
+              "const": 137
+            },
+            {
+              "type": "number",
+              "const": 80002
+            }
+          ]
         },
         "network_name": {
-          "title": "Network Name",
-          "description": "Name of the blockchain network",
+          "title": "Blockchain Network Name",
+          "description": "Supported Polygon network names",
+          "examples": [
+            "Polygon",
+            "Amoy"
+          ],
           "type": "string",
-          "minLength": 5,
-          "maxLength": 100
+          "enum": [
+            "Polygon",
+            "Amoy"
+          ]
         },
         "token_id": {
           "title": "Token ID",

@@ -45,10 +45,6 @@ export const AuditRuleDefinitionSchema = z
           'https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js',
         ],
       }),
-    mandatory: z.boolean().meta({
-      title: 'Mandatory',
-      description: 'Whether this rule is mandatory for methodology compliance',
-    }),
     execution_order: PositiveIntegerSchema.meta({
       title: 'Rule Execution Order',
       description: 'Sequential order in which this rule must be executed',

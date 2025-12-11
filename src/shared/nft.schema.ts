@@ -3,6 +3,7 @@ import { BaseIpfsSchema } from './base.schema';
 import {
   EthereumAddressSchema,
   BlockchainChainIdSchema,
+  BlockchainNetworkNameSchema,
   TokenIdSchema,
   IpfsUriSchema,
   HexColorSchema,
@@ -10,6 +11,13 @@ import {
   RecordSchemaTypeSchema,
 } from './definitions.schema';
 import { uniqueBy } from './helpers.schema';
+
+const BLOCKCHAIN_NETWORK_CONFIG = {
+  mainnet: { chain_id: 137, network_name: 'Polygon' },
+  testnet: { chain_id: 80002, network_name: 'Amoy' },
+} as const;
+
+const ALLOWED_BLOCKCHAIN_NETWORKS = Object.values(BLOCKCHAIN_NETWORK_CONFIG);
 
 const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   'MassID',
@@ -33,14 +41,33 @@ const BlockchainReferenceSchema = z
       title: 'Chain ID',
       description: 'Blockchain chain ID',
     }),
-    network_name: z.string().min(5).max(100).meta({
-      title: 'Network Name',
-      description: 'Name of the blockchain network',
-    }),
+    network_name: BlockchainNetworkNameSchema,
     token_id: TokenIdSchema.meta({
       title: 'Token ID',
       description: 'NFT token ID',
     }),
+  })
+  .superRefine((value, ctx) => {
+    const matchedNetwork = ALLOWED_BLOCKCHAIN_NETWORKS.find(
+      (network) =>
+        network.chain_id === value.chain_id &&
+        network.network_name === value.network_name,
+    );
+
+    if (!matchedNetwork) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'chain_id and network_name must match a supported network: 137/Polygon (mainnet) or 80002/Amoy (testnet)',
+        path: ['chain_id'],
+      });
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'chain_id and network_name must match a supported network: 137/Polygon (mainnet) or 80002/Amoy (testnet)',
+        path: ['network_name'],
+      });
+    }
   })
   .meta({
     title: 'Blockchain Information',
@@ -219,9 +246,34 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       ],
     ],
   }),
-}).meta({
-  title: 'NFT IPFS Record',
-  description: 'NFT-specific fields for Carrot IPFS records',
-});
+})
+  .superRefine((value, ctx) => {
+    const environmentNetwork = value.environment?.blockchain_network;
+    if (!environmentNetwork) {
+      return;
+    }
+
+    const config = BLOCKCHAIN_NETWORK_CONFIG[environmentNetwork];
+
+    if (value.blockchain.chain_id !== config.chain_id) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `blockchain.chain_id must be ${config.chain_id} when environment.blockchain_network is ${environmentNetwork}`,
+        path: ['blockchain', 'chain_id'],
+      });
+    }
+
+    if (value.blockchain.network_name !== config.network_name) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `blockchain.network_name must be ${config.network_name} when environment.blockchain_network is ${environmentNetwork}`,
+        path: ['blockchain', 'network_name'],
+      });
+    }
+  })
+  .meta({
+    title: 'NFT IPFS Record',
+    description: 'NFT-specific fields for Carrot IPFS records',
+  });
 
 export type NftIpfs = z.infer<typeof NftIpfsSchema>;

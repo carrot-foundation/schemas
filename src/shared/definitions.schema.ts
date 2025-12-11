@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+const nativeDateParse = Date.parse.bind(Date);
+
+const ISO_TIMESTAMP_REGEX =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
+
 export const UuidSchema = z.uuidv4('Must be a valid UUID v4 string').meta({
   title: 'UUID',
   description: 'A universally unique identifier version 4',
@@ -29,11 +34,27 @@ export const EthereumAddressSchema = z
 
 export type EthereumAddress = z.infer<typeof EthereumAddressSchema>;
 
-export const IsoTimestampSchema = z.iso.datetime().meta({
-  title: 'ISO Timestamp',
-  description: 'ISO 8601 formatted timestamp with timezone information',
-  examples: ['2024-12-05T11:02:47.000Z', '2025-02-22T10:35:12.000Z'],
-});
+export const IsoTimestampSchema = z
+  .string()
+  .regex(
+    ISO_TIMESTAMP_REGEX,
+    'Must be a valid ISO 8601 timestamp with timezone information',
+  )
+  .superRefine((value, ctx) => {
+    const parsed = nativeDateParse(value);
+
+    if (Number.isNaN(parsed)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Must be a valid ISO 8601 timestamp with timezone information',
+      });
+    }
+  })
+  .meta({
+    title: 'ISO Timestamp',
+    description: 'ISO 8601 formatted timestamp with timezone information',
+    examples: ['2024-12-05T11:02:47.000Z', '2025-02-22T10:35:12.000Z'],
+  });
 
 export type IsoTimestamp = z.infer<typeof IsoTimestampSchema>;
 
@@ -242,19 +263,17 @@ export const ParticipantNameSchema = NonEmptyStringSchema.max(100).meta({
 export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
 
 export const BlockchainChainIdSchema = z
-  .number()
-  .int()
-  .min(1)
+  .union([z.literal(137), z.literal(80002)])
   .meta({
     title: 'Chain ID',
-    description: 'Blockchain network identifier',
+    description: 'Supported Polygon chain identifiers',
     examples: [137, 80002],
   });
 export type BlockchainChainId = z.infer<typeof BlockchainChainIdSchema>;
 
-export const BlockchainNetworkNameSchema = NonEmptyStringSchema.max(100).meta({
+export const BlockchainNetworkNameSchema = z.enum(['Polygon', 'Amoy']).meta({
   title: 'Blockchain Network Name',
-  description: 'Name of the blockchain network',
+  description: 'Supported Polygon network names',
   examples: ['Polygon', 'Amoy'],
 });
 

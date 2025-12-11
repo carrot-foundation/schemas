@@ -7,8 +7,6 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   RecordSchemaTypeSchema,
-  IpfsUriSchema,
-  RecordRelationshipTypeSchema,
 } from './definitions.schema';
 
 const SchemaHashSchema = z
@@ -48,38 +46,6 @@ const SchemaInfoSchema = z
   });
 
 export type SchemaInfo = z.infer<typeof SchemaInfoSchema>;
-
-const RecordRelationshipSchema = z
-  .strictObject({
-    target_uri: IpfsUriSchema.meta({
-      title: 'Target IPFS URI',
-      description: 'Target IPFS URI of the referenced record',
-    }),
-    type: RecordRelationshipTypeSchema.meta({
-      title: 'Relationship Type',
-      description: 'Type of relationship to the referenced record',
-    }),
-    description: z
-      .string()
-      .optional()
-      .meta({
-        title: 'Relationship Description',
-        description: 'Human-readable description of the relationship',
-        examples: [
-          'This record supersedes the previous version',
-          'Related carbon credit batch',
-          'Source document for this verification',
-          'Child record derived from this parent',
-          'Updated version of original record',
-        ],
-      }),
-  })
-  .meta({
-    title: 'Relationship',
-    description: 'Relationship to another IPFS record',
-  });
-
-export type RecordRelationship = z.infer<typeof RecordRelationshipSchema>;
 
 export const RecordEnvironmentSchema = z
   .strictObject({
@@ -133,10 +99,6 @@ export const BaseIpfsSchema = z
       title: 'Content Hash',
       description:
         'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
-    }),
-    relationships: z.array(RecordRelationshipSchema).optional().meta({
-      title: 'Relationships',
-      description: 'References to other IPFS records this record relates to',
     }),
     environment: RecordEnvironmentSchema.optional(),
     data: z.record(z.string(), z.unknown()).optional().meta({

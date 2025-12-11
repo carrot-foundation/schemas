@@ -13,8 +13,8 @@
   "blockchain": {
     "token_id": "123",
     "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
-    "chain_id": 137,
-    "network_name": "Polygon"
+    "chain_id": 80002,
+    "network_name": "Amoy"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
