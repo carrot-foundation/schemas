@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "611a855f548a24fa0f56c27cf6edeabac9eebbf0bcace77b2743e2e35d5be544",
+    "hash": "9c3af7a8b91c4ee9b78b9b44c39029dfc22af52fd9790ae445d3a94de5288226",
     "type": "MassID",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
@@ -107,8 +107,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "fca1cc4bf18984e241ea79029a55feece10495db48d35c9e43582760ef258de0",
-  "content_hash": "fca1cc4bf18984e241ea79029a55feece10495db48d35c9e43582760ef258de0",
+  "original_content_hash": "20f9b5c1bf24cc0105d6d1cbe1c93c26b6ff4bd457c16fb754254996a311768b",
+  "content_hash": "20f9b5c1bf24cc0105d6d1cbe1c93c26b6ff4bd457c16fb754254996a311768b",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -129,8 +129,7 @@
         "country_code": "BR",
         "coordinates": {
           "latitude": -0.02,
-          "longitude": -51.06,
-          "precision_level": "city"
+          "longitude": -51.06
         },
         "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
       },
@@ -143,8 +142,7 @@
         "country_code": "BR",
         "coordinates": {
           "latitude": -20.38,
-          "longitude": -40.34,
-          "precision_level": "city"
+          "longitude": -40.34
         },
         "responsible_participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef"
       }

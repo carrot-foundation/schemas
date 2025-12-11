@@ -7,6 +7,9 @@ import {
   RecordSchemaTypeSchema,
   Sha256HashSchema,
   IpfsUriSchema,
+  IpfsCidSchema,
+  IpnsSchema,
+  EnsDomainSchema,
 } from '../primitives';
 
 export const SchemaInfoSchema = z
@@ -54,6 +57,40 @@ export const RecordEnvironmentSchema = z
   });
 export type RecordEnvironment = z.infer<typeof RecordEnvironmentSchema>;
 
+export const ViewerReferenceSchema = z
+  .strictObject({
+    ipfs_cid: IpfsCidSchema.meta({
+      title: 'Viewer IPFS CID',
+      description: 'IPFS CID of the metadata viewer dApp build',
+    }),
+    integrity_hash: Sha256HashSchema.meta({
+      title: 'Viewer Integrity Hash',
+      description:
+        'SHA-256 hash of the published viewer bundle to verify integrity',
+    }),
+    ipns_name: IpnsSchema.optional().meta({
+      title: 'Viewer IPNS Name',
+      description: 'IPNS name that resolves to the latest viewer build',
+    }),
+    ens_domain: EnsDomainSchema.optional().meta({
+      title: 'Viewer ENS Domain',
+      description: 'ENS domain that resolves to the viewer application',
+      examples: ['viewer.carrot.eth'],
+    }),
+    http_url: ExternalUrlSchema.optional().meta({
+      title: 'Viewer HTTP URL',
+      description:
+        'HTTPS gateway or web URL for accessing the viewer without IPFS tooling',
+      examples: ['https://viewer.carrot.eco'],
+    }),
+  })
+  .meta({
+    title: 'Metadata Viewer Reference',
+    description:
+      'References to the metadata viewer dApp, including immutable and latest entry points',
+  });
+export type ViewerReference = z.infer<typeof ViewerReferenceSchema>;
+
 export const BaseIpfsSchema = z
   .strictObject({
     $schema: z.url('Must be a valid URI').meta({
@@ -79,6 +116,7 @@ export const BaseIpfsSchema = z
       description:
         'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
     }),
+    viewer_reference: ViewerReferenceSchema.optional(),
     environment: RecordEnvironmentSchema.optional(),
     data: z.record(z.string(), z.unknown()).optional().meta({
       title: 'Custom Data',
