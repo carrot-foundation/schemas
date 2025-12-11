@@ -31,7 +31,7 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
       attributesResult.error.issues.forEach((issue) => {
         ctx.addIssue({
           ...issue,
-          path: ['attributes', ...(issue.path ?? [])],
+          path: ['attributes', ...issue.path],
         });
       });
     }

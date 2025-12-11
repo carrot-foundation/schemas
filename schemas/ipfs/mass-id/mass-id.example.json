@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.41/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
+    "hash": "6ad85025b3961cb27b3bd37e8b37b05e907391055e1d756c8db855fb08a8a51d",
     "type": "MassID",
-    "version": "0.1.40"
+    "version": "0.1.41"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -106,8 +106,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-  "content_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
+  "original_content_hash": "d54953df581206093e1d775539c06dc4d9395c45bca006f098af7d45da8d01db",
+  "content_hash": "d54953df581206093e1d775539c06dc4d9395c45bca006f098af7d45da8d01db",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -152,12 +152,17 @@
       {
         "id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "name": "Enlatados Produção",
-        "roles": ["Waste Generator"]
+        "roles": [
+          "Waste Generator"
+        ]
       },
       {
         "id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "name": "Eco Reciclagem",
-        "roles": ["Hauler", "Recycler"]
+        "roles": [
+          "Hauler",
+          "Recycler"
+        ]
       }
     ],
     "events": [

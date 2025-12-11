@@ -76,7 +76,7 @@
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
-        "https://https://whitepaper.carrot.eco/"
+        "https://whitepaper.carrot.eco/"
       ],
       "type": "string",
       "format": "uri"
@@ -314,7 +314,7 @@
                       "description": "External URL for the participant profile",
                       "examples": [
                         "https://explore.carrot.eco/",
-                        "https://https://whitepaper.carrot.eco/"
+                        "https://whitepaper.carrot.eco/"
                       ],
                       "type": "string",
                       "format": "uri"
@@ -379,7 +379,7 @@
                       "description": "External URL for the participant profile",
                       "examples": [
                         "https://explore.carrot.eco/",
-                        "https://https://whitepaper.carrot.eco/"
+                        "https://whitepaper.carrot.eco/"
                       ],
                       "type": "string",
                       "format": "uri"
@@ -453,7 +453,7 @@
                 "description": "External URL for the collection",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://https://whitepaper.carrot.eco/"
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -544,7 +544,7 @@
                 "description": "External URL for the credit",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://https://whitepaper.carrot.eco/"
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -693,7 +693,7 @@
                 "description": "External URL for the certificate",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://https://whitepaper.carrot.eco/"
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -816,7 +816,7 @@
                     "description": "URL to view the MassID on Carrot Explorer",
                     "examples": [
                       "https://explore.carrot.eco/",
-                      "https://https://whitepaper.carrot.eco/"
+                      "https://whitepaper.carrot.eco/"
                     ],
                     "type": "string",
                     "format": "uri"
@@ -1063,7 +1063,7 @@
                   "description": "External URL for the retirement receipt",
                   "examples": [
                     "https://explore.carrot.eco/",
-                    "https://https://whitepaper.carrot.eco/"
+                    "https://whitepaper.carrot.eco/"
                   ],
                   "type": "string",
                   "format": "uri"
