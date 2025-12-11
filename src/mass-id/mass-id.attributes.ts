@@ -12,8 +12,8 @@ import {
   OriginCountryAttributeSchema,
   OriginMunicipalityAttributeSchema,
   NftAttributeSchema,
+  IbamaWasteClassificationSchema,
 } from '../shared';
-import { IbamaWasteClassificationSchema } from './mass-id.data.schema';
 
 const MassIDAttributeWasteTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Waste Type'),

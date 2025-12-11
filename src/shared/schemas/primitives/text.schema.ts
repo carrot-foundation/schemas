@@ -112,3 +112,16 @@ export const HexColorSchema = NonEmptyStringSchema.regex(
   examples: ['#2D5A27', '#FF5733'],
 });
 export type HexColor = z.infer<typeof HexColorSchema>;
+
+export const IbamaWasteClassificationSchema = z
+  .string()
+  .regex(/^\d{2} \d{2} \d{2}\*?$/, 'Invalid Ibama code format')
+  .meta({
+    title: 'Ibama Classification Code',
+    description:
+      'Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *',
+    examples: ['20 01 01', '20 01 01*', '04 02 20'],
+  });
+export type IbamaWasteClassification = z.infer<
+  typeof IbamaWasteClassificationSchema
+>;

@@ -9,18 +9,9 @@ import {
   LocationSchema,
   ParticipantSchema,
   uniqueBy,
+  Sha256HashSchema,
+  IbamaWasteClassificationSchema,
 } from '../shared';
-import { Sha256HashSchema } from '../shared/schemas/primitives';
-
-export const IbamaWasteClassificationSchema = z
-  .string()
-  .regex(/^\d{2} \d{2} \d{2}\*?$/, 'Invalid Ibama code format')
-  .meta({
-    title: 'Ibama Classification Code',
-    description:
-      'Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *',
-    examples: ['20 01 01', '20 01 01*', '04 02 20'],
-  });
 
 const MassIDLocalClassificationSchema = z
   .strictObject({
@@ -34,13 +25,7 @@ const MassIDLocalClassificationSchema = z
   .meta({
     title: 'Local Classification',
     description: 'Regulatory classification reference for the waste material',
-    examples: [{ code: '04 02 20', system: 'Ibama' }],
   });
-
-export type IbamaWasteClassification = z.infer<
-  typeof IbamaWasteClassificationSchema
->;
-
 export type MassIDLocalClassification = z.infer<
   typeof MassIDLocalClassificationSchema
 >;
