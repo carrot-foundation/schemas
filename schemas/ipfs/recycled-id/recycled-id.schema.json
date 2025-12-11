@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "RecycledID NFT IPFS Record",
   "description": "Complete RecycledID NFT IPFS record including fixed attributes and recycling outcome data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.41/schemas/ipfs/recycled-id/recycled-id.schema.json",
-  "version": "0.1.41",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.42/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "version": "0.1.42",
   "type": "object",
   "properties": {
     "$schema": {
@@ -76,7 +76,7 @@
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
-        "https://https://whitepaper.carrot.eco/"
+        "https://whitepaper.carrot.eco/"
       ],
       "type": "string",
       "format": "uri"
@@ -234,7 +234,7 @@
               "description": "URL to view the methodology on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
-                "https://https://whitepaper.carrot.eco/"
+                "https://whitepaper.carrot.eco/"
               ],
               "type": "string",
               "format": "uri"
@@ -289,7 +289,7 @@
               "description": "URL to view the audit on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
-                "https://https://whitepaper.carrot.eco/"
+                "https://whitepaper.carrot.eco/"
               ],
               "type": "string",
               "format": "uri"
@@ -372,7 +372,7 @@
               "description": "URL to view the MassID on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
-                "https://https://whitepaper.carrot.eco/"
+                "https://whitepaper.carrot.eco/"
               ],
               "type": "string",
               "format": "uri"
@@ -651,7 +651,7 @@
                 "description": "URL to view the participant accreditation on Carrot Explorer",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://https://whitepaper.carrot.eco/"
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
