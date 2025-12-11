@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  Keccak256HashSchema,
   SemanticVersionSchema,
   Sha256HashSchema,
   IsoTimestampSchema,
@@ -9,33 +8,16 @@ import {
   RecordSchemaTypeSchema,
 } from './definitions.schema';
 
-const SchemaHashSchema = z
-  .union([
-    Keccak256HashSchema,
-    z
-      .string()
-      .regex(
-        /^0x[a-fA-F0-9]{64}$/,
-        'Must be a Keccak256 hash as 0x-prefixed hex string',
-      ),
-  ])
-  .meta({
-    title: 'Schema Hash',
-    description:
-      'Keccak256 hash of the JSON Schema this record was validated against',
-    examples: [
-      'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
-      '0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
-    ],
-  });
+const SchemaHashSchema = Sha256HashSchema.meta({
+  title: 'Schema Hash',
+  description:
+    'SHA-256 hash of the JSON Schema this record was validated against',
+});
 
 const SchemaInfoSchema = z
   .strictObject({
     hash: SchemaHashSchema,
-    type: RecordSchemaTypeSchema.meta({
-      title: 'Schema Type',
-      description: 'Type/category of this schema',
-    }),
+    type: RecordSchemaTypeSchema,
     version: SemanticVersionSchema.meta({
       title: 'Schema Version',
       description: 'Version of the schema, using semantic versioning',
@@ -43,6 +25,7 @@ const SchemaInfoSchema = z
   })
   .meta({
     title: 'Schema Information',
+    description: 'Information about the schema used to validate this record',
   });
 
 export type SchemaInfo = z.infer<typeof SchemaInfoSchema>;
@@ -63,8 +46,8 @@ export const RecordEnvironmentSchema = z
     }),
   })
   .meta({
-    title: 'Environment',
-    description: 'Environment information',
+    title: 'Record Environment',
+    description: 'Environment information for the record',
   });
 
 export type RecordEnvironment = z.infer<typeof RecordEnvironmentSchema>;
@@ -82,14 +65,8 @@ export const BaseIpfsSchema = z
       title: 'Created At',
       description: 'ISO 8601 creation timestamp for this record',
     }),
-    external_id: ExternalIdSchema.meta({
-      title: 'External ID',
-      description: 'Off-chain reference ID (UUID from Carrot backend)',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'External URL',
-      description: 'External URL of the content',
-    }),
+    external_id: ExternalIdSchema,
+    external_url: ExternalUrlSchema,
     original_content_hash: Sha256HashSchema.meta({
       title: 'Original Content Hash',
       description:

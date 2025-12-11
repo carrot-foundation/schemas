@@ -10,13 +10,11 @@ import {
   CountryNameSchema,
 } from '../definitions.schema';
 
-const PrecisionLevelSchema = z
-  .enum(['exact', 'neighborhood', 'city', 'region', 'country'])
-  .meta({
-    title: 'Coordinate Precision Level',
-    description: 'Level of coordinate precision',
-    examples: ['city', 'exact', 'neighborhood'],
-  });
+const PrecisionLevelSchema = z.enum(['city', 'region', 'country']).meta({
+  title: 'Coordinate Precision Level',
+  description: 'Level of coordinate precision',
+  examples: ['city'],
+});
 
 export type PrecisionLevel = z.infer<typeof PrecisionLevelSchema>;
 

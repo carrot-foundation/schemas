@@ -18,27 +18,12 @@
       "properties": {
         "hash": {
           "title": "Schema Hash",
-          "description": "Keccak256 hash of the JSON Schema this record was validated against",
+          "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
-            "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
-            "0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f"
+            "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
           ],
-          "anyOf": [
-            {
-              "title": "Keccak256 Hash",
-              "description": "Keccak256 cryptographic hash as hexadecimal string",
-              "examples": [
-                "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
-                "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
-              ],
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]{64}$"
-            },
-            {
-              "type": "string",
-              "pattern": "^0x[a-fA-F0-9]{64}$"
-            }
-          ]
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
         },
         "type": {
           "title": "Credit Schema Type",
@@ -70,18 +55,16 @@
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
-        "2024-12-05T11:02:47.000Z",
-        "2025-02-22T10:35:12.000Z"
+        "2024-12-05T11:02:47.000Z"
       ],
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
     },
     "external_id": {
       "title": "External ID",
-      "description": "Off-chain reference ID (UUID from Carrot backend)",
+      "description": "UUID identifier for external system references",
       "examples": [
-        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ],
       "type": "string",
       "format": "uuid",
@@ -89,10 +72,10 @@
     },
     "external_url": {
       "title": "External URL",
-      "description": "External URL of the content",
+      "description": "URL pointing to external resources",
       "examples": [
-        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-        "https://carrot.eco/whitepaper.pdf"
+        "https://explore.carrot.eco/",
+        "https://https://whitepaper.carrot.eco/"
       ],
       "type": "string",
       "format": "uri"
@@ -101,8 +84,7 @@
       "title": "Original Content Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation",
       "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
@@ -111,15 +93,14 @@
       "title": "Content Hash",
       "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
       "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
     "environment": {
-      "title": "Environment",
-      "description": "Environment information",
+      "title": "Record Environment",
+      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
