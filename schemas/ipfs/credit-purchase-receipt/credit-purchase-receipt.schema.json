@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CreditPurchaseReceipt NFT IPFS Record",
   "description": "Complete CreditPurchaseReceipt NFT IPFS record including attributes and credit purchase data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
-  "version": "0.1.40",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.41/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "version": "0.1.41",
   "type": "object",
   "properties": {
     "$schema": {
@@ -75,7 +75,7 @@
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
-        "https://whitepaper.carrot.eco/"
+        "https://https://whitepaper.carrot.eco/"
       ],
       "type": "string",
       "format": "uri"
@@ -313,7 +313,7 @@
                       "description": "External URL for the participant profile",
                       "examples": [
                         "https://explore.carrot.eco/",
-                        "https://whitepaper.carrot.eco/"
+                        "https://https://whitepaper.carrot.eco/"
                       ],
                       "type": "string",
                       "format": "uri"
@@ -378,7 +378,7 @@
                       "description": "External URL for the participant profile",
                       "examples": [
                         "https://explore.carrot.eco/",
-                        "https://whitepaper.carrot.eco/"
+                        "https://https://whitepaper.carrot.eco/"
                       ],
                       "type": "string",
                       "format": "uri"
@@ -452,7 +452,7 @@
                 "description": "External URL for the collection",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
+                  "https://https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -543,7 +543,7 @@
                 "description": "External URL for the credit",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
+                  "https://https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -692,7 +692,7 @@
                 "description": "External URL for the certificate",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
+                  "https://https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -815,7 +815,7 @@
                     "description": "URL to view the MassID on Carrot Explorer",
                     "examples": [
                       "https://explore.carrot.eco/",
-                      "https://whitepaper.carrot.eco/"
+                      "https://https://whitepaper.carrot.eco/"
                     ],
                     "type": "string",
                     "format": "uri"
@@ -1062,7 +1062,7 @@
                   "description": "External URL for the retirement receipt",
                   "examples": [
                     "https://explore.carrot.eco/",
-                    "https://whitepaper.carrot.eco/"
+                    "https://https://whitepaper.carrot.eco/"
                   ],
                   "type": "string",
                   "format": "uri"
