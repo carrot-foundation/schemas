@@ -2,16 +2,12 @@ import { z } from 'zod';
 import {
   CreditAmountSchema,
   CreditTokenSymbolSchema,
-  EthereumAddressSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
   SlugSchema,
-  SmartContractSchema,
   TokenIdSchema,
   uniqueBy,
-} from '../shared';
-import {
   CreditRetirementReceiptSummarySchema,
   MassIdReferenceWithContractSchema,
   ReceiptIdentitySchema,
@@ -19,12 +15,14 @@ import {
   createReceiptCollectionSchema,
   createReceiptCreditSchema,
   nearlyEqual,
-} from '../shared/schemas/receipt';
-import {
   validateCountMatches,
   validateSummaryListMatchesData,
   validateTotalMatches,
-} from '../shared/schemas/receipt/receipt.validation';
+} from '../shared';
+import {
+  EthereumAddressSchema,
+  SmartContractSchema,
+} from '../shared/schemas/primitives';
 
 export type CreditRetirementReceiptSummary = z.infer<
   typeof CreditRetirementReceiptSummarySchema

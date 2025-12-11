@@ -1,23 +1,20 @@
 import { z } from 'zod';
 import { BaseIpfsSchema } from './base.schema';
 import {
-  EthereumAddressSchema,
-  BlockchainChainIdSchema,
-  BlockchainNetworkNameSchema,
   TokenIdSchema,
   IpfsUriSchema,
   HexColorSchema,
   NonNegativeFloatSchema,
   RecordSchemaTypeSchema,
-} from '../definitions.schema';
-import { uniqueBy } from './helpers.schema';
-
-const BLOCKCHAIN_NETWORK_CONFIG = {
-  mainnet: { chain_id: 137, network_name: 'Polygon' },
-  testnet: { chain_id: 80002, network_name: 'Amoy' },
-} as const;
-
-const ALLOWED_BLOCKCHAIN_NETWORKS = Object.values(BLOCKCHAIN_NETWORK_CONFIG);
+  ALLOWED_BLOCKCHAIN_NETWORKS,
+  BLOCKCHAIN_NETWORK_CONFIG,
+  BlockchainChainIdSchema,
+  BlockchainNetworkNameSchema,
+  ExternalUrlSchema,
+  NonEmptyStringSchema,
+  SmartContractAddressSchema,
+} from '../primitives';
+import { uniqueBy } from '../../schema-helpers';
 
 const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   'MassID',
@@ -29,21 +26,14 @@ const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   title: 'NFT Schema Type',
   description: 'Type of schema for NFT records',
 });
-
 export type NftSchemaType = z.infer<typeof NftSchemaTypeSchema>;
 
 const BlockchainReferenceSchema = z
   .strictObject({
-    smart_contract_address: EthereumAddressSchema.meta({
-      title: 'Smart Contract Address',
-    }),
-    chain_id: BlockchainChainIdSchema.meta({
-      title: 'Chain ID',
-      description: 'Blockchain chain ID',
-    }),
+    smart_contract_address: SmartContractAddressSchema,
+    chain_id: BlockchainChainIdSchema,
     network_name: BlockchainNetworkNameSchema,
     token_id: TokenIdSchema.meta({
-      title: 'Token ID',
       description: 'NFT token ID',
     }),
   })
@@ -73,16 +63,15 @@ const BlockchainReferenceSchema = z
     title: 'Blockchain Information',
     description: 'Blockchain-specific information for the NFT',
   });
-
 export type BlockchainReference = z.infer<typeof BlockchainReferenceSchema>;
 
 const ExternalLinkSchema = z
   .strictObject({
-    label: z.string().min(1).max(50).meta({
+    label: NonEmptyStringSchema.max(50).meta({
       title: 'Link Label',
       description: 'Display name for the external link',
     }),
-    url: z.url('Must be a valid URI').meta({
+    url: ExternalUrlSchema.meta({
       title: 'Link URL',
       description: 'Direct URI to the linked resource',
     }),
@@ -95,12 +84,11 @@ const ExternalLinkSchema = z
     title: 'External Link',
     description: 'External link with label and description',
   });
-
 export type ExternalLink = z.infer<typeof ExternalLinkSchema>;
 
 export const NftAttributeSchema = z
   .strictObject({
-    trait_type: z.string().max(50).meta({
+    trait_type: NonEmptyStringSchema.max(50).meta({
       title: 'Trait Type',
       description: 'Name of the trait or attribute',
     }),
@@ -124,7 +112,6 @@ export const NftAttributeSchema = z
     title: 'NFT Attribute',
     description: 'NFT attribute or trait with type and value',
   });
-
 export type NftAttribute = z.infer<typeof NftAttributeSchema>;
 
 export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
@@ -135,41 +122,29 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     }),
   }),
   blockchain: BlockchainReferenceSchema,
-  name: z
-    .string()
-    .min(1)
-    .max(100)
-    .meta({
-      title: 'NFT Name',
-      description: 'Full display name for this NFT, including extra context',
-      examples: [
-        'MassID #123 • Organic • 3.0t',
-        'RecycledID #456 • Plastic • 2.5t',
-        'GasID #789 • Methane • 1000 m³',
-      ],
-    }),
-  short_name: z
-    .string()
-    .min(1)
-    .max(50)
-    .meta({
-      title: 'Short Name',
-      description: 'Compact name for UI summaries, tables, or tooltips',
-      examples: ['MassID #123', 'RecycledID #456', 'GasID #789'],
-    }),
-  description: z
-    .string()
-    .min(10)
-    .max(500)
-    .meta({
-      title: 'Description',
-      description:
-        "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
-      examples: [
-        'This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.',
-        'This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd.',
-      ],
-    }),
+  name: NonEmptyStringSchema.max(100).meta({
+    title: 'NFT Name',
+    description: 'Full display name for this NFT, including extra context',
+    examples: [
+      'MassID #123 • Organic • 3.0t',
+      'RecycledID #456 • Plastic • 2.5t',
+      'GasID #789 • Methane • 1000 m³',
+    ],
+  }),
+  short_name: NonEmptyStringSchema.max(50).meta({
+    title: 'Short Name',
+    description: 'Compact name for UI summaries, tables, or tooltips',
+    examples: ['MassID #123', 'RecycledID #456', 'GasID #789'],
+  }),
+  description: NonEmptyStringSchema.max(500).meta({
+    title: 'Description',
+    description:
+      "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+    examples: [
+      'This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.',
+      'This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd.',
+    ],
+  }),
   image: IpfsUriSchema.meta({
     title: 'Image URI',
     description: 'IPFS URI pointing to the preview image',
@@ -182,8 +157,8 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     title: 'Animation URL',
     description: 'IPFS URI pointing to an animated or interactive media file',
     examples: [
-      'ipfs://QmAnimation123/mass-id-animation.mp4',
-      'ipfs://QmInteractive456/recycled-visualization.webm',
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4',
+      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm',
     ],
   }),
   external_links: uniqueBy(
@@ -191,25 +166,10 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     (link) => link.url,
     'External link URLs must be unique',
   )
-    .max(10)
     .optional()
     .meta({
       title: 'External Links',
       description: 'Optional list of public resource links with labels',
-      examples: [
-        [
-          {
-            label: 'Carrot Explorer',
-            url: 'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
-            description: 'Complete chain of custody and audit trail',
-          },
-          {
-            label: 'Carrot White Paper',
-            url: 'https://carrot.eco/whitepaper.pdf',
-            description: 'Carrot Foundation technical and impact white paper',
-          },
-        ],
-      ],
     }),
   attributes: uniqueBy(
     NftAttributeSchema,
@@ -219,32 +179,6 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     title: 'NFT Attributes',
     description:
       'List of visual traits and filterable attributes compatible with NFT marketplaces',
-    examples: [
-      [
-        {
-          trait_type: 'Waste Type',
-          value: 'Organic',
-        },
-        {
-          trait_type: 'Waste Subtype',
-          value: 'Food, Food Waste and Beverages',
-        },
-        {
-          trait_type: 'Weight (kg)',
-          value: 3000,
-          display_type: 'number',
-        },
-        {
-          trait_type: 'Origin Country',
-          value: 'Brazil',
-        },
-        {
-          trait_type: 'Pick-up Date',
-          value: '2024-12-05',
-          display_type: 'date',
-        },
-      ],
-    ],
   }),
 })
   .superRefine((value, ctx) => {
@@ -275,5 +209,4 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     title: 'NFT IPFS Record',
     description: 'NFT-specific fields for Carrot IPFS records',
   });
-
 export type NftIpfs = z.infer<typeof NftIpfsSchema>;

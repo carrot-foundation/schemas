@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
-import { nearlyEqual } from './receipt.schemas';
+export const EPSILON = 1e-9;
+
+export function nearlyEqual(a: number, b: number, epsilon: number = EPSILON) {
+  return Math.abs(a - b) <= epsilon;
+}
 
 type Attribute = {
   trait_type: string;

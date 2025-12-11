@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import {
   UuidSchema,
-  Sha256HashSchema,
   WasteTypeSchema,
   WasteSubtypeSchema,
   NonEmptyStringSchema,
@@ -11,6 +10,7 @@ import {
   ParticipantSchema,
   uniqueBy,
 } from '../shared';
+import { Sha256HashSchema } from '../shared/schemas/primitives';
 
 export const IbamaWasteClassificationSchema = z
   .string()

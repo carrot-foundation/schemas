@@ -247,7 +247,7 @@
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -327,7 +327,7 @@
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -385,7 +385,7 @@
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -814,7 +814,7 @@
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "A valid Ethereum address in hexadecimal format",
+          "description": "Address of the smart contract",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -823,7 +823,7 @@
         },
         "chain_id": {
           "title": "Chain ID",
-          "description": "Blockchain chain ID",
+          "description": "Supported Polygon chain identifiers",
           "examples": [
             137,
             80002
@@ -904,7 +904,7 @@
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
       ],
       "type": "string",
-      "minLength": 10,
+      "minLength": 1,
       "maxLength": 500
     },
     "image": {
@@ -916,7 +916,7 @@
       ],
       "type": "string",
       "minLength": 1,
-      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
     },
     "background_color": {
       "title": "Background Color",
@@ -938,26 +938,11 @@
       ],
       "type": "string",
       "minLength": 1,
-      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
     },
     "external_links": {
       "title": "External Links",
       "description": "Optional list of public resource links with labels",
-      "examples": [
-        [
-          {
-            "label": "Carrot Explorer",
-            "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-            "description": "Complete chain of custody and audit trail"
-          },
-          {
-            "label": "Carrot White Paper",
-            "url": "https://carrot.eco/whitepaper.pdf",
-            "description": "Carrot Foundation technical and impact white paper"
-          }
-        ]
-      ],
-      "maxItems": 10,
       "type": "array",
       "items": {
         "title": "External Link",
@@ -974,6 +959,10 @@
           "url": {
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
+            "examples": [
+              "https://explore.carrot.eco/",
+              "https://whitepaper.carrot.eco/"
+            ],
             "type": "string",
             "format": "uri"
           },

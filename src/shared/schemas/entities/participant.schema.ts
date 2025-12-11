@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import {
-  Sha256HashSchema,
   ParticipantNameSchema,
   ParticipantRoleSchema,
-} from '../definitions.schema';
-import { uniqueArrayItems } from '../core/helpers.schema';
+  Sha256HashSchema,
+} from '../primitives';
+import { uniqueArrayItems } from '../../schema-helpers';
 
 export const ParticipantSchema = z
   .strictObject({
@@ -12,10 +12,7 @@ export const ParticipantSchema = z
       title: 'Participant ID Hash',
       description: 'Anonymized identifier for the participant',
     }),
-    name: ParticipantNameSchema.meta({
-      title: 'Participant Name',
-      description: 'Name of the participant',
-    }),
+    name: ParticipantNameSchema,
     roles: uniqueArrayItems(
       ParticipantRoleSchema,
       'Participant roles must be unique',
@@ -31,5 +28,4 @@ export const ParticipantSchema = z
     title: 'Participant',
     description: 'A participant in the waste management supply chain',
   });
-
 export type Participant = z.infer<typeof ParticipantSchema>;

@@ -1,9 +1,6 @@
 import { describe, it } from 'vitest';
-import {
-  expectIssues,
-  expectSchemaValid,
-} from '../../../test-utils/schema-assertions';
-import { IsoTimestampSchema } from '../definitions.schema';
+import { expectIssues, expectSchemaValid } from '../../../test-utils';
+import { IsoTimestampSchema } from '../primitives';
 
 describe('IsoTimestampSchema', () => {
   it('accepts a valid ISO 8601 timestamp', () => {

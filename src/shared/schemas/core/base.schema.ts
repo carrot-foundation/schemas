@@ -1,22 +1,20 @@
 import { z } from 'zod';
 import {
   SemanticVersionSchema,
-  Sha256HashSchema,
   IsoTimestampSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   RecordSchemaTypeSchema,
-} from '../definitions.schema';
-
-const SchemaHashSchema = Sha256HashSchema.meta({
-  title: 'Schema Hash',
-  description:
-    'SHA-256 hash of the JSON Schema this record was validated against',
-});
+  Sha256HashSchema,
+} from '../primitives';
 
 const SchemaInfoSchema = z
   .strictObject({
-    hash: SchemaHashSchema,
+    hash: Sha256HashSchema.meta({
+      title: 'Schema Hash',
+      description:
+        'SHA-256 hash of the JSON Schema this record was validated against',
+    }),
     type: RecordSchemaTypeSchema,
     version: SemanticVersionSchema.meta({
       title: 'Schema Version',
@@ -27,7 +25,6 @@ const SchemaInfoSchema = z
     title: 'Schema Information',
     description: 'Information about the schema used to validate this record',
   });
-
 export type SchemaInfo = z.infer<typeof SchemaInfoSchema>;
 
 export const RecordEnvironmentSchema = z
@@ -49,7 +46,6 @@ export const RecordEnvironmentSchema = z
     title: 'Record Environment',
     description: 'Environment information for the record',
   });
-
 export type RecordEnvironment = z.infer<typeof RecordEnvironmentSchema>;
 
 export const BaseIpfsSchema = z
@@ -88,5 +84,4 @@ export const BaseIpfsSchema = z
     description:
       'Base fields for all Carrot IPFS records, providing common structure for any JSON content stored in IPFS',
   });
-
 export type BaseIpfs = z.infer<typeof BaseIpfsSchema>;

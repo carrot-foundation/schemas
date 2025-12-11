@@ -4,7 +4,7 @@ import {
   PositiveIntegerSchema,
   SlugSchema,
   UuidSchema,
-} from './definitions.schema';
+} from './primitives';
 import { MethodologyComplianceSchema } from './references/audit-reference.schema';
 
 export const AuditRuleDefinitionSchema = z

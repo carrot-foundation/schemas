@@ -9,7 +9,7 @@ import {
   ExternalUrlSchema,
   NonEmptyStringSchema,
   PercentageSchema,
-} from '../definitions.schema';
+} from '../primitives';
 
 export const WasteClassificationSchema = z
   .strictObject({

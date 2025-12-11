@@ -8,8 +8,8 @@ import {
   validateDateAttribute,
   validateSummaryListMatchesData,
   validateTotalMatches,
-} from '../receipt.validation';
-import { createValidationContext } from './receipt.test-helpers';
+} from '../../../schema-validation';
+import { createValidationContext } from '../../../../test-utils';
 
 describe('receipt.validation helpers', () => {
   it('builds attribute map', () => {

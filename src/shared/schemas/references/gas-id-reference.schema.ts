@@ -4,7 +4,7 @@ import {
   TokenIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-} from '../definitions.schema';
+} from '../primitives';
 
 export const GasIDReferenceSchema = z
   .strictObject({

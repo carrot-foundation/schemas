@@ -1,25 +1,10 @@
 import { z } from 'zod';
 
-const nativeDateParse = Date.parse.bind(Date);
-
-const ISO_TIMESTAMP_REGEX =
-  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
-
 export const IsoTimestampSchema = z
   .string()
-  .regex(
-    ISO_TIMESTAMP_REGEX,
-    'Must be a valid ISO 8601 timestamp with timezone information',
-  )
-  .superRefine((value, ctx) => {
-    const parsed = nativeDateParse(value);
-
-    if (Number.isNaN(parsed)) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Must be a valid ISO 8601 timestamp with timezone information',
-      });
-    }
+  .datetime({
+    message: 'Must be a valid ISO 8601 timestamp with timezone information',
+    offset: true,
   })
   .meta({
     title: 'ISO Timestamp',

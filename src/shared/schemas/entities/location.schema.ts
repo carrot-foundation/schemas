@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  Sha256HashSchema,
   LatitudeSchema,
   LongitudeSchema,
   IsoCountryCodeSchema,
@@ -8,14 +7,14 @@ import {
   MunicipalitySchema,
   AdministrativeDivisionSchema,
   CountryNameSchema,
-} from '../definitions.schema';
+  Sha256HashSchema,
+} from '../primitives';
 
 const PrecisionLevelSchema = z.enum(['city', 'region', 'country']).meta({
   title: 'Coordinate Precision Level',
   description: 'Level of coordinate precision',
   examples: ['city'],
 });
-
 export type PrecisionLevel = z.infer<typeof PrecisionLevelSchema>;
 
 export const CoordinatesSchema = z
@@ -53,5 +52,4 @@ export const LocationSchema = z
     title: 'Location',
     description: 'Geographic location with address and coordinate information',
   });
-
 export type Location = z.infer<typeof LocationSchema>;

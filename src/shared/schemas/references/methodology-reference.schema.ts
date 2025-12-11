@@ -5,7 +5,7 @@ import {
   IpfsUriSchema,
   SemanticVersionSchema,
   NonEmptyStringSchema,
-} from '../definitions.schema';
+} from '../primitives';
 
 export const MethodologyReferenceSchema = z
   .strictObject({

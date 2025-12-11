@@ -1,5 +1,24 @@
 import { z } from 'zod';
 
+export const BLOCKCHAIN_NETWORK_CONFIG = {
+  mainnet: { chain_id: 137 as const, network_name: 'Polygon' as const },
+  testnet: { chain_id: 80002 as const, network_name: 'Amoy' as const },
+} as const;
+
+export const ALLOWED_BLOCKCHAIN_NETWORKS = Object.values(
+  BLOCKCHAIN_NETWORK_CONFIG,
+);
+
+const BLOCKCHAIN_CHAIN_IDS = [
+  BLOCKCHAIN_NETWORK_CONFIG.mainnet.chain_id,
+  BLOCKCHAIN_NETWORK_CONFIG.testnet.chain_id,
+] as const;
+
+const BLOCKCHAIN_NETWORK_NAMES = [
+  BLOCKCHAIN_NETWORK_CONFIG.mainnet.network_name,
+  BLOCKCHAIN_NETWORK_CONFIG.testnet.network_name,
+] as const;
+
 export const EthereumAddressSchema = z
   .string()
   .regex(
@@ -14,19 +33,24 @@ export const EthereumAddressSchema = z
 export type EthereumAddress = z.infer<typeof EthereumAddressSchema>;
 
 export const BlockchainChainIdSchema = z
-  .union([z.literal(137), z.literal(80002)])
+  .union([
+    z.literal(BLOCKCHAIN_NETWORK_CONFIG.mainnet.chain_id),
+    z.literal(BLOCKCHAIN_NETWORK_CONFIG.testnet.chain_id),
+  ])
   .meta({
     title: 'Chain ID',
     description: 'Supported Polygon chain identifiers',
-    examples: [137, 80002],
+    examples: BLOCKCHAIN_CHAIN_IDS,
   });
 export type BlockchainChainId = z.infer<typeof BlockchainChainIdSchema>;
 
-export const BlockchainNetworkNameSchema = z.enum(['Polygon', 'Amoy']).meta({
-  title: 'Blockchain Network Name',
-  description: 'Supported Polygon network names',
-  examples: ['Polygon', 'Amoy'],
-});
+export const BlockchainNetworkNameSchema = z
+  .enum(BLOCKCHAIN_NETWORK_NAMES)
+  .meta({
+    title: 'Blockchain Network Name',
+    description: 'Supported Polygon network names',
+    examples: BLOCKCHAIN_NETWORK_NAMES,
+  });
 export type BlockchainNetworkName = z.infer<typeof BlockchainNetworkNameSchema>;
 
 export const SmartContractAddressSchema = EthereumAddressSchema.meta({

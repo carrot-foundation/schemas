@@ -11,7 +11,7 @@ import {
   MunicipalitySchema,
   CreditAmountSchema,
   CreditTypeSchema,
-} from '../definitions.schema';
+} from '../primitives';
 
 export const MethodologyAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Methodology'),

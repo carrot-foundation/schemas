@@ -51,21 +51,3 @@ export const CreditAmountSchema = NonNegativeFloatSchema.meta({
   description: 'Amount of credits issued',
 });
 export type CreditAmount = z.infer<typeof CreditAmountSchema>;
-
-export const HoursSchema = z
-  .number()
-  .min(0)
-  .multipleOf(0.1)
-  .meta({
-    title: 'Hours',
-    description: 'Time duration in hours with 0.1 hour precision',
-    examples: [72.5, 24, 168.5],
-  });
-export type Hours = z.infer<typeof HoursSchema>;
-
-export const MinutesSchema = NonNegativeIntegerSchema.meta({
-  title: 'Minutes',
-  description: 'Time duration in minutes',
-  examples: [4350, 1440, 10110],
-});
-export type Minutes = z.infer<typeof MinutesSchema>;

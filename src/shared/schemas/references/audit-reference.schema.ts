@@ -5,7 +5,7 @@ import {
   IpfsUriSchema,
   IsoDateSchema,
   NonNegativeIntegerSchema,
-} from '../definitions.schema';
+} from '../primitives';
 
 export const MethodologyComplianceSchema = z.enum(['PASSED', 'FAILED']).meta({
   title: 'Methodology Compliance',

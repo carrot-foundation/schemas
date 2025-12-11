@@ -1,5 +1,4 @@
 import { z, type ZodRawShape } from 'zod';
-
 import {
   CollectionNameSchema,
   CollectionSlugSchema,
@@ -16,20 +15,14 @@ import {
   SlugSchema,
   SmartContractSchema,
   TokenIdSchema,
-  uniqueArrayItems,
-  MassIDReferenceSchema,
-} from '..';
+} from '../primitives';
+import { uniqueArrayItems } from '../../schema-helpers';
+import { MassIDReferenceSchema } from '../references';
 
 type Meta = {
   title: string;
   description: string;
 };
-
-export const EPSILON = 1e-9;
-
-export function nearlyEqual(a: number, b: number, epsilon: number = EPSILON) {
-  return Math.abs(a - b) <= epsilon;
-}
 
 const SummaryBaseSchema = z.strictObject({
   total_certificates: PositiveIntegerSchema.meta({

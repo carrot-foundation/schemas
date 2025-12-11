@@ -22,7 +22,7 @@
     "description": "Certifies methane emissions prevented through organic waste composting using UNFCCC AMS-III.F methodology. Tracks complete chain of custody from waste generation through professional composting to quantify CO\u2082e emissions reductions. This methodology provides a comprehensive framework for measuring, reporting, and verifying the environmental benefits of diverting organic waste from landfills to composting facilities.",
     "revision_date": "2025-06-30",
     "publication_date": "2025-03-12",
-    "methodology_pdf": "ipfs://QmMethodologyHash/bold-carbon-ch4-v1.3.0.pdf",
+    "methodology_pdf": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf",
     "mass_id_audit_rules": [
       {
         "rule_id": "00000000-0000-4000-8000-000000000001",
