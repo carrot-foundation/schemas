@@ -4,8 +4,8 @@ import {
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
+  runReceiptInvalidCases,
 } from '../../test-utils';
-import { runReceiptInvalidCases } from '../../shared/receipt/__tests__/ipfs-receipt.test-helpers';
 import { CreditPurchaseReceiptIpfsSchema } from '../credit-purchase-receipt.schema';
 import exampleJson from '../../../schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.example.json';
 

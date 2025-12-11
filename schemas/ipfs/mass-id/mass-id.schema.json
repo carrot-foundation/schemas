@@ -58,7 +58,8 @@
         "2024-12-05T11:02:47.000Z"
       ],
       "type": "string",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
     },
     "external_id": {
       "title": "External ID",
@@ -399,7 +400,7 @@
               },
               "name": {
                 "title": "Participant Name",
-                "description": "Name of the participant",
+                "description": "Name of a participant in the waste management system",
                 "examples": [
                   "Enlatados Produção",
                   "Eco Reciclagem",
@@ -477,7 +478,8 @@
                       "2024-12-05T11:02:47.000Z"
                     ],
                     "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                   },
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
@@ -579,7 +581,8 @@
                       "2024-12-05T11:02:47.000Z"
                     ],
                     "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                   },
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
@@ -743,7 +746,8 @@
                       "2024-12-05T11:02:47.000Z"
                     ],
                     "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                   },
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
@@ -825,7 +829,8 @@
                       "2024-12-05T11:02:47.000Z"
                     ],
                     "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                   },
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
@@ -935,7 +940,8 @@
                       "2024-12-05T11:02:47.000Z"
                     ],
                     "type": "string",
-                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
                   },
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
@@ -1028,7 +1034,8 @@
                   "2024-12-05T11:02:47.000Z"
                 ],
                 "type": "string",
-                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
               },
               "event_id": {
                 "title": "Event ID",
@@ -1064,7 +1071,7 @@
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "A valid Ethereum address in hexadecimal format",
+          "description": "Address of the smart contract",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -1073,7 +1080,7 @@
         },
         "chain_id": {
           "title": "Chain ID",
-          "description": "Blockchain chain ID",
+          "description": "Supported Polygon chain identifiers",
           "examples": [
             137,
             80002
@@ -1154,19 +1161,19 @@
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
       ],
       "type": "string",
-      "minLength": 10,
+      "minLength": 1,
       "maxLength": 500
     },
     "image": {
       "title": "Image URI",
       "description": "IPFS URI pointing to the preview image",
       "examples": [
-        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-        "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
       ],
       "type": "string",
       "minLength": 1,
-      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
     },
     "background_color": {
       "title": "Background Color",
@@ -1183,31 +1190,16 @@
       "title": "Animation URL",
       "description": "IPFS URI pointing to an animated or interactive media file",
       "examples": [
-        "ipfs://QmAnimation123/mass-id-animation.mp4",
-        "ipfs://QmInteractive456/recycled-visualization.webm"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
+        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm"
       ],
       "type": "string",
       "minLength": 1,
-      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
     },
     "external_links": {
       "title": "External Links",
       "description": "Optional list of public resource links with labels",
-      "examples": [
-        [
-          {
-            "label": "Carrot Explorer",
-            "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-            "description": "Complete chain of custody and audit trail"
-          },
-          {
-            "label": "Carrot White Paper",
-            "url": "https://carrot.eco/whitepaper.pdf",
-            "description": "Carrot Foundation technical and impact white paper"
-          }
-        ]
-      ],
-      "maxItems": 10,
       "type": "array",
       "items": {
         "title": "External Link",
@@ -1224,6 +1216,10 @@
           "url": {
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
+            "examples": [
+              "https://explore.carrot.eco/",
+              "https://whitepaper.carrot.eco/"
+            ],
             "type": "string",
             "format": "uri"
           },

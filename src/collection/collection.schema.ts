@@ -28,7 +28,9 @@ export const CollectionSchema = BaseIpfsSchema.safeExtend({
   image: IpfsUriSchema.meta({
     title: 'Collection Image',
     description: "IPFS URI pointing to the collection's visual representation",
-    examples: ['ipfs://QmCollectionImageHash/collection-icon.png'],
+    examples: [
+      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/collection-icon.png',
+    ],
   }),
   description: z
     .string()

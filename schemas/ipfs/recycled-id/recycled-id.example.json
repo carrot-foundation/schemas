@@ -24,7 +24,7 @@
   "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
   "short_name": "RecycledID #789",
   "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",
-  "image": "ipfs://QmRecycledIdHash789/recycled-id-bold-recycling.png",
+  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id-bold-recycling.png",
   "background_color": "#2D5016",
   "external_links": [
     {
@@ -109,7 +109,7 @@
       "name": "BOLD Recycling",
       "version": "1.2.0",
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490",
-      "uri": "ipfs://QmMethodologyHash/bold-recycling-v1.2.0.pdf"
+      "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-recycling-v1.2.0.pdf"
     },
     "audit": {
       "date": "2025-06-24",
@@ -117,13 +117,13 @@
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "methodology_compliance": "PASSED",
       "rules_executed": 18,
-      "report": "ipfs://QmVerificationHash/recycled-id-audit.json"
+      "report": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/recycled-id-audit.json"
     },
     "mass_id": {
       "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
       "token_id": "123",
       "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json"
+      "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
     },
     "waste_classification": {
       "primary_type": "Organic",

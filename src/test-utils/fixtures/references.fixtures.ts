@@ -18,7 +18,8 @@ export const minimalAuditReferenceStub: AuditReference = {
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
   methodology_compliance: 'PASSED',
   rules_executed: 21,
-  report: 'ipfs://QmVerificationHash/mass-id-audit.json',
+  report:
+    'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
 };
 
 /**
@@ -34,7 +35,8 @@ export const validAuditReferenceFixture: AuditReference = {
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
   methodology_compliance: 'PASSED',
   rules_executed: 21,
-  report: 'ipfs://QmVerificationHash/mass-id-audit.json',
+  report:
+    'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
 };
 
 /**
@@ -63,7 +65,7 @@ export const minimalGasIdReferenceStub: GasIDReference = {
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://QmGasIDHash456/gas-id.json',
+  uri: 'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
 };
 
 /**
@@ -77,7 +79,7 @@ export const validGasIdReferenceFixture: GasIDReference = {
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://QmGasIDHash456/gas-id.json',
+  uri: 'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
 };
 
 /**
@@ -106,7 +108,7 @@ export const minimalMassIDReferenceStub: MassIDReference = {
   token_id: '123',
   external_url:
     'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-  uri: 'ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json',
+  uri: 'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
 };
 
 /**
@@ -120,7 +122,7 @@ export const validMassIDReferenceFixture: MassIDReference = {
   token_id: '123',
   external_url:
     'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-  uri: 'ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json',
+  uri: 'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
 };
 
 /**
@@ -164,7 +166,7 @@ export const validMethodologyReferenceFixture: MethodologyReference = {
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  uri: 'ipfs://QmMethodologyHash/bold-carbon-ch4-v1.3.0.pdf',
+  uri: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
 };
 
 /**

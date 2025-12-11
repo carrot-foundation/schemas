@@ -1,4 +1,4 @@
-import type { NftAttribute } from '../../shared/nft.schema';
+import type { NftAttribute } from '../../shared';
 
 /**
  * Minimal NFT attribute stub for testing.

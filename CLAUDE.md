@@ -6,6 +6,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a TypeScript-based schema definition library that provides Zod validation schemas and JSON schemas for IPFS metadata in the Carrot ecosystem. The package is published to npm as `@carrot-foundation/schemas` and supports both ESM and CommonJS.
 
+### Available Schema Types
+
+The repository includes the following IPFS schema types:
+
+- **Asset Schemas**: `mass-id`, `gas-id`, `recycled-id`, `credit`, `collection`
+- **Receipt Schemas**: `credit-purchase-receipt`, `credit-retirement-receipt`
+- **Audit Schemas**: `mass-id-audit`
+- **Reference Schemas**: `methodology`
+
+Each type has its own directory in `src/{type}/` with schema definitions, data schemas, attributes, and tests.
+
 ## Development Commands
 
 ### Building and Generating Schemas
@@ -44,6 +55,9 @@ pnpm spell-check
 
 # Validate package.json
 pnpm pkgJsonLint
+
+# Run all checks in parallel (faster)
+pnpm check:parallel
 ```
 
 ### Schema Validation
@@ -98,7 +112,7 @@ pnpm test:ui
 
 **Testing Patterns:**
 
-- Use centralized fixtures from `src/test-utils/fixtures/`
+- Use centralized fixtures from `src/test-utils/fixtures/` (see fixture naming conventions in `.cursor/rules/testing.mdc`)
 - Test both valid and invalid inputs for every schema
 - Use `.safeParse()` for Zod schema validation tests
 - Validate type inference in tests
@@ -116,12 +130,20 @@ See `.cursor/rules/testing.mdc` for comprehensive testing guidance and patterns.
   - `{type}.attributes.ts`: NFT attributes for the type
   - `index.ts`: Exports for the type
 - **`src/shared/`**: Shared components used across all schemas
-  - `base.schema.ts`: Base IPFS record structure
-  - `nft.schema.ts`: NFT-specific extensions
-  - `definitions.schema.ts`: Common field definitions (UUID, hashes, timestamps)
-  - `helpers.schema.ts`: Utility functions for schema building
-  - `schema-version.ts`: Version management utilities
-  - `entities/`: Reusable entity schemas (participant, location)
+  - `schema-helpers.ts`: Utility functions for schema building
+  - `schema-validation.ts`: Shared validation utilities
+  - `schemas/core/`: Core schema components
+    - `base.schema.ts`: Base IPFS record structure
+    - `nft.schema.ts`: NFT-specific extensions
+    - `attributes.schema.ts`: NFT attributes structure
+  - `schemas/primitives/`: Primitive type schemas (blockchain, numbers, time, URI)
+  - `schemas/entities/`: Reusable entity schemas (participant, location)
+  - `schemas/references/`: Reference schemas for other schema types
+  - `schemas/receipt/`: Receipt-related schemas
+  - `schemas/certificate/`: Certificate-related schemas
+  - `schemas/audit.schema.ts`: Audit trail schema
+- **`src/test-utils/`**: Centralized test utilities and fixtures
+  - `fixtures/`: Reusable test data for all schema types
 
 ### Build Pipeline
 

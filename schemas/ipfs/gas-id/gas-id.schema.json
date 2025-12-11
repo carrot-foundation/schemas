@@ -58,7 +58,8 @@
         "2024-12-05T11:02:47.000Z"
       ],
       "type": "string",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
     },
     "external_id": {
       "title": "External ID",
@@ -253,12 +254,12 @@
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
-                "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-                "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -333,12 +334,12 @@
               "title": "Audit Report",
               "description": "IPFS URI of the audit report",
               "examples": [
-                "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-                "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -391,12 +392,12 @@
               "title": "MassID IPFS URI",
               "description": "IPFS URI of the MassID record",
               "examples": [
-                "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-                "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -926,7 +927,7 @@
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "A valid Ethereum address in hexadecimal format",
+          "description": "Address of the smart contract",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -935,7 +936,7 @@
         },
         "chain_id": {
           "title": "Chain ID",
-          "description": "Blockchain chain ID",
+          "description": "Supported Polygon chain identifiers",
           "examples": [
             137,
             80002
@@ -1016,19 +1017,19 @@
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
       ],
       "type": "string",
-      "minLength": 10,
+      "minLength": 1,
       "maxLength": 500
     },
     "image": {
       "title": "Image URI",
       "description": "IPFS URI pointing to the preview image",
       "examples": [
-        "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-        "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
       ],
       "type": "string",
       "minLength": 1,
-      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
     },
     "background_color": {
       "title": "Background Color",
@@ -1045,31 +1046,16 @@
       "title": "Animation URL",
       "description": "IPFS URI pointing to an animated or interactive media file",
       "examples": [
-        "ipfs://QmAnimation123/mass-id-animation.mp4",
-        "ipfs://QmInteractive456/recycled-visualization.webm"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
+        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm"
       ],
       "type": "string",
       "minLength": 1,
-      "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
     },
     "external_links": {
       "title": "External Links",
       "description": "Optional list of public resource links with labels",
-      "examples": [
-        [
-          {
-            "label": "Carrot Explorer",
-            "url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-            "description": "Complete chain of custody and audit trail"
-          },
-          {
-            "label": "Carrot White Paper",
-            "url": "https://carrot.eco/whitepaper.pdf",
-            "description": "Carrot Foundation technical and impact white paper"
-          }
-        ]
-      ],
-      "maxItems": 10,
       "type": "array",
       "items": {
         "title": "External Link",
@@ -1086,6 +1072,10 @@
           "url": {
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
+            "examples": [
+              "https://explore.carrot.eco/",
+              "https://whitepaper.carrot.eco/"
+            ],
             "type": "string",
             "format": "uri"
           },
@@ -1105,564 +1095,65 @@
       }
     },
     "attributes": {
-      "title": "GasID NFT Attribute Array",
-      "description": "Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait",
+      "title": "NFT Attributes",
+      "description": "List of visual traits and filterable attributes compatible with NFT marketplaces",
       "type": "array",
-      "prefixItems": [
-        {
-          "title": "Methodology Attribute",
-          "description": "Methodology used for certification",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Methodology"
-            },
-            "value": {
-              "title": "Methodology Name",
-              "description": "Name of the methodology used for certification",
-              "examples": [
-                "BOLD Recycling",
-                "BOLD Carbon (CH₄)"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
+      "items": {
+        "title": "NFT Attribute",
+        "description": "NFT attribute or trait with type and value",
+        "type": "object",
+        "properties": {
+          "trait_type": {
+            "title": "Trait Type",
+            "description": "Name of the trait or attribute",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
           },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
+          "value": {
+            "title": "Trait Value",
+            "description": "Value of the trait - can be string, number, or boolean",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "display_type": {
+            "title": "Display Type",
+            "description": "How the trait should be displayed in marketplace UIs",
+            "type": "string",
+            "enum": [
+              "number",
+              "date",
+              "boost_number",
+              "boost_percentage"
+            ]
+          },
+          "max_value": {
+            "title": "Max Value",
+            "description": "Maximum possible value for numeric traits",
+            "examples": [
+              0,
+              45.2,
+              72.5
+            ],
+            "type": "number",
+            "minimum": 0
+          }
         },
-        {
-          "title": "Gas Type Attribute",
-          "description": "Gas type attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Gas Type"
-            },
-            "value": {
-              "title": "Gas Type",
-              "description": "Type of gas prevented",
-              "examples": [
-                "Methane (CH₄)",
-                "Carbon Dioxide (CO₂)"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "CO₂e Prevented Attribute",
-          "description": "CO₂e prevented attribute with numeric display",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "CO₂e Prevented (kg)"
-            },
-            "value": {
-              "title": "CO₂e Prevented",
-              "description": "Total CO₂ equivalent emissions prevented in kilograms",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            },
-            "display_type": {
-              "type": "string",
-              "const": "number"
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Credit Amount Attribute",
-          "description": "Credit amount attribute with numeric display",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Credit Amount"
-            },
-            "value": {
-              "title": "Credit Amount",
-              "description": "Amount of credits issued",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            },
-            "display_type": {
-              "type": "string",
-              "const": "number"
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Credit Type Attribute",
-          "description": "Credit type attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Credit Type"
-            },
-            "value": {
-              "title": "Credit Type",
-              "description": "Type of credit issued",
-              "examples": [
-                "Organic",
-                "Carbon (CH₄)"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Source Waste Type Attribute",
-          "description": "Source waste type attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Source Waste Type"
-            },
-            "value": {
-              "title": "Waste Type",
-              "description": "Category or type of waste material",
-              "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Source Weight Attribute",
-          "description": "Source weight attribute with numeric display",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Source Weight (kg)"
-            },
-            "value": {
-              "title": "Source Weight",
-              "description": "Weight of the source waste in kilograms",
-              "examples": [
-                3000,
-                1500,
-                500
-              ],
-              "type": "number",
-              "minimum": 0
-            },
-            "display_type": {
-              "type": "string",
-              "const": "number"
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Origin Country Attribute",
-          "description": "Origin country attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Origin Country"
-            },
-            "value": {
-              "title": "Country",
-              "description": "Full country name in English",
-              "examples": [
-                "Brazil",
-                "United States",
-                "Germany",
-                "Japan"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 50
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Origin Municipality Attribute",
-          "description": "Origin municipality attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Origin Municipality"
-            },
-            "value": {
-              "title": "Municipality",
-              "description": "Municipality or city name",
-              "examples": [
-                "Macapá",
-                "São Paulo",
-                "New York",
-                "Berlin",
-                "Tokyo"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 50
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "Recycler Attribute",
-          "description": "Recycler attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "Recycler"
-            },
-            "value": {
-              "title": "Recycler",
-              "description": "Organization that processed the waste",
-              "example": "Eco Reciclagem",
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "MassID Token ID Attribute",
-          "description": "MassID token ID attribute",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "MassID"
-            },
-            "value": {
-              "title": "MassID Token ID",
-              "description": "Token ID of the source MassID NFT as #<token_id>",
-              "example": "#123",
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^#\\d+$"
-            },
-            "display_type": {
-              "title": "Display Type",
-              "description": "How the trait should be displayed in marketplace UIs",
-              "type": "string",
-              "enum": [
-                "number",
-                "date",
-                "boost_number",
-                "boost_percentage"
-              ]
-            },
-            "max_value": {
-              "title": "Max Value",
-              "description": "Maximum possible value for numeric traits",
-              "examples": [
-                0,
-                45.2,
-                72.5
-              ],
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "required": [
-            "trait_type",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "title": "MassID Recycling Date Attribute",
-          "description": "MassID recycling date attribute using Unix timestamp in milliseconds",
-          "type": "object",
-          "properties": {
-            "trait_type": {
-              "type": "string",
-              "const": "MassID Recycling Date"
-            },
-            "value": {
-              "title": "MassID Recycling Date",
-              "description": "Unix timestamp in milliseconds when the source waste was recycled",
-              "examples": [
-                1704067200000
-              ],
-              "type": "integer",
-              "exclusiveMinimum": 0,
-              "maximum": 9007199254740991
-            },
-            "display_type": {
-              "type": "string",
-              "const": "date"
-            }
-          },
-          "required": [
-            "trait_type",
-            "value",
-            "display_type"
-          ],
-          "additionalProperties": false
-        }
-      ],
-      "items": false
+        "required": [
+          "trait_type",
+          "value"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "required": [

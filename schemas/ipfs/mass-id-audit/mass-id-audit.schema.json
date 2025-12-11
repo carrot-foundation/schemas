@@ -58,7 +58,8 @@
         "2024-12-05T11:02:47.000Z"
       ],
       "type": "string",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
     },
     "external_id": {
       "title": "External ID",
@@ -196,12 +197,12 @@
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
-                "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-                "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -252,12 +253,12 @@
               "title": "MassID IPFS URI",
               "description": "IPFS URI of the MassID record",
               "examples": [
-                "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-                "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [
@@ -308,12 +309,12 @@
               "title": "GasID IPFS URI",
               "description": "IPFS URI of the GasID record",
               "examples": [
-                "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-                "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
               "minLength": 1,
-              "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
             }
           },
           "required": [

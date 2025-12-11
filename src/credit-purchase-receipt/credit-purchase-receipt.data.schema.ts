@@ -1,16 +1,13 @@
 import { z } from 'zod';
 import {
   CreditAmountSchema,
-  EthereumAddressSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
   NonNegativeFloatSchema,
   ParticipantNameSchema,
   ParticipantRoleSchema,
-  Sha256HashSchema,
   SlugSchema,
-  SmartContractSchema,
   TokenIdSchema,
   uniqueArrayItems,
   uniqueBy,
@@ -25,6 +22,11 @@ import {
   validateSummaryListMatchesData,
   validateTotalMatches,
 } from '../shared';
+import {
+  EthereumAddressSchema,
+  Sha256HashSchema,
+  SmartContractSchema,
+} from '../shared/schemas/primitives';
 
 export type CreditPurchaseReceiptSummary = z.infer<
   typeof CreditPurchaseReceiptSummarySchema

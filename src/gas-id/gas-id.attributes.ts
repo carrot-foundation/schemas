@@ -12,8 +12,8 @@ import {
   RecyclerAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  NftAttributeSchema,
 } from '../shared';
-import { NftAttributeSchema } from '../shared/nft.schema';
 
 const GasIDAttributeMethodologySchema = MethodologyAttributeSchema;
 

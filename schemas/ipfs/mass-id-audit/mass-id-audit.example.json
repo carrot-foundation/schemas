@@ -27,19 +27,19 @@
       "name": "BOLD Carbon (CH\u2084)",
       "version": "v1.4.2",
       "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-      "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/bold-carbon-ch4-v1.4.2.json"
+      "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.4.2.json"
     },
     "mass_id": {
       "external_id": "b5e8c3f1-7429-4d82-a6f5-c1e9d8b7a4f2",
       "token_id": "789",
       "external_url": "https://explore.carrot.eco/document/b5e8c3f1-7429-4d82-a6f5-c1e9d8b7a4f2",
-      "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/mass-id.json"
+      "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
     },
     "gas_id": {
       "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "token_id": "456",
       "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-      "uri": "ipfs://QmYx8FdKl2mN9pQ7rS6tV8wB3cE4fG5hI9jK0lM1nO2pQ3r/gas-id.json"
+      "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json"
     },
     "rules_execution_results": [
       {
