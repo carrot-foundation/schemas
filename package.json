@@ -46,13 +46,15 @@
   },
   "scripts": {
     "build": "tsup",
-    "check": "pnpm lint:fix && pnpm format && pnpm type-check && pnpm spell-check && pnpm pkgJsonLint && pnpm build && pnpm validate-schemas && pnpm verify-schema-versions && pnpm check-refs && pnpm test",
+    "check": "run-s lint:fix format type-check spell-check pkgJsonLint build generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test",
     "check-refs": "node scripts/check-refs.js",
-    "check:parallel": "concurrently -n lint:fix,format,type-check,spell-check,pkgJsonLint,test,build,validate-schemas,verify-schema-versions,check-refs \"pnpm lint:fix\" \"pnpm format\" \"pnpm type-check\" \"pnpm spell-check\" \"pnpm pkgJsonLint\" \"pnpm test\" \"pnpm build\" \"pnpm validate-schemas\" \"pnpm verify-schema-versions\" \"pnpm check-refs\"",
+    "check:parallel": "run-p lint:fix format type-check spell-check pkgJsonLint test build generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
     "clean": "rm -rf dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate-ipfs-schemas": "node scripts/generate-ipfs-schemas.js",
+    "generate-schemas": "pnpm generate-ipfs-schemas",
+    "hash-schemas": "node scripts/hash-schemas.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "pkgJsonLint": "npmPkgJsonLint .",
@@ -67,10 +69,14 @@
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
     "type-check": "tsc --noEmit",
+    "update-examples": "node scripts/update-examples.js",
+    "validate-all": "run-s build generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
+    "validate-examples": "node scripts/validate-schemas.js --data-only",
     "validate-schemas": "node scripts/validate-schemas.js",
     "verify-schema-versions": "node scripts/verify-schema-versions.js"
   },
   "dependencies": {
+    "canonicalize": "2.1.0",
     "zod": "4.1.13"
   },
   "devDependencies": {
@@ -95,6 +101,7 @@
     "lint-staged": "16.2.7",
     "npm-package-json-lint": "9.0.0",
     "npm-package-json-lint-config-default": "8.0.1",
+    "npm-run-all2": "8.0.4",
     "prettier": "3.7.4",
     "tsup": "8.5.1",
     "typescript": "5.9.3",

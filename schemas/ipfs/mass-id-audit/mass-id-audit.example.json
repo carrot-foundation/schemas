@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.41/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+    "hash": "1b429d9017f48501ccf2defbea27cbcdd1527cd7ac4c1150e89c98f14138d13c",
     "type": "MassID Audit",
-    "version": "0.1.40"
+    "version": "0.1.41"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -13,7 +13,7 @@
   "created_at": "2025-01-27T15:42:18.000Z",
   "external_id": "7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "external_url": "https://explore.carrot.eco/document/7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
-  "content_hash": "7d9f82c4e1b6a5f3d8e2c1b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9",
+  "content_hash": "3f076aed31d132a18383f10264504429ffcc284a668a70a266dd2a9ff0713461",
   "data": {
     "audit_summary": {
       "audit_date": "2025-01-27",
@@ -24,7 +24,7 @@
     },
     "methodology": {
       "external_id": "8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9",
-      "name": "BOLD Carbon (CH\u2084)",
+      "name": "BOLD Carbon (CH₄)",
       "version": "v1.4.2",
       "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
       "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.4.2.json"
@@ -228,7 +228,7 @@
         "rule_id": "00000000-0000-4000-8000-000000000019",
         "execution_order": 19,
         "result": "PASSED",
-        "description": "Ensures continuous temperature monitoring during thermophilic phase (55-65\u00b0C) for pathogen elimination and process optimization",
+        "description": "Ensures continuous temperature monitoring during thermophilic phase (55-65°C) for pathogen elimination and process optimization",
         "rule_processor_checksum": "a9b0c1d2-e3f4-f012-3456-789012345678",
         "rule_source_code_version": "v2.1.3-e6d7c8cd-c0d1-6789-0123-456789012345"
       },
@@ -273,16 +273,16 @@
         "rule_source_code_version": "v2.1.3-c0b1a2ab-a4b5-abcd-0123-89012345ef01"
       },
       {
-        "rule_name": "CO\u2082e Emissions Calculation",
+        "rule_name": "CO₂e Emissions Calculation",
         "rule_slug": "co2e-emissions-calculation",
         "rule_id": "00000000-0000-4000-8000-000000000024",
         "execution_order": 24,
         "result": "PASSED",
-        "description": "Calculate the prevented CO\u2082e emissions based on methane emission factors and the processed organic waste mass using IPCC 2019 guidelines",
+        "description": "Calculate the prevented CO₂e emissions based on methane emission factors and the processed organic waste mass using IPCC 2019 guidelines",
         "rule_processor_checksum": "f4a5b6c7-d8e9-4567-89ab-012345678ef0",
         "rule_source_code_version": "v2.1.3-d1c2b3bc-b5c6-bcde-0123-9012345f0123"
       }
     ]
   },
-  "original_content_hash": "7d9f82c4e1b6a5f3d8e2c1b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9"
+  "original_content_hash": "3f076aed31d132a18383f10264504429ffcc284a668a70a266dd2a9ff0713461"
 }
