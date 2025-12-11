@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CreditRetirementReceipt NFT IPFS Record",
   "description": "Complete CreditRetirementReceipt NFT IPFS record including attributes and credit retirement data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.42/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
-  "version": "0.1.42",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
+  "version": "0.1.43",
   "type": "object",
   "properties": {
     "$schema": {
