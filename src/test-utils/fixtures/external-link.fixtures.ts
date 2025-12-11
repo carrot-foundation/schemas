@@ -1,4 +1,4 @@
-import type { ExternalLink } from '../../shared/nft.schema';
+import type { ExternalLink } from '../../shared';
 
 /**
  * Minimal external link stub for testing.

@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 import {
   expectIssues,
   expectSchemaValid,
-} from '../../test-utils/schema-assertions';
+} from '../../../test-utils/schema-assertions';
 import { IsoTimestampSchema } from '../definitions.schema';
 
 describe('IsoTimestampSchema', () => {

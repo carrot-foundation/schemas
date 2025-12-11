@@ -4,8 +4,8 @@ import {
   expectIssues,
   expectIssuesContain,
   validNftIpfsFixture,
-} from '../../test-utils';
-import { NftIpfsSchema } from '../nft.schema';
+} from '../../../test-utils';
+import { NftIpfsSchema } from '../core/nft.schema';
 
 describe('NftIpfsSchema', () => {
   it('rejects duplicate trait_type in attributes', () => {

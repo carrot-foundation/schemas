@@ -4,7 +4,7 @@ import {
   ParticipantNameSchema,
   ParticipantRoleSchema,
 } from '../definitions.schema';
-import { uniqueArrayItems } from '../helpers.schema';
+import { uniqueArrayItems } from '../core/helpers.schema';
 
 export const ParticipantSchema = z
   .strictObject({

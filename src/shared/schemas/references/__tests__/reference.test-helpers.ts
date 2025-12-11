@@ -6,7 +6,7 @@ import {
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
-} from '../../../test-utils';
+} from '../../../../test-utils';
 
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K];

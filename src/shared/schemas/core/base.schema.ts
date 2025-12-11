@@ -6,7 +6,7 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   RecordSchemaTypeSchema,
-} from './definitions.schema';
+} from '../definitions.schema';
 
 const SchemaHashSchema = Sha256HashSchema.meta({
   title: 'Schema Hash',

@@ -1,4 +1,4 @@
-import type { BlockchainReference } from '../../shared/nft.schema';
+import type { BlockchainReference } from '../../shared';
 
 /**
  * Minimal blockchain reference stub for testing.

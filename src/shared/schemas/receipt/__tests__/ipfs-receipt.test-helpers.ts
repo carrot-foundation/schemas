@@ -1,7 +1,7 @@
 import { it } from 'vitest';
 import { z } from 'zod';
 
-import { expectSchemaInvalid } from '../../../test-utils';
+import { expectSchemaInvalid } from '../../../../test-utils';
 
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K];

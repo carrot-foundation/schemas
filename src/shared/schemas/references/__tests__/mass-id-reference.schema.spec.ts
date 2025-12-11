@@ -1,6 +1,6 @@
 import { describe, expect } from 'vitest';
 
-import { validMassIDReferenceFixture } from '../../../test-utils';
+import { validMassIDReferenceFixture } from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import { MassIDReferenceSchema } from '../mass-id-reference.schema';
 

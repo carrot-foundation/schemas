@@ -4,7 +4,7 @@ import {
   expectSchemaInvalid,
   expectSchemaValid,
   validAuditReferenceFixture,
-} from '../../../test-utils';
+} from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import {
   AuditReferenceSchema,

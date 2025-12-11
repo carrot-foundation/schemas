@@ -1,6 +1,6 @@
 import { describe, expect } from 'vitest';
 
-import { validGasIdReferenceFixture } from '../../../test-utils';
+import { validGasIdReferenceFixture } from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import { GasIDReferenceSchema } from '../gas-id-reference.schema';
 

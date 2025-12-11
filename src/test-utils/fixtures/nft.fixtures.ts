@@ -1,4 +1,4 @@
-import type { NftIpfs } from '../../shared/nft.schema';
+import type { NftIpfs } from '../../shared';
 import { minimalBlockchainReferenceStub } from './blockchain.fixtures';
 import {
   minimalNftAttributeStub,

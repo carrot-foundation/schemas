@@ -13,7 +13,7 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
   getSchemaBaseUrl,
-} from '../schema-version';
+} from '../../schema-version';
 
 function getPackageJsonVersion(): string {
   const packageJsonPath = resolve(process.cwd(), 'package.json');

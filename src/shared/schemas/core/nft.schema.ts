@@ -9,7 +9,7 @@ import {
   HexColorSchema,
   NonNegativeFloatSchema,
   RecordSchemaTypeSchema,
-} from './definitions.schema';
+} from '../definitions.schema';
 import { uniqueBy } from './helpers.schema';
 
 const BLOCKCHAIN_NETWORK_CONFIG = {

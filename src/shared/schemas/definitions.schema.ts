@@ -1,3 +1,4 @@
+export * from './primitives';
 import { z } from 'zod';
 
 const nativeDateParse = Date.parse.bind(Date);
@@ -404,10 +405,7 @@ export type ExternalId = z.infer<typeof ExternalIdSchema>;
 export const ExternalUrlSchema = z.url().meta({
   title: 'External URL',
   description: 'URL pointing to external resources',
-  examples: [
-    'https://explore.carrot.eco/',
-    'https://https://whitepaper.carrot.eco/',
-  ],
+  examples: ['https://explore.carrot.eco/', 'https://whitepaper.carrot.eco/'],
 });
 export type ExternalUrl = z.infer<typeof ExternalUrlSchema>;
 

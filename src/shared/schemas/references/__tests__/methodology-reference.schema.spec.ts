@@ -1,6 +1,6 @@
 import { describe } from 'vitest';
 
-import { validMethodologyReferenceFixture } from '../../../test-utils';
+import { validMethodologyReferenceFixture } from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import { MethodologyReferenceSchema } from '../methodology-reference.schema';
 

@@ -19,12 +19,12 @@ import {
   createReceiptCollectionSchema,
   createReceiptCreditSchema,
   nearlyEqual,
-} from '../shared/receipt';
+} from '../shared/schemas/receipt';
 import {
   validateCountMatches,
   validateSummaryListMatchesData,
   validateTotalMatches,
-} from '../shared/receipt/receipt.validation';
+} from '../shared/schemas/receipt/receipt.validation';
 
 export type CreditRetirementReceiptSummary = z.infer<
   typeof CreditRetirementReceiptSummarySchema

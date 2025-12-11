@@ -7,7 +7,7 @@ import {
   validWasteClassificationFixture,
   validAccreditedParticipantsFixture,
   validParticipantRewardsFixture,
-} from '../../../test-utils';
+} from '../../../../test-utils';
 import {
   WasteClassificationSchema,
   AccreditedParticipantsSchema,
