@@ -359,7 +359,6 @@ Needs independent validation and testing.
 // ✅ Extract - Can be tested independently
 export const ParticipantSchema = z.strictObject({
   id_hash: Sha256HashSchema,
-  name: ParticipantNameSchema,
   roles: uniqueArrayItems(ParticipantRoleSchema, ...),
 });
 ```

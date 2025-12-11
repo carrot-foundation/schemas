@@ -154,9 +154,8 @@
               "title": "Recycled Mass Weight",
               "description": "Total weight of materials successfully recycled",
               "examples": [
-                3000,
-                1500,
-                500
+                500.35,
+                3000
               ],
               "type": "number",
               "minimum": 0
@@ -406,9 +405,7 @@
               "title": "Source Waste Primary Type",
               "description": "Primary type of the source waste",
               "examples": [
-                "Organic",
-                "Plastic",
-                "Metal"
+                "Organic"
               ],
               "type": "string",
               "minLength": 1,
@@ -429,9 +426,8 @@
               "title": "Source Waste Net Weight",
               "description": "Net weight of the source waste",
               "examples": [
-                3000,
-                1500,
-                500
+                500.35,
+                3000
               ],
               "type": "number",
               "minimum": 0

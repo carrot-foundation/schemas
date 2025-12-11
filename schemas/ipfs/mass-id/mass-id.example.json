@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "3ba7aeda8a521ff8bd648af7cb9c904d38ef3dc37fcab5c451d0880a12fe2dc3",
+    "hash": "f7f031e2b2e4618628a927b74b22f296f187968a0137364b4de0d975cddf3e0f",
     "type": "MassID",
     "version": "0.1.43"
   },
@@ -106,8 +106,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "f4d00426406c993870acd7c3caf63ee066e64f72bc41b995b2f96a7c7032a291",
-  "content_hash": "f4d00426406c993870acd7c3caf63ee066e64f72bc41b995b2f96a7c7032a291",
+  "original_content_hash": "6a051c11aeb854824bdb6b8cc1aeb5486fcbcec081131cbb114ea26113f9da7e",
+  "content_hash": "6a051c11aeb854824bdb6b8cc1aeb5486fcbcec081131cbb114ea26113f9da7e",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -169,7 +169,6 @@
       {
         "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
         "event_name": "Pick-up",
-        "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
         "timestamp": "2024-12-05T11:02:47.000Z",
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
@@ -181,7 +180,6 @@
         "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
         "event_name": "Weighing",
         "timestamp": "2024-12-05T13:02:47.000Z",
-        "description": "Waste weighed at recycling facility",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
         "data": {
@@ -197,7 +195,6 @@
       {
         "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
         "event_name": "Drop-off",
-        "description": "Waste deposited in Windrow number 1",
         "timestamp": "2024-12-05T14:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
@@ -205,7 +202,6 @@
       {
         "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
         "event_name": "Sorting",
-        "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
         "timestamp": "2024-12-05T15:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
@@ -217,7 +213,6 @@
       {
         "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
         "event_name": "Recycling",
-        "description": "Composting process completed",
         "timestamp": "2024-12-08T11:32:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"

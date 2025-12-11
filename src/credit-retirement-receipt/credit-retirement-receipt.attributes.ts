@@ -3,7 +3,7 @@ import {
   CollectionNameSchema,
   CreditAmountSchema,
   NftAttributeSchema,
-  ParticipantNameSchema,
+  NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
   UnixTimestampSchema,
@@ -40,7 +40,7 @@ const CreditRetirementReceiptTotalCreditsAttributeSchema =
 const CreditRetirementReceiptBeneficiaryAttributeSchema =
   NftAttributeSchema.safeExtend({
     trait_type: z.literal('Beneficiary'),
-    value: ParticipantNameSchema.meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Beneficiary',
       description: 'Beneficiary receiving the retirement benefit',
       examples: ['Climate Action Corp'],
@@ -53,7 +53,7 @@ const CreditRetirementReceiptBeneficiaryAttributeSchema =
 const CreditRetirementReceiptCreditHolderAttributeSchema =
   NftAttributeSchema.safeExtend({
     trait_type: z.literal('Credit Holder'),
-    value: ParticipantNameSchema.meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Credit Holder',
       description: 'Entity that surrendered the credits',
       examples: ['EcoTech Solutions Inc.'],

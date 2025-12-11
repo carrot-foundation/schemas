@@ -970,8 +970,7 @@
                 "title": "Participant Name",
                 "description": "Legal name of the participant receiving the reward",
                 "examples": [
-                  "Enlatados Produção",
-                  "Eco Reciclagem",
+                  "EcoTech Solutions Inc.",
                   "Green Tech Corp"
                 ],
                 "type": "string",

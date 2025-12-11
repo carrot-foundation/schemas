@@ -9,12 +9,20 @@ import { MassIDAttributesSchema } from './mass-id.attributes';
 
 type PickUpEvent = Extract<MassIDEvent, { event_name: 'Pick-up' }>;
 type WeighingEvent = Extract<MassIDEvent, { event_name: 'Weighing' }>;
+type DropOffEvent = Extract<MassIDEvent, { event_name: 'Drop-off' }>;
+type RecyclingEvent = Extract<MassIDEvent, { event_name: 'Recycling' }>;
 
 const isPickUpEvent = (event: MassIDEvent): event is PickUpEvent =>
   event.event_name === 'Pick-up';
 
 const isWeighingEvent = (event: MassIDEvent): event is WeighingEvent =>
   event.event_name === 'Weighing';
+
+const isDropOffEvent = (event: MassIDEvent): event is DropOffEvent =>
+  event.event_name === 'Drop-off';
+
+const isRecyclingEvent = (event: MassIDEvent): event is RecyclingEvent =>
+  event.event_name === 'Recycling';
 
 export const MassIDIpfsSchemaMeta = {
   title: 'MassID NFT IPFS Record',
@@ -159,18 +167,14 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       'Pick-up event vehicle_type',
     );
 
-    const dropOffEvent = data.events.find(
-      (event) => event.event_name === 'Drop-off',
-    );
+    const dropOffEvent = data.events.find(isDropOffEvent);
     assertTimestampAttributeMatches(
       'Drop-off Date',
       dropOffEvent?.timestamp,
       'Drop-off event timestamp',
     );
 
-    const recyclingEvent = data.events.find(
-      (event) => event.event_name === 'Recycling',
-    );
+    const recyclingEvent = data.events.find(isRecyclingEvent);
     assertTimestampAttributeMatches(
       'Recycling Date',
       recyclingEvent?.timestamp,

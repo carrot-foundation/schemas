@@ -8,8 +8,8 @@ import {
   ExternalUrlSchema,
   IpfsUriSchema,
   IsoDateSchema,
+  NonEmptyStringSchema,
   NonNegativeFloatSchema,
-  ParticipantNameSchema,
   PositiveIntegerSchema,
   RecordSchemaTypeSchema,
   SlugSchema,
@@ -94,7 +94,7 @@ export const CreditRetirementReceiptSummarySchema = SummaryBaseSchema.extend({
 
 export const ReceiptIdentitySchema = z
   .strictObject({
-    name: ParticipantNameSchema.meta({
+    name: NonEmptyStringSchema.max(100).meta({
       title: 'Identity Name',
       description: 'Display name for the participant',
       examples: ['EcoTech Solutions Inc.', 'Climate Action Corp'],
