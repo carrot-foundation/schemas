@@ -75,7 +75,7 @@
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
-        "https://https://whitepaper.carrot.eco/"
+        "https://whitepaper.carrot.eco/"
       ],
       "type": "string",
       "format": "uri"
@@ -233,7 +233,7 @@
               "description": "URL to view the methodology on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
-                "https://https://whitepaper.carrot.eco/"
+                "https://whitepaper.carrot.eco/"
               ],
               "type": "string",
               "format": "uri"
@@ -288,7 +288,7 @@
               "description": "URL to view the audit on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
-                "https://https://whitepaper.carrot.eco/"
+                "https://whitepaper.carrot.eco/"
               ],
               "type": "string",
               "format": "uri"
@@ -371,7 +371,7 @@
               "description": "URL to view the MassID on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
-                "https://https://whitepaper.carrot.eco/"
+                "https://whitepaper.carrot.eco/"
               ],
               "type": "string",
               "format": "uri"
@@ -650,7 +650,7 @@
                 "description": "URL to view the participant accreditation on Carrot Explorer",
                 "examples": [
                   "https://explore.carrot.eco/",
-                  "https://https://whitepaper.carrot.eco/"
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
