@@ -118,9 +118,11 @@
       "properties": {
         "ipfs_cid": {
           "title": "Viewer IPFS CID",
-          "description": "IPFS CID of the recommended metadata viewer dApp build",
+          "description": "IPFS CID of the metadata viewer dApp build",
           "examples": [
-            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+            "bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
+            "QmT78zSuBmuS4z925WZfrqQ1qHaJ5q3hRbAWkjj9piKktM"
           ],
           "type": "string",
           "minLength": 1,
@@ -603,29 +605,27 @@
               "properties": {
                 "latitude": {
                   "title": "Latitude",
-                  "description": "Geographic latitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level)",
+                  "description": "Geographic latitude coordinate in decimal degrees with maximum 1 decimal places precision (~11km accuracy for city-level)",
                   "examples": [
-                    -0.02,
-                    -20.38,
-                    40.713
+                    -0.2,
+                    -20.3
                   ],
                   "type": "number",
                   "minimum": -90,
                   "maximum": 90,
-                  "multipleOf": 0.001
+                  "multipleOf": 0.1
                 },
                 "longitude": {
                   "title": "Longitude",
-                  "description": "Geographic longitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level)",
+                  "description": "Geographic longitude coordinate in decimal degrees with maximum 1 decimal places precision (~11km accuracy for city-level)",
                   "examples": [
-                    -51.06,
-                    -40.34,
-                    -74.006
+                    -51,
+                    -40.3
                   ],
                   "type": "number",
                   "minimum": -180,
                   "maximum": 180,
-                  "multipleOf": 0.001
+                  "multipleOf": 0.1
                 }
               },
               "required": [

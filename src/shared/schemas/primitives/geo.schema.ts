@@ -30,12 +30,12 @@ export const LatitudeSchema = z
   .number()
   .min(-90)
   .max(90)
-  .multipleOf(0.001)
+  .multipleOf(0.1)
   .meta({
     title: 'Latitude',
     description:
-      'Geographic latitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level)',
-    examples: [-0.02, -20.38, 40.713],
+      'Geographic latitude coordinate in decimal degrees with maximum 1 decimal places precision (~11km accuracy for city-level)',
+    examples: [-0.2, -20.3],
   });
 export type Latitude = z.infer<typeof LatitudeSchema>;
 
@@ -43,11 +43,11 @@ export const LongitudeSchema = z
   .number()
   .min(-180)
   .max(180)
-  .multipleOf(0.001)
+  .multipleOf(0.1)
   .meta({
     title: 'Longitude',
     description:
-      'Geographic longitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level)',
-    examples: [-51.06, -40.34, -74.006],
+      'Geographic longitude coordinate in decimal degrees with maximum 1 decimal places precision (~11km accuracy for city-level)',
+    examples: [-51, -40.3],
   });
 export type Longitude = z.infer<typeof LongitudeSchema>;

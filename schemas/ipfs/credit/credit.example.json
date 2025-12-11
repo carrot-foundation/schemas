@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "b37de6b3503c2d1c3516423e4fb4a81638f8418c8a026514d10882a47e8b3aba",
+    "hash": "fcd026a15d6b54c13f96699ec93f97ea37014fa4ce6d48620a2fb230a096126a",
     "type": "Credit",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit.schema.json"
@@ -14,8 +14,8 @@
   "created_at": "2024-12-05T14:30:00.000Z",
   "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
   "external_url": "https://explore.carrot.eco/credit/carrot-carbon",
-  "original_content_hash": "8fa18e162b421035aa5af277f04b9b500819511e5330e26225276e88fcdf2fe7",
-  "content_hash": "8fa18e162b421035aa5af277f04b9b500819511e5330e26225276e88fcdf2fe7",
+  "original_content_hash": "6827a95c2910132fb4fec3d42643e69ebb40eaff88f4f85af150189e1f45f7a3",
+  "content_hash": "6827a95c2910132fb4fec3d42643e69ebb40eaff88f4f85af150189e1f45f7a3",
   "symbol": "C-CARB",
   "slug": "carbon",
   "name": "Carrot Carbon",

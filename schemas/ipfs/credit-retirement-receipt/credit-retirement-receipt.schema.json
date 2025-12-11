@@ -109,9 +109,11 @@
       "properties": {
         "ipfs_cid": {
           "title": "Viewer IPFS CID",
-          "description": "IPFS CID of the recommended metadata viewer dApp build",
+          "description": "IPFS CID of the metadata viewer dApp build",
           "examples": [
-            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+            "bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
+            "QmT78zSuBmuS4z925WZfrqQ1qHaJ5q3hRbAWkjj9piKktM"
           ],
           "type": "string",
           "minLength": 1,
