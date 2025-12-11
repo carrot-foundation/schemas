@@ -451,18 +451,6 @@
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$"
               },
-              "name": {
-                "title": "Participant Name",
-                "description": "Name of a participant in the waste management system",
-                "examples": [
-                  "Enlatados Produção",
-                  "Eco Reciclagem",
-                  "Green Tech Corp"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
-              },
               "roles": {
                 "title": "Participant Roles",
                 "description": "Roles of the participant in the waste management supply chain",
@@ -484,7 +472,6 @@
             },
             "required": [
               "id_hash",
-              "name",
               "roles"
             ],
             "additionalProperties": false
