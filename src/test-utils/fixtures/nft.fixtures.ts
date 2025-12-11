@@ -18,6 +18,8 @@ export const minimalNftIpfsStub: NftIpfs = {
     hash: 'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
     type: 'MassID' as const,
     version: '0.1.0',
+    ipfs_uri:
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/nft.schema.json',
   },
   blockchain: minimalBlockchainReferenceStub,
   created_at: '2024-12-05T11:02:47.000Z',
@@ -49,6 +51,8 @@ export const validNftIpfsFixture: NftIpfs = {
     hash: 'ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f',
     type: 'MassID' as const,
     version: '0.1.0',
+    ipfs_uri:
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/nft.schema.json',
   },
   blockchain: minimalBlockchainReferenceStub,
   created_at: '2024-12-05T11:02:47.000Z',

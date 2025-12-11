@@ -42,12 +42,24 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        },
+        "ipfs_uri": {
+          "title": "Schema IPFS URI",
+          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "examples": [
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
         }
       },
       "required": [
         "hash",
         "type",
-        "version"
+        "version",
+        "ipfs_uri"
       ],
       "additionalProperties": false
     },
@@ -1566,11 +1578,6 @@
           {
             "title": "Local Waste Classification ID Attribute",
             "description": "Regulatory waste classification code (e.g., Ibama format NN NN NN[*])",
-            "examples": [
-              "20 01 01",
-              "20 01 01*",
-              "04 02 20"
-            ],
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1631,8 +1638,7 @@
                 "description": "Official recycling manifest identifier",
                 "examples": [
                   "2353",
-                  "REC-MANIFEST-789",
-                  "RC12345"
+                  "12345"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1680,9 +1686,8 @@
                 "title": "Transport Manifest Number",
                 "description": "Official transport manifest identifier",
                 "examples": [
-                  "4126",
-                  "TRN-67890",
-                  "TRANS-MANIFEST-456"
+                  "2353",
+                  "12345"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1828,7 +1833,7 @@
                 "title": "Pick-up Date",
                 "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
                 "examples": [
-                  1733396567000
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,
@@ -1870,7 +1875,7 @@
                 "title": "Drop-off Date",
                 "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination",
                 "examples": [
-                  1733407367000
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,
@@ -1912,7 +1917,7 @@
                 "title": "Recycling Date",
                 "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
                 "examples": [
-                  1733657567000
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,

@@ -1,9 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "f9eb4a2e543f4285ef36117de52136531fe603a7596c7b9b93ddd79644d2befe",
+    "hash": "ec562d78000e8d686ab0dd2ab5ff1abcc53734f2b07ab849e87faca9af224631",
     "type": "GasID",
-    "version": "0.1.43"
+    "version": "0.1.43",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/gas-id.schema.json"
   },
   "environment": {
     "blockchain_network": "mainnet",
@@ -19,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "original_content_hash": "831af4ae430512a136d1cdb8942eb99888aa3a138ef92d7f77f5f498dab7efff",
-  "content_hash": "831af4ae430512a136d1cdb8942eb99888aa3a138ef92d7f77f5f498dab7efff",
+  "original_content_hash": "2ad849ca59922fe5958185ca21411b36f8aa6d9a560606ef51fc3ce88951c700",
+  "content_hash": "2ad849ca59922fe5958185ca21411b36f8aa6d9a560606ef51fc3ce88951c700",
   "name": "GasID #456 • BOLD Carbon (CH₄) • 2.09t CO₂e",
   "short_name": "GasID #456",
   "description": "This GasID certifies 2.09 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3 metric tons of organic waste from Macapá, Brazil.",

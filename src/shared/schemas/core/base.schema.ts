@@ -6,9 +6,10 @@ import {
   ExternalUrlSchema,
   RecordSchemaTypeSchema,
   Sha256HashSchema,
+  IpfsUriSchema,
 } from '../primitives';
 
-const SchemaInfoSchema = z
+export const SchemaInfoSchema = z
   .strictObject({
     hash: Sha256HashSchema.meta({
       title: 'Schema Hash',
@@ -19,6 +20,11 @@ const SchemaInfoSchema = z
     version: SemanticVersionSchema.meta({
       title: 'Schema Version',
       description: 'Version of the schema, using semantic versioning',
+    }),
+    ipfs_uri: IpfsUriSchema.meta({
+      title: 'Schema IPFS URI',
+      description:
+        'IPFS URI for this JSON Schema when the primary schema URI is unavailable',
     }),
   })
   .meta({
