@@ -6,7 +6,15 @@ import vitestGlobals from 'eslint-plugin-vitest-globals';
 
 export default defineConfig([
   {
-    ignores: ['dist/**', 'node_modules/**', 'coverage/**', '**/*.d.ts'],
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      'coverage/**',
+      '**/*.d.ts',
+      'local/**',
+      'tmp/**',
+      '*.log',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

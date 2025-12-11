@@ -1,44 +1,18 @@
 #!/usr/bin/env node
+// Note: run after building (pnpm build) because it imports from dist/index.js
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { hashObject } from '../dist/index.js';
+import {
+  collectJsonFiles,
+  getVersion,
+  loadJson,
+  writeJson,
+} from './utils/fs-utils.js';
 
 const SCHEMAS_ROOT = path.join(process.cwd(), 'schemas', 'ipfs');
 const MANIFEST_PATH = path.join(process.cwd(), 'schemas', 'schema-hashes.json');
-
-function collectSchemaFiles(rootDir) {
-  const results = [];
-  const stack = [rootDir];
-
-  while (stack.length > 0) {
-    const current = stack.pop();
-    const entries = fs.readdirSync(current, { withFileTypes: true });
-
-    for (const entry of entries) {
-      const fullPath = path.join(current, entry.name);
-      if (entry.isDirectory()) {
-        stack.push(fullPath);
-        continue;
-      }
-      if (entry.isFile() && entry.name.endsWith('.schema.json')) {
-        results.push(fullPath);
-      }
-    }
-  }
-
-  return results;
-}
-
-function getVersion() {
-  const pkgPath = path.join(process.cwd(), 'package.json');
-  try {
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-    return process.env.SCHEMA_VERSION || pkg.version || '0.0.0-dev';
-  } catch {
-    return process.env.SCHEMA_VERSION || '0.0.0-dev';
-  }
-}
 
 function main() {
   if (!fs.existsSync(SCHEMAS_ROOT)) {
@@ -46,16 +20,30 @@ function main() {
     process.exit(1);
   }
 
+  const distEntry = path.join(process.cwd(), 'dist', 'index.js');
+  if (!fs.existsSync(distEntry)) {
+    console.error(
+      `Compiled entry not found at ${distEntry}. Run "pnpm build" first.`,
+    );
+    process.exit(1);
+  }
+
   const version = getVersion();
   const manifest = { version, schemas: {} };
-  const files = collectSchemaFiles(SCHEMAS_ROOT);
+  const files = collectJsonFiles(SCHEMAS_ROOT, '.schema.json');
 
   for (const filePath of files) {
     const relative = path.relative(
       path.join(process.cwd(), 'schemas'),
       filePath,
     );
-    const json = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    let json;
+    try {
+      json = loadJson(filePath);
+    } catch (error) {
+      console.error(`Failed to parse ${relative}: ${error.message}`);
+      process.exit(1);
+    }
     const hash = hashObject(json);
     manifest.schemas[relative] = {
       hash,
@@ -64,7 +52,7 @@ function main() {
     console.log(`✔ hashed ${relative}`);
   }
 
-  fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
+  writeJson(MANIFEST_PATH, manifest);
   console.log(`\nWrote manifest to ${MANIFEST_PATH}`);
 }
 
