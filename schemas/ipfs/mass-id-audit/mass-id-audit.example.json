@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "0x7d9f82c4e1b6a5f3d8e2c1b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9",
+    "hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
     "type": "MassID Audit",
-    "version": "v0.1.0"
+    "version": "0.1.40"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -14,10 +14,6 @@
   "external_id": "7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "external_url": "https://explore.carrot.eco/document/7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "content_hash": "7d9f82c4e1b6a5f3d8e2c1b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9",
-  "creator": {
-    "name": "Carrot Foundation",
-    "id": "4ba0875d-2bf2-489a-bd42-59e2778187aa"
-  },
   "data": {
     "audit_summary": {
       "audit_date": "2025-01-27",

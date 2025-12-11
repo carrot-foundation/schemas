@@ -49,6 +49,16 @@ describe('MethodologySchema', () => {
         invalid.data.mass_id_audit_rules = rules;
       },
     },
+    {
+      description: 'rejects audit rules with mandatory flag',
+      mutate: (invalid: z.input<typeof schema>) => {
+        const rules = invalid.data.mass_id_audit_rules.map((rule) => ({
+          ...rule,
+          mandatory: true,
+        }));
+        invalid.data.mass_id_audit_rules = rules;
+      },
+    },
   ])('$description', ({ mutate }) => {
     expectSchemaInvalid(schema, base, mutate);
   });

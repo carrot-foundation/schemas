@@ -20,10 +20,6 @@ export function createRecycledIdIpfsFixture(
     ? { ...base.blockchain, ...overrides.blockchain }
     : base.blockchain;
 
-  const creator: RecycledIDIpfs['creator'] = overrides?.creator
-    ? { ...base.creator, ...overrides.creator }
-    : base.creator;
-
   const data: RecycledIDIpfs['data'] = overrides?.data
     ? { ...base.data, ...overrides.data }
     : base.data;
@@ -34,7 +30,6 @@ export function createRecycledIdIpfsFixture(
     schema,
     environment,
     blockchain,
-    creator,
     external_links: overrides?.external_links ?? base.external_links,
     attributes: overrides?.attributes ?? base.attributes,
     data,

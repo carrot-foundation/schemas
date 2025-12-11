@@ -18,27 +18,12 @@
       "properties": {
         "hash": {
           "title": "Schema Hash",
-          "description": "Keccak256 hash of the JSON Schema this record was validated against",
+          "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
-            "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
-            "0xac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f"
+            "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
           ],
-          "anyOf": [
-            {
-              "title": "Keccak256 Hash",
-              "description": "Keccak256 cryptographic hash as hexadecimal string",
-              "examples": [
-                "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
-                "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2"
-              ],
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]{64}$"
-            },
-            {
-              "type": "string",
-              "pattern": "^0x[a-fA-F0-9]{64}$"
-            }
-          ]
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
         },
         "type": {
           "title": "CreditPurchaseReceipt Schema Type",
@@ -70,19 +55,16 @@
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
-        "2024-12-05T11:02:47.000Z",
-        "2025-02-22T10:35:12.000Z"
+        "2024-12-05T11:02:47.000Z"
       ],
       "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?(?:Z|[+-]\\d{2}:\\d{2})$"
     },
     "external_id": {
       "title": "External ID",
-      "description": "Off-chain reference ID (UUID from Carrot backend)",
+      "description": "UUID identifier for external system references",
       "examples": [
-        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ],
       "type": "string",
       "format": "uuid",
@@ -90,10 +72,10 @@
     },
     "external_url": {
       "title": "External URL",
-      "description": "External URL of the content",
+      "description": "URL pointing to external resources",
       "examples": [
-        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-        "https://carrot.eco/whitepaper.pdf"
+        "https://explore.carrot.eco/",
+        "https://whitepaper.carrot.eco/"
       ],
       "type": "string",
       "format": "uri"
@@ -102,8 +84,7 @@
       "title": "Original Content Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation",
       "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
@@ -112,108 +93,14 @@
       "title": "Content Hash",
       "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
       "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
     },
-    "creator": {
-      "title": "Creator",
-      "description": "Entity that created this record",
-      "type": "object",
-      "properties": {
-        "name": {
-          "title": "Creator Name",
-          "description": "Company or individual name that created this record",
-          "examples": [
-            "Carrot Foundation"
-          ],
-          "type": "string"
-        },
-        "id": {
-          "title": "Creator ID",
-          "description": "Unique identifier for the creator",
-          "examples": [
-            "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-            "6f520d88-864d-432d-bf9f-5c3166c4818f",
-            "f77afa89-1c58-40fd-9bf5-8a86703a8af4"
-          ],
-          "type": "string",
-          "format": "uuid",
-          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-        }
-      },
-      "required": [
-        "name",
-        "id"
-      ],
-      "additionalProperties": false
-    },
-    "relationships": {
-      "title": "Relationships",
-      "description": "References to other IPFS records this record relates to",
-      "type": "array",
-      "items": {
-        "title": "Relationship",
-        "description": "Relationship to another IPFS record",
-        "type": "object",
-        "properties": {
-          "target_uri": {
-            "title": "Target IPFS URI",
-            "description": "Target IPFS URI of the referenced record",
-            "examples": [
-              "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-              "ipfs://QmYjtig7VJQ6XsnUjqqJvj7QaMcCAwtrgNdahSiFofrE7o"
-            ],
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^ipfs:\\/\\/[a-zA-Z0-9]+(\\/.*)?$"
-          },
-          "type": {
-            "title": "Relationship Type",
-            "description": "Type of relationship to the referenced record",
-            "examples": [
-              "mass-id",
-              "collection",
-              "credit-purchase-receipt"
-            ],
-            "type": "string",
-            "enum": [
-              "collection",
-              "credit",
-              "gas-id",
-              "mass-id",
-              "mass-id-audit",
-              "methodology",
-              "credit-purchase-receipt",
-              "credit-retirement-receipt",
-              "recycled-id"
-            ]
-          },
-          "description": {
-            "title": "Relationship Description",
-            "description": "Human-readable description of the relationship",
-            "examples": [
-              "This record supersedes the previous version",
-              "Related carbon credit batch",
-              "Source document for this verification",
-              "Child record derived from this parent",
-              "Updated version of original record"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "target_uri",
-          "type"
-        ],
-        "additionalProperties": false
-      }
-    },
     "environment": {
-      "title": "Environment",
-      "description": "Environment information",
+      "title": "Record Environment",
+      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
@@ -349,9 +236,7 @@
               "title": "Purchase Date",
               "description": "Date when the purchase was made (YYYY-MM-DD)",
               "examples": [
-                "2024-12-05",
-                "2025-02-22",
-                "2024-02-10"
+                "2024-12-05"
               ],
               "type": "string",
               "format": "date",
@@ -378,8 +263,7 @@
               "title": "Payer Wallet Address",
               "description": "Ethereum address paying for the purchase",
               "examples": [
-                "0x1234567890abcdef1234567890abcdef12345678",
-                "0xabcdef1234567890abcdef1234567890abcdef12"
+                "0x1234567890abcdef1234567890abcdef12345678"
               ],
               "type": "string",
               "pattern": "^0x[a-f0-9]{40}$"
@@ -393,8 +277,7 @@
                   "title": "Receiver Wallet Address",
                   "description": "Ethereum address of the receiver",
                   "examples": [
-                    "0x1234567890abcdef1234567890abcdef12345678",
-                    "0xabcdef1234567890abcdef1234567890abcdef12"
+                    "0x1234567890abcdef1234567890abcdef12345678"
                   ],
                   "type": "string",
                   "pattern": "^0x[a-f0-9]{40}$"
@@ -419,8 +302,7 @@
                       "title": "Identity External ID",
                       "description": "External identifier for the participant",
                       "examples": [
-                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                       ],
                       "type": "string",
                       "format": "uuid",
@@ -430,8 +312,8 @@
                       "title": "Identity External URL",
                       "description": "External URL for the participant profile",
                       "examples": [
-                        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                        "https://carrot.eco/whitepaper.pdf"
+                        "https://explore.carrot.eco/",
+                        "https://whitepaper.carrot.eco/"
                       ],
                       "type": "string",
                       "format": "uri"
@@ -459,8 +341,7 @@
                   "title": "Buyer ID",
                   "description": "Unique identifier for the buyer",
                   "examples": [
-                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                    "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ],
                   "type": "string",
                   "format": "uuid",
@@ -486,8 +367,7 @@
                       "title": "Identity External ID",
                       "description": "External identifier for the participant",
                       "examples": [
-                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                        "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                       ],
                       "type": "string",
                       "format": "uuid",
@@ -497,8 +377,8 @@
                       "title": "Identity External URL",
                       "description": "External URL for the participant profile",
                       "examples": [
-                        "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                        "https://carrot.eco/whitepaper.pdf"
+                        "https://explore.carrot.eco/",
+                        "https://whitepaper.carrot.eco/"
                       ],
                       "type": "string",
                       "format": "uri"
@@ -550,8 +430,7 @@
                 "title": "Collection External ID",
                 "description": "External identifier for the collection",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ],
                 "type": "string",
                 "format": "uuid",
@@ -572,8 +451,8 @@
                 "title": "Collection External URL",
                 "description": "External URL for the collection",
                 "examples": [
-                  "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "https://carrot.eco/whitepaper.pdf"
+                  "https://explore.carrot.eco/",
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -653,8 +532,7 @@
                 "title": "Credit External ID",
                 "description": "External identifier for the credit",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ],
                 "type": "string",
                 "format": "uuid",
@@ -664,8 +542,8 @@
                 "title": "Credit External URL",
                 "description": "External URL for the credit",
                 "examples": [
-                  "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "https://carrot.eco/whitepaper.pdf"
+                  "https://explore.carrot.eco/",
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -690,33 +568,41 @@
                     "title": "Smart Contract Address",
                     "description": "Address of the smart contract",
                     "examples": [
-                      "0x1234567890abcdef1234567890abcdef12345678",
-                      "0xabcdef1234567890abcdef1234567890abcdef12"
+                      "0x1234567890abcdef1234567890abcdef12345678"
                     ],
                     "type": "string",
                     "pattern": "^0x[a-f0-9]{40}$"
                   },
                   "chain_id": {
                     "title": "Chain ID",
-                    "description": "Blockchain network identifier",
+                    "description": "Supported Polygon chain identifiers",
                     "examples": [
                       137,
                       80002
                     ],
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 9007199254740991
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "const": 137
+                      },
+                      {
+                        "type": "number",
+                        "const": 80002
+                      }
+                    ]
                   },
                   "network_name": {
                     "title": "Blockchain Network Name",
-                    "description": "Name of the blockchain network",
+                    "description": "Supported Polygon network names",
                     "examples": [
                       "Polygon",
                       "Amoy"
                     ],
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100
+                    "enum": [
+                      "Polygon",
+                      "Amoy"
+                    ]
                   }
                 },
                 "required": [
@@ -775,7 +661,6 @@
                 "title": "Certificate Token ID",
                 "description": "Token ID of the certificate",
                 "examples": [
-                  "123",
                   "456789",
                   "1000000"
                 ],
@@ -796,8 +681,7 @@
                 "title": "Certificate External ID",
                 "description": "External identifier for the certificate",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ],
                 "type": "string",
                 "format": "uuid",
@@ -807,8 +691,8 @@
                 "title": "Certificate External URL",
                 "description": "External URL for the certificate",
                 "examples": [
-                  "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                  "https://carrot.eco/whitepaper.pdf"
+                  "https://explore.carrot.eco/",
+                  "https://whitepaper.carrot.eco/"
                 ],
                 "type": "string",
                 "format": "uri"
@@ -833,33 +717,41 @@
                     "title": "Smart Contract Address",
                     "description": "Address of the smart contract",
                     "examples": [
-                      "0x1234567890abcdef1234567890abcdef12345678",
-                      "0xabcdef1234567890abcdef1234567890abcdef12"
+                      "0x1234567890abcdef1234567890abcdef12345678"
                     ],
                     "type": "string",
                     "pattern": "^0x[a-f0-9]{40}$"
                   },
                   "chain_id": {
                     "title": "Chain ID",
-                    "description": "Blockchain network identifier",
+                    "description": "Supported Polygon chain identifiers",
                     "examples": [
                       137,
                       80002
                     ],
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 9007199254740991
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "const": 137
+                      },
+                      {
+                        "type": "number",
+                        "const": 80002
+                      }
+                    ]
                   },
                   "network_name": {
                     "title": "Blockchain Network Name",
-                    "description": "Name of the blockchain network",
+                    "description": "Supported Polygon network names",
                     "examples": [
                       "Polygon",
                       "Amoy"
                     ],
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100
+                    "enum": [
+                      "Polygon",
+                      "Amoy"
+                    ]
                   }
                 },
                 "required": [
@@ -901,8 +793,7 @@
                     "title": "MassID External ID",
                     "description": "Unique identifier for the MassID",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                      "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                     ],
                     "type": "string",
                     "format": "uuid",
@@ -912,7 +803,6 @@
                     "title": "MassID Token ID",
                     "description": "NFT token ID of the MassID",
                     "examples": [
-                      "123",
                       "456789",
                       "1000000"
                     ],
@@ -924,8 +814,8 @@
                     "title": "MassID External URL",
                     "description": "URL to view the MassID on Carrot Explorer",
                     "examples": [
-                      "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                      "https://carrot.eco/whitepaper.pdf"
+                      "https://explore.carrot.eco/",
+                      "https://whitepaper.carrot.eco/"
                     ],
                     "type": "string",
                     "format": "uri"
@@ -950,33 +840,41 @@
                         "title": "Smart Contract Address",
                         "description": "Address of the smart contract",
                         "examples": [
-                          "0x1234567890abcdef1234567890abcdef12345678",
-                          "0xabcdef1234567890abcdef1234567890abcdef12"
+                          "0x1234567890abcdef1234567890abcdef12345678"
                         ],
                         "type": "string",
                         "pattern": "^0x[a-f0-9]{40}$"
                       },
                       "chain_id": {
                         "title": "Chain ID",
-                        "description": "Blockchain network identifier",
+                        "description": "Supported Polygon chain identifiers",
                         "examples": [
                           137,
                           80002
                         ],
-                        "type": "integer",
-                        "minimum": 1,
-                        "maximum": 9007199254740991
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "const": 137
+                          },
+                          {
+                            "type": "number",
+                            "const": 80002
+                          }
+                        ]
                       },
                       "network_name": {
                         "title": "Blockchain Network Name",
-                        "description": "Name of the blockchain network",
+                        "description": "Supported Polygon network names",
                         "examples": [
                           "Polygon",
                           "Amoy"
                         ],
                         "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100
+                        "enum": [
+                          "Polygon",
+                          "Amoy"
+                        ]
                       }
                     },
                     "required": [
@@ -1062,8 +960,7 @@
                 "title": "Participant ID Hash",
                 "description": "Hash representing the participant identifier (SHA-256 hex string)",
                 "examples": [
-                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-                  "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
+                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                 ],
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$"
@@ -1128,8 +1025,7 @@
               "title": "Retirement Beneficiary ID",
               "description": "UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ],
               "type": "string",
               "format": "uuid",
@@ -1144,7 +1040,6 @@
                   "title": "Retirement Receipt Token ID",
                   "description": "Token ID of the retirement receipt NFT",
                   "examples": [
-                    "123",
                     "456789",
                     "1000000"
                   ],
@@ -1156,8 +1051,7 @@
                   "title": "Retirement Receipt External ID",
                   "description": "External identifier for the retirement receipt",
                   "examples": [
-                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                    "b2c4e6f8-a1b3-4c5d-9e8f-123456789abc"
+                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ],
                   "type": "string",
                   "format": "uuid",
@@ -1167,8 +1061,8 @@
                   "title": "Retirement Receipt External URL",
                   "description": "External URL for the retirement receipt",
                   "examples": [
-                    "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-                    "https://carrot.eco/whitepaper.pdf"
+                    "https://explore.carrot.eco/",
+                    "https://whitepaper.carrot.eco/"
                   ],
                   "type": "string",
                   "format": "uri"
@@ -1193,33 +1087,41 @@
                       "title": "Smart Contract Address",
                       "description": "Address of the smart contract",
                       "examples": [
-                        "0x1234567890abcdef1234567890abcdef12345678",
-                        "0xabcdef1234567890abcdef1234567890abcdef12"
+                        "0x1234567890abcdef1234567890abcdef12345678"
                       ],
                       "type": "string",
                       "pattern": "^0x[a-f0-9]{40}$"
                     },
                     "chain_id": {
                       "title": "Chain ID",
-                      "description": "Blockchain network identifier",
+                      "description": "Supported Polygon chain identifiers",
                       "examples": [
                         137,
                         80002
                       ],
-                      "type": "integer",
-                      "minimum": 1,
-                      "maximum": 9007199254740991
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "const": 137
+                        },
+                        {
+                          "type": "number",
+                          "const": 80002
+                        }
+                      ]
                     },
                     "network_name": {
                       "title": "Blockchain Network Name",
-                      "description": "Name of the blockchain network",
+                      "description": "Supported Polygon network names",
                       "examples": [
                         "Polygon",
                         "Amoy"
                       ],
                       "type": "string",
-                      "minLength": 1,
-                      "maxLength": 100
+                      "enum": [
+                        "Polygon",
+                        "Amoy"
+                      ]
                     }
                   },
                   "required": [
@@ -1265,8 +1167,7 @@
           "title": "Smart Contract Address",
           "description": "A valid Ethereum address in hexadecimal format",
           "examples": [
-            "0x1234567890abcdef1234567890abcdef12345678",
-            "0xabcdef1234567890abcdef1234567890abcdef12"
+            "0x1234567890abcdef1234567890abcdef12345678"
           ],
           "type": "string",
           "pattern": "^0x[a-f0-9]{40}$"
@@ -1278,22 +1179,34 @@
             137,
             80002
           ],
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 9007199254740991
+          "anyOf": [
+            {
+              "type": "number",
+              "const": 137
+            },
+            {
+              "type": "number",
+              "const": 80002
+            }
+          ]
         },
         "network_name": {
-          "title": "Network Name",
-          "description": "Name of the blockchain network",
+          "title": "Blockchain Network Name",
+          "description": "Supported Polygon network names",
+          "examples": [
+            "Polygon",
+            "Amoy"
+          ],
           "type": "string",
-          "minLength": 5,
-          "maxLength": 100
+          "enum": [
+            "Polygon",
+            "Amoy"
+          ]
         },
         "token_id": {
           "title": "Token ID",
           "description": "NFT token ID",
           "examples": [
-            "123",
             "456789",
             "1000000"
           ],
@@ -1361,8 +1274,7 @@
       "description": "Hex color code for marketplace background display",
       "examples": [
         "#2D5A27",
-        "#FF5733",
-        "#1E90FF"
+        "#FF5733"
       ],
       "type": "string",
       "minLength": 1,
@@ -1588,9 +1500,7 @@
                 "title": "Purchase Date",
                 "description": "Unix timestamp in milliseconds when the purchase was completed",
                 "examples": [
-                  1704067200000,
-                  1735689600000,
-                  1762371245149
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,

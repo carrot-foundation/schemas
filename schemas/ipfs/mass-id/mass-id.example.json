@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.37/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.40/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
     "hash": "ac08c3cf2e175e55961d6affdb38bc24591b84ceef7f3707c69ae3d52c148b2f",
     "type": "MassID",
-    "version": "0.1.37"
+    "version": "0.1.40"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -13,8 +13,8 @@
   "blockchain": {
     "token_id": "123",
     "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
-    "chain_id": 137,
-    "network_name": "Polygon"
+    "chain_id": 80002,
+    "network_name": "Amoy"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
