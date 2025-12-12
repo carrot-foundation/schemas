@@ -265,7 +265,7 @@
             },
             "name": {
               "title": "Methodology Name",
-              "description": "Name of the methodology used for certification",
+              "description": "Full official name of the methodology",
               "examples": [
                 "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
                 "AMS-III.F. | BOLD Recycling Credit"

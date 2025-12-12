@@ -207,7 +207,7 @@
             },
             "name": {
               "title": "Methodology Name",
-              "description": "Name of the methodology used for certification",
+              "description": "Full official name of the methodology",
               "examples": [
                 "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
                 "AMS-III.F. | BOLD Recycling Credit"
@@ -421,26 +421,17 @@
         },
         "rule_execution_results": {
           "title": "Audit Rule Execution Results",
-          "description": "Detailed results of each audit rule execution",
+          "description": "Detailed results of each audit rule execution, sorted by execution_started_at",
+          "minItems": 1,
           "type": "array",
           "items": {
             "title": "Audit Rule Execution Result",
             "description": "Detailed result of an audit rule execution",
             "type": "object",
             "properties": {
-              "rule_name": {
-                "title": "Rule Name",
-                "description": "Human-readable name of the audit rule",
-                "examples": [
-                  "Example text",
-                  "Sample value"
-                ],
-                "type": "string",
-                "minLength": 1
-              },
               "rule_id": {
                 "title": "Rule ID",
-                "description": "Unique identifier for the rule",
+                "description": "Unique identifier for the audit rule",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ],
@@ -461,9 +452,39 @@
                 "maxLength": 100,
                 "pattern": "^[a-z0-9-]+$"
               },
-              "execution_order": {
+              "rule_name": {
+                "title": "Rule Name",
+                "description": "Human-readable name of the rule",
+                "examples": [
+                  "Waste Mass is Unique",
+                  "No Conflicting GasID or Credit"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "rule_description": {
+                "title": "Rule Description",
+                "description": "Detailed description of what the rule validates and why it is necessary",
+                "examples": [
+                  "Validates that each MassID is unique within the system to prevent duplicate entries"
+                ],
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 500
+              },
+              "rule_source_code_url": {
+                "title": "Rule Source Code URL",
+                "description": "GitHub URL pointing to the implementation source code for this rule",
+                "examples": [
+                  "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js"
+                ],
+                "type": "string",
+                "pattern": "^https:\\/\\/github\\.com\\/.*$"
+              },
+              "rule_execution_order": {
                 "title": "Rule Execution Order",
-                "description": "Sequential order in which this rule was executed",
+                "description": "Sequential order in which this rule must be executed",
                 "examples": [
                   1,
                   123,
@@ -472,6 +493,36 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 9007199254740991
+              },
+              "execution_id": {
+                "title": "Execution ID",
+                "description": "Unique identifier for this specific rule execution",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "execution_started_at": {
+                "title": "Execution Started At",
+                "description": "ISO 8601 timestamp when the rule execution started",
+                "examples": [
+                  "2024-12-05T11:02:47.000Z"
+                ],
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "execution_completed_at": {
+                "title": "Execution Completed At",
+                "description": "ISO 8601 timestamp when the rule execution completed",
+                "examples": [
+                  "2024-12-05T11:02:47.000Z"
+                ],
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
               },
               "result": {
                 "title": "Rule Execution Result",
@@ -485,13 +536,6 @@
                   "PASSED",
                   "FAILED"
                 ]
-              },
-              "description": {
-                "title": "Rule Description",
-                "description": "Detailed description of what this rule validates",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 2000
               },
               "rule_processor_checksum": {
                 "title": "Rule Processor Checksum",
@@ -509,12 +553,16 @@
               }
             },
             "required": [
-              "rule_name",
               "rule_id",
               "rule_slug",
-              "execution_order",
+              "rule_name",
+              "rule_description",
+              "rule_source_code_url",
+              "rule_execution_order",
+              "execution_id",
+              "execution_started_at",
+              "execution_completed_at",
               "result",
-              "description",
               "rule_processor_checksum",
               "rule_source_code_version"
             ],
