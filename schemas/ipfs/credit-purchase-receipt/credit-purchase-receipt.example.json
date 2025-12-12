@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.45/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
   "schema": {
-    "hash": "d727bab08493eef1c028777a54bd18ea0addb3671e81368e794e285b1e7a1f10",
+    "hash": "4ae266b0b953245e711fe4769cf04ccc029485818a393604d8003c47fb78a2a2",
     "type": "CreditPurchaseReceipt",
-    "version": "0.1.43",
+    "version": "0.1.45",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-purchase-receipt.schema.json"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2025-02-03T12:45:30.000Z",
   "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
   "external_url": "https://explore.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-  "original_content_hash": "2f5158124cfcbd52a86d5e6130416d75d0ff9b0b3668d9452824fbde97006638",
-  "content_hash": "2f5158124cfcbd52a86d5e6130416d75d0ff9b0b3668d9452824fbde97006638",
+  "original_content_hash": "90aeaecea6dfba23359e9179ea8fc3fa9d64464b14c9dee092f0a61de79111ca",
+  "content_hash": "90aeaecea6dfba23359e9179ea8fc3fa9d64464b14c9dee092f0a61de79111ca",
   "name": "Credit Purchase Receipt #987 • 8.5 Credits Purchased",
   "short_name": "Credit Purchase Receipt #987",
   "description": "Receipt for purchasing 8.5 credits (C-CARB.CH4 and C-BIOW) across 3 certificates, with 3.0 credits retired immediately on behalf of Climate Action Corp. Credits delivered to EcoTech Solutions Inc.",
