@@ -45,8 +45,8 @@ const MassIDWastePropertiesSchema = z
       description: 'Specific subcategory of waste material',
     }),
     local_classification: MassIDLocalClassificationSchema.optional(),
-    net_weight: WeightKgSchema.meta({
-      title: 'Net Weight (kg)',
+    net_weight_kg: WeightKgSchema.meta({
+      title: 'Net Weight',
       description: 'Net weight of the waste batch in kilograms (kg)',
       examples: [3000],
     }),
@@ -144,8 +144,8 @@ const PickUpEventSchema = buildMassIDEventSchema(
       vehicle_type: VehicleTypeSchema.optional().meta({
         description: 'Type of vehicle used for pick-up operations',
       }),
-      weight: WeightKgSchema.optional().meta({
-        title: 'Pick-up Waste Weight (kg)',
+      weight_kg: WeightKgSchema.optional().meta({
+        title: 'Pick-up Waste Weight',
         description:
           'Weight of the waste picked up at the origin location in kilograms (kg)',
       }),
@@ -171,17 +171,19 @@ const WeighingEventSchema = buildMassIDEventSchema(
       vehicle_type: VehicleTypeSchema.optional().meta({
         description: 'Type of vehicle used during weighing',
       }),
-      container_capacity: WeightKgSchema.optional().meta({
-        title: 'Container Capacity (kg)',
-        description: 'Maximum container capacity in kilograms',
+      container_capacity_kg: WeightKgSchema.optional().meta({
+        title: 'Container Capacity',
+        description: 'Maximum container capacity in kilograms (kg)',
       }),
-      gross_weight: WeightKgSchema.optional().meta({
-        title: 'Gross Weight (kg)',
-        description: 'Total weight including vehicle/container before tare',
+      gross_weight_kg: WeightKgSchema.optional().meta({
+        title: 'Gross Weight',
+        description:
+          'Total weight including vehicle/container before tare in kilograms (kg)',
       }),
-      tare: WeightKgSchema.optional().meta({
-        title: 'Tare Weight (kg)',
-        description: 'Weight of the empty vehicle or container',
+      tare_kg: WeightKgSchema.optional().meta({
+        title: 'Tare Weight',
+        description:
+          'Weight of the empty vehicle or container in kilograms (kg)',
       }),
     })
     .optional()
@@ -203,15 +205,15 @@ const SortingEventSchema = buildMassIDEventSchema(
 ).safeExtend({
   data: z
     .strictObject({
-      initial_weight: WeightKgSchema.optional().meta({
-        title: 'Initial Weight (kg)',
+      initial_weight_kg: WeightKgSchema.optional().meta({
+        title: 'Initial Weight',
         description:
-          'Weight of the material entering the sorting process in kilograms',
+          'Weight of the material entering the sorting process in kilograms (kg)',
       }),
-      deducted_weight: WeightKgSchema.optional().meta({
-        title: 'Deducted Weight (kg)',
+      deducted_weight_kg: WeightKgSchema.optional().meta({
+        title: 'Deducted Weight',
         description:
-          'Weight removed during sorting (e.g., contaminants or moisture) in kilograms',
+          'Weight removed during sorting (e.g., contaminants or moisture) in kilograms (kg)',
       }),
     })
     .optional()

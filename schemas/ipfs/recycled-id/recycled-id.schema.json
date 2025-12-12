@@ -197,7 +197,7 @@
           "properties": {
             "recycled_mass_kg": {
               "title": "Recycled Mass Weight",
-              "description": "Total weight of materials successfully recycled",
+              "description": "Total weight of materials successfully recycled in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
@@ -479,7 +479,7 @@
             },
             "net_weight_kg": {
               "title": "Source Waste Net Weight",
-              "description": "Net weight of the source waste",
+              "description": "Net weight of the source waste in kilograms (kg)",
               "examples": [
                 500.35,
                 3000

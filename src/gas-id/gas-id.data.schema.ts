@@ -22,8 +22,8 @@ const GasIDSummarySchema = z
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,
     prevented_co2e_kg: WeightKgSchema.meta({
-      title: 'Prevented Emissions (CO₂e kg)',
-      description: 'CO₂e weight of the prevented emissions',
+      title: 'Prevented Emissions (CO₂e)',
+      description: 'CO₂e weight of the prevented emissions in kilograms (kg)',
     }),
   })
   .meta({

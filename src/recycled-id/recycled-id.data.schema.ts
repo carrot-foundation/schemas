@@ -16,7 +16,8 @@ const RecycledIDSummarySchema = z
   .strictObject({
     recycled_mass_kg: WeightKgSchema.meta({
       title: 'Recycled Mass Weight',
-      description: 'Total weight of materials successfully recycled',
+      description:
+        'Total weight of materials successfully recycled in kilograms (kg)',
     }),
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,

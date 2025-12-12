@@ -256,8 +256,8 @@
               ],
               "additionalProperties": false
             },
-            "net_weight": {
-              "title": "Net Weight (kg)",
+            "net_weight_kg": {
+              "title": "Net Weight",
               "description": "Net weight of the waste batch in kilograms (kg)",
               "examples": [
                 3000
@@ -269,7 +269,7 @@
           "required": [
             "type",
             "subtype",
-            "net_weight"
+            "net_weight_kg"
           ],
           "additionalProperties": false
         },
@@ -517,8 +517,8 @@
                           "Truck"
                         ]
                       },
-                      "weight": {
-                        "title": "Pick-up Waste Weight (kg)",
+                      "weight_kg": {
+                        "title": "Pick-up Waste Weight",
                         "description": "Weight of the waste picked up at the origin location in kilograms (kg)",
                         "examples": [
                           500.35,
@@ -668,9 +668,9 @@
                           "Truck"
                         ]
                       },
-                      "container_capacity": {
-                        "title": "Container Capacity (kg)",
-                        "description": "Maximum container capacity in kilograms",
+                      "container_capacity_kg": {
+                        "title": "Container Capacity",
+                        "description": "Maximum container capacity in kilograms (kg)",
                         "examples": [
                           500.35,
                           3000
@@ -678,9 +678,9 @@
                         "type": "number",
                         "minimum": 0
                       },
-                      "gross_weight": {
-                        "title": "Gross Weight (kg)",
-                        "description": "Total weight including vehicle/container before tare",
+                      "gross_weight_kg": {
+                        "title": "Gross Weight",
+                        "description": "Total weight including vehicle/container before tare in kilograms (kg)",
                         "examples": [
                           500.35,
                           3000
@@ -688,9 +688,9 @@
                         "type": "number",
                         "minimum": 0
                       },
-                      "tare": {
-                        "title": "Tare Weight (kg)",
-                        "description": "Weight of the empty vehicle or container",
+                      "tare_kg": {
+                        "title": "Tare Weight",
+                        "description": "Weight of the empty vehicle or container in kilograms (kg)",
                         "examples": [
                           500.35,
                           3000
@@ -828,9 +828,9 @@
                     "description": "Weights associated with sorting, including initial and deducted amounts",
                     "type": "object",
                     "properties": {
-                      "initial_weight": {
-                        "title": "Initial Weight (kg)",
-                        "description": "Weight of the material entering the sorting process in kilograms",
+                      "initial_weight_kg": {
+                        "title": "Initial Weight",
+                        "description": "Weight of the material entering the sorting process in kilograms (kg)",
                         "examples": [
                           500.35,
                           3000
@@ -838,9 +838,9 @@
                         "type": "number",
                         "minimum": 0
                       },
-                      "deducted_weight": {
-                        "title": "Deducted Weight (kg)",
-                        "description": "Weight removed during sorting (e.g., contaminants or moisture) in kilograms",
+                      "deducted_weight_kg": {
+                        "title": "Deducted Weight",
+                        "description": "Weight removed during sorting (e.g., contaminants or moisture) in kilograms (kg)",
                         "examples": [
                           500.35,
                           3000

@@ -22,7 +22,7 @@ export const WasteClassificationSchema = z
     }),
     net_weight_kg: WeightKgSchema.meta({
       title: 'Source Waste Net Weight',
-      description: 'Net weight of the source waste',
+      description: 'Net weight of the source waste in kilograms (kg)',
     }),
   })
   .meta({

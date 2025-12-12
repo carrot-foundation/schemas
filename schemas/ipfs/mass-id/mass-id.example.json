@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "32e7e8177ad7508dbf92e64c25e5870c8daace3d394f29e5e7a294990fdfd2c5",
+    "hash": "3d2b65f72226d63352e3149c2cc4d16ff288469d2771ed0bbd555531b57b746d",
     "type": "MassID",
     "version": "0.1.46",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
@@ -104,8 +104,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "7e4c060e723016b3128bea513681a1dbb982d61ca0d419796b96e0ea3c5fb867",
-  "content_hash": "7e4c060e723016b3128bea513681a1dbb982d61ca0d419796b96e0ea3c5fb867",
+  "original_content_hash": "728f1cdf131edfee970bfe22e86203a15524bdacd99695e249ce81df6a2dbf24",
+  "content_hash": "728f1cdf131edfee970bfe22e86203a15524bdacd99695e249ce81df6a2dbf24",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -114,7 +114,7 @@
         "code": "04 02 20",
         "system": "Ibama"
       },
-      "net_weight": 3000
+      "net_weight_kg": 3000
     },
     "locations": [
       {
@@ -163,7 +163,7 @@
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
         "data": {
-          "weight": 3000,
+          "weight_kg": 3000,
           "vehicle_type": "Truck"
         }
       },
@@ -178,9 +178,9 @@
           "scale_type": "Weighbridge (Truck Scale)",
           "container_type": "Truck",
           "vehicle_type": "Truck",
-          "container_capacity": 12000,
-          "gross_weight": 9500,
-          "tare": 3500
+          "container_capacity_kg": 12000,
+          "gross_weight_kg": 9500,
+          "tare_kg": 3500
         }
       },
       {
@@ -197,8 +197,8 @@
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
         "data": {
-          "initial_weight": 5000,
-          "deducted_weight": 250
+          "initial_weight_kg": 5000,
+          "deducted_weight_kg": 250
         }
       },
       {

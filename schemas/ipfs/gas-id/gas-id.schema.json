@@ -231,8 +231,8 @@
               "minimum": 0
             },
             "prevented_co2e_kg": {
-              "title": "Prevented Emissions (CO₂e kg)",
-              "description": "CO₂e weight of the prevented emissions",
+              "title": "Prevented Emissions (CO₂e)",
+              "description": "CO₂e weight of the prevented emissions in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
@@ -491,7 +491,7 @@
             },
             "net_weight_kg": {
               "title": "Source Waste Net Weight",
-              "description": "Net weight of the source waste",
+              "description": "Net weight of the source waste in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
