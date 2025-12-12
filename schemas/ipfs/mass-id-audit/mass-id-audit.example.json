@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.45/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "319b8254a5640bd3d7cfb81f857e9b07092275468bcf8f4b3c820b33cad76c95",
+    "hash": "f4776fe1bbefd622db2a07a683658fcd0bc20016086b4b297fd3cae977d038b9",
     "type": "MassID Audit",
     "version": "0.1.45",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-audit.schema.json"
@@ -14,14 +14,12 @@
   "created_at": "2025-01-27T15:42:18.000Z",
   "external_id": "7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "external_url": "https://explore.carrot.eco/document/7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
-  "content_hash": "7ab55040bdb871f9d8038d7ba453f11519a6258b398d6e75e792113eb8cc5de8",
+  "content_hash": "24487cb1ad22718d8354ed5a77acf83cdd4f46b6bbe7a3a63c43774606a29fa0",
   "data": {
     "audit_summary": {
-      "audit_date": "2025-01-27",
-      "methodology_compliance": "PASSED",
-      "total_rules_executed": 24,
-      "passed_rules": 24,
-      "failed_rules": 0
+      "completed_at": "2025-01-27T15:42:18.000Z",
+      "started_at": "2025-01-27T15:42:17.000Z",
+      "result": "PASSED"
     },
     "methodology": {
       "external_id": "8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9",
@@ -42,7 +40,7 @@
       "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json"
     },
-    "rules_execution_results": [
+    "rule_execution_results": [
       {
         "rule_name": "Waste Mass is Unique",
         "rule_slug": "waste-mass-is-unique",
@@ -285,5 +283,5 @@
       }
     ]
   },
-  "original_content_hash": "7ab55040bdb871f9d8038d7ba453f11519a6258b398d6e75e792113eb8cc5de8"
+  "original_content_hash": "24487cb1ad22718d8354ed5a77acf83cdd4f46b6bbe7a3a63c43774606a29fa0"
 }

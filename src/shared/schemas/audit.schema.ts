@@ -5,7 +5,7 @@ import {
   SlugSchema,
   UuidSchema,
 } from './primitives';
-import { MethodologyComplianceSchema } from './references/audit-reference.schema';
+import { AuditResultSchema } from './references/audit-reference.schema';
 
 export const AuditRuleDefinitionSchema = z
   .strictObject({
@@ -87,7 +87,7 @@ export const AuditRuleExecutionResultSchema = z
       title: 'Rule Execution Order',
       description: 'Sequential order in which this rule was executed',
     }),
-    result: MethodologyComplianceSchema.meta({
+    result: AuditResultSchema.meta({
       title: 'Rule Execution Result',
       description: 'Result of the rule execution',
     }),

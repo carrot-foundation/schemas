@@ -1,35 +1,26 @@
 import { z } from 'zod';
 import {
+  AuditResultSchema,
   AuditRuleExecutionResultsSchema,
   GasIDReferenceSchema,
-  IsoDateSchema,
+  IsoDateTimeSchema,
   MassIDReferenceSchema,
-  MethodologyComplianceSchema,
   MethodologyReferenceSchema,
-  NonNegativeIntegerSchema,
 } from '../shared';
 
 const MassIDAuditSummarySchema = z
   .strictObject({
-    audit_date: IsoDateSchema.meta({
-      title: 'Audit Date',
-      description: 'Date when the audit was completed',
+    started_at: IsoDateTimeSchema.meta({
+      title: 'Audit Start Timestamp',
+      description: 'ISO 8601 timestamp when the audit was started',
     }),
-    methodology_compliance: MethodologyComplianceSchema.meta({
-      title: 'Methodology Compliance',
+    completed_at: IsoDateTimeSchema.meta({
+      title: 'Audit Completion Timestamp',
+      description: 'ISO 8601 timestamp when the audit was completed',
+    }),
+    result: AuditResultSchema.meta({
+      title: 'Audit Result',
       description: 'Overall outcome of the audit process',
-    }),
-    total_rules_executed: NonNegativeIntegerSchema.meta({
-      title: 'Total Rules Executed',
-      description: 'Total number of audit rules executed',
-    }),
-    passed_rules: NonNegativeIntegerSchema.meta({
-      title: 'Passed Rules Count',
-      description: 'Number of rules that passed verification',
-    }),
-    failed_rules: NonNegativeIntegerSchema.meta({
-      title: 'Failed Rules Count',
-      description: 'Number of rules that failed verification',
     }),
   })
   .meta({
@@ -44,7 +35,7 @@ export const MassIDAuditDataSchema = z
     mass_id: MassIDReferenceSchema,
     gas_id: GasIDReferenceSchema,
     audit_summary: MassIDAuditSummarySchema,
-    rules_execution_results: AuditRuleExecutionResultsSchema,
+    rule_execution_results: AuditRuleExecutionResultsSchema,
   })
   .meta({
     title: 'MassID Audit Data',

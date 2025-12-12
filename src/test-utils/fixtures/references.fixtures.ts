@@ -12,13 +12,13 @@ import type {
  * Used as a base for creating custom audit reference fixtures in tests.
  */
 export const minimalAuditReferenceStub: AuditReference = {
-  date: '2025-06-24',
+  completed_at: '2025-06-24T13:02:25.000Z',
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   external_url:
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
-  methodology_compliance: 'PASSED',
+  result: 'PASSED',
   rules_executed: 21,
-  report:
+  report_uri:
     'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
 };
 
@@ -29,13 +29,13 @@ export const minimalAuditReferenceStub: AuditReference = {
  * Used in tests to validate audit reference schema parsing and validation.
  */
 export const validAuditReferenceFixture: AuditReference = {
-  date: '2025-06-24',
+  completed_at: '2025-06-24T13:02:25.000Z',
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   external_url:
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
-  methodology_compliance: 'PASSED',
+  result: 'PASSED',
   rules_executed: 21,
-  report:
+  report_uri:
     'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
 };
 

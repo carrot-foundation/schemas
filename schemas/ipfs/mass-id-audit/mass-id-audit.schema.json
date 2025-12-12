@@ -378,18 +378,28 @@
           "description": "Summary of audit execution results",
           "type": "object",
           "properties": {
-            "audit_date": {
-              "title": "Audit Date",
-              "description": "Date when the audit was completed",
+            "started_at": {
+              "title": "Audit Start Timestamp",
+              "description": "ISO 8601 timestamp when the audit was started",
               "examples": [
-                "2024-12-05"
+                "2024-12-05T11:02:47.000Z"
               ],
               "type": "string",
-              "format": "date",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
             },
-            "methodology_compliance": {
-              "title": "Methodology Compliance",
+            "completed_at": {
+              "title": "Audit Completion Timestamp",
+              "description": "ISO 8601 timestamp when the audit was completed",
+              "examples": [
+                "2024-12-05T11:02:47.000Z"
+              ],
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+            },
+            "result": {
+              "title": "Audit Result",
               "description": "Overall outcome of the audit process",
               "examples": [
                 "PASSED",
@@ -400,54 +410,16 @@
                 "PASSED",
                 "FAILED"
               ]
-            },
-            "total_rules_executed": {
-              "title": "Total Rules Executed",
-              "description": "Total number of audit rules executed",
-              "examples": [
-                0,
-                123,
-                4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
-            },
-            "passed_rules": {
-              "title": "Passed Rules Count",
-              "description": "Number of rules that passed verification",
-              "examples": [
-                0,
-                123,
-                4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
-            },
-            "failed_rules": {
-              "title": "Failed Rules Count",
-              "description": "Number of rules that failed verification",
-              "examples": [
-                0,
-                123,
-                4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
             }
           },
           "required": [
-            "audit_date",
-            "methodology_compliance",
-            "total_rules_executed",
-            "passed_rules",
-            "failed_rules"
+            "started_at",
+            "completed_at",
+            "result"
           ],
           "additionalProperties": false
         },
-        "rules_execution_results": {
+        "rule_execution_results": {
           "title": "Audit Rule Execution Results",
           "description": "Detailed results of each audit rule execution",
           "type": "array",
@@ -555,7 +527,7 @@
         "mass_id",
         "gas_id",
         "audit_summary",
-        "rules_execution_results"
+        "rule_execution_results"
       ],
       "additionalProperties": false
     }
