@@ -31,6 +31,7 @@
   "short_name": "MassID #123",
   "description": "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
   "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+  "animation_url": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
   "background_color": "#2D5A27",
   "external_links": [
     {
@@ -114,8 +115,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "6b158d8c1254806de57a3d055f44f19d382e4fbdea1b4997afda3d2b900cd62f",
-  "content_hash": "6b158d8c1254806de57a3d055f44f19d382e4fbdea1b4997afda3d2b900cd62f",
+  "original_content_hash": "a7d9175be91fd93188d60841aeef772f931671907380e34544f0d1125ddd7983",
+  "content_hash": "a7d9175be91fd93188d60841aeef772f931671907380e34544f0d1125ddd7983",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -176,6 +177,7 @@
         "timestamp": "2024-12-05T11:02:47.000Z",
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "weight": 3000,
         "data": {
           "vehicle_type": "Truck"
         }
