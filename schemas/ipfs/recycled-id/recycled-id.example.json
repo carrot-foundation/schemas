@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.48/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "c9544dd578a66d3fcbe00bbe7d558262a1087efd96d7556e94c3256ad239f69d",
+    "hash": "5a4874991ab123a297e9c6e0ee4ea18d7fc8e3ed85d7a2570ee321291c5e06dd",
     "type": "RecycledID",
-    "version": "0.1.46",
+    "version": "0.1.48",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id.schema.json"
   },
   "environment": {
@@ -17,11 +17,15 @@
     "network_name": "Polygon",
     "token_id": "789"
   },
+  "viewer_reference": {
+    "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+    "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+  },
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "24e23f4a2502d76974f095565bf6ab5baffaf5787bdf09b43e04af61afd09e4d",
-  "original_content_hash": "24e23f4a2502d76974f095565bf6ab5baffaf5787bdf09b43e04af61afd09e4d",
+  "content_hash": "f17fde25bc02247534ca42f8622770fe568521978576aaecd2443c43d6fa57c6",
+  "original_content_hash": "f17fde25bc02247534ca42f8622770fe568521978576aaecd2443c43d6fa57c6",
   "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
   "short_name": "RecycledID #789",
   "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",

@@ -1651,6 +1651,8 @@
     "external_id",
     "external_url",
     "content_hash",
+    "viewer_reference",
+    "environment",
     "data",
     "blockchain",
     "name",

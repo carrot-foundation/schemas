@@ -1,5 +1,9 @@
 import { z } from 'zod';
-import { BaseIpfsSchema } from './base.schema';
+import {
+  BaseIpfsSchema,
+  ViewerReferenceSchema,
+  RecordEnvironmentSchema,
+} from './base.schema';
 import {
   TokenIdSchema,
   IpfsUriSchema,
@@ -121,6 +125,8 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       description: 'Type/category of this NFT schema',
     }),
   }),
+  viewer_reference: ViewerReferenceSchema,
+  environment: RecordEnvironmentSchema,
   blockchain: BlockchainReferenceSchema,
   name: NonEmptyStringSchema.max(100).meta({
     title: 'NFT Name',
@@ -182,10 +188,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   }),
 })
   .superRefine((value, ctx) => {
-    const environmentNetwork = value.environment?.blockchain_network;
-    if (!environmentNetwork) {
-      return;
-    }
+    const environmentNetwork = value.environment.blockchain_network;
 
     const config = BLOCKCHAIN_NETWORK_CONFIG[environmentNetwork];
 
