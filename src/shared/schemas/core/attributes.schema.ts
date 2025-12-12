@@ -11,28 +11,63 @@ import {
   CreditTypeSchema,
 } from '../primitives';
 
+function getSchemaMetadata<T extends z.ZodTypeAny>(
+  schema: T,
+): Record<string, unknown> | undefined {
+  return (schema as { _def?: { metadata?: Record<string, unknown> } })._def
+    ?.metadata;
+}
+
+function mergeSchemaMeta(
+  schema: z.ZodTypeAny,
+  newMeta: { title: string; description: string },
+): { title: string; description: string; examples?: unknown[] } {
+  const baseMeta = getSchemaMetadata(schema);
+  const merged: { title: string; description: string; examples?: unknown[] } = {
+    title: newMeta.title,
+    description: newMeta.description,
+  };
+
+  if (baseMeta?.examples) {
+    merged.examples = baseMeta.examples as unknown[];
+  }
+
+  return merged;
+}
+
 export function createDateAttributeSchema(params: {
   traitType: string;
   title: string;
   description: string;
   omitMaxValue?: boolean;
 }) {
-  const base = params.omitMaxValue
+  const { omitMaxValue = true } = params;
+  const base = omitMaxValue
     ? NftAttributeSchema.omit({ max_value: true })
     : NftAttributeSchema;
+
+  const descriptionLower = params.description.toLowerCase();
+  const alreadyMentionsUnix =
+    descriptionLower.includes('unix') ||
+    descriptionLower.includes('unix timestamp');
+  const metaDescription = alreadyMentionsUnix
+    ? `${params.description} attribute`
+    : `${params.description} attribute using Unix timestamp in milliseconds`;
 
   return base
     .safeExtend({
       trait_type: z.literal(params.traitType),
-      value: UnixTimestampSchema.meta({
-        title: params.title,
-        description: params.description,
-      }),
+      value: UnixTimestampSchema.meta(
+        mergeSchemaMeta(UnixTimestampSchema, {
+          title: params.title,
+          description: params.description,
+        }),
+      ),
       display_type: z.literal('date'),
     })
     .meta({
       title: `${params.title} Attribute`,
-      description: `${params.description} attribute using Unix timestamp in milliseconds`,
+      description: metaDescription,
     });
 }
 
@@ -43,10 +78,12 @@ export function createWeightAttributeSchema(params: {
 }) {
   return NftAttributeSchema.safeExtend({
     trait_type: z.literal(params.traitType),
-    value: WeightKgSchema.meta({
-      title: params.title,
-      description: params.description,
-    }),
+    value: WeightKgSchema.meta(
+      mergeSchemaMeta(WeightKgSchema, {
+        title: params.title,
+        description: params.description,
+      }),
+    ),
     display_type: z.literal('number'),
   }).meta({
     title: `${params.title} Attribute`,
@@ -62,10 +99,12 @@ export function createNumericAttributeSchema(params: {
 }) {
   return NftAttributeSchema.safeExtend({
     trait_type: z.literal(params.traitType),
-    value: params.valueSchema.meta({
-      title: params.title,
-      description: params.description,
-    }),
+    value: params.valueSchema.meta(
+      mergeSchemaMeta(params.valueSchema, {
+        title: params.title,
+        description: params.description,
+      }),
+    ),
     display_type: z.literal('number'),
   }).meta({
     title: `${params.title} Attribute`,
@@ -136,7 +175,6 @@ export const MassIDRecyclingDateAttributeSchema = createDateAttributeSchema({
   title: 'MassID Recycling Date',
   description:
     'Unix timestamp in milliseconds when the source waste was recycled',
-  omitMaxValue: true,
 });
 export type MassIDRecyclingDateAttribute = z.infer<
   typeof MassIDRecyclingDateAttributeSchema
@@ -148,7 +186,6 @@ export const CertificateIssuanceDateAttributeSchema = createDateAttributeSchema(
     title: 'Certificate Issuance Date',
     description:
       'Unix timestamp in milliseconds when the certificate was issued',
-    omitMaxValue: true,
   },
 );
 export type CertificateIssuanceDateAttribute = z.infer<

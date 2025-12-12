@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/mass-id/mass-id.schema.json",
-  "version": "0.1.46",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/mass-id/mass-id.schema.json",
+  "version": "0.1.50",
   "type": "object",
   "properties": {
     "$schema": {
@@ -1172,7 +1172,7 @@
     },
     "attributes": {
       "title": "MassID Attributes",
-      "description": "MassID NFT attributes array. Provide the canonical set covering waste (type, subtype, net weight), origin (municipality), logistics (vehicle, manifests, weighing method/scale), and lifecycle timestamps (pick-up, drop-off, recycling). Length is validated; specific composition is producer-controlled.",
+      "description": "Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.",
       "minItems": 9,
       "maxItems": 14,
       "type": "array",
@@ -1742,7 +1742,7 @@
           },
           {
             "title": "Pick-up Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was picked up from the source attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the waste was picked up from the source attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1762,17 +1762,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
@@ -1784,7 +1773,7 @@
           },
           {
             "title": "Drop-off Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1804,17 +1793,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
@@ -1826,7 +1804,7 @@
           },
           {
             "title": "Recycling Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was recycled/processed attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the waste was recycled/processed attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1846,17 +1824,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
@@ -1878,6 +1845,8 @@
     "external_url",
     "original_content_hash",
     "content_hash",
+    "viewer_reference",
+    "environment",
     "data",
     "blockchain",
     "name",

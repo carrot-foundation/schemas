@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CreditPurchaseReceipt NFT IPFS Record",
   "description": "Complete CreditPurchaseReceipt NFT IPFS record including attributes and credit purchase data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
-  "version": "0.1.46",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "version": "0.1.50",
   "type": "object",
   "properties": {
     "$schema": {
@@ -879,7 +879,7 @@
                     "type": "string",
                     "format": "uri"
                   },
-                  "uri": {
+                  "ipfs_uri": {
                     "title": "MassID IPFS URI",
                     "description": "IPFS URI of the MassID record",
                     "examples": [
@@ -948,7 +948,7 @@
                   "external_id",
                   "token_id",
                   "external_url",
-                  "uri",
+                  "ipfs_uri",
                   "smart_contract"
                 ],
                 "additionalProperties": false
@@ -1546,7 +1546,7 @@
           },
           {
             "title": "Purchase Date Attribute",
-            "description": "Unix timestamp in milliseconds when the purchase was completed attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the purchase was completed attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1566,17 +1566,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
@@ -1722,6 +1711,8 @@
     "external_url",
     "original_content_hash",
     "content_hash",
+    "viewer_reference",
+    "environment",
     "data",
     "blockchain",
     "name",

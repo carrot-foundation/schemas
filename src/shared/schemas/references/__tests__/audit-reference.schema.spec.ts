@@ -8,7 +8,7 @@ import {
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import {
   AuditReferenceSchema,
-  MethodologyComplianceSchema,
+  AuditResultSchema,
 } from '../audit-reference.schema';
 
 describe('AuditReferenceSchema', () => {
@@ -16,19 +16,19 @@ describe('AuditReferenceSchema', () => {
     schema: AuditReferenceSchema,
     base: validAuditReferenceFixture,
     requiredFields: [
-      'date',
+      'completed_at',
       'external_id',
       'external_url',
-      'methodology_compliance',
+      'result',
       'rules_executed',
-      'report',
+      'report_uri',
     ],
     validCases: [
       {
         description: 'validates FAILED compliance status',
         build: () => ({
           ...validAuditReferenceFixture,
-          methodology_compliance: 'FAILED' as const,
+          result: 'FAILED' as const,
         }),
       },
     ],
@@ -36,7 +36,7 @@ describe('AuditReferenceSchema', () => {
       {
         description: 'rejects invalid date format',
         mutate: (invalid) => {
-          invalid.date = '2025/06/24';
+          invalid.completed_at = '2025/06/24';
         },
       },
       {
@@ -54,9 +54,7 @@ describe('AuditReferenceSchema', () => {
       {
         description: 'rejects invalid compliance status',
         mutate: (invalid) => {
-          invalid.methodology_compliance = 'INVALID' as unknown as
-            | 'PASSED'
-            | 'FAILED';
+          invalid.result = 'INVALID' as unknown as 'PASSED' | 'FAILED';
         },
       },
       {
@@ -74,31 +72,31 @@ describe('AuditReferenceSchema', () => {
       {
         description: 'rejects invalid IPFS URI format',
         mutate: (invalid) => {
-          invalid.report = 'https://example.com/file.json';
+          invalid.report_uri = 'https://example.com/file.json';
         },
       },
     ],
     typeCheck: (data, base) => {
-      expect(data.date).toBe(base.date);
+      expect(data.completed_at).toBe(base.completed_at);
       expect(data.external_id).toBe(base.external_id);
-      expect(data.methodology_compliance).toBe('PASSED');
+      expect(data.result).toBe('PASSED');
       expect(data.rules_executed).toBe(21);
     },
   });
 });
 
-describe('MethodologyComplianceSchema', () => {
+describe('AuditResultSchema', () => {
   it('validates PASSED', () => {
-    expectSchemaValid(MethodologyComplianceSchema, () => 'PASSED');
+    expectSchemaValid(AuditResultSchema, () => 'PASSED');
   });
 
   it('validates FAILED', () => {
-    expectSchemaValid(MethodologyComplianceSchema, () => 'FAILED');
+    expectSchemaValid(AuditResultSchema, () => 'FAILED');
   });
 
   it('rejects invalid value', () => {
     expectSchemaInvalid(
-      MethodologyComplianceSchema as unknown as z.ZodType<string>,
+      AuditResultSchema as unknown as z.ZodType<string>,
       'INVALID',
       () => undefined,
     );

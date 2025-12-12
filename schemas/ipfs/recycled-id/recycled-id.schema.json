@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "RecycledID NFT IPFS Record",
   "description": "Complete RecycledID NFT IPFS record including fixed attributes and recycling outcome data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/recycled-id/recycled-id.schema.json",
-  "version": "0.1.46",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "version": "0.1.50",
   "type": "object",
   "properties": {
     "$schema": {
@@ -265,14 +265,16 @@
             },
             "name": {
               "title": "Methodology Name",
-              "description": "Human-readable name of the methodology",
+              "description": "Full official name of the methodology",
               "examples": [
-                "BOLD Carbon (CH₄)",
-                "BOLD Recycling"
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
               ],
               "type": "string",
-              "minLength": 5,
-              "maxLength": 150
+              "enum": [
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
+              ]
             },
             "version": {
               "title": "Methodology Version",
@@ -296,7 +298,7 @@
               "type": "string",
               "format": "uri"
             },
-            "uri": {
+            "ipfs_uri": {
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
@@ -312,7 +314,8 @@
             "external_id",
             "name",
             "version",
-            "external_url"
+            "external_url",
+            "ipfs_uri"
           ],
           "additionalProperties": false
         },
@@ -321,15 +324,15 @@
           "description": "Reference to an audit record",
           "type": "object",
           "properties": {
-            "date": {
-              "title": "Audit Date",
-              "description": "Date when the audit was completed",
+            "completed_at": {
+              "title": "Audit Completion Timestamp",
+              "description": "ISO 8601 timestamp when the audit was completed",
               "examples": [
-                "2024-12-05"
+                "2024-12-05T11:02:47.000Z"
               ],
               "type": "string",
-              "format": "date",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
             },
             "external_id": {
               "title": "Audit External ID",
@@ -351,9 +354,9 @@
               "type": "string",
               "format": "uri"
             },
-            "methodology_compliance": {
-              "title": "Methodology Compliance",
-              "description": "Result of methodology compliance check",
+            "result": {
+              "title": "Audit Result",
+              "description": "Result of audit execution",
               "examples": [
                 "PASSED",
                 "FAILED"
@@ -376,7 +379,7 @@
               "minimum": 0,
               "maximum": 9007199254740991
             },
-            "report": {
+            "report_uri": {
               "title": "Audit Report",
               "description": "IPFS URI of the audit report",
               "examples": [
@@ -389,12 +392,12 @@
             }
           },
           "required": [
-            "date",
+            "completed_at",
             "external_id",
             "external_url",
-            "methodology_compliance",
+            "result",
             "rules_executed",
-            "report"
+            "report_uri"
           ],
           "additionalProperties": false
         },
@@ -434,7 +437,7 @@
               "type": "string",
               "format": "uri"
             },
-            "uri": {
+            "ipfs_uri": {
               "title": "MassID IPFS URI",
               "description": "IPFS URI of the MassID record",
               "examples": [
@@ -450,7 +453,7 @@
             "external_id",
             "token_id",
             "external_url",
-            "uri"
+            "ipfs_uri"
           ],
           "additionalProperties": false
         },
@@ -1084,6 +1087,8 @@
     "external_url",
     "original_content_hash",
     "content_hash",
+    "viewer_reference",
+    "environment",
     "data",
     "blockchain",
     "name",

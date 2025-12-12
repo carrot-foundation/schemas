@@ -4,7 +4,7 @@ import {
   NonNegativeFloatSchema,
   WeightKgSchema,
   IsoDateSchema,
-  IsoTimestampSchema,
+  IsoDateTimeSchema,
   LocationSchema,
   WastePropertiesSchema,
   AccreditedParticipantsSchema,
@@ -26,7 +26,7 @@ const GasIDSummarySchema = z
       title: 'Prevented Emissions (CO₂e)',
       description: 'CO₂e weight of the prevented emissions in kilograms (kg)',
     }),
-    issued_at: IsoTimestampSchema.meta({
+    issued_at: IsoDateTimeSchema.meta({
       title: 'Issued At',
       description: 'ISO 8601 timestamp when the certificate was issued',
     }),

@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID Audit IPFS Record",
   "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
-  "version": "0.1.46",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "version": "0.1.50",
   "type": "object",
   "properties": {
     "$schema": {
@@ -207,14 +207,16 @@
             },
             "name": {
               "title": "Methodology Name",
-              "description": "Human-readable name of the methodology",
+              "description": "Full official name of the methodology",
               "examples": [
-                "BOLD Carbon (CH₄)",
-                "BOLD Recycling"
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
               ],
               "type": "string",
-              "minLength": 5,
-              "maxLength": 150
+              "enum": [
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
+              ]
             },
             "version": {
               "title": "Methodology Version",
@@ -238,7 +240,7 @@
               "type": "string",
               "format": "uri"
             },
-            "uri": {
+            "ipfs_uri": {
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
@@ -254,7 +256,8 @@
             "external_id",
             "name",
             "version",
-            "external_url"
+            "external_url",
+            "ipfs_uri"
           ],
           "additionalProperties": false
         },
@@ -294,7 +297,7 @@
               "type": "string",
               "format": "uri"
             },
-            "uri": {
+            "ipfs_uri": {
               "title": "MassID IPFS URI",
               "description": "IPFS URI of the MassID record",
               "examples": [
@@ -310,7 +313,7 @@
             "external_id",
             "token_id",
             "external_url",
-            "uri"
+            "ipfs_uri"
           ],
           "additionalProperties": false
         },
@@ -350,7 +353,7 @@
               "type": "string",
               "format": "uri"
             },
-            "uri": {
+            "ipfs_uri": {
               "title": "GasID IPFS URI",
               "description": "IPFS URI of the GasID record",
               "examples": [
@@ -366,7 +369,7 @@
             "external_id",
             "token_id",
             "external_url",
-            "uri"
+            "ipfs_uri"
           ],
           "additionalProperties": false
         },
@@ -375,18 +378,28 @@
           "description": "Summary of audit execution results",
           "type": "object",
           "properties": {
-            "audit_date": {
-              "title": "Audit Date",
-              "description": "Date when the audit was completed",
+            "started_at": {
+              "title": "Audit Start Timestamp",
+              "description": "ISO 8601 timestamp when the audit was started",
               "examples": [
-                "2024-12-05"
+                "2024-12-05T11:02:47.000Z"
               ],
               "type": "string",
-              "format": "date",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
             },
-            "methodology_compliance": {
-              "title": "Methodology Compliance",
+            "completed_at": {
+              "title": "Audit Completion Timestamp",
+              "description": "ISO 8601 timestamp when the audit was completed",
+              "examples": [
+                "2024-12-05T11:02:47.000Z"
+              ],
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+            },
+            "result": {
+              "title": "Audit Result",
               "description": "Overall outcome of the audit process",
               "examples": [
                 "PASSED",
@@ -397,75 +410,28 @@
                 "PASSED",
                 "FAILED"
               ]
-            },
-            "total_rules_executed": {
-              "title": "Total Rules Executed",
-              "description": "Total number of audit rules executed",
-              "examples": [
-                0,
-                123,
-                4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
-            },
-            "passed_rules": {
-              "title": "Passed Rules Count",
-              "description": "Number of rules that passed verification",
-              "examples": [
-                0,
-                123,
-                4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
-            },
-            "failed_rules": {
-              "title": "Failed Rules Count",
-              "description": "Number of rules that failed verification",
-              "examples": [
-                0,
-                123,
-                4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
             }
           },
           "required": [
-            "audit_date",
-            "methodology_compliance",
-            "total_rules_executed",
-            "passed_rules",
-            "failed_rules"
+            "started_at",
+            "completed_at",
+            "result"
           ],
           "additionalProperties": false
         },
-        "rules_execution_results": {
+        "rule_execution_results": {
           "title": "Audit Rule Execution Results",
-          "description": "Detailed results of each audit rule execution",
+          "description": "Detailed results of each audit rule execution, sorted by execution_started_at",
+          "minItems": 1,
           "type": "array",
           "items": {
             "title": "Audit Rule Execution Result",
             "description": "Detailed result of an audit rule execution",
             "type": "object",
             "properties": {
-              "rule_name": {
-                "title": "Rule Name",
-                "description": "Human-readable name of the audit rule",
-                "examples": [
-                  "Example text",
-                  "Sample value"
-                ],
-                "type": "string",
-                "minLength": 1
-              },
               "rule_id": {
                 "title": "Rule ID",
-                "description": "Unique identifier for the rule",
+                "description": "Unique identifier for the audit rule",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ],
@@ -486,9 +452,39 @@
                 "maxLength": 100,
                 "pattern": "^[a-z0-9-]+$"
               },
-              "execution_order": {
+              "rule_name": {
+                "title": "Rule Name",
+                "description": "Human-readable name of the rule",
+                "examples": [
+                  "Waste Mass is Unique",
+                  "No Conflicting GasID or Credit"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "rule_description": {
+                "title": "Rule Description",
+                "description": "Detailed description of what the rule validates and why it is necessary",
+                "examples": [
+                  "Validates that each MassID is unique within the system to prevent duplicate entries"
+                ],
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 500
+              },
+              "rule_source_code_url": {
+                "title": "Rule Source Code URL",
+                "description": "GitHub URL pointing to the implementation source code for this rule",
+                "examples": [
+                  "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js"
+                ],
+                "type": "string",
+                "pattern": "^https:\\/\\/github\\.com\\/.*$"
+              },
+              "rule_execution_order": {
                 "title": "Rule Execution Order",
-                "description": "Sequential order in which this rule was executed",
+                "description": "Sequential order in which this rule must be executed",
                 "examples": [
                   1,
                   123,
@@ -497,6 +493,36 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 9007199254740991
+              },
+              "execution_id": {
+                "title": "Execution ID",
+                "description": "Unique identifier for this specific rule execution",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "execution_started_at": {
+                "title": "Execution Started At",
+                "description": "ISO 8601 timestamp when the rule execution started",
+                "examples": [
+                  "2024-12-05T11:02:47.000Z"
+                ],
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "execution_completed_at": {
+                "title": "Execution Completed At",
+                "description": "ISO 8601 timestamp when the rule execution completed",
+                "examples": [
+                  "2024-12-05T11:02:47.000Z"
+                ],
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
               },
               "result": {
                 "title": "Rule Execution Result",
@@ -510,13 +536,6 @@
                   "PASSED",
                   "FAILED"
                 ]
-              },
-              "description": {
-                "title": "Rule Description",
-                "description": "Detailed description of what this rule validates",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 2000
               },
               "rule_processor_checksum": {
                 "title": "Rule Processor Checksum",
@@ -534,12 +553,16 @@
               }
             },
             "required": [
-              "rule_name",
               "rule_id",
               "rule_slug",
-              "execution_order",
+              "rule_name",
+              "rule_description",
+              "rule_source_code_url",
+              "rule_execution_order",
+              "execution_id",
+              "execution_started_at",
+              "execution_completed_at",
               "result",
-              "description",
               "rule_processor_checksum",
               "rule_source_code_version"
             ],
@@ -552,7 +575,7 @@
         "mass_id",
         "gas_id",
         "audit_summary",
-        "rules_execution_results"
+        "rule_execution_results"
       ],
       "additionalProperties": false
     }

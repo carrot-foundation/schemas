@@ -29,15 +29,15 @@ describe('MassIDAuditSchema', () => {
     {
       description: 'rejects invalid rule execution result',
       mutate: (invalid: z.input<typeof schema>) => {
-        invalid.data.rules_execution_results =
-          invalid.data.rules_execution_results.map((rule, index) =>
+        invalid.data.rule_execution_results =
+          invalid.data.rule_execution_results.map((rule, index) =>
             index === 0
               ? {
                   ...rule,
                   result: 'UNKNOWN',
                 }
               : rule,
-          ) as typeof invalid.data.rules_execution_results;
+          ) as typeof invalid.data.rule_execution_results;
       },
     },
     {
@@ -59,7 +59,7 @@ describe('MassIDAuditSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('MassID Audit');
-        expect(data.data.rules_execution_results.length).toBeGreaterThan(0);
+        expect(data.data.rule_execution_results.length).toBeGreaterThan(0);
       },
     );
   });
