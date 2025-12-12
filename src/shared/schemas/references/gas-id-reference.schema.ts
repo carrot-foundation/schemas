@@ -29,5 +29,4 @@ export const GasIDReferenceSchema = z
     title: 'GasID Reference',
     description: 'Reference to a GasID record',
   });
-
 export type GasIDReference = z.infer<typeof GasIDReferenceSchema>;

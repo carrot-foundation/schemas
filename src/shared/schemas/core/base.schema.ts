@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import {
   SemanticVersionSchema,
-  IsoTimestampSchema,
+  IsoDateTimeSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   RecordSchemaTypeSchema,
@@ -83,7 +83,7 @@ export const BaseIpfsSchema = z
         'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json',
     }),
     schema: SchemaInfoSchema,
-    created_at: IsoTimestampSchema.meta({
+    created_at: IsoDateTimeSchema.meta({
       title: 'Created At',
       description: 'ISO 8601 creation timestamp for this record',
     }),

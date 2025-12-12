@@ -29,5 +29,4 @@ export const MassIDReferenceSchema = z
     title: 'MassID Reference',
     description: 'Reference to a MassID record',
   });
-
 export type MassIDReference = z.infer<typeof MassIDReferenceSchema>;

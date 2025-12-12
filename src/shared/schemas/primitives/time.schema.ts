@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const IsoTimestampSchema = z.iso
+export const IsoDateTimeSchema = z.iso
   .datetime({
     message: 'Must be a valid ISO 8601 timestamp with timezone information',
     offset: true,
@@ -10,7 +10,7 @@ export const IsoTimestampSchema = z.iso
     description: 'ISO 8601 formatted timestamp with timezone information',
     examples: ['2024-12-05T11:02:47.000Z'],
   });
-export type IsoTimestamp = z.infer<typeof IsoTimestampSchema>;
+export type IsoDateTime = z.infer<typeof IsoDateTimeSchema>;
 
 export const IsoDateSchema = z.iso
   .date('Must be a valid ISO 8601 date (YYYY-MM-DD)')

@@ -36,7 +36,6 @@ const MassIDAuditSummarySchema = z
     title: 'Audit Summary',
     description: 'Summary of audit execution results',
   });
-
 export type MassIDAuditSummary = z.infer<typeof MassIDAuditSummarySchema>;
 
 export const MassIDAuditDataSchema = z
@@ -51,5 +50,4 @@ export const MassIDAuditDataSchema = z
     title: 'MassID Audit Data',
     description: 'Complete data structure for MassID Audit records',
   });
-
 export type MassIDAuditData = z.infer<typeof MassIDAuditDataSchema>;
