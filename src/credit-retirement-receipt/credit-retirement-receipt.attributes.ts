@@ -6,8 +6,9 @@ import {
   NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
-  UnixTimestampSchema,
   uniqueBy,
+  createDateAttributeSchema,
+  createNumericAttributeSchema,
 } from '../shared';
 
 const CreditRetirementReceiptCreditAttributeSchema =
@@ -25,16 +26,11 @@ const CreditRetirementReceiptCreditAttributeSchema =
   });
 
 const CreditRetirementReceiptTotalCreditsAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Total Credits Retired'),
-    value: CreditAmountSchema.meta({
-      title: 'Total Credits Retired',
-      description: 'Total number of credits retired across all tokens',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Total Credits Retired Attribute',
-    description: 'Aggregate credits retired attribute',
+  createNumericAttributeSchema({
+    traitType: 'Total Credits Retired',
+    title: 'Total Credits Retired',
+    description: 'Total number of credits retired across all tokens',
+    valueSchema: CreditAmountSchema,
   });
 
 const CreditRetirementReceiptBeneficiaryAttributeSchema =
@@ -64,32 +60,19 @@ const CreditRetirementReceiptCreditHolderAttributeSchema =
   });
 
 const CreditRetirementReceiptRetirementDateAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Retirement Date'),
-    value: UnixTimestampSchema.meta({
-      title: 'Retirement Date',
-      description:
-        'Unix timestamp in milliseconds when the retirement was completed',
-    }),
-    display_type: z.literal('date'),
-  }).meta({
-    title: 'Retirement Date Attribute',
+  createDateAttributeSchema({
+    traitType: 'Retirement Date',
+    title: 'Retirement Date',
     description:
-      'Retirement date attribute using Unix timestamp in milliseconds',
+      'Unix timestamp in milliseconds when the retirement was completed',
   });
 
 const CreditRetirementReceiptCertificatesAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Certificates Retired'),
-    value: PositiveIntegerSchema.meta({
-      title: 'Certificates Retired',
-      description: 'Total number of certificates retired',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Certificates Retired Attribute',
-    description:
-      'Attribute representing how many certificates were retired in total',
+  createNumericAttributeSchema({
+    traitType: 'Certificates Retired',
+    title: 'Certificates Retired',
+    description: 'Total number of certificates retired',
+    valueSchema: PositiveIntegerSchema,
   });
 
 const CreditRetirementReceiptCollectionAttributeSchema =

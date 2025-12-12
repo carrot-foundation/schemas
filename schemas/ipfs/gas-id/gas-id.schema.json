@@ -199,11 +199,12 @@
               "title": "Gas Type",
               "description": "Type of gas prevented",
               "examples": [
-                "Methane (CH₄)",
-                "Carbon Dioxide (CO₂)"
+                "Methane (CH₄)"
               ],
               "type": "string",
-              "minLength": 1
+              "enum": [
+                "Methane (CH₄)"
+              ]
             },
             "credit_type": {
               "title": "Credit Type",

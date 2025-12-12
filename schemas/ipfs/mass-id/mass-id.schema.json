@@ -1284,8 +1284,8 @@
             "additionalProperties": false
           },
           {
-            "title": "Weight Attribute (kg)",
-            "description": "Net batch weight in kilograms (kg) for this MassID",
+            "title": "Weight Attribute",
+            "description": "Net batch weight in kilograms (kg) for this MassID attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1293,8 +1293,8 @@
                 "const": "Weight (kg)"
               },
               "value": {
-                "title": "Weight (kg)",
-                "description": "Weight measurement in kilograms",
+                "title": "Weight",
+                "description": "Net batch weight in kilograms (kg) for this MassID",
                 "examples": [
                   500.35,
                   3000
@@ -1326,6 +1326,8 @@
             "additionalProperties": false
           },
           {
+            "title": "Origin City Attribute",
+            "description": "Origin municipality attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1740,7 +1742,7 @@
           },
           {
             "title": "Pick-up Date Attribute",
-            "description": "Pick-up date attribute with Unix timestamp",
+            "description": "Unix timestamp in milliseconds when the waste was picked up from the source attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1760,17 +1762,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
@@ -1782,7 +1773,7 @@
           },
           {
             "title": "Drop-off Date Attribute",
-            "description": "Drop-off date attribute with Unix timestamp",
+            "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1802,17 +1793,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
@@ -1824,7 +1804,7 @@
           },
           {
             "title": "Recycling Date Attribute",
-            "description": "Recycling date attribute with Unix timestamp",
+            "description": "Unix timestamp in milliseconds when the waste was recycled/processed attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1844,17 +1824,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [

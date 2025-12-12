@@ -1,88 +1,73 @@
 import { z } from 'zod';
 import {
-  WeightKgSchema,
-  NftAttributeSchema,
   MethodologyAttributeSchema,
   CreditAmountAttributeSchema,
   CreditTypeAttributeSchema,
   SourceWasteTypeAttributeSchema,
   SourceWeightAttributeSchema,
   OriginCityAttributeSchema,
-  RecyclerAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  CertificateIssuanceDateAttributeSchema,
+  createWeightAttributeSchema,
 } from '../shared';
 
 const RecycledIDAttributeMethodologySchema = MethodologyAttributeSchema;
-
 export type RecycledIDAttributeMethodology = z.infer<
   typeof RecycledIDAttributeMethodologySchema
 >;
 
-const RecycledIDAttributeRecycledMassWeightSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Recycled Mass Weight (kg)'),
-    value: WeightKgSchema.meta({
-      title: 'Recycled Mass Weight',
-      description: 'Total weight of recycled materials in kilograms',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Recycled Mass Weight Attribute',
-    description: 'Recycled mass weight attribute with numeric display',
-  });
-
+const RecycledIDAttributeRecycledMassWeightSchema = createWeightAttributeSchema(
+  {
+    traitType: 'Recycled Mass Weight (kg)',
+    title: 'Recycled Mass Weight',
+    description: 'Total weight of recycled materials in kilograms',
+  },
+);
 export type RecycledIDAttributeRecycledMassWeight = z.infer<
   typeof RecycledIDAttributeRecycledMassWeightSchema
 >;
 
 const RecycledIDAttributeCreditAmountSchema = CreditAmountAttributeSchema;
-
 export type RecycledIDAttributeCreditAmount = z.infer<
   typeof RecycledIDAttributeCreditAmountSchema
 >;
 
 const RecycledIDAttributeCreditTypeSchema = CreditTypeAttributeSchema;
-
 export type RecycledIDAttributeCreditType = z.infer<
   typeof RecycledIDAttributeCreditTypeSchema
 >;
 
 const RecycledIDAttributeSourceWasteTypeSchema = SourceWasteTypeAttributeSchema;
-
 export type RecycledIDAttributeSourceWasteType = z.infer<
   typeof RecycledIDAttributeSourceWasteTypeSchema
 >;
 
 const RecycledIDAttributeSourceWeightSchema = SourceWeightAttributeSchema;
-
 export type RecycledIDAttributeSourceWeight = z.infer<
   typeof RecycledIDAttributeSourceWeightSchema
 >;
 
 const RecycledIDAttributeOriginCitySchema = OriginCityAttributeSchema;
-
 export type RecycledIDAttributeOriginCity = z.infer<
   typeof RecycledIDAttributeOriginCitySchema
 >;
 
-const RecycledIDAttributeRecyclerSchema = RecyclerAttributeSchema;
-
-export type RecycledIDAttributeRecycler = z.infer<
-  typeof RecycledIDAttributeRecyclerSchema
->;
-
 const RecycledIDAttributeMassIDTokenIdSchema = MassIDTokenIdAttributeSchema;
-
 export type RecycledIDAttributeMassIDTokenId = z.infer<
   typeof RecycledIDAttributeMassIDTokenIdSchema
 >;
 
 const RecycledIDAttributeMassIDRecyclingDateSchema =
   MassIDRecyclingDateAttributeSchema;
-
 export type RecycledIDAttributeMassIDRecyclingDate = z.infer<
   typeof RecycledIDAttributeMassIDRecyclingDateSchema
+>;
+
+const RecycledIDAttributeCertificateIssuanceDateSchema =
+  CertificateIssuanceDateAttributeSchema;
+export type RecycledIDAttributeCertificateIssuanceDate = z.infer<
+  typeof RecycledIDAttributeCertificateIssuanceDateSchema
 >;
 
 export const RecycledIDAttributesSchema = z
@@ -94,9 +79,9 @@ export const RecycledIDAttributesSchema = z
     RecycledIDAttributeSourceWasteTypeSchema,
     RecycledIDAttributeSourceWeightSchema,
     RecycledIDAttributeOriginCitySchema,
-    RecycledIDAttributeRecyclerSchema,
     RecycledIDAttributeMassIDTokenIdSchema,
     RecycledIDAttributeMassIDRecyclingDateSchema,
+    RecycledIDAttributeCertificateIssuanceDateSchema,
   ])
   .meta({
     title: 'RecycledID NFT Attribute Array',
