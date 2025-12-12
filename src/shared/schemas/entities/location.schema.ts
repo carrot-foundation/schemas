@@ -36,11 +36,11 @@ export const LocationSchema = z
     }),
     coordinates: CoordinatesSchema,
   })
+  .superRefine((record, ctx) => {
+    validateLocationBrazilData(record, ctx);
+  })
   .meta({
     title: 'Location',
     description: 'Geographic location with address and coordinate information',
-  })
-  .superRefine((record, ctx) => {
-    validateLocationBrazilData(record, ctx);
   });
 export type Location = z.infer<typeof LocationSchema>;
