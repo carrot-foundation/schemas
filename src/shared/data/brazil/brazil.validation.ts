@@ -33,9 +33,7 @@ export function validateLocationBrazilData(
         path: ['subdivision_code'],
         message: 'Must start with BR',
       });
-    }
-
-    if (municipality.subdivision !== subdivisionPart) {
+    } else if (municipality.subdivision !== subdivisionPart) {
       ctx.addIssue({
         code: 'custom',
         path: ['subdivision_code'],
