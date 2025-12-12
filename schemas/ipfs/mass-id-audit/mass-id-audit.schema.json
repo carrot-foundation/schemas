@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID Audit IPFS Record",
   "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
-  "version": "0.1.43",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.44/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "version": "0.1.44",
   "type": "object",
   "properties": {
     "$schema": {
