@@ -4,6 +4,8 @@ import {
   minimalNftAttributeStub,
   validNftAttributeNumberFixture,
 } from './nft-attribute.fixtures';
+import { minimalRecordEnvironmentStub } from './record-environment.fixtures';
+import { minimalViewerReferenceStub } from './viewer-reference.fixtures';
 
 /**
  * Minimal NFT IPFS record stub for testing.
@@ -22,6 +24,8 @@ export const minimalNftIpfsStub: NftIpfs = {
       'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/nft.schema.json',
   },
   blockchain: minimalBlockchainReferenceStub,
+  viewer_reference: minimalViewerReferenceStub,
+  environment: minimalRecordEnvironmentStub,
   created_at: '2024-12-05T11:02:47.000Z',
   external_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
   external_url:
@@ -55,6 +59,8 @@ export const validNftIpfsFixture: NftIpfs = {
       'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/nft.schema.json',
   },
   blockchain: minimalBlockchainReferenceStub,
+  viewer_reference: minimalViewerReferenceStub,
+  environment: minimalRecordEnvironmentStub,
   created_at: '2024-12-05T11:02:47.000Z',
   external_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
   external_url:

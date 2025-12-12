@@ -1185,6 +1185,8 @@
     "external_url",
     "original_content_hash",
     "content_hash",
+    "viewer_reference",
+    "environment",
     "data",
     "blockchain",
     "name",
