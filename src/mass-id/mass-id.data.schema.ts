@@ -164,7 +164,7 @@ const WeighingEventSchema = buildMassIDEventSchema(
     .strictObject({
       weighing_capture_method: WeighingCaptureMethodSchema.optional(),
       scale_type: ScaleTypeSchema.optional(),
-      container_type: ContainerTypeSchema.optional().optional().meta({
+      container_type: ContainerTypeSchema.optional().meta({
         description: 'Type of container holding the waste during weighing',
       }),
       vehicle_type: VehicleTypeSchema.optional().meta({
