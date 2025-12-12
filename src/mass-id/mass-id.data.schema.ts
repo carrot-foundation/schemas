@@ -14,6 +14,7 @@ import {
   VehicleTypeSchema,
   ScaleTypeSchema,
   WeighingCaptureMethodSchema,
+  ContainerTypeSchema,
 } from '../shared';
 
 const MassIDLocalClassificationSchema = z
@@ -163,13 +164,9 @@ const WeighingEventSchema = buildMassIDEventSchema(
     .strictObject({
       weighing_capture_method: WeighingCaptureMethodSchema.optional(),
       scale_type: ScaleTypeSchema.optional(),
-      container_type: NonEmptyStringSchema.max(50)
-        .optional()
-        .meta({
-          title: 'Container Type',
-          description: 'Type of container holding the waste during weighing',
-          examples: ['Roll-off container', 'Front loader bin'],
-        }),
+      container_type: ContainerTypeSchema.optional().optional().meta({
+        description: 'Type of container holding the waste during weighing',
+      }),
       vehicle_type: VehicleTypeSchema.optional().meta({
         description: 'Type of vehicle used during weighing',
       }),

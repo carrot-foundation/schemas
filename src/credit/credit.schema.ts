@@ -2,11 +2,11 @@ import { z } from 'zod';
 import {
   BaseIpfsSchema,
   IpfsUriSchema,
-  NonEmptyStringSchema,
-  SlugSchema,
-  TokenSymbolSchema,
+  CreditTokenSymbolSchema,
   buildSchemaUrl,
   getSchemaVersionOrDefault,
+  CreditTokenNameSchema,
+  CreditTokenSlugSchema,
 } from '../shared';
 
 export const CreditSchemaMeta = {
@@ -24,17 +24,9 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
       description: 'Credit schema type',
     }),
   }),
-  symbol: TokenSymbolSchema,
-  slug: SlugSchema.meta({
-    title: 'Token Slug',
-    description: 'URL-friendly identifier for the token',
-    examples: ['carbon'],
-  }).optional(),
-  name: NonEmptyStringSchema.meta({
-    title: 'Token Name',
-    description: 'Full human-readable name of the ERC20 token',
-    examples: ['Carrot Carbon'],
-  }),
+  symbol: CreditTokenSymbolSchema,
+  slug: CreditTokenSlugSchema,
+  name: CreditTokenNameSchema,
   decimals: z
     .number()
     .int()
@@ -61,7 +53,7 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
       description:
         'Comprehensive description of the credit token, its purpose, and impact',
       examples: [
-        'Carrot Carbon (C-CARB) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices.',
+        'Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices.',
       ],
     }),
 }).meta(CreditSchemaMeta);

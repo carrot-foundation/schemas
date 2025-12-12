@@ -18,7 +18,6 @@ describe('SchemaInfoSchema', () => {
   });
 
   it('rejects schema info without ipfs_uri', () => {
-    // Remove ipfs_uri to simulate missing field
     const { ipfs_uri, ...missingIpfsUri } = minimalSchemaInfoStub;
     expect(ipfs_uri).toBeDefined();
     const result = SchemaInfoSchema.safeParse(missingIpfsUri);

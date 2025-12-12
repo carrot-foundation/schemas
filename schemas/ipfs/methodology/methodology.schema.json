@@ -223,12 +223,14 @@
           "title": "Methodology Name",
           "description": "Full official name of the methodology",
           "examples": [
-            "BOLD Recycling",
-            "BOLD Carbon (CH₄)"
+            "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+            "AMS-III.F. | BOLD Recycling Credit"
           ],
           "type": "string",
-          "minLength": 1,
-          "maxLength": 100
+          "enum": [
+            "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+            "AMS-III.F. | BOLD Recycling Credit"
+          ]
         },
         "short_name": {
           "title": "Methodology Short Name",
@@ -245,13 +247,14 @@
           "title": "Methodology Slug",
           "description": "URL-friendly identifier for the methodology",
           "examples": [
-            "bold-carbon-ch4",
-            "bold-recycling"
+            "bold-recycling",
+            "bold-carbon-ch4"
           ],
           "type": "string",
-          "minLength": 1,
-          "maxLength": 100,
-          "pattern": "^[a-z0-9-]+$"
+          "enum": [
+            "bold-recycling",
+            "bold-carbon-ch4"
+          ]
         },
         "version": {
           "title": "Methodology Version",

@@ -224,37 +224,43 @@
       "additionalProperties": {}
     },
     "symbol": {
-      "title": "Token Symbol",
-      "description": "Symbol representing a token or cryptocurrency",
+      "title": "Credit Token Symbol",
+      "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
       "examples": [
-        "MASS",
-        "REC",
-        "GAS"
+        "C-CARB.CH4",
+        "C-BIOW"
       ],
       "type": "string",
-      "minLength": 1,
-      "maxLength": 10,
-      "pattern": "^[A-Z0-9-]+$"
+      "enum": [
+        "C-CARB.CH4",
+        "C-BIOW"
+      ]
     },
     "slug": {
-      "title": "Token Slug",
-      "description": "URL-friendly identifier for the token",
+      "title": "Credit Token Slug",
+      "description": "Slug of the credit token (e.g., carbon-methane, biowaste)",
       "examples": [
-        "carbon"
+        "carbon-methane",
+        "biowaste"
       ],
       "type": "string",
-      "minLength": 1,
-      "maxLength": 100,
-      "pattern": "^[a-z0-9-]+$"
+      "enum": [
+        "carbon-methane",
+        "biowaste"
+      ]
     },
     "name": {
-      "title": "Token Name",
-      "description": "Full human-readable name of the ERC20 token",
+      "title": "Credit Token Name",
+      "description": "Name of the credit token (e.g., Carrot Carbon (CH₄), Carrot Biowaste)",
       "examples": [
-        "Carrot Carbon"
+        "Carrot Carbon (CH₄)",
+        "Carrot Biowaste"
       ],
       "type": "string",
-      "minLength": 1
+      "enum": [
+        "Carrot Carbon (CH₄)",
+        "Carrot Biowaste"
+      ]
     },
     "decimals": {
       "title": "Token Decimals",
@@ -280,7 +286,7 @@
       "title": "Token Description",
       "description": "Comprehensive description of the credit token, its purpose, and impact",
       "examples": [
-        "Carrot Carbon (C-CARB) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices."
+        "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices."
       ],
       "type": "string",
       "minLength": 50,
@@ -296,6 +302,7 @@
     "original_content_hash",
     "content_hash",
     "symbol",
+    "slug",
     "name",
     "decimals",
     "image",

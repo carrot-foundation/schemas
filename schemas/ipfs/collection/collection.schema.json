@@ -231,8 +231,12 @@
         "BOLD Brazil"
       ],
       "type": "string",
-      "minLength": 1,
-      "maxLength": 150
+      "enum": [
+        "BOLD Innovators",
+        "BOLD Cold Start - Carazinho",
+        "BOLD Cold Start - Jundiaí",
+        "BOLD Brazil"
+      ]
     },
     "slug": {
       "title": "Collection Slug",
@@ -242,9 +246,12 @@
         "bold-brazil"
       ],
       "type": "string",
-      "minLength": 1,
-      "maxLength": 100,
-      "pattern": "^[a-z0-9-]+$"
+      "enum": [
+        "bold-innovators",
+        "bold-cold-start-jundiai",
+        "bold-cold-start-carazinho",
+        "bold-brazil"
+      ]
     },
     "image": {
       "title": "Collection Image",

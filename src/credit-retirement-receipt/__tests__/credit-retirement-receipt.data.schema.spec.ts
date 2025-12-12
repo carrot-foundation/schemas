@@ -17,7 +17,7 @@ function applyCreditSymbolOverride(
       ...credit,
       credit_symbol: creditSymbol,
     })),
-  }));
+  })) as unknown as CreditRetirementReceiptData['certificates'];
 }
 
 describe('CreditRetirementReceiptDataSchema', () => {
@@ -44,7 +44,8 @@ describe('CreditRetirementReceiptDataSchema', () => {
 
   it('requires credit_symbol to exist in credits list', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.certificates[0].credits_retired[0].credit_symbol = 'UNKNOWN';
+      invalid.certificates[0].credits_retired[0].credit_symbol =
+        'UNKNOWN' as unknown as (typeof invalid.certificates)[number]['credits_retired'][number]['credit_symbol'];
     });
   });
 
@@ -56,7 +57,8 @@ describe('CreditRetirementReceiptDataSchema', () => {
 
   it('requires certificate collection slug to exist in collections', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.certificates[0].collection_slug = 'unknown-collection';
+      invalid.certificates[0].collection_slug =
+        'unknown-collection' as unknown as (typeof invalid.certificates)[number]['collection_slug'];
     });
   });
 
@@ -78,7 +80,7 @@ describe('CreditRetirementReceiptDataSchema', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates = applyCreditSymbolOverride(
         invalid.certificates,
-        'C-CARB',
+        'C-CARB.CH4',
       );
     });
   });
@@ -91,7 +93,8 @@ describe('CreditRetirementReceiptDataSchema', () => {
 
   it('requires certificate credit slug to exist in credits', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.certificates[0].credits_retired[0].credit_slug = 'unknown-credit';
+      invalid.certificates[0].credits_retired[0].credit_slug =
+        'unknown-credit' as unknown as (typeof invalid.certificates)[number]['credits_retired'][number]['credit_slug'];
     });
   });
 
@@ -106,7 +109,7 @@ describe('CreditRetirementReceiptDataSchema', () => {
       invalid.summary.credit_symbols = [
         ...invalid.summary.credit_symbols,
         'EXTRA-CREDIT',
-      ];
+      ] as unknown as typeof invalid.summary.credit_symbols;
     });
   });
 
@@ -115,7 +118,7 @@ describe('CreditRetirementReceiptDataSchema', () => {
       invalid.summary.collection_slugs = [
         ...invalid.summary.collection_slugs,
         'extra-collection',
-      ];
+      ] as unknown as typeof invalid.summary.collection_slugs;
     });
   });
 
@@ -132,8 +135,10 @@ describe('CreditRetirementReceiptDataSchema', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates = invalid.certificates.map((certificate) => ({
         ...certificate,
-        collection_slug: 'unknown-collection',
-        credit_slug: 'unknown-credit',
+        collection_slug:
+          'unknown-collection' as unknown as (typeof invalid.certificates)[number]['collection_slug'],
+        credit_slug:
+          'unknown-credit' as unknown as (typeof invalid.certificates)[number]['credits_retired'][number]['credit_slug'],
       }));
     });
   });
@@ -151,7 +156,7 @@ describe('CreditRetirementReceiptDataSchema', () => {
       invalid.summary.collection_slugs = [
         ...invalid.summary.collection_slugs,
         'unused-collection',
-      ];
+      ] as unknown as typeof invalid.summary.collection_slugs;
     });
   });
 
@@ -172,6 +177,62 @@ describe('CreditRetirementReceiptDataSchema', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.summary.total_retirement_amount =
         invalid.summary.total_retirement_amount + 1;
+    });
+  });
+
+  it('rejects certificate collection_slug not in collections', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const usedCollectionSlug = invalid.certificates[0].collection_slug;
+      invalid.collections = invalid.collections.filter(
+        (col) => col.slug !== usedCollectionSlug,
+      );
+      invalid.summary.collection_slugs =
+        invalid.summary.collection_slugs.filter(
+          (slug) => slug !== usedCollectionSlug,
+        );
+    });
+  });
+
+  it('rejects credits_retired credit_slug not in credits', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const usedCreditSlug =
+        invalid.certificates[0].credits_retired[0].credit_slug;
+      invalid.credits = invalid.credits.filter(
+        (credit) => credit.slug !== usedCreditSlug,
+      );
+      invalid.summary.credit_symbols = invalid.summary.credit_symbols.filter(
+        (symbol) => {
+          const credit = invalid.credits.find((c) => c.slug === usedCreditSlug);
+          return credit ? symbol !== credit.symbol : true;
+        },
+      );
+    });
+  });
+
+  it('rejects credits_retired credit_symbol not in credits', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const firstCreditSymbol = invalid.credits[0].symbol;
+      invalid.certificates[0].credits_retired[0].credit_symbol =
+        firstCreditSymbol === 'C-CARB.CH4' ? 'C-BIOW' : 'C-CARB.CH4';
+      const testSymbol =
+        invalid.certificates[0].credits_retired[0].credit_symbol;
+      invalid.credits = invalid.credits.filter((c) => c.symbol !== testSymbol);
+      invalid.summary.credit_symbols = invalid.summary.credit_symbols.filter(
+        (s) => s !== testSymbol,
+      );
+    });
+  });
+
+  it('rejects collections with no retired amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections.push({
+        slug: 'bold-innovators',
+        external_id: '00000000-0000-0000-0000-000000000000',
+        name: 'BOLD Innovators',
+        external_url: 'https://example.com/bold-innovators',
+        uri: 'ipfs://bold-innovators',
+        amount: 0,
+      });
     });
   });
 });

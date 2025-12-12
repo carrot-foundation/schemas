@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "af19ba1e00f991cae8a439ef4af46e3936f8ddae47b6358a95d12a4146c48a16",
+    "hash": "591bb403b772858f2ff1b8385cd5fe70acdf3985ad82161446400c2e2c7623a2",
     "type": "Methodology",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/methodology.schema.json"
@@ -14,10 +14,10 @@
   "created_at": "2025-03-12T10:00:00.000Z",
   "external_id": "3f8c2443-df76-4ce9-9d94-6c813d4c9ef7",
   "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-  "content_hash": "41c834ae3dc1d65964171e68e6776bca32c120877b6c4e331f8a65a8c26de786",
+  "content_hash": "18e1343dc5259fb3f1d5b5559f157011878aa5361c4d698a775ba13c81e2395e",
   "data": {
-    "name": "BOLD Carbon (CH₄)",
-    "short_name": "BOLD Carbon",
+    "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+    "short_name": "BOLD Carbon (CH₄)",
     "slug": "bold-carbon-ch4",
     "version": "1.3.0",
     "description": "Certifies methane emissions prevented through organic waste composting using UNFCCC AMS-III.F methodology. Tracks complete chain of custody from waste generation through professional composting to quantify CO₂e emissions reductions. This methodology provides a comprehensive framework for measuring, reporting, and verifying the environmental benefits of diverting organic waste from landfills to composting facilities.",
@@ -195,5 +195,5 @@
       }
     ]
   },
-  "original_content_hash": "41c834ae3dc1d65964171e68e6776bca32c120877b6c4e331f8a65a8c26de786"
+  "original_content_hash": "18e1343dc5259fb3f1d5b5559f157011878aa5361c4d698a775ba13c81e2395e"
 }

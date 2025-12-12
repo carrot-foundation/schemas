@@ -4,9 +4,9 @@ import {
   IpfsUriSchema,
   IsoDateSchema,
   MethodologyNameSchema,
+  MethodologySlugSchema,
   NonEmptyStringSchema,
   SemanticVersionSchema,
-  SlugSchema,
 } from '../shared';
 
 export const MethodologyDataSchema = z
@@ -20,11 +20,7 @@ export const MethodologyDataSchema = z
       description: 'Abbreviated name for UI display and references',
       examples: ['BOLD Carbon', 'BOLD Recycling'],
     }),
-    slug: SlugSchema.meta({
-      title: 'Methodology Slug',
-      description: 'URL-friendly identifier for the methodology',
-      examples: ['bold-carbon-ch4', 'bold-recycling'],
-    }),
+    slug: MethodologySlugSchema,
     version: SemanticVersionSchema.meta({
       title: 'Methodology Version',
       description: 'Version of the methodology',

@@ -61,7 +61,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
       description: 'rejects certificate credit slug not present in credits',
       mutate: (invalid) => {
         invalid.data.certificates[0].credits_retired[0].credit_slug =
-          'unknown-credit';
+          'unknown-credit' as unknown as (typeof invalid.data.certificates)[number]['credits_retired'][number]['credit_slug'];
       },
     },
     {

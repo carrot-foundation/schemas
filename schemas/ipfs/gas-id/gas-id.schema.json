@@ -238,12 +238,14 @@
               "title": "Credit Type",
               "description": "Type of credit issued",
               "examples": [
-                "Organic",
+                "Biowaste",
                 "Carbon (CH₄)"
               ],
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "enum": [
+                "Biowaste",
+                "Carbon (CH₄)"
+              ]
             },
             "credit_amount": {
               "title": "Credit Amount",
@@ -493,8 +495,9 @@
                 "Organic"
               ],
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "enum": [
+                "Organic"
+              ]
             },
             "subtype": {
               "title": "Source Waste Subtype",
@@ -504,8 +507,15 @@
                 "Domestic Sludge"
               ],
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "enum": [
+                "Domestic Sludge",
+                "EFB similar to Garden, Yard and Park Waste",
+                "Food, Food Waste and Beverages",
+                "Garden, Yard and Park Waste",
+                "Industrial Sludge",
+                "Tobacco",
+                "Wood and Wood Products"
+              ]
             },
             "net_weight_kg": {
               "title": "Source Waste Net Weight",
@@ -798,8 +808,17 @@
                   "Recycler"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "enum": [
+                  "Community Impact Pool",
+                  "Hauler",
+                  "Network Integrator",
+                  "Methodology Author",
+                  "Methodology Developer",
+                  "Network",
+                  "Processor",
+                  "Recycler",
+                  "Waste Generator"
+                ]
               },
               "accreditation_id": {
                 "title": "Accreditation ID",
@@ -885,8 +904,17 @@
                       "Recycler"
                     ],
                     "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100
+                    "enum": [
+                      "Community Impact Pool",
+                      "Hauler",
+                      "Network Integrator",
+                      "Methodology Author",
+                      "Methodology Developer",
+                      "Network",
+                      "Processor",
+                      "Recycler",
+                      "Waste Generator"
+                    ]
                   },
                   "reward_percentage": {
                     "title": "Reward Percentage",

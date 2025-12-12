@@ -487,8 +487,7 @@
                 "description": "Human-readable name of the audit rule",
                 "examples": [
                   "Example text",
-                  "Sample value",
-                  "Test string"
+                  "Sample value"
                 ],
                 "type": "string",
                 "minLength": 1
