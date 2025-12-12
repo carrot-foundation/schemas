@@ -231,8 +231,9 @@
                 "Organic"
               ],
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "enum": [
+                "Organic"
+              ]
             },
             "subtype": {
               "title": "Waste Subtype",
@@ -242,8 +243,15 @@
                 "Domestic Sludge"
               ],
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "enum": [
+                "Domestic Sludge",
+                "EFB similar to Garden, Yard and Park Waste",
+                "Food, Food Waste and Beverages",
+                "Garden, Yard and Park Waste",
+                "Industrial Sludge",
+                "Tobacco",
+                "Wood and Wood Products"
+              ]
             },
             "local_classification": {
               "title": "Local Classification",
@@ -465,8 +473,17 @@
                     "Recycler"
                   ],
                   "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100
+                  "enum": [
+                    "Community Impact Pool",
+                    "Hauler",
+                    "Network Integrator",
+                    "Methodology Author",
+                    "Methodology Developer",
+                    "Network",
+                    "Processor",
+                    "Recycler",
+                    "Waste Generator"
+                  ]
                 }
               }
             },
@@ -558,8 +575,18 @@
                           "Truck"
                         ],
                         "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100
+                        "enum": [
+                          "Bicycle",
+                          "Boat",
+                          "Car",
+                          "Cargo Ship",
+                          "Cart",
+                          "Mini Van",
+                          "Motorcycle",
+                          "Others",
+                          "Sludge Pipes",
+                          "Truck"
+                        ]
                       }
                     },
                     "additionalProperties": false
@@ -643,13 +670,16 @@
                         "title": "Weighing Capture Method",
                         "description": "Method used to capture weight data",
                         "examples": [
-                          "Digital scale integration",
-                          "Manual entry",
-                          "Automated capture via IoT scale"
+                          "Digital",
+                          "Manual"
                         ],
                         "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100
+                        "enum": [
+                          "Digital",
+                          "Manual",
+                          "Photo (Scale + Cargo)",
+                          "Transport Manifest"
+                        ]
                       },
                       "scale_type": {
                         "title": "Scale Type",
@@ -658,19 +688,36 @@
                           "Weighbridge (Truck Scale)"
                         ],
                         "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100
+                        "enum": [
+                          "Bin Scale",
+                          "Conveyor Belt Scale",
+                          "Floor Scale",
+                          "Forklift Scale",
+                          "Hanging / Crane Scale",
+                          "Onboard Truck Scale",
+                          "Pallet Scale",
+                          "Portable Axle Weigher",
+                          "Precision / Bench Scale",
+                          "Weighbridge (Truck Scale)"
+                        ]
                       },
                       "container_type": {
-                        "title": "Container Type",
                         "description": "Type of container holding the waste during weighing",
+                        "title": "Container Type",
                         "examples": [
-                          "Roll-off container",
-                          "Front loader bin"
+                          "Bag",
+                          "Bin"
                         ],
                         "type": "string",
-                        "minLength": 1,
-                        "maxLength": 50
+                        "enum": [
+                          "Bag",
+                          "Bin",
+                          "Drum",
+                          "Pail",
+                          "Street Bin",
+                          "Truck",
+                          "Waste Box"
+                        ]
                       },
                       "vehicle_type": {
                         "description": "Type of vehicle used during weighing",
@@ -679,8 +726,18 @@
                           "Truck"
                         ],
                         "type": "string",
-                        "minLength": 1,
-                        "maxLength": 100
+                        "enum": [
+                          "Bicycle",
+                          "Boat",
+                          "Car",
+                          "Cargo Ship",
+                          "Cart",
+                          "Mini Van",
+                          "Motorcycle",
+                          "Others",
+                          "Sludge Pipes",
+                          "Truck"
+                        ]
                       },
                       "container_capacity": {
                         "title": "Container Capacity (kg)",
@@ -1238,8 +1295,9 @@
                   "Organic"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "enum": [
+                  "Organic"
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1287,8 +1345,15 @@
                   "Domestic Sludge"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "enum": [
+                  "Domestic Sludge",
+                  "EFB similar to Garden, Yard and Park Waste",
+                  "Food, Food Waste and Beverages",
+                  "Garden, Yard and Park Waste",
+                  "Industrial Sludge",
+                  "Tobacco",
+                  "Wood and Wood Products"
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1526,8 +1591,18 @@
                   "Truck"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "enum": [
+                  "Bicycle",
+                  "Boat",
+                  "Car",
+                  "Cargo Ship",
+                  "Cart",
+                  "Mini Van",
+                  "Motorcycle",
+                  "Others",
+                  "Sludge Pipes",
+                  "Truck"
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1768,13 +1843,16 @@
                 "title": "Weighing Capture Method",
                 "description": "Method used to capture weight data",
                 "examples": [
-                  "Digital scale integration",
-                  "Manual entry",
-                  "Automated capture via IoT scale"
+                  "Digital",
+                  "Manual"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "enum": [
+                  "Digital",
+                  "Manual",
+                  "Photo (Scale + Cargo)",
+                  "Transport Manifest"
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1821,8 +1899,18 @@
                   "Weighbridge (Truck Scale)"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                "enum": [
+                  "Bin Scale",
+                  "Conveyor Belt Scale",
+                  "Floor Scale",
+                  "Forklift Scale",
+                  "Hanging / Crane Scale",
+                  "Onboard Truck Scale",
+                  "Pallet Scale",
+                  "Portable Axle Weigher",
+                  "Precision / Bench Scale",
+                  "Weighbridge (Truck Scale)"
+                ]
               },
               "display_type": {
                 "title": "Display Type",

@@ -243,15 +243,16 @@
               "type": "array",
               "items": {
                 "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token (e.g., C-CARB, C-BIOW)",
+                "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
                 "examples": [
-                  "C-CARB",
+                  "C-CARB.CH4",
                   "C-BIOW"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 10,
-                "pattern": "^[A-Z0-9-]+$"
+                "enum": [
+                  "C-CARB.CH4",
+                  "C-BIOW"
+                ]
               }
             },
             "certificate_types": {
@@ -280,9 +281,12 @@
                   "bold-brazil"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
+                "enum": [
+                  "bold-innovators",
+                  "bold-cold-start-jundiai",
+                  "bold-cold-start-carazinho",
+                  "bold-brazil"
+                ]
               }
             },
             "total_usdc_amount": {
@@ -497,9 +501,12 @@
                   "bold-brazil"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
+                "enum": [
+                  "bold-innovators",
+                  "bold-cold-start-jundiai",
+                  "bold-cold-start-carazinho",
+                  "bold-brazil"
+                ]
               },
               "external_id": {
                 "title": "Collection External ID",
@@ -519,8 +526,12 @@
                   "BOLD Brazil"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 150
+                "enum": [
+                  "BOLD Innovators",
+                  "BOLD Cold Start - Carazinho",
+                  "BOLD Cold Start - Jundiaí",
+                  "BOLD Brazil"
+                ]
               },
               "external_url": {
                 "title": "Collection External URL",
@@ -593,15 +604,14 @@
                 "title": "Credit Token Symbol",
                 "description": "Symbol of the credit token",
                 "examples": [
-                  "CARBON",
-                  "ORGANIC",
-                  "C-CARB",
+                  "C-CARB.CH4",
                   "C-BIOW"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 10,
-                "pattern": "^[A-Z0-9-]+$"
+                "enum": [
+                  "C-CARB.CH4",
+                  "C-BIOW"
+                ]
               },
               "external_id": {
                 "title": "Credit External ID",
@@ -844,9 +854,12 @@
                   "bold-brazil"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
+                "enum": [
+                  "bold-innovators",
+                  "bold-cold-start-jundiai",
+                  "bold-cold-start-carazinho",
+                  "bold-brazil"
+                ]
               },
               "total_amount": {
                 "title": "Certificate Total Amount",
@@ -1065,8 +1078,17 @@
                     "Recycler"
                   ],
                   "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100
+                  "enum": [
+                    "Community Impact Pool",
+                    "Hauler",
+                    "Network Integrator",
+                    "Methodology Author",
+                    "Methodology Developer",
+                    "Network",
+                    "Processor",
+                    "Recycler",
+                    "Waste Generator"
+                  ]
                 }
               },
               "usdc_amount": {
@@ -1420,15 +1442,16 @@
             "properties": {
               "trait_type": {
                 "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token (e.g., C-CARB, C-BIOW)",
+                "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
                 "examples": [
-                  "C-CARB",
+                  "C-CARB.CH4",
                   "C-BIOW"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 10,
-                "pattern": "^[A-Z0-9-]+$"
+                "enum": [
+                  "C-CARB.CH4",
+                  "C-BIOW"
+                ]
               },
               "value": {
                 "title": "Credit Amount",
@@ -1675,8 +1698,12 @@
                   "BOLD Brazil"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 150
+                "enum": [
+                  "BOLD Innovators",
+                  "BOLD Cold Start - Carazinho",
+                  "BOLD Cold Start - Jundiaí",
+                  "BOLD Brazil"
+                ]
               },
               "value": {
                 "title": "Credits from Collection",

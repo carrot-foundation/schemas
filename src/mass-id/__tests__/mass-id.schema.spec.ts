@@ -71,9 +71,14 @@ describe('MassIDIpfsSchema', () => {
   it('requires attributes to mirror waste properties', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.data.waste_properties.type = 'Plastic';
+      const wasteSubtypeAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Waste Subtype',
+      );
+      if (wasteSubtypeAttrIndex >= 0) {
+        next.attributes[wasteSubtypeAttrIndex].value = 'Domestic Sludge';
+      }
       return next;
-    }, ['Waste Type attribute must equal waste_properties.type']);
+    }, ['Waste Subtype attribute must equal waste_properties.subtype']);
   });
 
   it('requires pick-up date attribute to match pick-up event', () => {

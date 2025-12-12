@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
   "schema": {
-    "hash": "c2c7226b29d14e38cd38d03631a278b0a34e166392289a23defb84d2aaae724c",
+    "hash": "d727bab08493eef1c028777a54bd18ea0addb3671e81368e794e285b1e7a1f10",
     "type": "CreditPurchaseReceipt",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-purchase-receipt.schema.json"
@@ -20,11 +20,11 @@
   "created_at": "2025-02-03T12:45:30.000Z",
   "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
   "external_url": "https://explore.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-  "original_content_hash": "4b134dcf82f20fbe4754bf1baf7a8cac9e35bac7a5e71f92b5542b9a5bf7e36f",
-  "content_hash": "4b134dcf82f20fbe4754bf1baf7a8cac9e35bac7a5e71f92b5542b9a5bf7e36f",
+  "original_content_hash": "2f5158124cfcbd52a86d5e6130416d75d0ff9b0b3668d9452824fbde97006638",
+  "content_hash": "2f5158124cfcbd52a86d5e6130416d75d0ff9b0b3668d9452824fbde97006638",
   "name": "Credit Purchase Receipt #987 • 8.5 Credits Purchased",
   "short_name": "Credit Purchase Receipt #987",
-  "description": "Receipt for purchasing 8.5 credits (C-CARB and C-BIOW) across 3 certificates, with 3.0 credits retired immediately on behalf of Climate Action Corp. Credits delivered to EcoTech Solutions Inc.",
+  "description": "Receipt for purchasing 8.5 credits (C-CARB.CH4 and C-BIOW) across 3 certificates, with 3.0 credits retired immediately on behalf of Climate Action Corp. Credits delivered to EcoTech Solutions Inc.",
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/purchase-receipt.png",
   "background_color": "#2D5A27",
   "external_links": [
@@ -41,7 +41,7 @@
   ],
   "attributes": [
     {
-      "trait_type": "C-CARB",
+      "trait_type": "C-CARB.CH4",
       "value": 5,
       "display_type": "number"
     },
@@ -57,7 +57,7 @@
     },
     {
       "trait_type": "Total USDC Amount",
-      "value": 1950,
+      "value": 1462.5,
       "display_type": "number"
     },
     {
@@ -87,12 +87,12 @@
   ],
   "data": {
     "summary": {
-      "total_usdc_amount": 1950,
+      "total_usdc_amount": 1462.5,
       "total_credits": 8.5,
       "total_certificates": 3,
       "purchase_date": "2025-02-03",
       "credit_symbols": [
-        "C-CARB",
+        "C-CARB.CH4",
         "C-BIOW"
       ],
       "certificate_types": [
@@ -144,7 +144,7 @@
     "credits": [
       {
         "slug": "carbon",
-        "symbol": "C-CARB",
+        "symbol": "C-CARB.CH4",
         "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
         "external_url": "https://explore.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
         "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/c-carb.json",
@@ -275,14 +275,6 @@
           "Recycler"
         ],
         "usdc_amount": 975
-      },
-      {
-        "id_hash": "cccc4444dddd5555cccc4444dddd5555cccc4444dddd5555cccc4444dddd5555",
-        "participant_name": "Carrot Marketplace",
-        "roles": [
-          "Platform"
-        ],
-        "usdc_amount": 487.5
       }
     ],
     "retirement": {

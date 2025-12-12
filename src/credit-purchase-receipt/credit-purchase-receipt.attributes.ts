@@ -5,18 +5,14 @@ import {
   NftAttributeSchema,
   NonEmptyStringSchema,
   PositiveIntegerSchema,
-  TokenSymbolSchema,
+  CreditTokenSymbolSchema,
   UnixTimestampSchema,
   uniqueBy,
 } from '../shared';
 
 const CreditPurchaseReceiptCreditAttributeSchema =
   NftAttributeSchema.safeExtend({
-    trait_type: TokenSymbolSchema.meta({
-      title: 'Credit Token Symbol',
-      description: 'Symbol of the credit token (e.g., C-CARB, C-BIOW)',
-      examples: ['C-CARB', 'C-BIOW'],
-    }),
+    trait_type: CreditTokenSymbolSchema,
     value: CreditAmountSchema.meta({
       title: 'Credit Amount',
       description: 'Amount of credits purchased for the token symbol',

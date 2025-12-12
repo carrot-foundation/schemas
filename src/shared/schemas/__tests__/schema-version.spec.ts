@@ -26,12 +26,10 @@ describe('schema-version utilities', () => {
   const packageJsonVersion = getPackageJsonVersion();
 
   beforeEach(() => {
-    // Reset process.env before each test
     process.env = { ...originalEnv };
   });
 
   afterEach(() => {
-    // Restore original process.env after each test
     process.env = originalEnv;
   });
 
@@ -51,7 +49,6 @@ describe('schema-version utilities', () => {
     it('returns default version when package.json cannot be read', () => {
       delete process.env['SCHEMA_VERSION'];
 
-      // Mock readFileSync to throw an error to test the catch block
       const readFileSyncSpy = vi
         .spyOn(fs, 'readFileSync')
         .mockImplementation(() => {
@@ -66,7 +63,6 @@ describe('schema-version utilities', () => {
     it('returns default version when package.json has no version field', () => {
       delete process.env['SCHEMA_VERSION'];
 
-      // Mock readFileSync to return package.json without version field
       const readFileSyncSpy = vi
         .spyOn(fs, 'readFileSync')
         .mockReturnValue('{"name": "test-package"}');

@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "fcd026a15d6b54c13f96699ec93f97ea37014fa4ce6d48620a2fb230a096126a",
+    "hash": "d70998e43ac133fd0789aff77798ba50ed4ced525731e4b1bec9d18f1f171883",
     "type": "Credit",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit.schema.json"
@@ -14,12 +14,12 @@
   "created_at": "2024-12-05T14:30:00.000Z",
   "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
   "external_url": "https://explore.carrot.eco/credit/carrot-carbon",
-  "original_content_hash": "6827a95c2910132fb4fec3d42643e69ebb40eaff88f4f85af150189e1f45f7a3",
-  "content_hash": "6827a95c2910132fb4fec3d42643e69ebb40eaff88f4f85af150189e1f45f7a3",
-  "symbol": "C-CARB",
-  "slug": "carbon",
-  "name": "Carrot Carbon",
+  "original_content_hash": "dad49516390220af95f855e90cd88668110d6a5202667431e8e15cf11cc667ca",
+  "content_hash": "dad49516390220af95f855e90cd88668110d6a5202667431e8e15cf11cc667ca",
+  "symbol": "C-CARB.CH4",
+  "slug": "carbon-methane",
+  "name": "Carrot Carbon (CH₄)",
   "decimals": 18,
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/c-carb-icon.png",
-  "description": "Carrot Carbon (C-CARB) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
+  "description": "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
 }

@@ -36,7 +36,7 @@ describe('WasteClassificationSchema', () => {
 
   it('rejects empty primary_type', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.primary_type = '';
+      invalid.primary_type = '' as unknown as (typeof invalid)['primary_type'];
     });
   });
 

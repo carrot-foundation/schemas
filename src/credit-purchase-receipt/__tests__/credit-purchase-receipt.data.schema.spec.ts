@@ -32,7 +32,8 @@ describe('CreditPurchaseReceiptDataSchema', () => {
 
   it('requires certificate collection slug to exist in collections', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.certificates[0].collection_slug = 'unknown-collection';
+      invalid.certificates[0].collection_slug =
+        'unknown-collection' as unknown as (typeof invalid.certificates)[number]['collection_slug'];
     });
   });
 
@@ -70,7 +71,7 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       invalid.summary.credit_symbols = [
         ...invalid.summary.credit_symbols,
         'EXTRA-CREDIT',
-      ];
+      ] as unknown as typeof invalid.summary.credit_symbols;
     });
   });
 
@@ -79,7 +80,7 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       invalid.summary.collection_slugs = [
         ...invalid.summary.collection_slugs,
         'extra-collection',
-      ];
+      ] as unknown as typeof invalid.summary.collection_slugs;
     });
   });
 
@@ -131,8 +132,10 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates = invalid.certificates.map((certificate) => ({
         ...certificate,
-        credit_slug: 'unknown-credit',
-        collection_slug: 'unknown-collection',
+        credit_slug:
+          'unknown-credit' as unknown as (typeof invalid.certificates)[number]['credit_slug'],
+        collection_slug:
+          'unknown-collection' as unknown as (typeof invalid.certificates)[number]['collection_slug'],
       }));
     });
   });
@@ -158,6 +161,61 @@ describe('CreditPurchaseReceiptDataSchema', () => {
   it('validates collection credit_amount equals sum of certificate purchases', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.collections[0].credit_amount = 0;
+    });
+  });
+
+  it('rejects certificate collection_slug not in collections', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const usedCollectionSlug = invalid.certificates[0].collection_slug;
+      invalid.collections = invalid.collections.filter(
+        (col) => col.slug !== usedCollectionSlug,
+      );
+      invalid.summary.collection_slugs =
+        invalid.summary.collection_slugs.filter(
+          (slug) => slug !== usedCollectionSlug,
+        );
+    });
+  });
+
+  it('rejects credit purchase_amount not matching certificate totals', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const firstCreditSlug = invalid.credits[0].slug;
+      invalid.certificates = invalid.certificates.filter(
+        (cert) => cert.credit_slug !== firstCreditSlug,
+      );
+      invalid.summary.total_credits =
+        invalid.summary.total_credits -
+        (invalid.credits[0].purchase_amount as number);
+    });
+  });
+
+  it('rejects credit retirement_amount not matching certificate totals', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const firstCreditSlug = invalid.credits[0].slug;
+      invalid.certificates = invalid.certificates.filter(
+        (cert) => cert.credit_slug !== firstCreditSlug,
+      );
+      if (invalid.credits[0].retirement_amount) {
+        invalid.summary.total_credits =
+          invalid.summary.total_credits -
+          (invalid.credits[0].purchase_amount as number);
+      }
+    });
+  });
+
+  it('rejects collection credit_amount not matching certificate totals', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      const firstCollectionSlug = invalid.collections[0].slug;
+      invalid.certificates = invalid.certificates.filter(
+        (cert) => cert.collection_slug !== firstCollectionSlug,
+      );
+      invalid.summary.collection_slugs =
+        invalid.summary.collection_slugs.filter(
+          (slug) => slug !== firstCollectionSlug,
+        );
+      invalid.summary.total_credits =
+        invalid.summary.total_credits -
+        (invalid.collections[0].credit_amount as number);
     });
   });
 });

@@ -6,7 +6,7 @@ export const NonEmptyStringSchema = z
   .meta({
     title: 'Non-Empty String',
     description: 'A string that contains at least one character',
-    examples: ['Example text', 'Sample value', 'Test string'],
+    examples: ['Example text', 'Sample value'],
   });
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 
@@ -33,20 +33,6 @@ export const CountryNameSchema = NonEmptyStringSchema.max(50).meta({
 });
 export type CountryName = z.infer<typeof CountryNameSchema>;
 
-export const CollectionNameSchema = NonEmptyStringSchema.max(150).meta({
-  title: 'Collection Name',
-  description: 'Display name of the collection',
-  examples: ['BOLD Cold Start - Carazinho', 'BOLD Brazil'],
-});
-export type CollectionName = z.infer<typeof CollectionNameSchema>;
-
-export const MethodologyNameSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Methodology Name',
-  description: 'Name of the methodology used for certification',
-  examples: ['BOLD Recycling', 'BOLD Carbon (CH₄)'],
-});
-export type MethodologyName = z.infer<typeof MethodologyNameSchema>;
-
 export const SlugSchema = NonEmptyStringSchema.regex(
   /^[a-z0-9-]+$/,
   'Must contain only lowercase letters, numbers, and hyphens',
@@ -59,42 +45,6 @@ export const SlugSchema = NonEmptyStringSchema.regex(
     examples: ['mass-id-123', 'recycled-plastic', 'organic-waste'],
   });
 export type Slug = z.infer<typeof SlugSchema>;
-
-export const CollectionSlugSchema = SlugSchema.meta({
-  title: 'Collection Slug',
-  description: 'URL-friendly identifier for a collection',
-  examples: ['bold-cold-start-carazinho', 'bold-brazil'],
-});
-export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
-
-export const ParticipantRoleSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Participant Role',
-  description:
-    'Role that a participant plays in the waste management supply chain',
-  examples: ['Waste Generator', 'Hauler', 'Recycler'],
-});
-export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
-
-export const WasteTypeSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Waste Type',
-  description: 'Category or type of waste material',
-  examples: ['Organic'],
-});
-export type WasteType = z.infer<typeof WasteTypeSchema>;
-
-export const WasteSubtypeSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Waste Subtype',
-  description: 'Specific subcategory of waste within a waste type',
-  examples: ['Food, Food Waste and Beverages', 'Domestic Sludge'],
-});
-export type WasteSubtype = z.infer<typeof WasteSubtypeSchema>;
-
-export const CreditTypeSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Credit Type',
-  description: 'Type of credit issued',
-  examples: ['Organic', 'Carbon (CH₄)'],
-});
-export type CreditType = z.infer<typeof CreditTypeSchema>;
 
 export const HexColorSchema = NonEmptyStringSchema.regex(
   /^#[0-9A-F]{6}$/,
@@ -118,28 +68,3 @@ export const IbamaWasteClassificationSchema = z
 export type IbamaWasteClassification = z.infer<
   typeof IbamaWasteClassificationSchema
 >;
-
-export const VehicleTypeSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Vehicle Type',
-  description: 'Type of vehicle used for waste transportation operations',
-  examples: ['Truck'],
-});
-export type VehicleType = z.infer<typeof VehicleTypeSchema>;
-
-export const ScaleTypeSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Scale Type',
-  description: 'Type of scale used to weigh the load',
-  examples: ['Weighbridge (Truck Scale)'],
-});
-export type ScaleType = z.infer<typeof ScaleTypeSchema>;
-
-export const WeighingCaptureMethodSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Weighing Capture Method',
-  description: 'Method used to capture weight data',
-  examples: [
-    'Digital scale integration',
-    'Manual entry',
-    'Automated capture via IoT scale',
-  ],
-});
-export type WeighingCaptureMethod = z.infer<typeof WeighingCaptureMethodSchema>;

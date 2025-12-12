@@ -5,7 +5,6 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-  SlugSchema,
   TokenIdSchema,
   uniqueBy,
   CreditRetirementReceiptSummarySchema,
@@ -18,11 +17,10 @@ import {
   validateCountMatches,
   validateSummaryListMatchesData,
   validateTotalMatches,
-} from '../shared';
-import {
+  CreditTokenSlugSchema,
   EthereumAddressSchema,
   SmartContractSchema,
-} from '../shared/schemas/primitives';
+} from '../shared';
 
 export type CreditRetirementReceiptSummary = z.infer<
   typeof CreditRetirementReceiptSummarySchema
@@ -104,13 +102,10 @@ export type CreditRetirementReceiptCredit = z.infer<
 const CreditRetirementReceiptCertificateCreditSchema = z
   .strictObject({
     credit_symbol: CreditTokenSymbolSchema.meta({
-      title: 'Credit Token Symbol',
       description: 'Symbol of the credit token retired from the certificate',
     }),
-    credit_slug: SlugSchema.meta({
-      title: 'Credit Slug',
+    credit_slug: CreditTokenSlugSchema.meta({
       description: 'Slug of the credit type retired from the certificate',
-      examples: ['carbon', 'organic'],
     }),
     amount: CreditAmountSchema.meta({
       title: 'Retired Credit Amount',
