@@ -137,7 +137,7 @@ For a higher-level overview of timestamp and date conventions across the project
   - Pattern: `^[a-z0-9-]+$`
 - **Symbols**: Use uppercase for token symbols
   - Format: `"C-CARB.CH4"`
-  - Pattern: `^[A-Z0-9-]+$`
+  - Pattern: `^[A-Z0-9.-]+$`
 
 ### Arrays and Collections
 
