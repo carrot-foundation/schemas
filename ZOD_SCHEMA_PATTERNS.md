@@ -260,13 +260,6 @@ Enum values use consistent patterns based on their semantic meaning:
 ```typescript
 // ✅ Title Case for user-facing enums
 const ContaminationLevelSchema = z.enum(['None', 'Low', 'Medium', 'High']);
-const PrecisionLevelSchema = z.enum([
-  'exact',
-  'neighborhood',
-  'city',
-  'region',
-  'country',
-]);
 const FacilityTypeSchema = z.enum([
   'Waste Generation',
   'Collection Point',
@@ -347,7 +340,6 @@ Multi-field object (3+ fields) representing a domain concept.
 export const CoordinatesSchema = z.strictObject({
   latitude: LatitudeSchema,
   longitude: LongitudeSchema,
-  precision_level: PrecisionLevelSchema,
 });
 ```
 
@@ -359,7 +351,6 @@ Needs independent validation and testing.
 // ✅ Extract - Can be tested independently
 export const ParticipantSchema = z.strictObject({
   id_hash: Sha256HashSchema,
-  name: ParticipantNameSchema,
   roles: uniqueArrayItems(ParticipantRoleSchema, ...),
 });
 ```

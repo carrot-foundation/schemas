@@ -36,9 +36,15 @@ module.exports = {
     '*.log',
     '*.min.js',
     '.git',
+    'cspell.config.cjs',
   ],
   language: 'en',
   useGitignore: true,
   words: vsCodeSettings['cSpell.words'],
-  ignoreRegExpList: ['/ipfs:\\/\\/[^\\s"\']+/'],
+  ignoreRegExpList: [
+    '/ipfs:\\/\\/[^\\s"\']+/',
+    '/\\b(?:bafy[a-z0-9]{20,}|Qm[1-9A-HJ-NP-Za-km-z]{20,})\\b/',
+    '/\\bk[a-z0-9]{40,}\\b/',
+    '/\\blibp[a-z0-9-]*\\b/i',
+  ],
 };

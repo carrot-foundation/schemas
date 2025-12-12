@@ -42,12 +42,24 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        },
+        "ipfs_uri": {
+          "title": "Schema IPFS URI",
+          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "examples": [
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
         }
       },
       "required": [
         "hash",
         "type",
-        "version"
+        "version",
+        "ipfs_uri"
       ],
       "additionalProperties": false
     },
@@ -98,6 +110,68 @@
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "viewer_reference": {
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
+      "type": "object",
+      "properties": {
+        "ipfs_cid": {
+          "title": "Viewer IPFS CID",
+          "description": "IPFS CID of the metadata viewer dApp build",
+          "examples": [
+            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+            "bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
+            "QmT78zSuBmuS4z925WZfrqQ1qHaJ5q3hRbAWkjj9piKktM"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})$"
+        },
+        "integrity_hash": {
+          "title": "Viewer Integrity Hash",
+          "description": "SHA-256 hash of the published viewer bundle to verify integrity",
+          "examples": [
+            "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+          ],
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "ipns_name": {
+          "title": "Viewer IPNS Name",
+          "description": "IPNS name that resolves to the latest viewer build",
+          "examples": [
+            "k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^k[1-9a-hj-np-z][a-z0-9]{45,}$"
+        },
+        "ens_domain": {
+          "title": "Viewer ENS Domain",
+          "description": "ENS domain that resolves to the viewer application",
+          "examples": [
+            "viewer.carrot.eth"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*\\.eth$"
+        },
+        "http_url": {
+          "title": "Viewer HTTP URL",
+          "description": "HTTPS gateway or web URL for accessing the viewer without IPFS tooling",
+          "examples": [
+            "https://viewer.carrot.eco"
+          ],
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "ipfs_cid",
+        "integrity_hash"
+      ],
+      "additionalProperties": false
     },
     "environment": {
       "title": "Record Environment",
@@ -164,7 +238,8 @@
               "title": "Waste Subtype",
               "description": "Specific subcategory of waste material",
               "examples": [
-                "Food, Food Waste and Beverages"
+                "Food, Food Waste and Beverages",
+                "Domestic Sludge"
               ],
               "type": "string",
               "minLength": 1,
@@ -173,12 +248,6 @@
             "local_classification": {
               "title": "Local Classification",
               "description": "Regulatory classification reference for the waste material",
-              "examples": [
-                {
-                  "code": "04 02 20",
-                  "system": "Ibama"
-                }
-              ],
               "type": "object",
               "properties": {
                 "code": {
@@ -321,48 +390,32 @@
                 "properties": {
                   "latitude": {
                     "title": "Latitude",
-                    "description": "Geographic latitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level)",
+                    "description": "Geographic latitude coordinate in decimal degrees with maximum 1 decimal place precision (~11km accuracy for city-level)",
                     "examples": [
-                      -0.02,
-                      -20.38,
-                      40.713
+                      -0.2,
+                      -20.3
                     ],
                     "type": "number",
                     "minimum": -90,
                     "maximum": 90,
-                    "multipleOf": 0.001
+                    "multipleOf": 0.1
                   },
                   "longitude": {
                     "title": "Longitude",
-                    "description": "Geographic longitude coordinate in decimal degrees with maximum 3 decimal places precision (~100m-1km accuracy for city-level)",
+                    "description": "Geographic longitude coordinate in decimal degrees with maximum 1 decimal place precision (~11km accuracy for city-level)",
                     "examples": [
-                      -51.06,
-                      -40.34,
-                      -74.006
+                      -51,
+                      -40.3
                     ],
                     "type": "number",
                     "minimum": -180,
                     "maximum": 180,
-                    "multipleOf": 0.001
-                  },
-                  "precision_level": {
-                    "title": "Coordinate Precision Level",
-                    "description": "Level of coordinate precision",
-                    "examples": [
-                      "city"
-                    ],
-                    "type": "string",
-                    "enum": [
-                      "city",
-                      "region",
-                      "country"
-                    ]
+                    "multipleOf": 0.1
                   }
                 },
                 "required": [
                   "latitude",
-                  "longitude",
-                  "precision_level"
+                  "longitude"
                 ],
                 "additionalProperties": false
               }
@@ -398,18 +451,6 @@
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$"
               },
-              "name": {
-                "title": "Participant Name",
-                "description": "Name of a participant in the waste management system",
-                "examples": [
-                  "Enlatados Produção",
-                  "Eco Reciclagem",
-                  "Green Tech Corp"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
-              },
               "roles": {
                 "title": "Participant Roles",
                 "description": "Roles of the participant in the waste management supply chain",
@@ -431,7 +472,6 @@
             },
             "required": [
               "id_hash",
-              "name",
               "roles"
             ],
             "additionalProperties": false
@@ -459,18 +499,6 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
-                  "description": {
-                    "title": "Event Description",
-                    "description": "Detailed description of what happened during this event",
-                    "examples": [
-                      "Waste collected from residential area using collection truck",
-                      "Material sorted into recyclable and non-recyclable fractions",
-                      "Waste transferred to authorized recycling facility"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 200
-                  },
                   "timestamp": {
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
@@ -503,9 +531,8 @@
                     "title": "Event Weight (kg)",
                     "description": "Mass weight after this event in kilograms (kg)",
                     "examples": [
-                      3000,
-                      1500,
-                      500
+                      500.35,
+                      3000
                     ],
                     "type": "number",
                     "minimum": 0
@@ -525,16 +552,14 @@
                     "type": "object",
                     "properties": {
                       "vehicle_type": {
-                        "title": "Vehicle Type",
                         "description": "Type of vehicle used for pick-up operations",
+                        "title": "Vehicle Type",
                         "examples": [
-                          "Truck",
-                          "Van",
-                          "Compactor"
+                          "Truck"
                         ],
                         "type": "string",
                         "minLength": 1,
-                        "maxLength": 50
+                        "maxLength": 100
                       }
                     },
                     "additionalProperties": false
@@ -562,18 +587,6 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
-                  "description": {
-                    "title": "Event Description",
-                    "description": "Detailed description of what happened during this event",
-                    "examples": [
-                      "Waste collected from residential area using collection truck",
-                      "Material sorted into recyclable and non-recyclable fractions",
-                      "Waste transferred to authorized recycling facility"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 200
-                  },
                   "timestamp": {
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
@@ -606,9 +619,8 @@
                     "title": "Event Weight (kg)",
                     "description": "Mass weight after this event in kilograms (kg)",
                     "examples": [
-                      3000,
-                      1500,
-                      500
+                      500.35,
+                      3000
                     ],
                     "type": "number",
                     "minimum": 0
@@ -629,7 +641,7 @@
                     "properties": {
                       "weighing_capture_method": {
                         "title": "Weighing Capture Method",
-                        "description": "Method used to capture the weight measurement",
+                        "description": "Method used to capture weight data",
                         "examples": [
                           "Digital scale integration",
                           "Manual entry",
@@ -643,12 +655,11 @@
                         "title": "Scale Type",
                         "description": "Type of scale used to weigh the load",
                         "examples": [
-                          "Weighbridge (Truck Scale)",
-                          "Axle scale"
+                          "Weighbridge (Truck Scale)"
                         ],
                         "type": "string",
                         "minLength": 1,
-                        "maxLength": 50
+                        "maxLength": 100
                       },
                       "container_type": {
                         "title": "Container Type",
@@ -662,21 +673,21 @@
                         "maxLength": 50
                       },
                       "vehicle_type": {
-                        "title": "Vehicle Type",
                         "description": "Type of vehicle used during weighing",
+                        "title": "Vehicle Type",
                         "examples": [
-                          "Truck",
-                          "Trailer"
+                          "Truck"
                         ],
                         "type": "string",
                         "minLength": 1,
-                        "maxLength": 50
+                        "maxLength": 100
                       },
                       "container_capacity": {
                         "title": "Container Capacity (kg)",
                         "description": "Maximum container capacity in kilograms",
                         "examples": [
-                          12000
+                          500.35,
+                          3000
                         ],
                         "type": "number",
                         "minimum": 0
@@ -685,7 +696,8 @@
                         "title": "Gross Weight (kg)",
                         "description": "Total weight including vehicle/container before tare",
                         "examples": [
-                          9500
+                          500.35,
+                          3000
                         ],
                         "type": "number",
                         "minimum": 0
@@ -694,7 +706,8 @@
                         "title": "Tare Weight (kg)",
                         "description": "Weight of the empty vehicle or container",
                         "examples": [
-                          3500
+                          500.35,
+                          3000
                         ],
                         "type": "number",
                         "minimum": 0
@@ -727,18 +740,6 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
-                  "description": {
-                    "title": "Event Description",
-                    "description": "Detailed description of what happened during this event",
-                    "examples": [
-                      "Waste collected from residential area using collection truck",
-                      "Material sorted into recyclable and non-recyclable fractions",
-                      "Waste transferred to authorized recycling facility"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 200
-                  },
                   "timestamp": {
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
@@ -771,9 +772,8 @@
                     "title": "Event Weight (kg)",
                     "description": "Mass weight after this event in kilograms (kg)",
                     "examples": [
-                      3000,
-                      1500,
-                      500
+                      500.35,
+                      3000
                     ],
                     "type": "number",
                     "minimum": 0
@@ -810,18 +810,6 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
-                  "description": {
-                    "title": "Event Description",
-                    "description": "Detailed description of what happened during this event",
-                    "examples": [
-                      "Waste collected from residential area using collection truck",
-                      "Material sorted into recyclable and non-recyclable fractions",
-                      "Waste transferred to authorized recycling facility"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 200
-                  },
                   "timestamp": {
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
@@ -854,9 +842,8 @@
                     "title": "Event Weight (kg)",
                     "description": "Mass weight after this event in kilograms (kg)",
                     "examples": [
-                      3000,
-                      1500,
-                      500
+                      500.35,
+                      3000
                     ],
                     "type": "number",
                     "minimum": 0
@@ -879,7 +866,8 @@
                         "title": "Initial Weight (kg)",
                         "description": "Weight of the material entering the sorting process in kilograms",
                         "examples": [
-                          5000
+                          500.35,
+                          3000
                         ],
                         "type": "number",
                         "minimum": 0
@@ -888,7 +876,8 @@
                         "title": "Deducted Weight (kg)",
                         "description": "Weight removed during sorting (e.g., contaminants or moisture) in kilograms",
                         "examples": [
-                          250
+                          500.35,
+                          3000
                         ],
                         "type": "number",
                         "minimum": 0
@@ -921,18 +910,6 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
-                  "description": {
-                    "title": "Event Description",
-                    "description": "Detailed description of what happened during this event",
-                    "examples": [
-                      "Waste collected from residential area using collection truck",
-                      "Material sorted into recyclable and non-recyclable fractions",
-                      "Waste transferred to authorized recycling facility"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 200
-                  },
                   "timestamp": {
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
@@ -965,9 +942,8 @@
                     "title": "Event Weight (kg)",
                     "description": "Mass weight after this event in kilograms (kg)",
                     "examples": [
-                      3000,
-                      1500,
-                      500
+                      500.35,
+                      3000
                     ],
                     "type": "number",
                     "minimum": 0
@@ -1259,9 +1235,7 @@
                 "title": "Waste Type",
                 "description": "Category or type of waste material",
                 "examples": [
-                  "Organic",
-                  "Plastic",
-                  "Metal"
+                  "Organic"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1358,9 +1332,8 @@
                 "title": "Weight (kg)",
                 "description": "Weight measurement in kilograms",
                 "examples": [
-                  3000,
-                  1500,
-                  500
+                  500.35,
+                  3000
                 ],
                 "type": "number",
                 "minimum": 0
@@ -1550,10 +1523,7 @@
                 "title": "Pick-up Vehicle Type",
                 "description": "Type of vehicle used for waste pick-up operations",
                 "examples": [
-                  "Truck",
-                  "Box Truck",
-                  "Flatbed Truck",
-                  "Roll-off Truck"
+                  "Truck"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1641,11 +1611,6 @@
           {
             "title": "Local Waste Classification ID Attribute",
             "description": "Regulatory waste classification code (e.g., Ibama format NN NN NN[*])",
-            "examples": [
-              "20 01 01",
-              "20 01 01*",
-              "04 02 20"
-            ],
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1706,8 +1671,7 @@
                 "description": "Official recycling manifest identifier",
                 "examples": [
                   "2353",
-                  "REC-MANIFEST-789",
-                  "RC12345"
+                  "12345"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1755,9 +1719,8 @@
                 "title": "Transport Manifest Number",
                 "description": "Official transport manifest identifier",
                 "examples": [
-                  "4126",
-                  "TRN-67890",
-                  "TRANS-MANIFEST-456"
+                  "2353",
+                  "12345"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1853,12 +1816,9 @@
               },
               "value": {
                 "title": "Scale Type",
-                "description": "Type of scale used for weighing",
+                "description": "Type of scale used to weigh the load",
                 "examples": [
-                  "Weighbridge (Truck Scale)",
-                  "Axle scale",
-                  "Floor Scale",
-                  "Crane Scale"
+                  "Weighbridge (Truck Scale)"
                 ],
                 "type": "string",
                 "minLength": 1,
@@ -1906,7 +1866,7 @@
                 "title": "Pick-up Date",
                 "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
                 "examples": [
-                  1733396567000
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,
@@ -1948,7 +1908,7 @@
                 "title": "Drop-off Date",
                 "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination",
                 "examples": [
-                  1733407367000
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,
@@ -1990,7 +1950,7 @@
                 "title": "Recycling Date",
                 "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
                 "examples": [
-                  1733657567000
+                  1704067200000
                 ],
                 "type": "integer",
                 "exclusiveMinimum": 0,

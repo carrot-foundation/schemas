@@ -4,7 +4,6 @@ import {
   WasteSubtypeSchema,
   WeightKgSchema,
   UuidSchema,
-  ParticipantNameSchema,
   ParticipantRoleSchema,
   ExternalUrlSchema,
   NonEmptyStringSchema,
@@ -39,9 +38,10 @@ export const AccreditedParticipantSchema = z
       title: 'Participant ID',
       description: 'Unique identifier for the participant',
     }),
-    name: ParticipantNameSchema.meta({
+    name: NonEmptyStringSchema.max(100).meta({
       title: 'Participant Name',
       description: 'Name of the participant',
+      examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Tech Corp'],
     }),
     role: ParticipantRoleSchema.meta({
       title: 'Participant Role',
@@ -82,9 +82,10 @@ export const RewardAllocationSchema = z
       title: 'Participant ID',
       description: 'Unique identifier for the participant receiving the reward',
     }),
-    participant_name: ParticipantNameSchema.meta({
+    participant_name: NonEmptyStringSchema.max(100).meta({
       title: 'Participant Name',
       description: 'Name of the participant receiving the reward',
+      examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Tech Corp'],
     }),
     role: ParticipantRoleSchema.meta({
       title: 'Participant Role',

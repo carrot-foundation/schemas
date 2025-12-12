@@ -75,17 +75,10 @@ export const ParticipantRoleSchema = NonEmptyStringSchema.max(100).meta({
 });
 export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
 
-export const ParticipantNameSchema = NonEmptyStringSchema.max(100).meta({
-  title: 'Participant Name',
-  description: 'Name of a participant in the waste management system',
-  examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Tech Corp'],
-});
-export type ParticipantName = z.infer<typeof ParticipantNameSchema>;
-
 export const WasteTypeSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Waste Type',
   description: 'Category or type of waste material',
-  examples: ['Organic', 'Plastic', 'Metal'],
+  examples: ['Organic'],
 });
 export type WasteType = z.infer<typeof WasteTypeSchema>;
 
@@ -112,3 +105,41 @@ export const HexColorSchema = NonEmptyStringSchema.regex(
   examples: ['#2D5A27', '#FF5733'],
 });
 export type HexColor = z.infer<typeof HexColorSchema>;
+
+export const IbamaWasteClassificationSchema = z
+  .string()
+  .regex(/^\d{2} \d{2} \d{2}\*?$/, 'Invalid Ibama code format')
+  .meta({
+    title: 'Ibama Classification Code',
+    description:
+      'Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *',
+    examples: ['20 01 01', '20 01 01*', '04 02 20'],
+  });
+export type IbamaWasteClassification = z.infer<
+  typeof IbamaWasteClassificationSchema
+>;
+
+export const VehicleTypeSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Vehicle Type',
+  description: 'Type of vehicle used for waste transportation operations',
+  examples: ['Truck'],
+});
+export type VehicleType = z.infer<typeof VehicleTypeSchema>;
+
+export const ScaleTypeSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Scale Type',
+  description: 'Type of scale used to weigh the load',
+  examples: ['Weighbridge (Truck Scale)'],
+});
+export type ScaleType = z.infer<typeof ScaleTypeSchema>;
+
+export const WeighingCaptureMethodSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Weighing Capture Method',
+  description: 'Method used to capture weight data',
+  examples: [
+    'Digital scale integration',
+    'Manual entry',
+    'Automated capture via IoT scale',
+  ],
+});
+export type WeighingCaptureMethod = z.infer<typeof WeighingCaptureMethodSchema>;

@@ -1,9 +1,5 @@
 import { z } from 'zod';
-import {
-  ParticipantNameSchema,
-  ParticipantRoleSchema,
-  Sha256HashSchema,
-} from '../primitives';
+import { ParticipantRoleSchema, Sha256HashSchema } from '../primitives';
 import { uniqueArrayItems } from '../../schema-helpers';
 
 export const ParticipantSchema = z
@@ -12,7 +8,6 @@ export const ParticipantSchema = z
       title: 'Participant ID Hash',
       description: 'Anonymized identifier for the participant',
     }),
-    name: ParticipantNameSchema,
     roles: uniqueArrayItems(
       ParticipantRoleSchema,
       'Participant roles must be unique',

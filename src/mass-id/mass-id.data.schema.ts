@@ -9,18 +9,12 @@ import {
   LocationSchema,
   ParticipantSchema,
   uniqueBy,
+  Sha256HashSchema,
+  IbamaWasteClassificationSchema,
+  VehicleTypeSchema,
+  ScaleTypeSchema,
+  WeighingCaptureMethodSchema,
 } from '../shared';
-import { Sha256HashSchema } from '../shared/schemas/primitives';
-
-export const IbamaWasteClassificationSchema = z
-  .string()
-  .regex(/^\d{2} \d{2} \d{2}\*?$/, 'Invalid Ibama code format')
-  .meta({
-    title: 'Ibama Classification Code',
-    description:
-      'Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *',
-    examples: ['20 01 01', '20 01 01*', '04 02 20'],
-  });
 
 const MassIDLocalClassificationSchema = z
   .strictObject({
@@ -34,13 +28,7 @@ const MassIDLocalClassificationSchema = z
   .meta({
     title: 'Local Classification',
     description: 'Regulatory classification reference for the waste material',
-    examples: [{ code: '04 02 20', system: 'Ibama' }],
   });
-
-export type IbamaWasteClassification = z.infer<
-  typeof IbamaWasteClassificationSchema
->;
-
 export type MassIDLocalClassification = z.infer<
   typeof MassIDLocalClassificationSchema
 >;
@@ -50,12 +38,10 @@ const MassIDWastePropertiesSchema = z
     type: WasteTypeSchema.meta({
       title: 'Waste Type',
       description: 'Waste material category',
-      examples: ['Organic'],
     }),
     subtype: WasteSubtypeSchema.meta({
       title: 'Waste Subtype',
       description: 'Specific subcategory of waste material',
-      examples: ['Food, Food Waste and Beverages'],
     }),
     local_classification: MassIDLocalClassificationSchema.optional(),
     net_weight: WeightKgSchema.meta({
@@ -115,17 +101,6 @@ const MassIDBaseEventSchema = z
       title: 'Event ID',
       description: 'Unique event identifier',
     }),
-    description: NonEmptyStringSchema.max(200)
-      .optional()
-      .meta({
-        title: 'Event Description',
-        description: 'Detailed description of what happened during this event',
-        examples: [
-          'Waste collected from residential area using collection truck',
-          'Material sorted into recyclable and non-recyclable fractions',
-          'Waste transferred to authorized recycling facility',
-        ],
-      }),
     timestamp: IsoTimestampSchema.meta({
       title: 'Event Timestamp',
       description: 'ISO 8601 timestamp when the event occurred',
@@ -169,13 +144,9 @@ const PickUpEventSchema = buildMassIDEventSchema(
 ).safeExtend({
   data: z
     .strictObject({
-      vehicle_type: NonEmptyStringSchema.max(50)
-        .optional()
-        .meta({
-          title: 'Vehicle Type',
-          description: 'Type of vehicle used for pick-up operations',
-          examples: ['Truck', 'Van', 'Compactor'],
-        }),
+      vehicle_type: VehicleTypeSchema.optional().meta({
+        description: 'Type of vehicle used for pick-up operations',
+      }),
     })
     .optional()
     .meta({
@@ -190,24 +161,8 @@ const WeighingEventSchema = buildMassIDEventSchema(
 ).safeExtend({
   data: z
     .strictObject({
-      weighing_capture_method: NonEmptyStringSchema.max(100)
-        .optional()
-        .meta({
-          title: 'Weighing Capture Method',
-          description: 'Method used to capture the weight measurement',
-          examples: [
-            'Digital scale integration',
-            'Manual entry',
-            'Automated capture via IoT scale',
-          ],
-        }),
-      scale_type: NonEmptyStringSchema.max(50)
-        .optional()
-        .meta({
-          title: 'Scale Type',
-          description: 'Type of scale used to weigh the load',
-          examples: ['Weighbridge (Truck Scale)', 'Axle scale'],
-        }),
+      weighing_capture_method: WeighingCaptureMethodSchema.optional(),
+      scale_type: ScaleTypeSchema.optional(),
       container_type: NonEmptyStringSchema.max(50)
         .optional()
         .meta({
@@ -215,27 +170,20 @@ const WeighingEventSchema = buildMassIDEventSchema(
           description: 'Type of container holding the waste during weighing',
           examples: ['Roll-off container', 'Front loader bin'],
         }),
-      vehicle_type: NonEmptyStringSchema.max(50)
-        .optional()
-        .meta({
-          title: 'Vehicle Type',
-          description: 'Type of vehicle used during weighing',
-          examples: ['Truck', 'Trailer'],
-        }),
+      vehicle_type: VehicleTypeSchema.optional().meta({
+        description: 'Type of vehicle used during weighing',
+      }),
       container_capacity: WeightKgSchema.optional().meta({
         title: 'Container Capacity (kg)',
         description: 'Maximum container capacity in kilograms',
-        examples: [12000],
       }),
       gross_weight: WeightKgSchema.optional().meta({
         title: 'Gross Weight (kg)',
         description: 'Total weight including vehicle/container before tare',
-        examples: [9500],
       }),
       tare: WeightKgSchema.optional().meta({
         title: 'Tare Weight (kg)',
         description: 'Weight of the empty vehicle or container',
-        examples: [3500],
       }),
     })
     .optional()
@@ -261,13 +209,11 @@ const SortingEventSchema = buildMassIDEventSchema(
         title: 'Initial Weight (kg)',
         description:
           'Weight of the material entering the sorting process in kilograms',
-        examples: [5000],
       }),
       deducted_weight: WeightKgSchema.optional().meta({
         title: 'Deducted Weight (kg)',
         description:
           'Weight removed during sorting (e.g., contaminants or moisture) in kilograms',
-        examples: [250],
       }),
     })
     .optional()
@@ -296,7 +242,6 @@ const MassIDEventSchema = z
     description:
       'Lifecycle event describing custody, processing, documentation, or recycling steps',
   });
-
 export type MassIDEvent = z.infer<typeof MassIDEventSchema>;
 
 const MassIDEventsSchema = z
@@ -324,7 +269,6 @@ const MassIDEventsSchema = z
     description:
       'Chronological sequence of custody transfer, processing, and recycling events',
   });
-
 export type MassIDEvents = z.infer<typeof MassIDEventsSchema>;
 
 export const MassIDDataSchema = z
@@ -412,5 +356,4 @@ export const MassIDDataSchema = z
     description:
       'MassID data containing waste tracking events and supporting information',
   });
-
 export type MassIDData = z.infer<typeof MassIDDataSchema>;

@@ -42,12 +42,24 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        },
+        "ipfs_uri": {
+          "title": "Schema IPFS URI",
+          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "examples": [
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
         }
       },
       "required": [
         "hash",
         "type",
-        "version"
+        "version",
+        "ipfs_uri"
       ],
       "additionalProperties": false
     },
@@ -98,6 +110,68 @@
       ],
       "type": "string",
       "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "viewer_reference": {
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
+      "type": "object",
+      "properties": {
+        "ipfs_cid": {
+          "title": "Viewer IPFS CID",
+          "description": "IPFS CID of the metadata viewer dApp build",
+          "examples": [
+            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+            "bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
+            "QmT78zSuBmuS4z925WZfrqQ1qHaJ5q3hRbAWkjj9piKktM"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})$"
+        },
+        "integrity_hash": {
+          "title": "Viewer Integrity Hash",
+          "description": "SHA-256 hash of the published viewer bundle to verify integrity",
+          "examples": [
+            "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+          ],
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$"
+        },
+        "ipns_name": {
+          "title": "Viewer IPNS Name",
+          "description": "IPNS name that resolves to the latest viewer build",
+          "examples": [
+            "k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^k[1-9a-hj-np-z][a-z0-9]{45,}$"
+        },
+        "ens_domain": {
+          "title": "Viewer ENS Domain",
+          "description": "ENS domain that resolves to the viewer application",
+          "examples": [
+            "viewer.carrot.eth"
+          ],
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*\\.eth$"
+        },
+        "http_url": {
+          "title": "Viewer HTTP URL",
+          "description": "HTTPS gateway or web URL for accessing the viewer without IPFS tooling",
+          "examples": [
+            "https://viewer.carrot.eco"
+          ],
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "ipfs_cid",
+        "integrity_hash"
+      ],
+      "additionalProperties": false
     },
     "environment": {
       "title": "Record Environment",

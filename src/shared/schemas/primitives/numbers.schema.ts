@@ -13,7 +13,7 @@ export type NonNegativeFloat = z.infer<typeof NonNegativeFloatSchema>;
 export const WeightKgSchema = NonNegativeFloatSchema.meta({
   title: 'Weight (kg)',
   description: 'Weight measurement in kilograms',
-  examples: [3000, 1500, 500],
+  examples: [500.35, 3000],
 });
 export type WeightKg = z.infer<typeof WeightKgSchema>;
 

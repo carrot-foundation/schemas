@@ -5,3 +5,5 @@ export * from './nft.fixtures';
 export * from './nft-attribute.fixtures';
 export * from './references.fixtures';
 export * from './recycled-id.fixtures';
+export * from './schema-info.fixtures';
+export * from './viewer-reference.fixtures';

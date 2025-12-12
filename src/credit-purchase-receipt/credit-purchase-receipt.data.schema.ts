@@ -4,8 +4,8 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
+  NonEmptyStringSchema,
   NonNegativeFloatSchema,
-  ParticipantNameSchema,
   ParticipantRoleSchema,
   SlugSchema,
   TokenIdSchema,
@@ -166,9 +166,10 @@ const CreditPurchaseReceiptParticipantRewardSchema = z
       description:
         'Hash representing the participant identifier (SHA-256 hex string)',
     }),
-    participant_name: ParticipantNameSchema.meta({
+    participant_name: NonEmptyStringSchema.max(100).meta({
       title: 'Participant Name',
       description: 'Legal name of the participant receiving the reward',
+      examples: ['EcoTech Solutions Inc.', 'Green Tech Corp'],
     }),
     roles: uniqueArrayItems(
       ParticipantRoleSchema,

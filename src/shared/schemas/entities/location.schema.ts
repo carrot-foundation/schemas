@@ -10,18 +10,10 @@ import {
   Sha256HashSchema,
 } from '../primitives';
 
-const PrecisionLevelSchema = z.enum(['city', 'region', 'country']).meta({
-  title: 'Coordinate Precision Level',
-  description: 'Level of coordinate precision',
-  examples: ['city'],
-});
-export type PrecisionLevel = z.infer<typeof PrecisionLevelSchema>;
-
 export const CoordinatesSchema = z
   .strictObject({
     latitude: LatitudeSchema,
     longitude: LongitudeSchema,
-    precision_level: PrecisionLevelSchema,
   })
   .meta({
     title: 'Coordinates',

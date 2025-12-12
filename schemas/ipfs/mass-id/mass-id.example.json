@@ -1,9 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.41/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "6ad85025b3961cb27b3bd37e8b37b05e907391055e1d756c8db855fb08a8a51d",
+    "hash": "125577452d8e6288ac0fc1e5648824f6c11f43ce20f849d655e663024772d1c1",
     "type": "MassID",
-    "version": "0.1.41"
+    "version": "0.1.43",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -16,6 +17,13 @@
     "chain_id": 80002,
     "network_name": "Amoy"
   },
+  "viewer_reference": {
+    "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+    "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+    "ipns_name": "k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p",
+    "ens_domain": "viewer.carrot.eth",
+    "http_url": "https://viewer.carrot.eco"
+  },
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
   "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
@@ -23,6 +31,7 @@
   "short_name": "MassID #123",
   "description": "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
   "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
+  "animation_url": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
   "background_color": "#2D5A27",
   "external_links": [
     {
@@ -106,8 +115,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "d54953df581206093e1d775539c06dc4d9395c45bca006f098af7d45da8d01db",
-  "content_hash": "d54953df581206093e1d775539c06dc4d9395c45bca006f098af7d45da8d01db",
+  "original_content_hash": "a7d9175be91fd93188d60841aeef772f931671907380e34544f0d1125ddd7983",
+  "content_hash": "a7d9175be91fd93188d60841aeef772f931671907380e34544f0d1125ddd7983",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -127,9 +136,8 @@
         "country": "Brazil",
         "country_code": "BR",
         "coordinates": {
-          "latitude": -0.02,
-          "longitude": -51.06,
-          "precision_level": "city"
+          "latitude": -0.1,
+          "longitude": -51.1
         },
         "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
       },
@@ -141,9 +149,8 @@
         "country": "Brazil",
         "country_code": "BR",
         "coordinates": {
-          "latitude": -20.38,
-          "longitude": -40.34,
-          "precision_level": "city"
+          "latitude": -20.5,
+          "longitude": -40.2
         },
         "responsible_participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef"
       }
@@ -151,14 +158,12 @@
     "participants": [
       {
         "id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
-        "name": "Enlatados Produção",
         "roles": [
           "Waste Generator"
         ]
       },
       {
         "id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-        "name": "Eco Reciclagem",
         "roles": [
           "Hauler",
           "Recycler"
@@ -169,10 +174,10 @@
       {
         "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
         "event_name": "Pick-up",
-        "description": "Waste picked up by hauler Eco Reciclagem at Enlatados Produção",
         "timestamp": "2024-12-05T11:02:47.000Z",
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+        "weight": 3000,
         "data": {
           "vehicle_type": "Truck"
         }
@@ -181,7 +186,6 @@
         "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
         "event_name": "Weighing",
         "timestamp": "2024-12-05T13:02:47.000Z",
-        "description": "Waste weighed at recycling facility",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
         "data": {
@@ -197,7 +201,6 @@
       {
         "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
         "event_name": "Drop-off",
-        "description": "Waste deposited in Windrow number 1",
         "timestamp": "2024-12-05T14:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
@@ -205,7 +208,6 @@
       {
         "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
         "event_name": "Sorting",
-        "description": "This MassID sorting is being defined by the sorting factor calculated by a third party audit for Eco Reciclagem",
         "timestamp": "2024-12-05T15:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
@@ -217,7 +219,6 @@
       {
         "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
         "event_name": "Recycling",
-        "description": "Composting process completed",
         "timestamp": "2024-12-08T11:32:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"

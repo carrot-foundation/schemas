@@ -3,7 +3,7 @@ import {
   CollectionNameSchema,
   CreditAmountSchema,
   NftAttributeSchema,
-  ParticipantNameSchema,
+  NonEmptyStringSchema,
   PositiveIntegerSchema,
   TokenSymbolSchema,
   UnixTimestampSchema,
@@ -87,7 +87,7 @@ const CreditPurchaseReceiptReceiverAttributeSchema = NftAttributeSchema.omit({
 })
   .safeExtend({
     trait_type: z.literal('Receiver'),
-    value: ParticipantNameSchema.meta({
+    value: NonEmptyStringSchema.max(100).meta({
       title: 'Receiver',
       description:
         'Organization or individual receiving the credits from the purchase',
