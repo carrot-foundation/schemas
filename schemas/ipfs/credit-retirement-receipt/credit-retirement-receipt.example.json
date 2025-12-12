@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "abbf293db2b3572a19e64ad98da4554f47aa0e30e3cc9196a6dcdb15107002c7",
+    "hash": "fc7e41dbd5e09e556a8c01769841a447efff43bf79f82c17d68b4618ef41653c",
     "type": "CreditRetirementReceipt",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-retirement-receipt.schema.json"
@@ -20,7 +20,7 @@
   "created_at": "2025-01-20T14:45:30.000Z",
   "external_id": "b2c3d4e5-f6a7-4c89-8a01-234567890abc",
   "external_url": "https://explore.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
-  "content_hash": "59c1c4c3111d6576959ff40fab1318cc959b297febc77ae357893eaceb3bd917",
+  "content_hash": "e747d90504b548235c4b17e0723160107e1baae511ea8bdf6ef10783054c7440",
   "name": "Credit Retirement Receipt #1245 • 10.5 Credits Retired",
   "short_name": "Credit Retirement Receipt #1245",
   "description": "Permanent proof of credit retirement: 10.5 credits (C-CARB.CH4 and C-BIOW) retired by EcoTech Solutions Inc. on behalf of beneficiary Climate Action Corp, from 3 certificates across 2 collections.",
