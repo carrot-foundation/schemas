@@ -3,12 +3,11 @@ import {
   LatitudeSchema,
   LongitudeSchema,
   IsoCountryCodeSchema,
-  IsoAdministrativeDivisionCodeSchema,
-  MunicipalitySchema,
-  AdministrativeDivisionSchema,
-  CountryNameSchema,
+  IsoCountrySubdivisionCodeSchema,
+  CitySchema,
   Sha256HashSchema,
 } from '../primitives';
+import { validateLocationBrazilData } from '../../data';
 
 export const CoordinatesSchema = z
   .strictObject({
@@ -27,11 +26,8 @@ export const LocationSchema = z
       title: 'Location ID Hash',
       description: 'Anonymized identifier for the location',
     }),
-    municipality: MunicipalitySchema,
-    administrative_division: AdministrativeDivisionSchema,
-    administrative_division_code:
-      IsoAdministrativeDivisionCodeSchema.optional(),
-    country: CountryNameSchema,
+    city: CitySchema,
+    subdivision_code: IsoCountrySubdivisionCodeSchema,
     country_code: IsoCountryCodeSchema,
     responsible_participant_id_hash: Sha256HashSchema.meta({
       title: 'Responsible Participant ID Hash',
@@ -39,6 +35,9 @@ export const LocationSchema = z
         'Anonymized ID of the participant responsible for this location',
     }),
     coordinates: CoordinatesSchema,
+  })
+  .superRefine((record, ctx) => {
+    validateLocationBrazilData(record, ctx);
   })
   .meta({
     title: 'Location',

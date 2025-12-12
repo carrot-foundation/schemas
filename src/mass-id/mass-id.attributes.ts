@@ -5,12 +5,9 @@ import {
   WeightKgSchema,
   UnixTimestampSchema,
   NonEmptyStringSchema,
-  CountryNameSchema,
-  MunicipalitySchema,
-  AdministrativeDivisionSchema,
+  CitySchema,
   uniqueBy,
-  OriginCountryAttributeSchema,
-  OriginMunicipalityAttributeSchema,
+  OriginCityAttributeSchema,
   NftAttributeSchema,
   IbamaWasteClassificationSchema,
   VehicleTypeSchema,
@@ -52,32 +49,11 @@ const MassIDAttributeWeightSchema = NftAttributeSchema.safeExtend({
 });
 export type MassIDAttributeWeight = z.infer<typeof MassIDAttributeWeightSchema>;
 
-const MassIDAttributeOriginCountrySchema =
-  OriginCountryAttributeSchema.safeExtend({
-    value: CountryNameSchema,
-  });
-export type MassIDAttributeOriginCountry = z.infer<
-  typeof MassIDAttributeOriginCountrySchema
->;
-
-const MassIDAttributeOriginMunicipalitySchema =
-  OriginMunicipalityAttributeSchema.safeExtend({
-    value: MunicipalitySchema,
-  });
-export type MassIDAttributeOriginMunicipality = z.infer<
-  typeof MassIDAttributeOriginMunicipalitySchema
->;
-
-const MassIDAttributeOriginDivisionSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Origin Administrative Division'),
-  value: AdministrativeDivisionSchema,
-}).meta({
-  title: 'Origin Administrative Division Attribute',
-  description:
-    'State/province where the waste was generated (ISO 3166-2 preferred)',
+const MassIDAttributeOriginCitySchema = OriginCityAttributeSchema.safeExtend({
+  value: CitySchema,
 });
-export type MassIDAttributeOriginDivision = z.infer<
-  typeof MassIDAttributeOriginDivisionSchema
+export type MassIDAttributeOriginCity = z.infer<
+  typeof MassIDAttributeOriginCitySchema
 >;
 
 const MassIDAttributePickUpVehicleTypeSchema = NftAttributeSchema.safeExtend({
@@ -234,9 +210,7 @@ export const MassIDAttributesSchema = uniqueBy(
     MassIDAttributeWasteTypeSchema,
     MassIDAttributeWasteSubtypeSchema,
     MassIDAttributeWeightSchema,
-    MassIDAttributeOriginCountrySchema,
-    MassIDAttributeOriginMunicipalitySchema,
-    MassIDAttributeOriginDivisionSchema,
+    MassIDAttributeOriginCitySchema,
     MassIDAttributePickUpVehicleTypeSchema,
     MassIDAttributeRecyclingMethodSchema,
     MassIDAttributeLocalWasteClassificationIdSchema,
@@ -250,11 +224,11 @@ export const MassIDAttributesSchema = uniqueBy(
   ]),
   (attr) => attr.trait_type,
 )
-  .min(11)
-  .max(16)
+  .min(9)
+  .max(14)
   .meta({
     title: 'MassID Attributes',
     description:
-      'MassID NFT attributes array. Provide the canonical set covering waste (type, subtype, net weight), origin (country, municipality, administrative division), logistics (vehicle, manifests, weighing method/scale), and lifecycle timestamps (pick-up, drop-off, recycling). Length is validated; specific composition is producer-controlled.',
+      'MassID NFT attributes array. Provide the canonical set covering waste (type, subtype, net weight), origin (municipality), logistics (vehicle, manifests, weighing method/scale), and lifecycle timestamps (pick-up, drop-off, recycling). Length is validated; specific composition is producer-controlled.',
   });
 export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;

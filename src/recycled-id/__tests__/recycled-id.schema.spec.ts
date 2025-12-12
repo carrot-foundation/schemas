@@ -37,7 +37,7 @@ describe('RecycledIDIpfsSchema', () => {
       mutate: (invalid: z.input<typeof schema>) => {
         invalid.attributes = invalid.attributes.slice(
           0,
-          10,
+          9,
         ) as typeof invalid.attributes;
       },
     },
@@ -68,7 +68,7 @@ describe('RecycledIDIpfsSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('RecycledID');
-        expect(data.attributes).toHaveLength(11);
+        expect(data.attributes).toHaveLength(10);
         expect(data.data.summary.recycled_mass_kg).toBeGreaterThan(0);
       },
     );

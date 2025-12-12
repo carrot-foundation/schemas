@@ -127,35 +127,6 @@
           ],
           "type": "string",
           "pattern": "^[0-9a-fA-F]{64}$"
-        },
-        "ipns_name": {
-          "title": "Viewer IPNS Name",
-          "description": "IPNS name that resolves to the latest viewer build",
-          "examples": [
-            "k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^k[1-9a-hj-np-z][a-z0-9]{45,}$"
-        },
-        "ens_domain": {
-          "title": "Viewer ENS Domain",
-          "description": "ENS domain that resolves to the viewer application",
-          "examples": [
-            "viewer.carrot.eth"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*\\.eth$"
-        },
-        "http_url": {
-          "title": "Viewer HTTP URL",
-          "description": "HTTPS gateway or web URL for accessing the viewer without IPFS tooling",
-          "examples": [
-            "https://viewer.carrot.eco"
-          ],
-          "type": "string",
-          "format": "uri"
         }
       },
       "required": [

@@ -142,19 +142,9 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       : undefined;
 
     assertAttributeMatches(
-      'Origin Country',
-      pickUpLocation?.country,
-      'Pick-up event location.country',
-    );
-    assertAttributeMatches(
-      'Origin Municipality',
-      pickUpLocation?.municipality,
-      'Pick-up event location.municipality',
-    );
-    assertAttributeMatches(
-      'Origin Administrative Division',
-      pickUpLocation?.administrative_division,
-      'Pick-up event location.administrative_division',
+      'Origin City',
+      pickUpLocation?.city,
+      'Pick-up event location.city',
     );
     assertTimestampAttributeMatches(
       'Pick-up Date',

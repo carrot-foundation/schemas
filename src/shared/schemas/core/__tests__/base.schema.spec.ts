@@ -7,7 +7,6 @@ import {
   schemaInfoWithIpfsUriFixture,
   createViewerReferenceFixture,
   minimalViewerReferenceStub,
-  viewerReferenceWithResolversFixture,
 } from '../../../../test-utils/fixtures';
 
 describe('SchemaInfoSchema', () => {
@@ -38,14 +37,6 @@ describe('SchemaInfoSchema', () => {
 describe('ViewerReferenceSchema', () => {
   it('accepts viewer reference with required fields', () => {
     const result = ViewerReferenceSchema.safeParse(minimalViewerReferenceStub);
-
-    expect(result.success).toBe(true);
-  });
-
-  it('accepts viewer reference with optional resolvers', () => {
-    const result = ViewerReferenceSchema.safeParse(
-      viewerReferenceWithResolversFixture,
-    );
 
     expect(result.success).toBe(true);
   });

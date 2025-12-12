@@ -7,8 +7,7 @@ import {
   WasteTypeSchema,
   MethodologyNameSchema,
   StringifiedTokenIdSchema,
-  CountryNameSchema,
-  MunicipalitySchema,
+  CitySchema,
   CreditAmountSchema,
   CreditTypeSchema,
 } from '../primitives';
@@ -65,27 +64,14 @@ export const SourceWeightAttributeSchema = NftAttributeSchema.safeExtend({
 });
 export type SourceWeightAttribute = z.infer<typeof SourceWeightAttributeSchema>;
 
-export const OriginCountryAttributeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Origin Country'),
-  value: CountryNameSchema,
+export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
+  trait_type: z.literal('Origin City'),
+  value: CitySchema,
 }).meta({
-  title: 'Origin Country Attribute',
-  description: 'Origin country attribute',
-});
-export type OriginCountryAttribute = z.infer<
-  typeof OriginCountryAttributeSchema
->;
-
-export const OriginMunicipalityAttributeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Origin Municipality'),
-  value: MunicipalitySchema,
-}).meta({
-  title: 'Origin Municipality Attribute',
+  title: 'Origin City Attribute',
   description: 'Origin municipality attribute',
 });
-export type OriginMunicipalityAttribute = z.infer<
-  typeof OriginMunicipalityAttributeSchema
->;
+export type OriginCityAttribute = z.infer<typeof OriginCityAttributeSchema>;
 
 export const RecyclerAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Recycler'),

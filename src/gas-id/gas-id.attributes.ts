@@ -7,8 +7,7 @@ import {
   CreditTypeAttributeSchema,
   SourceWasteTypeAttributeSchema,
   SourceWeightAttributeSchema,
-  OriginCountryAttributeSchema,
-  OriginMunicipalityAttributeSchema,
+  OriginCityAttributeSchema,
   RecyclerAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
@@ -75,17 +74,10 @@ export type GasIDAttributeSourceWeight = z.infer<
   typeof GasIDAttributeSourceWeightSchema
 >;
 
-const GasIDAttributeOriginCountrySchema = OriginCountryAttributeSchema;
+const GasIDAttributeOriginCitySchema = OriginCityAttributeSchema;
 
-export type GasIDAttributeOriginCountry = z.infer<
-  typeof GasIDAttributeOriginCountrySchema
->;
-
-const GasIDAttributeOriginMunicipalitySchema =
-  OriginMunicipalityAttributeSchema;
-
-export type GasIDAttributeOriginMunicipality = z.infer<
-  typeof GasIDAttributeOriginMunicipalitySchema
+export type GasIDAttributeOriginCity = z.infer<
+  typeof GasIDAttributeOriginCitySchema
 >;
 
 const GasIDAttributeRecyclerSchema = RecyclerAttributeSchema;
@@ -116,8 +108,7 @@ export const GasIDAttributesSchema = z
     GasIDAttributeCreditTypeSchema,
     GasIDAttributeSourceWasteTypeSchema,
     GasIDAttributeSourceWeightSchema,
-    GasIDAttributeOriginCountrySchema,
-    GasIDAttributeOriginMunicipalitySchema,
+    GasIDAttributeOriginCitySchema,
     GasIDAttributeRecyclerSchema,
     GasIDAttributeMassIDTokenIdSchema,
     GasIDAttributeMassIDRecyclingDateSchema,

@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.45/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "ef7b1bab1fcf25d50d2f5fc3c878d9bb9c11ea7cdfcdea059efe836d9829d5b7",
+    "hash": "ac3064e00e54501e64924beb4d5ba6194ae0d618cd2e6dd1e896895d3c37d6f9",
     "type": "MassID",
-    "version": "0.1.43",
+    "version": "0.1.45",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
   },
   "environment": {
@@ -19,10 +19,7 @@
   },
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-    "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-    "ipns_name": "k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p",
-    "ens_domain": "viewer.carrot.eth",
-    "http_url": "https://viewer.carrot.eco"
+    "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
@@ -60,16 +57,8 @@
       "display_type": "number"
     },
     {
-      "trait_type": "Origin Country",
-      "value": "Brazil"
-    },
-    {
-      "trait_type": "Origin Municipality",
+      "trait_type": "Origin City",
       "value": "Macapá"
-    },
-    {
-      "trait_type": "Origin Administrative Division",
-      "value": "Amapá"
     },
     {
       "trait_type": "Pick-up Vehicle Type",
@@ -115,8 +104,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "b708a2e13c626ca6226da24e4bc62f8d0c6fa47f60a1da5dfbad1022251752e3",
-  "content_hash": "b708a2e13c626ca6226da24e4bc62f8d0c6fa47f60a1da5dfbad1022251752e3",
+  "original_content_hash": "57d85e3e2fb9effd87c5f79e970350e678cf69bbaec9cc380798e61eeb6a8165",
+  "content_hash": "57d85e3e2fb9effd87c5f79e970350e678cf69bbaec9cc380798e61eeb6a8165",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -130,10 +119,8 @@
     "locations": [
       {
         "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "municipality": "Macapá",
-        "administrative_division": "Amapá",
-        "administrative_division_code": "BR-AP",
-        "country": "Brazil",
+        "city": "Macapá",
+        "subdivision_code": "BR-AP",
         "country_code": "BR",
         "coordinates": {
           "latitude": -0.1,
@@ -143,10 +130,8 @@
       },
       {
         "id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-        "municipality": "Cariacica",
-        "administrative_division": "Espirito Santo",
-        "administrative_division_code": "BR-ES",
-        "country": "Brazil",
+        "city": "Cariacica",
+        "subdivision_code": "BR-ES",
         "country_code": "BR",
         "coordinates": {
           "latitude": -20.5,
@@ -177,8 +162,8 @@
         "timestamp": "2024-12-05T11:02:47.000Z",
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "weight": 3000,
         "data": {
+          "weight": 3000,
           "vehicle_type": "Truck"
         }
       },

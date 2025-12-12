@@ -7,8 +7,7 @@ import {
   CreditTypeAttributeSchema,
   SourceWasteTypeAttributeSchema,
   SourceWeightAttributeSchema,
-  OriginCountryAttributeSchema,
-  OriginMunicipalityAttributeSchema,
+  OriginCityAttributeSchema,
   RecyclerAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
@@ -61,17 +60,10 @@ export type RecycledIDAttributeSourceWeight = z.infer<
   typeof RecycledIDAttributeSourceWeightSchema
 >;
 
-const RecycledIDAttributeOriginCountrySchema = OriginCountryAttributeSchema;
+const RecycledIDAttributeOriginCitySchema = OriginCityAttributeSchema;
 
-export type RecycledIDAttributeOriginCountry = z.infer<
-  typeof RecycledIDAttributeOriginCountrySchema
->;
-
-const RecycledIDAttributeOriginMunicipalitySchema =
-  OriginMunicipalityAttributeSchema;
-
-export type RecycledIDAttributeOriginMunicipality = z.infer<
-  typeof RecycledIDAttributeOriginMunicipalitySchema
+export type RecycledIDAttributeOriginCity = z.infer<
+  typeof RecycledIDAttributeOriginCitySchema
 >;
 
 const RecycledIDAttributeRecyclerSchema = RecyclerAttributeSchema;
@@ -101,8 +93,7 @@ export const RecycledIDAttributesSchema = z
     RecycledIDAttributeCreditTypeSchema,
     RecycledIDAttributeSourceWasteTypeSchema,
     RecycledIDAttributeSourceWeightSchema,
-    RecycledIDAttributeOriginCountrySchema,
-    RecycledIDAttributeOriginMunicipalitySchema,
+    RecycledIDAttributeOriginCitySchema,
     RecycledIDAttributeRecyclerSchema,
     RecycledIDAttributeMassIDTokenIdSchema,
     RecycledIDAttributeMassIDRecyclingDateSchema,

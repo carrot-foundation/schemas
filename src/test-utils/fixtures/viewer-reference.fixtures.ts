@@ -10,16 +10,6 @@ export const minimalViewerReferenceStub: ViewerReference = {
 };
 
 /**
- * Viewer reference fixture including optional resolver fields.
- */
-export const viewerReferenceWithResolversFixture: ViewerReference = {
-  ...minimalViewerReferenceStub,
-  ipns_name: 'k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p',
-  ens_domain: 'viewer.carrot.eth',
-  http_url: 'https://viewer.carrot.eco',
-};
-
-/**
  * Creates a viewer reference fixture with optional overrides.
  */
 export function createViewerReferenceFixture(
