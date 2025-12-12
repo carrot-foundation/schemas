@@ -879,7 +879,7 @@
                     "type": "string",
                     "format": "uri"
                   },
-                  "uri": {
+                  "ipfs_uri": {
                     "title": "MassID IPFS URI",
                     "description": "IPFS URI of the MassID record",
                     "examples": [
@@ -948,7 +948,7 @@
                   "external_id",
                   "token_id",
                   "external_url",
-                  "uri",
+                  "ipfs_uri",
                   "smart_contract"
                 ],
                 "additionalProperties": false

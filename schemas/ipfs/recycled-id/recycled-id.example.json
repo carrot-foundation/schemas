@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "9e696b70ce117578ddc16c19d916ad9a84d128d9985dfa88907b94ba91aa33c7",
+    "hash": "c9544dd578a66d3fcbe00bbe7d558262a1087efd96d7556e94c3256ad239f69d",
     "type": "RecycledID",
     "version": "0.1.46",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id.schema.json"
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "237f6b44bc6f4733b0c6a94b24f75ef567c0695567a476b9985d797ea8b76819",
-  "original_content_hash": "237f6b44bc6f4733b0c6a94b24f75ef567c0695567a476b9985d797ea8b76819",
+  "content_hash": "24e23f4a2502d76974f095565bf6ab5baffaf5787bdf09b43e04af61afd09e4d",
+  "original_content_hash": "24e23f4a2502d76974f095565bf6ab5baffaf5787bdf09b43e04af61afd09e4d",
   "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
   "short_name": "RecycledID #789",
   "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",
@@ -103,24 +103,24 @@
     },
     "methodology": {
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d490",
-      "name": "BOLD Recycling",
+      "name": "AMS-III.F. | BOLD Recycling Credit",
       "version": "1.2.0",
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490",
-      "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-recycling-v1.2.0.pdf"
+      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-recycling-v1.2.0.pdf"
     },
     "audit": {
-      "date": "2025-06-24",
+      "completed_at": "2025-06-24T13:02:25.000Z",
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
-      "methodology_compliance": "PASSED",
+      "result": "PASSED",
       "rules_executed": 18,
-      "report": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/recycled-id-audit.json"
+      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/recycled-id-audit.json"
     },
     "mass_id": {
       "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
       "token_id": "123",
       "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
+      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
     },
     "waste_classification": {
       "primary_type": "Organic",

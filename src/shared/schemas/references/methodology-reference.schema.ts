@@ -4,7 +4,7 @@ import {
   ExternalUrlSchema,
   IpfsUriSchema,
   SemanticVersionSchema,
-  NonEmptyStringSchema,
+  MethodologyNameSchema,
 } from '../primitives';
 
 export const MethodologyReferenceSchema = z
@@ -13,13 +13,7 @@ export const MethodologyReferenceSchema = z
       title: 'Methodology External ID',
       description: 'Unique identifier for the methodology',
     }),
-    name: NonEmptyStringSchema.min(5)
-      .max(150)
-      .meta({
-        title: 'Methodology Name',
-        description: 'Human-readable name of the methodology',
-        examples: ['BOLD Carbon (CH₄)', 'BOLD Recycling'],
-      }),
+    name: MethodologyNameSchema,
     version: SemanticVersionSchema.meta({
       title: 'Methodology Version',
       description: 'Version of the methodology',
@@ -28,7 +22,7 @@ export const MethodologyReferenceSchema = z
       title: 'Methodology External URL',
       description: 'URL to view the methodology on Carrot Explorer',
     }),
-    uri: IpfsUriSchema.optional().meta({
+    ipfs_uri: IpfsUriSchema.meta({
       title: 'Methodology IPFS URI',
       description: 'IPFS URI to the methodology record',
     }),
@@ -37,5 +31,4 @@ export const MethodologyReferenceSchema = z
     title: 'Methodology Reference',
     description: 'Reference to a methodology record',
   });
-
 export type MethodologyReference = z.infer<typeof MethodologyReferenceSchema>;

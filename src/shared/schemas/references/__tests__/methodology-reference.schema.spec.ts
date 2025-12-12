@@ -8,16 +8,14 @@ describe('MethodologyReferenceSchema', () => {
   runReferenceSchemaTests({
     schema: MethodologyReferenceSchema,
     base: validMethodologyReferenceFixture,
-    requiredFields: ['external_id', 'name', 'version', 'external_url'],
+    requiredFields: [
+      'external_id',
+      'name',
+      'version',
+      'external_url',
+      'ipfs_uri',
+    ],
     validCases: [
-      {
-        description: 'validates without optional uri field',
-        build: () => {
-          const withoutUri = structuredClone(validMethodologyReferenceFixture);
-          Reflect.deleteProperty(withoutUri as Record<string, unknown>, 'uri');
-          return withoutUri;
-        },
-      },
       {
         description: 'validates semantic version with v prefix',
         build: () => ({
@@ -41,24 +39,6 @@ describe('MethodologyReferenceSchema', () => {
         },
       },
       {
-        description: 'rejects name shorter than 5 characters',
-        mutate: (invalid) => {
-          invalid.name = 'BOLD';
-        },
-      },
-      {
-        description: 'rejects name longer than 150 characters',
-        mutate: (invalid) => {
-          invalid.name = 'A'.repeat(151);
-        },
-      },
-      {
-        description: 'rejects empty name',
-        mutate: (invalid) => {
-          invalid.name = '';
-        },
-      },
-      {
         description: 'rejects invalid semantic version format',
         mutate: (invalid) => {
           invalid.version = 'invalid-version';
@@ -71,9 +51,9 @@ describe('MethodologyReferenceSchema', () => {
         },
       },
       {
-        description: 'rejects invalid IPFS URI format for uri',
+        description: 'rejects invalid IPFS URI format for ipfs_uri',
         mutate: (invalid) => {
-          invalid.uri = 'https://example.com/file.pdf';
+          invalid.ipfs_uri = 'https://example.com/file.pdf';
         },
       },
     ],
