@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "e3e89f642f91367516d26e39fd870f25f3a0adc494a54954b8afa3e58b8fad50",
-  "original_content_hash": "e3e89f642f91367516d26e39fd870f25f3a0adc494a54954b8afa3e58b8fad50",
+  "content_hash": "5603f8cc49a236ffd1f3188a6f5bf5a03e06200419e883e84a1154840ef79fbb",
+  "original_content_hash": "5603f8cc49a236ffd1f3188a6f5bf5a03e06200419e883e84a1154840ef79fbb",
   "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
   "short_name": "RecycledID #789",
   "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",
@@ -87,6 +87,11 @@
     },
     {
       "trait_type": "MassID Recycling Date",
+      "value": 1740182400000,
+      "display_type": "date"
+    },
+    {
+      "trait_type": "Certificate Issuance Date",
       "value": 1740182400000,
       "display_type": "date"
     }

@@ -9,6 +9,7 @@ import {
   OriginCityAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  CertificateIssuanceDateAttributeSchema,
   NftAttributeSchema,
   createNumericAttributeSchema,
   GasTypeSchema,
@@ -74,6 +75,12 @@ export type GasIDAttributeMassIDRecyclingDate = z.infer<
   typeof GasIDAttributeMassIDRecyclingDateSchema
 >;
 
+const GasIDAttributeCertificateIssuanceDateSchema =
+  CertificateIssuanceDateAttributeSchema;
+export type GasIDAttributeCertificateIssuanceDate = z.infer<
+  typeof GasIDAttributeCertificateIssuanceDateSchema
+>;
+
 export const GasIDAttributesSchema = z
   .tuple([
     GasIDAttributeMethodologySchema,
@@ -86,6 +93,7 @@ export const GasIDAttributesSchema = z
     GasIDAttributeOriginCitySchema,
     GasIDAttributeMassIDTokenIdSchema,
     GasIDAttributeMassIDRecyclingDateSchema,
+    GasIDAttributeCertificateIssuanceDateSchema,
   ])
   .meta({
     title: 'GasID NFT Attribute Array',

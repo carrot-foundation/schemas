@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "original_content_hash": "56f38990e28ec2993436064d757f210d1dd4be0712ad3bcbc913c1d91ad01ff8",
-  "content_hash": "56f38990e28ec2993436064d757f210d1dd4be0712ad3bcbc913c1d91ad01ff8",
+  "original_content_hash": "8306dea05260b5511e1bfdd0cf9502c0f40e4b18534cc7445ebaaae308862d72",
+  "content_hash": "8306dea05260b5511e1bfdd0cf9502c0f40e4b18534cc7445ebaaae308862d72",
   "name": "GasID #456 • BOLD Carbon (CH₄) • 2.09t CO₂e",
   "short_name": "GasID #456",
   "description": "This GasID certifies 2.09 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3 metric tons of organic waste from Macapá, Brazil.",
@@ -91,6 +91,11 @@
     },
     {
       "trait_type": "MassID Recycling Date",
+      "value": 1740182400000,
+      "display_type": "date"
+    },
+    {
+      "trait_type": "Certificate Issuance Date",
       "value": 1740182400000,
       "display_type": "date"
     }

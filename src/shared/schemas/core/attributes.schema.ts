@@ -142,6 +142,19 @@ export type MassIDRecyclingDateAttribute = z.infer<
   typeof MassIDRecyclingDateAttributeSchema
 >;
 
+export const CertificateIssuanceDateAttributeSchema = createDateAttributeSchema(
+  {
+    traitType: 'Certificate Issuance Date',
+    title: 'Certificate Issuance Date',
+    description:
+      'Unix timestamp in milliseconds when the certificate was issued',
+    omitMaxValue: true,
+  },
+);
+export type CertificateIssuanceDateAttribute = z.infer<
+  typeof CertificateIssuanceDateAttributeSchema
+>;
+
 export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Origin City'),
   value: CitySchema,

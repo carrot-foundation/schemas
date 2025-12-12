@@ -8,6 +8,7 @@ import {
   OriginCityAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  CertificateIssuanceDateAttributeSchema,
   createWeightAttributeSchema,
 } from '../shared';
 
@@ -63,6 +64,12 @@ export type RecycledIDAttributeMassIDRecyclingDate = z.infer<
   typeof RecycledIDAttributeMassIDRecyclingDateSchema
 >;
 
+const RecycledIDAttributeCertificateIssuanceDateSchema =
+  CertificateIssuanceDateAttributeSchema;
+export type RecycledIDAttributeCertificateIssuanceDate = z.infer<
+  typeof RecycledIDAttributeCertificateIssuanceDateSchema
+>;
+
 export const RecycledIDAttributesSchema = z
   .tuple([
     RecycledIDAttributeMethodologySchema,
@@ -74,6 +81,7 @@ export const RecycledIDAttributesSchema = z
     RecycledIDAttributeOriginCitySchema,
     RecycledIDAttributeMassIDTokenIdSchema,
     RecycledIDAttributeMassIDRecyclingDateSchema,
+    RecycledIDAttributeCertificateIssuanceDateSchema,
   ])
   .meta({
     title: 'RecycledID NFT Attribute Array',
