@@ -8,8 +8,6 @@ import {
   Sha256HashSchema,
   IpfsUriSchema,
   IpfsCidSchema,
-  IpnsSchema,
-  EnsDomainSchema,
 } from '../primitives';
 
 export const SchemaInfoSchema = z
@@ -67,21 +65,6 @@ export const ViewerReferenceSchema = z
       title: 'Viewer Integrity Hash',
       description:
         'SHA-256 hash of the published viewer bundle to verify integrity',
-    }),
-    ipns_name: IpnsSchema.optional().meta({
-      title: 'Viewer IPNS Name',
-      description: 'IPNS name that resolves to the latest viewer build',
-    }),
-    ens_domain: EnsDomainSchema.optional().meta({
-      title: 'Viewer ENS Domain',
-      description: 'ENS domain that resolves to the viewer application',
-      examples: ['viewer.carrot.eth'],
-    }),
-    http_url: ExternalUrlSchema.optional().meta({
-      title: 'Viewer HTTP URL',
-      description:
-        'HTTPS gateway or web URL for accessing the viewer without IPFS tooling',
-      examples: ['https://viewer.carrot.eco'],
     }),
   })
   .meta({

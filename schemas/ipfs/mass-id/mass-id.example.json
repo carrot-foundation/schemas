@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.45/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "aa7bc240c73526dd5699b044c7c6218cb31945a6b9048dc3e2c8a77e03b13ad9",
+    "hash": "e09a390d1ca12fc232b151fd196bf279ca3b00580ecf7cfc85c17a7364720139",
     "type": "MassID",
     "version": "0.1.45",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
@@ -19,10 +19,7 @@
   },
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-    "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-    "ipns_name": "k51qzi5uqu5dl6gn924e0csz0j3n0p0k3x0tgpn8afvhk8m9qvvid0f3q3us8p",
-    "ens_domain": "viewer.carrot.eth",
-    "http_url": "https://viewer.carrot.eco"
+    "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
@@ -107,8 +104,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "dd0bbf935495dca075c8b8a18d2d97556c07114a2f2b8a2930727634d5ae4233",
-  "content_hash": "dd0bbf935495dca075c8b8a18d2d97556c07114a2f2b8a2930727634d5ae4233",
+  "original_content_hash": "8adb3c587acece25a405ca04e6f68e1f8acfad2723deedc1d5c164af167f9486",
+  "content_hash": "8adb3c587acece25a405ca04e6f68e1f8acfad2723deedc1d5c164af167f9486",
   "data": {
     "waste_properties": {
       "type": "Organic",
