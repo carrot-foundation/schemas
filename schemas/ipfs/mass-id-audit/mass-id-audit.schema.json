@@ -207,14 +207,16 @@
             },
             "name": {
               "title": "Methodology Name",
-              "description": "Human-readable name of the methodology",
+              "description": "Name of the methodology used for certification",
               "examples": [
-                "BOLD Carbon (CH₄)",
-                "BOLD Recycling"
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
               ],
               "type": "string",
-              "minLength": 5,
-              "maxLength": 150
+              "enum": [
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
+              ]
             },
             "version": {
               "title": "Methodology Version",
@@ -254,7 +256,8 @@
             "external_id",
             "name",
             "version",
-            "external_url"
+            "external_url",
+            "uri"
           ],
           "additionalProperties": false
         },
