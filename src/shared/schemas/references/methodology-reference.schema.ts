@@ -22,7 +22,7 @@ export const MethodologyReferenceSchema = z
       title: 'Methodology External URL',
       description: 'URL to view the methodology on Carrot Explorer',
     }),
-    uri: IpfsUriSchema.meta({
+    ipfs_uri: IpfsUriSchema.meta({
       title: 'Methodology IPFS URI',
       description: 'IPFS URI to the methodology record',
     }),

@@ -20,7 +20,7 @@ export const GasIDReferenceSchema = z
       title: 'GasID External URL',
       description: 'URL to view the GasID on Carrot Explorer',
     }),
-    uri: IpfsUriSchema.meta({
+    ipfs_uri: IpfsUriSchema.meta({
       title: 'GasID IPFS URI',
       description: 'IPFS URI of the GasID record',
     }),

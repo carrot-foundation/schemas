@@ -8,7 +8,13 @@ describe('MethodologyReferenceSchema', () => {
   runReferenceSchemaTests({
     schema: MethodologyReferenceSchema,
     base: validMethodologyReferenceFixture,
-    requiredFields: ['external_id', 'name', 'version', 'external_url'],
+    requiredFields: [
+      'external_id',
+      'name',
+      'version',
+      'external_url',
+      'ipfs_uri',
+    ],
     validCases: [
       {
         description: 'validates semantic version with v prefix',
@@ -45,9 +51,9 @@ describe('MethodologyReferenceSchema', () => {
         },
       },
       {
-        description: 'rejects invalid IPFS URI format for uri',
+        description: 'rejects invalid IPFS URI format for ipfs_uri',
         mutate: (invalid) => {
-          invalid.uri = 'https://example.com/file.pdf';
+          invalid.ipfs_uri = 'https://example.com/file.pdf';
         },
       },
     ],

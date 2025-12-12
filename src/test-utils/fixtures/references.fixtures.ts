@@ -65,7 +65,8 @@ export const minimalGasIdReferenceStub: GasIDReference = {
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
+  ipfs_uri:
+    'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
 };
 
 /**
@@ -79,7 +80,8 @@ export const validGasIdReferenceFixture: GasIDReference = {
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
+  ipfs_uri:
+    'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
 };
 
 /**
@@ -108,7 +110,8 @@ export const minimalMassIDReferenceStub: MassIDReference = {
   token_id: '123',
   external_url:
     'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-  uri: 'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
+  ipfs_uri:
+    'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
 };
 
 /**
@@ -122,7 +125,8 @@ export const validMassIDReferenceFixture: MassIDReference = {
   token_id: '123',
   external_url:
     'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-  uri: 'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
+  ipfs_uri:
+    'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
 };
 
 /**
@@ -152,7 +156,8 @@ export const minimalMethodologyReferenceStub: MethodologyReference = {
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  uri: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
+  ipfs_uri:
+    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
 };
 
 /**
@@ -167,7 +172,8 @@ export const validMethodologyReferenceFixture: MethodologyReference = {
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  uri: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
+  ipfs_uri:
+    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
 };
 
 /**
