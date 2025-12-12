@@ -455,14 +455,14 @@
           ],
           "additionalProperties": false
         },
-        "waste_classification": {
-          "title": "Waste Classification",
-          "description": "Classification of the source waste (MassID)",
+        "waste_properties": {
+          "title": "Waste Properties",
+          "description": "Properties of the source waste (MassID)",
           "type": "object",
           "properties": {
-            "primary_type": {
-              "title": "Source Waste Primary Type",
-              "description": "Primary type of the source waste",
+            "type": {
+              "title": "Source Waste Type",
+              "description": "Type of the source waste",
               "examples": [
                 "Organic"
               ],
@@ -501,7 +501,7 @@
             }
           },
           "required": [
-            "primary_type",
+            "type",
             "subtype",
             "net_weight_kg"
           ],
@@ -935,7 +935,7 @@
         "methodology",
         "audit",
         "mass_id",
-        "waste_classification",
+        "waste_properties",
         "origin_location",
         "prevented_emissions_calculation",
         "accredited_participants"

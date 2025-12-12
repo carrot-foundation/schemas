@@ -1,5 +1,5 @@
 import type {
-  WasteClassification,
+  WasteProperties,
   AccreditedParticipants,
   AccreditedParticipant,
   RewardAllocation,
@@ -8,40 +8,40 @@ import type {
 } from '../../shared';
 
 /**
- * Minimal waste classification stub for testing.
+ * Minimal waste properties stub for testing.
  *
- * Contains only required fields for waste classification schema validation.
- * Used as a base for creating custom waste classification fixtures in tests.
+ * Contains only required fields for waste properties schema validation.
+ * Used as a base for creating custom waste properties fixtures in tests.
  */
-export const minimalWasteClassificationStub: WasteClassification = {
-  primary_type: 'Organic',
+export const minimalWastePropertiesStub: WasteProperties = {
+  type: 'Organic',
   subtype: 'Food, Food Waste and Beverages',
   net_weight_kg: 3000,
 };
 
 /**
- * Valid waste classification fixture for testing.
+ * Valid waste properties fixture for testing.
  *
- * Represents a complete waste classification that satisfies the waste classification schema.
- * Used in tests to validate waste classification schema parsing and validation.
+ * Represents a complete waste properties that satisfies the waste properties schema.
+ * Used in tests to validate waste properties schema parsing and validation.
  */
-export const validWasteClassificationFixture: WasteClassification = {
-  primary_type: 'Organic',
+export const validWastePropertiesFixture: WasteProperties = {
+  type: 'Organic',
   subtype: 'Food, Food Waste and Beverages',
   net_weight_kg: 3000,
 };
 
 /**
- * Creates a waste classification fixture with optional overrides.
+ * Creates a waste properties fixture with optional overrides.
  *
- * @param overrides - Optional partial waste classification to override default values
- * @returns A complete waste classification fixture
+ * @param overrides - Optional partial waste properties to override default values
+ * @returns A complete waste properties fixture
  */
-export function createWasteClassificationFixture(
-  overrides?: Partial<WasteClassification>,
-): WasteClassification {
+export function createWastePropertiesFixture(
+  overrides?: Partial<WasteProperties>,
+): WasteProperties {
   return {
-    ...minimalWasteClassificationStub,
+    ...minimalWastePropertiesStub,
     ...overrides,
   };
 }

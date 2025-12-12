@@ -201,7 +201,7 @@ All schema definitions follow consistent naming patterns to ensure clarity and m
 export const MassIDDataSchema = z.strictObject({...});
 export const LocationSchema = z.strictObject({...});
 export const ParticipantSchema = z.strictObject({...});
-export const WasteClassificationSchema = z.strictObject({...});
+export const WastePropertiesSchema = z.strictObject({...});
 ```
 
 #### Benefits
@@ -221,7 +221,7 @@ TypeScript types inferred from schemas follow the pattern without "Schema" suffi
 export type MassIDData = z.infer<typeof MassIDDataSchema>;
 export type Location = z.infer<typeof LocationSchema>;
 export type Participant = z.infer<typeof ParticipantSchema>;
-export type WasteClassification = z.infer<typeof WasteClassificationSchema>;
+export type WasteProperties = z.infer<typeof WastePropertiesSchema>;
 ```
 
 ### Schema Field Naming
@@ -233,7 +233,7 @@ Field names use `snake_case` consistently across all schemas:
 ```typescript
 const schema = z.strictObject({
   // ✅ snake_case field names
-  primary_type: z.string(),
+  type: z.string(),
   measurement_unit: z.enum(['kg', 'ton']),
   net_weight: z.number(),
   contamination_level: z.enum(['None', 'Low', 'Medium', 'High']),
@@ -460,12 +460,12 @@ Extract array schemas with extra logic (like `uniqueBy()` wrappers) based on com
 ### Complete Field Definition
 
 ```typescript
-const wasteClassification = z
+const wasteProperties = z
   .strictObject({
-    primary_type: wasteType.meta({
-      title: 'Primary Waste Type',
+    type: wasteType.meta({
+      title: 'Waste Type',
       examples: ['Organic', 'Plastic', 'Metal'],
-      description: 'Primary waste material category',
+      description: 'Waste material category',
     }),
     net_weight: z
       .number()

@@ -4,26 +4,26 @@ import {
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
-  validWasteClassificationFixture,
+  validWastePropertiesFixture,
   validAccreditedParticipantsFixture,
   validParticipantRewardsFixture,
 } from '../../../../test-utils';
 import {
-  WasteClassificationSchema,
+  WastePropertiesSchema,
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
 } from '../certificate.schema';
 
-describe('WasteClassificationSchema', () => {
-  const schema = WasteClassificationSchema;
-  const base = validWasteClassificationFixture;
+describe('WastePropertiesSchema', () => {
+  const schema = WastePropertiesSchema;
+  const base = validWastePropertiesFixture;
 
-  it('validates valid waste classification successfully', () => {
+  it('validates valid waste properties successfully', () => {
     expectSchemaValid(schema, () => ({ ...base }));
   });
 
-  it('rejects missing primary_type', () => {
-    expectSchemaInvalidWithout(schema, base, 'primary_type');
+  it('rejects missing type', () => {
+    expectSchemaInvalidWithout(schema, base, 'type');
   });
 
   it('rejects missing subtype', () => {
@@ -34,9 +34,9 @@ describe('WasteClassificationSchema', () => {
     expectSchemaInvalidWithout(schema, base, 'net_weight_kg');
   });
 
-  it('rejects empty primary_type', () => {
+  it('rejects empty type', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.primary_type = '' as unknown as (typeof invalid)['primary_type'];
+      invalid.type = '' as unknown as (typeof invalid)['type'];
     });
   });
 
@@ -51,7 +51,7 @@ describe('WasteClassificationSchema', () => {
       schema,
       () => ({ ...base }),
       (data) => {
-        expect(data.primary_type).toBe(base.primary_type);
+        expect(data.type).toBe(base.type);
         expect(data.subtype).toBe(base.subtype);
         expect(data.net_weight_kg).toBe(base.net_weight_kg);
       },

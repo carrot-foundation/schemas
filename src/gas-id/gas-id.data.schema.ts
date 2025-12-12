@@ -5,7 +5,7 @@ import {
   WeightKgSchema,
   IsoDateSchema,
   LocationSchema,
-  WasteClassificationSchema,
+  WastePropertiesSchema,
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
   MethodologyReferenceSchema,
@@ -98,7 +98,7 @@ export const GasIDDataSchema = z
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
     mass_id: MassIDReferenceSchema,
-    waste_classification: WasteClassificationSchema,
+    waste_properties: WastePropertiesSchema,
     origin_location: LocationSchema.meta({
       title: 'Source Waste Origin Location',
       description: 'Location of the waste origin',
