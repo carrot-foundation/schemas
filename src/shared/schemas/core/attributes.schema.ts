@@ -17,7 +17,8 @@ export function createDateAttributeSchema(params: {
   description: string;
   omitMaxValue?: boolean;
 }) {
-  const base = params.omitMaxValue
+  const { omitMaxValue = true } = params;
+  const base = omitMaxValue
     ? NftAttributeSchema.omit({ max_value: true })
     : NftAttributeSchema;
 
@@ -32,7 +33,7 @@ export function createDateAttributeSchema(params: {
     })
     .meta({
       title: `${params.title} Attribute`,
-      description: `${params.description} attribute using Unix timestamp in milliseconds`,
+      description: params.description,
     });
 }
 

@@ -1502,7 +1502,7 @@
           },
           {
             "title": "Retirement Date Attribute",
-            "description": "Unix timestamp in milliseconds when the retirement was completed attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the retirement was completed",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1522,17 +1522,6 @@
               "display_type": {
                 "type": "string",
                 "const": "date"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               }
             },
             "required": [
