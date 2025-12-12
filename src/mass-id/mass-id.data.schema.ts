@@ -5,7 +5,7 @@ import {
   WasteSubtypeSchema,
   NonEmptyStringSchema,
   WeightKgSchema,
-  IsoTimestampSchema,
+  IsoDateTimeSchema,
   LocationSchema,
   ParticipantSchema,
   uniqueBy,
@@ -79,7 +79,7 @@ const MassIDAttachmentSchema = z
         description: 'Official document number if applicable',
         examples: ['2353', '12345'],
       }),
-    issued_at: IsoTimestampSchema.optional().meta({
+    issued_at: IsoDateTimeSchema.optional().meta({
       title: 'Issued At',
       description: 'ISO 8601 timestamp when the attachment was issued',
     }),
@@ -102,7 +102,7 @@ const MassIDBaseEventSchema = z
       title: 'Event ID',
       description: 'Unique event identifier',
     }),
-    timestamp: IsoTimestampSchema.meta({
+    timestamp: IsoDateTimeSchema.meta({
       title: 'Event Timestamp',
       description: 'ISO 8601 timestamp when the event occurred',
     }),

@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Methodology IPFS Record",
   "description": "Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/methodology/methodology.schema.json",
-  "version": "0.1.46",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.48/schemas/ipfs/methodology/methodology.schema.json",
+  "version": "0.1.48",
   "type": "object",
   "properties": {
     "$schema": {
@@ -205,14 +205,16 @@
         },
         "short_name": {
           "title": "Methodology Short Name",
-          "description": "Abbreviated name for UI display and references",
+          "description": "Abbreviated/short name of the methodology used for UI display and references",
           "examples": [
-            "BOLD Carbon",
+            "BOLD Carbon (CH₄)",
             "BOLD Recycling"
           ],
           "type": "string",
-          "minLength": 1,
-          "maxLength": 50
+          "enum": [
+            "BOLD Carbon (CH₄)",
+            "BOLD Recycling"
+          ]
         },
         "slug": {
           "title": "Methodology Slug",
@@ -287,7 +289,7 @@
             "description": "Definition of an audit rule that must be executed for methodology compliance",
             "type": "object",
             "properties": {
-              "rule_id": {
+              "id": {
                 "title": "Rule ID",
                 "description": "Unique identifier for the audit rule",
                 "examples": [
@@ -297,7 +299,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               },
-              "rule_slug": {
+              "slug": {
                 "title": "Rule Slug",
                 "description": "URL-friendly identifier for the rule",
                 "examples": [
@@ -310,7 +312,7 @@
                 "maxLength": 100,
                 "pattern": "^[a-z0-9-]+$"
               },
-              "rule_name": {
+              "name": {
                 "title": "Rule Name",
                 "description": "Human-readable name of the rule",
                 "examples": [
@@ -354,9 +356,9 @@
               }
             },
             "required": [
-              "rule_id",
-              "rule_slug",
-              "rule_name",
+              "id",
+              "slug",
+              "name",
               "description",
               "source_code_url",
               "execution_order"

@@ -8,7 +8,7 @@ describe('GasIDReferenceSchema', () => {
   runReferenceSchemaTests({
     schema: GasIDReferenceSchema,
     base: validGasIdReferenceFixture,
-    requiredFields: ['external_id', 'token_id', 'external_url', 'uri'],
+    requiredFields: ['external_id', 'token_id', 'external_url', 'ipfs_uri'],
     invalidCases: [
       {
         description: 'rejects invalid UUID for external_id',
@@ -31,7 +31,7 @@ describe('GasIDReferenceSchema', () => {
       {
         description: 'rejects invalid IPFS URI format',
         mutate: (invalid) => {
-          invalid.uri = 'https://example.com/file.json';
+          invalid.ipfs_uri = 'https://example.com/file.json';
         },
       },
     ],
@@ -39,7 +39,7 @@ describe('GasIDReferenceSchema', () => {
       expect(data.external_id).toBe(base.external_id);
       expect(data.token_id).toBe(base.token_id);
       expect(data.external_url).toBe(base.external_url);
-      expect(data.uri).toBe(base.uri);
+      expect(data.ipfs_uri).toBe(base.ipfs_uri);
     },
   });
 });

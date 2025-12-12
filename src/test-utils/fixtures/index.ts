@@ -1,3 +1,4 @@
+export * from './audit.fixtures';
 export * from './blockchain.fixtures';
 export * from './certificate.fixtures';
 export * from './external-link.fixtures';
