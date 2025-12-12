@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CreditPurchaseReceipt NFT IPFS Record",
   "description": "Complete CreditPurchaseReceipt NFT IPFS record including attributes and credit purchase data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
-  "version": "0.1.50",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.51/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "version": "0.1.51",
   "type": "object",
   "properties": {
     "$schema": {
