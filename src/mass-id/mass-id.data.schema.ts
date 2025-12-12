@@ -114,10 +114,6 @@ const MassIDBaseEventSchema = z
       title: 'Location ID Hash',
       description: 'Reference to location in the locations array',
     }),
-    weight: WeightKgSchema.optional().meta({
-      title: 'Event Weight (kg)',
-      description: 'Mass weight after this event in kilograms (kg)',
-    }),
   })
   .meta({
     title: 'MassID Base Event',
@@ -148,11 +144,16 @@ const PickUpEventSchema = buildMassIDEventSchema(
       vehicle_type: VehicleTypeSchema.optional().meta({
         description: 'Type of vehicle used for pick-up operations',
       }),
+      weight: WeightKgSchema.optional().meta({
+        title: 'Pick-up Waste Weight (kg)',
+        description:
+          'Weight of the waste picked up at the origin location in kilograms (kg)',
+      }),
     })
     .optional()
     .meta({
       title: 'Pick-up Event Data',
-      description: 'Vehicle information associated with the pick-up event',
+      description: 'Data associated with the pick-up event',
     }),
 });
 

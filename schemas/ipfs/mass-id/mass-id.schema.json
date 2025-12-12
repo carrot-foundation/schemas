@@ -464,16 +464,6 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$"
                   },
-                  "weight": {
-                    "title": "Event Weight (kg)",
-                    "description": "Mass weight after this event in kilograms (kg)",
-                    "examples": [
-                      500.35,
-                      3000
-                    ],
-                    "type": "number",
-                    "minimum": 0
-                  },
                   "event_name": {
                     "title": "Event Name",
                     "description": "Pick-up event discriminator",
@@ -485,7 +475,7 @@
                   },
                   "data": {
                     "title": "Pick-up Event Data",
-                    "description": "Vehicle information associated with the pick-up event",
+                    "description": "Data associated with the pick-up event",
                     "type": "object",
                     "properties": {
                       "vehicle_type": {
@@ -507,6 +497,16 @@
                           "Sludge Pipes",
                           "Truck"
                         ]
+                      },
+                      "weight": {
+                        "title": "Pick-up Waste Weight (kg)",
+                        "description": "Weight of the waste picked up at the origin location in kilograms (kg)",
+                        "examples": [
+                          500.35,
+                          3000
+                        ],
+                        "type": "number",
+                        "minimum": 0
                       }
                     },
                     "additionalProperties": false
@@ -561,16 +561,6 @@
                     ],
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$"
-                  },
-                  "weight": {
-                    "title": "Event Weight (kg)",
-                    "description": "Mass weight after this event in kilograms (kg)",
-                    "examples": [
-                      500.35,
-                      3000
-                    ],
-                    "type": "number",
-                    "minimum": 0
                   },
                   "event_name": {
                     "title": "Event Name",
@@ -745,16 +735,6 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$"
                   },
-                  "weight": {
-                    "title": "Event Weight (kg)",
-                    "description": "Mass weight after this event in kilograms (kg)",
-                    "examples": [
-                      500.35,
-                      3000
-                    ],
-                    "type": "number",
-                    "minimum": 0
-                  },
                   "event_name": {
                     "title": "Event Name",
                     "description": "Drop-off event discriminator",
@@ -814,16 +794,6 @@
                     ],
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$"
-                  },
-                  "weight": {
-                    "title": "Event Weight (kg)",
-                    "description": "Mass weight after this event in kilograms (kg)",
-                    "examples": [
-                      500.35,
-                      3000
-                    ],
-                    "type": "number",
-                    "minimum": 0
                   },
                   "event_name": {
                     "title": "Event Name",
@@ -914,16 +884,6 @@
                     ],
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$"
-                  },
-                  "weight": {
-                    "title": "Event Weight (kg)",
-                    "description": "Mass weight after this event in kilograms (kg)",
-                    "examples": [
-                      500.35,
-                      3000
-                    ],
-                    "type": "number",
-                    "minimum": 0
                   },
                   "event_name": {
                     "title": "Event Name",

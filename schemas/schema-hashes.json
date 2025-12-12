@@ -14,7 +14,7 @@
       "path": "ipfs/mass-id-audit/mass-id-audit.schema.json"
     },
     "ipfs/mass-id/mass-id.schema.json": {
-      "hash": "e09a390d1ca12fc232b151fd196bf279ca3b00580ecf7cfc85c17a7364720139",
+      "hash": "ed464ad687a84c18475101ff29afb7c98ff6b8439d95d7302721d92482626d3f",
       "path": "ipfs/mass-id/mass-id.schema.json"
     },
     "ipfs/gas-id/gas-id.schema.json": {

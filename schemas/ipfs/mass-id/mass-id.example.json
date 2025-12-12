@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.45/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "e09a390d1ca12fc232b151fd196bf279ca3b00580ecf7cfc85c17a7364720139",
+    "hash": "ed464ad687a84c18475101ff29afb7c98ff6b8439d95d7302721d92482626d3f",
     "type": "MassID",
     "version": "0.1.45",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
@@ -104,8 +104,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "8adb3c587acece25a405ca04e6f68e1f8acfad2723deedc1d5c164af167f9486",
-  "content_hash": "8adb3c587acece25a405ca04e6f68e1f8acfad2723deedc1d5c164af167f9486",
+  "original_content_hash": "2e2341649de98bf9193785a0846d9222e4f79c82c7561e318f3cfc676db0d6cb",
+  "content_hash": "2e2341649de98bf9193785a0846d9222e4f79c82c7561e318f3cfc676db0d6cb",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -162,8 +162,8 @@
         "timestamp": "2024-12-05T11:02:47.000Z",
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "weight": 3000,
         "data": {
+          "weight": 3000,
           "vehicle_type": "Truck"
         }
       },
