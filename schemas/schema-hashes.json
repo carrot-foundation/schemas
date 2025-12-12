@@ -34,7 +34,7 @@
       "path": "ipfs/credit/credit.schema.json"
     },
     "ipfs/collection/collection.schema.json": {
-      "hash": "1ab73e0ac1dad30ac4133a4eadecffa546a25d540cc64bb267cbaee346276998",
+      "hash": "580b94294de9a5cde25871c433bad25d0c2a989e629634841e3b0a3ae42c82cc",
       "path": "ipfs/collection/collection.schema.json"
     }
   }

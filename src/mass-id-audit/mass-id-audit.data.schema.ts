@@ -8,7 +8,7 @@ import {
   MethodologyReferenceSchema,
 } from '../shared';
 
-const MassIDAuditSummarySchema = z
+export const MassIDAuditSummarySchema = z
   .strictObject({
     started_at: IsoDateTimeSchema.meta({
       title: 'Audit Start Timestamp',
@@ -22,6 +22,18 @@ const MassIDAuditSummarySchema = z
       title: 'Audit Result',
       description: 'Overall outcome of the audit process',
     }),
+  })
+  .superRefine((data, ctx) => {
+    const startedAt = new Date(data.started_at).getTime();
+    const completedAt = new Date(data.completed_at).getTime();
+
+    if (completedAt < startedAt) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['completed_at'],
+        message: 'completed_at must be greater than or equal to started_at',
+      });
+    }
   })
   .meta({
     title: 'Audit Summary',
