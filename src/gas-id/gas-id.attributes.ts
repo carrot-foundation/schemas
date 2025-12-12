@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  NonEmptyStringSchema,
   NonNegativeFloatSchema,
   MethodologyAttributeSchema,
   CreditAmountAttributeSchema,
@@ -12,6 +11,7 @@ import {
   MassIDRecyclingDateAttributeSchema,
   NftAttributeSchema,
   createNumericAttributeSchema,
+  GasTypeSchema,
 } from '../shared';
 
 const GasIDAttributeMethodologySchema = MethodologyAttributeSchema;
@@ -21,11 +21,7 @@ export type GasIDAttributeMethodology = z.infer<
 
 const GasIDAttributeGasTypeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Gas Type'),
-  value: NonEmptyStringSchema.max(100).meta({
-    title: 'Gas Type',
-    description: 'Type of gas prevented',
-    examples: ['Methane (CH₄)', 'Carbon Dioxide (CO₂)'],
-  }),
+  value: GasTypeSchema,
 }).meta({
   title: 'Gas Type Attribute',
   description: 'Gas type attribute',

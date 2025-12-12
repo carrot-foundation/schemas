@@ -52,6 +52,13 @@ export const CreditTypeSchema = z.enum(['Biowaste', 'Carbon (CH₄)']).meta({
 });
 export type CreditType = z.infer<typeof CreditTypeSchema>;
 
+export const GasTypeSchema = z.enum(['Methane (CH₄)']).meta({
+  title: 'Gas Type',
+  description: 'Type of gas prevented',
+  examples: ['Methane (CH₄)'],
+});
+export type GasType = z.infer<typeof GasTypeSchema>;
+
 export const VehicleTypeSchema = z
   .enum([
     'Bicycle',

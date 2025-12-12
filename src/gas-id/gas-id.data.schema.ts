@@ -13,15 +13,12 @@ import {
   MassIDReferenceSchema,
   CreditTypeSchema,
   CreditAmountSchema,
+  GasTypeSchema,
 } from '../shared';
 
 const GasIDSummarySchema = z
   .strictObject({
-    gas_type: NonEmptyStringSchema.meta({
-      title: 'Gas Type',
-      description: 'Type of gas prevented',
-      examples: ['Methane (CH₄)', 'Carbon Dioxide (CO₂)'],
-    }),
+    gas_type: GasTypeSchema,
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,
     prevented_co2e_kg: WeightKgSchema.meta({
