@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Credit IPFS Record",
   "description": "Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/credit/credit.schema.json",
-  "version": "0.1.43",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.44/schemas/ipfs/credit/credit.schema.json",
+  "version": "0.1.44",
   "type": "object",
   "properties": {
     "$schema": {
