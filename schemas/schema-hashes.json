@@ -2,7 +2,7 @@
   "version": "0.1.45",
   "schemas": {
     "ipfs/recycled-id/recycled-id.schema.json": {
-      "hash": "75dee924f4c7bcd6374aeb1a041952058534cceafd037dace80e2bf3ac910090",
+      "hash": "bde9f0be3b410e45023d108c99f07c199f8fb2b92df23075fecdef5def4a492a",
       "path": "ipfs/recycled-id/recycled-id.schema.json"
     },
     "ipfs/methodology/methodology.schema.json": {
@@ -14,11 +14,11 @@
       "path": "ipfs/mass-id-audit/mass-id-audit.schema.json"
     },
     "ipfs/mass-id/mass-id.schema.json": {
-      "hash": "6a8697b251b21bf00a1ade9d4d21c244cb1da1fa0da2898681fa3c1761d04177",
+      "hash": "aa7bc240c73526dd5699b044c7c6218cb31945a6b9048dc3e2c8a77e03b13ad9",
       "path": "ipfs/mass-id/mass-id.schema.json"
     },
     "ipfs/gas-id/gas-id.schema.json": {
-      "hash": "529386833e853083fa82a9510d743b81559fcab095a5315dda3854d54b0530e9",
+      "hash": "8b70e9610618b56d8058c832cb9d202878668cc9df7a3494f733d6b17fbab0c3",
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {

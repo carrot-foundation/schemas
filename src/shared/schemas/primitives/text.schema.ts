@@ -10,13 +10,6 @@ export const NonEmptyStringSchema = z
   });
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 
-export const CitySchema = NonEmptyStringSchema.max(50).meta({
-  title: 'City',
-  description: 'City name',
-  examples: ['Macapá', 'São Paulo', 'New York', 'Berlin', 'Tokyo'],
-});
-export type City = z.infer<typeof CitySchema>;
-
 export const SlugSchema = NonEmptyStringSchema.regex(
   /^[a-z0-9-]+$/,
   'Must contain only lowercase letters, numbers, and hyphens',

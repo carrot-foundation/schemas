@@ -37,6 +37,7 @@ module.exports = {
     '*.min.js',
     '.git',
     'cspell.config.cjs',
+    'brazil-municipalities.json',
   ],
   language: 'en',
   useGitignore: true,

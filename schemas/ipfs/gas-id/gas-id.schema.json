@@ -550,38 +550,15 @@
               "pattern": "^[0-9a-fA-F]{64}$"
             },
             "city": {
-              "title": "City",
-              "description": "City name",
-              "examples": [
-                "Macapá",
-                "São Paulo",
-                "New York",
-                "Berlin",
-                "Tokyo"
-              ],
               "type": "string",
               "minLength": 1,
               "maxLength": 50
             },
             "subdivision_code": {
-              "title": "ISO Subdivision Code",
-              "description": "Subdivision code following ISO 3166-2 standard",
-              "examples": [
-                "BR-AP",
-                "BR-ES",
-                "US-CA"
-              ],
               "type": "string",
               "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
             },
             "country_code": {
-              "title": "ISO Country Code",
-              "description": "Two-letter country code following ISO 3166-1 alpha-2 standard",
-              "examples": [
-                "BR",
-                "US",
-                "DE"
-              ],
               "type": "string",
               "pattern": "^[A-Z]{2}$"
             },
@@ -634,6 +611,7 @@
           "required": [
             "id_hash",
             "city",
+            "subdivision_code",
             "country_code",
             "responsible_participant_id_hash",
             "coordinates"
