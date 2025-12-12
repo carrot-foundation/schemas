@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { NftAttributeSchema } from './nft.schema';
 import {
-  NonEmptyStringSchema,
   WeightKgSchema,
   UnixTimestampSchema,
   WasteTypeSchema,
@@ -151,16 +150,3 @@ export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
   description: 'Origin municipality attribute',
 });
 export type OriginCityAttribute = z.infer<typeof OriginCityAttributeSchema>;
-
-export const RecyclerAttributeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Recycler'),
-  value: NonEmptyStringSchema.max(100).meta({
-    title: 'Recycler',
-    description: 'Organization that processed the waste',
-    example: 'Eco Reciclagem',
-  }),
-}).meta({
-  title: 'Recycler Attribute',
-  description: 'Recycler attribute',
-});
-export type RecyclerAttribute = z.infer<typeof RecyclerAttributeSchema>;

@@ -54,7 +54,7 @@ describe('GasIDIpfsSchema', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       invalid.attributes = invalid.attributes.slice(
         0,
-        10,
+        9,
       ) as typeof invalid.attributes;
     });
   });
