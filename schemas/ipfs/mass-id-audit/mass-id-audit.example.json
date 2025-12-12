@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.45/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "3d6c284c570c3032dad3a14e3a8e2cc7b96222a7228e4eb1ac6f919b258f99c9",
+    "hash": "319b8254a5640bd3d7cfb81f857e9b07092275468bcf8f4b3c820b33cad76c95",
     "type": "MassID Audit",
     "version": "0.1.45",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-audit.schema.json"
@@ -14,7 +14,7 @@
   "created_at": "2025-01-27T15:42:18.000Z",
   "external_id": "7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "external_url": "https://explore.carrot.eco/document/7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
-  "content_hash": "ee753526716fa73c6dd675f072793edb11bd0191ebb79fe17f8ee7483c7e3533",
+  "content_hash": "7ab55040bdb871f9d8038d7ba453f11519a6258b398d6e75e792113eb8cc5de8",
   "data": {
     "audit_summary": {
       "audit_date": "2025-01-27",
@@ -25,7 +25,7 @@
     },
     "methodology": {
       "external_id": "8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9",
-      "name": "BOLD Carbon (CH₄)",
+      "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
       "version": "v1.4.2",
       "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
       "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.4.2.json"
@@ -285,5 +285,5 @@
       }
     ]
   },
-  "original_content_hash": "ee753526716fa73c6dd675f072793edb11bd0191ebb79fe17f8ee7483c7e3533"
+  "original_content_hash": "7ab55040bdb871f9d8038d7ba453f11519a6258b398d6e75e792113eb8cc5de8"
 }

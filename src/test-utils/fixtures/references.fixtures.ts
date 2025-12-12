@@ -148,10 +148,11 @@ export function createMassIDReferenceFixture(
  */
 export const minimalMethodologyReferenceStub: MethodologyReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  name: 'BOLD Carbon (CH₄)',
+  name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
+  uri: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
 };
 
 /**
@@ -162,7 +163,7 @@ export const minimalMethodologyReferenceStub: MethodologyReference = {
  */
 export const validMethodologyReferenceFixture: MethodologyReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  name: 'BOLD Carbon (CH₄)',
+  name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',

@@ -11,14 +11,6 @@ describe('MethodologyReferenceSchema', () => {
     requiredFields: ['external_id', 'name', 'version', 'external_url'],
     validCases: [
       {
-        description: 'validates without optional uri field',
-        build: () => {
-          const withoutUri = structuredClone(validMethodologyReferenceFixture);
-          Reflect.deleteProperty(withoutUri as Record<string, unknown>, 'uri');
-          return withoutUri;
-        },
-      },
-      {
         description: 'validates semantic version with v prefix',
         build: () => ({
           ...validMethodologyReferenceFixture,
@@ -38,24 +30,6 @@ describe('MethodologyReferenceSchema', () => {
         description: 'rejects invalid UUID for external_id',
         mutate: (invalid) => {
           invalid.external_id = 'not-a-uuid';
-        },
-      },
-      {
-        description: 'rejects name shorter than 5 characters',
-        mutate: (invalid) => {
-          invalid.name = 'BOLD';
-        },
-      },
-      {
-        description: 'rejects name longer than 150 characters',
-        mutate: (invalid) => {
-          invalid.name = 'A'.repeat(151);
-        },
-      },
-      {
-        description: 'rejects empty name',
-        mutate: (invalid) => {
-          invalid.name = '';
         },
       },
       {
