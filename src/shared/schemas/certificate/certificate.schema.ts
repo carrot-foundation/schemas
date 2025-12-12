@@ -10,11 +10,11 @@ import {
   PercentageSchema,
 } from '../primitives';
 
-export const WasteClassificationSchema = z
+export const WastePropertiesSchema = z
   .strictObject({
-    primary_type: WasteTypeSchema.meta({
-      title: 'Source Waste Primary Type',
-      description: 'Primary type of the source waste',
+    type: WasteTypeSchema.meta({
+      title: 'Source Waste Type',
+      description: 'Type of the source waste',
     }),
     subtype: WasteSubtypeSchema.meta({
       title: 'Source Waste Subtype',
@@ -22,15 +22,15 @@ export const WasteClassificationSchema = z
     }),
     net_weight_kg: WeightKgSchema.meta({
       title: 'Source Waste Net Weight',
-      description: 'Net weight of the source waste',
+      description: 'Net weight of the source waste in kilograms (kg)',
     }),
   })
   .meta({
-    title: 'Waste Classification',
-    description: 'Classification of the source waste (MassID)',
+    title: 'Waste Properties',
+    description: 'Properties of the source waste (MassID)',
   });
 
-export type WasteClassification = z.infer<typeof WasteClassificationSchema>;
+export type WasteProperties = z.infer<typeof WastePropertiesSchema>;
 
 export const AccreditedParticipantSchema = z
   .strictObject({

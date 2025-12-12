@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.48/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "5a4874991ab123a297e9c6e0ee4ea18d7fc8e3ed85d7a2570ee321291c5e06dd",
+    "hash": "c32f6c4bdd111a8c0cabc21e78530e05448fe34215eac46349aa325325994502",
     "type": "RecycledID",
-    "version": "0.1.48",
+    "version": "0.1.50",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id.schema.json"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "f807c3fdc3b75a5fd729387bedf11779af8f737601ca3dea68e9b8a05c74b913",
-  "original_content_hash": "f807c3fdc3b75a5fd729387bedf11779af8f737601ca3dea68e9b8a05c74b913",
+  "content_hash": "4fd2d88eaea8d208a8fa30b6281e614ae8becfecd498a605b26d8b239a2d0e01",
+  "original_content_hash": "4fd2d88eaea8d208a8fa30b6281e614ae8becfecd498a605b26d8b239a2d0e01",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -104,7 +104,8 @@
     "summary": {
       "recycled_mass_kg": 3000,
       "credit_type": "Biowaste",
-      "credit_amount": 3
+      "credit_amount": 3,
+      "issued_at": "2025-06-24T13:02:25.000Z"
     },
     "methodology": {
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d490",
@@ -127,8 +128,8 @@
       "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
       "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
     },
-    "waste_classification": {
-      "primary_type": "Organic",
+    "waste_properties": {
+      "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
       "net_weight_kg": 3000
     },

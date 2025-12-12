@@ -4,8 +4,9 @@ import {
   NonNegativeFloatSchema,
   WeightKgSchema,
   IsoDateSchema,
+  IsoDateTimeSchema,
   LocationSchema,
-  WasteClassificationSchema,
+  WastePropertiesSchema,
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
   MethodologyReferenceSchema,
@@ -22,8 +23,12 @@ const GasIDSummarySchema = z
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,
     prevented_co2e_kg: WeightKgSchema.meta({
-      title: 'Prevented Emissions (CO₂e kg)',
-      description: 'CO₂e weight of the prevented emissions',
+      title: 'Prevented Emissions (CO₂e)',
+      description: 'CO₂e weight of the prevented emissions in kilograms (kg)',
+    }),
+    issued_at: IsoDateTimeSchema.meta({
+      title: 'Issued At',
+      description: 'ISO 8601 timestamp when the certificate was issued',
     }),
   })
   .meta({
@@ -98,7 +103,7 @@ export const GasIDDataSchema = z
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
     mass_id: MassIDReferenceSchema,
-    waste_classification: WasteClassificationSchema,
+    waste_properties: WastePropertiesSchema,
     origin_location: LocationSchema.meta({
       title: 'Source Waste Origin Location',
       description: 'Location of the waste origin',

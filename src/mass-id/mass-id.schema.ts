@@ -123,8 +123,8 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
     );
     assertAttributeMatches(
       'Weight (kg)',
-      data.waste_properties.net_weight,
-      'waste_properties.net_weight',
+      data.waste_properties.net_weight_kg,
+      'waste_properties.net_weight_kg',
     );
 
     assertAttributeMatches(

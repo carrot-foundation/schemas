@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.48/schemas/ipfs/gas-id/gas-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "45e0328ddb8ea9628142ee3de17c553162b8520607cd960b659ea65c47ba5ed8",
+    "hash": "17fddaeb7257d3ec37c5be78a6ac9e9d20b1e8bc5c4f0a3f5dff1852f4bd2a38",
     "type": "GasID",
-    "version": "0.1.48",
+    "version": "0.1.50",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/gas-id.schema.json"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "original_content_hash": "7a9c14c36b5855de46b9136bcc734549f5f9717997bee8f9fcd4150510830d51",
-  "content_hash": "7a9c14c36b5855de46b9136bcc734549f5f9717997bee8f9fcd4150510830d51",
+  "original_content_hash": "28b0fad4da88ae01236dc6276cf2f259c5149d7a8b7cf248260073d96960043e",
+  "content_hash": "28b0fad4da88ae01236dc6276cf2f259c5149d7a8b7cf248260073d96960043e",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -109,7 +109,8 @@
       "gas_type": "Methane (CH₄)",
       "credit_type": "Carbon (CH₄)",
       "credit_amount": 0.85615,
-      "prevented_co2e_kg": 856.15012
+      "prevented_co2e_kg": 856.15012,
+      "issued_at": "2025-06-24T13:02:25.000Z"
     },
     "methodology": {
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d480",
@@ -132,8 +133,8 @@
       "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
       "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
     },
-    "waste_classification": {
-      "primary_type": "Organic",
+    "waste_properties": {
+      "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
       "net_weight_kg": 3000
     },

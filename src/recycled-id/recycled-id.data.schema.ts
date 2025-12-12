@@ -2,7 +2,7 @@ import { z } from 'zod';
 import {
   AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
-  WasteClassificationSchema,
+  WastePropertiesSchema,
   MethodologyReferenceSchema,
   AuditReferenceSchema,
   MassIDReferenceSchema,
@@ -10,16 +10,22 @@ import {
   WeightKgSchema,
   CreditTypeSchema,
   CreditAmountSchema,
+  IsoDateTimeSchema,
 } from '../shared';
 
 const RecycledIDSummarySchema = z
   .strictObject({
     recycled_mass_kg: WeightKgSchema.meta({
       title: 'Recycled Mass Weight',
-      description: 'Total weight of materials successfully recycled',
+      description:
+        'Total weight of materials successfully recycled in kilograms (kg)',
     }),
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,
+    issued_at: IsoDateTimeSchema.meta({
+      title: 'Issued At',
+      description: 'ISO 8601 timestamp when the certificate was issued',
+    }),
   })
   .meta({
     title: 'RecycledID Summary',
@@ -34,7 +40,7 @@ export const RecycledIDDataSchema = z
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
     mass_id: MassIDReferenceSchema,
-    waste_classification: WasteClassificationSchema,
+    waste_properties: WastePropertiesSchema,
     origin_location: LocationSchema.meta({
       title: 'RecycledID Origin Location',
       description: 'Source waste origin location details',

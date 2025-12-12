@@ -231,21 +231,32 @@
               "minimum": 0
             },
             "prevented_co2e_kg": {
-              "title": "Prevented Emissions (CO₂e kg)",
-              "description": "CO₂e weight of the prevented emissions",
+              "title": "Prevented Emissions (CO₂e)",
+              "description": "CO₂e weight of the prevented emissions in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
               ],
               "type": "number",
               "minimum": 0
+            },
+            "issued_at": {
+              "title": "Issued At",
+              "description": "ISO 8601 timestamp when the certificate was issued",
+              "examples": [
+                "2024-12-05T11:02:47.000Z"
+              ],
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
             }
           },
           "required": [
             "gas_type",
             "credit_type",
             "credit_amount",
-            "prevented_co2e_kg"
+            "prevented_co2e_kg",
+            "issued_at"
           ],
           "additionalProperties": false
         },
@@ -458,14 +469,14 @@
           ],
           "additionalProperties": false
         },
-        "waste_classification": {
-          "title": "Waste Classification",
-          "description": "Classification of the source waste (MassID)",
+        "waste_properties": {
+          "title": "Waste Properties",
+          "description": "Properties of the source waste (MassID)",
           "type": "object",
           "properties": {
-            "primary_type": {
-              "title": "Source Waste Primary Type",
-              "description": "Primary type of the source waste",
+            "type": {
+              "title": "Source Waste Type",
+              "description": "Type of the source waste",
               "examples": [
                 "Organic"
               ],
@@ -494,7 +505,7 @@
             },
             "net_weight_kg": {
               "title": "Source Waste Net Weight",
-              "description": "Net weight of the source waste",
+              "description": "Net weight of the source waste in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
@@ -504,7 +515,7 @@
             }
           },
           "required": [
-            "primary_type",
+            "type",
             "subtype",
             "net_weight_kg"
           ],
@@ -938,7 +949,7 @@
         "methodology",
         "audit",
         "mass_id",
-        "waste_classification",
+        "waste_properties",
         "origin_location",
         "prevented_emissions_calculation",
         "accredited_participants"
