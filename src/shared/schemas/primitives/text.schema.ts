@@ -10,28 +10,12 @@ export const NonEmptyStringSchema = z
   });
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 
-export const MunicipalitySchema = NonEmptyStringSchema.max(50).meta({
-  title: 'Municipality',
-  description: 'Municipality or city name',
+export const CitySchema = NonEmptyStringSchema.max(50).meta({
+  title: 'City',
+  description: 'City name',
   examples: ['Macapá', 'São Paulo', 'New York', 'Berlin', 'Tokyo'],
 });
-export type Municipality = z.infer<typeof MunicipalitySchema>;
-
-export const AdministrativeDivisionSchema = NonEmptyStringSchema.max(50).meta({
-  title: 'Administrative Division',
-  description: 'State, province, or administrative region name',
-  examples: ['Amapá', 'California', 'Bavaria'],
-});
-export type AdministrativeDivision = z.infer<
-  typeof AdministrativeDivisionSchema
->;
-
-export const CountryNameSchema = NonEmptyStringSchema.max(50).meta({
-  title: 'Country',
-  description: 'Full country name in English',
-  examples: ['Brazil', 'United States', 'Germany', 'Japan'],
-});
-export type CountryName = z.infer<typeof CountryNameSchema>;
+export type City = z.infer<typeof CitySchema>;
 
 export const SlugSchema = NonEmptyStringSchema.regex(
   /^[a-z0-9-]+$/,

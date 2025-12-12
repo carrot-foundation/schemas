@@ -3,10 +3,8 @@ import {
   LatitudeSchema,
   LongitudeSchema,
   IsoCountryCodeSchema,
-  IsoAdministrativeDivisionCodeSchema,
-  MunicipalitySchema,
-  AdministrativeDivisionSchema,
-  CountryNameSchema,
+  IsoSubdivisionCodeSchema,
+  CitySchema,
   Sha256HashSchema,
 } from '../primitives';
 
@@ -27,11 +25,8 @@ export const LocationSchema = z
       title: 'Location ID Hash',
       description: 'Anonymized identifier for the location',
     }),
-    municipality: MunicipalitySchema,
-    administrative_division: AdministrativeDivisionSchema,
-    administrative_division_code:
-      IsoAdministrativeDivisionCodeSchema.optional(),
-    country: CountryNameSchema,
+    city: CitySchema,
+    subdivision_code: IsoSubdivisionCodeSchema.optional(),
     country_code: IsoCountryCodeSchema,
     responsible_participant_id_hash: Sha256HashSchema.meta({
       title: 'Responsible Participant ID Hash',

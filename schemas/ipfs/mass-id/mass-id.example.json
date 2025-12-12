@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.43/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "ef7b1bab1fcf25d50d2f5fc3c878d9bb9c11ea7cdfcdea059efe836d9829d5b7",
+    "hash": "a4edf1ef98429b5be6a7cbcb28f8e0b943ad6c98c8a3b5633ff3a96b61a7e46e",
     "type": "MassID",
     "version": "0.1.43",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
@@ -60,16 +60,8 @@
       "display_type": "number"
     },
     {
-      "trait_type": "Origin Country",
-      "value": "Brazil"
-    },
-    {
-      "trait_type": "Origin Municipality",
+      "trait_type": "Origin City",
       "value": "Macapá"
-    },
-    {
-      "trait_type": "Origin Administrative Division",
-      "value": "Amapá"
     },
     {
       "trait_type": "Pick-up Vehicle Type",
@@ -115,8 +107,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "b708a2e13c626ca6226da24e4bc62f8d0c6fa47f60a1da5dfbad1022251752e3",
-  "content_hash": "b708a2e13c626ca6226da24e4bc62f8d0c6fa47f60a1da5dfbad1022251752e3",
+  "original_content_hash": "d1111944940a4534573a68fba7d63af11bdbe97d9a37a6d8155613668269bcde",
+  "content_hash": "d1111944940a4534573a68fba7d63af11bdbe97d9a37a6d8155613668269bcde",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -130,10 +122,8 @@
     "locations": [
       {
         "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "municipality": "Macapá",
-        "administrative_division": "Amapá",
-        "administrative_division_code": "BR-AP",
-        "country": "Brazil",
+        "city": "Macapá",
+        "subdivision_code": "BR-AP",
         "country_code": "BR",
         "coordinates": {
           "latitude": -0.1,
@@ -143,10 +133,8 @@
       },
       {
         "id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-        "municipality": "Cariacica",
-        "administrative_division": "Espirito Santo",
-        "administrative_division_code": "BR-ES",
-        "country": "Brazil",
+        "city": "Cariacica",
+        "subdivision_code": "BR-ES",
         "country_code": "BR",
         "coordinates": {
           "latitude": -20.5,

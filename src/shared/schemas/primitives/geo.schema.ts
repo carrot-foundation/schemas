@@ -11,20 +11,18 @@ export const IsoCountryCodeSchema = z
   });
 export type IsoCountryCode = z.infer<typeof IsoCountryCodeSchema>;
 
-export const IsoAdministrativeDivisionCodeSchema = z
+export const IsoSubdivisionCodeSchema = z
   .string()
   .regex(
     /^[A-Z]{2}-[A-Z0-9]{1,3}$/,
-    'Must be a valid ISO 3166-2 administrative division code',
+    'Must be a valid ISO 3166-2 subdivision code',
   )
   .meta({
-    title: 'ISO Administrative Division Code',
-    description: 'Administrative division code following ISO 3166-2 standard',
+    title: 'ISO Subdivision Code',
+    description: 'Subdivision code following ISO 3166-2 standard',
     examples: ['BR-AP', 'BR-ES', 'US-CA'],
   });
-export type IsoAdministrativeDivisionCode = z.infer<
-  typeof IsoAdministrativeDivisionCodeSchema
->;
+export type IsoSubdivisionCode = z.infer<typeof IsoSubdivisionCodeSchema>;
 
 export const LatitudeSchema = z
   .number()
