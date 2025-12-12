@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-export const IsoTimestampSchema = z
-  .string()
+export const IsoTimestampSchema = z.iso
   .datetime({
     message: 'Must be a valid ISO 8601 timestamp with timezone information',
     offset: true,
