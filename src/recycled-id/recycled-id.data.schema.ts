@@ -10,6 +10,7 @@ import {
   WeightKgSchema,
   CreditTypeSchema,
   CreditAmountSchema,
+  IsoTimestampSchema,
 } from '../shared';
 
 const RecycledIDSummarySchema = z
@@ -21,6 +22,10 @@ const RecycledIDSummarySchema = z
     }),
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,
+    issued_at: IsoTimestampSchema.meta({
+      title: 'Issued At',
+      description: 'ISO 8601 timestamp when the certificate was issued',
+    }),
   })
   .meta({
     title: 'RecycledID Summary',
