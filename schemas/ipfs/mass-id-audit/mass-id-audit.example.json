@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.46/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.48/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "b87485d9958833e3e070411de9253f68eec9ff3fe0a7f5dc4dd33096159f7c86",
+    "hash": "3285e189296a33976c6ba853af1deb3c54b868ee59aeb5d43a6004394005832c",
     "type": "MassID Audit",
-    "version": "0.1.46",
+    "version": "0.1.48",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-audit.schema.json"
   },
   "environment": {
@@ -14,42 +14,44 @@
   "created_at": "2025-01-27T15:42:18.000Z",
   "external_id": "7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "external_url": "https://explore.carrot.eco/document/7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
-  "content_hash": "f95430c188ad8577d3fa9e32963ab6680505ffbc8b205f6b6914068c045266fe",
+  "content_hash": "0abdb437ef603dbbeb0e3768ee837d2e9aea942603ec3a90d6ec2010d51ae2d1",
   "data": {
     "audit_summary": {
-      "audit_date": "2025-01-27",
-      "methodology_compliance": "PASSED",
-      "total_rules_executed": 24,
-      "passed_rules": 24,
-      "failed_rules": 0
+      "started_at": "2025-01-27T15:42:17.000Z",
+      "completed_at": "2025-01-27T15:42:18.000Z",
+      "result": "PASSED"
     },
     "methodology": {
       "external_id": "8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9",
-      "name": "BOLD Carbon (CH₄)",
+      "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
       "version": "v1.4.2",
       "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-      "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.4.2.json"
+      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.4.2.json"
     },
     "mass_id": {
       "external_id": "b5e8c3f1-7429-4d82-a6f5-c1e9d8b7a4f2",
       "token_id": "789",
       "external_url": "https://explore.carrot.eco/document/b5e8c3f1-7429-4d82-a6f5-c1e9d8b7a4f2",
-      "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
+      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
     },
     "gas_id": {
       "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "token_id": "456",
       "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-      "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json"
+      "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json"
     },
-    "rules_execution_results": [
+    "rule_execution_results": [
       {
-        "rule_name": "Waste Mass is Unique",
-        "rule_slug": "waste-mass-is-unique",
         "rule_id": "00000000-0000-4000-8000-000000000001",
-        "execution_order": 1,
+        "rule_slug": "waste-mass-is-unique",
+        "rule_name": "Waste Mass is Unique",
+        "rule_description": "Validates that each MassID is unique within the system to prevent duplicate entries and double counting",
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js",
+        "rule_execution_order": 1,
+        "execution_id": "70d3829e-9a73-4e80-811f-3723e1a5cb6a",
+        "execution_started_at": "2025-01-27T15:42:17.000Z",
+        "execution_completed_at": "2025-01-27T15:42:17.050Z",
         "result": "PASSED",
-        "description": "Validates that each MassID is unique within the system to prevent duplicate entries and double counting",
         "rule_processor_checksum": "a1b2c3d4-e5f6-4890-1234-567890abcdef",
         "rule_source_code_version": "v2.1.3-8f9e0a1b-c2d3-4e5f-6789-0123456789ab"
       },
@@ -57,233 +59,325 @@
         "rule_name": "No Conflicting GasID or Credit",
         "rule_slug": "no-conflicting-gas-id-or-credit",
         "rule_id": "00000000-0000-4000-8000-000000000002",
-        "execution_order": 2,
         "result": "PASSED",
-        "description": "Verifies that the MassID has not been previously registered in other carbon certificates or carbon credits to prevent double issuance",
         "rule_processor_checksum": "b2c3d4e5-f6a7-8901-2345-6789abcdef01",
-        "rule_source_code_version": "v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd"
+        "rule_source_code_version": "v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd",
+        "rule_description": "Verifies that the MassID has not been previously registered in other carbon certificates or carbon credits to prevent double issuance",
+        "rule_execution_order": 2,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/no-conflicting-gas-id-or-credit.js",
+        "execution_id": "f7ec4aae-51b8-426e-a851-c03497ce67b0",
+        "execution_started_at": "2025-01-27T15:42:17.100Z",
+        "execution_completed_at": "2025-01-27T15:42:17.150Z"
       },
       {
         "rule_name": "Project Period Limit",
         "rule_slug": "project-period-limit",
         "rule_id": "00000000-0000-4000-8000-000000000003",
-        "execution_order": 3,
         "result": "PASSED",
-        "description": "Confirms that the MassID processing occurred within the valid project timeframe as defined by methodology guidelines",
         "rule_processor_checksum": "c3d4e5f6-a7b8-9012-3456-789abcdef012",
-        "rule_source_code_version": "v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef"
+        "rule_source_code_version": "v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef",
+        "rule_description": "Confirms that the MassID processing occurred within the valid project timeframe as defined by methodology guidelines",
+        "rule_execution_order": 3,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/project-period-limit.js",
+        "execution_id": "34491848-c695-478d-b23c-14c9162ec57b",
+        "execution_started_at": "2025-01-27T15:42:17.200Z",
+        "execution_completed_at": "2025-01-27T15:42:17.250Z"
       },
       {
         "rule_name": "Participant Accreditations Requirements",
         "rule_slug": "participant-accreditations-requirements",
         "rule_id": "00000000-0000-4000-8000-000000000004",
-        "execution_order": 4,
         "result": "PASSED",
-        "description": "Checks if all participating entities (waste generator, hauler, recycler) have valid certifications and environmental permits",
         "rule_processor_checksum": "d4e5f6a7-b8c9-0123-4567-89abcdef0123",
-        "rule_source_code_version": "v2.1.3-b1a2f3a4-f5a6-789a-0123-56789abcdef0"
+        "rule_source_code_version": "v2.1.3-b1a2f3a4-f5a6-789a-0123-56789abcdef0",
+        "rule_description": "Checks if all participating entities (waste generator, hauler, recycler) have valid certifications and environmental permits",
+        "rule_execution_order": 4,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/participant-accreditations-requirements.js",
+        "execution_id": "cd405f72-adc6-431f-bff0-7babc7811a51",
+        "execution_started_at": "2025-01-27T15:42:17.300Z",
+        "execution_completed_at": "2025-01-27T15:42:17.350Z"
       },
       {
         "rule_name": "MassID Qualifications",
         "rule_slug": "mass-id-qualifications",
         "rule_id": "00000000-0000-4000-8000-000000000005",
-        "execution_order": 5,
         "result": "PASSED",
-        "description": "Validates the proper categorization, composition analysis, and definition of the organic waste mass according to methodology standards",
         "rule_processor_checksum": "e5f6a7b8-c9d0-1234-5678-9abcdef01234",
-        "rule_source_code_version": "v2.1.3-c2b3a4a5-a6b7-89ab-0123-6789abcdef01"
+        "rule_source_code_version": "v2.1.3-c2b3a4a5-a6b7-89ab-0123-6789abcdef01",
+        "rule_description": "Validates the proper categorization, composition analysis, and definition of the organic waste mass according to methodology standards",
+        "rule_execution_order": 5,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/mass-id-qualifications.js",
+        "execution_id": "7dbff863-b01d-44f8-8b21-05085369d67c",
+        "execution_started_at": "2025-01-27T15:42:17.400Z",
+        "execution_completed_at": "2025-01-27T15:42:17.450Z"
       },
       {
         "rule_name": "Regional Waste Classification",
         "rule_slug": "regional-waste-classification",
         "rule_id": "00000000-0000-4000-8000-000000000006",
-        "execution_order": 6,
         "result": "PASSED",
-        "description": "Ensures the waste is properly classified according to Brazilian ABNT NBR 10004 standards and local municipal regulations",
         "rule_processor_checksum": "f6a7b8c9-d0e1-2345-6789-abcdef012345",
-        "rule_source_code_version": "v2.1.3-d3c4b5a6-b7c8-9abc-0123-789abcdef012"
+        "rule_source_code_version": "v2.1.3-d3c4b5a6-b7c8-9abc-0123-789abcdef012",
+        "rule_description": "Ensures the waste is properly classified according to Brazilian ABNT NBR 10004 standards and local municipal regulations",
+        "rule_execution_order": 6,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/regional-waste-classification.js",
+        "execution_id": "131e1ad0-f051-4c80-a3c1-0c5af94167be",
+        "execution_started_at": "2025-01-27T15:42:17.500Z",
+        "execution_completed_at": "2025-01-27T15:42:17.550Z"
       },
       {
         "rule_name": "Geolocation and Address Precision",
         "rule_slug": "geolocation-and-address-precision",
         "rule_id": "00000000-0000-4000-8000-000000000007",
-        "execution_order": 7,
         "result": "PASSED",
-        "description": "Verifies the accuracy of geographical coordinates for waste collection and processing locations within 10-meter precision",
         "rule_processor_checksum": "a7b8c9d0-e1f2-3456-789a-bcdef0123456",
-        "rule_source_code_version": "v2.1.3-e4d5c6a7-c8d9-abcd-0123-89abcdef0123"
+        "rule_source_code_version": "v2.1.3-e4d5c6a7-c8d9-abcd-0123-89abcdef0123",
+        "rule_description": "Verifies the accuracy of geographical coordinates for waste collection and processing locations within 10-meter precision",
+        "rule_execution_order": 7,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/geolocation-and-address-precision.js",
+        "execution_id": "3444712d-1aba-4e83-be7b-953e107384be",
+        "execution_started_at": "2025-01-27T15:42:17.600Z",
+        "execution_completed_at": "2025-01-27T15:42:17.650Z"
       },
       {
         "rule_name": "Waste Origin Identification",
         "rule_slug": "waste-origin-identification",
         "rule_id": "00000000-0000-4000-8000-000000000008",
-        "execution_order": 8,
         "result": "PASSED",
-        "description": "Validates the documented source and origin point of the organic waste with complete chain of custody documentation",
         "rule_processor_checksum": "b8c9d0e1-f2a3-4567-89ab-cdef01234567",
-        "rule_source_code_version": "v2.1.3-f5e6d7a8-d9e0-bcde-0123-9abcdef01234"
+        "rule_source_code_version": "v2.1.3-f5e6d7a8-d9e0-bcde-0123-9abcdef01234",
+        "rule_description": "Validates the documented source and origin point of the organic waste with complete chain of custody documentation",
+        "rule_execution_order": 8,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-origin-identification.js",
+        "execution_id": "56d1e0bb-536b-4aa9-902b-6733cb9a6311",
+        "execution_started_at": "2025-01-27T15:42:17.700Z",
+        "execution_completed_at": "2025-01-27T15:42:17.750Z"
       },
       {
         "rule_name": "Hauler Identification",
         "rule_slug": "hauler-identification",
         "rule_id": "00000000-0000-4000-8000-000000000009",
-        "execution_order": 9,
         "result": "PASSED",
-        "description": "Confirms the identity, ANTT registration, and environmental credentials of the waste transportation company",
         "rule_processor_checksum": "c9d0e1f2-a3b4-5678-9abc-def012345678",
-        "rule_source_code_version": "v2.1.3-a6f7e8a9-e0f1-cdef-0123-abcdef012345"
+        "rule_source_code_version": "v2.1.3-a6f7e8a9-e0f1-cdef-0123-abcdef012345",
+        "rule_description": "Confirms the identity, ANTT registration, and environmental credentials of the waste transportation company",
+        "rule_execution_order": 9,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/hauler-identification.js",
+        "execution_id": "39d3ebcf-5627-40a6-bd53-0bd9b262e2d8",
+        "execution_started_at": "2025-01-27T15:42:17.800Z",
+        "execution_completed_at": "2025-01-27T15:42:17.850Z"
       },
       {
         "rule_name": "Vehicle Identification",
         "rule_slug": "vehicle-identification",
         "rule_id": "00000000-0000-4000-8000-000000000010",
-        "execution_order": 10,
         "result": "PASSED",
-        "description": "Verifies the registration, inspection certificates, and environmental compliance of vehicles used in waste transportation",
         "rule_processor_checksum": "d0e1f2a3-b4c5-6789-abcd-ef0123456789",
-        "rule_source_code_version": "v2.1.3-b7a8f9aa-f1a2-def0-0123-bcdef0123456"
+        "rule_source_code_version": "v2.1.3-b7a8f9aa-f1a2-def0-0123-bcdef0123456",
+        "rule_description": "Verifies the registration, inspection certificates, and environmental compliance of vehicles used in waste transportation",
+        "rule_execution_order": 10,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/vehicle-identification.js",
+        "execution_id": "61bbae0c-2c70-4c01-b755-0f94655e1691",
+        "execution_started_at": "2025-01-27T15:42:17.900Z",
+        "execution_completed_at": "2025-01-27T15:42:17.950Z"
       },
       {
         "rule_name": "Driver Identification",
         "rule_slug": "driver-identification",
         "rule_id": "00000000-0000-4000-8000-000000000011",
-        "execution_order": 11,
         "result": "PASSED",
-        "description": "Validates the identity, CNH (driver's license), and proper licensing of the waste transport driver",
         "rule_processor_checksum": "e1f2a3b4-c5d6-789a-bcde-f01234567890",
-        "rule_source_code_version": "v2.1.3-c8b9a0ab-a2b3-ef01-0123-cdef01234567"
+        "rule_source_code_version": "v2.1.3-c8b9a0ab-a2b3-ef01-0123-cdef01234567",
+        "rule_description": "Validates the identity, CNH (driver's license), and proper licensing of the waste transport driver",
+        "rule_execution_order": 11,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/driver-identification.js",
+        "execution_id": "904430a1-7562-4e5f-aa68-d5f014a8d393",
+        "execution_started_at": "2025-01-27T15:42:18.000Z",
+        "execution_completed_at": "2025-01-27T15:42:18.050Z"
       },
       {
         "rule_name": "Transport Manifest Data",
         "rule_slug": "transport-manifest-data",
         "rule_id": "00000000-0000-4000-8000-000000000012",
-        "execution_order": 12,
         "result": "PASSED",
-        "description": "Checks the completeness and accuracy of MTR (Waste Transport Manifest) documentation and digital signatures",
         "rule_processor_checksum": "f2a3b4c5-d6e7-89ab-cdef-012345678901",
-        "rule_source_code_version": "v2.1.3-d9c0b1bc-b3c4-f012-0123-def012345678"
+        "rule_source_code_version": "v2.1.3-d9c0b1bc-b3c4-f012-0123-def012345678",
+        "rule_description": "Checks the completeness and accuracy of MTR (Waste Transport Manifest) documentation and digital signatures",
+        "rule_execution_order": 12,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/transport-manifest-data.js",
+        "execution_id": "0fa0bc34-43c6-4b60-95ae-dd5d46e921bb",
+        "execution_started_at": "2025-01-27T15:42:18.100Z",
+        "execution_completed_at": "2025-01-27T15:42:18.150Z"
       },
       {
         "rule_name": "Processor Identification",
         "rule_slug": "processor-identification",
         "rule_id": "00000000-0000-4000-8000-000000000013",
-        "execution_order": 13,
         "result": "PASSED",
-        "description": "Validates the identity, environmental licensing, and ISO 14001 certification of the waste processing facility",
         "rule_processor_checksum": "a3b4c5d6-e7f8-9abc-def0-123456789012",
-        "rule_source_code_version": "v2.1.3-e0d1c2cd-c4d5-0123-0123-ef0123456789"
+        "rule_source_code_version": "v2.1.3-e0d1c2cd-c4d5-0123-0123-ef0123456789",
+        "rule_description": "Validates the identity, environmental licensing, and ISO 14001 certification of the waste processing facility",
+        "rule_execution_order": 13,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/processor-identification.js",
+        "execution_id": "2ef2f178-1933-4c54-a8fe-2cf2ac4dba90",
+        "execution_started_at": "2025-01-27T15:42:18.200Z",
+        "execution_completed_at": "2025-01-27T15:42:18.250Z"
       },
       {
         "rule_name": "Recycler Identification",
         "rule_slug": "recycler-identification",
         "rule_id": "00000000-0000-4000-8000-000000000014",
-        "execution_order": 14,
         "result": "PASSED",
-        "description": "Confirms the identity, CETESB licensing, and operational credentials of the composting facility operator",
         "rule_processor_checksum": "b4c5d6e7-f8a9-abcd-ef01-23456789013a",
-        "rule_source_code_version": "v2.1.3-f1e2d3de-d5e6-1234-0123-f012345678901"
+        "rule_source_code_version": "v2.1.3-f1e2d3de-d5e6-1234-0123-f012345678901",
+        "rule_description": "Confirms the identity, CETESB licensing, and operational credentials of the composting facility operator",
+        "rule_execution_order": 14,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/recycler-identification.js",
+        "execution_id": "7759d090-39e6-4df4-9bd1-d0aed400c58d",
+        "execution_started_at": "2025-01-27T15:42:18.300Z",
+        "execution_completed_at": "2025-01-27T15:42:18.350Z"
       },
       {
         "rule_name": "Weighing Verification",
         "rule_slug": "weighing-verification",
         "rule_id": "00000000-0000-4000-8000-000000000015",
-        "execution_order": 15,
         "result": "PASSED",
-        "description": "Verifies the accurate measurement using INMETRO-certified scales and recording of waste MassID quantities with traceability",
         "rule_processor_checksum": "c5d6e7f8-a9b0-bcde-f012-345678901234",
-        "rule_source_code_version": "v2.1.3-a2f3e4ef-e6f7-2345-0123-01234567890a"
+        "rule_source_code_version": "v2.1.3-a2f3e4ef-e6f7-2345-0123-01234567890a",
+        "rule_description": "Verifies the accurate measurement using INMETRO-certified scales and recording of waste MassID quantities with traceability",
+        "rule_execution_order": 15,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/weighing-verification.js",
+        "execution_id": "124dfc17-934a-4370-9a2c-b7379e8be1af",
+        "execution_started_at": "2025-01-27T15:42:18.400Z",
+        "execution_completed_at": "2025-01-27T15:42:18.450Z"
       },
       {
         "rule_name": "Drop-off at Recycler",
         "rule_slug": "drop-off-at-recycler",
         "rule_id": "00000000-0000-4000-8000-000000000016",
-        "execution_order": 16,
         "result": "PASSED",
-        "description": "Validates the proper reception, inspection, and documentation of waste material at the composting facility with photographic evidence",
         "rule_processor_checksum": "d6e7f8a9-b0c1-cdef-0123-456789012345",
-        "rule_source_code_version": "v2.1.3-b3a4f5fa-f7a8-3456-0123-123456789012"
+        "rule_source_code_version": "v2.1.3-b3a4f5fa-f7a8-3456-0123-123456789012",
+        "rule_description": "Validates the proper reception, inspection, and documentation of waste material at the composting facility with photographic evidence",
+        "rule_execution_order": 16,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/drop-off-at-recycler.js",
+        "execution_id": "6a35829e-ad67-4edc-b924-875c5cea68c3",
+        "execution_started_at": "2025-01-27T15:42:18.500Z",
+        "execution_completed_at": "2025-01-27T15:42:18.550Z"
       },
       {
         "rule_name": "MassID Sorting and Classification",
         "rule_slug": "mass-id-sorting-classification",
         "rule_id": "00000000-0000-4000-8000-000000000017",
-        "execution_order": 17,
         "result": "PASSED",
-        "description": "Confirms the proper segregation, contamination analysis, and classification of organic waste materials according to composting requirements",
         "rule_processor_checksum": "e7f8a9b0-c1d2-def0-1234-567890123456",
-        "rule_source_code_version": "v2.1.3-c4b5a6ab-a8b9-4567-0123-234567890123"
+        "rule_source_code_version": "v2.1.3-c4b5a6ab-a8b9-4567-0123-234567890123",
+        "rule_description": "Confirms the proper segregation, contamination analysis, and classification of organic waste materials according to composting requirements",
+        "rule_execution_order": 17,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/mass-id-sorting-classification.js",
+        "execution_id": "dcacfcd5-fddd-4b5e-983a-a2efe7e28fbe",
+        "execution_started_at": "2025-01-27T15:42:18.600Z",
+        "execution_completed_at": "2025-01-27T15:42:18.650Z"
       },
       {
         "rule_name": "Composting Process Initiation",
         "rule_slug": "composting-process-initiation",
         "rule_id": "00000000-0000-4000-8000-000000000018",
-        "execution_order": 18,
         "result": "PASSED",
-        "description": "Validates the proper start of aerobic composting process with correct carbon-nitrogen ratio and moisture content monitoring",
         "rule_processor_checksum": "f8a9b0c1-d2e3-ef01-2345-678901234567",
-        "rule_source_code_version": "v2.1.3-d5c6b7bc-b9c0-5678-0123-345678901234"
+        "rule_source_code_version": "v2.1.3-d5c6b7bc-b9c0-5678-0123-345678901234",
+        "rule_description": "Validates the proper start of aerobic composting process with correct carbon-nitrogen ratio and moisture content monitoring",
+        "rule_execution_order": 18,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/composting-process-initiation.js",
+        "execution_id": "ff25779c-1a6b-43cf-838a-973891274e06",
+        "execution_started_at": "2025-01-27T15:42:18.700Z",
+        "execution_completed_at": "2025-01-27T15:42:18.750Z"
       },
       {
         "rule_name": "Temperature Monitoring Compliance",
         "rule_slug": "temperature-monitoring-compliance",
         "rule_id": "00000000-0000-4000-8000-000000000019",
-        "execution_order": 19,
         "result": "PASSED",
-        "description": "Ensures continuous temperature monitoring during thermophilic phase (55-65°C) for pathogen elimination and process optimization",
         "rule_processor_checksum": "a9b0c1d2-e3f4-f012-3456-789012345678",
-        "rule_source_code_version": "v2.1.3-e6d7c8cd-c0d1-6789-0123-456789012345"
+        "rule_source_code_version": "v2.1.3-e6d7c8cd-c0d1-6789-0123-456789012345",
+        "rule_description": "Ensures continuous temperature monitoring during thermophilic phase (55-65°C) for pathogen elimination and process optimization",
+        "rule_execution_order": 19,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/temperature-monitoring-compliance.js",
+        "execution_id": "cfcf2ba2-1f3e-430e-9c18-2c66d2a3071b",
+        "execution_started_at": "2025-01-27T15:42:18.800Z",
+        "execution_completed_at": "2025-01-27T15:42:18.850Z"
       },
       {
         "rule_name": "Composting Cycle Timeframe",
         "rule_slug": "composting-cycle-timeframe",
         "rule_id": "00000000-0000-4000-8000-000000000020",
-        "execution_order": 20,
         "result": "PASSED",
-        "description": "Validates that the complete composting process follows required 90-120 day duration with proper turning schedule and maturation",
         "rule_processor_checksum": "b0c1d2e3-f4a5-0123-4567-89012345678a",
-        "rule_source_code_version": "v2.1.3-f7e8d9de-d1e2-789a-0123-56789012345b"
+        "rule_source_code_version": "v2.1.3-f7e8d9de-d1e2-789a-0123-56789012345b",
+        "rule_description": "Validates that the complete composting process follows required 90-120 day duration with proper turning schedule and maturation",
+        "rule_execution_order": 20,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/composting-cycle-timeframe.js",
+        "execution_id": "92564743-0ceb-4cc1-bdd3-47418e47f03a",
+        "execution_started_at": "2025-01-27T15:42:18.900Z",
+        "execution_completed_at": "2025-01-27T15:42:18.950Z"
       },
       {
         "rule_name": "Compost Quality Assessment",
         "rule_slug": "compost-quality-assessment",
         "rule_id": "00000000-0000-4000-8000-000000000021",
-        "execution_order": 21,
         "result": "PASSED",
-        "description": "Verifies the final compost meets quality standards including pH, conductivity, germination index, and pathogen absence",
         "rule_processor_checksum": "c1d2e3f4-a5b6-1234-5678-9012345678bc",
-        "rule_source_code_version": "v2.1.3-a8f9e0ef-e2f3-89ab-0123-6789012345cd"
+        "rule_source_code_version": "v2.1.3-a8f9e0ef-e2f3-89ab-0123-6789012345cd",
+        "rule_description": "Verifies the final compost meets quality standards including pH, conductivity, germination index, and pathogen absence",
+        "rule_execution_order": 21,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/compost-quality-assessment.js",
+        "execution_id": "715d45e5-957c-4707-8389-2e986f286a92",
+        "execution_started_at": "2025-01-27T15:42:19.000Z",
+        "execution_completed_at": "2025-01-27T15:42:19.050Z"
       },
       {
         "rule_name": "Recycling Manifest Data",
         "rule_slug": "recycling-manifest-data",
         "rule_id": "00000000-0000-4000-8000-000000000022",
-        "execution_order": 22,
         "result": "PASSED",
-        "description": "Verifies the completion, accuracy, and digital signatures of final recycling documentation including compost analysis and outcomes",
         "rule_processor_checksum": "d2e3f4a5-b6c7-2345-6789-012345678cde",
-        "rule_source_code_version": "v2.1.3-b9a0f1fa-f3a4-9abc-0123-789012345def"
+        "rule_source_code_version": "v2.1.3-b9a0f1fa-f3a4-9abc-0123-789012345def",
+        "rule_description": "Verifies the completion, accuracy, and digital signatures of final recycling documentation including compost analysis and outcomes",
+        "rule_execution_order": 22,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/recycling-manifest-data.js",
+        "execution_id": "d6d52d9a-c68f-427b-a44d-1f232c641a86",
+        "execution_started_at": "2025-01-27T15:42:19.100Z",
+        "execution_completed_at": "2025-01-27T15:42:19.150Z"
       },
       {
         "rule_name": "Project Boundary Compliance",
         "rule_slug": "project-boundary-compliance",
         "rule_id": "00000000-0000-4000-8000-000000000023",
-        "execution_order": 23,
         "result": "PASSED",
-        "description": "Validate that the MassID processing activities are within the approved project geographical and operational boundaries",
         "rule_processor_checksum": "e3f4a5b6-c7d8-3456-789a-012345678def",
-        "rule_source_code_version": "v2.1.3-c0b1a2ab-a4b5-abcd-0123-89012345ef01"
+        "rule_source_code_version": "v2.1.3-c0b1a2ab-a4b5-abcd-0123-89012345ef01",
+        "rule_description": "Validate that the MassID processing activities are within the approved project geographical and operational boundaries",
+        "rule_execution_order": 23,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/project-boundary-compliance.js",
+        "execution_id": "70c19667-1b58-446c-823b-c2ad517deb5e",
+        "execution_started_at": "2025-01-27T15:42:19.200Z",
+        "execution_completed_at": "2025-01-27T15:42:19.250Z"
       },
       {
         "rule_name": "CO₂e Emissions Calculation",
         "rule_slug": "co2e-emissions-calculation",
         "rule_id": "00000000-0000-4000-8000-000000000024",
-        "execution_order": 24,
         "result": "PASSED",
-        "description": "Calculate the prevented CO₂e emissions based on methane emission factors and the processed organic waste mass using IPCC 2019 guidelines",
         "rule_processor_checksum": "f4a5b6c7-d8e9-4567-89ab-012345678ef0",
-        "rule_source_code_version": "v2.1.3-d1c2b3bc-b5c6-bcde-0123-9012345f0123"
+        "rule_source_code_version": "v2.1.3-d1c2b3bc-b5c6-bcde-0123-9012345f0123",
+        "rule_description": "Calculate the prevented CO₂e emissions based on methane emission factors and the processed organic waste mass using IPCC 2019 guidelines",
+        "rule_execution_order": 24,
+        "rule_source_code_url": "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/co2e-emissions-calculation.js",
+        "execution_id": "e16b79ea-cb05-4465-9ce0-f5601b15f2a7",
+        "execution_started_at": "2025-01-27T15:42:19.300Z",
+        "execution_completed_at": "2025-01-27T15:42:19.350Z"
       }
     ]
   },
-  "original_content_hash": "f95430c188ad8577d3fa9e32963ab6680505ffbc8b205f6b6914068c045266fe"
+  "original_content_hash": "0abdb437ef603dbbeb0e3768ee837d2e9aea942603ec3a90d6ec2010d51ae2d1"
 }
