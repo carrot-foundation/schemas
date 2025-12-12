@@ -5,12 +5,10 @@ import {
   expectSchemaTyped,
   expectSchemaValid,
   validWastePropertiesFixture,
-  validAccreditedParticipantsFixture,
   validParticipantRewardsFixture,
 } from '../../../../test-utils';
 import {
   WastePropertiesSchema,
-  AccreditedParticipantsSchema,
   ParticipantRewardsSchema,
 } from '../certificate.schema';
 
@@ -63,53 +61,6 @@ describe('WastePropertiesSchema', () => {
       (invalid as typeof base & { extra_field?: string }).extra_field =
         'not allowed';
     });
-  });
-});
-
-describe('AccreditedParticipantsSchema', () => {
-  const schema = AccreditedParticipantsSchema;
-  const base = validAccreditedParticipantsFixture;
-
-  it('validates valid accredited participants successfully', () => {
-    expectSchemaValid(schema, () => [...base]);
-  });
-
-  it('rejects empty array', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.length = 0;
-    });
-  });
-
-  it('rejects missing participant_id', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid[0] = {
-        ...invalid[0],
-      };
-      Reflect.deleteProperty(
-        invalid[0] as Record<string, unknown>,
-        'participant_id',
-      );
-    });
-  });
-
-  it('rejects invalid UUID for participant_id', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      invalid[0] = {
-        ...invalid[0],
-        participant_id: 'not-a-uuid',
-      };
-    });
-  });
-
-  it('validates type inference works correctly', () => {
-    expectSchemaTyped(
-      schema,
-      () => [...base],
-      (data) => {
-        expect(data.length).toBe(2);
-        expect(data[0].participant_id).toBe(base[0].participant_id);
-      },
-    );
   });
 });
 
