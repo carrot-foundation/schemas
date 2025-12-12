@@ -1546,7 +1546,7 @@
           },
           {
             "title": "Purchase Date Attribute",
-            "description": "Unix timestamp in milliseconds when the purchase was completed",
+            "description": "Unix timestamp in milliseconds when the purchase was completed attribute",
             "type": "object",
             "properties": {
               "trait_type": {

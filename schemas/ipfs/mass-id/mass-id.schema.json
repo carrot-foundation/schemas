@@ -1742,7 +1742,7 @@
           },
           {
             "title": "Pick-up Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
+            "description": "Unix timestamp in milliseconds when the waste was picked up from the source attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1773,7 +1773,7 @@
           },
           {
             "title": "Drop-off Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination",
+            "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1804,7 +1804,7 @@
           },
           {
             "title": "Recycling Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
+            "description": "Unix timestamp in milliseconds when the waste was recycled/processed attribute",
             "type": "object",
             "properties": {
               "trait_type": {

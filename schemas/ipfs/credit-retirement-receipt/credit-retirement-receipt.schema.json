@@ -1502,7 +1502,7 @@
           },
           {
             "title": "Retirement Date Attribute",
-            "description": "Unix timestamp in milliseconds when the retirement was completed",
+            "description": "Unix timestamp in milliseconds when the retirement was completed attribute",
             "type": "object",
             "properties": {
               "trait_type": {

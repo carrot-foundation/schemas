@@ -22,6 +22,14 @@ export function createDateAttributeSchema(params: {
     ? NftAttributeSchema.omit({ max_value: true })
     : NftAttributeSchema;
 
+  const descriptionLower = params.description.toLowerCase();
+  const alreadyMentionsUnix =
+    descriptionLower.includes('unix') ||
+    descriptionLower.includes('unix timestamp');
+  const metaDescription = alreadyMentionsUnix
+    ? `${params.description} attribute`
+    : `${params.description} attribute using Unix timestamp in milliseconds`;
+
   return base
     .safeExtend({
       trait_type: z.literal(params.traitType),
@@ -33,7 +41,7 @@ export function createDateAttributeSchema(params: {
     })
     .meta({
       title: `${params.title} Attribute`,
-      description: params.description,
+      description: metaDescription,
     });
 }
 
@@ -137,7 +145,6 @@ export const MassIDRecyclingDateAttributeSchema = createDateAttributeSchema({
   title: 'MassID Recycling Date',
   description:
     'Unix timestamp in milliseconds when the source waste was recycled',
-  omitMaxValue: true,
 });
 export type MassIDRecyclingDateAttribute = z.infer<
   typeof MassIDRecyclingDateAttributeSchema
@@ -149,7 +156,6 @@ export const CertificateIssuanceDateAttributeSchema = createDateAttributeSchema(
     title: 'Certificate Issuance Date',
     description:
       'Unix timestamp in milliseconds when the certificate was issued',
-    omitMaxValue: true,
   },
 );
 export type CertificateIssuanceDateAttribute = z.infer<
