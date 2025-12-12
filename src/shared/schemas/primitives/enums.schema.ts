@@ -196,7 +196,7 @@ export const MethodologyNameSchema = z
   ])
   .meta({
     title: 'Methodology Name',
-    description: 'Name of the methodology used for certification',
+    description: 'Full official name of the methodology',
     examples: [
       'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
       'AMS-III.F. | BOLD Recycling Credit',
@@ -208,7 +208,8 @@ export const MethodologyShortNameSchema = z
   .enum(['BOLD Carbon (CH₄)', 'BOLD Recycling'])
   .meta({
     title: 'Methodology Short Name',
-    description: 'Abbreviated name for UI display and references',
+    description:
+      'Abbreviated/short name of the methodology used for UI display and references',
     examples: ['BOLD Carbon (CH₄)', 'BOLD Recycling'],
   });
 export type MethodologyShortName = z.infer<typeof MethodologyShortNameSchema>;

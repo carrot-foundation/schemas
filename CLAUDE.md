@@ -200,7 +200,7 @@ z.string().meta({
 ### Timestamp and Date Formats
 
 - **ISO 8601 timestamps** (for top-level metadata like `created_at`):
-  - Use `IsoTimestampSchema` from definitions
+  - Use `IsoDateTimeSchema` from definitions
   - Type: `string`, Format: `date-time`
   - Example: `"2024-12-05T14:30:00.000Z"`
 - **Unix timestamps** (for attributes, events, on-chain data):

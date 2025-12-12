@@ -12,13 +12,13 @@ import type {
  * Used as a base for creating custom audit reference fixtures in tests.
  */
 export const minimalAuditReferenceStub: AuditReference = {
-  date: '2025-06-24',
+  completed_at: '2025-06-24T13:02:25.000Z',
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   external_url:
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
-  methodology_compliance: 'PASSED',
+  result: 'PASSED',
   rules_executed: 21,
-  report:
+  report_uri:
     'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
 };
 
@@ -29,13 +29,13 @@ export const minimalAuditReferenceStub: AuditReference = {
  * Used in tests to validate audit reference schema parsing and validation.
  */
 export const validAuditReferenceFixture: AuditReference = {
-  date: '2025-06-24',
+  completed_at: '2025-06-24T13:02:25.000Z',
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   external_url:
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
-  methodology_compliance: 'PASSED',
+  result: 'PASSED',
   rules_executed: 21,
-  report:
+  report_uri:
     'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
 };
 
@@ -65,7 +65,8 @@ export const minimalGasIdReferenceStub: GasIDReference = {
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
+  ipfs_uri:
+    'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
 };
 
 /**
@@ -79,7 +80,8 @@ export const validGasIdReferenceFixture: GasIDReference = {
   token_id: '456',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
-  uri: 'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
+  ipfs_uri:
+    'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
 };
 
 /**
@@ -108,7 +110,8 @@ export const minimalMassIDReferenceStub: MassIDReference = {
   token_id: '123',
   external_url:
     'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-  uri: 'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
+  ipfs_uri:
+    'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
 };
 
 /**
@@ -122,7 +125,8 @@ export const validMassIDReferenceFixture: MassIDReference = {
   token_id: '123',
   external_url:
     'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
-  uri: 'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
+  ipfs_uri:
+    'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
 };
 
 /**
@@ -148,10 +152,12 @@ export function createMassIDReferenceFixture(
  */
 export const minimalMethodologyReferenceStub: MethodologyReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  name: 'BOLD Carbon (CH₄)',
+  name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
+  ipfs_uri:
+    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
 };
 
 /**
@@ -162,11 +168,12 @@ export const minimalMethodologyReferenceStub: MethodologyReference = {
  */
 export const validMethodologyReferenceFixture: MethodologyReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  name: 'BOLD Carbon (CH₄)',
+  name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
   version: '1.3.0',
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
-  uri: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
+  ipfs_uri:
+    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
 };
 
 /**

@@ -11,7 +11,7 @@ import {
 export const CollectionSchemaMeta = {
   title: 'Collection IPFS Record',
   description:
-    "Collection metadata stored in IPFS, extending the base schema with collection-specific fields required for NFT collection definitions in Carrot's ecosystem",
+    "Collection metadata stored in IPFS, extending the base schema with collection-specific fields used to group and organize credit purchases and retirements in Carrot's ecosystem",
   $id: buildSchemaUrl('collection/collection.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;
@@ -24,7 +24,7 @@ export const CollectionSchema = BaseIpfsSchema.safeExtend({
     }),
   }),
   name: CollectionNameSchema,
-  slug: CollectionSlugSchema.optional(),
+  slug: CollectionSlugSchema,
   image: IpfsUriSchema.meta({
     title: 'Collection Image',
     description: "IPFS URI pointing to the collection's visual representation",

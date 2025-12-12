@@ -20,7 +20,7 @@ export const MassIDReferenceSchema = z
       title: 'MassID External URL',
       description: 'URL to view the MassID on Carrot Explorer',
     }),
-    uri: IpfsUriSchema.meta({
+    ipfs_uri: IpfsUriSchema.meta({
       title: 'MassID IPFS URI',
       description: 'IPFS URI of the MassID record',
     }),
@@ -29,5 +29,4 @@ export const MassIDReferenceSchema = z
     title: 'MassID Reference',
     description: 'Reference to a MassID record',
   });
-
 export type MassIDReference = z.infer<typeof MassIDReferenceSchema>;

@@ -3,23 +3,23 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-  IsoDateSchema,
+  IsoDateTimeSchema,
   NonNegativeIntegerSchema,
 } from '../primitives';
 
-export const MethodologyComplianceSchema = z.enum(['PASSED', 'FAILED']).meta({
-  title: 'Methodology Compliance',
-  description: 'Result of methodology compliance check',
+export const AuditResultSchema = z.enum(['PASSED', 'FAILED']).meta({
+  title: 'Audit Result',
+  description: 'Result of audit execution',
   examples: ['PASSED', 'FAILED'],
 });
 
-export type MethodologyCompliance = z.infer<typeof MethodologyComplianceSchema>;
+export type AuditResult = z.infer<typeof AuditResultSchema>;
 
 export const AuditReferenceSchema = z
   .strictObject({
-    date: IsoDateSchema.meta({
-      title: 'Audit Date',
-      description: 'Date when the audit was completed',
+    completed_at: IsoDateTimeSchema.meta({
+      title: 'Audit Completion Timestamp',
+      description: 'ISO 8601 timestamp when the audit was completed',
     }),
     external_id: ExternalIdSchema.meta({
       title: 'Audit External ID',
@@ -29,15 +29,15 @@ export const AuditReferenceSchema = z
       title: 'Audit External URL',
       description: 'URL to view the audit on Carrot Explorer',
     }),
-    methodology_compliance: MethodologyComplianceSchema.meta({
-      title: 'Methodology Compliance',
-      description: 'Result of methodology compliance check',
+    result: AuditResultSchema.meta({
+      title: 'Audit Result',
+      description: 'Result of audit execution',
     }),
     rules_executed: NonNegativeIntegerSchema.meta({
       title: 'Rules Executed',
       description: 'Number of rules executed during the audit',
     }),
-    report: IpfsUriSchema.meta({
+    report_uri: IpfsUriSchema.meta({
       title: 'Audit Report',
       description: 'IPFS URI of the audit report',
     }),
@@ -46,5 +46,4 @@ export const AuditReferenceSchema = z
     title: 'Audit Reference',
     description: 'Reference to an audit record',
   });
-
 export type AuditReference = z.infer<typeof AuditReferenceSchema>;

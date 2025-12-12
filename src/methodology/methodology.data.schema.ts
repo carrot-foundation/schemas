@@ -4,22 +4,15 @@ import {
   IpfsUriSchema,
   IsoDateSchema,
   MethodologyNameSchema,
+  MethodologyShortNameSchema,
   MethodologySlugSchema,
-  NonEmptyStringSchema,
   SemanticVersionSchema,
 } from '../shared';
 
 export const MethodologyDataSchema = z
   .strictObject({
-    name: MethodologyNameSchema.meta({
-      title: 'Methodology Name',
-      description: 'Full official name of the methodology',
-    }),
-    short_name: NonEmptyStringSchema.max(50).meta({
-      title: 'Methodology Short Name',
-      description: 'Abbreviated name for UI display and references',
-      examples: ['BOLD Carbon', 'BOLD Recycling'],
-    }),
+    name: MethodologyNameSchema,
+    short_name: MethodologyShortNameSchema,
     slug: MethodologySlugSchema,
     version: SemanticVersionSchema.meta({
       title: 'Methodology Version',
@@ -53,5 +46,4 @@ export const MethodologyDataSchema = z
     title: 'Methodology Data',
     description: 'Methodology-specific data including audit rules',
   });
-
 export type MethodologyData = z.infer<typeof MethodologyDataSchema>;

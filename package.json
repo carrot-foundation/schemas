@@ -1,6 +1,6 @@
 {
   "name": "@carrot-foundation/schemas",
-  "version": "0.1.46",
+  "version": "0.1.48",
   "description": "Carrot schema definitions and zod validation schemas",
   "license": "Apache-2.0",
   "private": false,

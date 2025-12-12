@@ -205,6 +205,6 @@ export const MassIDAttributesSchema = uniqueBy(
   .meta({
     title: 'MassID Attributes',
     description:
-      'MassID NFT attributes array. Provide the canonical set covering waste (type, subtype, net weight), origin (municipality), logistics (vehicle, manifests, weighing method/scale), and lifecycle timestamps (pick-up, drop-off, recycling). Length is validated; specific composition is producer-controlled.',
+      'Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.',
   });
 export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;
