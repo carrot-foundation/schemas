@@ -2,10 +2,7 @@ import { z } from 'zod';
 import {
   WasteTypeSchema,
   WasteSubtypeSchema,
-  WeightKgSchema,
-  UnixTimestampSchema,
   NonEmptyStringSchema,
-  CitySchema,
   uniqueBy,
   OriginCityAttributeSchema,
   NftAttributeSchema,
@@ -13,6 +10,8 @@ import {
   VehicleTypeSchema,
   ScaleTypeSchema,
   WeighingCaptureMethodSchema,
+  createDateAttributeSchema,
+  createWeightAttributeSchema,
 } from '../shared';
 
 const MassIDAttributeWasteTypeSchema = NftAttributeSchema.safeExtend({
@@ -39,19 +38,14 @@ export type MassIDAttributeWasteSubtype = z.infer<
   typeof MassIDAttributeWasteSubtypeSchema
 >;
 
-const MassIDAttributeWeightSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Weight (kg)'),
-  value: WeightKgSchema,
-  display_type: z.literal('number'),
-}).meta({
-  title: 'Weight Attribute (kg)',
+const MassIDAttributeWeightSchema = createWeightAttributeSchema({
+  traitType: 'Weight (kg)',
+  title: 'Weight',
   description: 'Net batch weight in kilograms (kg) for this MassID',
 });
 export type MassIDAttributeWeight = z.infer<typeof MassIDAttributeWeightSchema>;
 
-const MassIDAttributeOriginCitySchema = OriginCityAttributeSchema.safeExtend({
-  value: CitySchema,
-});
+const MassIDAttributeOriginCitySchema = OriginCityAttributeSchema;
 export type MassIDAttributeOriginCity = z.infer<
   typeof MassIDAttributeOriginCitySchema
 >;
@@ -157,49 +151,31 @@ export type MassIDAttributeScaleType = z.infer<
   typeof MassIDAttributeScaleTypeSchema
 >;
 
-const MassIDAttributePickUpDateSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Pick-up Date'),
-  value: UnixTimestampSchema.meta({
-    title: 'Pick-up Date',
-    description:
-      'Unix timestamp in milliseconds when the waste was picked up from the source',
-  }),
-  display_type: z.literal('date'),
-}).meta({
-  title: 'Pick-up Date Attribute',
-  description: 'Pick-up date attribute with Unix timestamp',
+const MassIDAttributePickUpDateSchema = createDateAttributeSchema({
+  traitType: 'Pick-up Date',
+  title: 'Pick-up Date',
+  description:
+    'Unix timestamp in milliseconds when the waste was picked up from the source',
 });
 export type MassIDAttributePickUpDate = z.infer<
   typeof MassIDAttributePickUpDateSchema
 >;
 
-const MassIDAttributeDropOffDateSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Drop-off Date'),
-  value: UnixTimestampSchema.meta({
-    title: 'Drop-off Date',
-    description:
-      'Unix timestamp in milliseconds when the waste was dropped off at the destination',
-  }),
-  display_type: z.literal('date'),
-}).meta({
-  title: 'Drop-off Date Attribute',
-  description: 'Drop-off date attribute with Unix timestamp',
+const MassIDAttributeDropOffDateSchema = createDateAttributeSchema({
+  traitType: 'Drop-off Date',
+  title: 'Drop-off Date',
+  description:
+    'Unix timestamp in milliseconds when the waste was dropped off at the destination',
 });
 export type MassIDAttributeDropOffDate = z.infer<
   typeof MassIDAttributeDropOffDateSchema
 >;
 
-const MassIDAttributeRecyclingDateSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Recycling Date'),
-  value: UnixTimestampSchema.meta({
-    title: 'Recycling Date',
-    description:
-      'Unix timestamp in milliseconds when the waste was recycled/processed',
-  }),
-  display_type: z.literal('date'),
-}).meta({
-  title: 'Recycling Date Attribute',
-  description: 'Recycling date attribute with Unix timestamp',
+const MassIDAttributeRecyclingDateSchema = createDateAttributeSchema({
+  traitType: 'Recycling Date',
+  title: 'Recycling Date',
+  description:
+    'Unix timestamp in milliseconds when the waste was recycled/processed',
 });
 export type MassIDAttributeRecyclingDate = z.infer<
   typeof MassIDAttributeRecyclingDateSchema

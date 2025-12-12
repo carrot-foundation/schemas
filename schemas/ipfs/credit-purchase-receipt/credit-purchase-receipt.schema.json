@@ -1460,7 +1460,7 @@
           },
           {
             "title": "Total Credits Purchased Attribute",
-            "description": "Aggregate credits purchased attribute",
+            "description": "Total number of credits purchased across all tokens attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1503,7 +1503,7 @@
           },
           {
             "title": "Total USDC Amount Attribute",
-            "description": "Aggregate USDC amount attribute",
+            "description": "Total USDC amount paid for the purchase attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1546,7 +1546,7 @@
           },
           {
             "title": "Purchase Date Attribute",
-            "description": "Purchase date attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the purchase was completed attribute using Unix timestamp in milliseconds",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1588,7 +1588,7 @@
           },
           {
             "title": "Certificates Purchased Attribute",
-            "description": "Attribute representing how many certificates were purchased",
+            "description": "Total number of certificates purchased attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {

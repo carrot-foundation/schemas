@@ -6,8 +6,9 @@ import {
   NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
-  UnixTimestampSchema,
   uniqueBy,
+  createDateAttributeSchema,
+  createNumericAttributeSchema,
 } from '../shared';
 
 const CreditPurchaseReceiptCreditAttributeSchema =
@@ -25,56 +26,35 @@ const CreditPurchaseReceiptCreditAttributeSchema =
   });
 
 const CreditPurchaseReceiptTotalCreditsAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Total Credits Purchased'),
-    value: CreditAmountSchema.meta({
-      title: 'Total Credits Purchased',
-      description: 'Total number of credits purchased across all tokens',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Total Credits Purchased Attribute',
-    description: 'Aggregate credits purchased attribute',
+  createNumericAttributeSchema({
+    traitType: 'Total Credits Purchased',
+    title: 'Total Credits Purchased',
+    description: 'Total number of credits purchased across all tokens',
+    valueSchema: CreditAmountSchema,
   });
 
 const CreditPurchaseReceiptTotalUsdcAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Total USDC Amount'),
-    value: CreditAmountSchema.meta({
-      title: 'Total USDC Amount',
-      description: 'Total USDC amount paid for the purchase',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Total USDC Amount Attribute',
-    description: 'Aggregate USDC amount attribute',
+  createNumericAttributeSchema({
+    traitType: 'Total USDC Amount',
+    title: 'Total USDC Amount',
+    description: 'Total USDC amount paid for the purchase',
+    valueSchema: CreditAmountSchema,
   });
 
 const CreditPurchaseReceiptPurchaseDateAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Purchase Date'),
-    value: UnixTimestampSchema.meta({
-      title: 'Purchase Date',
-      description:
-        'Unix timestamp in milliseconds when the purchase was completed',
-    }),
-    display_type: z.literal('date'),
-  }).meta({
-    title: 'Purchase Date Attribute',
-    description: 'Purchase date attribute using Unix timestamp in milliseconds',
+  createDateAttributeSchema({
+    traitType: 'Purchase Date',
+    title: 'Purchase Date',
+    description:
+      'Unix timestamp in milliseconds when the purchase was completed',
   });
 
 const CreditPurchaseReceiptCertificatesAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: z.literal('Certificates Purchased'),
-    value: PositiveIntegerSchema.meta({
-      title: 'Certificates Purchased',
-      description: 'Total number of certificates purchased',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Certificates Purchased Attribute',
-    description: 'Attribute representing how many certificates were purchased',
+  createNumericAttributeSchema({
+    traitType: 'Certificates Purchased',
+    title: 'Certificates Purchased',
+    description: 'Total number of certificates purchased',
+    valueSchema: PositiveIntegerSchema,
   });
 
 const CreditPurchaseReceiptReceiverAttributeSchema = NftAttributeSchema.omit({

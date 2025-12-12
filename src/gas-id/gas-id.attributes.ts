@@ -12,6 +12,7 @@ import {
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
   NftAttributeSchema,
+  createNumericAttributeSchema,
 } from '../shared';
 
 const GasIDAttributeMethodologySchema = MethodologyAttributeSchema;
@@ -34,16 +35,11 @@ const GasIDAttributeGasTypeSchema = NftAttributeSchema.safeExtend({
 
 export type GasIDAttributeGasType = z.infer<typeof GasIDAttributeGasTypeSchema>;
 
-const GasIDAttributeCo2ePreventedSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('CO₂e Prevented (kg)'),
-  value: NonNegativeFloatSchema.meta({
-    title: 'CO₂e Prevented',
-    description: 'Total CO₂ equivalent emissions prevented in kilograms',
-  }),
-  display_type: z.literal('number'),
-}).meta({
-  title: 'CO₂e Prevented Attribute',
-  description: 'CO₂e prevented attribute with numeric display',
+const GasIDAttributeCo2ePreventedSchema = createNumericAttributeSchema({
+  traitType: 'CO₂e Prevented (kg)',
+  title: 'CO₂e Prevented',
+  description: 'Total CO₂ equivalent emissions prevented in kilograms',
+  valueSchema: NonNegativeFloatSchema,
 });
 
 export type GasIDAttributeCo2ePrevented = z.infer<

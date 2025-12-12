@@ -12,6 +12,68 @@ import {
   CreditTypeSchema,
 } from '../primitives';
 
+export function createDateAttributeSchema(params: {
+  traitType: string;
+  title: string;
+  description: string;
+  omitMaxValue?: boolean;
+}) {
+  const base = params.omitMaxValue
+    ? NftAttributeSchema.omit({ max_value: true })
+    : NftAttributeSchema;
+
+  return base
+    .safeExtend({
+      trait_type: z.literal(params.traitType),
+      value: UnixTimestampSchema.meta({
+        title: params.title,
+        description: params.description,
+      }),
+      display_type: z.literal('date'),
+    })
+    .meta({
+      title: `${params.title} Attribute`,
+      description: `${params.description} attribute using Unix timestamp in milliseconds`,
+    });
+}
+
+export function createWeightAttributeSchema(params: {
+  traitType: string;
+  title: string;
+  description: string;
+}) {
+  return NftAttributeSchema.safeExtend({
+    trait_type: z.literal(params.traitType),
+    value: WeightKgSchema.meta({
+      title: params.title,
+      description: params.description,
+    }),
+    display_type: z.literal('number'),
+  }).meta({
+    title: `${params.title} Attribute`,
+    description: `${params.description} attribute with numeric display`,
+  });
+}
+
+export function createNumericAttributeSchema(params: {
+  traitType: string;
+  title: string;
+  description: string;
+  valueSchema: z.ZodNumber;
+}) {
+  return NftAttributeSchema.safeExtend({
+    trait_type: z.literal(params.traitType),
+    value: params.valueSchema.meta({
+      title: params.title,
+      description: params.description,
+    }),
+    display_type: z.literal('number'),
+  }).meta({
+    title: `${params.title} Attribute`,
+    description: `${params.description} attribute with numeric display`,
+  });
+}
+
 export const MethodologyAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Methodology'),
   value: MethodologyNameSchema,
@@ -21,13 +83,11 @@ export const MethodologyAttributeSchema = NftAttributeSchema.safeExtend({
 });
 export type MethodologyAttribute = z.infer<typeof MethodologyAttributeSchema>;
 
-export const CreditAmountAttributeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Credit Amount'),
-  value: CreditAmountSchema,
-  display_type: z.literal('number'),
-}).meta({
-  title: 'Credit Amount Attribute',
-  description: 'Credit amount attribute with numeric display',
+export const CreditAmountAttributeSchema = createNumericAttributeSchema({
+  traitType: 'Credit Amount',
+  title: 'Credit Amount',
+  description: 'Credit amount',
+  valueSchema: CreditAmountSchema,
 });
 export type CreditAmountAttribute = z.infer<typeof CreditAmountAttributeSchema>;
 
@@ -51,18 +111,37 @@ export type SourceWasteTypeAttribute = z.infer<
   typeof SourceWasteTypeAttributeSchema
 >;
 
-export const SourceWeightAttributeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('Source Weight (kg)'),
-  value: WeightKgSchema.meta({
-    title: 'Source Weight',
-    description: 'Weight of the source waste in kilograms',
-  }),
-  display_type: z.literal('number'),
-}).meta({
-  title: 'Source Weight Attribute',
-  description: 'Source weight attribute with numeric display',
+export const SourceWeightAttributeSchema = createWeightAttributeSchema({
+  traitType: 'Source Weight (kg)',
+  title: 'Source Weight',
+  description: 'Weight of the source waste in kilograms',
 });
 export type SourceWeightAttribute = z.infer<typeof SourceWeightAttributeSchema>;
+
+export const MassIDTokenIdAttributeSchema = NftAttributeSchema.safeExtend({
+  trait_type: z.literal('MassID'),
+  value: StringifiedTokenIdSchema.meta({
+    title: 'MassID Token ID',
+    description: 'Token ID of the source MassID NFT as #<token_id>',
+  }),
+}).meta({
+  title: 'MassID Token ID Attribute',
+  description: 'MassID token ID attribute',
+});
+export type MassIDTokenIdAttribute = z.infer<
+  typeof MassIDTokenIdAttributeSchema
+>;
+
+export const MassIDRecyclingDateAttributeSchema = createDateAttributeSchema({
+  traitType: 'MassID Recycling Date',
+  title: 'MassID Recycling Date',
+  description:
+    'Unix timestamp in milliseconds when the source waste was recycled',
+  omitMaxValue: true,
+});
+export type MassIDRecyclingDateAttribute = z.infer<
+  typeof MassIDRecyclingDateAttributeSchema
+>;
 
 export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Origin City'),
@@ -85,38 +164,3 @@ export const RecyclerAttributeSchema = NftAttributeSchema.safeExtend({
   description: 'Recycler attribute',
 });
 export type RecyclerAttribute = z.infer<typeof RecyclerAttributeSchema>;
-
-export const MassIDTokenIdAttributeSchema = NftAttributeSchema.safeExtend({
-  trait_type: z.literal('MassID'),
-  value: StringifiedTokenIdSchema.meta({
-    title: 'MassID Token ID',
-    description: 'Token ID of the source MassID NFT as #<token_id>',
-  }),
-}).meta({
-  title: 'MassID Token ID Attribute',
-  description: 'MassID token ID attribute',
-});
-export type MassIDTokenIdAttribute = z.infer<
-  typeof MassIDTokenIdAttributeSchema
->;
-
-export const MassIDRecyclingDateAttributeSchema = NftAttributeSchema.omit({
-  max_value: true,
-})
-  .safeExtend({
-    trait_type: z.literal('MassID Recycling Date'),
-    value: UnixTimestampSchema.meta({
-      title: 'MassID Recycling Date',
-      description:
-        'Unix timestamp in milliseconds when the source waste was recycled',
-    }),
-    display_type: z.literal('date'),
-  })
-  .meta({
-    title: 'MassID Recycling Date Attribute',
-    description:
-      'MassID recycling date attribute using Unix timestamp in milliseconds',
-  });
-export type MassIDRecyclingDateAttribute = z.infer<
-  typeof MassIDRecyclingDateAttributeSchema
->;

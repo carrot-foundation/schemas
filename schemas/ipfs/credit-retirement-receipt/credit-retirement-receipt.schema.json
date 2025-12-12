@@ -1363,7 +1363,7 @@
           },
           {
             "title": "Total Credits Retired Attribute",
-            "description": "Aggregate credits retired attribute",
+            "description": "Total number of credits retired across all tokens attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1502,7 +1502,7 @@
           },
           {
             "title": "Retirement Date Attribute",
-            "description": "Retirement date attribute using Unix timestamp in milliseconds",
+            "description": "Unix timestamp in milliseconds when the retirement was completed attribute using Unix timestamp in milliseconds",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1544,7 +1544,7 @@
           },
           {
             "title": "Certificates Retired Attribute",
-            "description": "Attribute representing how many certificates were retired in total",
+            "description": "Total number of certificates retired attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
