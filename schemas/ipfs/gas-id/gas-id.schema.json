@@ -721,90 +721,6 @@
           ],
           "additionalProperties": false
         },
-        "accredited_participants": {
-          "title": "Accredited Participants",
-          "description": "List of participants with valid accreditations",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "title": "Accredited Participant",
-            "description": "Participant with valid accreditation in the supply chain",
-            "type": "object",
-            "properties": {
-              "participant_id": {
-                "title": "Participant ID",
-                "description": "Unique identifier for the participant",
-                "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-              },
-              "name": {
-                "title": "Participant Name",
-                "description": "Name of the participant",
-                "examples": [
-                  "Enlatados Produção",
-                  "Eco Reciclagem",
-                  "Green Tech Corp"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
-              },
-              "role": {
-                "title": "Participant Role",
-                "description": "Role of the participant in the supply chain",
-                "examples": [
-                  "Waste Generator",
-                  "Hauler",
-                  "Recycler"
-                ],
-                "type": "string",
-                "enum": [
-                  "Community Impact Pool",
-                  "Hauler",
-                  "Network Integrator",
-                  "Methodology Author",
-                  "Methodology Developer",
-                  "Network",
-                  "Processor",
-                  "Recycler",
-                  "Waste Generator"
-                ]
-              },
-              "accreditation_id": {
-                "title": "Accreditation ID",
-                "description": "Unique identifier for the participant accreditation",
-                "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-              },
-              "external_url": {
-                "title": "Participant Accreditation External URL",
-                "description": "URL to view the participant accreditation on Carrot Explorer",
-                "examples": [
-                  "https://explore.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
-                ],
-                "type": "string",
-                "format": "uri"
-              }
-            },
-            "required": [
-              "participant_id",
-              "name",
-              "role",
-              "accreditation_id",
-              "external_url"
-            ],
-            "additionalProperties": false
-          }
-        },
         "participant_rewards": {
           "title": "Participant Rewards",
           "description": "Rewards distribution to participants",
@@ -951,8 +867,7 @@
         "mass_id",
         "waste_properties",
         "origin_location",
-        "prevented_emissions_calculation",
-        "accredited_participants"
+        "prevented_emissions_calculation"
       ],
       "additionalProperties": false
     },

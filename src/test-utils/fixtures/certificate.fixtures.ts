@@ -1,7 +1,5 @@
 import type {
   WasteProperties,
-  AccreditedParticipants,
-  AccreditedParticipant,
   RewardAllocation,
   DistributionNotes,
   ParticipantRewards,
@@ -44,91 +42,6 @@ export function createWastePropertiesFixture(
     ...minimalWastePropertiesStub,
     ...overrides,
   };
-}
-
-/**
- * Minimal accredited participant stub for testing.
- *
- * Contains only required fields for accredited participant schema validation.
- * Used as a base for creating custom accredited participant fixtures in tests.
- */
-export const minimalAccreditedParticipantStub: AccreditedParticipant = {
-  participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-  name: 'Eco Reciclagem',
-  role: 'Recycler',
-  accreditation_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-  external_url:
-    'https://explore.carrot.eco/document/acc-5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-};
-
-/**
- * Valid accredited participant fixture for testing.
- *
- * Represents a complete accredited participant that satisfies the accredited participant schema.
- * Used in tests to validate accredited participant schema parsing and validation.
- */
-export const validAccreditedParticipantFixture: AccreditedParticipant = {
-  participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-  name: 'Eco Reciclagem',
-  role: 'Recycler',
-  accreditation_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-  external_url:
-    'https://explore.carrot.eco/document/acc-5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-};
-
-/**
- * Creates an accredited participant fixture with optional overrides.
- *
- * @param overrides - Optional partial accredited participant to override default values
- * @returns A complete accredited participant fixture
- */
-export function createAccreditedParticipantFixture(
-  overrides?: Partial<AccreditedParticipant>,
-): AccreditedParticipant {
-  return {
-    ...minimalAccreditedParticipantStub,
-    ...overrides,
-  };
-}
-
-/**
- * Minimal accredited participants stub for testing.
- *
- * Contains only the minimum required participants (one) for accredited participants schema validation.
- * Used as a base for creating custom accredited participants fixtures in tests.
- */
-export const minimalAccreditedParticipantsStub: AccreditedParticipants = [
-  minimalAccreditedParticipantStub,
-];
-
-/**
- * Valid accredited participants fixture for testing.
- *
- * Represents a complete array of accredited participants that satisfies the accredited participants schema.
- * Used in tests to validate accredited participants schema parsing and validation.
- */
-export const validAccreditedParticipantsFixture: AccreditedParticipants = [
-  validAccreditedParticipantFixture,
-  {
-    participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-    name: 'Enlatados Produção',
-    role: 'Waste Generator',
-    accreditation_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-    external_url:
-      'https://explore.carrot.eco/document/acc-6f520d88-864d-432d-bf9f-5c3166c4818f',
-  },
-];
-
-/**
- * Creates an accredited participants fixture with optional overrides.
- *
- * @param overrides - Optional array of accredited participants to use instead of default
- * @returns A complete accredited participants fixture
- */
-export function createAccreditedParticipantsFixture(
-  overrides?: AccreditedParticipants,
-): AccreditedParticipants {
-  return overrides ?? validAccreditedParticipantsFixture;
 }
 
 /**

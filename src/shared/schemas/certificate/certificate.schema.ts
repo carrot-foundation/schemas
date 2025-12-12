@@ -5,7 +5,6 @@ import {
   WeightKgSchema,
   UuidSchema,
   ParticipantRoleSchema,
-  ExternalUrlSchema,
   NonEmptyStringSchema,
   PercentageSchema,
 } from '../primitives';
@@ -31,50 +30,6 @@ export const WastePropertiesSchema = z
   });
 
 export type WasteProperties = z.infer<typeof WastePropertiesSchema>;
-
-export const AccreditedParticipantSchema = z
-  .strictObject({
-    participant_id: UuidSchema.meta({
-      title: 'Participant ID',
-      description: 'Unique identifier for the participant',
-    }),
-    name: NonEmptyStringSchema.max(100).meta({
-      title: 'Participant Name',
-      description: 'Name of the participant',
-      examples: ['Enlatados Produção', 'Eco Reciclagem', 'Green Tech Corp'],
-    }),
-    role: ParticipantRoleSchema.meta({
-      title: 'Participant Role',
-      description: 'Role of the participant in the supply chain',
-    }),
-    accreditation_id: UuidSchema.meta({
-      title: 'Accreditation ID',
-      description: 'Unique identifier for the participant accreditation',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Participant Accreditation External URL',
-      description:
-        'URL to view the participant accreditation on Carrot Explorer',
-    }),
-  })
-  .meta({
-    title: 'Accredited Participant',
-    description: 'Participant with valid accreditation in the supply chain',
-  });
-
-export type AccreditedParticipant = z.infer<typeof AccreditedParticipantSchema>;
-
-export const AccreditedParticipantsSchema = z
-  .array(AccreditedParticipantSchema)
-  .min(1)
-  .meta({
-    title: 'Accredited Participants',
-    description: 'List of participants with valid accreditations',
-  });
-
-export type AccreditedParticipants = z.infer<
-  typeof AccreditedParticipantsSchema
->;
 
 export const RewardAllocationSchema = z
   .strictObject({
