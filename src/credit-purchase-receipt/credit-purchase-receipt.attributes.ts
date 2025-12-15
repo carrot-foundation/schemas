@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import {
-  CollectionNameSchema,
   CreditAmountSchema,
   NftAttributeSchema,
   NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
+  StringifiedTokenIdSchema,
   createDateAttributeSchema,
   createNumericAttributeSchema,
   createOrderedAttributesSchema,
@@ -33,10 +33,10 @@ const CreditPurchaseReceiptTotalCreditsAttributeSchema =
     valueSchema: CreditAmountSchema,
   });
 
-const CreditPurchaseReceiptTotalUsdcAttributeSchema =
+const CreditPurchaseReceiptPurchasePriceAttributeSchema =
   createNumericAttributeSchema({
-    traitType: 'Total USDC Amount',
-    title: 'Total USDC Amount',
+    traitType: 'Total Amount (USDC)',
+    title: 'Total Amount (USDC)',
     description: 'Total USDC amount paid for the purchase',
     valueSchema: CreditAmountSchema,
   });
@@ -57,53 +57,60 @@ const CreditPurchaseReceiptCertificatesAttributeSchema =
     valueSchema: PositiveIntegerSchema,
   });
 
-const CreditPurchaseReceiptReceiverAttributeSchema = NftAttributeSchema.omit({
+const CreditPurchaseReceiptBuyerAttributeSchema = NftAttributeSchema.omit({
   display_type: true,
   max_value: true,
 })
   .safeExtend({
-    trait_type: z.literal('Receiver'),
+    trait_type: z.literal('Buyer'),
     value: NonEmptyStringSchema.max(100).meta({
-      title: 'Receiver',
-      description:
-        'Organization or individual receiving the credits from the purchase',
+      title: 'Buyer',
+      description: 'Organization or individual purchasing the credits',
       examples: ['EcoTech Solutions Inc.'],
     }),
   })
   .meta({
-    title: 'Receiver Attribute',
-    description: 'Attribute containing the receiver display name',
+    title: 'Buyer Attribute',
+    description: 'Attribute containing the buyer display name',
   });
 
-const CreditPurchaseReceiptCollectionAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: CollectionNameSchema,
-    value: CreditAmountSchema.meta({
-      title: 'Credits from Collection',
-      description: 'Amount of credits purchased from the collection',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Collection Attribute',
+const CreditPurchaseReceiptRetirementDateAttributeSchema =
+  createDateAttributeSchema({
+    traitType: 'Retirement Date',
+    title: 'Retirement Date',
     description:
-      'Attribute representing the amount of credits purchased from a collection',
+      'Unix timestamp in milliseconds when credits were retired (if retirement occurred)',
+  });
+
+const CreditPurchaseReceiptRetirementReceiptAttributeSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Retirement Receipt'),
+    value: StringifiedTokenIdSchema.meta({
+      title: 'Retirement Receipt Token ID',
+      description:
+        'Token ID of the retirement receipt NFT as #<token_id> (if retirement occurred)',
+    }),
+  }).meta({
+    title: 'Retirement Receipt Attribute',
+    description: 'Retirement receipt token ID attribute',
   });
 
 const REQUIRED_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
   CreditPurchaseReceiptTotalCreditsAttributeSchema,
-  CreditPurchaseReceiptTotalUsdcAttributeSchema,
+  CreditPurchaseReceiptPurchasePriceAttributeSchema,
   CreditPurchaseReceiptPurchaseDateAttributeSchema,
   CreditPurchaseReceiptCertificatesAttributeSchema,
 ] as const;
 
 const CONDITIONAL_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
-  CreditPurchaseReceiptReceiverAttributeSchema,
+  CreditPurchaseReceiptBuyerAttributeSchema,
+  CreditPurchaseReceiptRetirementDateAttributeSchema,
+  CreditPurchaseReceiptRetirementReceiptAttributeSchema,
 ] as const;
 
-// Dynamic attributes (one per credit symbol and one per collection name)
+// Dynamic attributes (one per credit symbol)
 const DYNAMIC_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
   CreditPurchaseReceiptCreditAttributeSchema,
-  CreditPurchaseReceiptCollectionAttributeSchema,
 ] as const;
 
 export const CreditPurchaseReceiptAttributesSchema =
@@ -115,20 +122,19 @@ export const CreditPurchaseReceiptAttributesSchema =
     ],
     title: 'Credit Purchase Receipt NFT Attribute Array',
     description:
-      'Attributes for credit purchase receipts including per-credit breakdowns, totals, receiver, purchase date, and per-collection amounts. ' +
-      'Fixed required attributes: Total Credits Purchased, Total USDC Amount, Purchase Date, Certificates Purchased. ' +
-      'Conditional attributes: Receiver (required when receiver.identity.name is provided). ' +
-      'Dynamic attributes: Credit attributes (one per credit symbol in data.credits), Collection attributes (one per collection name in data.collections).',
+      'Attributes for credit purchase receipts including per-credit breakdowns, totals, buyer, purchase date, and optional retirement info. ' +
+      'Fixed required attributes: Total Credits Purchased, Total Amount (USDC), Purchase Date, Certificates Purchased. ' +
+      'Conditional attributes: Buyer (required when buyer.identity.name is provided), Retirement Date (optional, when retirement_receipt is present), Retirement Receipt (optional, when retirement_receipt is present). ' +
+      'Dynamic attributes: Credit attributes (one per credit symbol in data.credits).',
     uniqueBySelector: (attribute: unknown) =>
       (attribute as { trait_type: string }).trait_type,
     requiredTraitTypes: [
       'Total Credits Purchased',
-      'Total USDC Amount',
+      'Total Amount (USDC)',
       'Purchase Date',
       'Certificates Purchased',
     ],
   });
-
 export type CreditPurchaseReceiptAttributes = z.infer<
   typeof CreditPurchaseReceiptAttributesSchema
 >;

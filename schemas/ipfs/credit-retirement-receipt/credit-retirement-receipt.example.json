@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "e97ef929d8818b3fe93799be880fda16d2b4c5c793714c9e16e2b31fc85adee7",
+    "hash": "83acb540fbe27a878eadf685fa776da6614079faf4890e44e013f240e00fece6",
     "type": "CreditRetirementReceipt",
-    "version": "0.1.55",
+    "version": "0.1.56",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-retirement-receipt.schema.json"
   },
   "environment": {
@@ -20,7 +20,7 @@
   "created_at": "2025-01-20T14:45:30.000Z",
   "external_id": "b2c3d4e5-f6a7-4c89-8a01-234567890abc",
   "external_url": "https://explore.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
-  "content_hash": "1d5e5bbd7e513df21d8cda9f2158e1b3bba885b47cbff50a34866d24dcee67f9",
+  "content_hash": "6fd977f876e6554820acb63544fbf0dc8575c5fbd47531ed8276f09801403400",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -28,7 +28,7 @@
   "name": "Credit Retirement Receipt #1245 • 10.5 Credits Retired",
   "short_name": "Credit Retirement Receipt #1245",
   "description": "Permanent proof of credit retirement: 10.5 credits (C-CARB.CH4 and C-BIOW) retired by EcoTech Solutions Inc. on behalf of beneficiary Climate Action Corp, from 3 certificates across 2 collections.",
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/retirement-receipt.png",
   "background_color": "#1B4332",
   "external_links": [
     {
@@ -63,12 +63,8 @@
       "value": "Climate Action Corp"
     },
     {
-      "trait_type": "Credit Holder",
-      "value": "EcoTech Solutions Inc."
-    },
-    {
       "trait_type": "Retirement Date",
-      "value": 1737331200000,
+      "value": 1737384330000,
       "display_type": "date"
     },
     {
@@ -77,33 +73,20 @@
       "display_type": "number"
     },
     {
-      "trait_type": "BOLD Cold Start - Carazinho",
-      "value": 6.5,
-      "display_type": "number"
+      "trait_type": "Purchase Date",
+      "value": 1738540800000,
+      "display_type": "date"
     },
     {
-      "trait_type": "BOLD Brazil",
-      "value": 4,
-      "display_type": "number"
+      "trait_type": "Purchase Receipt",
+      "value": "#789"
     }
   ],
   "data": {
     "summary": {
-      "total_retirement_amount": 10.5,
+      "total_credits_retired": 10.5,
       "total_certificates": 3,
-      "retirement_date": "2025-01-20",
-      "credit_symbols": [
-        "C-CARB.CH4",
-        "C-BIOW"
-      ],
-      "certificate_types": [
-        "GasID",
-        "RecycledID"
-      ],
-      "collection_slugs": [
-        "bold-cold-start-carazinho",
-        "bold-brazil"
-      ]
+      "retired_at": "2025-01-20T14:45:30.000Z"
     },
     "beneficiary": {
       "beneficiary_id": "c3d4e5f6-a7b8-4d12-8b56-789012cdef01",
@@ -114,12 +97,7 @@
       }
     },
     "credit_holder": {
-      "wallet_address": "0x1234567890abcdef1234567890abcdef12345678",
-      "identity": {
-        "name": "EcoTech Solutions Inc.",
-        "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-        "external_url": "https://explore.carrot.eco/participant/ecotech-solutions-inc-12345"
-      }
+      "wallet_address": "0x1234567890abcdef1234567890abcdef12345678"
     },
     "collections": [
       {
@@ -127,16 +105,16 @@
         "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
         "name": "BOLD Cold Start - Carazinho",
         "external_url": "https://explore.carrot.eco/collection/bold-cold-start-carazinho",
-        "uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-cold-start-carazinho.json",
-        "amount": 6.5
+        "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-cold-start-carazinho.json",
+        "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
       },
       {
         "slug": "bold-brazil",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "name": "BOLD Brazil",
         "external_url": "https://explore.carrot.eco/collection/bold-brazil",
-        "uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy",
-        "amount": 4
+        "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/bold-brazil.json",
+        "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
       }
     ],
     "credits": [
@@ -145,26 +123,16 @@
         "symbol": "C-CARB.CH4",
         "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
         "external_url": "https://explore.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-        "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-        "smart_contract": {
-          "address": "0xabcdef1234567890abcdef1234567890abcdef12",
-          "chain_id": 137,
-          "network_name": "Polygon"
-        },
-        "amount": 6.5
+        "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/c-carb.json",
+        "smart_contract_address": "0xabcdef1234567890abcdef1234567890abcdef12"
       },
       {
         "slug": "biowaste",
         "symbol": "C-BIOW",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0",
-        "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
-        "smart_contract": {
-          "address": "0xfedcba0987654321fedcba0987654321fedcba09",
-          "chain_id": 137,
-          "network_name": "Polygon"
-        },
-        "amount": 4
+        "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/c-biow.json",
+        "smart_contract_address": "0xfedcba0987654321fedcba0987654321fedcba09"
       }
     ],
     "certificates": [
@@ -173,15 +141,15 @@
         "type": "GasID",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-        "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
-        "smart_contract": {
-          "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-          "chain_id": 137,
-          "network_name": "Polygon"
-        },
-        "collection_slug": "bold-cold-start-carazinho",
+        "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json",
+        "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
         "total_amount": 10,
-        "retired_amount": 4.5,
+        "collections": [
+          {
+            "slug": "bold-cold-start-carazinho",
+            "retired_amount": 4.5
+          }
+        ],
         "credits_retired": [
           {
             "credit_symbol": "C-CARB.CH4",
@@ -195,12 +163,8 @@
           "token_id": "123",
           "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
           "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-          "smart_contract": {
-            "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-            "chain_id": 137,
-            "network_name": "Polygon"
-          }
+          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
+          "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
         }
       },
       {
@@ -208,15 +172,15 @@
         "type": "RecycledID",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
-        "uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
-        "smart_contract": {
-          "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-          "chain_id": 137,
-          "network_name": "Polygon"
-        },
-        "collection_slug": "bold-cold-start-carazinho",
+        "ipfs_uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae/recycled-id.json",
+        "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
         "total_amount": 5,
-        "retired_amount": 2,
+        "collections": [
+          {
+            "slug": "bold-cold-start-carazinho",
+            "retired_amount": 2
+          }
+        ],
         "credits_retired": [
           {
             "credit_symbol": "C-CARB.CH4",
@@ -230,12 +194,8 @@
           "token_id": "124",
           "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
           "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-          "smart_contract": {
-            "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-            "chain_id": 137,
-            "network_name": "Polygon"
-          }
+          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
+          "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
         }
       },
       {
@@ -243,15 +203,15 @@
         "type": "RecycledID",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
-        "uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
-        "smart_contract": {
-          "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-          "chain_id": 137,
-          "network_name": "Polygon"
-        },
-        "collection_slug": "bold-brazil",
+        "ipfs_uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae/recycled-id.json",
+        "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
         "total_amount": 8,
-        "retired_amount": 4,
+        "collections": [
+          {
+            "slug": "bold-brazil",
+            "retired_amount": 4
+          }
+        ],
         "credits_retired": [
           {
             "credit_symbol": "C-BIOW",
@@ -265,12 +225,8 @@
           "token_id": "124",
           "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
           "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-          "smart_contract": {
-            "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-            "chain_id": 137,
-            "network_name": "Polygon"
-          }
+          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
+          "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
         }
       }
     ],
@@ -278,12 +234,8 @@
       "token_id": "789",
       "external_id": "a1b2c3d4-e5f6-4b90-8c34-567890abcdef",
       "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-4b90-8c34-567890abcdef",
-      "uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy",
-      "smart_contract": {
-        "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-        "chain_id": 137,
-        "network_name": "Polygon"
-      }
+      "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/credit-purchase-receipt.json",
+      "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
     }
   }
 }

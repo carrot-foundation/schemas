@@ -5,8 +5,6 @@ import {
   getSchemaVersionOrDefault,
   createAttributeMap,
   validateAttributeValue,
-  validateAttributesForItems,
-  validateDateAttribute,
 } from '../shared';
 import { CreditRetirementReceiptDataSchema } from './credit-retirement-receipt.data.schema';
 import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-receipt.attributes';
@@ -46,10 +44,10 @@ export const CreditRetirementReceiptIpfsSchema =
         ctx,
         attributeByTraitType,
         traitType: 'Total Credits Retired',
-        expectedValue: data.summary.total_retirement_amount,
+        expectedValue: data.summary.total_credits_retired,
         missingMessage: 'Attribute "Total Credits Retired" is required',
         mismatchMessage:
-          'Attribute "Total Credits Retired" must match data.summary.total_retirement_amount',
+          'Attribute "Total Credits Retired" must match data.summary.total_credits_retired',
       });
 
       validateAttributeValue({
@@ -86,41 +84,77 @@ export const CreditRetirementReceiptIpfsSchema =
         });
       }
 
-      validateDateAttribute({
-        ctx,
-        attributeByTraitType,
-        traitType: 'Retirement Date',
-        dateValue: data.summary.retirement_date,
-        missingMessage: 'Attribute "Retirement Date" is required',
-        invalidDateMessage:
-          'data.summary.retirement_date must be a valid date string',
-        mismatchMessage:
-          'Attribute "Retirement Date" must match data.summary.retirement_date as a Unix timestamp in milliseconds',
-        datePath: ['data', 'summary', 'retirement_date'],
+      const retirementDateAttribute =
+        attributeByTraitType.get('Retirement Date');
+      if (retirementDateAttribute) {
+        const dateMs = Date.parse(data.summary.retired_at);
+        if (Number.isNaN(dateMs)) {
+          ctx.addIssue({
+            code: 'custom',
+            message:
+              'data.summary.retired_at must be a valid ISO 8601 date-time string',
+            path: ['data', 'summary', 'retired_at'],
+          });
+        } else if (retirementDateAttribute.value !== dateMs) {
+          ctx.addIssue({
+            code: 'custom',
+            message:
+              'Attribute "Retirement Date" must match data.summary.retired_at as a Unix timestamp in milliseconds',
+            path: ['attributes'],
+          });
+        }
+      } else {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'Attribute "Retirement Date" is required',
+          path: ['attributes'],
+        });
+      }
+
+      if (data.purchase_receipt) {
+        const purchaseReceiptAttribute =
+          attributeByTraitType.get('Purchase Receipt');
+        if (purchaseReceiptAttribute) {
+          const expectedTokenId = `#${data.purchase_receipt.token_id}`;
+          if (purchaseReceiptAttribute.value !== expectedTokenId) {
+            ctx.addIssue({
+              code: 'custom',
+              message:
+                'Attribute "Purchase Receipt" must match purchase_receipt.token_id as #<token_id> when present',
+              path: ['attributes'],
+            });
+          }
+        }
+      }
+
+      const creditTotalsBySymbol = new Map<string, number>();
+      data.certificates.forEach((certificate) => {
+        certificate.credits_retired.forEach((creditRetired) => {
+          const currentTotal =
+            creditTotalsBySymbol.get(creditRetired.credit_symbol) ?? 0;
+          creditTotalsBySymbol.set(
+            creditRetired.credit_symbol,
+            currentTotal + Number(creditRetired.amount),
+          );
+        });
       });
 
-      validateAttributesForItems({
-        ctx,
-        attributeByTraitType,
-        items: data.credits,
-        traitSelector: (credit) => String(credit.symbol),
-        valueSelector: (credit) => Number(credit.amount),
-        missingMessage: (symbol) =>
-          `Attribute for credit symbol ${symbol} is required`,
-        mismatchMessage: (symbol) =>
-          `Attribute for credit symbol ${symbol} must match credit.amount`,
-      });
-
-      validateAttributesForItems({
-        ctx,
-        attributeByTraitType,
-        items: data.collections,
-        traitSelector: (collection) => String(collection.name),
-        valueSelector: (collection) => Number(collection.amount),
-        missingMessage: (name) =>
-          `Attribute for collection ${name} is required`,
-        mismatchMessage: (name) =>
-          `Attribute for collection ${name} must match collection.amount`,
+      data.credits.forEach((credit) => {
+        const expectedTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
+        const attribute = attributeByTraitType.get(credit.symbol);
+        if (!attribute) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `Attribute for credit symbol ${credit.symbol} is required`,
+            path: ['attributes'],
+          });
+        } else if (Number(attribute.value) !== expectedTotal) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `Attribute for credit symbol ${credit.symbol} must match sum of certificate credits_retired amounts for the credit symbol`,
+            path: ['attributes'],
+          });
+        }
       });
     })
     .meta(CreditRetirementReceiptIpfsSchemaMeta);

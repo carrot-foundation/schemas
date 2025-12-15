@@ -4,19 +4,17 @@ import {
   CollectionSlugSchema,
   CreditAmountSchema,
   CreditTokenSymbolSchema,
+  EthereumAddressSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-  IsoDateSchema,
+  IsoDateTimeSchema,
   NonEmptyStringSchema,
   NonNegativeFloatSchema,
   PositiveIntegerSchema,
-  RecordSchemaTypeSchema,
   SlugSchema,
-  SmartContractSchema,
   TokenIdSchema,
 } from '../primitives';
-import { uniqueArrayItems } from '../../schema-helpers';
 import { MassIDReferenceSchema } from '../references';
 
 type Meta = {
@@ -29,68 +27,47 @@ const SummaryBaseSchema = z.strictObject({
     title: 'Total Certificates',
     description: 'Total number of certificates represented in the receipt',
   }),
-  credit_symbols: uniqueArrayItems(
-    CreditTokenSymbolSchema,
-    'Credit symbols must be unique',
-  )
-    .min(1)
-    .meta({
-      title: 'Credit Symbols',
-      description: 'Array of credit token symbols represented in the receipt',
-    }),
-  certificate_types: uniqueArrayItems(
-    RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']),
-    'Certificate types must be unique',
-  )
-    .min(1)
-    .meta({
-      title: 'Certificate Types',
-      description: 'Array of certificate types represented in the receipt',
-    }),
-  collection_slugs: uniqueArrayItems(
-    CollectionSlugSchema,
-    'Collection slugs must be unique',
-  )
-    .min(1)
-    .meta({
-      title: 'Collection Slugs',
-      description: 'Array of collection slugs represented in the receipt',
-    }),
 });
 
 export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.extend({
-  total_usdc_amount: NonNegativeFloatSchema.meta({
-    title: 'Total USDC Amount',
+  total_amount_usdc: NonNegativeFloatSchema.meta({
+    title: 'Total Amount (USDC)',
     description: 'Total amount paid in USDC for the purchase',
   }),
   total_credits: CreditAmountSchema.meta({
     title: 'Total Credits',
     description: 'Total amount of credits purchased',
   }),
-  purchase_date: IsoDateSchema.meta({
-    title: 'Purchase Date',
-    description: 'Date when the purchase was made (YYYY-MM-DD)',
+  purchased_at: IsoDateTimeSchema.meta({
+    title: 'Purchased At',
+    description: 'ISO 8601 timestamp when the purchase was completed',
   }),
 }).meta({
   title: 'Credit Purchase Receipt Summary',
   description:
     'Summary totals for the credit purchase including amounts and collections represented',
 });
+export type CreditPurchaseReceiptSummary = z.infer<
+  typeof CreditPurchaseReceiptSummarySchema
+>;
 
 export const CreditRetirementReceiptSummarySchema = SummaryBaseSchema.extend({
-  total_retirement_amount: CreditAmountSchema.meta({
-    title: 'Total Retirement Amount',
+  total_credits_retired: CreditAmountSchema.meta({
+    title: 'Total Credits Retired',
     description: 'Total amount of credits retired',
   }),
-  retirement_date: IsoDateSchema.meta({
-    title: 'Retirement Date',
-    description: 'Date when the retirement occurred (YYYY-MM-DD)',
+  retired_at: IsoDateTimeSchema.meta({
+    title: 'Retired At',
+    description: 'ISO 8601 timestamp when the retirement occurred',
   }),
 }).meta({
   title: 'Credit Retirement Receipt Summary',
   description:
     'Summary totals for the credit retirement including amounts and collections represented',
 });
+export type CreditRetirementReceiptSummary = z.infer<
+  typeof CreditRetirementReceiptSummarySchema
+>;
 
 export const ReceiptIdentitySchema = z
   .strictObject({
@@ -112,28 +89,24 @@ export const ReceiptIdentitySchema = z
     title: 'Identity',
     description: 'Participant identity information',
   });
-
 export type ReceiptIdentity = z.infer<typeof ReceiptIdentitySchema>;
 
-export const MassIdReferenceWithContractSchema =
+export const MassIDReferenceWithContractSchema =
   MassIDReferenceSchema.safeExtend({
-    smart_contract: SmartContractSchema,
+    smart_contract_address: EthereumAddressSchema.meta({
+      title: 'Smart Contract Address',
+      description: 'Ethereum address of the smart contract',
+    }),
   }).meta({
     title: 'MassID Reference with Smart Contract',
-    description:
-      'Reference to a MassID record including smart contract details',
+    description: 'Reference to a MassID record with smart contract address',
   });
-
-export type MassIdReferenceWithContract = z.infer<
-  typeof MassIdReferenceWithContractSchema
+export type MassIDReferenceWithContract = z.infer<
+  typeof MassIDReferenceWithContractSchema
 >;
 
-export function createReceiptCollectionSchema(params: {
-  amountKey: 'credit_amount' | 'amount';
-  amountMeta: Meta;
-  meta: Meta;
-}) {
-  const { amountKey, amountMeta, meta } = params;
+export function createReceiptCollectionSchema(params: { meta: Meta }) {
+  const { meta } = params;
 
   return z
     .strictObject({
@@ -147,61 +120,103 @@ export function createReceiptCollectionSchema(params: {
         title: 'Collection External URL',
         description: 'External URL for the collection',
       }),
-      uri: IpfsUriSchema.meta({
-        title: 'Collection URI',
+      ipfs_uri: IpfsUriSchema.meta({
+        title: 'Collection IPFS URI',
         description: 'IPFS URI for the collection metadata',
       }),
-      [amountKey]: CreditAmountSchema.meta(amountMeta),
+      smart_contract_address: EthereumAddressSchema.meta({
+        title: 'Smart Contract Address',
+        description: 'Ethereum address of the smart contract',
+      }),
     })
     .meta(meta);
 }
 
-export function createReceiptCreditSchema(params: {
-  amountKey: 'purchase_amount' | 'amount';
-  amountMeta: Meta;
-  meta: Meta;
-  retirementAmountMeta?: Meta;
-}) {
-  const { amountKey, amountMeta, meta, retirementAmountMeta } = params;
-  const creditShape: Record<string, z.ZodTypeAny> = {
-    slug: SlugSchema.meta({
-      title: 'Credit Slug',
-      description: 'URL-friendly identifier for the credit',
-    }),
-    symbol: CreditTokenSymbolSchema.meta({
-      title: 'Credit Token Symbol',
-      description: 'Symbol of the credit token',
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Credit External ID',
-      description: 'External identifier for the credit',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Credit External URL',
-      description: 'External URL for the credit',
-    }),
-    uri: IpfsUriSchema.meta({
-      title: 'Credit URI',
-      description: 'IPFS URI for the credit details',
-    }),
-    smart_contract: SmartContractSchema,
-    [amountKey]: CreditAmountSchema.meta(amountMeta),
-  };
+export function createReceiptCreditSchema(params: { meta: Meta }) {
+  const { meta } = params;
 
-  if (retirementAmountMeta) {
-    creditShape.retirement_amount =
-      CreditAmountSchema.optional().meta(retirementAmountMeta);
-  }
-
-  return z.strictObject(creditShape).meta(meta);
+  return z
+    .strictObject({
+      slug: SlugSchema.meta({
+        title: 'Credit Slug',
+        description: 'URL-friendly identifier for the credit',
+      }),
+      symbol: CreditTokenSymbolSchema.meta({
+        title: 'Credit Token Symbol',
+        description: 'Symbol of the credit token',
+      }),
+      external_id: ExternalIdSchema.meta({
+        title: 'Credit External ID',
+        description: 'External identifier for the credit',
+      }),
+      external_url: ExternalUrlSchema.meta({
+        title: 'Credit External URL',
+        description: 'External URL for the credit',
+      }),
+      ipfs_uri: IpfsUriSchema.meta({
+        title: 'Credit IPFS URI',
+        description: 'IPFS URI for the credit details',
+      }),
+      smart_contract_address: EthereumAddressSchema.meta({
+        title: 'Smart Contract Address',
+        description: 'Ethereum address of the smart contract',
+      }),
+    })
+    .meta(meta);
 }
+
+export const CertificateCollectionItemPurchaseSchema = z
+  .strictObject({
+    slug: CollectionSlugSchema.meta({
+      title: 'Collection Slug',
+      description: 'Slug of the collection',
+    }),
+    purchased_amount: CreditAmountSchema.meta({
+      title: 'Collection Purchased Amount',
+      description:
+        'Credits purchased from this collection for this certificate',
+    }),
+    retired_amount: CreditAmountSchema.meta({
+      title: 'Collection Retired Amount',
+      description:
+        'Credits retired from this collection for this certificate (0 if none)',
+    }),
+  })
+  .meta({
+    title: 'Certificate Collection Item (Purchase)',
+    description:
+      'Collection reference with purchased and retired amounts for a certificate in a purchase receipt',
+  });
+export type CertificateCollectionItemPurchase = z.infer<
+  typeof CertificateCollectionItemPurchaseSchema
+>;
+
+export const CertificateCollectionItemRetirementSchema = z
+  .strictObject({
+    slug: CollectionSlugSchema.meta({
+      title: 'Collection Slug',
+      description: 'Slug of the collection',
+    }),
+    retired_amount: CreditAmountSchema.meta({
+      title: 'Collection Retired Amount',
+      description: 'Credits retired from this collection for this certificate',
+    }),
+  })
+  .meta({
+    title: 'Certificate Collection Item (Retirement)',
+    description:
+      'Collection reference with retired amount for a certificate in a retirement receipt',
+  });
+export type CertificateCollectionItemRetirement = z.infer<
+  typeof CertificateCollectionItemRetirementSchema
+>;
 
 const certificateBaseShape = {
   token_id: TokenIdSchema.meta({
     title: 'Certificate Token ID',
     description: 'Token ID of the certificate',
   }),
-  type: RecordSchemaTypeSchema.extract(['GasID', 'RecycledID']).meta({
+  type: z.enum(['GasID', 'RecycledID']).meta({
     title: 'Certificate Type',
     description: 'Type of certificate (e.g., GasID, RecycledID)',
   }),
@@ -213,20 +228,19 @@ const certificateBaseShape = {
     title: 'Certificate External URL',
     description: 'External URL for the certificate',
   }),
-  uri: IpfsUriSchema.meta({
-    title: 'Certificate URI',
+  ipfs_uri: IpfsUriSchema.meta({
+    title: 'Certificate IPFS URI',
     description: 'IPFS URI for the certificate metadata',
   }),
-  smart_contract: SmartContractSchema,
-  collection_slug: CollectionSlugSchema.meta({
-    title: 'Collection Slug',
-    description: 'Slug of the collection this certificate belongs to',
+  smart_contract_address: EthereumAddressSchema.meta({
+    title: 'Smart Contract Address',
+    description: 'Ethereum address of the smart contract',
   }),
   total_amount: CreditAmountSchema.meta({
     title: 'Certificate Total Amount',
     description: 'Total credits available in this certificate',
   }),
-  mass_id: MassIdReferenceWithContractSchema,
+  mass_id: MassIDReferenceWithContractSchema,
 } satisfies ZodRawShape;
 
 export function createReceiptCertificateSchema<T extends ZodRawShape>(params: {
