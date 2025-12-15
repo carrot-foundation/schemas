@@ -98,6 +98,9 @@ export const GasIDAttributesSchema = z
   .meta({
     title: 'GasID NFT Attribute Array',
     description:
-      'Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait',
+      'Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait.\n\n' +
+      'Required attributes (11, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, ' +
+      'Credit Type, Source Waste Type, Source Weight (kg), Origin City, MassID, MassID Recycling Date, ' +
+      'Certificate Issuance Date.',
   });
 export type GasIDAttributes = z.infer<typeof GasIDAttributesSchema>;

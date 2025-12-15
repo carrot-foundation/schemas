@@ -1401,63 +1401,11 @@
     },
     "attributes": {
       "title": "Credit Purchase Receipt NFT Attribute Array",
-      "description": "Attributes for credit purchase receipts including per-credit breakdowns, totals, receiver, purchase date, and per-collection amounts. Attributes must have unique trait types.",
-      "minItems": 5,
+      "description": "Attributes for credit purchase receipts including per-credit breakdowns, totals, receiver, purchase date, and per-collection amounts. Fixed required attributes: Total Credits Purchased, Total USDC Amount, Purchase Date, Certificates Purchased. Conditional attributes: Receiver (required when receiver.identity.name is provided). Dynamic attributes: Credit attributes (one per credit symbol in data.credits), Collection attributes (one per collection name in data.collections).\n\nRequired attributes (4): Total Credits Purchased, Total USDC Amount, Purchase Date, Certificates Purchased",
+      "minItems": 4,
       "type": "array",
       "items": {
         "anyOf": [
-          {
-            "title": "Credit Attribute",
-            "description": "Attribute representing purchased amount per credit token symbol",
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
-                "examples": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
-                ],
-                "type": "string",
-                "enum": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
-                ]
-              },
-              "value": {
-                "title": "Credit Amount",
-                "description": "Amount of credits purchased for the token symbol",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
-              },
-              "display_type": {
-                "type": "string",
-                "const": "number"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
-              }
-            },
-            "required": [
-              "trait_type",
-              "value",
-              "display_type"
-            ],
-            "additionalProperties": false
-          },
           {
             "title": "Total Credits Purchased Attribute",
             "description": "Total number of credits purchased across all tokens attribute with numeric display",
@@ -1642,6 +1590,58 @@
             "required": [
               "trait_type",
               "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Credit Attribute",
+            "description": "Attribute representing purchased amount per credit token symbol",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "title": "Credit Token Symbol",
+                "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
+                "examples": [
+                  "C-CARB.CH4",
+                  "C-BIOW"
+                ],
+                "type": "string",
+                "enum": [
+                  "C-CARB.CH4",
+                  "C-BIOW"
+                ]
+              },
+              "value": {
+                "title": "Credit Amount",
+                "description": "Amount of credits purchased for the token symbol",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              },
+              "display_type": {
+                "type": "string",
+                "const": "number"
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
             ],
             "additionalProperties": false
           },

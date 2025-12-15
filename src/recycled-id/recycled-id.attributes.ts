@@ -86,6 +86,9 @@ export const RecycledIDAttributesSchema = z
   .meta({
     title: 'RecycledID NFT Attribute Array',
     description:
-      'Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait',
+      'Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait.\n\n' +
+      'Required attributes (10, in order): Methodology, Recycled Mass Weight (kg), Credit Amount, ' +
+      'Credit Type, Source Waste Type, Source Weight (kg), Origin City, MassID, MassID Recycling Date, ' +
+      'Certificate Issuance Date.',
   });
 export type RecycledIDAttributes = z.infer<typeof RecycledIDAttributesSchema>;
