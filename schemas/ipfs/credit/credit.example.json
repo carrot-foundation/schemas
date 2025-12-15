@@ -1,21 +1,21 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "c638a7fcdbdfff954e00ee8e9f5aa63ce248b24ce816762c51a439f1289dd4f1",
+    "hash": "0d930de63617f109073ad0b148c161bb266b14f7af5bb4647a5c5d938d1b89a6",
     "type": "Credit",
     "version": "0.1.56",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit.schema.json"
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
     "blockchain_network": "testnet",
-    "deployment": "production",
+    "deployment": "development",
     "data_set_name": "TEST"
   },
   "created_at": "2024-12-05T14:30:00.000Z",
   "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
   "external_url": "https://explore.carrot.eco/credit/carrot-carbon",
-  "original_content_hash": "a426c46743cfbf46b527b0885b1806fe5ac60b0f6bdf2c5f009872661a127be2",
-  "content_hash": "a426c46743cfbf46b527b0885b1806fe5ac60b0f6bdf2c5f009872661a127be2",
+  "original_content_hash": "dedbe19cef61cfd34492226811e68ef91365cf5bdbb7755bd857c249a155d72c",
+  "content_hash": "dedbe19cef61cfd34492226811e68ef91365cf5bdbb7755bd857c249a155d72c",
   "symbol": "C-CARB.CH4",
   "slug": "carbon-methane",
   "name": "Carrot Carbon (CH₄)",

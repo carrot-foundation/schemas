@@ -27,7 +27,7 @@
         },
         "type": {
           "title": "Credit Schema Type",
-          "description": "Credit schema type",
+          "description": "Schema type identifier for this record",
           "type": "string",
           "const": "Credit"
         },
@@ -151,7 +151,7 @@
       "properties": {
         "blockchain_network": {
           "title": "Blockchain Network",
-          "description": "Blockchain Network Environment",
+          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
@@ -187,7 +187,7 @@
     },
     "data": {
       "title": "Custom Data",
-      "description": "Custom data block that includes the record's data",
+      "description": "Credit-specific data payload",
       "type": "object",
       "propertyNames": {
         "type": "string"
@@ -196,7 +196,7 @@
     },
     "symbol": {
       "title": "Credit Token Symbol",
-      "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
+      "description": "ERC20 token symbol identifier",
       "examples": [
         "C-CARB.CH4",
         "C-BIOW"
@@ -209,7 +209,7 @@
     },
     "slug": {
       "title": "Credit Token Slug",
-      "description": "Slug of the credit token (e.g., carbon-methane, biowaste)",
+      "description": "URL-friendly identifier for the credit token",
       "examples": [
         "carbon-methane",
         "biowaste"
@@ -222,7 +222,7 @@
     },
     "name": {
       "title": "Credit Token Name",
-      "description": "Name of the credit token (e.g., Carrot Carbon (CH₄), Carrot Biowaste)",
+      "description": "Human-readable display name for the credit token",
       "examples": [
         "Carrot Carbon (CH₄)",
         "Carrot Biowaste"

@@ -23,8 +23,7 @@ export const CreditTokenNameSchema = z
   .enum(['Carrot Carbon (CH₄)', 'Carrot Biowaste'])
   .meta({
     title: 'Credit Token Name',
-    description:
-      'Name of the credit token (e.g., Carrot Carbon (CH₄), Carrot Biowaste)',
+    description: 'Human-readable display name for the credit token',
     examples: ['Carrot Carbon (CH₄)', 'Carrot Biowaste'],
   });
 export type CreditTokenName = z.infer<typeof CreditTokenNameSchema>;
@@ -33,14 +32,14 @@ export const CreditTokenSlugSchema = z
   .enum(['carbon-methane', 'biowaste'])
   .meta({
     title: 'Credit Token Slug',
-    description: 'Slug of the credit token (e.g., carbon-methane, biowaste)',
+    description: 'URL-friendly identifier for the credit token',
     examples: ['carbon-methane', 'biowaste'],
   });
 export type CreditTokenSlug = z.infer<typeof CreditTokenSlugSchema>;
 
 export const CreditTokenSymbolSchema = z.enum(['C-CARB.CH4', 'C-BIOW']).meta({
   title: 'Credit Token Symbol',
-  description: 'Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)',
+  description: 'ERC20 token symbol identifier',
   examples: ['C-CARB.CH4', 'C-BIOW'],
 });
 export type CreditTokenSymbol = z.infer<typeof CreditTokenSymbolSchema>;

@@ -27,7 +27,7 @@
         },
         "type": {
           "title": "CreditRetirementReceipt Schema Type",
-          "description": "CreditRetirementReceipt NFT schema type",
+          "description": "Schema type identifier for this record",
           "type": "string",
           "const": "CreditRetirementReceipt"
         },
@@ -142,7 +142,7 @@
       "properties": {
         "blockchain_network": {
           "title": "Blockchain Network",
-          "description": "Blockchain Network Environment",
+          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
@@ -1378,7 +1378,7 @@
             "properties": {
               "trait_type": {
                 "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
+                "description": "ERC20 token symbol identifier",
                 "examples": [
                   "C-CARB.CH4",
                   "C-BIOW"

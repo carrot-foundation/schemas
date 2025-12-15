@@ -1,56 +1,46 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "0f74a4d8f52c9e139ead0cd95fa60c2187d6d05bef1b6aa83c0bb2341043cee2",
+    "hash": "959e67ccf03b5c270bf99bc34f9501d9cbaca3a0ad53141a4b19c5d9540c5767",
     "type": "RecycledID",
     "version": "0.1.56",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id.schema.json"
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
-    "blockchain_network": "mainnet",
-    "deployment": "production",
+    "blockchain_network": "testnet",
+    "deployment": "development",
     "data_set_name": "TEST"
   },
   "blockchain": {
+    "token_id": "789",
     "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-    "chain_id": 137,
-    "network_name": "Polygon",
-    "token_id": "789"
+    "chain_id": 80002,
+    "network_name": "Amoy"
   },
-  "created_at": "2025-06-24T13:02:25.000Z",
+  "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "9a0750a1ba9765ea69c2bc86d4c0d7c5e3eaee19084ef4428589a33a3bb3650c",
-  "original_content_hash": "9a0750a1ba9765ea69c2bc86d4c0d7c5e3eaee19084ef4428589a33a3bb3650c",
+  "content_hash": "44c38f2edc02832774bc3250906fde3aa7bd9579fdd354dc3790885f64e51680",
+  "original_content_hash": "44c38f2edc02832774bc3250906fde3aa7bd9579fdd354dc3790885f64e51680",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
-  "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
+  "name": "RecycledID #789 • BOLD Recycling • 3.25t Recycled",
   "short_name": "RecycledID #789",
-  "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",
+  "description": "This RecycledID certifies 3.25 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Brasília, Brazil, producing high-quality compost and organic fertilizer.",
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#2D5016",
   "external_links": [
     {
-      "label": "View on Carrot Explorer",
+      "label": "Carrot Explorer",
       "url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
       "description": "Complete RecycledID details and audit trail"
     },
     {
-      "label": "MassID",
-      "url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "description": "Originating waste batch with full chain of custody"
-    },
-    {
-      "label": "BOLD Recycling Methodology",
-      "url": "https://explore.carrot.eco/document/bold-recycling",
-      "description": "Complete methodology specification and rules"
-    },
-    {
       "label": "Carrot White Paper",
-      "url": "https://carrot.eco/whitepaper",
-      "description": "Carrot ecosystem overview and technical foundation"
+      "url": "https://whitepaper.carrot.eco",
+      "description": "Carrot Foundation technical white paper"
     }
   ],
   "attributes": [
@@ -60,7 +50,7 @@
     },
     {
       "trait_type": "Recycled Mass Weight (kg)",
-      "value": 3000,
+      "value": 3250.5,
       "display_type": "number"
     },
     {
@@ -78,34 +68,34 @@
     },
     {
       "trait_type": "Source Weight (kg)",
-      "value": 3000,
+      "value": 3250.5,
       "display_type": "number"
     },
     {
       "trait_type": "Origin City",
-      "value": "Macapá"
+      "value": "Brasília"
     },
     {
       "trait_type": "MassID",
-      "value": "#123"
+      "value": "#1034"
     },
     {
       "trait_type": "MassID Recycling Date",
-      "value": 1740182400000,
+      "value": 1733657567000,
       "display_type": "date"
     },
     {
       "trait_type": "Certificate Issuance Date",
-      "value": 1740182400000,
+      "value": 1733657567000,
       "display_type": "date"
     }
   ],
   "data": {
     "summary": {
-      "recycled_mass_kg": 3000,
+      "recycled_mass_kg": 3250.5,
       "credit_type": "Biowaste",
       "credit_amount": 3,
-      "issued_at": "2025-06-24T13:02:25.000Z"
+      "issued_at": "2024-12-08T11:32:47.000Z"
     },
     "methodology": {
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d490",
@@ -115,7 +105,7 @@
       "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
     },
     "audit": {
-      "completed_at": "2025-06-24T13:02:25.000Z",
+      "completed_at": "2024-12-08T11:32:47.000Z",
       "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "result": "PASSED",
@@ -123,32 +113,32 @@
       "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
-      "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "token_id": "123",
-      "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha"
+      "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "token_id": "1034",
+      "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
     },
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
-      "net_weight_kg": 3000
+      "net_weight_kg": 3250.5
     },
     "origin_location": {
-      "id_hash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
-      "city": "Macapá",
-      "subdivision_code": "BR-AP",
+      "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+      "city": "Brasília",
+      "subdivision_code": "BR-DF",
       "country_code": "BR",
       "coordinates": {
-        "latitude": -0.1,
-        "longitude": -51.1
+        "latitude": -15.8,
+        "longitude": -48
       },
-      "responsible_participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef"
+      "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
     },
     "participant_rewards": {
-      "distribution_basis": "BOLD Recycling methodology rewards calculation",
+      "distribution_basis": "Composting of Mixed Organic Waste rewards distribution per Rewards Distribution Policy v1.0",
       "reward_allocations": [
         {
-          "participant_id_hash": "6f520d88864d432dbf9f5c3166c4818f1234567890abcdef1234567890abcdef",
+          "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
           "role": "Waste Generator",
           "reward_percentage": 30,
           "discounts": [
@@ -161,28 +151,46 @@
           "effective_percentage": 15
         },
         {
-          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
+          "participant_id_hash": "f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcdefab",
           "role": "Hauler",
-          "reward_percentage": 20,
-          "effective_percentage": 20
+          "reward_percentage": 10,
+          "effective_percentage": 10
         },
         {
-          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
+          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
           "role": "Processor",
+          "reward_percentage": 10,
+          "effective_percentage": 10
+        },
+        {
+          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
+          "role": "Recycler",
           "reward_percentage": 20,
           "effective_percentage": 20
         },
         {
-          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
-          "role": "Recycler",
-          "reward_percentage": 15,
-          "effective_percentage": 15
+          "participant_id_hash": "d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcd",
+          "role": "Network Integrator",
+          "reward_percentage": 8,
+          "effective_percentage": 8
         },
         {
-          "participant_id_hash": "e710790f59094a54ab896a59819472ee1234567890abcdef1234567890abcdef",
-          "role": "Network Integrator",
-          "reward_percentage": 15,
-          "effective_percentage": 15
+          "participant_id_hash": "a9b8c7d6e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
+          "role": "Methodology Author",
+          "reward_percentage": 1,
+          "effective_percentage": 1
+        },
+        {
+          "participant_id_hash": "b9c8d7e6f54321098765432109876543210fedcba9876543210fedcba9876543",
+          "role": "Methodology Developer",
+          "reward_percentage": 1,
+          "effective_percentage": 1
+        },
+        {
+          "participant_id_hash": "c9d8e7f654321098765432109876543210fedcba9876543210fedcba98765432",
+          "role": "Network",
+          "reward_percentage": 20,
+          "effective_percentage": 20
         }
       ],
       "distribution_notes": {

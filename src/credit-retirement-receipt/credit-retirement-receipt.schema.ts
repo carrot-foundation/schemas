@@ -28,7 +28,7 @@ export const CreditRetirementReceiptIpfsSchema =
     schema: CreditRetirementReceiptIpfsSchemaBase.shape.schema.safeExtend({
       type: z.literal('CreditRetirementReceipt').meta({
         title: 'CreditRetirementReceipt Schema Type',
-        description: 'CreditRetirementReceipt NFT schema type',
+        description: 'Schema type identifier for this record',
       }),
     }),
     attributes: CreditRetirementReceiptAttributesSchema,

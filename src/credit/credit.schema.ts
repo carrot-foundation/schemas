@@ -21,8 +21,12 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Credit').meta({
       title: 'Credit Schema Type',
-      description: 'Credit schema type',
+      description: 'Schema type identifier for this record',
     }),
+  }),
+  data: z.record(z.string(), z.unknown()).optional().meta({
+    title: 'Custom Data',
+    description: 'Credit-specific data payload',
   }),
   symbol: CreditTokenSymbolSchema,
   slug: CreditTokenSlugSchema,

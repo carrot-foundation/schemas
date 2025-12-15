@@ -1,26 +1,26 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "83acb540fbe27a878eadf685fa776da6614079faf4890e44e013f240e00fece6",
+    "hash": "7a8cc8dfe4d62af4fb5302cdd3e6fdc5afc8a3ba8a26d75af6597f5d1e3b962e",
     "type": "CreditRetirementReceipt",
     "version": "0.1.56",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-retirement-receipt.schema.json"
   },
   "environment": {
-    "blockchain_network": "mainnet",
-    "deployment": "production",
+    "blockchain_network": "testnet",
+    "deployment": "development",
     "data_set_name": "TEST"
   },
   "blockchain": {
+    "token_id": "1245",
     "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-    "chain_id": 137,
-    "network_name": "Polygon",
-    "token_id": "1245"
+    "chain_id": 80002,
+    "network_name": "Amoy"
   },
   "created_at": "2025-01-20T14:45:30.000Z",
   "external_id": "b2c3d4e5-f6a7-4c89-8a01-234567890abc",
   "external_url": "https://explore.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
-  "content_hash": "6fd977f876e6554820acb63544fbf0dc8575c5fbd47531ed8276f09801403400",
+  "content_hash": "799bcb48e57a7f3dce6235462a3aa1318a709863305dc7c86b54a863932c3ad6",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -35,11 +35,6 @@
       "label": "View on Carrot Explorer",
       "url": "https://explore.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
       "description": "Complete retirement details and audit trail"
-    },
-    {
-      "label": "Retirement Certificate",
-      "url": "https://explore.carrot.eco/retirement/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
-      "description": "Official retirement certificate for compliance reporting"
     }
   ],
   "attributes": [
@@ -160,8 +155,8 @@
           }
         ],
         "mass_id": {
-          "token_id": "123",
           "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
+          "token_id": "123",
           "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
           "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
           "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"

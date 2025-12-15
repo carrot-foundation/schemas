@@ -44,6 +44,7 @@ export const MethodologyDataSchema = z
   })
   .meta({
     title: 'Methodology Data',
-    description: 'Methodology-specific data including audit rules',
+    description:
+      'Methodology definition including name, version, documentation, and audit rules',
   });
 export type MethodologyData = z.infer<typeof MethodologyDataSchema>;

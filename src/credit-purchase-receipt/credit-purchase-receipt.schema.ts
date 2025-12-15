@@ -23,7 +23,7 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('CreditPurchaseReceipt').meta({
       title: 'CreditPurchaseReceipt Schema Type',
-      description: 'CreditPurchaseReceipt NFT schema type',
+      description: 'Schema type identifier for this record',
     }),
   }),
   attributes: CreditPurchaseReceiptAttributesSchema,

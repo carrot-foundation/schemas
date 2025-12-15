@@ -151,7 +151,7 @@
       "properties": {
         "blockchain_network": {
           "title": "Blockchain Network",
-          "description": "Blockchain Network Environment",
+          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",

@@ -38,7 +38,7 @@ export const RecordEnvironmentSchema = z
   .strictObject({
     blockchain_network: z.enum(['mainnet', 'testnet']).meta({
       title: 'Blockchain Network',
-      description: 'Blockchain Network Environment',
+      description: 'Blockchain network where this record is deployed',
     }),
     deployment: z.enum(['production', 'development', 'testing']).meta({
       title: 'Deployment Environment',
