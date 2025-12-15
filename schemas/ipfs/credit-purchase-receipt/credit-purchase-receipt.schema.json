@@ -207,61 +207,8 @@
               "minimum": 1,
               "maximum": 9007199254740991
             },
-            "credit_symbols": {
-              "title": "Credit Symbols",
-              "description": "Array of credit token symbols represented in the receipt",
-              "minItems": 1,
-              "type": "array",
-              "items": {
-                "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token (e.g., C-CARB.CH4, C-BIOW)",
-                "examples": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
-                ],
-                "type": "string",
-                "enum": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
-                ]
-              }
-            },
-            "certificate_types": {
-              "title": "Certificate Types",
-              "description": "Array of certificate types represented in the receipt",
-              "minItems": 1,
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "GasID",
-                  "RecycledID"
-                ]
-              }
-            },
-            "collection_slugs": {
-              "title": "Collection Slugs",
-              "description": "Array of collection slugs represented in the receipt",
-              "minItems": 1,
-              "type": "array",
-              "items": {
-                "title": "Collection Slug",
-                "description": "URL-friendly identifier for a collection",
-                "examples": [
-                  "bold-cold-start-carazinho",
-                  "bold-brazil"
-                ],
-                "type": "string",
-                "enum": [
-                  "bold-innovators",
-                  "bold-cold-start-jundiai",
-                  "bold-cold-start-carazinho",
-                  "bold-brazil"
-                ]
-              }
-            },
-            "total_usdc_amount": {
-              "title": "Total USDC Amount",
+            "total_amount_usdc": {
+              "title": "Total Amount (USDC)",
               "description": "Total amount paid in USDC for the purchase",
               "examples": [
                 0,
@@ -282,114 +229,68 @@
               "type": "number",
               "minimum": 0
             },
-            "purchase_date": {
-              "title": "Purchase Date",
-              "description": "Date when the purchase was made (YYYY-MM-DD)",
+            "purchased_at": {
+              "title": "Purchased At",
+              "description": "ISO 8601 timestamp when the purchase was completed",
               "examples": [
-                "2024-12-05"
+                "2024-12-05T11:02:47.000Z"
               ],
               "type": "string",
-              "format": "date",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
             }
           },
           "required": [
             "total_certificates",
-            "credit_symbols",
-            "certificate_types",
-            "collection_slugs",
-            "total_usdc_amount",
+            "total_amount_usdc",
             "total_credits",
-            "purchase_date"
+            "purchased_at"
           ],
           "additionalProperties": false
         },
-        "parties": {
-          "title": "Parties",
-          "description": "Parties involved in the purchase including payer, receiver, and optional buyer",
+        "buyer": {
+          "title": "Buyer",
+          "description": "Buyer information including wallet address, optional ID, and optional identity",
           "type": "object",
           "properties": {
-            "payer": {
-              "title": "Payer Wallet Address",
-              "description": "Ethereum address paying for the purchase",
+            "wallet_address": {
+              "title": "Buyer Wallet Address",
+              "description": "Ethereum address receiving the credits",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
               ],
               "type": "string",
               "pattern": "^0x[a-f0-9]{40}$"
             },
-            "receiver": {
-              "title": "Receiver",
-              "description": "Receiver wallet and optional identity information",
+            "id": {
+              "title": "Buyer ID",
+              "description": "Unique identifier for the buyer",
+              "examples": [
+                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+              ],
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+            },
+            "identity": {
+              "title": "Identity",
+              "description": "Participant identity information",
               "type": "object",
               "properties": {
-                "wallet_address": {
-                  "title": "Receiver Wallet Address",
-                  "description": "Ethereum address of the receiver",
+                "name": {
+                  "title": "Identity Name",
+                  "description": "Display name for the participant",
                   "examples": [
-                    "0x1234567890abcdef1234567890abcdef12345678"
+                    "EcoTech Solutions Inc.",
+                    "Climate Action Corp"
                   ],
                   "type": "string",
-                  "pattern": "^0x[a-f0-9]{40}$"
+                  "minLength": 1,
+                  "maxLength": 100
                 },
-                "identity": {
-                  "title": "Identity",
-                  "description": "Participant identity information",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "title": "Identity Name",
-                      "description": "Display name for the participant",
-                      "examples": [
-                        "EcoTech Solutions Inc.",
-                        "Climate Action Corp"
-                      ],
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 100
-                    },
-                    "external_id": {
-                      "title": "Identity External ID",
-                      "description": "External identifier for the participant",
-                      "examples": [
-                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                      ],
-                      "type": "string",
-                      "format": "uuid",
-                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-                    },
-                    "external_url": {
-                      "title": "Identity External URL",
-                      "description": "External URL for the participant profile",
-                      "examples": [
-                        "https://explore.carrot.eco/",
-                        "https://whitepaper.carrot.eco/"
-                      ],
-                      "type": "string",
-                      "format": "uri"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "external_id",
-                    "external_url"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "wallet_address"
-              ],
-              "additionalProperties": false
-            },
-            "buyer": {
-              "title": "Buyer",
-              "description": "Buyer identifier and optional identity information",
-              "type": "object",
-              "properties": {
-                "buyer_id": {
-                  "title": "Buyer ID",
-                  "description": "Unique identifier for the buyer",
+                "external_id": {
+                  "title": "Identity External ID",
+                  "description": "External identifier for the participant",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ],
@@ -397,60 +298,27 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                 },
-                "identity": {
-                  "title": "Identity",
-                  "description": "Participant identity information",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "title": "Identity Name",
-                      "description": "Display name for the participant",
-                      "examples": [
-                        "EcoTech Solutions Inc.",
-                        "Climate Action Corp"
-                      ],
-                      "type": "string",
-                      "minLength": 1,
-                      "maxLength": 100
-                    },
-                    "external_id": {
-                      "title": "Identity External ID",
-                      "description": "External identifier for the participant",
-                      "examples": [
-                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                      ],
-                      "type": "string",
-                      "format": "uuid",
-                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-                    },
-                    "external_url": {
-                      "title": "Identity External URL",
-                      "description": "External URL for the participant profile",
-                      "examples": [
-                        "https://explore.carrot.eco/",
-                        "https://whitepaper.carrot.eco/"
-                      ],
-                      "type": "string",
-                      "format": "uri"
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "external_id",
-                    "external_url"
+                "external_url": {
+                  "title": "Identity External URL",
+                  "description": "External URL for the participant profile",
+                  "examples": [
+                    "https://explore.carrot.eco/",
+                    "https://whitepaper.carrot.eco/"
                   ],
-                  "additionalProperties": false
+                  "type": "string",
+                  "format": "uri"
                 }
               },
               "required": [
-                "buyer_id"
+                "name",
+                "external_id",
+                "external_url"
               ],
               "additionalProperties": false
             }
           },
           "required": [
-            "payer",
-            "receiver"
+            "wallet_address"
           ],
           "additionalProperties": false
         },
@@ -514,8 +382,8 @@
                 "type": "string",
                 "format": "uri"
               },
-              "uri": {
-                "title": "Collection URI",
+              "ipfs_uri": {
+                "title": "Collection IPFS URI",
                 "description": "IPFS URI for the collection metadata",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
@@ -525,16 +393,14 @@
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
               },
-              "credit_amount": {
-                "title": "Collection Credit Amount",
-                "description": "Total credits purchased from this collection",
+              "smart_contract_address": {
+                "title": "Smart Contract Address",
+                "description": "Ethereum address of the smart contract",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  "0x1234567890abcdef1234567890abcdef12345678"
                 ],
-                "type": "number",
-                "minimum": 0
+                "type": "string",
+                "pattern": "^0x[a-f0-9]{40}$"
               }
             },
             "required": [
@@ -542,8 +408,8 @@
               "external_id",
               "name",
               "external_url",
-              "uri",
-              "credit_amount"
+              "ipfs_uri",
+              "smart_contract_address"
             ],
             "additionalProperties": false
           }
@@ -604,8 +470,8 @@
                 "type": "string",
                 "format": "uri"
               },
-              "uri": {
-                "title": "Credit URI",
+              "ipfs_uri": {
+                "title": "Credit IPFS URI",
                 "description": "IPFS URI for the credit details",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
@@ -615,80 +481,14 @@
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
               },
-              "smart_contract": {
-                "title": "Smart Contract",
-                "description": "Smart contract details for on-chain references",
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "title": "Smart Contract Address",
-                    "description": "Address of the smart contract",
-                    "examples": [
-                      "0x1234567890abcdef1234567890abcdef12345678"
-                    ],
-                    "type": "string",
-                    "pattern": "^0x[a-f0-9]{40}$"
-                  },
-                  "chain_id": {
-                    "title": "Chain ID",
-                    "description": "Supported Polygon chain identifiers",
-                    "examples": [
-                      137,
-                      80002
-                    ],
-                    "anyOf": [
-                      {
-                        "type": "number",
-                        "const": 137
-                      },
-                      {
-                        "type": "number",
-                        "const": 80002
-                      }
-                    ]
-                  },
-                  "network_name": {
-                    "title": "Blockchain Network Name",
-                    "description": "Supported Polygon network names",
-                    "examples": [
-                      "Polygon",
-                      "Amoy"
-                    ],
-                    "type": "string",
-                    "enum": [
-                      "Polygon",
-                      "Amoy"
-                    ]
-                  }
-                },
-                "required": [
-                  "address",
-                  "chain_id",
-                  "network_name"
-                ],
-                "additionalProperties": false
-              },
-              "purchase_amount": {
-                "title": "Credit Purchase Amount",
-                "description": "Total credits purchased for this credit type",
+              "smart_contract_address": {
+                "title": "Smart Contract Address",
+                "description": "Ethereum address of the smart contract",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  "0x1234567890abcdef1234567890abcdef12345678"
                 ],
-                "type": "number",
-                "minimum": 0
-              },
-              "retirement_amount": {
-                "title": "Credit Retirement Amount",
-                "description": "Credits retired immediately for this credit type during purchase",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                "type": "string",
+                "pattern": "^0x[a-f0-9]{40}$"
               }
             },
             "required": [
@@ -696,9 +496,8 @@
               "symbol",
               "external_id",
               "external_url",
-              "uri",
-              "smart_contract",
-              "purchase_amount"
+              "ipfs_uri",
+              "smart_contract_address"
             ],
             "additionalProperties": false
           }
@@ -753,8 +552,8 @@
                 "type": "string",
                 "format": "uri"
               },
-              "uri": {
-                "title": "Certificate URI",
+              "ipfs_uri": {
+                "title": "Certificate IPFS URI",
                 "description": "IPFS URI for the certificate metadata",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
@@ -764,73 +563,14 @@
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
               },
-              "smart_contract": {
-                "title": "Smart Contract",
-                "description": "Smart contract details for on-chain references",
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "title": "Smart Contract Address",
-                    "description": "Address of the smart contract",
-                    "examples": [
-                      "0x1234567890abcdef1234567890abcdef12345678"
-                    ],
-                    "type": "string",
-                    "pattern": "^0x[a-f0-9]{40}$"
-                  },
-                  "chain_id": {
-                    "title": "Chain ID",
-                    "description": "Supported Polygon chain identifiers",
-                    "examples": [
-                      137,
-                      80002
-                    ],
-                    "anyOf": [
-                      {
-                        "type": "number",
-                        "const": 137
-                      },
-                      {
-                        "type": "number",
-                        "const": 80002
-                      }
-                    ]
-                  },
-                  "network_name": {
-                    "title": "Blockchain Network Name",
-                    "description": "Supported Polygon network names",
-                    "examples": [
-                      "Polygon",
-                      "Amoy"
-                    ],
-                    "type": "string",
-                    "enum": [
-                      "Polygon",
-                      "Amoy"
-                    ]
-                  }
-                },
-                "required": [
-                  "address",
-                  "chain_id",
-                  "network_name"
-                ],
-                "additionalProperties": false
-              },
-              "collection_slug": {
-                "title": "Collection Slug",
-                "description": "Slug of the collection this certificate belongs to",
+              "smart_contract_address": {
+                "title": "Smart Contract Address",
+                "description": "Ethereum address of the smart contract",
                 "examples": [
-                  "bold-cold-start-carazinho",
-                  "bold-brazil"
+                  "0x1234567890abcdef1234567890abcdef12345678"
                 ],
                 "type": "string",
-                "enum": [
-                  "bold-innovators",
-                  "bold-cold-start-jundiai",
-                  "bold-cold-start-carazinho",
-                  "bold-brazil"
-                ]
+                "pattern": "^0x[a-f0-9]{40}$"
               },
               "total_amount": {
                 "title": "Certificate Total Amount",
@@ -845,7 +585,7 @@
               },
               "mass_id": {
                 "title": "MassID Reference with Smart Contract",
-                "description": "Reference to a MassID record including smart contract details",
+                "description": "Reference to a MassID record with smart contract address",
                 "type": "object",
                 "properties": {
                   "external_id": {
@@ -890,58 +630,14 @@
                     "minLength": 1,
                     "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
                   },
-                  "smart_contract": {
-                    "title": "Smart Contract",
-                    "description": "Smart contract details for on-chain references",
-                    "type": "object",
-                    "properties": {
-                      "address": {
-                        "title": "Smart Contract Address",
-                        "description": "Address of the smart contract",
-                        "examples": [
-                          "0x1234567890abcdef1234567890abcdef12345678"
-                        ],
-                        "type": "string",
-                        "pattern": "^0x[a-f0-9]{40}$"
-                      },
-                      "chain_id": {
-                        "title": "Chain ID",
-                        "description": "Supported Polygon chain identifiers",
-                        "examples": [
-                          137,
-                          80002
-                        ],
-                        "anyOf": [
-                          {
-                            "type": "number",
-                            "const": 137
-                          },
-                          {
-                            "type": "number",
-                            "const": 80002
-                          }
-                        ]
-                      },
-                      "network_name": {
-                        "title": "Blockchain Network Name",
-                        "description": "Supported Polygon network names",
-                        "examples": [
-                          "Polygon",
-                          "Amoy"
-                        ],
-                        "type": "string",
-                        "enum": [
-                          "Polygon",
-                          "Amoy"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "address",
-                      "chain_id",
-                      "network_name"
+                  "smart_contract_address": {
+                    "title": "Smart Contract Address",
+                    "description": "Ethereum address of the smart contract",
+                    "examples": [
+                      "0x1234567890abcdef1234567890abcdef12345678"
                     ],
-                    "additionalProperties": false
+                    "type": "string",
+                    "pattern": "^0x[a-f0-9]{40}$"
                   }
                 },
                 "required": [
@@ -949,31 +645,9 @@
                   "token_id",
                   "external_url",
                   "ipfs_uri",
-                  "smart_contract"
+                  "smart_contract_address"
                 ],
                 "additionalProperties": false
-              },
-              "purchased_amount": {
-                "title": "Certificate Purchased Amount",
-                "description": "Credits purchased from this certificate",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
-              },
-              "retired_amount": {
-                "title": "Certificate Retired Amount",
-                "description": "Credits retired from this certificate during the purchase (0 if none)",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
               },
               "credit_slug": {
                 "title": "Credit Slug",
@@ -986,6 +660,62 @@
                 "minLength": 1,
                 "maxLength": 100,
                 "pattern": "^[a-z0-9-]+$"
+              },
+              "collections": {
+                "title": "Certificate Collections",
+                "description": "Collections associated with this certificate, each with purchased and retired amounts",
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "title": "Certificate Collection Item (Purchase)",
+                  "description": "Collection reference with purchased and retired amounts for a certificate in a purchase receipt",
+                  "type": "object",
+                  "properties": {
+                    "slug": {
+                      "title": "Collection Slug",
+                      "description": "Slug of the collection",
+                      "examples": [
+                        "bold-cold-start-carazinho",
+                        "bold-brazil"
+                      ],
+                      "type": "string",
+                      "enum": [
+                        "bold-innovators",
+                        "bold-cold-start-jundiai",
+                        "bold-cold-start-carazinho",
+                        "bold-brazil"
+                      ]
+                    },
+                    "purchased_amount": {
+                      "title": "Collection Purchased Amount",
+                      "description": "Credits purchased from this collection for this certificate",
+                      "examples": [
+                        0,
+                        45.2,
+                        72.5
+                      ],
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "retired_amount": {
+                      "title": "Collection Retired Amount",
+                      "description": "Credits retired from this collection for this certificate (0 if none)",
+                      "examples": [
+                        0,
+                        45.2,
+                        72.5
+                      ],
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "slug",
+                    "purchased_amount",
+                    "retired_amount"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -993,14 +723,12 @@
               "type",
               "external_id",
               "external_url",
-              "uri",
-              "smart_contract",
-              "collection_slug",
+              "ipfs_uri",
+              "smart_contract_address",
               "total_amount",
               "mass_id",
-              "purchased_amount",
-              "retired_amount",
-              "credit_slug"
+              "credit_slug",
+              "collections"
             ],
             "additionalProperties": false
           }
@@ -1015,7 +743,7 @@
             "description": "Reward distribution for a participant",
             "type": "object",
             "properties": {
-              "id_hash": {
+              "participant_id_hash": {
                 "title": "Participant ID Hash",
                 "description": "Hash representing the participant identifier (SHA-256 hex string)",
                 "examples": [
@@ -1023,17 +751,6 @@
                 ],
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$"
-              },
-              "participant_name": {
-                "title": "Participant Name",
-                "description": "Legal name of the participant receiving the reward",
-                "examples": [
-                  "EcoTech Solutions Inc.",
-                  "Green Tech Corp"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
               },
               "roles": {
                 "title": "Participant Roles",
@@ -1075,22 +792,32 @@
               }
             },
             "required": [
-              "id_hash",
-              "participant_name",
+              "participant_id_hash",
               "roles",
               "usdc_amount"
             ],
             "additionalProperties": false
           }
         },
-        "retirement": {
-          "title": "Retirement",
-          "description": "Immediate retirement details performed as part of purchase",
+        "retirement_receipt": {
+          "title": "Retirement Receipt Reference",
+          "description": "Reference to the retirement receipt NFT",
           "type": "object",
           "properties": {
-            "beneficiary_id": {
-              "title": "Retirement Beneficiary ID",
-              "description": "UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)",
+            "token_id": {
+              "title": "Retirement Receipt Token ID",
+              "description": "Token ID of the retirement receipt NFT",
+              "examples": [
+                "456789",
+                "1000000"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$"
+            },
+            "external_id": {
+              "title": "Retirement Receipt External ID",
+              "description": "External identifier for the retirement receipt",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ],
@@ -1098,126 +825,50 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
             },
-            "retirement_receipt": {
-              "title": "Retirement Receipt Reference",
-              "description": "Reference to the retirement receipt NFT",
-              "type": "object",
-              "properties": {
-                "token_id": {
-                  "title": "Retirement Receipt Token ID",
-                  "description": "Token ID of the retirement receipt NFT",
-                  "examples": [
-                    "456789",
-                    "1000000"
-                  ],
-                  "type": "string",
-                  "minLength": 1,
-                  "pattern": "^\\d+$"
-                },
-                "external_id": {
-                  "title": "Retirement Receipt External ID",
-                  "description": "External identifier for the retirement receipt",
-                  "examples": [
-                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                  ],
-                  "type": "string",
-                  "format": "uuid",
-                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-                },
-                "external_url": {
-                  "title": "Retirement Receipt External URL",
-                  "description": "External URL for the retirement receipt",
-                  "examples": [
-                    "https://explore.carrot.eco/",
-                    "https://whitepaper.carrot.eco/"
-                  ],
-                  "type": "string",
-                  "format": "uri"
-                },
-                "uri": {
-                  "title": "Retirement Receipt URI",
-                  "description": "IPFS URI for the retirement receipt metadata",
-                  "examples": [
-                    "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
-                    "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                  ],
-                  "type": "string",
-                  "minLength": 1,
-                  "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
-                },
-                "smart_contract": {
-                  "title": "Smart Contract",
-                  "description": "Smart contract details for on-chain references",
-                  "type": "object",
-                  "properties": {
-                    "address": {
-                      "title": "Smart Contract Address",
-                      "description": "Address of the smart contract",
-                      "examples": [
-                        "0x1234567890abcdef1234567890abcdef12345678"
-                      ],
-                      "type": "string",
-                      "pattern": "^0x[a-f0-9]{40}$"
-                    },
-                    "chain_id": {
-                      "title": "Chain ID",
-                      "description": "Supported Polygon chain identifiers",
-                      "examples": [
-                        137,
-                        80002
-                      ],
-                      "anyOf": [
-                        {
-                          "type": "number",
-                          "const": 137
-                        },
-                        {
-                          "type": "number",
-                          "const": 80002
-                        }
-                      ]
-                    },
-                    "network_name": {
-                      "title": "Blockchain Network Name",
-                      "description": "Supported Polygon network names",
-                      "examples": [
-                        "Polygon",
-                        "Amoy"
-                      ],
-                      "type": "string",
-                      "enum": [
-                        "Polygon",
-                        "Amoy"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "address",
-                    "chain_id",
-                    "network_name"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "token_id",
-                "external_id",
-                "external_url",
-                "uri",
-                "smart_contract"
+            "external_url": {
+              "title": "Retirement Receipt External URL",
+              "description": "External URL for the retirement receipt",
+              "examples": [
+                "https://explore.carrot.eco/",
+                "https://whitepaper.carrot.eco/"
               ],
-              "additionalProperties": false
+              "type": "string",
+              "format": "uri"
+            },
+            "ipfs_uri": {
+              "title": "Retirement Receipt IPFS URI",
+              "description": "IPFS URI for the retirement receipt metadata",
+              "examples": [
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+            },
+            "smart_contract_address": {
+              "title": "Smart Contract Address",
+              "description": "Ethereum address of the smart contract",
+              "examples": [
+                "0x1234567890abcdef1234567890abcdef12345678"
+              ],
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$"
             }
           },
           "required": [
-            "beneficiary_id"
+            "token_id",
+            "external_id",
+            "external_url",
+            "ipfs_uri",
+            "smart_contract_address"
           ],
           "additionalProperties": false
         }
       },
       "required": [
         "summary",
-        "parties",
+        "buyer",
         "collections",
         "credits",
         "certificates",
@@ -1401,7 +1052,7 @@
     },
     "attributes": {
       "title": "Credit Purchase Receipt NFT Attribute Array",
-      "description": "Attributes for credit purchase receipts including per-credit breakdowns, totals, receiver, purchase date, and per-collection amounts. Fixed required attributes: Total Credits Purchased, Total USDC Amount, Purchase Date, Certificates Purchased. Conditional attributes: Receiver (required when receiver.identity.name is provided). Dynamic attributes: Credit attributes (one per credit symbol in data.credits), Collection attributes (one per collection name in data.collections).\n\nRequired attributes (4): Total Credits Purchased, Total USDC Amount, Purchase Date, Certificates Purchased",
+      "description": "Attributes for credit purchase receipts including per-credit breakdowns, totals, buyer, purchase date, and optional retirement info. Fixed required attributes: Total Credits Purchased, Total Amount (USDC), Purchase Date, Certificates Purchased. Conditional attributes: Buyer (required when buyer.identity.name is provided), Retirement Date (optional, when retirement_receipt is present), Retirement Receipt (optional, when retirement_receipt is present). Dynamic attributes: Credit attributes (one per credit symbol in data.credits).\n\nRequired attributes (4): Total Credits Purchased, Total Amount (USDC), Purchase Date, Certificates Purchased",
       "minItems": 4,
       "type": "array",
       "items": {
@@ -1450,16 +1101,16 @@
             "additionalProperties": false
           },
           {
-            "title": "Total USDC Amount Attribute",
+            "title": "Total Amount (USDC) Attribute",
             "description": "Total USDC amount paid for the purchase attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
                 "type": "string",
-                "const": "Total USDC Amount"
+                "const": "Total Amount (USDC)"
               },
               "value": {
-                "title": "Total USDC Amount",
+                "title": "Total Amount (USDC)",
                 "description": "Total USDC amount paid for the purchase",
                 "examples": [
                   0,
@@ -1568,23 +1219,100 @@
             "additionalProperties": false
           },
           {
-            "title": "Receiver Attribute",
-            "description": "Attribute containing the receiver display name",
+            "title": "Buyer Attribute",
+            "description": "Attribute containing the buyer display name",
             "type": "object",
             "properties": {
               "trait_type": {
                 "type": "string",
-                "const": "Receiver"
+                "const": "Buyer"
               },
               "value": {
-                "title": "Receiver",
-                "description": "Organization or individual receiving the credits from the purchase",
+                "title": "Buyer",
+                "description": "Organization or individual purchasing the credits",
                 "examples": [
                   "EcoTech Solutions Inc."
                 ],
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Retirement Date Attribute",
+            "description": "Unix timestamp in milliseconds when credits were retired (if retirement occurred) attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Retirement Date"
+              },
+              "value": {
+                "title": "Retirement Date",
+                "description": "Unix timestamp in milliseconds when credits were retired (if retirement occurred)",
+                "examples": [
+                  1704067200000
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Retirement Receipt Attribute",
+            "description": "Retirement receipt token ID attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Retirement Receipt"
+              },
+              "value": {
+                "title": "Retirement Receipt Token ID",
+                "description": "Token ID of the retirement receipt NFT as #<token_id> (if retirement occurred)",
+                "example": "#123",
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^#\\d+$"
+              },
+              "display_type": {
+                "title": "Display Type",
+                "description": "How the trait should be displayed in marketplace UIs",
+                "type": "string",
+                "enum": [
+                  "number",
+                  "date",
+                  "boost_number",
+                  "boost_percentage"
+                ]
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
               }
             },
             "required": [
@@ -1614,60 +1342,6 @@
               "value": {
                 "title": "Credit Amount",
                 "description": "Amount of credits purchased for the token symbol",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
-              },
-              "display_type": {
-                "type": "string",
-                "const": "number"
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ],
-                "type": "number",
-                "minimum": 0
-              }
-            },
-            "required": [
-              "trait_type",
-              "value",
-              "display_type"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "title": "Collection Attribute",
-            "description": "Attribute representing the amount of credits purchased from a collection",
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "title": "Collection Name",
-                "description": "Display name of the collection",
-                "examples": [
-                  "BOLD Cold Start - Carazinho",
-                  "BOLD Brazil"
-                ],
-                "type": "string",
-                "enum": [
-                  "BOLD Innovators",
-                  "BOLD Cold Start - Carazinho",
-                  "BOLD Cold Start - Jundiaí",
-                  "BOLD Brazil"
-                ]
-              },
-              "value": {
-                "title": "Credits from Collection",
-                "description": "Amount of credits purchased from the collection",
                 "examples": [
                   0,
                   45.2,

@@ -223,3 +223,140 @@ export function validateAttributesForItems<T>(params: {
     }
   });
 }
+
+export function validateCertificateCollectionSlugs(params: {
+  ctx: z.RefinementCtx;
+  certificateCollections: Array<{ slug: string }>;
+  validCollectionSlugs: Set<string>;
+  certificateIndex: number;
+  message?: string;
+}) {
+  const {
+    ctx,
+    certificateCollections,
+    validCollectionSlugs,
+    certificateIndex,
+    message = 'certificate.collections[].slug must match a collection slug in collections',
+  } = params;
+
+  certificateCollections.forEach((collectionItem, collectionIndex) => {
+    if (!validCollectionSlugs.has(collectionItem.slug)) {
+      ctx.addIssue({
+        code: 'custom',
+        message,
+        path: [
+          'certificates',
+          certificateIndex,
+          'collections',
+          collectionIndex,
+          'slug',
+        ],
+      });
+    }
+  });
+}
+
+export function validateRetirementReceiptRequirement(params: {
+  ctx: z.RefinementCtx;
+  hasRetirementReceipt: boolean;
+  totalRetiredAmount: number;
+  messageWhenPresentButNoRetired?: string;
+  messageWhenRetiredButNotPresent?: string;
+}) {
+  const {
+    ctx,
+    hasRetirementReceipt,
+    totalRetiredAmount,
+    messageWhenPresentButNoRetired = 'retirement_receipt is present but no certificate has retired_amount greater than 0',
+    messageWhenRetiredButNotPresent = 'certificates with retired amounts > 0 require retirement_receipt',
+  } = params;
+
+  if (hasRetirementReceipt) {
+    if (totalRetiredAmount === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        message: messageWhenPresentButNoRetired,
+        path: ['retirement_receipt'],
+      });
+    }
+  } else if (totalRetiredAmount > 0) {
+    ctx.addIssue({
+      code: 'custom',
+      message: messageWhenRetiredButNotPresent,
+      path: ['retirement_receipt'],
+    });
+  }
+}
+
+export function validateCollectionsHaveRetiredAmounts(params: {
+  ctx: z.RefinementCtx;
+  collections: Array<{ slug: string }>;
+  retiredTotalsBySlug: Map<string, number>;
+  message?: string;
+}) {
+  const {
+    ctx,
+    collections,
+    retiredTotalsBySlug,
+    message = 'collection must be referenced by at least one certificate with retired amounts > 0',
+  } = params;
+
+  collections.forEach((collection, index) => {
+    const retiredTotal = retiredTotalsBySlug.get(String(collection.slug)) ?? 0;
+    if (retiredTotal === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        message,
+        path: ['collections', index, 'slug'],
+      });
+    }
+  });
+}
+
+export function validateCreditSlugExists(params: {
+  ctx: z.RefinementCtx;
+  creditSlug: string;
+  validCreditSlugs: Set<string>;
+  path: (string | number)[];
+  message?: string;
+}) {
+  const {
+    ctx,
+    creditSlug,
+    validCreditSlugs,
+    path,
+    message = 'credit_slug must match a credit slug in credits',
+  } = params;
+
+  if (!validCreditSlugs.has(creditSlug)) {
+    ctx.addIssue({
+      code: 'custom',
+      message,
+      path,
+    });
+  }
+}
+
+export function validateCreditSymbolExists(params: {
+  ctx: z.RefinementCtx;
+  creditSymbol: string;
+  validCreditSymbols: Set<string>;
+  path: (string | number)[];
+  message?: string;
+}) {
+  const {
+    ctx,
+    creditSymbol,
+    validCreditSymbols,
+    path,
+    message = 'credit_symbol must match a credit symbol in credits',
+  } = params;
+
+  if (!validCreditSymbols.has(creditSymbol)) {
+    ctx.addIssue({
+      code: 'custom',
+      message,
+      path,
+    });
+  }
+}

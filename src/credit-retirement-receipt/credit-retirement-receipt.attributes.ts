@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import {
-  CollectionNameSchema,
   CreditAmountSchema,
   NftAttributeSchema,
   NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
+  StringifiedTokenIdSchema,
   createDateAttributeSchema,
   createNumericAttributeSchema,
   createOrderedAttributesSchema,
@@ -75,18 +75,25 @@ const CreditRetirementReceiptCertificatesAttributeSchema =
     valueSchema: PositiveIntegerSchema,
   });
 
-const CreditRetirementReceiptCollectionAttributeSchema =
-  NftAttributeSchema.safeExtend({
-    trait_type: CollectionNameSchema,
-    value: CreditAmountSchema.meta({
-      title: 'Credits from Collection',
-      description: 'Amount of credits retired from the collection',
-    }),
-    display_type: z.literal('number'),
-  }).meta({
-    title: 'Collection Attribute',
+const CreditRetirementReceiptPurchaseDateAttributeSchema =
+  createDateAttributeSchema({
+    traitType: 'Purchase Date',
+    title: 'Purchase Date',
     description:
-      'Attribute representing the amount of credits retired from a collection',
+      'Unix timestamp in milliseconds when credits were purchased (if purchase_receipt is present)',
+  });
+
+const CreditRetirementReceiptPurchaseReceiptAttributeSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Purchase Receipt'),
+    value: StringifiedTokenIdSchema.meta({
+      title: 'Purchase Receipt Token ID',
+      description:
+        'Token ID of the purchase receipt NFT as #<token_id> (if purchase_receipt is present)',
+    }),
+  }).meta({
+    title: 'Purchase Receipt Attribute',
+    description: 'Attribute representing the purchase receipt token ID',
   });
 
 const REQUIRED_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
@@ -98,12 +105,13 @@ const REQUIRED_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
 
 const CONDITIONAL_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
   CreditRetirementReceiptCreditHolderAttributeSchema,
+  CreditRetirementReceiptPurchaseDateAttributeSchema,
+  CreditRetirementReceiptPurchaseReceiptAttributeSchema,
 ] as const;
 
-// Dynamic attributes (one per credit symbol and one per collection name)
+// Dynamic attributes (one per credit symbol)
 const DYNAMIC_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
   CreditRetirementReceiptCreditAttributeSchema,
-  CreditRetirementReceiptCollectionAttributeSchema,
 ] as const;
 
 export const CreditRetirementReceiptAttributesSchema =
@@ -115,10 +123,10 @@ export const CreditRetirementReceiptAttributesSchema =
     ],
     title: 'Credit Retirement Receipt NFT Attribute Array',
     description:
-      'Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and per-collection amounts. ' +
+      'Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and optional purchase info. ' +
       'Fixed required attributes: Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired. ' +
-      'Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided). ' +
-      'Dynamic attributes: Credit attributes (one per credit symbol in data.credits), Collection attributes (one per collection name in data.collections).',
+      'Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). ' +
+      'Dynamic attributes: Credit attributes (one per credit symbol in data.credits).',
     uniqueBySelector: (attribute: unknown) =>
       (attribute as { trait_type: string }).trait_type,
     requiredTraitTypes: [
@@ -128,7 +136,6 @@ export const CreditRetirementReceiptAttributesSchema =
       'Certificates Retired',
     ],
   });
-
 export type CreditRetirementReceiptAttributes = z.infer<
   typeof CreditRetirementReceiptAttributesSchema
 >;

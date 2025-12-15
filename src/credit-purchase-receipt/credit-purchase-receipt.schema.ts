@@ -5,8 +5,6 @@ import {
   getSchemaVersionOrDefault,
   createAttributeMap,
   validateAttributeValue,
-  validateAttributesForItems,
-  validateDateAttribute,
 } from '../shared';
 import { CreditPurchaseReceiptDataSchema } from './credit-purchase-receipt.data.schema';
 import { CreditPurchaseReceiptAttributesSchema } from './credit-purchase-receipt.attributes';
@@ -50,11 +48,11 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     validateAttributeValue({
       ctx,
       attributeByTraitType,
-      traitType: 'Total USDC Amount',
-      expectedValue: data.summary.total_usdc_amount,
-      missingMessage: 'Attribute "Total USDC Amount" is required',
+      traitType: 'Total Amount (USDC)',
+      expectedValue: data.summary.total_amount_usdc,
+      missingMessage: 'Attribute "Total Amount (USDC)" is required',
       mismatchMessage:
-        'Attribute "Total USDC Amount" must match data.summary.total_usdc_amount',
+        'Attribute "Total Amount (USDC)" must match data.summary.total_amount_usdc',
     });
 
     validateAttributeValue({
@@ -67,58 +65,98 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
         'Attribute "Certificates Purchased" must match data.summary.total_certificates',
     });
 
-    const receiverName = data.parties.receiver.identity?.name;
-    if (receiverName) {
+    const buyerName = data.buyer.identity?.name;
+    if (buyerName) {
       validateAttributeValue({
         ctx,
         attributeByTraitType,
-        traitType: 'Receiver',
-        expectedValue: String(receiverName),
+        traitType: 'Buyer',
+        expectedValue: String(buyerName),
         missingMessage:
-          'Attribute "Receiver" is required when receiver.identity.name is provided',
-        mismatchMessage:
-          'Attribute "Receiver" must match receiver.identity.name',
+          'Attribute "Buyer" is required when buyer.identity.name is provided',
+        mismatchMessage: 'Attribute "Buyer" must match buyer.identity.name',
       });
     }
 
-    validateDateAttribute({
-      ctx,
-      attributeByTraitType,
-      traitType: 'Purchase Date',
-      dateValue: data.summary.purchase_date,
-      missingMessage: 'Attribute "Purchase Date" is required',
-      invalidDateMessage:
-        'data.summary.purchase_date must be a valid date string',
-      mismatchMessage:
-        'Attribute "Purchase Date" must match data.summary.purchase_date as a Unix timestamp in milliseconds',
-      datePath: ['data', 'summary', 'purchase_date'],
+    const purchaseDateAttribute = attributeByTraitType.get('Purchase Date');
+    if (purchaseDateAttribute) {
+      const dateMs = Date.parse(data.summary.purchased_at);
+      if (Number.isNaN(dateMs)) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'data.summary.purchased_at must be a valid ISO 8601 date-time string',
+          path: ['data', 'summary', 'purchased_at'],
+        });
+      } else if (purchaseDateAttribute.value !== dateMs) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'Attribute "Purchase Date" must match data.summary.purchased_at as a Unix timestamp in milliseconds',
+          path: ['attributes'],
+        });
+      }
+    } else {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Attribute "Purchase Date" is required',
+        path: ['attributes'],
+      });
+    }
+
+    if (data.retirement_receipt) {
+      const retirementReceiptAttribute =
+        attributeByTraitType.get('Retirement Receipt');
+      if (retirementReceiptAttribute) {
+        const expectedTokenId = `#${data.retirement_receipt.token_id}`;
+        if (retirementReceiptAttribute.value !== expectedTokenId) {
+          ctx.addIssue({
+            code: 'custom',
+            message:
+              'Attribute "Retirement Receipt" must match retirement_receipt.token_id as #<token_id> when present',
+            path: ['attributes'],
+          });
+        }
+      }
+    }
+
+    const creditTotalsBySymbol = new Map<string, number>();
+    data.certificates.forEach((certificate) => {
+      const credit = data.credits.find(
+        (c) => c.slug === certificate.credit_slug,
+      );
+      if (credit) {
+        const certificatePurchasedTotal = certificate.collections.reduce(
+          (sum, collection) => sum + Number(collection.purchased_amount),
+          0,
+        );
+        const currentTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
+        creditTotalsBySymbol.set(
+          credit.symbol,
+          currentTotal + certificatePurchasedTotal,
+        );
+      }
     });
 
-    validateAttributesForItems({
-      ctx,
-      attributeByTraitType,
-      items: data.credits,
-      traitSelector: (credit) => String(credit.symbol),
-      valueSelector: (credit) => Number(credit.purchase_amount),
-      missingMessage: (symbol) =>
-        `Attribute for credit symbol ${symbol} is required`,
-      mismatchMessage: (symbol) =>
-        `Attribute for credit symbol ${symbol} must match credit.purchase_amount`,
-    });
-
-    validateAttributesForItems({
-      ctx,
-      attributeByTraitType,
-      items: data.collections,
-      traitSelector: (collection) => String(collection.name),
-      valueSelector: (collection) => Number(collection.credit_amount),
-      missingMessage: (name) => `Attribute for collection ${name} is required`,
-      mismatchMessage: (name) =>
-        `Attribute for collection ${name} must match collection.credit_amount`,
+    data.credits.forEach((credit) => {
+      const expectedTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
+      const attribute = attributeByTraitType.get(credit.symbol);
+      if (!attribute) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Attribute for credit symbol ${credit.symbol} is required`,
+          path: ['attributes'],
+        });
+      } else if (Number(attribute.value) !== expectedTotal) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Attribute for credit symbol ${credit.symbol} must match sum of certificate.collections[].purchased_amount for the credit symbol`,
+          path: ['attributes'],
+        });
+      }
     });
   })
   .meta(CreditPurchaseReceiptIpfsSchemaMeta);
-
 export type CreditPurchaseReceiptIpfs = z.infer<
   typeof CreditPurchaseReceiptIpfsSchema
 >;

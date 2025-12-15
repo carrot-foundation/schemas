@@ -48,7 +48,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       description: 'rejects attributes that do not align with data totals',
       mutate: (invalid) => {
         invalid.attributes = invalid.attributes.map((attribute) => {
-          if (attribute.trait_type === 'Total USDC Amount') {
+          if (attribute.trait_type === 'Total Amount (USDC)') {
             return { ...attribute, value: 999999 };
           }
           return attribute;
@@ -57,11 +57,11 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     },
     {
       description:
-        'rejects receiver attribute that does not match receiver identity name',
+        'rejects buyer attribute that does not match buyer identity name',
       mutate: (invalid) => {
         invalid.attributes = invalid.attributes.map((attribute) => {
-          if (attribute.trait_type === 'Receiver') {
-            return { ...attribute, value: 'Wrong Receiver' };
+          if (attribute.trait_type === 'Buyer') {
+            return { ...attribute, value: 'Wrong Buyer' };
           }
           return attribute;
         }) as typeof invalid.attributes;
@@ -69,7 +69,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     },
     {
       description:
-        'rejects purchase date attribute that does not match summary purchase date',
+        'rejects purchase date attribute that does not match summary purchased_at',
       mutate: (invalid) => {
         invalid.attributes = invalid.attributes.map((attribute) => {
           if (attribute.trait_type === 'Purchase Date') {
@@ -82,7 +82,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     {
       description: 'rejects missing credit symbol attribute',
       mutate: (invalid) => {
-        const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
+        const firstCreditSymbol = invalid.data.credits[0].symbol;
         invalid.attributes = invalid.attributes.filter(
           (attribute) => attribute.trait_type !== firstCreditSymbol,
         );
@@ -90,9 +90,9 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     },
     {
       description:
-        'rejects credit attribute value that does not match purchase amount',
+        'rejects credit attribute value that does not match certificate totals',
       mutate: (invalid) => {
-        const firstCreditSymbol = invalid.data.summary.credit_symbols[0];
+        const firstCreditSymbol = invalid.data.credits[0].symbol;
         invalid.attributes = invalid.attributes.map((attribute) => {
           if (attribute.trait_type === firstCreditSymbol) {
             return { ...attribute, value: Number(attribute.value) + 1 };
@@ -102,44 +102,58 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       },
     },
     {
-      description: 'rejects missing collection name attribute',
+      description: 'rejects missing Purchase Date attribute',
       mutate: (invalid) => {
-        const firstCollectionName = invalid.data.collections[0].name;
         invalid.attributes = invalid.attributes.filter(
-          (attribute) => attribute.trait_type !== firstCollectionName,
+          (attribute) => attribute.trait_type !== 'Purchase Date',
         );
       },
     },
     {
-      description:
-        'rejects collection attribute value that does not match credit amount',
+      description: 'rejects invalid purchased_at date in summary',
       mutate: (invalid) => {
-        const firstCollectionName = invalid.data.collections[0].name;
+        invalid.data.summary.purchased_at = 'invalid-date';
+      },
+    },
+    {
+      description:
+        'rejects Purchase Date attribute that does not match purchased_at timestamp',
+      mutate: (invalid) => {
         invalid.attributes = invalid.attributes.map((attribute) => {
-          if (attribute.trait_type === firstCollectionName) {
-            return { ...attribute, value: Number(attribute.value) + 1 };
+          if (attribute.trait_type === 'Purchase Date') {
+            return { ...attribute, value: 1738627200000 };
           }
           return attribute;
         }) as typeof invalid.attributes;
       },
     },
+    {
+      description:
+        'rejects Retirement Receipt attribute that does not match retirement_receipt.token_id',
+      mutate: (invalid) => {
+        if (invalid.data.retirement_receipt) {
+          invalid.attributes = invalid.attributes.map((attribute) => {
+            if (attribute.trait_type === 'Retirement Receipt') {
+              return { ...attribute, value: '#9999' };
+            }
+            return attribute;
+          }) as typeof invalid.attributes;
+        }
+      },
+    },
   ]);
 
-  it('allows receiver identity to be omitted', () => {
+  it('allows buyer identity to be omitted', () => {
     expectSchemaValid(schema, () => {
-      const withoutReceiverIdentity = structuredClone(base);
+      const withoutBuyerIdentity = structuredClone(base);
       Reflect.deleteProperty(
-        withoutReceiverIdentity.data.parties.receiver as Record<
-          string,
-          unknown
-        >,
+        withoutBuyerIdentity.data.buyer as Record<string, unknown>,
         'identity',
       );
-      withoutReceiverIdentity.attributes =
-        withoutReceiverIdentity.attributes.filter(
-          (attribute) => attribute.trait_type !== 'Receiver',
-        );
-      return withoutReceiverIdentity;
+      withoutBuyerIdentity.attributes = withoutBuyerIdentity.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Buyer',
+      );
+      return withoutBuyerIdentity;
     });
   });
 
@@ -153,5 +167,89 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
         expect(data.data.certificates[0].mass_id.token_id).toBe('123');
       },
     );
+  });
+
+  it('allows Retirement Receipt attribute to be omitted when retirement_receipt is present', () => {
+    expectSchemaValid(schema, () => {
+      const withoutTokenId = structuredClone(base);
+      withoutTokenId.attributes = withoutTokenId.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Retirement Receipt',
+      );
+      return withoutTokenId;
+    });
+  });
+
+  it('allows retirement_receipt to be omitted when no certificate collections have retired_amount', () => {
+    expectSchemaValid(schema, () => {
+      const withoutRetirement = structuredClone(base);
+      Reflect.deleteProperty(withoutRetirement.data, 'retirement_receipt');
+      withoutRetirement.data.certificates =
+        withoutRetirement.data.certificates.map((cert) => ({
+          ...cert,
+          collections: cert.collections.map((col) => ({
+            ...col,
+            retired_amount: 0,
+          })),
+        }));
+      withoutRetirement.attributes = withoutRetirement.attributes.filter(
+        (attribute) =>
+          attribute.trait_type !== 'Retirement Receipt' &&
+          attribute.trait_type !== 'Retirement Date',
+      );
+      return withoutRetirement;
+    });
+  });
+
+  it('validates credit attribute with zero total when credit is not referenced by certificates', () => {
+    expectSchemaValid(schema, () => {
+      const withUnusedCredit = structuredClone(base);
+      const biowasteCredit = withUnusedCredit.data.credits.find(
+        (c) => c.symbol === 'C-BIOW',
+      );
+      if (!biowasteCredit) {
+        throw new Error('C-BIOW credit not found in example');
+      }
+      withUnusedCredit.data.certificates =
+        withUnusedCredit.data.certificates.filter(
+          (cert) => cert.credit_slug !== biowasteCredit.slug,
+        );
+      const biowasteAttribute = withUnusedCredit.attributes.find(
+        (attr) => attr.trait_type === 'C-BIOW',
+      );
+      if (biowasteAttribute) {
+        biowasteAttribute.value = 0;
+      } else {
+        withUnusedCredit.attributes.push({
+          trait_type: 'C-BIOW',
+          value: 0,
+          display_type: 'number',
+        });
+      }
+      withUnusedCredit.data.summary.total_certificates =
+        withUnusedCredit.data.certificates.length;
+      const totalCredits = withUnusedCredit.data.certificates.reduce(
+        (sum, cert) =>
+          sum +
+          cert.collections.reduce(
+            (certSum, col) => certSum + Number(col.purchased_amount),
+            0,
+          ),
+        0,
+      );
+      withUnusedCredit.data.summary.total_credits = totalCredits;
+      const totalCreditsAttribute = withUnusedCredit.attributes.find(
+        (attr) => attr.trait_type === 'Total Credits Purchased',
+      );
+      if (totalCreditsAttribute) {
+        totalCreditsAttribute.value = totalCredits;
+      }
+      const certificatesAttribute = withUnusedCredit.attributes.find(
+        (attr) => attr.trait_type === 'Certificates Purchased',
+      );
+      if (certificatesAttribute) {
+        certificatesAttribute.value = withUnusedCredit.data.certificates.length;
+      }
+      return withUnusedCredit;
+    });
   });
 });
