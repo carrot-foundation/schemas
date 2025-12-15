@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID Audit IPFS Record",
   "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
-  "version": "0.1.52",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "version": "0.1.56",
   "type": "object",
   "properties": {
     "$schema": {
@@ -47,7 +47,7 @@
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
-            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",
@@ -244,7 +244,7 @@
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
-                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
@@ -301,7 +301,7 @@
               "title": "MassID IPFS URI",
               "description": "IPFS URI of the MassID record",
               "examples": [
-                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
@@ -357,7 +357,7 @@
               "title": "GasID IPFS URI",
               "description": "IPFS URI of the GasID record",
               "examples": [
-                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",

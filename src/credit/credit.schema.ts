@@ -41,7 +41,7 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
     title: 'Token Image',
     description: "IPFS URI pointing to the token's visual representation image",
     examples: [
-      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-icon.png',
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
     ],
   }),
   description: z

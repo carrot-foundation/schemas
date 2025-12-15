@@ -31,7 +31,7 @@ export const validExternalLinkFixture: ExternalLink = {
  */
 export const validExternalLinkWhitePaperFixture: ExternalLink = {
   label: 'Carrot White Paper',
-  url: 'https://carrot.eco/whitepaper.pdf',
+  url: 'https://whitepaper.carrot.eco',
   description: 'Carrot Foundation technical and impact white paper',
 };
 

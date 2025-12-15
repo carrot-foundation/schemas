@@ -19,7 +19,7 @@ export const IpfsUriSchema = NonEmptyStringSchema.regex(
   title: 'IPFS URI',
   description: 'InterPlanetary File System URI pointing to distributed content',
   examples: [
-    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png',
+    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
   ],
 });

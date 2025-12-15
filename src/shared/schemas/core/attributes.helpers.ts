@@ -56,35 +56,28 @@ function extractTraitType(schema: z.ZodTypeAny): string {
     ) {
       const traitTypeSchema = schema.shape.trait_type as z.ZodTypeAny;
 
-      // Check if it's a literal
+      type ZodLiteralWithValue = z.ZodTypeAny & { value?: string };
+      const literalSchema = traitTypeSchema as ZodLiteralWithValue;
       if (
-        traitTypeSchema.def &&
-        typeof traitTypeSchema.def === 'object' &&
-        'typeName' in traitTypeSchema.def &&
-        traitTypeSchema.def.typeName === 'ZodLiteral' &&
-        'value' in traitTypeSchema.def
+        literalSchema.value !== undefined &&
+        typeof literalSchema.value === 'string'
       ) {
-        return traitTypeSchema.def.value as string;
+        return literalSchema.value;
       }
     }
 
-    // Fallback: try to get from metadata if available
-    // Note: This is a fallback and may not be accurate, so we return empty string
-    // to avoid false positives in validation
     const meta = getSchemaMetadata(schema);
     if (meta?.title) {
-      // Try to infer from title (e.g., "Waste Type Attribute" -> "Waste Type")
       const title = meta.title as string;
       if (title.endsWith(' Attribute')) {
-        const inferred = title.slice(0, -11); // Remove " Attribute" suffix
-        // Only return if it looks reasonable (not truncated)
+        const inferred = title.slice(0, -11);
         if (inferred.length > 3) {
           return inferred;
         }
       }
     }
   } catch {
-    // If extraction fails, return empty string
+    // Extraction failed
   }
 
   return '';
@@ -188,12 +181,20 @@ export function createOrderedAttributesSchema(params: {
     optionalTraitTypes,
   } = params;
 
-  const allSchemas = [...required, ...optional] as [
-    z.ZodTypeAny,
-    z.ZodTypeAny,
-    ...z.ZodTypeAny[],
-  ];
-  const unionSchema = z.union(allSchemas);
+  const allSchemas = [...required, ...optional];
+  // Guard against invalid union cases: z.union requires at least 2 schemas
+  // If no schemas provided, return z.never() (nothing can match)
+  // If only one schema, return it directly (no union needed)
+  let unionSchema: z.ZodTypeAny;
+  if (allSchemas.length === 0) {
+    unionSchema = z.never();
+  } else if (allSchemas.length === 1) {
+    unionSchema = allSchemas[0];
+  } else {
+    unionSchema = z.union(
+      allSchemas as [z.ZodTypeAny, z.ZodTypeAny, ...z.ZodTypeAny[]],
+    );
+  }
 
   const requiredTypes =
     requiredTraitTypes ?? required.map(extractTraitType).filter(Boolean);

@@ -1,40 +1,40 @@
 {
-  "version": "0.1.52",
+  "version": "0.1.56",
   "schemas": {
     "ipfs/recycled-id/recycled-id.schema.json": {
-      "hash": "c6ec08d996765ff21101272c27ea85474a7b9c0053d005d161ad9b701f6c3df2",
+      "hash": "0f74a4d8f52c9e139ead0cd95fa60c2187d6d05bef1b6aa83c0bb2341043cee2",
       "path": "ipfs/recycled-id/recycled-id.schema.json"
     },
     "ipfs/methodology/methodology.schema.json": {
-      "hash": "5ad84b7f5b96dc05ed55a18383462fcd224211576d08f953f70d85f18f70674e",
+      "hash": "c2badb2ebbae40212f14b639d9fbbfb1f9c7d9004d16973425622a223f0b846b",
       "path": "ipfs/methodology/methodology.schema.json"
     },
     "ipfs/mass-id-audit/mass-id-audit.schema.json": {
-      "hash": "ee16a874a3e6a25f72097ec179d1a872c1d29a5a3aa5818770b99e019f654d79",
+      "hash": "60649e0becb5729cb2b2e235dc3e4d12bcf36651401f1299c0838680a809f883",
       "path": "ipfs/mass-id-audit/mass-id-audit.schema.json"
     },
     "ipfs/mass-id/mass-id.schema.json": {
-      "hash": "695080be18088c1f1e61317e9ed8ff767054519f67b8ae72cc4099891def4298",
+      "hash": "57b3c5f8804c143227307ea937830ad80d1906ee9e14a0080714a10705e8b279",
       "path": "ipfs/mass-id/mass-id.schema.json"
     },
     "ipfs/gas-id/gas-id.schema.json": {
-      "hash": "faf9009fe2cdc094a62357cf055e3aca193c3433812063573c3acf01e7754b45",
+      "hash": "f3ee480664f625ba53bfc36de19471a580ab7388b5900e182ae015fa8a8fc8dc",
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {
-      "hash": "286b4a5a9627ebb6e1e398a7a3ec9c5313bbda3e09f607bae49e2fe283bb5328",
+      "hash": "83acb540fbe27a878eadf685fa776da6614079faf4890e44e013f240e00fece6",
       "path": "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json"
     },
     "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json": {
-      "hash": "cf7a91ad16022c42f83d63c76f613da7a776e2d788d468c663970426afd36e66",
+      "hash": "ca7240cd7cba57810572d94d35f1d28a24a20bd86aba94cdee87411a6724b01b",
       "path": "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json"
     },
     "ipfs/credit/credit.schema.json": {
-      "hash": "f290ee73a85f2124bd7ddb180b574675651ddf035e2bb28e8910cc21779d75a9",
+      "hash": "c638a7fcdbdfff954e00ee8e9f5aa63ce248b24ce816762c51a439f1289dd4f1",
       "path": "ipfs/credit/credit.schema.json"
     },
     "ipfs/collection/collection.schema.json": {
-      "hash": "44b099c39b5570eca8fbbfa699a0dda47a372e681421a45a63d1e85b8f99a88f",
+      "hash": "161d1881d1b07a803fd17d4ab3b3865a7f2aa4adeedb87167906df522dd4bd94",
       "path": "ipfs/collection/collection.schema.json"
     }
   }

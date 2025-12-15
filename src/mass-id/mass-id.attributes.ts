@@ -19,8 +19,7 @@ const MassIDAttributeWasteTypeSchema = NftAttributeSchema.safeExtend({
   value: WasteTypeSchema,
 }).meta({
   title: 'Waste Type Attribute',
-  description:
-    'Primary waste material category (e.g., Organic, Paper, Glass, Metal)',
+  description: 'Primary waste material category',
 });
 export type MassIDAttributeWasteType = z.infer<
   typeof MassIDAttributeWasteTypeSchema
@@ -58,7 +57,8 @@ const MassIDAttributePickUpVehicleTypeSchema = NftAttributeSchema.safeExtend({
   }),
 }).meta({
   title: 'Pick-up Vehicle Type Attribute',
-  description: 'Vehicle type used during pick-up',
+  description:
+    'Type of vehicle used to transport waste from the origin location during pick-up',
 });
 export type MassIDAttributePickUpVehicleType = z.infer<
   typeof MassIDAttributePickUpVehicleTypeSchema
@@ -74,7 +74,7 @@ const MassIDAttributeRecyclingMethodSchema = NftAttributeSchema.safeExtend({
 }).meta({
   title: 'Recycling Method Attribute',
   description:
-    'Process applied to this mass (e.g., composting, mechanical recycling)',
+    'Processing or recycling method applied to transform the waste material',
 });
 
 export type MassIDAttributeRecyclingMethod = z.infer<
@@ -88,7 +88,7 @@ const MassIDAttributeLocalWasteClassificationIdSchema =
   }).meta({
     title: 'Local Waste Classification ID Attribute',
     description:
-      'Regulatory waste classification code (e.g., Ibama format NN NN NN[*])',
+      'Regulatory waste classification code in Ibama format (NN NN NN with optional trailing asterisk)',
   });
 export type MassIDAttributeLocalWasteClassificationId = z.infer<
   typeof MassIDAttributeLocalWasteClassificationIdSchema
@@ -105,7 +105,7 @@ const MassIDAttributeRecyclingManifestCodeSchema =
   }).meta({
     title: 'Recycling Manifest Number Attribute',
     description:
-      'Official recycling manifest number issued by recycling authority (optional)',
+      'Official recycling manifest document number issued by regulatory authorities, linked to the Recycling event (optional)',
   });
 export type MassIDAttributeRecyclingManifestCode = z.infer<
   typeof MassIDAttributeRecyclingManifestCodeSchema
@@ -122,7 +122,7 @@ const MassIDAttributeTransportManifestCodeSchema =
   }).meta({
     title: 'Transport Manifest Number Attribute',
     description:
-      'Official transport manifest number issued by logistics/transport authority (optional)',
+      'Official transport manifest document number issued by logistics authorities, linked to transport events (optional)',
   });
 export type MassIDAttributeTransportManifestCode = z.infer<
   typeof MassIDAttributeTransportManifestCodeSchema
@@ -134,7 +134,8 @@ const MassIDAttributeWeighingCaptureMethodSchema =
     value: WeighingCaptureMethodSchema,
   }).meta({
     title: 'Weighing Capture Method Attribute',
-    description: 'Weighing capture method attribute (optional)',
+    description:
+      'Method used to capture weight measurements during weighing operations (optional)',
   });
 export type MassIDAttributeWeighingCaptureMethod = z.infer<
   typeof MassIDAttributeWeighingCaptureMethodSchema
@@ -145,7 +146,8 @@ const MassIDAttributeScaleTypeSchema = NftAttributeSchema.safeExtend({
   value: ScaleTypeSchema,
 }).meta({
   title: 'Scale Type Attribute',
-  description: 'Scale type attribute (optional)',
+  description:
+    'Type of weighing equipment used to measure waste weight (optional)',
 });
 export type MassIDAttributeScaleType = z.infer<
   typeof MassIDAttributeScaleTypeSchema
@@ -155,7 +157,7 @@ const MassIDAttributePickUpDateSchema = createDateAttributeSchema({
   traitType: 'Pick-up Date',
   title: 'Pick-up Date',
   description:
-    'Unix timestamp in milliseconds when the waste was picked up from the source',
+    'Unix timestamp in milliseconds when waste was picked up from the origin location',
 });
 export type MassIDAttributePickUpDate = z.infer<
   typeof MassIDAttributePickUpDateSchema
@@ -165,7 +167,7 @@ const MassIDAttributeDropOffDateSchema = createDateAttributeSchema({
   traitType: 'Drop-off Date',
   title: 'Drop-off Date',
   description:
-    'Unix timestamp in milliseconds when the waste was dropped off at the destination',
+    'Unix timestamp in milliseconds when waste was delivered to the destination location',
 });
 export type MassIDAttributeDropOffDate = z.infer<
   typeof MassIDAttributeDropOffDateSchema
@@ -175,7 +177,7 @@ const MassIDAttributeRecyclingDateSchema = createDateAttributeSchema({
   traitType: 'Recycling Date',
   title: 'Recycling Date',
   description:
-    'Unix timestamp in milliseconds when the waste was recycled/processed',
+    'Unix timestamp in milliseconds when waste recycling or processing was completed',
 });
 export type MassIDAttributeRecyclingDate = z.infer<
   typeof MassIDAttributeRecyclingDateSchema

@@ -39,7 +39,8 @@ export const BlockchainChainIdSchema = z
   ])
   .meta({
     title: 'Chain ID',
-    description: 'Supported Polygon chain identifiers',
+    description:
+      'Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)',
     examples: BLOCKCHAIN_CHAIN_IDS,
   });
 export type BlockchainChainId = z.infer<typeof BlockchainChainIdSchema>;
@@ -48,14 +49,16 @@ export const BlockchainNetworkNameSchema = z
   .enum(BLOCKCHAIN_NETWORK_NAMES)
   .meta({
     title: 'Blockchain Network Name',
-    description: 'Supported Polygon network names',
+    description:
+      'Blockchain network name. Supported values include Polygon and Amoy',
     examples: BLOCKCHAIN_NETWORK_NAMES,
   });
 export type BlockchainNetworkName = z.infer<typeof BlockchainNetworkNameSchema>;
 
 export const SmartContractAddressSchema = EthereumAddressSchema.meta({
   title: 'Smart Contract Address',
-  description: 'Address of the smart contract',
+  description:
+    'Ethereum-compatible address of the smart contract that mints and manages this NFT',
 });
 export type SmartContractAddress = z.infer<typeof SmartContractAddressSchema>;
 

@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "CreditPurchaseReceipt NFT IPFS Record",
   "description": "Complete CreditPurchaseReceipt NFT IPFS record including attributes and credit purchase data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
-  "version": "0.1.52",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "version": "0.1.56",
   "type": "object",
   "properties": {
     "$schema": {
@@ -47,7 +47,7 @@
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
-            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",
@@ -386,7 +386,7 @@
                 "title": "Collection IPFS URI",
                 "description": "IPFS URI for the collection metadata",
                 "examples": [
-                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
                 ],
                 "type": "string",
@@ -474,7 +474,7 @@
                 "title": "Credit IPFS URI",
                 "description": "IPFS URI for the credit details",
                 "examples": [
-                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
                 ],
                 "type": "string",
@@ -556,7 +556,7 @@
                 "title": "Certificate IPFS URI",
                 "description": "IPFS URI for the certificate metadata",
                 "examples": [
-                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
                 ],
                 "type": "string",
@@ -623,7 +623,7 @@
                     "title": "MassID IPFS URI",
                     "description": "IPFS URI of the MassID record",
                     "examples": [
-                      "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                      "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                       "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
                     ],
                     "type": "string",
@@ -839,7 +839,7 @@
               "title": "Retirement Receipt IPFS URI",
               "description": "IPFS URI for the retirement receipt metadata",
               "examples": [
-                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
               ],
               "type": "string",
@@ -878,12 +878,12 @@
     },
     "blockchain": {
       "title": "Blockchain Information",
-      "description": "Blockchain-specific information for the NFT",
+      "description": "Blockchain deployment information including smart contract address, network, and token identifier",
       "type": "object",
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "Address of the smart contract",
+          "description": "Ethereum-compatible address of the smart contract that mints and manages this NFT",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -892,7 +892,7 @@
         },
         "chain_id": {
           "title": "Chain ID",
-          "description": "Supported Polygon chain identifiers",
+          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
           "examples": [
             137,
             80002
@@ -910,7 +910,7 @@
         },
         "network_name": {
           "title": "Blockchain Network Name",
-          "description": "Supported Polygon network names",
+          "description": "Blockchain network name. Supported values include Polygon and Amoy",
           "examples": [
             "Polygon",
             "Amoy"
@@ -943,7 +943,7 @@
     },
     "name": {
       "title": "NFT Name",
-      "description": "Full display name for this NFT, including extra context",
+      "description": "Full display name for this NFT, typically including token identifier, waste type, and weight",
       "examples": [
         "MassID #123 • Organic • 3.0t",
         "RecycledID #456 • Plastic • 2.5t",
@@ -955,7 +955,7 @@
     },
     "short_name": {
       "title": "Short Name",
-      "description": "Compact name for UI summaries, tables, or tooltips",
+      "description": "Compact name for UI summaries, tables, or tooltips, typically including token identifier",
       "examples": [
         "MassID #123",
         "RecycledID #456",
@@ -967,7 +967,7 @@
     },
     "description": {
       "title": "Description",
-      "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+      "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
       "examples": [
         "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
@@ -978,9 +978,9 @@
     },
     "image": {
       "title": "Image URI",
-      "description": "IPFS URI pointing to the preview image",
+      "description": "IPFS URI pointing to the NFT preview image displayed in marketplaces and wallets",
       "examples": [
-        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
         "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
       ],
       "type": "string",
@@ -989,7 +989,7 @@
     },
     "background_color": {
       "title": "Background Color",
-      "description": "Hex color code for marketplace background display",
+      "description": "Hexadecimal color code used as background color in NFT marketplace displays",
       "examples": [
         "#2D5A27",
         "#FF5733"
@@ -1000,10 +1000,10 @@
     },
     "animation_url": {
       "title": "Animation URL",
-      "description": "IPFS URI pointing to an animated or interactive media file",
+      "description": "IPFS URI pointing to an animated or interactive media file for enhanced NFT display",
       "examples": [
-        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
-        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
       ],
       "type": "string",
       "minLength": 1,

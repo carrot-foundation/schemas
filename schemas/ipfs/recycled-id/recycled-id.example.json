@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "c6ec08d996765ff21101272c27ea85474a7b9c0053d005d161ad9b701f6c3df2",
+    "hash": "0f74a4d8f52c9e139ead0cd95fa60c2187d6d05bef1b6aa83c0bb2341043cee2",
     "type": "RecycledID",
-    "version": "0.1.52",
+    "version": "0.1.56",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id.schema.json"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "d144799b2781a81f321265c53197b856e9c8210bd37e260ba27772d179fbfa7f",
-  "original_content_hash": "d144799b2781a81f321265c53197b856e9c8210bd37e260ba27772d179fbfa7f",
+  "content_hash": "9a0750a1ba9765ea69c2bc86d4c0d7c5e3eaee19084ef4428589a33a3bb3650c",
+  "original_content_hash": "9a0750a1ba9765ea69c2bc86d4c0d7c5e3eaee19084ef4428589a33a3bb3650c",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -29,7 +29,7 @@
   "name": "RecycledID #789 • BOLD Recycling • 3.0t Recycled",
   "short_name": "RecycledID #789",
   "description": "This RecycledID certifies 3.0 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Macapá, Brazil, producing high-quality compost and organic fertilizer.",
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id-bold-recycling.png",
+  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#2D5016",
   "external_links": [
     {
@@ -112,7 +112,7 @@
       "name": "AMS-III.F. | BOLD Recycling Credit",
       "version": "1.2.0",
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490",
-      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-recycling-v1.2.0.pdf"
+      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
     },
     "audit": {
       "completed_at": "2025-06-24T13:02:25.000Z",
@@ -120,13 +120,13 @@
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "result": "PASSED",
       "rules_executed": 18,
-      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/recycled-id-audit.json"
+      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
       "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
       "token_id": "123",
       "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
+      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha"
     },
     "waste_properties": {
       "type": "Organic",

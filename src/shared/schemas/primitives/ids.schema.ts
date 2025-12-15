@@ -20,7 +20,7 @@ export const TokenIdSchema = NonEmptyStringSchema.regex(
   'Must be a numeric string (supports uint256)',
 ).meta({
   title: 'Token ID',
-  description: 'Numeric identifier for blockchain tokens as string',
+  description: 'Unique token identifier for this NFT within the smart contract',
   examples: ['456789', '1000000'],
 });
 export type TokenId = z.infer<typeof TokenIdSchema>;

@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Credit IPFS Record",
   "description": "Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/credit/credit.schema.json",
-  "version": "0.1.52",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/credit/credit.schema.json",
+  "version": "0.1.56",
   "type": "object",
   "properties": {
     "$schema": {
@@ -47,7 +47,7 @@
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
-            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",
@@ -247,7 +247,7 @@
       "title": "Token Image",
       "description": "IPFS URI pointing to the token's visual representation image",
       "examples": [
-        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-icon.png"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
       ],
       "type": "string",
       "minLength": 1,
