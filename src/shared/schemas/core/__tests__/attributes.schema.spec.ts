@@ -266,21 +266,20 @@ describe('createNumericAttributeSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it('handles schema with metadata containing examples', () => {
+  it('handles schema with metadata containing examples via registry', () => {
+    // Create a schema and register it in the global registry with metadata
     const baseSchema = z.number();
-    const schemaWithMeta = {
-      ...baseSchema,
-      _def: {
-        ...baseSchema._def,
-        metadata: { examples: [100, 200] },
-      },
-    } as z.ZodNumber;
+    const schemaWithRegistryMeta = baseSchema.meta({
+      title: 'Test Number',
+      description: 'Test number schema',
+      examples: [100, 200],
+    });
 
     const schema = createNumericAttributeSchema({
       traitType: 'Test Number',
       title: 'Test Number',
       description: 'A test number',
-      valueSchema: schemaWithMeta,
+      valueSchema: schemaWithRegistryMeta,
     });
 
     const result = schema.safeParse({
