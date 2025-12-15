@@ -30,7 +30,6 @@ const RecycledIDSummarySchema = z
     title: 'RecycledID Summary',
     description: 'Summary information for the RecycledID certificate',
   });
-
 export type RecycledIDSummary = z.infer<typeof RecycledIDSummarySchema>;
 
 export const RecycledIDDataSchema = z
@@ -50,5 +49,4 @@ export const RecycledIDDataSchema = z
     title: 'RecycledID Data',
     description: 'Complete data structure for RecycledID certificate',
   });
-
 export type RecycledIDData = z.infer<typeof RecycledIDDataSchema>;

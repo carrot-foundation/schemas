@@ -3,7 +3,6 @@ import {
   NonEmptyStringSchema,
   NonNegativeFloatSchema,
   WeightKgSchema,
-  IsoDateSchema,
   IsoDateTimeSchema,
   LocationSchema,
   WastePropertiesSchema,
@@ -34,7 +33,6 @@ const GasIDSummarySchema = z
     title: 'GasID Summary',
     description: 'Summary information for the GasID certificate',
   });
-
 export type GasIDSummary = z.infer<typeof GasIDSummarySchema>;
 
 const CalculationValueSchema = z
@@ -63,7 +61,6 @@ const CalculationValueSchema = z
     title: 'Calculation Value',
     description: 'Single value used in the emissions calculation',
   });
-
 export type CalculationValue = z.infer<typeof CalculationValueSchema>;
 
 const PreventedEmissionsCalculationSchema = z
@@ -78,9 +75,9 @@ const PreventedEmissionsCalculationSchema = z
       description: 'Method used to calculate the prevented emissions',
       examples: ['UNFCCC AMS-III.F'],
     }),
-    date: IsoDateSchema.meta({
-      title: 'Calculation Date',
-      description: 'Date when the calculation was performed',
+    calculated_at: IsoDateTimeSchema.meta({
+      title: 'Calculated At',
+      description: 'ISO 8601 timestamp when the calculation was performed',
     }),
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',
@@ -91,7 +88,6 @@ const PreventedEmissionsCalculationSchema = z
     title: 'Prevented Emissions Calculation',
     description: 'Details of the prevented emissions calculation',
   });
-
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema
 >;
@@ -114,5 +110,4 @@ export const GasIDDataSchema = z
     title: 'GasID Data',
     description: 'Complete data structure for GasID certificate',
   });
-
 export type GasIDData = z.infer<typeof GasIDDataSchema>;
