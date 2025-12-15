@@ -14,13 +14,24 @@ import {
 function getSchemaMetadata<T extends z.ZodTypeAny>(
   schema: T,
 ): Record<string, unknown> | undefined {
-  const def = schema.def as unknown as {
-    metadata?: Record<string, unknown>;
-    [key: string]: unknown;
-  };
-  if (def?.metadata && typeof def.metadata === 'object') {
-    return def.metadata;
+  /* v8 ignore next -- @preserve */
+  if (typeof schema.meta === 'function') {
+    const meta = schema.meta();
+    if (meta && typeof meta === 'object') {
+      return meta as Record<string, unknown>;
+    }
   }
+
+  try {
+    const meta = z.globalRegistry.get(schema);
+    /* v8 ignore next -- @preserve */
+    if (meta && typeof meta === 'object') {
+      return meta as Record<string, unknown>;
+    }
+  } catch {
+    // Registry lookup failed, return undefined
+  }
+
   return undefined;
 }
 
