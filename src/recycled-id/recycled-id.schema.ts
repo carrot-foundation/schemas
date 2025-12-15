@@ -22,21 +22,7 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
       description: 'RecycledID NFT schema type',
     }),
   }),
+  attributes: RecycledIDAttributesSchema,
   data: RecycledIDDataSchema,
-})
-  .superRefine((value, ctx) => {
-    const attributesResult = RecycledIDAttributesSchema.safeParse(
-      value.attributes,
-    );
-
-    if (!attributesResult.success) {
-      attributesResult.error.issues.forEach((issue) => {
-        ctx.addIssue({
-          ...issue,
-          path: ['attributes', ...issue.path],
-        });
-      });
-    }
-  })
-  .meta(RecycledIDIpfsSchemaMeta);
+}).meta(RecycledIDIpfsSchemaMeta);
 export type RecycledIDIpfs = z.infer<typeof RecycledIDIpfsSchema>;

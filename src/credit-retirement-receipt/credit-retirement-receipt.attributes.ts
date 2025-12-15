@@ -6,9 +6,9 @@ import {
   NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
-  uniqueBy,
   createDateAttributeSchema,
   createNumericAttributeSchema,
+  createOrderedAttributesSchema,
 } from '../shared';
 
 const CreditRetirementReceiptCreditAttributeSchema =
@@ -89,24 +89,44 @@ const CreditRetirementReceiptCollectionAttributeSchema =
       'Attribute representing the amount of credits retired from a collection',
   });
 
-export const CreditRetirementReceiptAttributesSchema = uniqueBy(
-  z.union([
-    CreditRetirementReceiptCreditAttributeSchema,
-    CreditRetirementReceiptTotalCreditsAttributeSchema,
-    CreditRetirementReceiptBeneficiaryAttributeSchema,
-    CreditRetirementReceiptCreditHolderAttributeSchema,
-    CreditRetirementReceiptRetirementDateAttributeSchema,
-    CreditRetirementReceiptCertificatesAttributeSchema,
-    CreditRetirementReceiptCollectionAttributeSchema,
-  ]),
-  (attribute) => attribute.trait_type,
-  'Attribute trait_type values must be unique',
-)
-  .min(6)
-  .meta({
+const REQUIRED_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
+  CreditRetirementReceiptTotalCreditsAttributeSchema,
+  CreditRetirementReceiptBeneficiaryAttributeSchema,
+  CreditRetirementReceiptRetirementDateAttributeSchema,
+  CreditRetirementReceiptCertificatesAttributeSchema,
+] as const;
+
+const CONDITIONAL_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
+  CreditRetirementReceiptCreditHolderAttributeSchema,
+] as const;
+
+// Dynamic attributes (one per credit symbol and one per collection name)
+const DYNAMIC_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
+  CreditRetirementReceiptCreditAttributeSchema,
+  CreditRetirementReceiptCollectionAttributeSchema,
+] as const;
+
+export const CreditRetirementReceiptAttributesSchema =
+  createOrderedAttributesSchema({
+    required: REQUIRED_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES,
+    optional: [
+      ...CONDITIONAL_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES,
+      ...DYNAMIC_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES,
+    ],
     title: 'Credit Retirement Receipt NFT Attribute Array',
     description:
-      'Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and per-collection amounts. Attributes must have unique trait types.',
+      'Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and per-collection amounts. ' +
+      'Fixed required attributes: Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired. ' +
+      'Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided). ' +
+      'Dynamic attributes: Credit attributes (one per credit symbol in data.credits), Collection attributes (one per collection name in data.collections).',
+    uniqueBySelector: (attribute: unknown) =>
+      (attribute as { trait_type: string }).trait_type,
+    requiredTraitTypes: [
+      'Total Credits Retired',
+      'Beneficiary',
+      'Retirement Date',
+      'Certificates Retired',
+    ],
   });
 
 export type CreditRetirementReceiptAttributes = z.infer<

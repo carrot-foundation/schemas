@@ -3,7 +3,6 @@ import {
   WasteTypeSchema,
   WasteSubtypeSchema,
   NonEmptyStringSchema,
-  uniqueBy,
   OriginCityAttributeSchema,
   NftAttributeSchema,
   IbamaWasteClassificationSchema,
@@ -12,6 +11,7 @@ import {
   WeighingCaptureMethodSchema,
   createDateAttributeSchema,
   createWeightAttributeSchema,
+  createOrderedAttributesSchema,
 } from '../shared';
 
 const MassIDAttributeWasteTypeSchema = NftAttributeSchema.safeExtend({
@@ -183,30 +183,51 @@ export type MassIDAttributeRecyclingDate = z.infer<
   typeof MassIDAttributeRecyclingDateSchema
 >;
 
-export const MassIDAttributesSchema = uniqueBy(
-  z.union([
-    MassIDAttributeWasteTypeSchema,
-    MassIDAttributeWasteSubtypeSchema,
-    MassIDAttributeWeightSchema,
-    MassIDAttributeOriginCitySchema,
-    MassIDAttributePickUpVehicleTypeSchema,
-    MassIDAttributeRecyclingMethodSchema,
-    MassIDAttributeLocalWasteClassificationIdSchema,
-    MassIDAttributeRecyclingManifestCodeSchema,
-    MassIDAttributeTransportManifestCodeSchema,
-    MassIDAttributeWeighingCaptureMethodSchema,
-    MassIDAttributeScaleTypeSchema,
-    MassIDAttributePickUpDateSchema,
-    MassIDAttributeDropOffDateSchema,
-    MassIDAttributeRecyclingDateSchema,
-  ]),
-  (attr) => attr.trait_type,
-)
-  .min(9)
-  .max(14)
-  .meta({
-    title: 'MassID Attributes',
-    description:
-      'Array of NFT attributes (9-14 items) describing waste characteristics, origin, logistics, and lifecycle events for marketplace display',
-  });
+const REQUIRED_MASS_ID_ATTRIBUTES = [
+  MassIDAttributeWasteTypeSchema,
+  MassIDAttributeWasteSubtypeSchema,
+  MassIDAttributeWeightSchema,
+  MassIDAttributeOriginCitySchema,
+  MassIDAttributePickUpVehicleTypeSchema,
+  MassIDAttributeRecyclingMethodSchema,
+  MassIDAttributePickUpDateSchema,
+  MassIDAttributeDropOffDateSchema,
+  MassIDAttributeRecyclingDateSchema,
+] as const;
+
+const OPTIONAL_MASS_ID_ATTRIBUTES = [
+  MassIDAttributeLocalWasteClassificationIdSchema,
+  MassIDAttributeRecyclingManifestCodeSchema,
+  MassIDAttributeTransportManifestCodeSchema,
+  MassIDAttributeWeighingCaptureMethodSchema,
+  MassIDAttributeScaleTypeSchema,
+] as const;
+
+export const MassIDAttributesSchema = createOrderedAttributesSchema({
+  required: REQUIRED_MASS_ID_ATTRIBUTES,
+  optional: OPTIONAL_MASS_ID_ATTRIBUTES,
+  title: 'MassID Attributes',
+  description:
+    'Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.',
+  uniqueBySelector: (attr: unknown) =>
+    (attr as { trait_type: string }).trait_type,
+  requiredTraitTypes: [
+    'Waste Type',
+    'Waste Subtype',
+    'Weight (kg)',
+    'Origin City',
+    'Pick-up Vehicle Type',
+    'Recycling Method',
+    'Pick-up Date',
+    'Drop-off Date',
+    'Recycling Date',
+  ],
+  optionalTraitTypes: [
+    'Local Waste Classification ID',
+    'Recycling Manifest Number',
+    'Transport Manifest Number',
+    'Weighing Capture Method',
+    'Scale Type',
+  ],
+});
 export type MassIDAttributes = z.infer<typeof MassIDAttributesSchema>;

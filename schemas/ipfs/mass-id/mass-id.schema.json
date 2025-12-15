@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record schema defining waste tracking metadata, chain of custody events, and NFT display attributes",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.53/schemas/ipfs/mass-id/mass-id.schema.json",
-  "version": "0.1.53",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/mass-id/mass-id.schema.json",
+  "version": "0.1.55",
   "type": "object",
   "properties": {
     "$schema": {
@@ -1172,7 +1172,7 @@
     },
     "attributes": {
       "title": "MassID Attributes",
-      "description": "Array of NFT attributes (9-14 items) describing waste characteristics, origin, logistics, and lifecycle events for marketplace display",
+      "description": "Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.\n\nRequired attributes (9): Waste Type, Waste Subtype, Weight (kg), Origin City, Pick-up Vehicle Type, Recycling Method, Pick-up Date, Drop-off Date, Recycling Date\nOptional attributes (5): Local Waste Classification ID, Recycling Manifest Number, Transport Manifest Number, Weighing Capture Method, Scale Type",
       "minItems": 9,
       "maxItems": 14,
       "type": "array",
@@ -1483,6 +1483,99 @@
             "additionalProperties": false
           },
           {
+            "title": "Pick-up Date Attribute",
+            "description": "Unix timestamp in milliseconds when waste was picked up from the origin location attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Pick-up Date"
+              },
+              "value": {
+                "title": "Pick-up Date",
+                "description": "Unix timestamp in milliseconds when waste was picked up from the origin location",
+                "examples": [
+                  1704067200000
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Drop-off Date Attribute",
+            "description": "Unix timestamp in milliseconds when waste was delivered to the destination location attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Drop-off Date"
+              },
+              "value": {
+                "title": "Drop-off Date",
+                "description": "Unix timestamp in milliseconds when waste was delivered to the destination location",
+                "examples": [
+                  1704067200000
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Recycling Date Attribute",
+            "description": "Unix timestamp in milliseconds when waste recycling or processing was completed attribute",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Recycling Date"
+              },
+              "value": {
+                "title": "Recycling Date",
+                "description": "Unix timestamp in milliseconds when waste recycling or processing was completed",
+                "examples": [
+                  1704067200000
+                ],
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              },
+              "display_type": {
+                "type": "string",
+                "const": "date"
+              }
+            },
+            "required": [
+              "trait_type",
+              "value",
+              "display_type"
+            ],
+            "additionalProperties": false
+          },
+          {
             "title": "Local Waste Classification ID Attribute",
             "description": "Regulatory waste classification code in Ibama format (NN NN NN with optional trailing asterisk)",
             "type": "object",
@@ -1737,99 +1830,6 @@
             "required": [
               "trait_type",
               "value"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "title": "Pick-up Date Attribute",
-            "description": "Unix timestamp in milliseconds when waste was picked up from the origin location attribute",
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "type": "string",
-                "const": "Pick-up Date"
-              },
-              "value": {
-                "title": "Pick-up Date",
-                "description": "Unix timestamp in milliseconds when waste was picked up from the origin location",
-                "examples": [
-                  1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
-              },
-              "display_type": {
-                "type": "string",
-                "const": "date"
-              }
-            },
-            "required": [
-              "trait_type",
-              "value",
-              "display_type"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "title": "Drop-off Date Attribute",
-            "description": "Unix timestamp in milliseconds when waste was delivered to the destination location attribute",
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "type": "string",
-                "const": "Drop-off Date"
-              },
-              "value": {
-                "title": "Drop-off Date",
-                "description": "Unix timestamp in milliseconds when waste was delivered to the destination location",
-                "examples": [
-                  1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
-              },
-              "display_type": {
-                "type": "string",
-                "const": "date"
-              }
-            },
-            "required": [
-              "trait_type",
-              "value",
-              "display_type"
-            ],
-            "additionalProperties": false
-          },
-          {
-            "title": "Recycling Date Attribute",
-            "description": "Unix timestamp in milliseconds when waste recycling or processing was completed attribute",
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "type": "string",
-                "const": "Recycling Date"
-              },
-              "value": {
-                "title": "Recycling Date",
-                "description": "Unix timestamp in milliseconds when waste recycling or processing was completed",
-                "examples": [
-                  1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
-              },
-              "display_type": {
-                "type": "string",
-                "const": "date"
-              }
-            },
-            "required": [
-              "trait_type",
-              "value",
-              "display_type"
             ],
             "additionalProperties": false
           }

@@ -1,10 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.53/schemas/ipfs/methodology/methodology.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "09eddd238e0d9fa643c75204aede17fa1e193ca7f5b2b99a962dffdd664d03e9",
+    "hash": "5f89fef5168a5c74db99cf390e826982d058af0e6681dd9955beaf1b7eae0175",
     "type": "Methodology",
-    "version": "0.1.53",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "version": "0.1.55",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/methodology.schema.json"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -14,7 +14,7 @@
   "created_at": "2025-03-12T10:00:00.000Z",
   "external_id": "3f8c2443-df76-4ce9-9d94-6c813d4c9ef7",
   "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-  "content_hash": "54b4d5b68470f62b9c31926ae8d39c1ff8e877c5aa5f31382aefee67e93b3563",
+  "content_hash": "60b312c061a71fa1c030b6f87e0767aecb318e58ab33ec18cee53e694787f9db",
   "data": {
     "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
     "short_name": "BOLD Carbon (CH₄)",
@@ -195,5 +195,5 @@
       }
     ]
   },
-  "original_content_hash": "54b4d5b68470f62b9c31926ae8d39c1ff8e877c5aa5f31382aefee67e93b3563"
+  "original_content_hash": "60b312c061a71fa1c030b6f87e0767aecb318e58ab33ec18cee53e694787f9db"
 }

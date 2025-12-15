@@ -22,19 +22,7 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
       description: 'GasID NFT schema type',
     }),
   }),
+  attributes: GasIDAttributesSchema,
   data: GasIDDataSchema,
-})
-  .superRefine((value, ctx) => {
-    const attributesResult = GasIDAttributesSchema.safeParse(value.attributes);
-
-    if (!attributesResult.success) {
-      attributesResult.error.issues.forEach((issue) => {
-        ctx.addIssue({
-          ...issue,
-          path: ['attributes', ...issue.path],
-        });
-      });
-    }
-  })
-  .meta(GasIDIpfsSchemaMeta);
+}).meta(GasIDIpfsSchemaMeta);
 export type GasIDIpfs = z.infer<typeof GasIDIpfsSchema>;
