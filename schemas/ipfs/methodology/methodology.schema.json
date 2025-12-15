@@ -47,7 +47,7 @@
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
-            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",
@@ -272,7 +272,7 @@
           "title": "Methodology PDF",
           "description": "IPFS URI pointing to the complete methodology PDF document",
           "examples": [
-            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",

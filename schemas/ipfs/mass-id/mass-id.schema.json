@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MassID NFT IPFS Record",
-  "description": "Complete MassID NFT IPFS record including fixed attributes and detailed waste tracking data",
+  "description": "Complete MassID NFT IPFS record schema defining waste tracking metadata, chain of custody events, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/mass-id/mass-id.schema.json",
   "version": "0.1.55",
   "type": "object",
@@ -27,7 +27,7 @@
         },
         "type": {
           "title": "MassID Schema Type",
-          "description": "MassID NFT schema type",
+          "description": "Schema type identifier for this record",
           "type": "string",
           "const": "MassID"
         },
@@ -47,7 +47,7 @@
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
-            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",
@@ -192,7 +192,7 @@
       "properties": {
         "waste_properties": {
           "title": "Waste Properties",
-          "description": "Standardized waste material properties and regulatory information",
+          "description": "Waste material classification, regulatory codes, and net weight for the tracked batch",
           "type": "object",
           "properties": {
             "type": {
@@ -275,7 +275,7 @@
         },
         "locations": {
           "title": "Locations",
-          "description": "All locations referenced in this MassID, indexed by ID",
+          "description": "Geographic locations involved in the waste chain of custody, including origin, processing, and destination sites",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -381,7 +381,7 @@
         },
         "participants": {
           "title": "Participants",
-          "description": "All participants referenced in this MassID, indexed by ID",
+          "description": "Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -435,7 +435,7 @@
         },
         "events": {
           "title": "MassID Events",
-          "description": "Chronological sequence of custody transfer, processing, and recycling events",
+          "description": "Chronological sequence of waste lifecycle events: Pick-up, Weighing, Drop-off, Sorting, and Recycling operations",
           "minItems": 1,
           "type": "array",
           "items": {
@@ -485,7 +485,7 @@
                   },
                   "event_name": {
                     "title": "Event Name",
-                    "description": "Pick-up event discriminator",
+                    "description": "Type of event, indicating this is a Pick-up event",
                     "examples": [
                       "Pick-up"
                     ],
@@ -519,7 +519,7 @@
                       },
                       "weight_kg": {
                         "title": "Pick-up Waste Weight",
-                        "description": "Weight of the waste picked up at the origin location in kilograms (kg)",
+                        "description": "Weight of waste collected at the origin location, measured in kilograms (kg)",
                         "examples": [
                           500.35,
                           3000
@@ -583,7 +583,7 @@
                   },
                   "event_name": {
                     "title": "Event Name",
-                    "description": "Weighing event discriminator",
+                    "description": "Type of event, indicating this is a Weighing event",
                     "examples": [
                       "Weighing"
                     ],
@@ -592,7 +592,7 @@
                   },
                   "data": {
                     "title": "Weighing Event Data",
-                    "description": "Weighing operational details including capture method, equipment, and weights",
+                    "description": "Weighing operational details including capture method, scale type, container or vehicle information, and weight measurements",
                     "type": "object",
                     "properties": {
                       "weighing_capture_method": {
@@ -631,7 +631,7 @@
                         ]
                       },
                       "container_type": {
-                        "description": "Type of container holding the waste during weighing",
+                        "description": "Type of container or vehicle holding the waste material during the weighing operation",
                         "title": "Container Type",
                         "examples": [
                           "Bag",
@@ -713,7 +713,7 @@
               },
               {
                 "title": "Drop-off Event",
-                "description": "Waste delivered to a destination location",
+                "description": "Waste delivered to the destination location",
                 "type": "object",
                 "properties": {
                   "event_id": {
@@ -756,7 +756,7 @@
                   },
                   "event_name": {
                     "title": "Event Name",
-                    "description": "Drop-off event discriminator",
+                    "description": "Type of event, indicating this is a Drop-off event",
                     "examples": [
                       "Drop-off"
                     ],
@@ -816,7 +816,7 @@
                   },
                   "event_name": {
                     "title": "Event Name",
-                    "description": "Sorting event discriminator",
+                    "description": "Type of event, indicating this is a Sorting event",
                     "examples": [
                       "Sorting"
                     ],
@@ -825,7 +825,7 @@
                   },
                   "data": {
                     "title": "Sorting Event Data",
-                    "description": "Weights associated with sorting, including initial and deducted amounts",
+                    "description": "Weight measurements for sorting operations: initial weight entering the process and weight deducted (contaminants, moisture, etc.)",
                     "type": "object",
                     "properties": {
                       "initial_weight_kg": {
@@ -863,7 +863,7 @@
               },
               {
                 "title": "Recycling Event",
-                "description": "Waste processed or recycled at the destination",
+                "description": "Waste processing or recycling completion event, marking the final transformation of waste material",
                 "type": "object",
                 "properties": {
                   "event_id": {
@@ -906,7 +906,7 @@
                   },
                   "event_name": {
                     "title": "Event Name",
-                    "description": "Recycling event discriminator",
+                    "description": "Type of event, indicating this is a Recycling event",
                     "examples": [
                       "Recycling"
                     ],
@@ -928,7 +928,7 @@
         },
         "attachments": {
           "title": "Attachments",
-          "description": "Supporting documents associated with events, linked by event_id",
+          "description": "Official regulatory documents linked to specific chain of custody events via event_id. Document types include Transport Manifest and Recycling Manifest",
           "type": "array",
           "items": {
             "title": "MassID Attachment",
@@ -950,7 +950,7 @@
               },
               "document_number": {
                 "title": "Document Number",
-                "description": "Official document number if applicable",
+                "description": "Official regulatory document number issued by authorities, when applicable",
                 "examples": [
                   "2353",
                   "12345"
@@ -998,12 +998,12 @@
     },
     "blockchain": {
       "title": "Blockchain Information",
-      "description": "Blockchain-specific information for the NFT",
+      "description": "Blockchain deployment information including smart contract address, network, and token identifier",
       "type": "object",
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "Address of the smart contract",
+          "description": "Ethereum-compatible address of the smart contract that mints and manages this NFT",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -1012,7 +1012,7 @@
         },
         "chain_id": {
           "title": "Chain ID",
-          "description": "Supported Polygon chain identifiers",
+          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
           "examples": [
             137,
             80002
@@ -1030,7 +1030,7 @@
         },
         "network_name": {
           "title": "Blockchain Network Name",
-          "description": "Supported Polygon network names",
+          "description": "Blockchain network name. Supported values include Polygon and Amoy",
           "examples": [
             "Polygon",
             "Amoy"
@@ -1063,7 +1063,7 @@
     },
     "name": {
       "title": "NFT Name",
-      "description": "Full display name for this NFT, including extra context",
+      "description": "Full display name for this NFT, typically including token identifier, waste type, and weight",
       "examples": [
         "MassID #123 • Organic • 3.0t",
         "RecycledID #456 • Plastic • 2.5t",
@@ -1075,7 +1075,7 @@
     },
     "short_name": {
       "title": "Short Name",
-      "description": "Compact name for UI summaries, tables, or tooltips",
+      "description": "Compact name for UI summaries, tables, or tooltips, typically including token identifier",
       "examples": [
         "MassID #123",
         "RecycledID #456",
@@ -1087,7 +1087,7 @@
     },
     "description": {
       "title": "Description",
-      "description": "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+      "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
       "examples": [
         "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
@@ -1098,9 +1098,9 @@
     },
     "image": {
       "title": "Image URI",
-      "description": "IPFS URI pointing to the preview image",
+      "description": "IPFS URI pointing to the NFT preview image displayed in marketplaces and wallets",
       "examples": [
-        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png",
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
         "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
       ],
       "type": "string",
@@ -1109,7 +1109,7 @@
     },
     "background_color": {
       "title": "Background Color",
-      "description": "Hex color code for marketplace background display",
+      "description": "Hexadecimal color code used as background color in NFT marketplace displays",
       "examples": [
         "#2D5A27",
         "#FF5733"
@@ -1120,10 +1120,10 @@
     },
     "animation_url": {
       "title": "Animation URL",
-      "description": "IPFS URI pointing to an animated or interactive media file",
+      "description": "IPFS URI pointing to an animated or interactive media file for enhanced NFT display",
       "examples": [
-        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
-        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm"
+        "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+        "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
       ],
       "type": "string",
       "minLength": 1,
@@ -1180,7 +1180,7 @@
         "anyOf": [
           {
             "title": "Waste Type Attribute",
-            "description": "Primary waste material category (e.g., Organic, Paper, Glass, Metal)",
+            "description": "Primary waste material category",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1327,7 +1327,7 @@
           },
           {
             "title": "Origin City Attribute",
-            "description": "Origin municipality attribute",
+            "description": "City or municipality where waste was originally generated and picked up",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1376,7 +1376,7 @@
           },
           {
             "title": "Pick-up Vehicle Type Attribute",
-            "description": "Vehicle type used during pick-up",
+            "description": "Type of vehicle used to transport waste from the origin location during pick-up",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1434,7 +1434,7 @@
           },
           {
             "title": "Recycling Method Attribute",
-            "description": "Process applied to this mass (e.g., composting, mechanical recycling)",
+            "description": "Processing or recycling method applied to transform the waste material",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1484,7 +1484,7 @@
           },
           {
             "title": "Pick-up Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was picked up from the source attribute",
+            "description": "Unix timestamp in milliseconds when waste was picked up from the origin location attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1493,7 +1493,7 @@
               },
               "value": {
                 "title": "Pick-up Date",
-                "description": "Unix timestamp in milliseconds when the waste was picked up from the source",
+                "description": "Unix timestamp in milliseconds when waste was picked up from the origin location",
                 "examples": [
                   1704067200000
                 ],
@@ -1515,7 +1515,7 @@
           },
           {
             "title": "Drop-off Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination attribute",
+            "description": "Unix timestamp in milliseconds when waste was delivered to the destination location attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1524,7 +1524,7 @@
               },
               "value": {
                 "title": "Drop-off Date",
-                "description": "Unix timestamp in milliseconds when the waste was dropped off at the destination",
+                "description": "Unix timestamp in milliseconds when waste was delivered to the destination location",
                 "examples": [
                   1704067200000
                 ],
@@ -1546,7 +1546,7 @@
           },
           {
             "title": "Recycling Date Attribute",
-            "description": "Unix timestamp in milliseconds when the waste was recycled/processed attribute",
+            "description": "Unix timestamp in milliseconds when waste recycling or processing was completed attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1555,7 +1555,7 @@
               },
               "value": {
                 "title": "Recycling Date",
-                "description": "Unix timestamp in milliseconds when the waste was recycled/processed",
+                "description": "Unix timestamp in milliseconds when waste recycling or processing was completed",
                 "examples": [
                   1704067200000
                 ],
@@ -1577,7 +1577,7 @@
           },
           {
             "title": "Local Waste Classification ID Attribute",
-            "description": "Regulatory waste classification code (e.g., Ibama format NN NN NN[*])",
+            "description": "Regulatory waste classification code in Ibama format (NN NN NN with optional trailing asterisk)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1626,7 +1626,7 @@
           },
           {
             "title": "Recycling Manifest Number Attribute",
-            "description": "Official recycling manifest number issued by recycling authority (optional)",
+            "description": "Official recycling manifest document number issued by regulatory authorities, linked to the Recycling event (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1675,7 +1675,7 @@
           },
           {
             "title": "Transport Manifest Number Attribute",
-            "description": "Official transport manifest number issued by logistics/transport authority (optional)",
+            "description": "Official transport manifest document number issued by logistics authorities, linked to transport events (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1724,7 +1724,7 @@
           },
           {
             "title": "Weighing Capture Method Attribute",
-            "description": "Weighing capture method attribute (optional)",
+            "description": "Method used to capture weight measurements during weighing operations (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1777,7 +1777,7 @@
           },
           {
             "title": "Scale Type Attribute",
-            "description": "Scale type attribute (optional)",
+            "description": "Type of weighing equipment used to measure waste weight (optional)",
             "type": "object",
             "properties": {
               "trait_type": {

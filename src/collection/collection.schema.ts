@@ -29,7 +29,7 @@ export const CollectionSchema = BaseIpfsSchema.safeExtend({
     title: 'Collection Image',
     description: "IPFS URI pointing to the collection's visual representation",
     examples: [
-      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/collection-icon.png',
+      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
     ],
   }),
   description: z

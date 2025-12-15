@@ -65,7 +65,8 @@ const BlockchainReferenceSchema = z
   })
   .meta({
     title: 'Blockchain Information',
-    description: 'Blockchain-specific information for the NFT',
+    description:
+      'Blockchain deployment information including smart contract address, network, and token identifier',
   });
 export type BlockchainReference = z.infer<typeof BlockchainReferenceSchema>;
 
@@ -130,7 +131,8 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   blockchain: BlockchainReferenceSchema,
   name: NonEmptyStringSchema.max(100).meta({
     title: 'NFT Name',
-    description: 'Full display name for this NFT, including extra context',
+    description:
+      'Full display name for this NFT, typically including token identifier, waste type, and weight',
     examples: [
       'MassID #123 • Organic • 3.0t',
       'RecycledID #456 • Plastic • 2.5t',
@@ -139,13 +141,14 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   }),
   short_name: NonEmptyStringSchema.max(50).meta({
     title: 'Short Name',
-    description: 'Compact name for UI summaries, tables, or tooltips',
+    description:
+      'Compact name for UI summaries, tables, or tooltips, typically including token identifier',
     examples: ['MassID #123', 'RecycledID #456', 'GasID #789'],
   }),
   description: NonEmptyStringSchema.max(500).meta({
     title: 'Description',
     description:
-      "Human-readable summary of the NFT's role and context. Ideally, maximum 300 characters.",
+      'Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.',
     examples: [
       'This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.',
       'This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd.',
@@ -153,18 +156,21 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   }),
   image: IpfsUriSchema.meta({
     title: 'Image URI',
-    description: 'IPFS URI pointing to the preview image',
+    description:
+      'IPFS URI pointing to the NFT preview image displayed in marketplaces and wallets',
   }),
   background_color: HexColorSchema.optional().meta({
     title: 'Background Color',
-    description: 'Hex color code for marketplace background display',
+    description:
+      'Hexadecimal color code used as background color in NFT marketplace displays',
   }),
   animation_url: IpfsUriSchema.optional().meta({
     title: 'Animation URL',
-    description: 'IPFS URI pointing to an animated or interactive media file',
+    description:
+      'IPFS URI pointing to an animated or interactive media file for enhanced NFT display',
     examples: [
-      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4',
-      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm',
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
     ],
   }),
   external_links: uniqueBy(

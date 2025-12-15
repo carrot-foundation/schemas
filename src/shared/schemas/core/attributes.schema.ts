@@ -99,6 +99,7 @@ export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
   value: CitySchema,
 }).meta({
   title: 'Origin City Attribute',
-  description: 'Origin municipality attribute',
+  description:
+    'City or municipality where waste was originally generated and picked up',
 });
 export type OriginCityAttribute = z.infer<typeof OriginCityAttributeSchema>;

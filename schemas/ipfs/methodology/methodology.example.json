@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.54/schemas/ipfs/methodology/methodology.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "e412a1afdafc831646a7c8a3845f5853d013f232e7d59ec7e917ce7e5d4a86a8",
+    "hash": "5f89fef5168a5c74db99cf390e826982d058af0e6681dd9955beaf1b7eae0175",
     "type": "Methodology",
-    "version": "0.1.54",
+    "version": "0.1.55",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/methodology.schema.json"
   },
   "environment": {
@@ -14,7 +14,7 @@
   "created_at": "2025-03-12T10:00:00.000Z",
   "external_id": "3f8c2443-df76-4ce9-9d94-6c813d4c9ef7",
   "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-  "content_hash": "46b2ea8b831ee70f954551d2bbbfdfe55ec4753f3e987bb22d26e063aa0e5303",
+  "content_hash": "60b312c061a71fa1c030b6f87e0767aecb318e58ab33ec18cee53e694787f9db",
   "data": {
     "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
     "short_name": "BOLD Carbon (CH₄)",
@@ -23,7 +23,7 @@
     "description": "Certifies methane emissions prevented through organic waste composting using UNFCCC AMS-III.F methodology. Tracks complete chain of custody from waste generation through professional composting to quantify CO₂e emissions reductions. This methodology provides a comprehensive framework for measuring, reporting, and verifying the environmental benefits of diverting organic waste from landfills to composting facilities.",
     "revision_date": "2025-06-30",
     "publication_date": "2025-03-12",
-    "methodology_pdf": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf",
+    "methodology_pdf": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
     "mass_id_audit_rules": [
       {
         "description": "Validates that each MassID is unique within the system to prevent duplicate entries",
@@ -195,5 +195,5 @@
       }
     ]
   },
-  "original_content_hash": "46b2ea8b831ee70f954551d2bbbfdfe55ec4753f3e987bb22d26e063aa0e5303"
+  "original_content_hash": "60b312c061a71fa1c030b6f87e0767aecb318e58ab33ec18cee53e694787f9db"
 }

@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.54/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "b22bb1ccf718346c120c8b116ae5df80ed6d8dc48b0d0a4bf96d8711fe8f7b2a",
+    "hash": "9e8a7bb67290b88b05098a95df44194539657754ceb147483076093b1407ef5f",
     "type": "MassID Audit",
-    "version": "0.1.54",
+    "version": "0.1.55",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-audit.schema.json"
   },
   "environment": {
@@ -14,7 +14,7 @@
   "created_at": "2025-01-27T15:42:18.000Z",
   "external_id": "7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
   "external_url": "https://explore.carrot.eco/document/7c8e91b2-4d3f-4823-a9c6-1e5f8b2d9a4c",
-  "content_hash": "7a841716319a011b2c4efe589107af17849c3f31b3ff76a1d80adb7bee5467fc",
+  "content_hash": "6902ee85bdee8195e0156b60a16e7c402863e01a91bfa4e886d18b30a68c110c",
   "data": {
     "audit_summary": {
       "started_at": "2025-01-27T15:42:17.000Z",
@@ -26,19 +26,19 @@
       "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
       "version": "v1.4.2",
       "external_url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.4.2.json"
+      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
     },
     "mass_id": {
       "external_id": "b5e8c3f1-7429-4d82-a6f5-c1e9d8b7a4f2",
       "token_id": "789",
       "external_url": "https://explore.carrot.eco/document/b5e8c3f1-7429-4d82-a6f5-c1e9d8b7a4f2",
-      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
+      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha"
     },
     "gas_id": {
       "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "token_id": "456",
       "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-      "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json"
+      "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm"
     },
     "rule_execution_results": [
       {
@@ -379,5 +379,5 @@
       }
     ]
   },
-  "original_content_hash": "7a841716319a011b2c4efe589107af17849c3f31b3ff76a1d80adb7bee5467fc"
+  "original_content_hash": "6902ee85bdee8195e0156b60a16e7c402863e01a91bfa4e886d18b30a68c110c"
 }

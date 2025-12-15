@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.54/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.55/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "9cda259e2f2df5c29f3e6d1aa85850e6d7ac1894668970fb32797ec2f6b4c5d3",
+    "hash": "e97ef929d8818b3fe93799be880fda16d2b4c5c793714c9e16e2b31fc85adee7",
     "type": "CreditRetirementReceipt",
-    "version": "0.1.54",
+    "version": "0.1.55",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-retirement-receipt.schema.json"
   },
   "environment": {
@@ -20,7 +20,7 @@
   "created_at": "2025-01-20T14:45:30.000Z",
   "external_id": "b2c3d4e5-f6a7-4c89-8a01-234567890abc",
   "external_url": "https://explore.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
-  "content_hash": "b1e899da3d6a148ea0641fc2945f6fe6776aa2b89449a8a40eb10f206fb1bc09",
+  "content_hash": "1d5e5bbd7e513df21d8cda9f2158e1b3bba885b47cbff50a34866d24dcee67f9",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -28,7 +28,7 @@
   "name": "Credit Retirement Receipt #1245 • 10.5 Credits Retired",
   "short_name": "Credit Retirement Receipt #1245",
   "description": "Permanent proof of credit retirement: 10.5 credits (C-CARB.CH4 and C-BIOW) retired by EcoTech Solutions Inc. on behalf of beneficiary Climate Action Corp, from 3 certificates across 2 collections.",
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/retirement-receipt.png",
+  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#1B4332",
   "external_links": [
     {
@@ -135,7 +135,7 @@
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "name": "BOLD Brazil",
         "external_url": "https://explore.carrot.eco/collection/bold-brazil",
-        "uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/bold-brazil.json",
+        "uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy",
         "amount": 4
       }
     ],
@@ -145,7 +145,7 @@
         "symbol": "C-CARB.CH4",
         "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
         "external_url": "https://explore.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-        "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/c-carb.json",
+        "uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
         "smart_contract": {
           "address": "0xabcdef1234567890abcdef1234567890abcdef12",
           "chain_id": 137,
@@ -158,7 +158,7 @@
         "symbol": "C-BIOW",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0",
-        "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/c-biow.json",
+        "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
         "smart_contract": {
           "address": "0xfedcba0987654321fedcba0987654321fedcba09",
           "chain_id": 137,
@@ -173,7 +173,7 @@
         "type": "GasID",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-        "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json",
+        "uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
         "smart_contract": {
           "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
           "chain_id": 137,
@@ -195,7 +195,7 @@
           "token_id": "123",
           "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
           "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
+          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
           "smart_contract": {
             "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
             "chain_id": 137,
@@ -208,7 +208,7 @@
         "type": "RecycledID",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
-        "uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae/recycled-id.json",
+        "uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
         "smart_contract": {
           "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
           "chain_id": 137,
@@ -230,7 +230,7 @@
           "token_id": "124",
           "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
           "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
+          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
           "smart_contract": {
             "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
             "chain_id": 137,
@@ -243,7 +243,7 @@
         "type": "RecycledID",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
-        "uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae/recycled-id.json",
+        "uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
         "smart_contract": {
           "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
           "chain_id": 137,
@@ -265,7 +265,7 @@
           "token_id": "124",
           "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
           "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json",
+          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
           "smart_contract": {
             "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
             "chain_id": 137,
@@ -278,7 +278,7 @@
       "token_id": "789",
       "external_id": "a1b2c3d4-e5f6-4b90-8c34-567890abcdef",
       "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-4b90-8c34-567890abcdef",
-      "uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/credit-purchase-receipt.json",
+      "uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy",
       "smart_contract": {
         "address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
         "chain_id": 137,
