@@ -6,9 +6,9 @@ import {
   NonEmptyStringSchema,
   PositiveIntegerSchema,
   CreditTokenSymbolSchema,
-  uniqueBy,
   createDateAttributeSchema,
   createNumericAttributeSchema,
+  createOrderedAttributesSchema,
 } from '../shared';
 
 const CreditPurchaseReceiptCreditAttributeSchema =
@@ -89,24 +89,44 @@ const CreditPurchaseReceiptCollectionAttributeSchema =
       'Attribute representing the amount of credits purchased from a collection',
   });
 
-export const CreditPurchaseReceiptAttributesSchema = uniqueBy(
-  z.union([
-    CreditPurchaseReceiptCreditAttributeSchema,
-    CreditPurchaseReceiptTotalCreditsAttributeSchema,
-    CreditPurchaseReceiptTotalUsdcAttributeSchema,
-    CreditPurchaseReceiptPurchaseDateAttributeSchema,
-    CreditPurchaseReceiptCertificatesAttributeSchema,
-    CreditPurchaseReceiptReceiverAttributeSchema,
-    CreditPurchaseReceiptCollectionAttributeSchema,
-  ]),
-  (attribute) => attribute.trait_type,
-  'Attribute trait_type values must be unique',
-)
-  .min(5)
-  .meta({
+const REQUIRED_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
+  CreditPurchaseReceiptTotalCreditsAttributeSchema,
+  CreditPurchaseReceiptTotalUsdcAttributeSchema,
+  CreditPurchaseReceiptPurchaseDateAttributeSchema,
+  CreditPurchaseReceiptCertificatesAttributeSchema,
+] as const;
+
+const CONDITIONAL_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
+  CreditPurchaseReceiptReceiverAttributeSchema,
+] as const;
+
+// Dynamic attributes (one per credit symbol and one per collection name)
+const DYNAMIC_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
+  CreditPurchaseReceiptCreditAttributeSchema,
+  CreditPurchaseReceiptCollectionAttributeSchema,
+] as const;
+
+export const CreditPurchaseReceiptAttributesSchema =
+  createOrderedAttributesSchema({
+    required: REQUIRED_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES,
+    optional: [
+      ...CONDITIONAL_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES,
+      ...DYNAMIC_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES,
+    ],
     title: 'Credit Purchase Receipt NFT Attribute Array',
     description:
-      'Attributes for credit purchase receipts including per-credit breakdowns, totals, receiver, purchase date, and per-collection amounts. Attributes must have unique trait types.',
+      'Attributes for credit purchase receipts including per-credit breakdowns, totals, receiver, purchase date, and per-collection amounts. ' +
+      'Fixed required attributes: Total Credits Purchased, Total USDC Amount, Purchase Date, Certificates Purchased. ' +
+      'Conditional attributes: Receiver (required when receiver.identity.name is provided). ' +
+      'Dynamic attributes: Credit attributes (one per credit symbol in data.credits), Collection attributes (one per collection name in data.collections).',
+    uniqueBySelector: (attribute: unknown) =>
+      (attribute as { trait_type: string }).trait_type,
+    requiredTraitTypes: [
+      'Total Credits Purchased',
+      'Total USDC Amount',
+      'Purchase Date',
+      'Certificates Purchased',
+    ],
   });
 
 export type CreditPurchaseReceiptAttributes = z.infer<

@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import { NftAttributeSchema } from './nft.schema';
 import {
-  WeightKgSchema,
-  UnixTimestampSchema,
   WasteTypeSchema,
   MethodologyNameSchema,
   StringifiedTokenIdSchema,
@@ -10,124 +8,11 @@ import {
   CreditAmountSchema,
   CreditTypeSchema,
 } from '../primitives';
-
-function getSchemaMetadata<T extends z.ZodTypeAny>(
-  schema: T,
-): Record<string, unknown> | undefined {
-  /* v8 ignore next -- @preserve */
-  if (typeof schema.meta === 'function') {
-    const meta = schema.meta();
-    if (meta && typeof meta === 'object') {
-      return meta as Record<string, unknown>;
-    }
-  }
-
-  try {
-    const meta = z.globalRegistry.get(schema);
-    /* v8 ignore next -- @preserve */
-    if (meta && typeof meta === 'object') {
-      return meta as Record<string, unknown>;
-    }
-  } catch {
-    // Registry lookup failed, return undefined
-  }
-
-  return undefined;
-}
-
-function mergeSchemaMeta(
-  schema: z.ZodTypeAny,
-  newMeta: { title: string; description: string },
-): { title: string; description: string; examples?: unknown[] } {
-  const baseMeta = getSchemaMetadata(schema);
-  const merged: { title: string; description: string; examples?: unknown[] } = {
-    title: newMeta.title,
-    description: newMeta.description,
-  };
-
-  if (baseMeta?.examples) {
-    merged.examples = baseMeta.examples as unknown[];
-  }
-
-  return merged;
-}
-
-export function createDateAttributeSchema(params: {
-  traitType: string;
-  title: string;
-  description: string;
-  omitMaxValue?: boolean;
-}) {
-  const { omitMaxValue = true } = params;
-  const base = omitMaxValue
-    ? NftAttributeSchema.omit({ max_value: true })
-    : NftAttributeSchema;
-
-  const descriptionLower = params.description.toLowerCase();
-  const alreadyMentionsUnix =
-    descriptionLower.includes('unix') ||
-    descriptionLower.includes('unix timestamp');
-  const metaDescription = alreadyMentionsUnix
-    ? `${params.description} attribute`
-    : `${params.description} attribute using Unix timestamp in milliseconds`;
-
-  return base
-    .safeExtend({
-      trait_type: z.literal(params.traitType),
-      value: UnixTimestampSchema.meta(
-        mergeSchemaMeta(UnixTimestampSchema, {
-          title: params.title,
-          description: params.description,
-        }),
-      ),
-      display_type: z.literal('date'),
-    })
-    .meta({
-      title: `${params.title} Attribute`,
-      description: metaDescription,
-    });
-}
-
-export function createWeightAttributeSchema(params: {
-  traitType: string;
-  title: string;
-  description: string;
-}) {
-  return NftAttributeSchema.safeExtend({
-    trait_type: z.literal(params.traitType),
-    value: WeightKgSchema.meta(
-      mergeSchemaMeta(WeightKgSchema, {
-        title: params.title,
-        description: params.description,
-      }),
-    ),
-    display_type: z.literal('number'),
-  }).meta({
-    title: `${params.title} Attribute`,
-    description: `${params.description} attribute with numeric display`,
-  });
-}
-
-export function createNumericAttributeSchema(params: {
-  traitType: string;
-  title: string;
-  description: string;
-  valueSchema: z.ZodNumber;
-}) {
-  return NftAttributeSchema.safeExtend({
-    trait_type: z.literal(params.traitType),
-    value: params.valueSchema.meta(
-      mergeSchemaMeta(params.valueSchema, {
-        title: params.title,
-        description: params.description,
-      }),
-    ),
-    display_type: z.literal('number'),
-  }).meta({
-    title: `${params.title} Attribute`,
-    description: `${params.description} attribute with numeric display`,
-  });
-}
+import {
+  createDateAttributeSchema,
+  createWeightAttributeSchema,
+  createNumericAttributeSchema,
+} from './attributes.helpers';
 
 export const MethodologyAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Methodology'),
