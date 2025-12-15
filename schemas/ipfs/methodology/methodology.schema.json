@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Methodology IPFS Record",
   "description": "Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/methodology/methodology.schema.json",
-  "version": "0.1.56",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.57/schemas/ipfs/methodology/methodology.schema.json",
+  "version": "0.1.57",
   "type": "object",
   "properties": {
     "$schema": {
