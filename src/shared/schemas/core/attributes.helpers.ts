@@ -188,12 +188,20 @@ export function createOrderedAttributesSchema(params: {
     optionalTraitTypes,
   } = params;
 
-  const allSchemas = [...required, ...optional] as [
-    z.ZodTypeAny,
-    z.ZodTypeAny,
-    ...z.ZodTypeAny[],
-  ];
-  const unionSchema = z.union(allSchemas);
+  const allSchemas = [...required, ...optional];
+  // Guard against invalid union cases: z.union requires at least 2 schemas
+  // If no schemas provided, return z.never() (nothing can match)
+  // If only one schema, return it directly (no union needed)
+  let unionSchema: z.ZodTypeAny;
+  if (allSchemas.length === 0) {
+    unionSchema = z.never();
+  } else if (allSchemas.length === 1) {
+    unionSchema = allSchemas[0];
+  } else {
+    unionSchema = z.union(
+      allSchemas as [z.ZodTypeAny, z.ZodTypeAny, ...z.ZodTypeAny[]],
+    );
+  }
 
   const requiredTypes =
     requiredTraitTypes ?? required.map(extractTraitType).filter(Boolean);
