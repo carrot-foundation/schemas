@@ -44,7 +44,7 @@ export const RecycledIDDataSchema = z
       title: 'RecycledID Origin Location',
       description: 'Source waste origin location details',
     }),
-    participant_rewards: ParticipantRewardsSchema.optional(),
+    participant_rewards: ParticipantRewardsSchema,
   })
   .meta({
     title: 'RecycledID Data',

@@ -51,8 +51,8 @@ export function createWastePropertiesFixture(
  * Used as a base for creating custom reward allocation fixtures in tests.
  */
 export const minimalRewardAllocationStub: RewardAllocation = {
-  participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-  participant_name: 'Eco Reciclagem',
+  participant_id_hash:
+    '5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef',
   role: 'Hauler',
   reward_percentage: 20,
   effective_percentage: 20,
@@ -65,8 +65,8 @@ export const minimalRewardAllocationStub: RewardAllocation = {
  * Used in tests to validate reward allocation schema parsing and validation.
  */
 export const validRewardAllocationFixture: RewardAllocation = {
-  participant_id: '5021ea45-5b35-4749-8a85-83dc0c6f7cbf',
-  participant_name: 'Eco Reciclagem',
+  participant_id_hash:
+    '5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef',
   role: 'Hauler',
   reward_percentage: 20,
   effective_percentage: 20,
@@ -94,11 +94,17 @@ export function createRewardAllocationFixture(
  * Used in tests to validate reward allocation schema parsing and validation with discount scenarios.
  */
 export const validRewardAllocationWithDiscountFixture: RewardAllocation = {
-  participant_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
-  participant_name: 'Enlatados Produção',
+  participant_id_hash:
+    '6f520d88864d432dbf9f5c3166c4818f1234567890abcdef1234567890abcdef',
   role: 'Waste Generator',
   reward_percentage: 25,
-  large_business_discount_applied: true,
+  discounts: [
+    {
+      type: 'large_business',
+      percentage: 50,
+      reason: 'Large business with >$4M annual revenue',
+    },
+  ],
   effective_percentage: 12.5,
 };
 
@@ -118,10 +124,11 @@ export const minimalDistributionNotesStub: DistributionNotes = {};
  * Used in tests to validate distribution notes schema parsing and validation.
  */
 export const validDistributionNotesFixture: DistributionNotes = {
-  large_business_discount_applied:
-    '50% reduction applied to participants with >$4M annual revenue',
+  discounts_applied: [
+    '50% reduction applied to Waste Generator participants with >$4M annual revenue',
+  ],
   redirected_rewards:
-    'Discounted rewards from large businesses redirected to accredited NGOs',
+    'Discounted rewards from large businesses redirected to the Community Impact Pool managed by Carrot Foundation',
 };
 
 /**

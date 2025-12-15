@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.50/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "9838695c8acafdc0ed709398e1db3b4496d308f0b19ec5421aec8eece7b8d2aa",
+    "hash": "58ba5fe64124fe74ba7d8447b392737029c7ed9b4c203f04a6e533a7f1fa242d",
     "type": "RecycledID",
-    "version": "0.1.50",
+    "version": "0.1.52",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/recycled-id.schema.json"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "68e792742a478783343f271da84acb9f327a9ab1f8c44d9ebefc4a48dd971cbe",
-  "original_content_hash": "68e792742a478783343f271da84acb9f327a9ab1f8c44d9ebefc4a48dd971cbe",
+  "content_hash": "36fa286c3b33e5dd102b74c7047719762ef026bacc246afac834c1396a3d5e48",
+  "original_content_hash": "36fa286c3b33e5dd102b74c7047719762ef026bacc246afac834c1396a3d5e48",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -148,45 +148,48 @@
       "distribution_basis": "BOLD Recycling methodology rewards calculation",
       "reward_allocations": [
         {
-          "participant_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
-          "participant_name": "Enlatados Produção",
+          "participant_id_hash": "6f520d88864d432dbf9f5c3166c4818f1234567890abcdef1234567890abcdef",
           "role": "Waste Generator",
           "reward_percentage": 30,
-          "large_business_discount_applied": true,
+          "discounts": [
+            {
+              "type": "large_business",
+              "percentage": 50,
+              "reason": "Large business with >$4M annual revenue"
+            }
+          ],
           "effective_percentage": 15
         },
         {
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "participant_name": "Eco Reciclagem",
+          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
           "role": "Hauler",
           "reward_percentage": 20,
           "effective_percentage": 20
         },
         {
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "participant_name": "Eco Reciclagem",
+          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
           "role": "Processor",
           "reward_percentage": 20,
           "effective_percentage": 20
         },
         {
-          "participant_id": "5021ea45-5b35-4749-8a85-83dc0c6f7cbf",
-          "participant_name": "Eco Reciclagem",
+          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
           "role": "Recycler",
           "reward_percentage": 15,
           "effective_percentage": 15
         },
         {
-          "participant_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-          "participant_name": "Carrot Foundation",
+          "participant_id_hash": "e710790f59094a54ab896a59819472ee1234567890abcdef1234567890abcdef",
           "role": "Network Integrator",
           "reward_percentage": 15,
           "effective_percentage": 15
         }
       ],
       "distribution_notes": {
-        "large_business_discount_applied": "50% reduction applied to participants with >$4M annual revenue",
-        "redirected_rewards": "Discounted rewards from large businesses redirected to accredited NGOs"
+        "discounts_applied": [
+          "50% reduction applied to Waste Generator participants with >$4M annual revenue"
+        ],
+        "redirected_rewards": "Discounted rewards from large businesses redirected to the Community Impact Pool managed by Carrot Foundation"
       }
     }
   }
