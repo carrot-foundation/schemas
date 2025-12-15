@@ -14,8 +14,25 @@ import {
 function getSchemaMetadata<T extends z.ZodTypeAny>(
   schema: T,
 ): Record<string, unknown> | undefined {
-  return (schema as { _def?: { metadata?: Record<string, unknown> } })._def
-    ?.metadata;
+  /* v8 ignore next -- @preserve */
+  if (typeof schema.meta === 'function') {
+    const meta = schema.meta();
+    if (meta && typeof meta === 'object') {
+      return meta as Record<string, unknown>;
+    }
+  }
+
+  try {
+    const meta = z.globalRegistry.get(schema);
+    /* v8 ignore next -- @preserve */
+    if (meta && typeof meta === 'object') {
+      return meta as Record<string, unknown>;
+    }
+  } catch {
+    // Registry lookup failed, return undefined
+  }
+
+  return undefined;
 }
 
 function mergeSchemaMeta(

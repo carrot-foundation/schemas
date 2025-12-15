@@ -631,27 +631,14 @@
                 "description": "Reward allocation for a specific participant",
                 "type": "object",
                 "properties": {
-                  "participant_id": {
-                    "title": "Participant ID",
-                    "description": "Unique identifier for the participant receiving the reward",
+                  "participant_id_hash": {
+                    "title": "Participant ID Hash",
+                    "description": "SHA-256 hash of the unique identifier for the participant receiving the reward",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                      "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ],
                     "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-                  },
-                  "participant_name": {
-                    "title": "Participant Name",
-                    "description": "Name of the participant receiving the reward",
-                    "examples": [
-                      "Enlatados Produção",
-                      "Eco Reciclagem",
-                      "Green Tech Corp"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100
+                    "pattern": "^[0-9a-fA-F]{64}$"
                   },
                   "role": {
                     "title": "Participant Role",
@@ -686,10 +673,59 @@
                     "minimum": 0,
                     "maximum": 100
                   },
-                  "large_business_discount_applied": {
-                    "title": "Large Business Discount Applied",
-                    "description": "Whether the large business discount was applied",
-                    "type": "boolean"
+                  "discounts": {
+                    "title": "Discounts",
+                    "description": "Discounts applied to this participant's reward allocation",
+                    "type": "array",
+                    "items": {
+                      "title": "Discount",
+                      "description": "Discount applied to a reward allocation",
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "title": "Discount Type",
+                          "description": "Type of discount applied",
+                          "examples": [
+                            "large_business",
+                            "supply_chain_digitization"
+                          ],
+                          "type": "string",
+                          "enum": [
+                            "large_business",
+                            "supply_chain_digitization"
+                          ]
+                        },
+                        "percentage": {
+                          "title": "Discount Percentage",
+                          "description": "Percentage reduction applied (e.g., 50 for 50% discount)",
+                          "examples": [
+                            25,
+                            50
+                          ],
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "reason": {
+                          "title": "Discount Reason",
+                          "description": "Human-readable explanation of why the discount was applied",
+                          "examples": [
+                            "Waste Generator not identified - Supply Chain Digitization Incentive",
+                            "Large business with >$4M annual revenue",
+                            "Brazil Tax Authority Group I Large Business classification"
+                          ],
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "percentage",
+                        "reason"
+                      ],
+                      "additionalProperties": false
+                    }
                   },
                   "effective_percentage": {
                     "title": "Effective Percentage",
@@ -705,8 +741,7 @@
                   }
                 },
                 "required": [
-                  "participant_id",
-                  "participant_name",
+                  "participant_id_hash",
                   "role",
                   "reward_percentage",
                   "effective_percentage"
@@ -719,23 +754,44 @@
               "description": "Additional notes about the reward distribution",
               "type": "object",
               "properties": {
-                "large_business_discount_applied": {
-                  "title": "Large Business Discount Applied",
-                  "description": "Description of the large business discount applied",
+                "discounts_applied": {
+                  "title": "Discounts Applied",
+                  "description": "Descriptions of discounts applied to the distribution",
                   "examples": [
-                    "50% reduction applied to participants with >$4M annual revenue"
+                    [
+                      "50% reduction applied to Waste Generator participants with >$4M annual revenue",
+                      "25% Supply Chain Digitization Incentive applied to logistics providers due to unidentified Waste Generator"
+                    ]
                   ],
-                  "type": "string",
-                  "minLength": 1
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  }
                 },
                 "redirected_rewards": {
                   "title": "Redirected Rewards",
-                  "description": "Description of the redirected rewards",
+                  "description": "Description of rewards redirected to community pools or other recipients",
                   "examples": [
-                    "Discounted rewards from large businesses redirected to accredited NGOs"
+                    "Discounted rewards from large businesses redirected to the Community Impact Pool managed by Carrot Foundation"
                   ],
                   "type": "string",
-                  "minLength": 1
+                  "minLength": 1,
+                  "maxLength": 300
+                },
+                "special_circumstances": {
+                  "title": "Special Circumstances",
+                  "description": "Any special circumstances affecting the distribution",
+                  "examples": [
+                    "Country-specific threshold applied: Brazil Tax Authority Group I Large Business classification"
+                  ],
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  }
                 }
               },
               "additionalProperties": false
@@ -754,7 +810,8 @@
         "audit",
         "mass_id",
         "waste_properties",
-        "origin_location"
+        "origin_location",
+        "participant_rewards"
       ],
       "additionalProperties": false
     },
