@@ -163,8 +163,8 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     title: 'Animation URL',
     description: 'IPFS URI pointing to an animated or interactive media file',
     examples: [
-      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4',
-      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-visualization.webm',
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
     ],
   }),
   external_links: uniqueBy(

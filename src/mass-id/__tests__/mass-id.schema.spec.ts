@@ -34,7 +34,7 @@ describe('MassIDIpfsSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('MassID');
-        expect(data.blockchain.token_id).toBe('123');
+        expect(data.blockchain.token_id).toBe('1034');
       },
     );
   });

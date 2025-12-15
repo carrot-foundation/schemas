@@ -157,7 +157,7 @@ export const minimalMethodologyReferenceStub: MethodologyReference = {
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
   ipfs_uri:
-    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
+    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
 };
 
 /**
@@ -173,7 +173,7 @@ export const validMethodologyReferenceFixture: MethodologyReference = {
   external_url:
     'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
   ipfs_uri:
-    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf',
+    'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
 };
 
 /**

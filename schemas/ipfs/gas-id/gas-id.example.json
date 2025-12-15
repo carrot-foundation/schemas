@@ -1,10 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/gas-id/gas-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.53/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "f5dec87b711fd3a5b6f5c4e705857c9b783512264c23cb205f7658f7568d32f9",
+    "hash": "58c6af8e83953a924dfbd58c8ed1148eee783ac66fdcd9a7dc892d0565593346",
     "type": "GasID",
-    "version": "0.1.52",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/gas-id.schema.json"
+    "version": "0.1.53",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
     "blockchain_network": "mainnet",
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "original_content_hash": "81860ad38342a5e0ba54f8f8adf4a4017bb2ddd1034c64b12d012bb30558b9a2",
-  "content_hash": "81860ad38342a5e0ba54f8f8adf4a4017bb2ddd1034c64b12d012bb30558b9a2",
+  "original_content_hash": "2915a564e024084a9bf092d19bbdf7f46c26af16618800df23be5035b6657187",
+  "content_hash": "2915a564e024084a9bf092d19bbdf7f46c26af16618800df23be5035b6657187",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -29,7 +29,7 @@
   "name": "GasID #456 • BOLD Carbon (CH₄) • 2.09t CO₂e",
   "short_name": "GasID #456",
   "description": "This GasID certifies 2.09 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3 metric tons of organic waste from Macapá, Brazil.",
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/gas-id-bold-carbon.png",
+  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#1B4332",
   "external_links": [
     {
@@ -117,7 +117,7 @@
       "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
       "version": "1.3.0",
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480",
-      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/bold-carbon-ch4-v1.3.0.pdf"
+      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
     },
     "audit": {
       "completed_at": "2025-06-24T13:02:25.000Z",
@@ -125,13 +125,13 @@
       "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
       "result": "PASSED",
       "rules_executed": 21,
-      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json"
+      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
       "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
       "token_id": "123",
       "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json"
+      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha"
     },
     "waste_properties": {
       "type": "Organic",

@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/credit/credit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.53/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "f290ee73a85f2124bd7ddb180b574675651ddf035e2bb28e8910cc21779d75a9",
+    "hash": "2edf23f5d7fb5cacd4efb0ca8adf0b10554817a0acd2e3dabc1c902181398788",
     "type": "Credit",
-    "version": "0.1.52",
+    "version": "0.1.53",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit.schema.json"
   },
   "environment": {
@@ -14,12 +14,12 @@
   "created_at": "2024-12-05T14:30:00.000Z",
   "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
   "external_url": "https://explore.carrot.eco/credit/carrot-carbon",
-  "original_content_hash": "fa2e7c7f30d987bacc617a922c47033a8f29d4563e904468ebc401bd7c8fd50a",
-  "content_hash": "fa2e7c7f30d987bacc617a922c47033a8f29d4563e904468ebc401bd7c8fd50a",
+  "original_content_hash": "80ed49f1621e35ac2e7323ef17fdd01586746475407843ca9f5d7c4388a897ea",
+  "content_hash": "80ed49f1621e35ac2e7323ef17fdd01586746475407843ca9f5d7c4388a897ea",
   "symbol": "C-CARB.CH4",
   "slug": "carbon-methane",
   "name": "Carrot Carbon (CH₄)",
   "decimals": 18,
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/c-carb-icon.png",
+  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "description": "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
 }

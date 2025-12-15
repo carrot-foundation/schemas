@@ -4,7 +4,7 @@ import { IpfsUriSchema } from '../uri.schema';
 
 describe('IpfsUriSchema', () => {
   const validUris = [
-    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-organic.png',
+    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
     'ipfs://bafybeigdyrztp6unv7rbhmqzfrd6xuidkf5p6qulisz2nbyzj6x4c6q3rm/metadata.json',
     'ipfs://zb2rhk6nF5keBniWTdCu1Vq4iAFz2uVH54camzSjZYUxXkH9z',

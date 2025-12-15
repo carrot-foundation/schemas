@@ -1,10 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.53/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "04130141bdccdf3d6252ca57d69f9aca0bbb58f03078bae9a25c7751b2e8670e",
+    "hash": "a16de1871b3c91003f37df60385c5b0ec0e48bd4814f6ff7ba6b51fa898b36e8",
     "type": "MassID",
-    "version": "0.1.52",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json"
+    "version": "0.1.53",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -12,7 +12,7 @@
     "data_set_name": "TEST"
   },
   "blockchain": {
-    "token_id": "123",
+    "token_id": "1034",
     "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
     "chain_id": 80002,
     "network_name": "Amoy"
@@ -24,11 +24,11 @@
   "created_at": "2024-12-05T11:02:47.000Z",
   "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
   "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-  "name": "MassID #123 • Organic • 3.0t",
-  "short_name": "MassID #123",
-  "description": "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
-  "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb/mass-id-organic.png",
-  "animation_url": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id-animation.mp4",
+  "name": "MassID #1034 • Organic • 3.25t",
+  "short_name": "MassID #1034",
+  "description": "This MassID represents 3.25 metric tons of organic food waste from Brasília, Brazil, tracked through complete chain of custody from pick-up to composting.",
+  "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
+  "animation_url": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#2D5A27",
   "external_links": [
     {
@@ -39,7 +39,7 @@
     {
       "label": "Carrot White Paper",
       "url": "https://whitepaper.carrot.eco",
-      "description": "Carrot Foundation technical and impact white paper"
+      "description": "Carrot Foundation technical white paper"
     }
   ],
   "attributes": [
@@ -53,12 +53,12 @@
     },
     {
       "trait_type": "Weight (kg)",
-      "value": 3000,
+      "value": 3250.5,
       "display_type": "number"
     },
     {
       "trait_type": "Origin City",
-      "value": "Macapá"
+      "value": "Brasília"
     },
     {
       "trait_type": "Pick-up Vehicle Type",
@@ -104,8 +104,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "c5447542ed6836e38084dea1fcf4983318a7103c2a2cb55f3b5a6623033f6f9f",
-  "content_hash": "c5447542ed6836e38084dea1fcf4983318a7103c2a2cb55f3b5a6623033f6f9f",
+  "original_content_hash": "241b3650b1d33e137320ba9777d8562868742f1f1125636c76d0a7e03aadc4cf",
+  "content_hash": "241b3650b1d33e137320ba9777d8562868742f1f1125636c76d0a7e03aadc4cf",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -114,30 +114,52 @@
         "code": "04 02 20",
         "system": "Ibama"
       },
-      "net_weight_kg": 3000
+      "net_weight_kg": 3250.5
     },
     "locations": [
       {
         "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
-        "city": "Macapá",
-        "subdivision_code": "BR-AP",
+        "city": "Brasília",
+        "subdivision_code": "BR-DF",
         "country_code": "BR",
         "coordinates": {
-          "latitude": -0.1,
-          "longitude": -51.1
+          "latitude": -15.8,
+          "longitude": -48
         },
         "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
       },
       {
         "id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
-        "city": "Cariacica",
-        "subdivision_code": "BR-ES",
+        "city": "Brasília",
+        "subdivision_code": "BR-DF",
         "country_code": "BR",
         "coordinates": {
-          "latitude": -20.5,
-          "longitude": -40.2
+          "latitude": -15.8,
+          "longitude": -47.6
         },
         "responsible_participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef"
+      },
+      {
+        "id_hash": "c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefab",
+        "city": "São Paulo",
+        "subdivision_code": "BR-SP",
+        "country_code": "BR",
+        "coordinates": {
+          "latitude": -23.5,
+          "longitude": -46.6
+        },
+        "responsible_participant_id_hash": "d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcd"
+      },
+      {
+        "id_hash": "e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcdef",
+        "city": "Planaltina",
+        "subdivision_code": "BR-GO",
+        "country_code": "BR",
+        "coordinates": {
+          "latitude": -15.6,
+          "longitude": -47.7
+        },
+        "responsible_participant_id_hash": "f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcdefab"
       }
     ],
     "participants": [
@@ -150,8 +172,20 @@
       {
         "id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "roles": [
-          "Hauler",
+          "Processor",
           "Recycler"
+        ]
+      },
+      {
+        "id_hash": "d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcd",
+        "roles": [
+          "Network Integrator"
+        ]
+      },
+      {
+        "id_hash": "f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcdefab",
+        "roles": [
+          "Hauler"
         ]
       }
     ],
@@ -164,7 +198,7 @@
         "location_id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
         "data": {
           "vehicle_type": "Truck",
-          "weight_kg": 3000
+          "weight_kg": 3250.5
         }
       },
       {
@@ -179,7 +213,7 @@
           "container_type": "Truck",
           "vehicle_type": "Truck",
           "container_capacity_kg": 12000,
-          "gross_weight_kg": 9500,
+          "gross_weight_kg": 6750.5,
           "tare_kg": 3500
         }
       },
@@ -197,8 +231,8 @@
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6",
         "data": {
-          "initial_weight_kg": 5000,
-          "deducted_weight_kg": 250
+          "initial_weight_kg": 3250.5,
+          "deducted_weight_kg": 125.25
         }
       },
       {
@@ -214,13 +248,13 @@
         "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
         "type": "Transport Manifest",
         "document_number": "4126",
-        "issued_at": "2024-02-10T00:00:00.000Z"
+        "issued_at": "2024-12-05T14:02:47.000Z"
       },
       {
         "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
         "type": "Recycling Manifest",
         "document_number": "2353",
-        "issued_at": "2024-03-10T00:00:00.000Z"
+        "issued_at": "2024-12-08T11:32:47.000Z"
       }
     ]
   }
