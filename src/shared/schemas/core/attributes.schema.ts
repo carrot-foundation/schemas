@@ -14,8 +14,14 @@ import {
 function getSchemaMetadata<T extends z.ZodTypeAny>(
   schema: T,
 ): Record<string, unknown> | undefined {
-  return (schema as { _def?: { metadata?: Record<string, unknown> } })._def
-    ?.metadata;
+  const def = schema.def as unknown as {
+    metadata?: Record<string, unknown>;
+    [key: string]: unknown;
+  };
+  if (def?.metadata && typeof def.metadata === 'object') {
+    return def.metadata;
+  }
+  return undefined;
 }
 
 function mergeSchemaMeta(
