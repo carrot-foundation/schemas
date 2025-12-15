@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.54/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
   "schema": {
-    "hash": "5800bb74195a7926a9dac87524d4b30a644c2583a2c2cc4bb834505c48d8a299",
+    "hash": "4ef1b85b2a3544f4bd4ec78ad516afd9d8cb024e78d2e69d6122f3e3ca5d4a4c",
     "type": "CreditPurchaseReceipt",
-    "version": "0.1.52",
+    "version": "0.1.54",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/credit-purchase-receipt.schema.json"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2025-02-03T12:45:30.000Z",
   "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
   "external_url": "https://explore.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-  "original_content_hash": "503dfd5d077ad0a18e222aae8c0d6ca57993d442f497dd256d62a163e929e26a",
-  "content_hash": "503dfd5d077ad0a18e222aae8c0d6ca57993d442f497dd256d62a163e929e26a",
+  "original_content_hash": "4c08906f0ea84f15c93612edf3a488bfb4cc30f1292acdfa1fcb80d981104de4",
+  "content_hash": "4c08906f0ea84f15c93612edf3a488bfb4cc30f1292acdfa1fcb80d981104de4",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
