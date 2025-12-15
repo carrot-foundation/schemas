@@ -3,7 +3,6 @@ import {
   NonEmptyStringSchema,
   NonNegativeFloatSchema,
   WeightKgSchema,
-  IsoDateSchema,
   IsoDateTimeSchema,
   LocationSchema,
   WastePropertiesSchema,
@@ -76,9 +75,9 @@ const PreventedEmissionsCalculationSchema = z
       description: 'Method used to calculate the prevented emissions',
       examples: ['UNFCCC AMS-III.F'],
     }),
-    date: IsoDateSchema.meta({
-      title: 'Calculation Date',
-      description: 'Date when the calculation was performed',
+    calculated_at: IsoDateTimeSchema.meta({
+      title: 'Calculated At',
+      description: 'ISO 8601 timestamp when the calculation was performed',
     }),
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',

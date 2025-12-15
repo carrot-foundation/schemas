@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.52/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "c05fd8a36e96b4b68869c6040b2fdd778dccb4e283f03e9ee5eb556a3118e1a0",
+    "hash": "f5dec87b711fd3a5b6f5c4e705857c9b783512264c23cb205f7658f7568d32f9",
     "type": "GasID",
     "version": "0.1.52",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/gas-id.schema.json"
@@ -20,8 +20,8 @@
   "created_at": "2025-06-24T13:02:25.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "original_content_hash": "ab9e6c2b800e1352a66aafd028ce80851ed64ec1dbdd189a0516221c8ab0252c",
-  "content_hash": "ab9e6c2b800e1352a66aafd028ce80851ed64ec1dbdd189a0516221c8ab0252c",
+  "original_content_hash": "81860ad38342a5e0ba54f8f8adf4a4017bb2ddd1034c64b12d012bb30558b9a2",
+  "content_hash": "81860ad38342a5e0ba54f8f8adf4a4017bb2ddd1034c64b12d012bb30558b9a2",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -152,7 +152,7 @@
     "prevented_emissions_calculation": {
       "formula": "(1 - B) * W * E = R",
       "method": "UNFCCC AMS-III.F",
-      "date": "2025-06-24",
+      "calculated_at": "2025-06-24T13:02:25.000Z",
       "values": [
         {
           "reference": "E",
