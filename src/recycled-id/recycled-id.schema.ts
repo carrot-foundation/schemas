@@ -39,5 +39,4 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
     }
   })
   .meta(RecycledIDIpfsSchemaMeta);
-
 export type RecycledIDIpfs = z.infer<typeof RecycledIDIpfsSchema>;

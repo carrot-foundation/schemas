@@ -88,5 +88,4 @@ export const RecycledIDAttributesSchema = z
     description:
       'Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait',
   });
-
 export type RecycledIDAttributes = z.infer<typeof RecycledIDAttributesSchema>;

@@ -37,5 +37,4 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
     }
   })
   .meta(GasIDIpfsSchemaMeta);
-
 export type GasIDIpfs = z.infer<typeof GasIDIpfsSchema>;

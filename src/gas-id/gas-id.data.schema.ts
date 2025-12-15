@@ -34,7 +34,6 @@ const GasIDSummarySchema = z
     title: 'GasID Summary',
     description: 'Summary information for the GasID certificate',
   });
-
 export type GasIDSummary = z.infer<typeof GasIDSummarySchema>;
 
 const CalculationValueSchema = z
@@ -63,7 +62,6 @@ const CalculationValueSchema = z
     title: 'Calculation Value',
     description: 'Single value used in the emissions calculation',
   });
-
 export type CalculationValue = z.infer<typeof CalculationValueSchema>;
 
 const PreventedEmissionsCalculationSchema = z
@@ -91,7 +89,6 @@ const PreventedEmissionsCalculationSchema = z
     title: 'Prevented Emissions Calculation',
     description: 'Details of the prevented emissions calculation',
   });
-
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema
 >;
@@ -114,5 +111,4 @@ export const GasIDDataSchema = z
     title: 'GasID Data',
     description: 'Complete data structure for GasID certificate',
   });
-
 export type GasIDData = z.infer<typeof GasIDDataSchema>;
