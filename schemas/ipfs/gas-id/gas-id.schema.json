@@ -93,15 +93,6 @@
       "type": "string",
       "format": "uri"
     },
-    "full_content_hash": {
-      "title": "Full Content Hash",
-      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
-      "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
-    },
     "content_hash": {
       "title": "Content Hash",
       "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
@@ -927,6 +918,15 @@
       ],
       "additionalProperties": false
     },
+    "full_content_hash": {
+      "title": "Full Content Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+      ],
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
     "blockchain": {
       "title": "Blockchain Information",
       "description": "Blockchain deployment information including smart contract address, network, and token identifier",
@@ -1601,11 +1601,11 @@
     "created_at",
     "external_id",
     "external_url",
-    "full_content_hash",
     "content_hash",
     "viewer_reference",
     "environment",
     "data",
+    "full_content_hash",
     "blockchain",
     "name",
     "short_name",

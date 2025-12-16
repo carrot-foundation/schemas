@@ -88,11 +88,6 @@ export const BaseIpfsSchema = z
     }),
     external_id: ExternalIdSchema,
     external_url: ExternalUrlSchema,
-    full_content_hash: Sha256HashSchema.meta({
-      title: 'Full Content Hash',
-      description:
-        'SHA-256 hash of the original JSON content including private data before schema validation',
-    }),
     content_hash: Sha256HashSchema.meta({
       title: 'Content Hash',
       description:
