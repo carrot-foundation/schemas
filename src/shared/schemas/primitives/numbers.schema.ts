@@ -51,3 +51,21 @@ export const CreditAmountSchema = NonNegativeFloatSchema.meta({
   description: 'Amount of credits issued',
 });
 export type CreditAmount = z.infer<typeof CreditAmountSchema>;
+
+export const UsdcAmountSchema = NonNegativeFloatSchema.refine(
+  (value) => {
+    const multiplied = value * 1_000_000;
+    return (
+      Number.isInteger(multiplied) ||
+      Math.abs(multiplied - Math.round(multiplied)) < 1e-9
+    );
+  },
+  {
+    message: 'USDC amount must have at most 6 decimal places',
+  },
+).meta({
+  title: 'USDC Amount',
+  description: 'USDC amount with maximum 6 decimal places precision',
+  examples: [0, 100.5, 1000.123456, 50000.12],
+});
+export type UsdcAmount = z.infer<typeof UsdcAmountSchema>;

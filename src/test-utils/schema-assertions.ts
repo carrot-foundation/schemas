@@ -16,9 +16,11 @@ export function expectSchemaInvalid<T>(
   mutate: Mutate<T>,
 ) {
   const draft = structuredClone(exampleData);
-  mutate(draft);
+  const mutated = mutate(draft);
 
-  const result = schema.safeParse(draft);
+  const valueToValidate = mutated === undefined ? draft : (mutated as T);
+
+  const result = schema.safeParse(valueToValidate);
 
   expect(result.success).toBe(false);
 }

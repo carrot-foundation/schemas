@@ -212,8 +212,9 @@
               "description": "Total amount paid in USDC for the purchase",
               "examples": [
                 0,
-                45.2,
-                72.5
+                100.5,
+                1000.123456,
+                50000.12
               ],
               "type": "number",
               "minimum": 0
@@ -392,15 +393,6 @@
                 "type": "string",
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
-              },
-              "smart_contract_address": {
-                "title": "Smart Contract Address",
-                "description": "Ethereum address of the smart contract",
-                "examples": [
-                  "0x1234567890abcdef1234567890abcdef12345678"
-                ],
-                "type": "string",
-                "pattern": "^0x[a-f0-9]{40}$"
               }
             },
             "required": [
@@ -408,8 +400,7 @@
               "external_id",
               "name",
               "external_url",
-              "ipfs_uri",
-              "smart_contract_address"
+              "ipfs_uri"
             ],
             "additionalProperties": false
           }
@@ -425,21 +416,21 @@
             "type": "object",
             "properties": {
               "slug": {
-                "title": "Credit Slug",
-                "description": "URL-friendly identifier for the credit",
+                "title": "Credit Token Slug",
+                "description": "URL-friendly identifier for the credit token",
                 "examples": [
-                  "mass-id-123",
-                  "recycled-plastic",
-                  "organic-waste"
+                  "carbon-methane",
+                  "biowaste"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
+                "enum": [
+                  "carbon-methane",
+                  "biowaste"
+                ]
               },
               "symbol": {
                 "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token",
+                "description": "ERC20 token symbol identifier",
                 "examples": [
                   "C-CARB.CH4",
                   "C-BIOW"
@@ -483,7 +474,7 @@
               },
               "smart_contract_address": {
                 "title": "Smart Contract Address",
-                "description": "Ethereum address of the smart contract",
+                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                 "examples": [
                   "0x1234567890abcdef1234567890abcdef12345678"
                 ],
@@ -526,6 +517,10 @@
               "type": {
                 "title": "Certificate Type",
                 "description": "Type of certificate (e.g., GasID, RecycledID)",
+                "examples": [
+                  "GasID",
+                  "RecycledID"
+                ],
                 "type": "string",
                 "enum": [
                   "GasID",
@@ -565,7 +560,7 @@
               },
               "smart_contract_address": {
                 "title": "Smart Contract Address",
-                "description": "Ethereum address of the smart contract",
+                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                 "examples": [
                   "0x1234567890abcdef1234567890abcdef12345678"
                 ],
@@ -632,7 +627,7 @@
                   },
                   "smart_contract_address": {
                     "title": "Smart Contract Address",
-                    "description": "Ethereum address of the smart contract",
+                    "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                     "examples": [
                       "0x1234567890abcdef1234567890abcdef12345678"
                     ],
@@ -650,16 +645,17 @@
                 "additionalProperties": false
               },
               "credit_slug": {
-                "title": "Credit Slug",
+                "title": "Credit Token Slug",
                 "description": "Slug of the credit type for this certificate",
                 "examples": [
-                  "carbon",
-                  "organic"
+                  "carbon-methane",
+                  "biowaste"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
+                "enum": [
+                  "carbon-methane",
+                  "biowaste"
+                ]
               },
               "collections": {
                 "title": "Certificate Collections",
@@ -745,7 +741,7 @@
             "properties": {
               "participant_id_hash": {
                 "title": "Participant ID Hash",
-                "description": "Hash representing the participant identifier (SHA-256 hex string)",
+                "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                 ],
@@ -784,8 +780,9 @@
                 "description": "USDC amount allocated to this participant",
                 "examples": [
                   0,
-                  45.2,
-                  72.5
+                  100.5,
+                  1000.123456,
+                  50000.12
                 ],
                 "type": "number",
                 "minimum": 0
@@ -848,7 +845,7 @@
             },
             "smart_contract_address": {
               "title": "Smart Contract Address",
-              "description": "Ethereum address of the smart contract",
+              "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
               ],
@@ -883,7 +880,7 @@
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "Ethereum-compatible address of the smart contract that mints and manages this NFT",
+          "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -942,28 +939,28 @@
       "additionalProperties": false
     },
     "name": {
-      "title": "NFT Name",
-      "description": "Full display name for this NFT, typically including token identifier, waste type, and weight",
+      "title": "Credit Purchase Receipt Name",
+      "description": "Full display name for this Credit Purchase Receipt NFT. Format: \"Credit Purchase Receipt #[token_id] • [amount] Credits Purchased\"",
       "examples": [
-        "MassID #123 • Organic • 3.0t",
-        "RecycledID #456 • Plastic • 2.5t",
-        "GasID #789 • Methane • 1000 m³"
+        "Credit Purchase Receipt #987 • 8.5 Credits Purchased",
+        "Credit Purchase Receipt #1200 • 15.0 Credits Purchased"
       ],
       "type": "string",
       "minLength": 1,
-      "maxLength": 100
+      "maxLength": 100,
+      "pattern": "^Credit Purchase Receipt #\\d+ • .+ Credits Purchased$"
     },
     "short_name": {
-      "title": "Short Name",
-      "description": "Compact name for UI summaries, tables, or tooltips, typically including token identifier",
+      "title": "Credit Purchase Receipt Short Name",
+      "description": "Compact name for UI summaries, tables, or tooltips. Format: \"Purchase Receipt #[token_id]\"",
       "examples": [
-        "MassID #123",
-        "RecycledID #456",
-        "GasID #789"
+        "Purchase Receipt #987",
+        "Purchase Receipt #1200"
       ],
       "type": "string",
       "minLength": 1,
-      "maxLength": 50
+      "maxLength": 50,
+      "pattern": "^Purchase Receipt #\\d+$"
     },
     "description": {
       "title": "Description",

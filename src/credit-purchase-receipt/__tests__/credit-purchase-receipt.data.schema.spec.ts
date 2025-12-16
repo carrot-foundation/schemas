@@ -31,7 +31,7 @@ describe('CreditPurchaseReceiptDataSchema', () => {
         external_id: 'a1b2c3d4-e5f6-4b90-8a34-567890abcdef',
         external_url: 'https://explore.carrot.eco/document/test',
         ipfs_uri:
-          'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/test.json',
+          'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
         smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
       };
       invalid.certificates = invalid.certificates.map((cert) => ({
@@ -56,7 +56,8 @@ describe('CreditPurchaseReceiptDataSchema', () => {
 
   it('requires certificate credit slug to exist in credits', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.certificates[0].credit_slug = 'unknown-credit';
+      invalid.certificates[0].credit_slug =
+        'unknown-credit' as unknown as (typeof invalid.certificates)[number]['credit_slug'];
     });
   });
 
@@ -90,12 +91,6 @@ describe('CreditPurchaseReceiptDataSchema', () => {
   it('requires certificate collection purchased amounts to sum to certificate purchased amount', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].collections[0].purchased_amount = 0;
-    });
-  });
-
-  it('requires smart contract address to be valid Ethereum address', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.collections[0].smart_contract_address = 'invalid-address';
     });
   });
 
@@ -146,12 +141,6 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].mass_id.smart_contract_address =
         'invalid-address';
-    });
-  });
-
-  it('requires collection smart_contract_address to be valid Ethereum address', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.collections[0].smart_contract_address = 'invalid-address';
     });
   });
 

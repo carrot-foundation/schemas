@@ -5,6 +5,10 @@ import {
   getSchemaVersionOrDefault,
   createAttributeMap,
   validateAttributeValue,
+  CreditPurchaseReceiptNameSchema,
+  CreditPurchaseReceiptShortNameSchema,
+  createCreditPurchaseReceiptNameSchema,
+  createCreditPurchaseReceiptShortNameSchema,
 } from '../shared';
 import { CreditPurchaseReceiptDataSchema } from './credit-purchase-receipt.data.schema';
 import { CreditPurchaseReceiptAttributesSchema } from './credit-purchase-receipt.attributes';
@@ -26,10 +30,37 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
       description: 'Schema type identifier for this record',
     }),
   }),
+  name: CreditPurchaseReceiptNameSchema,
+  short_name: CreditPurchaseReceiptShortNameSchema,
   attributes: CreditPurchaseReceiptAttributesSchema,
   data: CreditPurchaseReceiptDataSchema,
 })
   .superRefine((value, ctx) => {
+    const nameTokenIdRegex = /^Credit Purchase Receipt #(\d+)/;
+    const nameTokenIdMatch = nameTokenIdRegex.exec(value.name);
+    if (
+      !nameTokenIdMatch ||
+      nameTokenIdMatch[1] !== value.blockchain.token_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `Name token_id must match blockchain.token_id: ${value.blockchain.token_id}`,
+        path: ['name'],
+      });
+    }
+
+    const shortNameTokenIdRegex = /^Purchase Receipt #(\d+)/;
+    const shortNameTokenIdMatch = shortNameTokenIdRegex.exec(value.short_name);
+    if (
+      !shortNameTokenIdMatch ||
+      shortNameTokenIdMatch[1] !== value.blockchain.token_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `Short name token_id must match blockchain.token_id: ${value.blockchain.token_id}`,
+        path: ['short_name'],
+      });
+    }
     const attributes = value.attributes;
     const data = value.data;
 
@@ -124,18 +155,16 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     data.certificates.forEach((certificate) => {
       const credit = data.credits.find(
         (c) => c.slug === certificate.credit_slug,
+      )!;
+      const certificatePurchasedTotal = certificate.collections.reduce(
+        (sum, collection) => sum + Number(collection.purchased_amount),
+        0,
       );
-      if (credit) {
-        const certificatePurchasedTotal = certificate.collections.reduce(
-          (sum, collection) => sum + Number(collection.purchased_amount),
-          0,
-        );
-        const currentTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
-        creditTotalsBySymbol.set(
-          credit.symbol,
-          currentTotal + certificatePurchasedTotal,
-        );
-      }
+      const currentTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
+      creditTotalsBySymbol.set(
+        credit.symbol,
+        currentTotal + certificatePurchasedTotal,
+      );
     });
 
     data.credits.forEach((credit) => {
@@ -155,6 +184,30 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
         });
       }
     });
+
+    const nameSchema = createCreditPurchaseReceiptNameSchema(
+      value.blockchain.token_id,
+    );
+    const nameResult = nameSchema.safeParse(value.name);
+    if (!nameResult.success) {
+      ctx.addIssue({
+        code: 'custom',
+        message: nameResult.error.issues[0].message,
+        path: ['name'],
+      });
+    }
+
+    const shortNameSchema = createCreditPurchaseReceiptShortNameSchema(
+      value.blockchain.token_id,
+    );
+    const shortNameResult = shortNameSchema.safeParse(value.short_name);
+    if (!shortNameResult.success) {
+      ctx.addIssue({
+        code: 'custom',
+        message: shortNameResult.error.issues[0].message,
+        path: ['short_name'],
+      });
+    }
   })
   .meta(CreditPurchaseReceiptIpfsSchemaMeta);
 export type CreditPurchaseReceiptIpfs = z.infer<

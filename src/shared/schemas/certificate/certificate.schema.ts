@@ -6,7 +6,7 @@ import {
   ParticipantRoleSchema,
   NonEmptyStringSchema,
   PercentageSchema,
-  Sha256HashSchema,
+  ParticipantIdHashSchema,
 } from '../primitives';
 
 export const WastePropertiesSchema = z
@@ -68,11 +68,7 @@ export type RewardDiscount = z.infer<typeof RewardDiscountSchema>;
 
 export const RewardAllocationSchema = z
   .strictObject({
-    participant_id_hash: Sha256HashSchema.meta({
-      title: 'Participant ID Hash',
-      description:
-        'SHA-256 hash of the unique identifier for the participant receiving the reward',
-    }),
+    participant_id_hash: ParticipantIdHashSchema,
     role: ParticipantRoleSchema.meta({
       title: 'Participant Role',
       description: 'Role of the participant in the supply chain',

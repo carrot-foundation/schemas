@@ -19,7 +19,7 @@ export const minimalAuditReferenceStub: AuditReference = {
   result: 'PASSED',
   rules_executed: 21,
   report_uri:
-    'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
+    'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
 };
 
 /**
@@ -36,7 +36,7 @@ export const validAuditReferenceFixture: AuditReference = {
   result: 'PASSED',
   rules_executed: 21,
   report_uri:
-    'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy/mass-id-audit.json',
+    'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
 };
 
 /**

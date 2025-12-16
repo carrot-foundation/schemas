@@ -5,6 +5,10 @@ import {
   getSchemaVersionOrDefault,
   createAttributeMap,
   validateAttributeValue,
+  CreditRetirementReceiptNameSchema,
+  CreditRetirementReceiptShortNameSchema,
+  createCreditRetirementReceiptNameSchema,
+  createCreditRetirementReceiptShortNameSchema,
 } from '../shared';
 import { CreditRetirementReceiptDataSchema } from './credit-retirement-receipt.data.schema';
 import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-receipt.attributes';
@@ -31,10 +35,39 @@ export const CreditRetirementReceiptIpfsSchema =
         description: 'Schema type identifier for this record',
       }),
     }),
+    name: CreditRetirementReceiptNameSchema,
+    short_name: CreditRetirementReceiptShortNameSchema,
     attributes: CreditRetirementReceiptAttributesSchema,
     data: CreditRetirementReceiptDataSchema,
   })
     .superRefine((value, ctx) => {
+      const nameTokenIdRegex = /^Credit Retirement Receipt #(\d+)/;
+      const nameTokenIdMatch = nameTokenIdRegex.exec(value.name);
+      if (
+        !nameTokenIdMatch ||
+        nameTokenIdMatch[1] !== value.blockchain.token_id
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Name token_id must match blockchain.token_id: ${value.blockchain.token_id}`,
+          path: ['name'],
+        });
+      }
+
+      const shortNameTokenIdRegex = /^Retirement Receipt #(\d+)/;
+      const shortNameTokenIdMatch = shortNameTokenIdRegex.exec(
+        value.short_name,
+      );
+      if (
+        !shortNameTokenIdMatch ||
+        shortNameTokenIdMatch[1] !== value.blockchain.token_id
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `Short name token_id must match blockchain.token_id: ${value.blockchain.token_id}`,
+          path: ['short_name'],
+        });
+      }
       const attributes = value.attributes;
       const data = value.data;
 
@@ -156,6 +189,30 @@ export const CreditRetirementReceiptIpfsSchema =
           });
         }
       });
+
+      const nameSchema = createCreditRetirementReceiptNameSchema(
+        value.blockchain.token_id,
+      );
+      const nameResult = nameSchema.safeParse(value.name);
+      if (!nameResult.success) {
+        ctx.addIssue({
+          code: 'custom',
+          message: nameResult.error.issues[0].message,
+          path: ['name'],
+        });
+      }
+
+      const shortNameSchema = createCreditRetirementReceiptShortNameSchema(
+        value.blockchain.token_id,
+      );
+      const shortNameResult = shortNameSchema.safeParse(value.short_name);
+      if (!shortNameResult.success) {
+        ctx.addIssue({
+          code: 'custom',
+          message: shortNameResult.error.issues[0].message,
+          path: ['short_name'],
+        });
+      }
     })
     .meta(CreditRetirementReceiptIpfsSchemaMeta);
 

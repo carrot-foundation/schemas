@@ -58,7 +58,7 @@ export type BlockchainNetworkName = z.infer<typeof BlockchainNetworkNameSchema>;
 export const SmartContractAddressSchema = EthereumAddressSchema.meta({
   title: 'Smart Contract Address',
   description:
-    'Ethereum-compatible address of the smart contract that mints and manages this NFT',
+    'Ethereum-compatible address of the smart contract that mints and manages this token',
 });
 export type SmartContractAddress = z.infer<typeof SmartContractAddressSchema>;
 

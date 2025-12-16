@@ -221,3 +221,10 @@ export const MethodologySlugSchema = z
     examples: ['bold-recycling', 'bold-carbon-ch4'],
   });
 export type MethodologySlug = z.infer<typeof MethodologySlugSchema>;
+
+export const CertificateTypeSchema = z.enum(['GasID', 'RecycledID']).meta({
+  title: 'Certificate Type',
+  description: 'Type of certificate (e.g., GasID, RecycledID)',
+  examples: ['GasID', 'RecycledID'],
+});
+export type CertificateType = z.infer<typeof CertificateTypeSchema>;

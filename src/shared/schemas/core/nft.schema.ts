@@ -132,18 +132,26 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   name: NonEmptyStringSchema.max(100).meta({
     title: 'NFT Name',
     description:
-      'Full display name for this NFT, typically including token identifier, waste type, and weight',
+      'Full display name for this NFT, following format: "[Type] #[token_id] • [metrics]". For certificates: include waste type and weight. For receipts: include credit amount and action verb.',
     examples: [
       'MassID #123 • Organic • 3.0t',
-      'RecycledID #456 • Plastic • 2.5t',
-      'GasID #789 • Methane • 1000 m³',
+      'RecycledID #456 • BOLD Recycling • 2.5t Recycled',
+      'GasID #789 • BOLD Carbon (CH₄) • 0.86t CO₂e',
+      'Credit Purchase Receipt #987 • 8.5 Credits Purchased',
+      'Credit Retirement Receipt #1245 • 10.5 Credits Retired',
     ],
   }),
   short_name: NonEmptyStringSchema.max(50).meta({
     title: 'Short Name',
     description:
-      'Compact name for UI summaries, tables, or tooltips, typically including token identifier',
-    examples: ['MassID #123', 'RecycledID #456', 'GasID #789'],
+      'Compact name for UI summaries, tables, or tooltips. Format: "[Type] #[token_id]" for certificates, "[Receipt Type] #[token_id]" for receipts.',
+    examples: [
+      'MassID #123',
+      'RecycledID #456',
+      'GasID #789',
+      'Purchase Receipt #987',
+      'Retirement Receipt #1245',
+    ],
   }),
   description: NonEmptyStringSchema.max(500).meta({
     title: 'Description',

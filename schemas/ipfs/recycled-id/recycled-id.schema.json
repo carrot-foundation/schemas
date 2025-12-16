@@ -633,7 +633,7 @@
                 "properties": {
                   "participant_id_hash": {
                     "title": "Participant ID Hash",
-                    "description": "SHA-256 hash of the unique identifier for the participant receiving the reward",
+                    "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ],
@@ -822,7 +822,7 @@
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "Ethereum-compatible address of the smart contract that mints and manages this NFT",
+          "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -881,28 +881,28 @@
       "additionalProperties": false
     },
     "name": {
-      "title": "NFT Name",
-      "description": "Full display name for this NFT, typically including token identifier, waste type, and weight",
+      "title": "RecycledID Name",
+      "description": "Full display name for this RecycledID NFT. Format: \"RecycledID #[token_id] • [methodology] • [weight]t Recycled\"",
       "examples": [
-        "MassID #123 • Organic • 3.0t",
-        "RecycledID #456 • Plastic • 2.5t",
-        "GasID #789 • Methane • 1000 m³"
+        "RecycledID #789 • BOLD Recycling • 3.25t Recycled",
+        "RecycledID #456 • BOLD Recycling • 2.5t Recycled"
       ],
       "type": "string",
       "minLength": 1,
-      "maxLength": 100
+      "maxLength": 100,
+      "pattern": "^RecycledID #\\d+ • .+ • .+t Recycled$"
     },
     "short_name": {
-      "title": "Short Name",
-      "description": "Compact name for UI summaries, tables, or tooltips, typically including token identifier",
+      "title": "RecycledID Short Name",
+      "description": "Compact name for UI summaries, tables, or tooltips. Format: \"RecycledID #[token_id]\"",
       "examples": [
-        "MassID #123",
-        "RecycledID #456",
-        "GasID #789"
+        "RecycledID #789",
+        "RecycledID #456"
       ],
       "type": "string",
       "minLength": 1,
-      "maxLength": 50
+      "maxLength": 50,
+      "pattern": "^RecycledID #\\d+$"
     },
     "description": {
       "title": "Description",

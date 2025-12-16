@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
+  expectIssuesContain,
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
@@ -72,7 +73,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
             return { ...attribute, value: 999999 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -84,7 +85,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
             return { ...attribute, value: 1737410400000 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -105,7 +106,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
             return { ...attribute, value: Number(attribute.value) + 1 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -138,7 +139,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
             return { ...attribute, value: 'Test Credit Holder-mismatch' };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -164,7 +165,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
             return { ...attribute, value: 1737410400000 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -177,7 +178,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
               return { ...attribute, value: '#9999' };
             }
             return attribute;
-          }) as typeof invalid.attributes;
+          });
         }
       },
     },
@@ -199,7 +200,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
       (data) => {
         expect(data.schema.type).toBe('CreditRetirementReceipt');
         expect(data.data.summary.total_certificates).toBe(3);
-        expect(data.data.certificates[0].mass_id.token_id).toBe('123');
+        expect(data.data.certificates[0].mass_id.token_id).toBe('1034');
       },
     );
   });
@@ -313,5 +314,53 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
       }
       return withUnusedCredit;
     });
+  });
+
+  it('rejects name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Credit Retirement Receipt #999 • 10.5 Credits Retired';
+      return next;
+    }, ['Name must match format']);
+  });
+
+  it('rejects short_name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Retirement Receipt #999';
+      return next;
+    }, ['Short name must be exactly']);
+  });
+
+  it('rejects name that does not match regex pattern', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Invalid Name Format';
+      return next;
+    }, ['Name must match format']);
+  });
+
+  it('rejects short_name that does not match regex pattern', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Invalid Short Name';
+      return next;
+    }, ['Short name must match format']);
+  });
+
+  it('rejects name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Credit Retirement Receipt #1245 • Invalid Format';
+      return next;
+    }, ['Name must match format']);
+  });
+
+  it('rejects short_name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Retirement Receipt #1245 Extra';
+      return next;
+    }, ['Short name must match format']);
   });
 });
