@@ -1,19 +1,20 @@
 import { z, type ZodRawShape } from 'zod';
 import {
+  CertificateTypeSchema,
   CollectionNameSchema,
   CollectionSlugSchema,
   CreditAmountSchema,
+  CreditTokenSlugSchema,
   CreditTokenSymbolSchema,
-  EthereumAddressSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
   IsoDateTimeSchema,
   NonEmptyStringSchema,
-  NonNegativeFloatSchema,
   PositiveIntegerSchema,
-  SlugSchema,
+  SmartContractAddressSchema,
   TokenIdSchema,
+  UsdcAmountSchema,
 } from '../primitives';
 import { MassIDReferenceSchema } from '../references';
 
@@ -30,7 +31,7 @@ const SummaryBaseSchema = z.strictObject({
 });
 
 export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.extend({
-  total_amount_usdc: NonNegativeFloatSchema.meta({
+  total_amount_usdc: UsdcAmountSchema.meta({
     title: 'Total Amount (USDC)',
     description: 'Total amount paid in USDC for the purchase',
   }),
@@ -93,10 +94,7 @@ export type ReceiptIdentity = z.infer<typeof ReceiptIdentitySchema>;
 
 export const MassIDReferenceWithContractSchema =
   MassIDReferenceSchema.safeExtend({
-    smart_contract_address: EthereumAddressSchema.meta({
-      title: 'Smart Contract Address',
-      description: 'Ethereum address of the smart contract',
-    }),
+    smart_contract_address: SmartContractAddressSchema,
   }).meta({
     title: 'MassID Reference with Smart Contract',
     description: 'Reference to a MassID record with smart contract address',
@@ -133,14 +131,8 @@ export function createReceiptCreditSchema(params: { meta: Meta }) {
 
   return z
     .strictObject({
-      slug: SlugSchema.meta({
-        title: 'Credit Slug',
-        description: 'URL-friendly identifier for the credit',
-      }),
-      symbol: CreditTokenSymbolSchema.meta({
-        title: 'Credit Token Symbol',
-        description: 'Symbol of the credit token',
-      }),
+      slug: CreditTokenSlugSchema,
+      symbol: CreditTokenSymbolSchema,
       external_id: ExternalIdSchema.meta({
         title: 'Credit External ID',
         description: 'External identifier for the credit',
@@ -153,10 +145,7 @@ export function createReceiptCreditSchema(params: { meta: Meta }) {
         title: 'Credit IPFS URI',
         description: 'IPFS URI for the credit details',
       }),
-      smart_contract_address: EthereumAddressSchema.meta({
-        title: 'Smart Contract Address',
-        description: 'Ethereum address of the smart contract',
-      }),
+      smart_contract_address: SmartContractAddressSchema,
     })
     .meta(meta);
 }
@@ -189,10 +178,7 @@ export type CertificateCollectionItemPurchase = z.infer<
 
 export const CertificateCollectionItemRetirementSchema = z
   .strictObject({
-    slug: CollectionSlugSchema.meta({
-      title: 'Collection Slug',
-      description: 'Slug of the collection',
-    }),
+    slug: CollectionSlugSchema,
     retired_amount: CreditAmountSchema.meta({
       title: 'Collection Retired Amount',
       description: 'Credits retired from this collection for this certificate',
@@ -212,10 +198,7 @@ const certificateBaseShape = {
     title: 'Certificate Token ID',
     description: 'Token ID of the certificate',
   }),
-  type: z.enum(['GasID', 'RecycledID']).meta({
-    title: 'Certificate Type',
-    description: 'Type of certificate (e.g., GasID, RecycledID)',
-  }),
+  type: CertificateTypeSchema,
   external_id: ExternalIdSchema.meta({
     title: 'Certificate External ID',
     description: 'External identifier for the certificate',
@@ -228,10 +211,7 @@ const certificateBaseShape = {
     title: 'Certificate IPFS URI',
     description: 'IPFS URI for the certificate metadata',
   }),
-  smart_contract_address: EthereumAddressSchema.meta({
-    title: 'Smart Contract Address',
-    description: 'Ethereum address of the smart contract',
-  }),
+  smart_contract_address: SmartContractAddressSchema,
   total_amount: CreditAmountSchema.meta({
     title: 'Certificate Total Amount',
     description: 'Total credits available in this certificate',

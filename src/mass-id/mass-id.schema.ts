@@ -4,6 +4,8 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
   NftIpfsSchema,
+  MassIDNameSchema,
+  MassIDShortNameSchema,
 } from '../shared';
 import { MassIDAttributesSchema } from './mass-id.attributes';
 
@@ -39,10 +41,38 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       description: 'Schema type identifier for this record',
     }),
   }),
+  name: MassIDNameSchema,
+  short_name: MassIDShortNameSchema,
   attributes: MassIDAttributesSchema,
   data: MassIDDataSchema,
 })
   .superRefine((record, ctx) => {
+    const nameTokenIdRegex = /^MassID #(\d+)/;
+    const nameTokenIdMatch = nameTokenIdRegex.exec(record.name);
+    if (
+      !nameTokenIdMatch ||
+      nameTokenIdMatch[1] !== record.blockchain.token_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `Name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
+        path: ['name'],
+      });
+    }
+
+    const shortNameTokenIdRegex = /^MassID #(\d+)/;
+    const shortNameTokenIdMatch = shortNameTokenIdRegex.exec(record.short_name);
+    if (
+      !shortNameTokenIdMatch ||
+      shortNameTokenIdMatch[1] !== record.blockchain.token_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: `Short name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
+        path: ['short_name'],
+      });
+    }
+
     const { data, attributes } = record;
 
     const findAttribute = (traitType: string) => {
