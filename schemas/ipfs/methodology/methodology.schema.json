@@ -93,8 +93,8 @@
       "type": "string",
       "format": "uri"
     },
-    "original_content_hash": {
-      "title": "Original Content Hash",
+    "full_content_hash": {
+      "title": "Full Content Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -386,7 +386,7 @@
     "created_at",
     "external_id",
     "external_url",
-    "original_content_hash",
+    "full_content_hash",
     "content_hash",
     "data"
   ],

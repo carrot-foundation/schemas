@@ -2,23 +2,23 @@
   "version": "0.1.58",
   "schemas": {
     "ipfs/recycled-id/recycled-id.schema.json": {
-      "hash": "3f21929bff7b4a8d4606ad74391a47a10537ee156a6e170f5a6c4cac43116e3f",
+      "hash": "4401bfb328a39aaca70c54f0a2ac018f21dc5dc482304d6ca3ff27292ca9ef2e",
       "path": "ipfs/recycled-id/recycled-id.schema.json"
     },
     "ipfs/methodology/methodology.schema.json": {
-      "hash": "a8df0991b98d4cf133343e6c5bf50f58ac6510527821bec89293b24cc637005b",
+      "hash": "0817a7a96c97ed9a377463a74d8767019afc4a3e23e6dcf3eef72dc0c0d5cf7a",
       "path": "ipfs/methodology/methodology.schema.json"
     },
     "ipfs/mass-id-audit/mass-id-audit.schema.json": {
-      "hash": "ce40426beb3fff0e0e0d3ba37b4fe11b29966ae5a99eb40747be8770aad6ee8e",
+      "hash": "95c87414476d3cbcb48b6629925a79cc519106b22d40c417de923a73e0a15b05",
       "path": "ipfs/mass-id-audit/mass-id-audit.schema.json"
     },
     "ipfs/mass-id/mass-id.schema.json": {
-      "hash": "e9cf6c4022ace538f4fcfc3e806e452ed58d96f5803f34a308df8302eadd5314",
+      "hash": "34f3ae258ba636a6e5706809f1e02ed17a98f252ff1d625df723f5177dfa9892",
       "path": "ipfs/mass-id/mass-id.schema.json"
     },
     "ipfs/gas-id/gas-id.schema.json": {
-      "hash": "370a819b157f58864202aa2f0671b80def3a8cd55a53f6f59d278dbfc665ee51",
+      "hash": "3a402786cf525fb8411e6b6fb4233215611b094baa71241c218e33ef6d373721",
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {
@@ -26,15 +26,15 @@
       "path": "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json"
     },
     "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json": {
-      "hash": "570ece9857089a66f3383cba06b15ccbc598f8d2836ed1f8c9749e8bc799ac56",
+      "hash": "4f4f1201001effc596b57fe26305dd4f598b42ed212acfc2bc9f4795fb363ac3",
       "path": "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json"
     },
     "ipfs/credit/credit.schema.json": {
-      "hash": "6961d484e8f9b024b66f938708ae36ff77d22a2d5f7f9e267a0583ac18faf6de",
+      "hash": "dd3f25b5077a3efe8d54d7875563eaaf15c62d4480dad9dd4453443f26687abb",
       "path": "ipfs/credit/credit.schema.json"
     },
     "ipfs/collection/collection.schema.json": {
-      "hash": "b69879b32f89b45ea01869498d9214188ebb98e0fe69d94f62a9985bbd2c3f92",
+      "hash": "33c27f31fa1b0fe68520d8545a71fddd50eb325321acd0ef4b2f1d84e099febf",
       "path": "ipfs/collection/collection.schema.json"
     }
   }

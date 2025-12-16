@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "a8df0991b98d4cf133343e6c5bf50f58ac6510527821bec89293b24cc637005b",
+    "hash": "0817a7a96c97ed9a377463a74d8767019afc4a3e23e6dcf3eef72dc0c0d5cf7a",
     "type": "Methodology",
     "version": "0.1.58",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -14,7 +14,7 @@
   "created_at": "2025-08-15T14:09:00.000Z",
   "external_id": "8375027a-a96f-446d-a8cb-c3ee92aea604",
   "external_url": "https://explore.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
-  "content_hash": "98b0e4947a0f813ba9eb130966a48bc245b55a9e3508d0aeeaab4ff2aab2dd7f",
+  "content_hash": "7e3e4d200beba0c52452875f7b15bb9d20f56c168a0c1d0be593659f5e18796b",
   "data": {
     "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
     "short_name": "BOLD Carbon (CH₄)",
@@ -195,5 +195,5 @@
       }
     ]
   },
-  "original_content_hash": "98b0e4947a0f813ba9eb130966a48bc245b55a9e3508d0aeeaab4ff2aab2dd7f"
+  "full_content_hash": "7e3e4d200beba0c52452875f7b15bb9d20f56c168a0c1d0be593659f5e18796b"
 }

@@ -16,7 +16,7 @@ import { CreditRetirementReceiptDataSchema } from './credit-retirement-receipt.d
 import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-receipt.attributes';
 
 const CreditRetirementReceiptIpfsSchemaBase = NftIpfsSchema.omit({
-  original_content_hash: true,
+  full_content_hash: true,
 });
 
 export const CreditRetirementReceiptIpfsSchemaMeta = {

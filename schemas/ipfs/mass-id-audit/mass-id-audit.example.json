@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "ce40426beb3fff0e0e0d3ba37b4fe11b29966ae5a99eb40747be8770aad6ee8e",
+    "hash": "95c87414476d3cbcb48b6629925a79cc519106b22d40c417de923a73e0a15b05",
     "type": "MassID Audit",
     "version": "0.1.58",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -14,7 +14,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "80011d61-fe40-4aa2-9031-4f2aafad5d42",
   "external_url": "https://explore.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
-  "content_hash": "9ae9c62108aeea4e46a574873f19733ea5d0fa0a1b7612fcbb5d2ba1e86193af",
+  "content_hash": "88e997f878e0311af6002a83b954e7fd2bb373bbcd7ab88fb2882d34347ad74c",
   "data": {
     "audit_summary": {
       "started_at": "2024-12-08T11:32:46.000Z",
@@ -337,5 +337,5 @@
       }
     ]
   },
-  "original_content_hash": "9ae9c62108aeea4e46a574873f19733ea5d0fa0a1b7612fcbb5d2ba1e86193af"
+  "full_content_hash": "88e997f878e0311af6002a83b954e7fd2bb373bbcd7ab88fb2882d34347ad74c"
 }
