@@ -450,21 +450,21 @@
             "type": "object",
             "properties": {
               "slug": {
-                "title": "Credit Slug",
-                "description": "URL-friendly identifier for the credit",
+                "title": "Credit Token Slug",
+                "description": "URL-friendly identifier for the credit token",
                 "examples": [
-                  "mass-id-123",
-                  "recycled-plastic",
-                  "organic-waste"
+                  "carbon-methane",
+                  "biowaste"
                 ],
                 "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
+                "enum": [
+                  "carbon-methane",
+                  "biowaste"
+                ]
               },
               "symbol": {
                 "title": "Credit Token Symbol",
-                "description": "Symbol of the credit token",
+                "description": "ERC20 token symbol identifier",
                 "examples": [
                   "C-CARB.CH4",
                   "C-BIOW"
@@ -508,7 +508,7 @@
               },
               "smart_contract_address": {
                 "title": "Smart Contract Address",
-                "description": "Ethereum address of the smart contract",
+                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                 "examples": [
                   "0x1234567890abcdef1234567890abcdef12345678"
                 ],
@@ -551,6 +551,10 @@
               "type": {
                 "title": "Certificate Type",
                 "description": "Type of certificate (e.g., GasID, RecycledID)",
+                "examples": [
+                  "GasID",
+                  "RecycledID"
+                ],
                 "type": "string",
                 "enum": [
                   "GasID",
@@ -590,7 +594,7 @@
               },
               "smart_contract_address": {
                 "title": "Smart Contract Address",
-                "description": "Ethereum address of the smart contract",
+                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                 "examples": [
                   "0x1234567890abcdef1234567890abcdef12345678"
                 ],
@@ -657,7 +661,7 @@
                   },
                   "smart_contract_address": {
                     "title": "Smart Contract Address",
-                    "description": "Ethereum address of the smart contract",
+                    "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                     "examples": [
                       "0x1234567890abcdef1234567890abcdef12345678"
                     ],
@@ -686,7 +690,7 @@
                   "properties": {
                     "slug": {
                       "title": "Collection Slug",
-                      "description": "Slug of the collection",
+                      "description": "URL-friendly identifier for a collection",
                       "examples": [
                         "bold-cold-start-carazinho",
                         "bold-brazil"
@@ -861,7 +865,7 @@
             },
             "smart_contract_address": {
               "title": "Smart Contract Address",
-              "description": "Ethereum address of the smart contract",
+              "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
               ],
@@ -896,7 +900,7 @@
       "properties": {
         "smart_contract_address": {
           "title": "Smart Contract Address",
-          "description": "Ethereum-compatible address of the smart contract that mints and manages this NFT",
+          "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
           ],
@@ -955,28 +959,28 @@
       "additionalProperties": false
     },
     "name": {
-      "title": "NFT Name",
-      "description": "Full display name for this NFT, typically including token identifier, waste type, and weight",
+      "title": "Credit Retirement Receipt Name",
+      "description": "Full display name for this Credit Retirement Receipt NFT. Format: \"Credit Retirement Receipt #[token_id] • [amount] Credits Retired\"",
       "examples": [
-        "MassID #123 • Organic • 3.0t",
-        "RecycledID #456 • Plastic • 2.5t",
-        "GasID #789 • Methane • 1000 m³"
+        "Credit Retirement Receipt #1245 • 10.5 Credits Retired",
+        "Credit Retirement Receipt #1200 • 3.0 Credits Retired"
       ],
       "type": "string",
       "minLength": 1,
-      "maxLength": 100
+      "maxLength": 100,
+      "pattern": "^Credit Retirement Receipt #\\d+ • .+ Credits Retired$"
     },
     "short_name": {
-      "title": "Short Name",
-      "description": "Compact name for UI summaries, tables, or tooltips, typically including token identifier",
+      "title": "Credit Retirement Receipt Short Name",
+      "description": "Compact name for UI summaries, tables, or tooltips. Format: \"Retirement Receipt #[token_id]\"",
       "examples": [
-        "MassID #123",
-        "RecycledID #456",
-        "GasID #789"
+        "Retirement Receipt #1245",
+        "Retirement Receipt #1200"
       ],
       "type": "string",
       "minLength": 1,
-      "maxLength": 50
+      "maxLength": 50,
+      "pattern": "^Retirement Receipt #\\d+$"
     },
     "description": {
       "title": "Description",

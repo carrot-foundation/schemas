@@ -362,7 +362,7 @@ Represents a cohesive domain entity worth documenting separately.
 ```typescript
 // ✅ Extract - Logical grouping representing domain concept
 export const BlockchainReferenceSchema = z.strictObject({
-  smart_contract_address: EthereumAddressSchema,
+  smart_contract_address: SmartContractAddressSchema,
   chain_id: BlockchainChainIdSchema,
   network_name: z.string(),
   token_id: TokenIdSchema,
