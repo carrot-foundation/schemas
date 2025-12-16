@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "b930ff7570db237c437f4922fff5e24ed5512c8a736e6a3fa79fb2b1499ead2c",
+    "hash": "370a819b157f58864202aa2f0671b80def3a8cd55a53f6f59d278dbfc665ee51",
     "type": "GasID",
     "version": "0.1.58",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,10 +20,10 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "original_content_hash": "9f9fb074e522d8f8cc0472edde27f743e0c041114eb112f7460b314e0b522596",
-  "content_hash": "9f9fb074e522d8f8cc0472edde27f743e0c041114eb112f7460b314e0b522596",
+  "original_content_hash": "4662932557600df88d26853e3ef23814212c903f4a844d554b0cca9c8ef5f3e1",
+  "content_hash": "4662932557600df88d26853e3ef23814212c903f4a844d554b0cca9c8ef5f3e1",
   "viewer_reference": {
-    "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
   "name": "GasID #456 • BOLD Carbon (CH₄) • 0.86t CO₂e",
