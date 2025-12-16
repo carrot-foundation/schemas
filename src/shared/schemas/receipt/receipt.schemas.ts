@@ -124,10 +124,6 @@ export function createReceiptCollectionSchema(params: { meta: Meta }) {
         title: 'Collection IPFS URI',
         description: 'IPFS URI for the collection metadata',
       }),
-      smart_contract_address: EthereumAddressSchema.meta({
-        title: 'Smart Contract Address',
-        description: 'Ethereum address of the smart contract',
-      }),
     })
     .meta(meta);
 }

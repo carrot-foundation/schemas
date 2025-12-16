@@ -83,12 +83,6 @@ describe('CreditRetirementReceiptDataSchema', () => {
     });
   });
 
-  it('requires smart contract address to be valid Ethereum address', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.collections[0].smart_contract_address = 'invalid-address';
-    });
-  });
-
   it('requires purchase_receipt smart_contract_address to be valid Ethereum address', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       if (invalid.purchase_receipt) {
@@ -134,12 +128,6 @@ describe('CreditRetirementReceiptDataSchema', () => {
     });
   });
 
-  it('requires collection smart_contract_address to be valid Ethereum address', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.collections[0].smart_contract_address = 'invalid-address';
-    });
-  });
-
   it('rejects collection with zero retired total', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.collections.push({
@@ -149,7 +137,6 @@ describe('CreditRetirementReceiptDataSchema', () => {
         external_url: 'https://example.com/unreferenced',
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/unreferenced.json',
-        smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
       });
     });
   });

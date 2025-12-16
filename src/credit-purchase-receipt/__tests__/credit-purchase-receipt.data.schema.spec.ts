@@ -93,12 +93,6 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
-  it('requires smart contract address to be valid Ethereum address', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.collections[0].smart_contract_address = 'invalid-address';
-    });
-  });
-
   it('requires retirement_receipt smart_contract_address to be valid Ethereum address', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       if (invalid.retirement_receipt) {
@@ -146,12 +140,6 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].mass_id.smart_contract_address =
         'invalid-address';
-    });
-  });
-
-  it('requires collection smart_contract_address to be valid Ethereum address', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.collections[0].smart_contract_address = 'invalid-address';
     });
   });
 
