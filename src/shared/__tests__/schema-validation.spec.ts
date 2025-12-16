@@ -8,6 +8,7 @@ import {
   validateCreditSymbolExists,
   validateDateTimeAttribute,
   validateFormattedName,
+  validateNumericAttributeValue,
   validateRetirementReceiptRequirement,
   validateTokenIdInName,
 } from '../schema-validation';
@@ -788,5 +789,175 @@ describe('validateDateTimeAttribute', () => {
     });
 
     expect(issues).toHaveLength(0);
+  });
+});
+
+describe('validateNumericAttributeValue', () => {
+  it('adds issue when attribute is missing', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      ['Other Attribute', { trait_type: 'Other Attribute', value: 100 }],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'CO₂e Prevented (kg)',
+      expectedValue: 50.5,
+      epsilon: 0.01,
+      missingMessage:
+        'CO₂e Prevented (kg) attribute must be present and match data.summary.prevented_co2e_kg',
+      mismatchMessage:
+        'CO₂e Prevented (kg) attribute must equal data.summary.prevented_co2e_kg',
+    });
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toBe(
+      'CO₂e Prevented (kg) attribute must be present and match data.summary.prevented_co2e_kg',
+    );
+    expect(issues[0]?.path).toEqual(['attributes']);
+  });
+
+  it('adds issue when attribute value is not a number', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      [
+        'CO₂e Prevented (kg)',
+        { trait_type: 'CO₂e Prevented (kg)', value: 'not-a-number' },
+      ],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'CO₂e Prevented (kg)',
+      expectedValue: 50.5,
+      epsilon: 0.01,
+      missingMessage: 'Attribute must be present',
+      mismatchMessage: 'Value mismatch',
+    });
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toBe(
+      'CO₂e Prevented (kg) attribute value must be a number',
+    );
+    expect(issues[0]?.path).toEqual(['attributes', 0, 'value']);
+  });
+
+  it('adds issue when attribute value does not match expected value within epsilon', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      [
+        'CO₂e Prevented (kg)',
+        { trait_type: 'CO₂e Prevented (kg)', value: 100 },
+      ],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'CO₂e Prevented (kg)',
+      expectedValue: 50.5,
+      epsilon: 0.01,
+      missingMessage: 'Attribute must be present',
+      mismatchMessage:
+        'CO₂e Prevented (kg) attribute must equal data.summary.prevented_co2e_kg',
+    });
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toBe(
+      'CO₂e Prevented (kg) attribute must equal data.summary.prevented_co2e_kg',
+    );
+    expect(issues[0]?.path).toEqual(['attributes', 0, 'value']);
+  });
+
+  it('does not add issue when attribute value matches expected value within epsilon', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      [
+        'CO₂e Prevented (kg)',
+        { trait_type: 'CO₂e Prevented (kg)', value: 50.5 },
+      ],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'CO₂e Prevented (kg)',
+      expectedValue: 50.5,
+      epsilon: 0.01,
+      missingMessage: 'Attribute must be present',
+      mismatchMessage: 'Value mismatch',
+    });
+
+    expect(issues).toHaveLength(0);
+  });
+
+  it('does not add issue when values are nearly equal within epsilon', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      [
+        'Recycled Mass Weight (kg)',
+        { trait_type: 'Recycled Mass Weight (kg)', value: 50.505 },
+      ],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Recycled Mass Weight (kg)',
+      expectedValue: 50.5,
+      epsilon: 0.01,
+      missingMessage: 'Attribute must be present',
+      mismatchMessage: 'Value mismatch',
+    });
+
+    expect(issues).toHaveLength(0);
+  });
+
+  it('handles attribute with null value as non-number', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      ['Test Attribute', { trait_type: 'Test Attribute', value: null }],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Test Attribute',
+      expectedValue: 100,
+      epsilon: 0.01,
+      missingMessage: 'Attribute must be present',
+      mismatchMessage: 'Value mismatch',
+    });
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toBe(
+      'Test Attribute attribute value must be a number',
+    );
+    expect(issues[0]?.path).toEqual(['attributes', 0, 'value']);
+  });
+
+  it('handles attribute with undefined value as non-number', () => {
+    const { ctx, issues } = createValidationContext();
+    const attributeByTraitType = new Map([
+      ['Test Attribute', { trait_type: 'Test Attribute', value: undefined }],
+    ]);
+
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Test Attribute',
+      expectedValue: 100,
+      epsilon: 0.01,
+      missingMessage: 'Attribute must be present',
+      mismatchMessage: 'Value mismatch',
+    });
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]?.message).toBe(
+      'Test Attribute attribute value must be a number',
+    );
+    expect(issues[0]?.path).toEqual(['attributes', 0, 'value']);
   });
 });

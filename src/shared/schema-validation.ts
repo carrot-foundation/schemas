@@ -96,6 +96,7 @@ export function validateNumericAttributeValue(params: {
   traitType: string;
   expectedValue: number;
   epsilon: number;
+  missingMessage: string;
   mismatchMessage: string;
 }) {
   const {
@@ -104,11 +105,32 @@ export function validateNumericAttributeValue(params: {
     traitType,
     expectedValue,
     epsilon,
+    missingMessage,
     mismatchMessage,
   } = params;
 
-  const attribute = attributeByTraitType.get(traitType)!;
-  const attributeValue = attribute.value as number;
+  const attribute = attributeByTraitType.get(traitType);
+  if (!attribute) {
+    ctx.addIssue({
+      code: 'custom',
+      message: missingMessage,
+      path: ['attributes'],
+    });
+    return;
+  }
+
+  const attributeValue = attribute.value;
+  if (typeof attributeValue !== 'number') {
+    const attributeIndex = Array.from(attributeByTraitType.keys()).indexOf(
+      traitType,
+    );
+    ctx.addIssue({
+      code: 'custom',
+      message: `${traitType} attribute value must be a number`,
+      path: ['attributes', attributeIndex, 'value'],
+    });
+    return;
+  }
 
   if (!nearlyEqual(attributeValue, expectedValue, epsilon)) {
     const attributeIndex = Array.from(attributeByTraitType.keys()).indexOf(

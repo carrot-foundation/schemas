@@ -93,6 +93,8 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
       traitType: 'Recycled Mass Weight (kg)',
       expectedValue: data.summary.recycled_mass_kg,
       epsilon: 0.01,
+      missingMessage:
+        'Recycled Mass Weight (kg) attribute must be present and match data.summary.recycled_mass_kg',
       mismatchMessage:
         'Recycled Mass Weight (kg) attribute must equal data.summary.recycled_mass_kg',
     });

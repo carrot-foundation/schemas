@@ -103,6 +103,8 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
       traitType: 'CO₂e Prevented (kg)',
       expectedValue: data.summary.prevented_co2e_kg,
       epsilon: 0.01,
+      missingMessage:
+        'CO₂e Prevented (kg) attribute must be present and match data.summary.prevented_co2e_kg',
       mismatchMessage:
         'CO₂e Prevented (kg) attribute must equal data.summary.prevented_co2e_kg',
     });
