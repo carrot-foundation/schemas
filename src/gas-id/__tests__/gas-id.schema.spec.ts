@@ -128,4 +128,73 @@ describe('GasIDIpfsSchema', () => {
       return next;
     }, ['Short name must match format']);
   });
+
+  it('requires CO₂e Prevented attribute to match summary', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const co2eAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'CO₂e Prevented (kg)',
+      );
+      if (co2eAttrIndex >= 0) {
+        next.attributes[co2eAttrIndex].value = 999.99;
+      }
+      return next;
+    }, [
+      'CO₂e Prevented (kg) attribute must equal data.summary.prevented_co2e_kg',
+    ]);
+  });
+
+  it('requires Credit Amount attribute to match summary', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const creditAmountAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Credit Amount',
+      );
+      if (creditAmountAttrIndex >= 0) {
+        next.attributes[creditAmountAttrIndex].value = 999.99;
+      }
+      return next;
+    }, ['Credit Amount attribute must equal data.summary.credit_amount']);
+  });
+
+  it('requires MassID attribute to match data.mass_id.token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const massIdAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'MassID',
+      );
+      if (massIdAttrIndex >= 0) {
+        next.attributes[massIdAttrIndex].value = '#999';
+      }
+      return next;
+    }, ['MassID attribute must equal data.mass_id.token_id as #<token_id>']);
+  });
+
+  it('requires calculation R value to match summary.prevented_co2e_kg', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const rValue = next.data.prevented_emissions_calculation.values.find(
+        (v) => v.reference === 'R',
+      );
+      if (rValue) {
+        rValue.value = 999.99;
+      }
+      return next;
+    }, [
+      'prevented_emissions_calculation.values R value must match summary.prevented_co2e_kg',
+    ]);
+  });
+
+  it('requires calculation values to include R reference', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.data.prevented_emissions_calculation.values =
+        next.data.prevented_emissions_calculation.values.filter(
+          (v) => v.reference !== 'R',
+        );
+      return next;
+    }, [
+      'prevented_emissions_calculation.values must include a value with reference "R"',
+    ]);
+  });
 });

@@ -90,6 +90,38 @@ export function validateCountMatches(params: {
   }
 }
 
+export function validateNumericAttributeValue(params: {
+  ctx: z.RefinementCtx;
+  attributeByTraitType: Map<string, Attribute>;
+  traitType: string;
+  expectedValue: number;
+  epsilon: number;
+  mismatchMessage: string;
+}) {
+  const {
+    ctx,
+    attributeByTraitType,
+    traitType,
+    expectedValue,
+    epsilon,
+    mismatchMessage,
+  } = params;
+
+  const attribute = attributeByTraitType.get(traitType)!;
+  const attributeValue = attribute.value as number;
+
+  if (!nearlyEqual(attributeValue, expectedValue, epsilon)) {
+    const attributeIndex = Array.from(attributeByTraitType.keys()).indexOf(
+      traitType,
+    );
+    ctx.addIssue({
+      code: 'custom',
+      message: mismatchMessage,
+      path: ['attributes', attributeIndex, 'value'],
+    });
+  }
+}
+
 export function validateAttributeValue(params: {
   ctx: z.RefinementCtx;
   attributeByTraitType: Map<string, Attribute>;
@@ -109,6 +141,20 @@ export function validateAttributeValue(params: {
     path = ['attributes'],
   } = params;
 
+  if (expectedValue === undefined || expectedValue === null) {
+    const attributeIndex = Array.from(attributeByTraitType.keys()).indexOf(
+      traitType,
+    );
+    if (attributeIndex >= 0) {
+      ctx.addIssue({
+        code: 'custom',
+        message: missingMessage,
+        path: ['attributes', attributeIndex],
+      });
+    }
+    return;
+  }
+
   const attribute = attributeByTraitType.get(traitType);
   if (!attribute) {
     ctx.addIssue({
@@ -120,10 +166,13 @@ export function validateAttributeValue(params: {
   }
 
   if (attribute.value !== expectedValue) {
+    const attributeIndex = Array.from(attributeByTraitType.keys()).indexOf(
+      traitType,
+    );
     ctx.addIssue({
       code: 'custom',
       message: mismatchMessage,
-      path,
+      path: ['attributes', attributeIndex, 'value'],
     });
   }
 }
@@ -167,6 +216,70 @@ export function validateDateAttribute(params: {
       code: 'custom',
       message: invalidDateMessage,
       path: datePath ?? attributePath,
+    });
+    return;
+  }
+
+  if (attribute.value !== dateMs) {
+    ctx.addIssue({
+      code: 'custom',
+      message: mismatchMessage,
+      path: attributePath,
+    });
+  }
+}
+
+export function validateDateTimeAttribute(params: {
+  ctx: z.RefinementCtx;
+  attributeByTraitType: Map<string, Attribute>;
+  traitType: string;
+  dateTimeValue: string | undefined;
+  missingMessage: string;
+  invalidDateMessage: string;
+  mismatchMessage: string;
+  attributePath?: (string | number)[];
+  dateTimePath?: (string | number)[];
+}) {
+  const {
+    ctx,
+    attributeByTraitType,
+    traitType,
+    dateTimeValue,
+    missingMessage,
+    invalidDateMessage,
+    mismatchMessage,
+    attributePath = ['attributes'],
+    dateTimePath,
+  } = params;
+
+  if (!dateTimeValue) {
+    const attribute = attributeByTraitType.get(traitType);
+    if (attribute) {
+      ctx.addIssue({
+        code: 'custom',
+        message: missingMessage,
+        path: attributePath,
+      });
+    }
+    return;
+  }
+
+  const attribute = attributeByTraitType.get(traitType);
+  if (!attribute) {
+    ctx.addIssue({
+      code: 'custom',
+      message: missingMessage,
+      path: attributePath,
+    });
+    return;
+  }
+
+  const dateMs = Date.parse(dateTimeValue);
+  if (Number.isNaN(dateMs)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: invalidDateMessage,
+      path: dateTimePath ?? attributePath,
     });
     return;
   }
@@ -356,6 +469,51 @@ export function validateCreditSymbolExists(params: {
     ctx.addIssue({
       code: 'custom',
       message,
+      path,
+    });
+  }
+}
+
+export function validateTokenIdInName(params: {
+  ctx: z.RefinementCtx;
+  name: string;
+  tokenId: string;
+  pattern: RegExp;
+  path: (string | number)[];
+  message?: string;
+}) {
+  const {
+    ctx,
+    name,
+    tokenId,
+    pattern,
+    path,
+    message = `Name token_id must match blockchain.token_id: ${tokenId}`,
+  } = params;
+
+  const match = pattern.exec(name);
+  if (match?.[1] !== tokenId) {
+    ctx.addIssue({
+      code: 'custom',
+      message,
+      path,
+    });
+  }
+}
+
+export function validateFormattedName(params: {
+  ctx: z.RefinementCtx;
+  name: string;
+  schema: z.ZodString;
+  path: (string | number)[];
+}) {
+  const { ctx, name, schema, path } = params;
+
+  const result = schema.safeParse(name);
+  if (!result.success) {
+    ctx.addIssue({
+      code: 'custom',
+      message: result.error.issues[0].message,
       path,
     });
   }

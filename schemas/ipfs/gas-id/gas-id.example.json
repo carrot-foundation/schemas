@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "original_content_hash": "6c3f62d0e92c1492e1cc35880dc56c22b6c386ad8fad0975f90f92fdd5ab93d3",
-  "content_hash": "6c3f62d0e92c1492e1cc35880dc56c22b6c386ad8fad0975f90f92fdd5ab93d3",
+  "original_content_hash": "9f9fb074e522d8f8cc0472edde27f743e0c041114eb112f7460b314e0b522596",
+  "content_hash": "9f9fb074e522d8f8cc0472edde27f743e0c041114eb112f7460b314e0b522596",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -161,7 +161,7 @@
         },
         {
           "reference": "R",
-          "value": 211.29662,
+          "value": 856.15012,
           "label": "Prevented Emissions (CO₂e kg)"
         }
       ]

@@ -136,12 +136,14 @@ describe('MassIDIpfsSchema', () => {
     ]);
   });
 
-  it('ignores timestamp comparison when parsing fails', () => {
+  it('adds issue when timestamp parsing fails', () => {
     const originalParse = Date.parse;
     Date.parse = () => Number.NaN;
 
     try {
-      expectSchemaValid(schema, () => structuredClone(base));
+      expectIssuesContain(schema, () => structuredClone(base), [
+        'Pick-up event timestamp must be a valid ISO 8601 date-time string',
+      ]);
     } finally {
       Date.parse = originalParse;
     }
@@ -160,6 +162,44 @@ describe('MassIDIpfsSchema', () => {
       'Transport Manifest Number attribute must be present and match Transport Manifest attachment document_number',
       'Recycling Manifest Number attribute must be present and match Recycling Manifest attachment document_number',
     ]);
+  });
+
+  it('requires Recycling Manifest Number attribute to be omitted when document_number is missing', () => {
+    expectSchemaValid(schema, () => {
+      const next = structuredClone(base);
+      const recyclingManifest = next.data.attachments?.find(
+        (attachment) => attachment.type === 'Recycling Manifest',
+      );
+      if (recyclingManifest) {
+        Reflect.deleteProperty(
+          recyclingManifest as Record<string, unknown>,
+          'document_number',
+        );
+      }
+      next.attributes = next.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Recycling Manifest Number',
+      );
+      return next;
+    });
+  });
+
+  it('requires Transport Manifest Number attribute to be omitted when document_number is missing', () => {
+    expectSchemaValid(schema, () => {
+      const next = structuredClone(base);
+      const transportManifest = next.data.attachments?.find(
+        (attachment) => attachment.type === 'Transport Manifest',
+      );
+      if (transportManifest) {
+        Reflect.deleteProperty(
+          transportManifest as Record<string, unknown>,
+          'document_number',
+        );
+      }
+      next.attributes = next.attributes.filter(
+        (attribute) => attribute.trait_type !== 'Transport Manifest Number',
+      );
+      return next;
+    });
   });
 
   it('rejects name with mismatched token_id', () => {

@@ -122,4 +122,58 @@ describe('RecycledIDIpfsSchema', () => {
       return next;
     }, ['Short name must match format']);
   });
+
+  it('requires attributes to match data properties', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const recycledMassAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Recycled Mass Weight (kg)',
+      );
+      if (recycledMassAttrIndex >= 0) {
+        next.attributes[recycledMassAttrIndex].value = 999.99;
+      }
+      return next;
+    }, [
+      'Recycled Mass Weight (kg) attribute must equal data.summary.recycled_mass_kg',
+    ]);
+  });
+
+  it('requires Credit Amount attribute to match summary', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const creditAmountAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Credit Amount',
+      );
+      if (creditAmountAttrIndex >= 0) {
+        next.attributes[creditAmountAttrIndex].value = 999.99;
+      }
+      return next;
+    }, ['Credit Amount attribute must equal data.summary.credit_amount']);
+  });
+
+  it('requires MassID attribute to match data.mass_id.token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const massIdAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'MassID',
+      );
+      if (massIdAttrIndex >= 0) {
+        next.attributes[massIdAttrIndex].value = '#999';
+      }
+      return next;
+    }, ['MassID attribute must equal data.mass_id.token_id as #<token_id>']);
+  });
+
+  it('requires Origin City attribute to match data', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const originCityAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Origin City',
+      );
+      if (originCityAttrIndex >= 0) {
+        next.attributes[originCityAttrIndex].value = 'Invalid City';
+      }
+      return next;
+    }, ['Origin City attribute must equal data.origin_location.city']);
+  });
 });

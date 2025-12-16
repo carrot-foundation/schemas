@@ -7,6 +7,12 @@ import {
   RecycledIDShortNameSchema,
   createRecycledIDNameSchema,
   createRecycledIDShortNameSchema,
+  createAttributeMap,
+  validateAttributeValue,
+  validateDateTimeAttribute,
+  validateNumericAttributeValue,
+  validateTokenIdInName,
+  validateFormattedName,
 } from '../shared';
 import { RecycledIDDataSchema } from './recycled-id.data.schema';
 import { RecycledIDAttributesSchema } from './recycled-id.attributes';
@@ -32,52 +38,156 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
   data: RecycledIDDataSchema,
 })
   .superRefine((record, ctx) => {
-    const nameTokenIdRegex = /^RecycledID #(\d+)/;
-    const nameTokenIdMatch = nameTokenIdRegex.exec(record.name);
-    if (
-      !nameTokenIdMatch ||
-      nameTokenIdMatch[1] !== record.blockchain.token_id
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message: `Name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
-        path: ['name'],
-      });
-    }
+    validateTokenIdInName({
+      ctx,
+      name: record.name,
+      tokenId: record.blockchain.token_id,
+      pattern: /^RecycledID #(\d+)/,
+      path: ['name'],
+    });
 
-    const shortNameTokenIdRegex = /^RecycledID #(\d+)/;
-    const shortNameTokenIdMatch = shortNameTokenIdRegex.exec(record.short_name);
-    if (
-      !shortNameTokenIdMatch ||
-      shortNameTokenIdMatch[1] !== record.blockchain.token_id
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message: `Short name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
-        path: ['short_name'],
-      });
-    }
+    validateTokenIdInName({
+      ctx,
+      name: record.short_name,
+      tokenId: record.blockchain.token_id,
+      pattern: /^RecycledID #(\d+)/,
+      path: ['short_name'],
+      message: `Short name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
+    });
+
     const nameSchema = createRecycledIDNameSchema(record.blockchain.token_id);
-    const nameResult = nameSchema.safeParse(record.name);
-    if (!nameResult.success) {
-      ctx.addIssue({
-        code: 'custom',
-        message: nameResult.error.issues[0].message,
-        path: ['name'],
-      });
-    }
+    validateFormattedName({
+      ctx,
+      name: record.name,
+      schema: nameSchema,
+      path: ['name'],
+    });
 
     const shortNameSchema = createRecycledIDShortNameSchema(
       record.blockchain.token_id,
     );
-    const shortNameResult = shortNameSchema.safeParse(record.short_name);
-    if (!shortNameResult.success) {
-      ctx.addIssue({
-        code: 'custom',
-        message: shortNameResult.error.issues[0].message,
-        path: ['short_name'],
-      });
-    }
+    validateFormattedName({
+      ctx,
+      name: record.short_name,
+      schema: shortNameSchema,
+      path: ['short_name'],
+    });
+
+    const { data, attributes } = record;
+    const attributeByTraitType = createAttributeMap(attributes);
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Methodology',
+      expectedValue: data.methodology.name,
+      missingMessage:
+        'Methodology attribute must be present and match data.methodology.name',
+      mismatchMessage: 'Methodology attribute must equal data.methodology.name',
+    });
+
+    // Recycled Mass Weight uses nearlyEqual for floating-point comparison
+    validateNumericAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Recycled Mass Weight (kg)',
+      expectedValue: data.summary.recycled_mass_kg,
+      epsilon: 0.01,
+      mismatchMessage:
+        'Recycled Mass Weight (kg) attribute must equal data.summary.recycled_mass_kg',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Credit Amount',
+      expectedValue: data.summary.credit_amount,
+      missingMessage:
+        'Credit Amount attribute must be present and match data.summary.credit_amount',
+      mismatchMessage:
+        'Credit Amount attribute must equal data.summary.credit_amount',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Credit Type',
+      expectedValue: data.summary.credit_type,
+      missingMessage:
+        'Credit Type attribute must be present and match data.summary.credit_type',
+      mismatchMessage:
+        'Credit Type attribute must equal data.summary.credit_type',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Source Waste Type',
+      expectedValue: data.waste_properties.type,
+      missingMessage:
+        'Source Waste Type attribute must be present and match data.waste_properties.type',
+      mismatchMessage:
+        'Source Waste Type attribute must equal data.waste_properties.type',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Source Weight (kg)',
+      expectedValue: data.waste_properties.net_weight_kg,
+      missingMessage:
+        'Source Weight (kg) attribute must be present and match data.waste_properties.net_weight_kg',
+      mismatchMessage:
+        'Source Weight (kg) attribute must equal data.waste_properties.net_weight_kg',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Origin City',
+      expectedValue: data.origin_location.city,
+      missingMessage:
+        'Origin City attribute must be present and match data.origin_location.city',
+      mismatchMessage:
+        'Origin City attribute must equal data.origin_location.city',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'MassID',
+      expectedValue: `#${data.mass_id.token_id}`,
+      missingMessage:
+        'MassID attribute must be present and match data.mass_id.token_id as #<token_id>',
+      mismatchMessage:
+        'MassID attribute must equal data.mass_id.token_id as #<token_id>',
+    });
+
+    validateDateTimeAttribute({
+      ctx,
+      attributeByTraitType,
+      traitType: 'MassID Recycling Date',
+      dateTimeValue: data.summary.issued_at,
+      missingMessage:
+        'MassID Recycling Date attribute must be present and match data.summary.issued_at',
+      invalidDateMessage:
+        'data.summary.issued_at must be a valid ISO 8601 date-time string',
+      mismatchMessage:
+        'MassID Recycling Date attribute must equal data.summary.issued_at as a Unix timestamp in milliseconds',
+    });
+
+    validateDateTimeAttribute({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Certificate Issuance Date',
+      dateTimeValue: data.summary.issued_at,
+      missingMessage:
+        'Certificate Issuance Date attribute must be present and match data.summary.issued_at',
+      invalidDateMessage:
+        'data.summary.issued_at must be a valid ISO 8601 date-time string',
+      mismatchMessage:
+        'Certificate Issuance Date attribute must equal data.summary.issued_at as a Unix timestamp in milliseconds',
+    });
   })
   .meta(RecycledIDIpfsSchemaMeta);
 export type RecycledIDIpfs = z.infer<typeof RecycledIDIpfsSchema>;
