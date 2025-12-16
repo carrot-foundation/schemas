@@ -20,8 +20,12 @@ export const CollectionSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Collection').meta({
       title: 'Collection Schema Type',
-      description: 'Collection schema type',
+      description: 'Schema type identifier for this record',
     }),
+  }),
+  data: z.record(z.string(), z.unknown()).optional().meta({
+    title: 'Custom Data',
+    description: 'Collection-specific data payload',
   }),
   name: CollectionNameSchema,
   slug: CollectionSlugSchema,

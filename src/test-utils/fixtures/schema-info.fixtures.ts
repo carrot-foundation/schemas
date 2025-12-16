@@ -8,7 +8,7 @@ export const minimalSchemaInfoStub: SchemaInfo = {
   type: 'MassID',
   version: '1.0.0',
   ipfs_uri:
-    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json',
+    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
 };
 
 /**
@@ -17,7 +17,7 @@ export const minimalSchemaInfoStub: SchemaInfo = {
 export const schemaInfoWithIpfsUriFixture: SchemaInfo = {
   ...minimalSchemaInfoStub,
   ipfs_uri:
-    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/mass-id.schema.json',
+    'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
 };
 
 /**

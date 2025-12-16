@@ -1,55 +1,45 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.56/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "f3ee480664f625ba53bfc36de19471a580ab7388b5900e182ae015fa8a8fc8dc",
+    "hash": "7313b00549c6588d42735ca28684dd66ab70c00b50290741fde6d87c89ca224f",
     "type": "GasID",
     "version": "0.1.56",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/gas-id.schema.json"
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
-    "blockchain_network": "mainnet",
-    "deployment": "production",
+    "blockchain_network": "testnet",
+    "deployment": "development",
     "data_set_name": "TEST"
   },
   "blockchain": {
+    "token_id": "456",
     "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
-    "chain_id": 137,
-    "network_name": "Polygon",
-    "token_id": "456"
+    "chain_id": 80002,
+    "network_name": "Amoy"
   },
-  "created_at": "2025-06-24T13:02:25.000Z",
-  "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "original_content_hash": "afa9ce58428464988d809da2e892773c7dd2461ee70d7b5bda77d729f8a27f1e",
-  "content_hash": "afa9ce58428464988d809da2e892773c7dd2461ee70d7b5bda77d729f8a27f1e",
+  "created_at": "2024-12-08T11:32:47.000Z",
+  "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
+  "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
+  "original_content_hash": "95f8458cb2e98dfea439ea6b6c9cbd7bf7145f9a60467af7913488e7da8b43b4",
+  "content_hash": "95f8458cb2e98dfea439ea6b6c9cbd7bf7145f9a60467af7913488e7da8b43b4",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
-  "name": "GasID #456 • BOLD Carbon (CH₄) • 2.09t CO₂e",
+  "name": "GasID #456 • BOLD Carbon (CH₄) • 0.86t CO₂e",
   "short_name": "GasID #456",
-  "description": "This GasID certifies 2.09 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3 metric tons of organic waste from Macapá, Brazil.",
+  "description": "This GasID certifies 0.86 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3.25 metric tons of organic waste from Brasília, Brazil.",
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#1B4332",
   "external_links": [
     {
-      "label": "View on Carrot Explorer",
-      "url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "label": "Carrot Explorer",
+      "url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "description": "Complete GasID details and audit trail"
     },
     {
-      "label": "MassID",
-      "url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "description": "Originating waste batch with full chain of custody"
-    },
-    {
-      "label": "BOLD Carbon (CH₄) Methodology",
-      "url": "https://explore.carrot.eco/document/bold-carbon-ch4",
-      "description": "Complete methodology specification and rules"
-    },
-    {
       "label": "Carrot White Paper",
-      "url": "https://carrot.eco/whitepaper",
+      "url": "https://whitepaper.carrot.eco/",
       "description": "Carrot ecosystem overview and technical foundation"
     }
   ],
@@ -64,12 +54,12 @@
     },
     {
       "trait_type": "CO₂e Prevented (kg)",
-      "value": 2089.74,
+      "value": 856.15,
       "display_type": "number"
     },
     {
       "trait_type": "Credit Amount",
-      "value": 2.08974,
+      "value": 0.85615,
       "display_type": "number"
     },
     {
@@ -82,25 +72,25 @@
     },
     {
       "trait_type": "Source Weight (kg)",
-      "value": 3000,
+      "value": 3250.5,
       "display_type": "number"
     },
     {
       "trait_type": "Origin City",
-      "value": "Macapá"
+      "value": "Brasília"
     },
     {
       "trait_type": "MassID",
-      "value": "#123"
+      "value": "#1034"
     },
     {
       "trait_type": "MassID Recycling Date",
-      "value": 1740182400000,
+      "value": 1733657567000,
       "display_type": "date"
     },
     {
       "trait_type": "Certificate Issuance Date",
-      "value": 1740182400000,
+      "value": 1733657567000,
       "display_type": "date"
     }
   ],
@@ -110,49 +100,49 @@
       "credit_type": "Carbon (CH₄)",
       "credit_amount": 0.85615,
       "prevented_co2e_kg": 856.15012,
-      "issued_at": "2025-06-24T13:02:25.000Z"
-    },
-    "methodology": {
-      "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d480",
-      "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
-      "version": "1.3.0",
-      "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480",
-      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-    },
-    "audit": {
-      "completed_at": "2025-06-24T13:02:25.000Z",
-      "external_id": "a1b2c3d4-e5f6-4890-8234-567890abcdef",
-      "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-7890-1234-567890abcdef",
-      "result": "PASSED",
-      "rules_executed": 21,
-      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
-    },
-    "mass_id": {
-      "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "token_id": "123",
-      "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-      "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha"
+      "issued_at": "2024-12-08T11:32:47.000Z"
     },
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
-      "net_weight_kg": 3000
+      "net_weight_kg": 3250.5
+    },
+    "methodology": {
+      "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+      "version": "1.0.1",
+      "external_id": "8375027a-a96f-446d-a8cb-c3ee92aea604",
+      "external_url": "https://explore.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
+      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+    },
+    "audit": {
+      "result": "PASSED",
+      "rules_executed": 21,
+      "completed_at": "2024-12-08T11:32:47.000Z",
+      "external_id": "80011d61-fe40-4aa2-9031-4f2aafad5d42",
+      "external_url": "https://explore.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
+      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
+    },
+    "mass_id": {
+      "token_id": "1034",
+      "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
     },
     "origin_location": {
-      "id_hash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
-      "city": "Macapá",
-      "subdivision_code": "BR-AP",
+      "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
+      "city": "Brasília",
+      "subdivision_code": "BR-DF",
       "country_code": "BR",
       "coordinates": {
-        "latitude": -0.1,
-        "longitude": -51.1
+        "latitude": -15.8,
+        "longitude": -48
       },
-      "responsible_participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef"
+      "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
     },
     "prevented_emissions_calculation": {
-      "formula": "(1 - B) * W * E = R",
+      "formula": "(1 - E) * B * W = R",
       "method": "UNFCCC AMS-III.F",
-      "calculated_at": "2025-06-24T13:02:25.000Z",
+      "calculated_at": "2024-12-08T11:32:47.000Z",
       "values": [
         {
           "reference": "E",
@@ -166,12 +156,12 @@
         },
         {
           "reference": "W",
-          "value": 13160,
+          "value": 3250.5,
           "label": "Waste Weight"
         },
         {
           "reference": "R",
-          "value": 856.15012,
+          "value": 211.29662,
           "label": "Prevented Emissions (CO₂e kg)"
         }
       ]

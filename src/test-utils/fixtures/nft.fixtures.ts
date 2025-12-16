@@ -21,7 +21,7 @@ export const minimalNftIpfsStub: NftIpfs = {
     type: 'MassID' as const,
     version: '0.1.0',
     ipfs_uri:
-      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/nft.schema.json',
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
   },
   blockchain: minimalBlockchainReferenceStub,
   viewer_reference: minimalViewerReferenceStub,
@@ -55,7 +55,7 @@ export const validNftIpfsFixture: NftIpfs = {
     type: 'MassID' as const,
     version: '0.1.0',
     ipfs_uri:
-      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm/nft.schema.json',
+      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
   },
   blockchain: minimalBlockchainReferenceStub,
   viewer_reference: minimalViewerReferenceStub,
