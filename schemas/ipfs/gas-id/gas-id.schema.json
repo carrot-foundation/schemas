@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "GasID NFT IPFS Record",
   "description": "Complete GasID NFT IPFS record including fixed attributes and detailed carbon emissions prevention data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/gas-id/gas-id.schema.json",
-  "version": "0.1.60",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/gas-id/gas-id.schema.json",
+  "version": "0.1.61",
   "type": "object",
   "properties": {
     "$schema": {
