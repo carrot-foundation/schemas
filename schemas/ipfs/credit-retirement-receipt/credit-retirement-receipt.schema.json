@@ -448,6 +448,46 @@
             "description": "Credit token retired in this receipt",
             "type": "object",
             "properties": {
+              "external_id": {
+                "title": "External ID",
+                "description": "UUID identifier for external system references",
+                "examples": [
+                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                ],
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              },
+              "external_url": {
+                "title": "External URL",
+                "description": "URL pointing to external resources",
+                "examples": [
+                  "https://explore.carrot.eco/",
+                  "https://whitepaper.carrot.eco/"
+                ],
+                "type": "string",
+                "format": "uri"
+              },
+              "ipfs_uri": {
+                "title": "IPFS URI",
+                "description": "InterPlanetary File System URI pointing to distributed content",
+                "examples": [
+                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+                  "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              },
+              "smart_contract_address": {
+                "title": "Smart Contract Address",
+                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+                "examples": [
+                  "0x1234567890abcdef1234567890abcdef12345678"
+                ],
+                "type": "string",
+                "pattern": "^0x[a-f0-9]{40}$"
+              },
               "slug": {
                 "title": "Credit Token Slug",
                 "description": "URL-friendly identifier for the credit token",
@@ -473,10 +513,32 @@
                   "C-CARB.CH4",
                   "C-BIOW"
                 ]
-              },
+              }
+            },
+            "required": [
+              "external_id",
+              "external_url",
+              "ipfs_uri",
+              "smart_contract_address",
+              "slug",
+              "symbol"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "certificates": {
+          "title": "Certificates",
+          "description": "Certificates retired in this receipt",
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "title": "Certificate",
+            "description": "Certificate associated with the retirement",
+            "type": "object",
+            "properties": {
               "external_id": {
-                "title": "Credit External ID",
-                "description": "External identifier for the credit",
+                "title": "External ID",
+                "description": "UUID identifier for external system references",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ],
@@ -485,8 +547,8 @@
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
               },
               "external_url": {
-                "title": "Credit External URL",
-                "description": "External URL for the credit",
+                "title": "External URL",
+                "description": "URL pointing to external resources",
                 "examples": [
                   "https://explore.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
@@ -495,8 +557,8 @@
                 "format": "uri"
               },
               "ipfs_uri": {
-                "title": "Credit IPFS URI",
-                "description": "IPFS URI for the credit details",
+                "title": "IPFS URI",
+                "description": "InterPlanetary File System URI pointing to distributed content",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -513,32 +575,10 @@
                 ],
                 "type": "string",
                 "pattern": "^0x[a-f0-9]{40}$"
-              }
-            },
-            "required": [
-              "slug",
-              "symbol",
-              "external_id",
-              "external_url",
-              "ipfs_uri",
-              "smart_contract_address"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "certificates": {
-          "title": "Certificates",
-          "description": "Certificates retired in this receipt",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "title": "Certificate",
-            "description": "Certificate associated with the retirement",
-            "type": "object",
-            "properties": {
+              },
               "token_id": {
-                "title": "Certificate Token ID",
-                "description": "Token ID of the certificate",
+                "title": "Token ID",
+                "description": "Unique token identifier for this NFT within the smart contract",
                 "examples": [
                   "456789",
                   "1000000"
@@ -560,46 +600,6 @@
                   "RecycledID"
                 ]
               },
-              "external_id": {
-                "title": "Certificate External ID",
-                "description": "External identifier for the certificate",
-                "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
-              },
-              "external_url": {
-                "title": "Certificate External URL",
-                "description": "External URL for the certificate",
-                "examples": [
-                  "https://explore.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
-                ],
-                "type": "string",
-                "format": "uri"
-              },
-              "ipfs_uri": {
-                "title": "Certificate IPFS URI",
-                "description": "IPFS URI for the certificate metadata",
-                "examples": [
-                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-                  "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
-              },
-              "smart_contract_address": {
-                "title": "Smart Contract Address",
-                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
-                "examples": [
-                  "0x1234567890abcdef1234567890abcdef12345678"
-                ],
-                "type": "string",
-                "pattern": "^0x[a-f0-9]{40}$"
-              },
               "total_amount": {
                 "title": "Certificate Total Amount",
                 "description": "Total credits available in this certificate",
@@ -612,13 +612,13 @@
                 "minimum": 0
               },
               "mass_id": {
-                "title": "MassID Reference with Smart Contract",
-                "description": "Reference to a MassID record with smart contract address",
+                "title": "MassID Reference",
+                "description": "Reference to a MassID record",
                 "type": "object",
                 "properties": {
                   "external_id": {
-                    "title": "MassID External ID",
-                    "description": "Unique identifier for the MassID",
+                    "title": "External ID",
+                    "description": "UUID identifier for external system references",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                     ],
@@ -626,20 +626,9 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
                   },
-                  "token_id": {
-                    "title": "MassID Token ID",
-                    "description": "NFT token ID of the MassID",
-                    "examples": [
-                      "456789",
-                      "1000000"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "^\\d+$"
-                  },
                   "external_url": {
-                    "title": "MassID External URL",
-                    "description": "URL to view the MassID on Carrot Explorer",
+                    "title": "External URL",
+                    "description": "URL pointing to external resources",
                     "examples": [
                       "https://explore.carrot.eco/",
                       "https://whitepaper.carrot.eco/"
@@ -648,8 +637,8 @@
                     "format": "uri"
                   },
                   "ipfs_uri": {
-                    "title": "MassID IPFS URI",
-                    "description": "IPFS URI of the MassID record",
+                    "title": "IPFS URI",
+                    "description": "InterPlanetary File System URI pointing to distributed content",
                     "examples": [
                       "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                       "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -666,14 +655,25 @@
                     ],
                     "type": "string",
                     "pattern": "^0x[a-f0-9]{40}$"
+                  },
+                  "token_id": {
+                    "title": "Token ID",
+                    "description": "Unique token identifier for this NFT within the smart contract",
+                    "examples": [
+                      "456789",
+                      "1000000"
+                    ],
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^\\d+$"
                   }
                 },
                 "required": [
                   "external_id",
-                  "token_id",
                   "external_url",
                   "ipfs_uri",
-                  "smart_contract_address"
+                  "smart_contract_address",
+                  "token_id"
                 ],
                 "additionalProperties": false
               },
@@ -801,12 +801,12 @@
               }
             },
             "required": [
-              "token_id",
-              "type",
               "external_id",
               "external_url",
               "ipfs_uri",
               "smart_contract_address",
+              "token_id",
+              "type",
               "total_amount",
               "mass_id",
               "collections",
@@ -820,20 +820,9 @@
           "description": "Reference to the credit purchase receipt when retirement occurs during purchase",
           "type": "object",
           "properties": {
-            "token_id": {
-              "title": "Purchase Receipt Token ID",
-              "description": "Token ID of the credit purchase receipt",
-              "examples": [
-                "456789",
-                "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
-            },
             "external_id": {
-              "title": "Purchase Receipt External ID",
-              "description": "External identifier for the purchase receipt",
+              "title": "External ID",
+              "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ],
@@ -842,8 +831,8 @@
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
             },
             "external_url": {
-              "title": "Purchase Receipt External URL",
-              "description": "External URL for the purchase receipt",
+              "title": "External URL",
+              "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
@@ -852,8 +841,8 @@
               "format": "uri"
             },
             "ipfs_uri": {
-              "title": "Purchase Receipt IPFS URI",
-              "description": "IPFS URI for the purchase receipt metadata",
+              "title": "IPFS URI",
+              "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -870,14 +859,25 @@
               ],
               "type": "string",
               "pattern": "^0x[a-f0-9]{40}$"
+            },
+            "token_id": {
+              "title": "Token ID",
+              "description": "Unique token identifier for this NFT within the smart contract",
+              "examples": [
+                "456789",
+                "1000000"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$"
             }
           },
           "required": [
-            "token_id",
             "external_id",
             "external_url",
             "ipfs_uri",
-            "smart_contract_address"
+            "smart_contract_address",
+            "token_id"
           ],
           "additionalProperties": false
         }
@@ -891,6 +891,15 @@
         "certificates"
       ],
       "additionalProperties": false
+    },
+    "full_content_hash": {
+      "title": "Full Content Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
+      "examples": [
+        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+      ],
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
     },
     "blockchain": {
       "title": "Blockchain Information",
@@ -1430,6 +1439,7 @@
     "viewer_reference",
     "environment",
     "data",
+    "full_content_hash",
     "blockchain",
     "name",
     "short_name",

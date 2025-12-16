@@ -93,15 +93,6 @@
       "type": "string",
       "format": "uri"
     },
-    "full_content_hash": {
-      "title": "Full Content Hash",
-      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
-      "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
-    },
     "content_hash": {
       "title": "Content Hash",
       "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
@@ -186,7 +177,7 @@
     },
     "data": {
       "title": "MassID Audit Data",
-      "description": "Complete data structure for MassID Audit records",
+      "description": "Complete data structure for MassID Audit records. Must include exactly one of gas_id or recycled_id.",
       "type": "object",
       "properties": {
         "methodology": {
@@ -266,8 +257,8 @@
           "type": "object",
           "properties": {
             "external_id": {
-              "title": "MassID External ID",
-              "description": "Unique identifier for the MassID",
+              "title": "External ID",
+              "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ],
@@ -275,20 +266,9 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
             },
-            "token_id": {
-              "title": "MassID Token ID",
-              "description": "NFT token ID of the MassID",
-              "examples": [
-                "456789",
-                "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
-            },
             "external_url": {
-              "title": "MassID External URL",
-              "description": "URL to view the MassID on Carrot Explorer",
+              "title": "External URL",
+              "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
@@ -297,8 +277,8 @@
               "format": "uri"
             },
             "ipfs_uri": {
-              "title": "MassID IPFS URI",
-              "description": "IPFS URI of the MassID record",
+              "title": "IPFS URI",
+              "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -306,13 +286,34 @@
               "type": "string",
               "minLength": 1,
               "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+            },
+            "smart_contract_address": {
+              "title": "Smart Contract Address",
+              "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+              "examples": [
+                "0x1234567890abcdef1234567890abcdef12345678"
+              ],
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$"
+            },
+            "token_id": {
+              "title": "Token ID",
+              "description": "Unique token identifier for this NFT within the smart contract",
+              "examples": [
+                "456789",
+                "1000000"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$"
             }
           },
           "required": [
             "external_id",
-            "token_id",
             "external_url",
-            "ipfs_uri"
+            "ipfs_uri",
+            "smart_contract_address",
+            "token_id"
           ],
           "additionalProperties": false
         },
@@ -322,8 +323,8 @@
           "type": "object",
           "properties": {
             "external_id": {
-              "title": "GasID External ID",
-              "description": "Unique identifier for the GasID",
+              "title": "External ID",
+              "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ],
@@ -331,20 +332,9 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
             },
-            "token_id": {
-              "title": "GasID Token ID",
-              "description": "NFT token ID of the GasID",
-              "examples": [
-                "456789",
-                "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
-            },
             "external_url": {
-              "title": "GasID External URL",
-              "description": "URL to view the GasID on Carrot Explorer",
+              "title": "External URL",
+              "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
@@ -353,8 +343,8 @@
               "format": "uri"
             },
             "ipfs_uri": {
-              "title": "GasID IPFS URI",
-              "description": "IPFS URI of the GasID record",
+              "title": "IPFS URI",
+              "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -362,13 +352,100 @@
               "type": "string",
               "minLength": 1,
               "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+            },
+            "smart_contract_address": {
+              "title": "Smart Contract Address",
+              "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+              "examples": [
+                "0x1234567890abcdef1234567890abcdef12345678"
+              ],
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$"
+            },
+            "token_id": {
+              "title": "Token ID",
+              "description": "Unique token identifier for this NFT within the smart contract",
+              "examples": [
+                "456789",
+                "1000000"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$"
             }
           },
           "required": [
             "external_id",
-            "token_id",
             "external_url",
-            "ipfs_uri"
+            "ipfs_uri",
+            "smart_contract_address",
+            "token_id"
+          ],
+          "additionalProperties": false
+        },
+        "recycled_id": {
+          "title": "RecycledID Reference",
+          "description": "Reference to a RecycledID record",
+          "type": "object",
+          "properties": {
+            "external_id": {
+              "title": "External ID",
+              "description": "UUID identifier for external system references",
+              "examples": [
+                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+              ],
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+            },
+            "external_url": {
+              "title": "External URL",
+              "description": "URL pointing to external resources",
+              "examples": [
+                "https://explore.carrot.eco/",
+                "https://whitepaper.carrot.eco/"
+              ],
+              "type": "string",
+              "format": "uri"
+            },
+            "ipfs_uri": {
+              "title": "IPFS URI",
+              "description": "InterPlanetary File System URI pointing to distributed content",
+              "examples": [
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+            },
+            "smart_contract_address": {
+              "title": "Smart Contract Address",
+              "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+              "examples": [
+                "0x1234567890abcdef1234567890abcdef12345678"
+              ],
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$"
+            },
+            "token_id": {
+              "title": "Token ID",
+              "description": "Unique token identifier for this NFT within the smart contract",
+              "examples": [
+                "456789",
+                "1000000"
+              ],
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$"
+            }
+          },
+          "required": [
+            "external_id",
+            "external_url",
+            "ipfs_uri",
+            "smart_contract_address",
+            "token_id"
           ],
           "additionalProperties": false
         },
@@ -536,6 +613,19 @@
                   "FAILED"
                 ]
               },
+              "execution_message": {
+                "title": "Execution Message",
+                "description": "Human-readable message explaining the rule execution result, including details about what was validated or calculated",
+                "examples": [
+                  "No other MassIDs with the same attributes were found.",
+                  "The MassID is not linked to a valid MassID Certificate",
+                  "The time between the \"Drop-off\" and \"Recycled\" events is 90 days, within the valid range (60-180 days).",
+                  "The prevented emissions were calculated as 419.93 kg CO₂e using the formula (1 - 0.029) x 0.067 x 6454.8 = 419.93"
+                ],
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              },
               "rule_processor_checksum": {
                 "title": "Rule Processor Checksum",
                 "description": "Checksum for rule processor integrity verification",
@@ -572,7 +662,6 @@
       "required": [
         "methodology",
         "mass_id",
-        "gas_id",
         "audit_summary",
         "rule_execution_results"
       ],
@@ -585,7 +674,6 @@
     "created_at",
     "external_id",
     "external_url",
-    "full_content_hash",
     "content_hash",
     "data"
   ],

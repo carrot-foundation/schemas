@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/collection/collection.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/collection/collection.schema.json",
   "schema": {
-    "hash": "33c27f31fa1b0fe68520d8545a71fddd50eb325321acd0ef4b2f1d84e099febf",
+    "hash": "828da24b893e8be44a54381bd0e4b79944e56acf66efb9371d69c9b1d04b1f66",
     "type": "Collection",
-    "version": "0.1.58",
+    "version": "0.1.60",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -14,8 +14,7 @@
   "created_at": "2024-12-05T14:30:00.000Z",
   "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
   "external_url": "https://explore.carrot.eco/collection/bold-cold-start-carazinho",
-  "full_content_hash": "86fb4699e5562da3041cd01d22063cb1b71c682c73d3e4eaa603ac174ddfd4b7",
-  "content_hash": "86fb4699e5562da3041cd01d22063cb1b71c682c73d3e4eaa603ac174ddfd4b7",
+  "content_hash": "ca173fdbf81c2dfd9f6cfe219ac93239e5d36633bf9cf058116891b7de83b0bf",
   "name": "BOLD Cold Start - Carazinho",
   "slug": "bold-cold-start-carazinho",
   "image": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",

@@ -178,6 +178,19 @@ export const AuditRuleExecutionResultSchema = z
       title: 'Rule Execution Result',
       description: 'Result of the rule execution',
     }),
+    execution_message: NonEmptyStringSchema.max(2000)
+      .optional()
+      .meta({
+        title: 'Execution Message',
+        description:
+          'Human-readable message explaining the rule execution result, including details about what was validated or calculated',
+        examples: [
+          'No other MassIDs with the same attributes were found.',
+          'The MassID is not linked to a valid MassID Certificate',
+          'The time between the "Drop-off" and "Recycled" events is 90 days, within the valid range (60-180 days).',
+          'The prevented emissions were calculated as 419.93 kg CO₂e using the formula (1 - 0.029) x 0.067 x 6454.8 = 419.93',
+        ],
+      }),
     rule_processor_checksum: NonEmptyStringSchema.max(200).meta({
       title: 'Rule Processor Checksum',
       description: 'Checksum for rule processor integrity verification',

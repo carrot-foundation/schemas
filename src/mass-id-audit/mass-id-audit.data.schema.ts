@@ -6,6 +6,7 @@ import {
   IsoDateTimeSchema,
   MassIDReferenceSchema,
   MethodologyReferenceSchema,
+  RecycledIDReferenceSchema,
 } from '../shared';
 
 export const MassIDAuditSummarySchema = z
@@ -45,12 +46,44 @@ export const MassIDAuditDataSchema = z
   .strictObject({
     methodology: MethodologyReferenceSchema,
     mass_id: MassIDReferenceSchema,
-    gas_id: GasIDReferenceSchema,
+    gas_id: GasIDReferenceSchema.optional(),
+    recycled_id: RecycledIDReferenceSchema.optional(),
     audit_summary: MassIDAuditSummarySchema,
     rule_execution_results: AuditRuleExecutionResultsSchema,
   })
+  .superRefine((data, ctx) => {
+    const hasGasId = !!data.gas_id;
+    const hasRecycledId = !!data.recycled_id;
+
+    if (!hasGasId && !hasRecycledId) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['gas_id'],
+        message: 'Either gas_id or recycled_id must be provided',
+      });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['recycled_id'],
+        message: 'Either gas_id or recycled_id must be provided',
+      });
+    }
+
+    if (hasGasId && hasRecycledId) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['gas_id'],
+        message: 'gas_id and recycled_id are mutually exclusive',
+      });
+      ctx.addIssue({
+        code: 'custom',
+        path: ['recycled_id'],
+        message: 'gas_id and recycled_id are mutually exclusive',
+      });
+    }
+  })
   .meta({
     title: 'MassID Audit Data',
-    description: 'Complete data structure for MassID Audit records',
+    description:
+      'Complete data structure for MassID Audit records. Must include exactly one of gas_id or recycled_id.',
   });
 export type MassIDAuditData = z.infer<typeof MassIDAuditDataSchema>;
