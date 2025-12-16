@@ -56,7 +56,8 @@ describe('CreditPurchaseReceiptDataSchema', () => {
 
   it('requires certificate credit slug to exist in credits', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.certificates[0].credit_slug = 'unknown-credit';
+      invalid.certificates[0].credit_slug =
+        'unknown-credit' as unknown as (typeof invalid.certificates)[number]['credit_slug'];
     });
   });
 

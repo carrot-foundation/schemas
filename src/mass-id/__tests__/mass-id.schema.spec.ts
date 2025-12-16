@@ -161,4 +161,20 @@ describe('MassIDIpfsSchema', () => {
       'Recycling Manifest Number attribute must be present and match Recycling Manifest attachment document_number',
     ]);
   });
+
+  it('rejects name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'MassID #999 • Incorrect token id';
+      return next;
+    }, ['Name token_id must match blockchain.token_id: 1034']);
+  });
+
+  it('rejects short_name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'MassID #999';
+      return next;
+    }, ['Short name token_id must match blockchain.token_id: 1034']);
+  });
 });

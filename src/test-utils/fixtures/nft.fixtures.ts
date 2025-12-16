@@ -30,8 +30,8 @@ export const minimalNftIpfsStub: NftIpfs = {
   external_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
   external_url:
     'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
-  name: 'Test NFT',
-  short_name: 'Test',
+  name: 'MassID #123 • Organic • 3.0t',
+  short_name: 'MassID #123',
   description: 'This is a test NFT description with enough characters',
   image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
   original_content_hash:
@@ -64,8 +64,8 @@ export const validNftIpfsFixture: NftIpfs = {
   external_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
   external_url:
     'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
-  name: 'Test NFT',
-  short_name: 'Test',
+  name: 'MassID #123 • Organic • 3.0t',
+  short_name: 'MassID #123',
   description: 'This is a test NFT description with enough characters',
   image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
   original_content_hash:

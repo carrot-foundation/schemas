@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
+  expectIssuesContain,
   expectSchemaInvalid,
   expectSchemaInvalidWithout,
   expectSchemaTyped,
@@ -78,5 +79,53 @@ describe('GasIDIpfsSchema', () => {
         'summary',
       );
     });
+  });
+
+  it('rejects name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'GasID #999 • BOLD Carbon (CH₄) • 0.86t CO₂e';
+      return next;
+    }, ['Name token_id must match blockchain.token_id: 456']);
+  });
+
+  it('rejects short_name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'GasID #999';
+      return next;
+    }, ['Short name token_id must match blockchain.token_id: 456']);
+  });
+
+  it('rejects name that does not match regex pattern', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Invalid Name Format';
+      return next;
+    }, ['Name token_id must match blockchain.token_id: 456']);
+  });
+
+  it('rejects short_name that does not match regex pattern', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Invalid Short Name';
+      return next;
+    }, ['Short name token_id must match blockchain.token_id: 456']);
+  });
+
+  it('rejects name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'GasID #456 • Invalid Format';
+      return next;
+    }, ['Name must match format']);
+  });
+
+  it('rejects short_name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'GasID #456 Extra';
+      return next;
+    }, ['Short name must match format']);
   });
 });

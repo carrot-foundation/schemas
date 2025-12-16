@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
+  expectIssuesContain,
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
@@ -41,7 +42,23 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     {
       description: 'rejects certificate credit slug not present in credits',
       mutate: (invalid) => {
-        invalid.data.certificates[0].credit_slug = 'unknown-credit';
+        invalid.data.certificates[0].credit_slug =
+          'unknown-credit' as unknown as (typeof invalid.data.certificates)[number]['credit_slug'];
+      },
+    },
+    {
+      description:
+        'rejects when all certificates reference a credit_slug with no matching credit',
+      mutate: (invalid) => {
+        const unknownSlug =
+          'unknown-credit' as (typeof invalid.data.certificates)[number]['credit_slug'];
+
+        invalid.data.certificates = invalid.data.certificates.map(
+          (certificate) => ({
+            ...certificate,
+            credit_slug: unknownSlug,
+          }),
+        );
       },
     },
     {
@@ -52,7 +69,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
             return { ...attribute, value: 999999 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -64,7 +81,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
             return { ...attribute, value: 'Wrong Buyer' };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -76,7 +93,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
             return { ...attribute, value: 1738627200000 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -98,7 +115,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
             return { ...attribute, value: Number(attribute.value) + 1 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -124,7 +141,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
             return { ...attribute, value: 1738627200000 };
           }
           return attribute;
-        }) as typeof invalid.attributes;
+        });
       },
     },
     {
@@ -137,7 +154,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
               return { ...attribute, value: '#9999' };
             }
             return attribute;
-          }) as typeof invalid.attributes;
+          });
         }
       },
     },
@@ -164,7 +181,7 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       (data) => {
         expect(data.schema.type).toBe('CreditPurchaseReceipt');
         expect(data.data.summary.total_certificates).toBe(3);
-        expect(data.data.certificates[0].mass_id.token_id).toBe('123');
+        expect(data.data.certificates[0].mass_id.token_id).toBe('1034');
       },
     );
   });
@@ -251,5 +268,53 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       }
       return withUnusedCredit;
     });
+  });
+
+  it('rejects name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Credit Purchase Receipt #999 • 8.5 Credits Purchased';
+      return next;
+    }, ['Name token_id must match blockchain.token_id: 987']);
+  });
+
+  it('rejects short_name with mismatched token_id', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Purchase Receipt #999';
+      return next;
+    }, ['Short name token_id must match blockchain.token_id: 987']);
+  });
+
+  it('rejects name that does not match regex pattern', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Invalid Name Format';
+      return next;
+    }, ['Name token_id must match blockchain.token_id: 987']);
+  });
+
+  it('rejects short_name that does not match regex pattern', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Invalid Short Name';
+      return next;
+    }, ['Short name token_id must match blockchain.token_id: 987']);
+  });
+
+  it('rejects name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'Credit Purchase Receipt #987 • Invalid Format';
+      return next;
+    }, ['Name must match format']);
+  });
+
+  it('rejects short_name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'Purchase Receipt #987 Extra';
+      return next;
+    }, ['Short name must match format']);
   });
 });
