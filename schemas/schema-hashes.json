@@ -2,7 +2,7 @@
   "version": "0.1.60",
   "schemas": {
     "ipfs/recycled-id/recycled-id.schema.json": {
-      "hash": "22f247295ff879857fa305c131f97833112b98d227a7fd582fe9c838b3824283",
+      "hash": "48ec3518f8fe004934ec61fdd5abfadadd08fec39fcd5d0d93609e33db3adcf4",
       "path": "ipfs/recycled-id/recycled-id.schema.json"
     },
     "ipfs/methodology/methodology.schema.json": {
@@ -10,7 +10,7 @@
       "path": "ipfs/methodology/methodology.schema.json"
     },
     "ipfs/mass-id-audit/mass-id-audit.schema.json": {
-      "hash": "fc3ee51dc8d1b45891a9b86d97bf88544303b153a0d67a38d89a31b88f328683",
+      "hash": "91bf1168318513e386f6b762b7d9350339d6cb5533e6e0126b74db56d3a09d65",
       "path": "ipfs/mass-id-audit/mass-id-audit.schema.json"
     },
     "ipfs/mass-id/mass-id.schema.json": {
@@ -18,15 +18,15 @@
       "path": "ipfs/mass-id/mass-id.schema.json"
     },
     "ipfs/gas-id/gas-id.schema.json": {
-      "hash": "d887eda48b5dd2435b905db468c5a27c47bd62391872a2a5af60943e5a706225",
+      "hash": "c0bc2164eabbc46291a236a59ae2777b68e701bfbc0402f81b2da340474e3684",
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {
-      "hash": "9dc565b0a77b8a9748c9e6b1b085c26b40784b7171c0a47f7fc836598f8152b1",
+      "hash": "7824b7d1086cc045b67ad7b4e46ca9a92707003761a57aa9df30c1272ab57386",
       "path": "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json"
     },
     "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json": {
-      "hash": "e84a629081f44d30851ae46cd03aa9cad40da40f9316e978a5b11cb4f33ea279",
+      "hash": "9f16836387729eb7c207189cb59c82127bb2c4d2eb237883eb3dca0a4d747559",
       "path": "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json"
     },
     "ipfs/credit/credit.schema.json": {

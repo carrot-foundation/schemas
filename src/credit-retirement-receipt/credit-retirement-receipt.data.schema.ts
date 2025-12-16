@@ -4,15 +4,13 @@ import {
   CreditTokenSymbolSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
-  IpfsUriSchema,
-  TokenIdSchema,
   uniqueBy,
   CreditRetirementReceiptSummarySchema,
   ReceiptIdentitySchema,
   CertificateCollectionItemRetirementSchema,
-  createReceiptCertificateSchema,
+  CertificateReferenceBaseSchema,
   createReceiptCollectionSchema,
-  createReceiptCreditSchema,
+  CreditReferenceSchema,
   nearlyEqual,
   validateCountMatches,
   validateTotalMatches,
@@ -22,7 +20,7 @@ import {
   validateCollectionsHaveRetiredAmounts,
   validateCreditSlugExists,
   validateCreditSymbolExists,
-  SmartContractAddressSchema,
+  CreditPurchaseReceiptReferenceSchema,
 } from '../shared';
 
 const CreditRetirementReceiptIdentitySchema = ReceiptIdentitySchema;
@@ -73,11 +71,9 @@ export type CreditRetirementReceiptCollection = z.infer<
   typeof CreditRetirementReceiptCollectionSchema
 >;
 
-const CreditRetirementReceiptCreditSchema = createReceiptCreditSchema({
-  meta: {
-    title: 'Credit',
-    description: 'Credit token retired in this receipt',
-  },
+const CreditRetirementReceiptCreditSchema = CreditReferenceSchema.meta({
+  title: 'Credit',
+  description: 'Credit token retired in this receipt',
 });
 export type CreditRetirementReceiptCredit = z.infer<
   typeof CreditRetirementReceiptCreditSchema
@@ -112,67 +108,34 @@ export type CreditRetirementReceiptCertificateCredit = z.infer<
   typeof CreditRetirementReceiptCertificateCreditSchema
 >;
 
-const CreditPurchaseReceiptReferenceSchema = z
-  .strictObject({
-    token_id: TokenIdSchema.meta({
-      title: 'Purchase Receipt Token ID',
-      description: 'Token ID of the credit purchase receipt',
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Purchase Receipt External ID',
-      description: 'External identifier for the purchase receipt',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Purchase Receipt External URL',
-      description: 'External URL for the purchase receipt',
-    }),
-    ipfs_uri: IpfsUriSchema.meta({
-      title: 'Purchase Receipt IPFS URI',
-      description: 'IPFS URI for the purchase receipt metadata',
-    }),
-    smart_contract_address: SmartContractAddressSchema,
-  })
-  .meta({
-    title: 'Credit Purchase Receipt Reference',
-    description:
-      'Reference to the credit purchase receipt when retirement occurs during purchase',
+const CreditRetirementReceiptCertificateSchema =
+  CertificateReferenceBaseSchema.safeExtend({
+    collections: uniqueBy(
+      CertificateCollectionItemRetirementSchema,
+      (item) => item.slug,
+      'Collection slugs within certificate collections must be unique',
+    )
+      .min(1)
+      .meta({
+        title: 'Certificate Collections',
+        description:
+          'Collections associated with this certificate, each with retired amounts',
+      }),
+    credits_retired: uniqueBy(
+      CreditRetirementReceiptCertificateCreditSchema,
+      (credit) => credit.credit_symbol,
+      'Credit symbols within credits_retired must be unique',
+    )
+      .min(1)
+      .meta({
+        title: 'Credits Retired',
+        description:
+          'Breakdown of credits retired from this certificate by symbol',
+      }),
+  }).meta({
+    title: 'Certificate',
+    description: 'Certificate associated with the retirement',
   });
-export type CreditPurchaseReceiptReference = z.infer<
-  typeof CreditPurchaseReceiptReferenceSchema
->;
-
-const CreditRetirementReceiptCertificateSchema = createReceiptCertificateSchema(
-  {
-    additionalShape: {
-      collections: uniqueBy(
-        CertificateCollectionItemRetirementSchema,
-        (item) => item.slug,
-        'Collection slugs within certificate collections must be unique',
-      )
-        .min(1)
-        .meta({
-          title: 'Certificate Collections',
-          description:
-            'Collections associated with this certificate, each with retired amounts',
-        }),
-      credits_retired: uniqueBy(
-        CreditRetirementReceiptCertificateCreditSchema,
-        (credit) => credit.credit_symbol,
-        'Credit symbols within credits_retired must be unique',
-      )
-        .min(1)
-        .meta({
-          title: 'Credits Retired',
-          description:
-            'Breakdown of credits retired from this certificate by symbol',
-        }),
-    },
-    meta: {
-      title: 'Certificate',
-      description: 'Certificate associated with the retirement',
-    },
-  },
-);
 export type CreditRetirementReceiptCertificate = z.infer<
   typeof CreditRetirementReceiptCertificateSchema
 >;

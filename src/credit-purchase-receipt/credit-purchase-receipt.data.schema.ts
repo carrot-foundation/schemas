@@ -1,29 +1,26 @@
 import { z } from 'zod';
 import {
   ExternalIdSchema,
-  ExternalUrlSchema,
-  IpfsUriSchema,
   ParticipantRoleSchema,
-  TokenIdSchema,
   uniqueArrayItems,
   uniqueBy,
   CreditPurchaseReceiptSummarySchema,
   ReceiptIdentitySchema,
   CertificateCollectionItemPurchaseSchema,
-  createReceiptCertificateSchema,
+  CertificateReferenceBaseSchema,
   createReceiptCollectionSchema,
-  createReceiptCreditSchema,
+  CreditReferenceSchema,
   validateCountMatches,
   validateTotalMatches,
   validateCertificateCollectionSlugs,
   validateRetirementReceiptRequirement,
   validateCreditSlugExists,
+  CreditRetirementReceiptReferenceSchema,
 } from '../shared';
 import {
   CreditTokenSlugSchema,
   EthereumAddressSchema,
   ParticipantIdHashSchema,
-  SmartContractAddressSchema,
   UsdcAmountSchema,
 } from '../shared/schemas/primitives';
 
@@ -63,18 +60,16 @@ export type CreditPurchaseReceiptCollection = z.infer<
   typeof CreditPurchaseReceiptCollectionSchema
 >;
 
-const CreditPurchaseReceiptCreditSchema = createReceiptCreditSchema({
-  meta: {
-    title: 'Credit',
-    description: 'Credit token included in the purchase',
-  },
+const CreditPurchaseReceiptCreditSchema = CreditReferenceSchema.meta({
+  title: 'Credit',
+  description: 'Credit token included in the purchase',
 });
 export type CreditPurchaseReceiptCredit = z.infer<
   typeof CreditPurchaseReceiptCreditSchema
 >;
 
-const CreditPurchaseReceiptCertificateSchema = createReceiptCertificateSchema({
-  additionalShape: {
+const CreditPurchaseReceiptCertificateSchema =
+  CertificateReferenceBaseSchema.safeExtend({
     credit_slug: CreditTokenSlugSchema.meta({
       description: 'Slug of the credit type for this certificate',
     }),
@@ -89,12 +84,10 @@ const CreditPurchaseReceiptCertificateSchema = createReceiptCertificateSchema({
         description:
           'Collections associated with this certificate, each with purchased and retired amounts',
       }),
-  },
-  meta: {
+  }).meta({
     title: 'Certificate',
     description: 'Certificate associated with the purchase',
-  },
-});
+  });
 export type CreditPurchaseReceiptCertificate = z.infer<
   typeof CreditPurchaseReceiptCertificateSchema
 >;
@@ -124,30 +117,8 @@ export type CreditPurchaseReceiptParticipantReward = z.infer<
   typeof CreditPurchaseReceiptParticipantRewardSchema
 >;
 
-const CreditPurchaseReceiptRetirementReceiptSchema = z
-  .strictObject({
-    token_id: TokenIdSchema.meta({
-      title: 'Retirement Receipt Token ID',
-      description: 'Token ID of the retirement receipt NFT',
-    }),
-    external_id: ExternalIdSchema.meta({
-      title: 'Retirement Receipt External ID',
-      description: 'External identifier for the retirement receipt',
-    }),
-    external_url: ExternalUrlSchema.meta({
-      title: 'Retirement Receipt External URL',
-      description: 'External URL for the retirement receipt',
-    }),
-    ipfs_uri: IpfsUriSchema.meta({
-      title: 'Retirement Receipt IPFS URI',
-      description: 'IPFS URI for the retirement receipt metadata',
-    }),
-    smart_contract_address: SmartContractAddressSchema,
-  })
-  .meta({
-    title: 'Retirement Receipt Reference',
-    description: 'Reference to the retirement receipt NFT',
-  });
+const CreditPurchaseReceiptRetirementReceiptSchema =
+  CreditRetirementReceiptReferenceSchema;
 export type CreditPurchaseReceiptRetirementReceipt = z.infer<
   typeof CreditPurchaseReceiptRetirementReceiptSchema
 >;

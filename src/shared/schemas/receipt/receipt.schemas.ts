@@ -1,22 +1,20 @@
-import { z, type ZodRawShape } from 'zod';
+import { z } from 'zod';
 import {
-  CertificateTypeSchema,
   CollectionNameSchema,
   CollectionSlugSchema,
   CreditAmountSchema,
-  CreditTokenSlugSchema,
-  CreditTokenSymbolSchema,
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
   IsoDateTimeSchema,
   NonEmptyStringSchema,
   PositiveIntegerSchema,
-  SmartContractAddressSchema,
-  TokenIdSchema,
   UsdcAmountSchema,
 } from '../primitives';
-import { MassIDReferenceSchema } from '../references';
+import {
+  CertificateReferenceBaseSchema,
+  CreditReferenceSchema,
+} from '../references';
 
 type Meta = {
   title: string;
@@ -92,17 +90,6 @@ export const ReceiptIdentitySchema = z
   });
 export type ReceiptIdentity = z.infer<typeof ReceiptIdentitySchema>;
 
-export const MassIDReferenceWithContractSchema =
-  MassIDReferenceSchema.safeExtend({
-    smart_contract_address: SmartContractAddressSchema,
-  }).meta({
-    title: 'MassID Reference with Smart Contract',
-    description: 'Reference to a MassID record with smart contract address',
-  });
-export type MassIDReferenceWithContract = z.infer<
-  typeof MassIDReferenceWithContractSchema
->;
-
 export function createReceiptCollectionSchema(params: { meta: Meta }) {
   const { meta } = params;
 
@@ -122,30 +109,6 @@ export function createReceiptCollectionSchema(params: { meta: Meta }) {
         title: 'Collection IPFS URI',
         description: 'IPFS URI for the collection metadata',
       }),
-    })
-    .meta(meta);
-}
-
-export function createReceiptCreditSchema(params: { meta: Meta }) {
-  const { meta } = params;
-
-  return z
-    .strictObject({
-      slug: CreditTokenSlugSchema,
-      symbol: CreditTokenSymbolSchema,
-      external_id: ExternalIdSchema.meta({
-        title: 'Credit External ID',
-        description: 'External identifier for the credit',
-      }),
-      external_url: ExternalUrlSchema.meta({
-        title: 'Credit External URL',
-        description: 'External URL for the credit',
-      }),
-      ipfs_uri: IpfsUriSchema.meta({
-        title: 'Credit IPFS URI',
-        description: 'IPFS URI for the credit details',
-      }),
-      smart_contract_address: SmartContractAddressSchema,
     })
     .meta(meta);
 }
@@ -193,40 +156,4 @@ export type CertificateCollectionItemRetirement = z.infer<
   typeof CertificateCollectionItemRetirementSchema
 >;
 
-const certificateBaseShape = {
-  token_id: TokenIdSchema.meta({
-    title: 'Certificate Token ID',
-    description: 'Token ID of the certificate',
-  }),
-  type: CertificateTypeSchema,
-  external_id: ExternalIdSchema.meta({
-    title: 'Certificate External ID',
-    description: 'External identifier for the certificate',
-  }),
-  external_url: ExternalUrlSchema.meta({
-    title: 'Certificate External URL',
-    description: 'External URL for the certificate',
-  }),
-  ipfs_uri: IpfsUriSchema.meta({
-    title: 'Certificate IPFS URI',
-    description: 'IPFS URI for the certificate metadata',
-  }),
-  smart_contract_address: SmartContractAddressSchema,
-  total_amount: CreditAmountSchema.meta({
-    title: 'Certificate Total Amount',
-    description: 'Total credits available in this certificate',
-  }),
-  mass_id: MassIDReferenceWithContractSchema,
-} satisfies ZodRawShape;
-
-export function createReceiptCertificateSchema<T extends ZodRawShape>(params: {
-  additionalShape: T;
-  meta: Meta;
-}) {
-  return z
-    .strictObject({
-      ...certificateBaseShape,
-      ...params.additionalShape,
-    } as typeof certificateBaseShape & T)
-    .meta(params.meta);
-}
+export { CertificateReferenceBaseSchema, CreditReferenceSchema };

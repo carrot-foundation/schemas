@@ -1,13 +1,13 @@
 import { describe, expect } from 'vitest';
 
-import { validMassIDReferenceFixture } from '../../../../test-utils';
+import { validRecycledIdReferenceFixture } from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
-import { MassIDReferenceSchema } from '../mass-id-reference.schema';
+import { RecycledIDReferenceSchema } from '../recycled-id-reference.schema';
 
-describe('MassIDReferenceSchema', () => {
+describe('RecycledIDReferenceSchema', () => {
   runReferenceSchemaTests({
-    schema: MassIDReferenceSchema,
-    base: validMassIDReferenceFixture,
+    schema: RecycledIDReferenceSchema,
+    base: validRecycledIdReferenceFixture,
     requiredFields: [
       'external_id',
       'token_id',

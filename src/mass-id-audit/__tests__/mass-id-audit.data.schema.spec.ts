@@ -109,10 +109,82 @@ describe('MassIDAuditDataSchema', () => {
     });
   });
 
-  it('rejects missing gas_id', () => {
-    expectSchemaInvalid(schema, base, (invalid) => {
-      Reflect.deleteProperty(invalid as Record<string, unknown>, 'gas_id');
-    });
+  it('validates with gas_id only', () => {
+    const validData = {
+      ...structuredClone(base),
+      gas_id: base.gas_id,
+      recycled_id: undefined,
+    };
+    expectSchemaValid(schema, () => validData);
+  });
+
+  it('validates with recycled_id only', () => {
+    const validData = {
+      ...structuredClone(base),
+      gas_id: undefined,
+      recycled_id: {
+        external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
+        token_id: '789',
+        external_url:
+          'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
+        ipfs_uri:
+          'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
+        smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+      },
+    };
+    expectSchemaValid(schema, () => validData);
+  });
+
+  it('rejects when both gas_id and recycled_id are missing', () => {
+    const invalidData = {
+      ...structuredClone(base),
+      gas_id: undefined,
+      recycled_id: undefined,
+    };
+    const result = schema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const gasIdIssue = result.error.issues.find(
+        (issue) => issue.path.length === 1 && issue.path[0] === 'gas_id',
+      );
+      const recycledIdIssue = result.error.issues.find(
+        (issue) => issue.path.length === 1 && issue.path[0] === 'recycled_id',
+      );
+      expect(gasIdIssue).toBeDefined();
+      expect(recycledIdIssue).toBeDefined();
+      expect(gasIdIssue?.message).toContain('must be provided');
+      expect(recycledIdIssue?.message).toContain('must be provided');
+    }
+  });
+
+  it('rejects when both gas_id and recycled_id are present', () => {
+    const invalidData = {
+      ...structuredClone(base),
+      gas_id: base.gas_id,
+      recycled_id: {
+        external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
+        token_id: '789',
+        external_url:
+          'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
+        ipfs_uri:
+          'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
+        smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+      },
+    };
+    const result = schema.safeParse(invalidData);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const gasIdIssue = result.error.issues.find(
+        (issue) => issue.path.length === 1 && issue.path[0] === 'gas_id',
+      );
+      const recycledIdIssue = result.error.issues.find(
+        (issue) => issue.path.length === 1 && issue.path[0] === 'recycled_id',
+      );
+      expect(gasIdIssue).toBeDefined();
+      expect(recycledIdIssue).toBeDefined();
+      expect(gasIdIssue?.message).toContain('mutually exclusive');
+      expect(recycledIdIssue?.message).toContain('mutually exclusive');
+    }
   });
 
   it('rejects missing audit_summary', () => {

@@ -8,7 +8,13 @@ describe('GasIDReferenceSchema', () => {
   runReferenceSchemaTests({
     schema: GasIDReferenceSchema,
     base: validGasIdReferenceFixture,
-    requiredFields: ['external_id', 'token_id', 'external_url', 'ipfs_uri'],
+    requiredFields: [
+      'external_id',
+      'token_id',
+      'external_url',
+      'ipfs_uri',
+      'smart_contract_address',
+    ],
     invalidCases: [
       {
         description: 'rejects invalid UUID for external_id',
@@ -34,12 +40,19 @@ describe('GasIDReferenceSchema', () => {
           invalid.ipfs_uri = 'https://example.com/file.json';
         },
       },
+      {
+        description: 'rejects invalid smart_contract_address',
+        mutate: (invalid) => {
+          invalid.smart_contract_address = 'not-an-address';
+        },
+      },
     ],
     typeCheck: (data, base) => {
       expect(data.external_id).toBe(base.external_id);
       expect(data.token_id).toBe(base.token_id);
       expect(data.external_url).toBe(base.external_url);
       expect(data.ipfs_uri).toBe(base.ipfs_uri);
+      expect(data.smart_contract_address).toBe(base.smart_contract_address);
     },
   });
 });
