@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
   "schema": {
-    "hash": "aef0a420397598ff6da4d300bb7ebda97c39e22fce4f30e4fcae8c56f7f5ac77",
+    "hash": "843c9ead57290f9ee539f6fbb96f20dc72454febc78d1c46be0cfc9b70e6be8e",
     "type": "CreditPurchaseReceipt",
     "version": "0.1.58",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,14 +20,14 @@
   "created_at": "2025-02-03T12:45:30.000Z",
   "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
   "external_url": "https://explore.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-  "original_content_hash": "4bfd4caef901a65e3cea7856f979cdc8db9da381e865d9ea7e828fcbc8dde5e0",
-  "content_hash": "4bfd4caef901a65e3cea7856f979cdc8db9da381e865d9ea7e828fcbc8dde5e0",
+  "original_content_hash": "6eb1966fc01a674b05e43173a49bc2066deb11f8f8510d00ad588981b1e1ae76",
+  "content_hash": "6eb1966fc01a674b05e43173a49bc2066deb11f8f8510d00ad588981b1e1ae76",
   "viewer_reference": {
     "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
   "name": "Credit Purchase Receipt #987 • 8.5 Credits Purchased",
-  "short_name": "Credit Purchase Receipt #987",
+  "short_name": "Purchase Receipt #987",
   "description": "Receipt for purchasing 8.5 credits (C-CARB.CH4 and C-BIOW) across 3 certificates, with 3.0 credits retired immediately on behalf of Climate Action Corp. Credits delivered to EcoTech Solutions Inc.",
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#2D5A27",
@@ -41,12 +41,12 @@
   "attributes": [
     {
       "trait_type": "C-CARB.CH4",
-      "value": 5,
+      "value": 3,
       "display_type": "number"
     },
     {
       "trait_type": "C-BIOW",
-      "value": 3.5,
+      "value": 5.5,
       "display_type": "number"
     },
     {
@@ -56,7 +56,7 @@
     },
     {
       "trait_type": "Total Amount (USDC)",
-      "value": 1462.5,
+      "value": 710.59,
       "display_type": "number"
     },
     {
@@ -85,7 +85,7 @@
   ],
   "data": {
     "summary": {
-      "total_amount_usdc": 1462.5,
+      "total_amount_usdc": 710.59,
       "total_credits": 8.5,
       "total_certificates": 3,
       "purchased_at": "2025-02-03T12:45:30.000Z"
@@ -117,7 +117,7 @@
     ],
     "credits": [
       {
-        "slug": "carbon",
+        "slug": "carbon-methane",
         "symbol": "C-CARB.CH4",
         "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
         "external_url": "https://explore.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
@@ -125,7 +125,7 @@
         "smart_contract_address": "0xabcdef1234567890abcdef1234567890abcdef12"
       },
       {
-        "slug": "organic",
+        "slug": "biowaste",
         "symbol": "C-BIOW",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
         "external_url": "https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0",
@@ -138,9 +138,9 @@
         "type": "GasID",
         "token_id": "456",
         "total_amount": 10,
-        "credit_slug": "carbon",
-        "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-        "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "credit_slug": "carbon-methane",
+        "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
+        "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
         "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
         "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
         "collections": [
@@ -151,20 +151,20 @@
           }
         ],
         "mass_id": {
-          "token_id": "123",
-          "external_id": "6f520d88-864d-432d-bf9f-5c3166c4818f",
-          "external_url": "https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-          "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
+          "token_id": "1034",
+          "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
         }
       },
       {
         "type": "RecycledID",
         "token_id": "789",
         "total_amount": 6,
-        "credit_slug": "carbon",
-        "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-        "external_url": "https://explore.carrot.eco/document/r47ac10b-58cc-4372-a567-0e02b2c3d999",
+        "credit_slug": "biowaste",
+        "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
+        "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
         "ipfs_uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
         "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
         "collections": [
@@ -175,18 +175,18 @@
           }
         ],
         "mass_id": {
-          "token_id": "124",
-          "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-          "external_url": "https://explore.carrot.eco/document/7f520d88-864d-432d-bf9f-5c3166c4888f",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-          "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
+          "token_id": "1034",
+          "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
         }
       },
       {
         "type": "RecycledID",
         "token_id": "890",
         "total_amount": 8,
-        "credit_slug": "organic",
+        "credit_slug": "biowaste",
         "external_id": "0f1e2d3c-4b5a-4d78-8c12-3456789abcde",
         "external_url": "https://explore.carrot.eco/document/0f1e2d3c-4b5a-4d78-8c12-3456789abcde",
         "ipfs_uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
@@ -199,37 +199,101 @@
           }
         ],
         "mass_id": {
-          "token_id": "125",
-          "external_id": "0d9c8b7a-6e5f-4d3c-8b1a-0987654321ff",
-          "external_url": "https://explore.carrot.eco/document/0d9c8b7a-6e5f-4d3c-8b1a-0987654321ff",
-          "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-          "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
+          "token_id": "1034",
+          "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
         }
       }
     ],
     "participant_rewards": [
       {
-        "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
+        "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "roles": [
-          "Waste Generator"
+          "Processor",
+          "Recycler"
         ],
-        "usdc_amount": 487.5
+        "usdc_amount": 165
       },
       {
-        "participant_id_hash": "bbbb3333aaaa2222bbbb3333aaaa2222bbbb3333aaaa2222bbbb3333aaaa2222",
+        "participant_id_hash": "c9d8e7f654321098765432109876543210fedcba9876543210fedcba98765432",
+        "roles": [
+          "Network"
+        ],
+        "usdc_amount": 110
+      },
+      {
+        "participant_id_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "roles": [
+          "Community Impact Pool"
+        ],
+        "usdc_amount": 102.58
+      },
+      {
+        "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
         "roles": [
           "Hauler",
           "Processor",
           "Recycler"
         ],
-        "usdc_amount": 975
+        "usdc_amount": 96.35
+      },
+      {
+        "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
+        "roles": [
+          "Waste Generator"
+        ],
+        "usdc_amount": 82.5
+      },
+      {
+        "participant_id_hash": "f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcdefab",
+        "roles": [
+          "Hauler"
+        ],
+        "usdc_amount": 55
+      },
+      {
+        "participant_id_hash": "d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcd",
+        "roles": [
+          "Network Integrator"
+        ],
+        "usdc_amount": 44
+      },
+      {
+        "participant_id_hash": "e710790f59094a54ab896a59819472ee1234567890abcdef1234567890abcdef",
+        "roles": [
+          "Network Integrator"
+        ],
+        "usdc_amount": 24.09
+      },
+      {
+        "participant_id_hash": "6f520d88864d432dbf9f5c3166c4818f1234567890abcdef1234567890abcdef",
+        "roles": [
+          "Waste Generator"
+        ],
+        "usdc_amount": 20.07
+      },
+      {
+        "participant_id_hash": "a9b8c7d6e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
+        "roles": [
+          "Methodology Author"
+        ],
+        "usdc_amount": 5.5
+      },
+      {
+        "participant_id_hash": "b9c8d7e6f54321098765432109876543210fedcba9876543210fedcba9876543",
+        "roles": [
+          "Methodology Developer"
+        ],
+        "usdc_amount": 5.5
       }
     ],
     "retirement_receipt": {
       "token_id": "1200",
-      "external_id": "a1b2c3d4-e5f6-4b90-8a34-567890abcdef",
-      "external_url": "https://explore.carrot.eco/document/a1b2c3d4-e5f6-4b90-8a34-567890abcdef",
-      "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy",
+      "external_id": "b2c3d4e5-f6a7-4c89-8a01-234567890abc",
+      "external_url": "https://explore.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
+      "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
       "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
     }
   }

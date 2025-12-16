@@ -9,6 +9,7 @@ import {
   LocationSchema,
   ParticipantSchema,
   uniqueBy,
+  ParticipantIdHashSchema,
   Sha256HashSchema,
   IbamaWasteClassificationSchema,
   VehicleTypeSchema,
@@ -107,10 +108,7 @@ const MassIDBaseEventSchema = z
       title: 'Event Timestamp',
       description: 'ISO 8601 timestamp when the event occurred',
     }),
-    participant_id_hash: Sha256HashSchema.meta({
-      title: 'Participant ID Hash',
-      description: 'Reference to participant in the participants array',
-    }),
+    participant_id_hash: ParticipantIdHashSchema,
     location_id_hash: Sha256HashSchema.meta({
       title: 'Location ID Hash',
       description: 'Reference to location in the locations array',

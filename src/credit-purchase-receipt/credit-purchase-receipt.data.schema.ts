@@ -3,9 +3,7 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
-  NonNegativeFloatSchema,
   ParticipantRoleSchema,
-  SlugSchema,
   TokenIdSchema,
   uniqueArrayItems,
   uniqueBy,
@@ -22,8 +20,11 @@ import {
   validateCreditSlugExists,
 } from '../shared';
 import {
+  CreditTokenSlugSchema,
   EthereumAddressSchema,
-  Sha256HashSchema,
+  ParticipantIdHashSchema,
+  SmartContractAddressSchema,
+  UsdcAmountSchema,
 } from '../shared/schemas/primitives';
 
 const CreditPurchaseReceiptIdentitySchema = ReceiptIdentitySchema;
@@ -74,10 +75,8 @@ export type CreditPurchaseReceiptCredit = z.infer<
 
 const CreditPurchaseReceiptCertificateSchema = createReceiptCertificateSchema({
   additionalShape: {
-    credit_slug: SlugSchema.meta({
-      title: 'Credit Slug',
+    credit_slug: CreditTokenSlugSchema.meta({
       description: 'Slug of the credit type for this certificate',
-      examples: ['carbon', 'organic'],
     }),
     collections: uniqueBy(
       CertificateCollectionItemPurchaseSchema,
@@ -102,11 +101,7 @@ export type CreditPurchaseReceiptCertificate = z.infer<
 
 const CreditPurchaseReceiptParticipantRewardSchema = z
   .strictObject({
-    participant_id_hash: Sha256HashSchema.meta({
-      title: 'Participant ID Hash',
-      description:
-        'Hash representing the participant identifier (SHA-256 hex string)',
-    }),
+    participant_id_hash: ParticipantIdHashSchema,
     roles: uniqueArrayItems(
       ParticipantRoleSchema,
       'Participant roles must be unique',
@@ -116,7 +111,7 @@ const CreditPurchaseReceiptParticipantRewardSchema = z
         title: 'Participant Roles',
         description: 'Roles the participant has in the supply chain',
       }),
-    usdc_amount: NonNegativeFloatSchema.meta({
+    usdc_amount: UsdcAmountSchema.meta({
       title: 'USDC Reward Amount',
       description: 'USDC amount allocated to this participant',
     }),
@@ -147,10 +142,7 @@ const CreditPurchaseReceiptRetirementReceiptSchema = z
       title: 'Retirement Receipt IPFS URI',
       description: 'IPFS URI for the retirement receipt metadata',
     }),
-    smart_contract_address: EthereumAddressSchema.meta({
-      title: 'Smart Contract Address',
-      description: 'Ethereum address of the smart contract',
-    }),
+    smart_contract_address: SmartContractAddressSchema,
   })
   .meta({
     title: 'Retirement Receipt Reference',

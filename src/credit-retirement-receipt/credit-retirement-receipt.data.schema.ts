@@ -22,6 +22,7 @@ import {
   validateCollectionsHaveRetiredAmounts,
   validateCreditSlugExists,
   validateCreditSymbolExists,
+  SmartContractAddressSchema,
 } from '../shared';
 
 const CreditRetirementReceiptIdentitySchema = ReceiptIdentitySchema;
@@ -129,10 +130,7 @@ const CreditPurchaseReceiptReferenceSchema = z
       title: 'Purchase Receipt IPFS URI',
       description: 'IPFS URI for the purchase receipt metadata',
     }),
-    smart_contract_address: EthereumAddressSchema.meta({
-      title: 'Smart Contract Address',
-      description: 'Ethereum address of the smart contract',
-    }),
+    smart_contract_address: SmartContractAddressSchema,
   })
   .meta({
     title: 'Credit Purchase Receipt Reference',
