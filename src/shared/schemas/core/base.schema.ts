@@ -7,7 +7,6 @@ import {
   RecordSchemaTypeSchema,
   Sha256HashSchema,
   IpfsUriSchema,
-  IpfsCidSchema,
 } from '../primitives';
 
 export const SchemaInfoSchema = z
@@ -57,9 +56,9 @@ export type RecordEnvironment = z.infer<typeof RecordEnvironmentSchema>;
 
 export const ViewerReferenceSchema = z
   .strictObject({
-    ipfs_cid: IpfsCidSchema.meta({
-      title: 'Viewer IPFS CID',
-      description: 'IPFS CID of the metadata viewer dApp build',
+    ipfs_uri: IpfsUriSchema.meta({
+      title: 'Viewer IPFS URI',
+      description: 'IPFS URI of the metadata viewer dApp build',
     }),
     integrity_hash: Sha256HashSchema.meta({
       title: 'Viewer Integrity Hash',
@@ -89,8 +88,8 @@ export const BaseIpfsSchema = z
     }),
     external_id: ExternalIdSchema,
     external_url: ExternalUrlSchema,
-    original_content_hash: Sha256HashSchema.meta({
-      title: 'Original Content Hash',
+    full_content_hash: Sha256HashSchema.meta({
+      title: 'Full Content Hash',
       description:
         'SHA-256 hash of the original JSON content including private data before schema validation',
     }),

@@ -28,7 +28,7 @@ alwaysApply: false
   2. Schema version information (`schema` object with `hash`, `type`, `version`)
   3. Temporal metadata (`created_at`)
   4. Core identification fields (`external_id`, `external_url`)
-  5. Content integrity fields (`content_hash`, `original_content_hash`)
+  5. Content integrity fields (`content_hash`, `full_content_hash`)
   6. Creator and relationship data
   7. Environment information
   8. Primary data payload (`data` object)

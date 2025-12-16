@@ -41,11 +41,11 @@ describe('ViewerReferenceSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it('rejects viewer reference without ipfs_cid', () => {
-    const { ipfs_cid, ...missingIpfsCid } = minimalViewerReferenceStub;
-    expect(ipfs_cid).toBeDefined();
+  it('rejects viewer reference without ipfs_uri', () => {
+    const { ipfs_uri, ...missingIpfsUri } = minimalViewerReferenceStub;
+    expect(ipfs_uri).toBeDefined();
 
-    const result = ViewerReferenceSchema.safeParse(missingIpfsCid);
+    const result = ViewerReferenceSchema.safeParse(missingIpfsUri);
 
     expect(result.success).toBe(false);
   });
@@ -60,9 +60,9 @@ describe('ViewerReferenceSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('rejects viewer reference with invalid ipfs_cid', () => {
+  it('rejects viewer reference with invalid ipfs_uri', () => {
     const invalidViewerReference = createViewerReferenceFixture({
-      ipfs_cid: 'not-a-valid-cid',
+      ipfs_uri: 'not-a-valid-uri',
     });
     const result = ViewerReferenceSchema.safeParse(invalidViewerReference);
 

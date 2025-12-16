@@ -108,7 +108,6 @@ const CONDITIONAL_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
   CreditPurchaseReceiptRetirementReceiptAttributeSchema,
 ] as const;
 
-// Dynamic attributes (one per credit symbol)
 const DYNAMIC_CREDIT_PURCHASE_RECEIPT_ATTRIBUTES = [
   CreditPurchaseReceiptCreditAttributeSchema,
 ] as const;

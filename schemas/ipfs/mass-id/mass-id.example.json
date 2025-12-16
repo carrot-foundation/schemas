@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "b2118b92b217209f2c987ad543750145b05e192e358e49e3d0f37fba2dff43d7",
+    "hash": "34f3ae258ba636a6e5706809f1e02ed17a98f252ff1d625df723f5177dfa9892",
     "type": "MassID",
     "version": "0.1.58",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -18,7 +18,7 @@
     "network_name": "Amoy"
   },
   "viewer_reference": {
-    "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
@@ -104,8 +104,8 @@
       "display_type": "date"
     }
   ],
-  "original_content_hash": "cc63b1e49e18e0a9a98a93fd4766b05891978723c1c194ef4010daab6b8655c5",
-  "content_hash": "cc63b1e49e18e0a9a98a93fd4766b05891978723c1c194ef4010daab6b8655c5",
+  "full_content_hash": "71ea533b7c733a6130857b2ac04d628e68b467026cdeb0687738919747d3ee36",
+  "content_hash": "71ea533b7c733a6130857b2ac04d628e68b467026cdeb0687738919747d3ee36",
   "data": {
     "waste_properties": {
       "type": "Organic",

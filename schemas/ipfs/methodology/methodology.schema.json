@@ -93,8 +93,8 @@
       "type": "string",
       "format": "uri"
     },
-    "original_content_hash": {
-      "title": "Original Content Hash",
+    "full_content_hash": {
+      "title": "Full Content Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -116,17 +116,16 @@
       "description": "References to the metadata viewer dApp, including immutable and latest entry points",
       "type": "object",
       "properties": {
-        "ipfs_cid": {
-          "title": "Viewer IPFS CID",
-          "description": "IPFS CID of the metadata viewer dApp build",
+        "ipfs_uri": {
+          "title": "Viewer IPFS URI",
+          "description": "IPFS URI of the metadata viewer dApp build",
           "examples": [
-            "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-            "bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
-            "QmT78zSuBmuS4z925WZfrqQ1qHaJ5q3hRbAWkjj9piKktM"
+            "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+            "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ],
           "type": "string",
           "minLength": 1,
-          "pattern": "^(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})$"
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
         },
         "integrity_hash": {
           "title": "Viewer Integrity Hash",
@@ -139,7 +138,7 @@
         }
       },
       "required": [
-        "ipfs_cid",
+        "ipfs_uri",
         "integrity_hash"
       ],
       "additionalProperties": false
@@ -387,7 +386,7 @@
     "created_at",
     "external_id",
     "external_url",
-    "original_content_hash",
+    "full_content_hash",
     "content_hash",
     "data"
   ],

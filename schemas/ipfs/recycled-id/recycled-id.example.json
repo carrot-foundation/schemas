@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "62208793df5fb52c83db984f8ce11db7ebb0d7fa3829890d682152a9b53cb2a1",
+    "hash": "4401bfb328a39aaca70c54f0a2ac018f21dc5dc482304d6ca3ff27292ca9ef2e",
     "type": "RecycledID",
     "version": "0.1.58",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,10 +20,10 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "adeb210af07d7ae44553afe40365396a18e25a05b64258cbff3d0afef6b48d91",
-  "original_content_hash": "adeb210af07d7ae44553afe40365396a18e25a05b64258cbff3d0afef6b48d91",
+  "content_hash": "fe8a7cd8934510e6308af06dbd853b18aa13e085e4b112d510b4cf9b87b7f7d3",
+  "full_content_hash": "fe8a7cd8934510e6308af06dbd853b18aa13e085e4b112d510b4cf9b87b7f7d3",
   "viewer_reference": {
-    "ipfs_cid": "bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
   "name": "RecycledID #789 • BOLD Recycling • 3.25t Recycled",

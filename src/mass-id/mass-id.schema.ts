@@ -6,6 +6,10 @@ import {
   NftIpfsSchema,
   MassIDNameSchema,
   MassIDShortNameSchema,
+  createAttributeMap,
+  validateAttributeValue,
+  validateDateTimeAttribute,
+  validateTokenIdInName,
 } from '../shared';
 import { MassIDAttributesSchema } from './mass-id.attributes';
 
@@ -47,191 +51,193 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
   data: MassIDDataSchema,
 })
   .superRefine((record, ctx) => {
-    const nameTokenIdRegex = /^MassID #(\d+)/;
-    const nameTokenIdMatch = nameTokenIdRegex.exec(record.name);
-    if (
-      !nameTokenIdMatch ||
-      nameTokenIdMatch[1] !== record.blockchain.token_id
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message: `Name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
-        path: ['name'],
-      });
-    }
+    validateTokenIdInName({
+      ctx,
+      name: record.name,
+      tokenId: record.blockchain.token_id,
+      pattern: /^MassID #(\d+)/,
+      path: ['name'],
+    });
 
-    const shortNameTokenIdRegex = /^MassID #(\d+)/;
-    const shortNameTokenIdMatch = shortNameTokenIdRegex.exec(record.short_name);
-    if (
-      !shortNameTokenIdMatch ||
-      shortNameTokenIdMatch[1] !== record.blockchain.token_id
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message: `Short name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
-        path: ['short_name'],
-      });
-    }
+    validateTokenIdInName({
+      ctx,
+      name: record.short_name,
+      tokenId: record.blockchain.token_id,
+      pattern: /^MassID #(\d+)/,
+      path: ['short_name'],
+      message: `Short name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
+    });
 
     const { data, attributes } = record;
+    const attributeByTraitType = createAttributeMap(attributes);
 
-    const findAttribute = (traitType: string) => {
-      const index = attributes.findIndex(
-        (attribute) => attribute.trait_type === traitType,
-      );
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Waste Type',
+      expectedValue: data.waste_properties.type,
+      missingMessage:
+        'Waste Type attribute must be present and match waste_properties.type',
+      mismatchMessage: 'Waste Type attribute must equal waste_properties.type',
+    });
 
-      return {
-        attribute: index >= 0 ? attributes[index] : undefined,
-        index,
-      };
-    };
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Waste Subtype',
+      expectedValue: data.waste_properties.subtype,
+      missingMessage:
+        'Waste Subtype attribute must be present and match waste_properties.subtype',
+      mismatchMessage:
+        'Waste Subtype attribute must equal waste_properties.subtype',
+    });
 
-    const assertAttributeMatches = (
-      traitType: string,
-      expectedValue: unknown,
-      sourceDescription: string,
-    ) => {
-      const { attribute, index } = findAttribute(traitType);
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Weight (kg)',
+      expectedValue: data.waste_properties.net_weight_kg,
+      missingMessage:
+        'Weight (kg) attribute must be present and match waste_properties.net_weight_kg',
+      mismatchMessage:
+        'Weight (kg) attribute must equal waste_properties.net_weight_kg',
+    });
 
-      if (expectedValue === undefined || expectedValue === null) {
-        if (attribute) {
-          ctx.addIssue({
-            code: 'custom',
-            path: ['attributes', index],
-            message: `${traitType} attribute must be omitted when ${sourceDescription} is not provided`,
-          });
-        }
-        return;
-      }
-
-      if (!attribute) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['attributes'],
-          message: `${traitType} attribute must be present and match ${sourceDescription}`,
-        });
-        return;
-      }
-
-      if (attribute.value !== expectedValue) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['attributes', index, 'value'],
-          message: `${traitType} attribute must equal ${sourceDescription}`,
-        });
-      }
-    };
-
-    const assertTimestampAttributeMatches = (
-      traitType: string,
-      isoTimestamp: string | undefined,
-      sourceDescription: string,
-    ) => {
-      if (!isoTimestamp) {
-        assertAttributeMatches(traitType, undefined, sourceDescription);
-        return;
-      }
-
-      const timestamp = Date.parse(isoTimestamp);
-
-      if (Number.isNaN(timestamp)) {
-        return;
-      }
-
-      assertAttributeMatches(traitType, timestamp, sourceDescription);
-    };
-
-    assertAttributeMatches(
-      'Waste Type',
-      data.waste_properties.type,
-      'waste_properties.type',
-    );
-    assertAttributeMatches(
-      'Waste Subtype',
-      data.waste_properties.subtype,
-      'waste_properties.subtype',
-    );
-    assertAttributeMatches(
-      'Weight (kg)',
-      data.waste_properties.net_weight_kg,
-      'waste_properties.net_weight_kg',
-    );
-
-    assertAttributeMatches(
-      'Local Waste Classification ID',
-      data.waste_properties.local_classification?.code,
-      'waste_properties.local_classification.code',
-    );
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Local Waste Classification ID',
+      expectedValue: data.waste_properties.local_classification?.code,
+      missingMessage:
+        'Local Waste Classification ID attribute must be omitted when waste_properties.local_classification.code is not provided',
+      mismatchMessage:
+        'Local Waste Classification ID attribute must equal waste_properties.local_classification.code',
+    });
 
     const pickUpEvent = data.events.find(isPickUpEvent);
-
     const pickUpLocation = pickUpEvent
       ? data.locations.find(
           (location) => location.id_hash === pickUpEvent.location_id_hash,
         )
       : undefined;
 
-    assertAttributeMatches(
-      'Origin City',
-      pickUpLocation?.city,
-      'Pick-up event location.city',
-    );
-    assertTimestampAttributeMatches(
-      'Pick-up Date',
-      pickUpEvent?.timestamp,
-      'Pick-up event timestamp',
-    );
-    assertAttributeMatches(
-      'Pick-up Vehicle Type',
-      pickUpEvent?.data?.vehicle_type,
-      'Pick-up event vehicle_type',
-    );
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Origin City',
+      expectedValue: pickUpLocation?.city,
+      missingMessage:
+        'Origin City attribute must be omitted when Pick-up event location.city is not provided',
+      mismatchMessage:
+        'Origin City attribute must equal Pick-up event location.city',
+    });
+
+    validateDateTimeAttribute({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Pick-up Date',
+      dateTimeValue: pickUpEvent?.timestamp,
+      missingMessage:
+        'Pick-up Date attribute must be omitted when Pick-up event timestamp is not provided',
+      invalidDateMessage:
+        'Pick-up event timestamp must be a valid ISO 8601 date-time string',
+      mismatchMessage:
+        'Pick-up Date attribute must equal Pick-up event timestamp',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Pick-up Vehicle Type',
+      expectedValue: pickUpEvent?.data?.vehicle_type,
+      missingMessage:
+        'Pick-up Vehicle Type attribute must be omitted when Pick-up event vehicle_type is not provided',
+      mismatchMessage:
+        'Pick-up Vehicle Type attribute must equal Pick-up event vehicle_type',
+    });
 
     const dropOffEvent = data.events.find(isDropOffEvent);
-    assertTimestampAttributeMatches(
-      'Drop-off Date',
-      dropOffEvent?.timestamp,
-      'Drop-off event timestamp',
-    );
+    validateDateTimeAttribute({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Drop-off Date',
+      dateTimeValue: dropOffEvent?.timestamp,
+      missingMessage:
+        'Drop-off Date attribute must be omitted when Drop-off event timestamp is not provided',
+      invalidDateMessage:
+        'Drop-off event timestamp must be a valid ISO 8601 date-time string',
+      mismatchMessage:
+        'Drop-off Date attribute must equal Drop-off event timestamp',
+    });
 
     const recyclingEvent = data.events.find(isRecyclingEvent);
-    assertTimestampAttributeMatches(
-      'Recycling Date',
-      recyclingEvent?.timestamp,
-      'Recycling event timestamp',
-    );
+    validateDateTimeAttribute({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Recycling Date',
+      dateTimeValue: recyclingEvent?.timestamp,
+      missingMessage:
+        'Recycling Date attribute must be omitted when Recycling event timestamp is not provided',
+      invalidDateMessage:
+        'Recycling event timestamp must be a valid ISO 8601 date-time string',
+      mismatchMessage:
+        'Recycling Date attribute must equal Recycling event timestamp',
+    });
 
     const weighingEvent = data.events.find(isWeighingEvent);
-    assertAttributeMatches(
-      'Weighing Capture Method',
-      weighingEvent?.data?.weighing_capture_method,
-      'Weighing event weighing_capture_method',
-    );
-    assertAttributeMatches(
-      'Scale Type',
-      weighingEvent?.data?.scale_type,
-      'Weighing event scale_type',
-    );
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Weighing Capture Method',
+      expectedValue: weighingEvent?.data?.weighing_capture_method,
+      missingMessage:
+        'Weighing Capture Method attribute must be omitted when Weighing event weighing_capture_method is not provided',
+      mismatchMessage:
+        'Weighing Capture Method attribute must equal Weighing event weighing_capture_method',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Scale Type',
+      expectedValue: weighingEvent?.data?.scale_type,
+      missingMessage:
+        'Scale Type attribute must be omitted when Weighing event scale_type is not provided',
+      mismatchMessage:
+        'Scale Type attribute must equal Weighing event scale_type',
+    });
 
     const recyclingManifest = data.attachments?.find(
       (attachment) =>
         attachment.type === 'Recycling Manifest' && attachment.document_number,
     );
-    assertAttributeMatches(
-      'Recycling Manifest Number',
-      recyclingManifest?.document_number,
-      'Recycling Manifest attachment document_number',
-    );
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Recycling Manifest Number',
+      expectedValue: recyclingManifest?.document_number,
+      missingMessage: recyclingManifest?.document_number
+        ? 'Recycling Manifest Number attribute must be present and match Recycling Manifest attachment document_number'
+        : 'Recycling Manifest Number attribute must be omitted when Recycling Manifest attachment document_number is not provided',
+      mismatchMessage:
+        'Recycling Manifest Number attribute must equal Recycling Manifest attachment document_number',
+    });
 
     const transportManifest = data.attachments?.find(
       (attachment) =>
         attachment.type === 'Transport Manifest' && attachment.document_number,
     );
-    assertAttributeMatches(
-      'Transport Manifest Number',
-      transportManifest?.document_number,
-      'Transport Manifest attachment document_number',
-    );
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Transport Manifest Number',
+      expectedValue: transportManifest?.document_number,
+      missingMessage: transportManifest?.document_number
+        ? 'Transport Manifest Number attribute must be present and match Transport Manifest attachment document_number'
+        : 'Transport Manifest Number attribute must be omitted when Transport Manifest attachment document_number is not provided',
+      mismatchMessage:
+        'Transport Manifest Number attribute must equal Transport Manifest attachment document_number',
+    });
   })
   .meta(MassIDIpfsSchemaMeta);
 
