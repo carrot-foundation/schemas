@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "RecycledID NFT IPFS Record",
   "description": "Complete RecycledID NFT IPFS record including fixed attributes and recycling outcome data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.57/schemas/ipfs/recycled-id/recycled-id.schema.json",
-  "version": "0.1.57",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.58/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "version": "0.1.58",
   "type": "object",
   "properties": {
     "$schema": {
