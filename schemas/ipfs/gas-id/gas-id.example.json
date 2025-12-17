@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "full_content_hash": "64511cf0f3575b39a8a8ad4d84cf1ec3c5ef431874d7387d77b6fb074273d115",
-  "content_hash": "64511cf0f3575b39a8a8ad4d84cf1ec3c5ef431874d7387d77b6fb074273d115",
+  "full_content_hash": "b842746f5c0fad4ea4a82432bc979e9341d28a0fd0ee461d5f58407e17e44302",
+  "content_hash": "b842746f5c0fad4ea4a82432bc979e9341d28a0fd0ee461d5f58407e17e44302",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -124,7 +124,7 @@
       "completed_at": "2024-12-08T11:32:47.000Z",
       "external_id": "80011d61-fe40-4aa2-9031-4f2aafad5d42",
       "external_url": "https://explore.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
-      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
+      "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
       "token_id": "1034",

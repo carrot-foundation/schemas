@@ -381,7 +381,7 @@
               "minimum": 0,
               "maximum": 9007199254740991
             },
-            "report_uri": {
+            "ipfs_uri": {
               "title": "Audit Report",
               "description": "IPFS URI of the audit report",
               "examples": [
@@ -399,7 +399,7 @@
             "external_url",
             "result",
             "rules_executed",
-            "report_uri"
+            "ipfs_uri"
           ],
           "additionalProperties": false
         },
