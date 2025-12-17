@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  ParticipantRewardsSchema,
   WastePropertiesSchema,
   MethodologyReferenceSchema,
   AuditReferenceSchema,
@@ -43,7 +42,6 @@ export const RecycledIDDataSchema = z
       title: 'RecycledID Origin Location',
       description: 'Source waste origin location details',
     }),
-    participant_rewards: ParticipantRewardsSchema,
   })
   .meta({
     title: 'RecycledID Data',

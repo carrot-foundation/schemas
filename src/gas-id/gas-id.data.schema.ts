@@ -6,7 +6,6 @@ import {
   IsoDateTimeSchema,
   LocationSchema,
   WastePropertiesSchema,
-  ParticipantRewardsSchema,
   MethodologyReferenceSchema,
   AuditReferenceSchema,
   MassIDReferenceSchema,
@@ -104,7 +103,6 @@ export const GasIDDataSchema = z
       description: 'Location of the waste origin',
     }),
     prevented_emissions_calculation: PreventedEmissionsCalculationSchema,
-    participant_rewards: ParticipantRewardsSchema,
   })
   .meta({
     title: 'GasID Data',

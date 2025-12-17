@@ -75,12 +75,6 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
-  it('rejects mismatched summary total_amount_usdc', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.summary.total_amount_usdc = invalid.summary.total_amount_usdc + 1;
-    });
-  });
-
   it('requires certificate collections to have valid amounts', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].collections[0].retired_amount =

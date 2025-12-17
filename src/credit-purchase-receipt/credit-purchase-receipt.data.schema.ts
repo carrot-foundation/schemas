@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import {
   ExternalIdSchema,
-  ParticipantRoleSchema,
-  uniqueArrayItems,
   uniqueBy,
   CreditPurchaseReceiptSummarySchema,
   ReceiptIdentitySchema,
@@ -20,8 +18,6 @@ import {
 import {
   CreditTokenSlugSchema,
   EthereumAddressSchema,
-  ParticipantIdHashSchema,
-  UsdcAmountSchema,
 } from '../shared/schemas/primitives';
 
 const CreditPurchaseReceiptIdentitySchema = ReceiptIdentitySchema;
@@ -92,31 +88,6 @@ export type CreditPurchaseReceiptCertificate = z.infer<
   typeof CreditPurchaseReceiptCertificateSchema
 >;
 
-const CreditPurchaseReceiptParticipantRewardSchema = z
-  .strictObject({
-    participant_id_hash: ParticipantIdHashSchema,
-    roles: uniqueArrayItems(
-      ParticipantRoleSchema,
-      'Participant roles must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Participant Roles',
-        description: 'Roles the participant has in the supply chain',
-      }),
-    usdc_amount: UsdcAmountSchema.meta({
-      title: 'USDC Reward Amount',
-      description: 'USDC amount allocated to this participant',
-    }),
-  })
-  .meta({
-    title: 'Participant Reward',
-    description: 'Reward distribution for a participant',
-  });
-export type CreditPurchaseReceiptParticipantReward = z.infer<
-  typeof CreditPurchaseReceiptParticipantRewardSchema
->;
-
 const CreditPurchaseReceiptRetirementReceiptSchema =
   CreditRetirementReceiptReferenceSchema;
 export type CreditPurchaseReceiptRetirementReceipt = z.infer<
@@ -156,17 +127,6 @@ export const CreditPurchaseReceiptDataSchema = z
       .meta({
         title: 'Certificates',
         description: 'Certificates involved in the purchase',
-      }),
-    participant_rewards: uniqueBy(
-      CreditPurchaseReceiptParticipantRewardSchema,
-      (reward) => reward.participant_id_hash,
-      'Participant participant_id_hash must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Participant Rewards',
-        description:
-          'Rewards distributed to participants in the supply chain for this purchase',
       }),
     retirement_receipt: CreditPurchaseReceiptRetirementReceiptSchema.optional(),
   })
@@ -282,20 +242,6 @@ export const CreditPurchaseReceiptDataSchema = z
       ctx,
       hasRetirementReceipt: !!data.retirement_receipt,
       totalRetiredAmount: certificateCollectionRetiredTotal,
-    });
-
-    const participantRewardTotal = data.participant_rewards.reduce(
-      (sum, reward) => sum + Number(reward.usdc_amount),
-      0,
-    );
-
-    validateTotalMatches({
-      ctx,
-      actualTotal: participantRewardTotal,
-      expectedTotal: data.summary.total_amount_usdc,
-      path: ['summary', 'total_amount_usdc'],
-      message:
-        'summary.total_amount_usdc must equal sum of participant_rewards.usdc_amount',
     });
   })
   .meta({
