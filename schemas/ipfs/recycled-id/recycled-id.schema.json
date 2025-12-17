@@ -186,7 +186,7 @@
           "type": "object",
           "properties": {
             "recycled_mass_kg": {
-              "title": "Recycled Mass Weight",
+              "title": "Recycled Weight",
               "description": "Total weight of materials successfully recycled in kilograms (kg)",
               "examples": [
                 500.35,
@@ -1000,7 +1000,7 @@
     },
     "attributes": {
       "title": "RecycledID NFT Attribute Array",
-      "description": "Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait.\n\nRequired attributes (11, in order): Methodology, Recycled Mass Weight (kg), Credit Amount, Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, Certificate Issuance Date.",
+      "description": "Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait.\n\nRequired attributes (11, in order): Methodology, Recycled Weight (kg), Credit Amount, Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, Certificate Issuance Date.",
       "type": "array",
       "prefixItems": [
         {
@@ -1055,16 +1055,16 @@
           "additionalProperties": false
         },
         {
-          "title": "Recycled Mass Weight Attribute",
+          "title": "Recycled Weight Attribute",
           "description": "Total weight of recycled materials in kilograms attribute with numeric display",
           "type": "object",
           "properties": {
             "trait_type": {
               "type": "string",
-              "const": "Recycled Mass Weight (kg)"
+              "const": "Recycled Weight (kg)"
             },
             "value": {
-              "title": "Recycled Mass Weight",
+              "title": "Recycled Weight",
               "description": "Total weight of recycled materials in kilograms",
               "examples": [
                 500.35,

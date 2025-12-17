@@ -86,17 +86,17 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
       mismatchMessage: 'Methodology attribute must equal data.methodology.name',
     });
 
-    // Recycled Mass Weight uses nearlyEqual for floating-point comparison
+    // Recycled Weight uses nearlyEqual for floating-point comparison
     validateNumericAttributeValue({
       ctx,
       attributeByTraitType,
-      traitType: 'Recycled Mass Weight (kg)',
+      traitType: 'Recycled Weight (kg)',
       expectedValue: data.summary.recycled_mass_kg,
       epsilon: 0.01,
       missingMessage:
-        'Recycled Mass Weight (kg) attribute must be present and match data.summary.recycled_mass_kg',
+        'Recycled Weight (kg) attribute must be present and match data.summary.recycled_mass_kg',
       mismatchMessage:
-        'Recycled Mass Weight (kg) attribute must equal data.summary.recycled_mass_kg',
+        'Recycled Weight (kg) attribute must equal data.summary.recycled_mass_kg',
     });
 
     validateAttributeValue({

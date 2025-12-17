@@ -2,7 +2,7 @@
   "version": "0.1.61",
   "schemas": {
     "ipfs/recycled-id/recycled-id.schema.json": {
-      "hash": "b8029a51e535300da3d72684667f1bae44eace169ecb0e5dcc2aee1554854cf1",
+      "hash": "be3272a030b924cfe8baa4cfa914ceafbb80c41bd291a52f822b2e0df4b87228",
       "path": "ipfs/recycled-id/recycled-id.schema.json"
     },
     "ipfs/methodology/methodology.schema.json": {

@@ -127,14 +127,14 @@ describe('RecycledIDIpfsSchema', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
       const recycledMassAttrIndex = next.attributes.findIndex(
-        (attr) => attr.trait_type === 'Recycled Mass Weight (kg)',
+        (attr) => attr.trait_type === 'Recycled Weight (kg)',
       );
       if (recycledMassAttrIndex >= 0) {
         next.attributes[recycledMassAttrIndex].value = 999.99;
       }
       return next;
     }, [
-      'Recycled Mass Weight (kg) attribute must equal data.summary.recycled_mass_kg',
+      'Recycled Weight (kg) attribute must equal data.summary.recycled_mass_kg',
     ]);
   });
 

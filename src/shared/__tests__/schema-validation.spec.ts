@@ -897,15 +897,15 @@ describe('validateNumericAttributeValue', () => {
     const { ctx, issues } = createValidationContext();
     const attributeByTraitType = new Map([
       [
-        'Recycled Mass Weight (kg)',
-        { trait_type: 'Recycled Mass Weight (kg)', value: 50.505 },
+        'Recycled Weight (kg)',
+        { trait_type: 'Recycled Weight (kg)', value: 50.505 },
       ],
     ]);
 
     validateNumericAttributeValue({
       ctx,
       attributeByTraitType,
-      traitType: 'Recycled Mass Weight (kg)',
+      traitType: 'Recycled Weight (kg)',
       expectedValue: 50.5,
       epsilon: 0.01,
       missingMessage: 'Attribute must be present',

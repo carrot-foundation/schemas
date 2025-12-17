@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "204e08cebe7d4bd5b5a0862fd96f688c08bfc3879b38280352a7ab1fffdda9a4",
-  "full_content_hash": "204e08cebe7d4bd5b5a0862fd96f688c08bfc3879b38280352a7ab1fffdda9a4",
+  "content_hash": "ca34d03826ebca341005b868e943f90c8df81354868b0c3a1f9d7ee195a79cba",
+  "full_content_hash": "ca34d03826ebca341005b868e943f90c8df81354868b0c3a1f9d7ee195a79cba",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -49,7 +49,7 @@
       "value": "AMS-III.F. | BOLD Recycling Credit"
     },
     {
-      "trait_type": "Recycled Mass Weight (kg)",
+      "trait_type": "Recycled Weight (kg)",
       "value": 3250.5,
       "display_type": "number"
     },

@@ -20,8 +20,8 @@ export type RecycledIDAttributeMethodology = z.infer<
 
 const RecycledIDAttributeRecycledMassWeightSchema = createWeightAttributeSchema(
   {
-    traitType: 'Recycled Mass Weight (kg)',
-    title: 'Recycled Mass Weight',
+    traitType: 'Recycled Weight (kg)',
+    title: 'Recycled Weight',
     description: 'Total weight of recycled materials in kilograms',
   },
 );
@@ -95,7 +95,7 @@ export const RecycledIDAttributesSchema = z
     title: 'RecycledID NFT Attribute Array',
     description:
       'Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait.\n\n' +
-      'Required attributes (11, in order): Methodology, Recycled Mass Weight (kg), Credit Amount, ' +
+      'Required attributes (11, in order): Methodology, Recycled Weight (kg), Credit Amount, ' +
       'Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, ' +
       'Certificate Issuance Date.',
   });
