@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "b8029a51e535300da3d72684667f1bae44eace169ecb0e5dcc2aee1554854cf1",
+    "hash": "cb06a8ea4109ecef1ad9cdca40caa2d4ca7d254d67390186a01ba2c573c2d25a",
     "type": "RecycledID",
     "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "ca34d03826ebca341005b868e943f90c8df81354868b0c3a1f9d7ee195a79cba",
-  "full_content_hash": "ca34d03826ebca341005b868e943f90c8df81354868b0c3a1f9d7ee195a79cba",
+  "content_hash": "02b951c0cdf61b30854631095b7e081bcb44f558f42d3f51d93fc1430ecfa966",
+  "full_content_hash": "02b951c0cdf61b30854631095b7e081bcb44f558f42d3f51d93fc1430ecfa966",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -126,7 +126,7 @@
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
-      "net_weight_kg": 3250.5
+      "weight_kg": 3250.5
     },
     "origin_location": {
       "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",

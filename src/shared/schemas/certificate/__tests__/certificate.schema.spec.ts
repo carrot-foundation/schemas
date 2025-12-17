@@ -28,8 +28,8 @@ describe('WastePropertiesSchema', () => {
     expectSchemaInvalidWithout(schema, base, 'subtype');
   });
 
-  it('rejects missing net_weight_kg', () => {
-    expectSchemaInvalidWithout(schema, base, 'net_weight_kg');
+  it('rejects missing weight_kg', () => {
+    expectSchemaInvalidWithout(schema, base, 'weight_kg');
   });
 
   it('rejects empty type', () => {
@@ -38,9 +38,9 @@ describe('WastePropertiesSchema', () => {
     });
   });
 
-  it('rejects negative net_weight_kg', () => {
+  it('rejects negative weight_kg', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
-      invalid.net_weight_kg = -100;
+      invalid.weight_kg = -100;
     });
   });
 
@@ -51,7 +51,7 @@ describe('WastePropertiesSchema', () => {
       (data) => {
         expect(data.type).toBe(base.type);
         expect(data.subtype).toBe(base.subtype);
-        expect(data.net_weight_kg).toBe(base.net_weight_kg);
+        expect(data.weight_kg).toBe(base.weight_kg);
       },
     );
   });

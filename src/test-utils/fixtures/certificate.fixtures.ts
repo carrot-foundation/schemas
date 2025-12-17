@@ -14,7 +14,7 @@ import type {
 export const minimalWastePropertiesStub: WasteProperties = {
   type: 'Organic',
   subtype: 'Food, Food Waste and Beverages',
-  net_weight_kg: 3000,
+  weight_kg: 3000,
 };
 
 /**
@@ -26,7 +26,7 @@ export const minimalWastePropertiesStub: WasteProperties = {
 export const validWastePropertiesFixture: WasteProperties = {
   type: 'Organic',
   subtype: 'Food, Food Waste and Beverages',
-  net_weight_kg: 3000,
+  weight_kg: 3000,
 };
 
 /**

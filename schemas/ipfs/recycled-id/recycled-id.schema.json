@@ -491,7 +491,7 @@
                 "Wood and Wood Products"
               ]
             },
-            "net_weight_kg": {
+            "weight_kg": {
               "title": "Source Waste Net Weight",
               "description": "Net weight of the source waste in kilograms (kg)",
               "examples": [
@@ -505,7 +505,7 @@
           "required": [
             "type",
             "subtype",
-            "net_weight_kg"
+            "weight_kg"
           ],
           "additionalProperties": false
         },

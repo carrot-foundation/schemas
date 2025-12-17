@@ -246,7 +246,7 @@
               ],
               "additionalProperties": false
             },
-            "net_weight_kg": {
+            "weight_kg": {
               "title": "Net Weight",
               "description": "Net weight of the waste batch in kilograms (kg)",
               "examples": [
@@ -259,7 +259,7 @@
           "required": [
             "type",
             "subtype",
-            "net_weight_kg"
+            "weight_kg"
           ],
           "additionalProperties": false
         },

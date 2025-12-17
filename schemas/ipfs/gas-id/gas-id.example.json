@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "221ab1da056e7fb0dd0e38aca09efa5b1f68381d220c077314e0a893991f141c",
+    "hash": "89b3a23da67aa83f68c132eb857c794d7248b4de1b4ee19ba5f50711d91a1179",
     "type": "GasID",
     "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "full_content_hash": "9ac35a661821c8e63644368cd8acaaa81736a77f164177aa722fbc5fea316762",
-  "content_hash": "9ac35a661821c8e63644368cd8acaaa81736a77f164177aa722fbc5fea316762",
+  "full_content_hash": "64511cf0f3575b39a8a8ad4d84cf1ec3c5ef431874d7387d77b6fb074273d115",
+  "content_hash": "64511cf0f3575b39a8a8ad4d84cf1ec3c5ef431874d7387d77b6fb074273d115",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -109,7 +109,7 @@
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
-      "net_weight_kg": 3250.5
+      "weight_kg": 3250.5
     },
     "methodology": {
       "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",

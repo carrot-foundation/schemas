@@ -19,7 +19,7 @@ export const WastePropertiesSchema = z
       title: 'Source Waste Subtype',
       description: 'Subtype of the source waste',
     }),
-    net_weight_kg: WeightKgSchema.meta({
+    weight_kg: WeightKgSchema.meta({
       title: 'Source Waste Net Weight',
       description: 'Net weight of the source waste in kilograms (kg)',
     }),
