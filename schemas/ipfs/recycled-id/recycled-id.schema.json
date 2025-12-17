@@ -93,15 +93,6 @@
       "type": "string",
       "format": "uri"
     },
-    "content_hash": {
-      "title": "Content Hash",
-      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
-      "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
-    },
     "viewer_reference": {
       "title": "Metadata Viewer Reference",
       "description": "References to the metadata viewer dApp, including immutable and latest entry points",
@@ -1301,7 +1292,6 @@
     "created_at",
     "external_id",
     "external_url",
-    "content_hash",
     "viewer_reference",
     "environment",
     "data",

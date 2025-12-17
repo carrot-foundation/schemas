@@ -67,7 +67,9 @@ function main() {
     }
 
     const exampleJson = loadJson(examplePath);
-    const hasOriginalContentHash =
+    const hasContentHash =
+      schemaJson?.properties && 'content_hash' in schemaJson.properties;
+    const hasFullContentHash =
       schemaJson?.properties && 'full_content_hash' in schemaJson.properties;
 
     if (schemaJson?.$id) {
@@ -79,8 +81,12 @@ function main() {
     exampleJson.schema.hash = manifestEntry.hash;
 
     const contentHash = computeContentHash(exampleJson);
-    exampleJson.content_hash = contentHash;
-    if (hasOriginalContentHash) {
+    if (hasContentHash) {
+      exampleJson.content_hash = contentHash;
+    } else {
+      delete exampleJson.content_hash;
+    }
+    if (hasFullContentHash) {
       exampleJson.full_content_hash = contentHash;
     } else {
       delete exampleJson.full_content_hash;
