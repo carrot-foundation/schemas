@@ -24,7 +24,7 @@ function findSchemaPathForExample(examplePath) {
 function computeContentHash(exampleData) {
   const clone = structuredClone(exampleData);
   delete clone.content_hash;
-  delete clone.full_content_hash;
+  delete clone.audit_data_hash;
   return hashObject(clone);
 }
 
@@ -69,8 +69,8 @@ function main() {
     const exampleJson = loadJson(examplePath);
     const hasContentHash =
       schemaJson?.properties && 'content_hash' in schemaJson.properties;
-    const hasFullContentHash =
-      schemaJson?.properties && 'full_content_hash' in schemaJson.properties;
+    const hasAuditDataHash =
+      schemaJson?.properties && 'audit_data_hash' in schemaJson.properties;
 
     if (schemaJson?.$id) {
       exampleJson.$schema = schemaJson.$id;
@@ -86,10 +86,10 @@ function main() {
     } else {
       delete exampleJson.content_hash;
     }
-    if (hasFullContentHash) {
-      exampleJson.full_content_hash = contentHash;
+    if (hasAuditDataHash) {
+      exampleJson.audit_data_hash = contentHash;
     } else {
-      delete exampleJson.full_content_hash;
+      delete exampleJson.audit_data_hash;
     }
 
     writeJson(examplePath, exampleJson);

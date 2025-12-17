@@ -34,7 +34,7 @@ export const minimalNftIpfsStub: NftIpfs = {
   short_name: 'MassID #123',
   description: 'This is a test NFT description with enough characters',
   image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
-  full_content_hash:
+  audit_data_hash:
     '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
   attributes: [minimalNftAttributeStub, validNftAttributeNumberFixture],
 };
@@ -66,7 +66,7 @@ export const validNftIpfsFixture: NftIpfs = {
   short_name: 'MassID #123',
   description: 'This is a test NFT description with enough characters',
   image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
-  full_content_hash:
+  audit_data_hash:
     '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
   attributes: [minimalNftAttributeStub, validNftAttributeNumberFixture],
 };
