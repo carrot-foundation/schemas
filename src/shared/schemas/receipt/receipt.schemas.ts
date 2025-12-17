@@ -11,10 +11,6 @@ import {
   PositiveIntegerSchema,
   UsdcAmountSchema,
 } from '../primitives';
-import {
-  CertificateReferenceBaseSchema,
-  CreditReferenceSchema,
-} from '../references';
 
 type Meta = {
   title: string;
@@ -155,5 +151,3 @@ export const CertificateCollectionItemRetirementSchema = z
 export type CertificateCollectionItemRetirement = z.infer<
   typeof CertificateCollectionItemRetirementSchema
 >;
-
-export { CertificateReferenceBaseSchema, CreditReferenceSchema };
