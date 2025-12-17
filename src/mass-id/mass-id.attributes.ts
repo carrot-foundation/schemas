@@ -4,6 +4,7 @@ import {
   WasteSubtypeSchema,
   NonEmptyStringSchema,
   OriginCityAttributeSchema,
+  OriginCountrySubdivisionAttributeSchema,
   NftAttributeSchema,
   IbamaWasteClassificationSchema,
   VehicleTypeSchema,
@@ -47,6 +48,12 @@ export type MassIDAttributeWeight = z.infer<typeof MassIDAttributeWeightSchema>;
 const MassIDAttributeOriginCitySchema = OriginCityAttributeSchema;
 export type MassIDAttributeOriginCity = z.infer<
   typeof MassIDAttributeOriginCitySchema
+>;
+
+const MassIDAttributeOriginCountrySubdivisionSchema =
+  OriginCountrySubdivisionAttributeSchema;
+export type MassIDAttributeOriginCountrySubdivision = z.infer<
+  typeof MassIDAttributeOriginCountrySubdivisionSchema
 >;
 
 const MassIDAttributePickUpVehicleTypeSchema = NftAttributeSchema.safeExtend({
@@ -188,6 +195,7 @@ const REQUIRED_MASS_ID_ATTRIBUTES = [
   MassIDAttributeWasteSubtypeSchema,
   MassIDAttributeWeightSchema,
   MassIDAttributeOriginCitySchema,
+  MassIDAttributeOriginCountrySubdivisionSchema,
   MassIDAttributePickUpVehicleTypeSchema,
   MassIDAttributeRecyclingMethodSchema,
   MassIDAttributePickUpDateSchema,
@@ -216,6 +224,7 @@ export const MassIDAttributesSchema = createOrderedAttributesSchema({
     'Waste Subtype',
     'Weight (kg)',
     'Origin City',
+    'Origin Country Subdivision',
     'Pick-up Vehicle Type',
     'Recycling Method',
     'Pick-up Date',

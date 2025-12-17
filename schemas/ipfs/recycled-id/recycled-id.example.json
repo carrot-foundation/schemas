@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "48ec3518f8fe004934ec61fdd5abfadadd08fec39fcd5d0d93609e33db3adcf4",
+    "hash": "b8029a51e535300da3d72684667f1bae44eace169ecb0e5dcc2aee1554854cf1",
     "type": "RecycledID",
-    "version": "0.1.60",
+    "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "b84b32fbc9b241e7eee7114e38d5de4c8dea66391eed03ab0e0cf2ea022e95fe",
-  "full_content_hash": "b84b32fbc9b241e7eee7114e38d5de4c8dea66391eed03ab0e0cf2ea022e95fe",
+  "content_hash": "204e08cebe7d4bd5b5a0862fd96f688c08bfc3879b38280352a7ab1fffdda9a4",
+  "full_content_hash": "204e08cebe7d4bd5b5a0862fd96f688c08bfc3879b38280352a7ab1fffdda9a4",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -74,6 +74,10 @@
     {
       "trait_type": "Origin City",
       "value": "Brasília"
+    },
+    {
+      "trait_type": "Origin Country Subdivision",
+      "value": "BR-DF"
     },
     {
       "trait_type": "MassID",

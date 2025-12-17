@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/gas-id/gas-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "c0bc2164eabbc46291a236a59ae2777b68e701bfbc0402f81b2da340474e3684",
+    "hash": "221ab1da056e7fb0dd0e38aca09efa5b1f68381d220c077314e0a893991f141c",
     "type": "GasID",
-    "version": "0.1.60",
+    "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -20,8 +20,8 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "full_content_hash": "50b1365e219f1b08394ea9b9bced2e53410c84560e4cd9a4eb0ad628de1dfa21",
-  "content_hash": "50b1365e219f1b08394ea9b9bced2e53410c84560e4cd9a4eb0ad628de1dfa21",
+  "full_content_hash": "9ac35a661821c8e63644368cd8acaaa81736a77f164177aa722fbc5fea316762",
+  "content_hash": "9ac35a661821c8e63644368cd8acaaa81736a77f164177aa722fbc5fea316762",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -78,6 +78,10 @@
     {
       "trait_type": "Origin City",
       "value": "Brasília"
+    },
+    {
+      "trait_type": "Origin Country Subdivision",
+      "value": "BR-DF"
     },
     {
       "trait_type": "MassID",
