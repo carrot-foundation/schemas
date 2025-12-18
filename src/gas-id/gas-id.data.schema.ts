@@ -23,6 +23,11 @@ const GasIDSummarySchema = z
       title: 'Prevented Emissions (CO₂e)',
       description: 'CO₂e weight of the prevented emissions in kilograms (kg)',
     }),
+    recycling_date: IsoDateTimeSchema.meta({
+      title: 'Recycling Date',
+      description:
+        'ISO 8601 timestamp when the recycling occurred (when the environmental gain was achieved)',
+    }),
     issued_at: IsoDateTimeSchema.meta({
       title: 'Issued At',
       description: 'ISO 8601 timestamp when the certificate was issued',
@@ -50,7 +55,7 @@ const CalculationValueSchema = z
       description: 'Human-readable label for this calculation value',
       examples: [
         'Exceeding Emission Coefficient',
-        'Prevented Emissions by Waste Subtype and Baseline Per Ton',
+        'Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton',
         'Waste Weight',
         'Prevented Emissions (CO₂e kg)',
       ],
@@ -67,7 +72,7 @@ const PreventedEmissionsCalculationSchema = z
     formula: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Formula',
       description: 'Formula used to calculate the prevented emissions',
-      examples: ['(1 - E) * B * W = R'],
+      examples: ['W * B - W * E'],
     }),
     method: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Method',

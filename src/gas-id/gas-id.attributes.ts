@@ -10,6 +10,7 @@ import {
   OriginCountrySubdivisionAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  RecyclingDateAttributeSchema,
   CertificateIssuanceDateAttributeSchema,
   NftAttributeSchema,
   createNumericAttributeSchema,
@@ -82,6 +83,11 @@ export type GasIDAttributeMassIDRecyclingDate = z.infer<
   typeof GasIDAttributeMassIDRecyclingDateSchema
 >;
 
+const GasIDAttributeRecyclingDateSchema = RecyclingDateAttributeSchema;
+export type GasIDAttributeRecyclingDate = z.infer<
+  typeof GasIDAttributeRecyclingDateSchema
+>;
+
 const GasIDAttributeCertificateIssuanceDateSchema =
   CertificateIssuanceDateAttributeSchema;
 export type GasIDAttributeCertificateIssuanceDate = z.infer<
@@ -101,14 +107,15 @@ export const GasIDAttributesSchema = z
     GasIDAttributeOriginCountrySubdivisionSchema,
     GasIDAttributeMassIDTokenIdSchema,
     GasIDAttributeMassIDRecyclingDateSchema,
+    GasIDAttributeRecyclingDateSchema,
     GasIDAttributeCertificateIssuanceDateSchema,
   ])
   .meta({
     title: 'GasID NFT Attribute Array',
     description:
       'Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait.\n\n' +
-      'Required attributes (12, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, ' +
+      'Required attributes (13, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, ' +
       'Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, ' +
-      'Certificate Issuance Date.',
+      'Recycling Date, Certificate Issuance Date.',
   });
 export type GasIDAttributes = z.infer<typeof GasIDAttributesSchema>;

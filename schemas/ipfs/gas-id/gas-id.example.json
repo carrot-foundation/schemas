@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.62/schemas/ipfs/gas-id/gas-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.63/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "50b0e12a381803811cbe8fd62b830151aec07945f31aeecc036ebb40a2343e18",
+    "hash": "06110924cc8a184a17bb201e02ab67badb33b8dacac5664bdccb667849737312",
     "type": "GasID",
-    "version": "0.1.62",
+    "version": "0.1.63",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -20,14 +20,14 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "audit_data_hash": "f82f3edef29a55a6c17a7009797e08ae071689a32d4562a7d5d92e056492f3a6",
+  "audit_data_hash": "fb6bc12727608bcff17ab8c8a8dbc665e55e511c9acf7ee221a9ea7fdeca470e",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
-  "name": "GasID #456 • BOLD Carbon (CH₄) • 0.86t CO₂e",
+  "name": "GasID #456 • BOLD Carbon (CH₄) • 0.12t CO₂e",
   "short_name": "GasID #456",
-  "description": "This GasID certifies 0.86 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3.25 metric tons of organic waste from Brasília, Brazil.",
+  "description": "This GasID certifies 0.12 metric tons of CO₂e emissions prevented through BOLD Carbon (CH₄) methodology composting of 3.25 metric tons of organic waste from Brasília, Brazil.",
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#1B4332",
   "external_links": [
@@ -53,12 +53,12 @@
     },
     {
       "trait_type": "CO₂e Prevented (kg)",
-      "value": 856.15,
+      "value": 123.519,
       "display_type": "number"
     },
     {
       "trait_type": "Credit Amount",
-      "value": 0.85615,
+      "value": 0.123519,
       "display_type": "number"
     },
     {
@@ -92,6 +92,11 @@
       "display_type": "date"
     },
     {
+      "trait_type": "Recycling Date",
+      "value": 1733657567000,
+      "display_type": "date"
+    },
+    {
       "trait_type": "Certificate Issuance Date",
       "value": 1733657567000,
       "display_type": "date"
@@ -101,8 +106,9 @@
     "summary": {
       "gas_type": "Methane (CH₄)",
       "credit_type": "Carbon (CH₄)",
-      "credit_amount": 0.85615,
-      "prevented_co2e_kg": 856.15012,
+      "credit_amount": 0.123519,
+      "prevented_co2e_kg": 123.519,
+      "recycling_date": "2024-12-08T11:32:47.000Z",
       "issued_at": "2024-12-08T11:32:47.000Z"
     },
     "waste_properties": {
@@ -144,7 +150,7 @@
       "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
     },
     "prevented_emissions_calculation": {
-      "formula": "(1 - E) * B * W = R",
+      "formula": "W * B - W * E",
       "method": "UNFCCC AMS-III.F",
       "calculated_at": "2024-12-08T11:32:47.000Z",
       "values": [
@@ -156,7 +162,7 @@
         {
           "reference": "B",
           "value": 0.067,
-          "label": "Prevented Emissions by Waste Subtype and Baseline Per Ton"
+          "label": "Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton"
         },
         {
           "reference": "W",
@@ -165,7 +171,7 @@
         },
         {
           "reference": "R",
-          "value": 856.15012,
+          "value": 123.519,
           "label": "Prevented Emissions (CO₂e kg)"
         }
       ]

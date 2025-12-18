@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.62/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.63/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "9f1f618a898244b6d6e08356e7888835ba843dff6cfa4ae97ab4284bfeb7d1a9",
+    "hash": "07c4c9e1d728bc5dcfe063fc7fd4ec8cf34621959882f1938d4f90dc5ec00d3c",
     "type": "RecycledID",
-    "version": "0.1.62",
+    "version": "0.1.63",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -20,7 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "audit_data_hash": "be40b7b352ecd33347b54668d9704836a7c556e4239a1d94633e6a2ee2ec2cf1",
+  "audit_data_hash": "263ece2de1f4e2c20bc79f5bf1f77be15afeabb5899f41267d745a3c8023dbe6",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -88,6 +88,11 @@
       "display_type": "date"
     },
     {
+      "trait_type": "Recycling Date",
+      "value": 1733657567000,
+      "display_type": "date"
+    },
+    {
       "trait_type": "Certificate Issuance Date",
       "value": 1733657567000,
       "display_type": "date"
@@ -98,6 +103,7 @@
       "recycled_mass_kg": 3250.5,
       "credit_type": "Biowaste",
       "credit_amount": 3,
+      "recycling_date": "2024-12-08T11:32:47.000Z",
       "issued_at": "2024-12-08T11:32:47.000Z"
     },
     "methodology": {

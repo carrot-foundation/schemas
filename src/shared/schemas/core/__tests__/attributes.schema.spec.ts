@@ -13,6 +13,7 @@ import {
   SourceWeightAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  RecyclingDateAttributeSchema,
   CertificateIssuanceDateAttributeSchema,
   OriginCityAttributeSchema,
   OriginCountrySubdivisionAttributeSchema,
@@ -473,6 +474,28 @@ describe('MassIDRecyclingDateAttributeSchema', () => {
 
   it('rejects invalid MassID recycling date attribute', () => {
     const result = MassIDRecyclingDateAttributeSchema.safeParse({
+      trait_type: 'Wrong Type',
+      value: 1704067200000,
+      display_type: 'date',
+    });
+
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('RecyclingDateAttributeSchema', () => {
+  it('validates valid recycling date attribute', () => {
+    const result = RecyclingDateAttributeSchema.safeParse({
+      trait_type: 'Recycling Date',
+      value: 1704067200000,
+      display_type: 'date',
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects invalid recycling date attribute', () => {
+    const result = RecyclingDateAttributeSchema.safeParse({
       trait_type: 'Wrong Type',
       value: 1704067200000,
       display_type: 'date',

@@ -95,6 +95,16 @@ export type CertificateIssuanceDateAttribute = z.infer<
   typeof CertificateIssuanceDateAttributeSchema
 >;
 
+export const RecyclingDateAttributeSchema = createDateAttributeSchema({
+  traitType: 'Recycling Date',
+  title: 'Recycling Date',
+  description:
+    'Unix timestamp in milliseconds when the recycling occurred (when the environmental gain was achieved)',
+});
+export type RecyclingDateAttribute = z.infer<
+  typeof RecyclingDateAttributeSchema
+>;
+
 export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
   trait_type: z.literal('Origin City'),
   value: CitySchema,
