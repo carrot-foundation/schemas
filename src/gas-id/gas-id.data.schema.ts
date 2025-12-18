@@ -67,7 +67,7 @@ const PreventedEmissionsCalculationSchema = z
     formula: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Formula',
       description: 'Formula used to calculate the prevented emissions',
-      examples: ['(1 - E) * B * W = R'],
+      examples: ['W * B - W * E'],
     }),
     method: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Method',

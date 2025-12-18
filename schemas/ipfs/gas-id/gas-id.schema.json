@@ -621,7 +621,7 @@
               "title": "Calculation Formula",
               "description": "Formula used to calculate the prevented emissions",
               "examples": [
-                "(1 - E) * B * W = R"
+                "W * B - W * E"
               ],
               "type": "string",
               "minLength": 1,
