@@ -50,7 +50,7 @@ const CalculationValueSchema = z
       description: 'Human-readable label for this calculation value',
       examples: [
         'Exceeding Emission Coefficient',
-        'Prevented Emissions by Waste Subtype and Baseline Per Ton',
+        'Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton',
         'Waste Weight',
         'Prevented Emissions (CO₂e kg)',
       ],

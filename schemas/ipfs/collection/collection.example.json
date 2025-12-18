@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.62/schemas/ipfs/collection/collection.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.63/schemas/ipfs/collection/collection.schema.json",
   "schema": {
-    "hash": "a42784959c8b04693fd4ac17aa707cebadf8e8f31887842cc1808726eb666120",
+    "hash": "37162c7ce530e86a3fce61c3a78ea129322e5f9edf3fd5e7dcd936613f6b0ef4",
     "type": "Collection",
-    "version": "0.1.62",
+    "version": "0.1.63",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
