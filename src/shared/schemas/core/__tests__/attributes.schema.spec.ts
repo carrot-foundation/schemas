@@ -15,6 +15,7 @@ import {
   MassIDRecyclingDateAttributeSchema,
   CertificateIssuanceDateAttributeSchema,
   OriginCityAttributeSchema,
+  OriginCountrySubdivisionAttributeSchema,
 } from '../attributes.schema';
 import { CreditAmountSchema } from '../../primitives';
 
@@ -517,6 +518,35 @@ describe('OriginCityAttributeSchema', () => {
     const result = OriginCityAttributeSchema.safeParse({
       trait_type: 'Wrong Type',
       value: 'São Paulo',
+    });
+
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('OriginCountrySubdivisionAttributeSchema', () => {
+  it('validates valid origin country subdivision attribute', () => {
+    const result = OriginCountrySubdivisionAttributeSchema.safeParse({
+      trait_type: 'Origin Country Subdivision',
+      value: 'BR-AP',
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  it('validates another valid origin country subdivision attribute', () => {
+    const result = OriginCountrySubdivisionAttributeSchema.safeParse({
+      trait_type: 'Origin Country Subdivision',
+      value: 'BR-DF',
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects invalid origin country subdivision attribute', () => {
+    const result = OriginCountrySubdivisionAttributeSchema.safeParse({
+      trait_type: 'Wrong Type',
+      value: 'BR-AP',
     });
 
     expect(result.success).toBe(false);

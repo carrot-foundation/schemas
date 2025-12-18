@@ -21,7 +21,7 @@ describe('AuditReferenceSchema', () => {
       'external_url',
       'result',
       'rules_executed',
-      'report_uri',
+      'ipfs_uri',
     ],
     validCases: [
       {
@@ -72,7 +72,7 @@ describe('AuditReferenceSchema', () => {
       {
         description: 'rejects invalid IPFS URI format',
         mutate: (invalid) => {
-          invalid.report_uri = 'https://example.com/file.json';
+          invalid.ipfs_uri = 'https://example.com/file.json';
         },
       },
     ],

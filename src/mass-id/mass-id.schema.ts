@@ -96,11 +96,11 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       ctx,
       attributeByTraitType,
       traitType: 'Weight (kg)',
-      expectedValue: data.waste_properties.net_weight_kg,
+      expectedValue: data.waste_properties.weight_kg,
       missingMessage:
-        'Weight (kg) attribute must be present and match waste_properties.net_weight_kg',
+        'Weight (kg) attribute must be present and match waste_properties.weight_kg',
       mismatchMessage:
-        'Weight (kg) attribute must equal waste_properties.net_weight_kg',
+        'Weight (kg) attribute must equal waste_properties.weight_kg',
     });
 
     validateAttributeValue({

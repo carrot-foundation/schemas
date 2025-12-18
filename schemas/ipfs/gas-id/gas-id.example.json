@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/gas-id/gas-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "c0bc2164eabbc46291a236a59ae2777b68e701bfbc0402f81b2da340474e3684",
+    "hash": "7262856ff0593955bb62fd94c3ef96998bea1e1c0d9705c55d2fd660b8d42fbc",
     "type": "GasID",
-    "version": "0.1.60",
+    "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -20,8 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "full_content_hash": "50b1365e219f1b08394ea9b9bced2e53410c84560e4cd9a4eb0ad628de1dfa21",
-  "content_hash": "50b1365e219f1b08394ea9b9bced2e53410c84560e4cd9a4eb0ad628de1dfa21",
+  "audit_data_hash": "6ac3837279b74fe39156bbe5589c5931a9fd38d18bfe0a2fa1a16117b4856f31",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -80,6 +79,10 @@
       "value": "Brasília"
     },
     {
+      "trait_type": "Origin Country Subdivision",
+      "value": "BR-DF"
+    },
+    {
       "trait_type": "MassID",
       "value": "#1034"
     },
@@ -105,7 +108,7 @@
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
-      "net_weight_kg": 3250.5
+      "weight_kg": 3250.5
     },
     "methodology": {
       "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
@@ -120,7 +123,7 @@
       "completed_at": "2024-12-08T11:32:47.000Z",
       "external_id": "80011d61-fe40-4aa2-9031-4f2aafad5d42",
       "external_url": "https://explore.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
-      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
+      "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
       "token_id": "1034",
@@ -166,54 +169,6 @@
           "label": "Prevented Emissions (CO₂e kg)"
         }
       ]
-    },
-    "participant_rewards": {
-      "distribution_basis": "BOLD Carbon (CH₄) methodology rewards calculation",
-      "reward_allocations": [
-        {
-          "participant_id_hash": "6f520d88864d432dbf9f5c3166c4818f1234567890abcdef1234567890abcdef",
-          "role": "Waste Generator",
-          "reward_percentage": 25,
-          "discounts": [
-            {
-              "type": "large_business",
-              "percentage": 50,
-              "reason": "Large business with >$4M annual revenue"
-            }
-          ],
-          "effective_percentage": 12.5
-        },
-        {
-          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
-          "role": "Hauler",
-          "reward_percentage": 20,
-          "effective_percentage": 20
-        },
-        {
-          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
-          "role": "Processor",
-          "reward_percentage": 15,
-          "effective_percentage": 15
-        },
-        {
-          "participant_id_hash": "5021ea455b3549498a8583dc0c6f7cbf1234567890abcdef1234567890abcdef",
-          "role": "Recycler",
-          "reward_percentage": 25,
-          "effective_percentage": 25
-        },
-        {
-          "participant_id_hash": "e710790f59094a54ab896a59819472ee1234567890abcdef1234567890abcdef",
-          "role": "Network Integrator",
-          "reward_percentage": 15,
-          "effective_percentage": 15
-        }
-      ],
-      "distribution_notes": {
-        "discounts_applied": [
-          "50% reduction applied to Waste Generator participants with >$4M annual revenue"
-        ],
-        "redirected_rewards": "Discounted rewards from large businesses redirected to the Community Impact Pool managed by Carrot Foundation"
-      }
     }
   }
 }

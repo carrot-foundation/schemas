@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  ParticipantRewardsSchema,
   WastePropertiesSchema,
   MethodologyReferenceSchema,
   AuditReferenceSchema,
@@ -15,7 +14,7 @@ import {
 const RecycledIDSummarySchema = z
   .strictObject({
     recycled_mass_kg: WeightKgSchema.meta({
-      title: 'Recycled Mass Weight',
+      title: 'Recycled Weight',
       description:
         'Total weight of materials successfully recycled in kilograms (kg)',
     }),
@@ -43,7 +42,6 @@ export const RecycledIDDataSchema = z
       title: 'RecycledID Origin Location',
       description: 'Source waste origin location details',
     }),
-    participant_rewards: ParticipantRewardsSchema,
   })
   .meta({
     title: 'RecycledID Data',

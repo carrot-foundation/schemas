@@ -46,7 +46,7 @@ const MassIDWastePropertiesSchema = z
       description: 'Specific subcategory of waste material',
     }),
     local_classification: MassIDLocalClassificationSchema.optional(),
-    net_weight_kg: WeightKgSchema.meta({
+    weight_kg: WeightKgSchema.meta({
       title: 'Net Weight',
       description: 'Net weight of the waste batch in kilograms (kg)',
       examples: [3000],

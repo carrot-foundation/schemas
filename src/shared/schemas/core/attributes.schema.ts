@@ -7,6 +7,7 @@ import {
   CitySchema,
   CreditAmountSchema,
   CreditTypeSchema,
+  IsoCountrySubdivisionCodeSchema,
 } from '../primitives';
 import {
   createDateAttributeSchema,
@@ -103,3 +104,16 @@ export const OriginCityAttributeSchema = NftAttributeSchema.safeExtend({
     'City or municipality where waste was originally generated and picked up',
 });
 export type OriginCityAttribute = z.infer<typeof OriginCityAttributeSchema>;
+
+export const OriginCountrySubdivisionAttributeSchema =
+  NftAttributeSchema.safeExtend({
+    trait_type: z.literal('Origin Country Subdivision'),
+    value: IsoCountrySubdivisionCodeSchema,
+  }).meta({
+    title: 'Origin Country Subdivision Attribute',
+    description:
+      'ISO 3166-2 country subdivision code where waste was originally generated and picked up',
+  });
+export type OriginCountrySubdivisionAttribute = z.infer<
+  typeof OriginCountrySubdivisionAttributeSchema
+>;

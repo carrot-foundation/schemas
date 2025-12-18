@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "d702532c1fe9aea81d930794c10a7efb86650055cf9d01e9554820907e7c8cb1",
+    "hash": "3cee3677fc08c6915db29fc6077564b8af07c936ead36bfced406597200458d3",
     "type": "MassID",
-    "version": "0.1.60",
+    "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -61,6 +61,10 @@
       "value": "Brasília"
     },
     {
+      "trait_type": "Origin Country Subdivision",
+      "value": "BR-DF"
+    },
+    {
       "trait_type": "Pick-up Vehicle Type",
       "value": "Truck"
     },
@@ -104,8 +108,7 @@
       "display_type": "date"
     }
   ],
-  "full_content_hash": "980542e74ea2e4a421c9eedee689dc3038ed4709176407d5e8a9618fb1d98990",
-  "content_hash": "980542e74ea2e4a421c9eedee689dc3038ed4709176407d5e8a9618fb1d98990",
+  "audit_data_hash": "1b2c049dff0b7a4fd8a6bb6537883a2853334050d969d4d3234fd5a14a9576a4",
   "data": {
     "waste_properties": {
       "type": "Organic",
@@ -114,7 +117,7 @@
         "code": "04 02 20",
         "system": "Ibama"
       },
-      "net_weight_kg": 3250.5
+      "weight_kg": 3250.5
     },
     "locations": [
       {

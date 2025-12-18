@@ -127,10 +127,10 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
       description: 'Type/category of this NFT schema',
     }),
   }),
-  full_content_hash: Sha256HashSchema.meta({
-    title: 'Full Content Hash',
+  audit_data_hash: Sha256HashSchema.meta({
+    title: 'Audit Data Hash',
     description:
-      'SHA-256 hash of the original JSON content including private data before schema validation',
+      'SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes',
   }),
   viewer_reference: ViewerReferenceSchema,
   environment: RecordEnvironmentSchema,

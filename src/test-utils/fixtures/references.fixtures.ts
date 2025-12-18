@@ -23,7 +23,7 @@ export const minimalAuditReferenceStub: AuditReference = {
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
   result: 'PASSED',
   rules_executed: 21,
-  report_uri:
+  ipfs_uri:
     'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
 };
 
@@ -40,7 +40,7 @@ export const validAuditReferenceFixture: AuditReference = {
     'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
   result: 'PASSED',
   rules_executed: 21,
-  report_uri:
+  ipfs_uri:
     'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
 };
 

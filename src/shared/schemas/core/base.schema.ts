@@ -88,11 +88,6 @@ export const BaseIpfsSchema = z
     }),
     external_id: ExternalIdSchema,
     external_url: ExternalUrlSchema,
-    content_hash: Sha256HashSchema.meta({
-      title: 'Content Hash',
-      description:
-        'SHA-256 hash of RFC 8785 canonicalized JSON after schema validation',
-    }),
     viewer_reference: ViewerReferenceSchema.optional(),
     environment: RecordEnvironmentSchema.optional(),
     data: z.record(z.string(), z.unknown()).optional().meta({

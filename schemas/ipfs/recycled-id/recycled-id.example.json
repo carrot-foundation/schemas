@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.60/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "48ec3518f8fe004934ec61fdd5abfadadd08fec39fcd5d0d93609e33db3adcf4",
+    "hash": "8ac4830e20ec276201b745b611fbf3870df6d62dea45b37041590c7870f37579",
     "type": "RecycledID",
-    "version": "0.1.60",
+    "version": "0.1.61",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -20,8 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "content_hash": "b84b32fbc9b241e7eee7114e38d5de4c8dea66391eed03ab0e0cf2ea022e95fe",
-  "full_content_hash": "b84b32fbc9b241e7eee7114e38d5de4c8dea66391eed03ab0e0cf2ea022e95fe",
+  "audit_data_hash": "1da767ca5c2adb860ff6da647fca969e79e5faf9884a3c714e0071c220e78a0e",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -49,7 +48,7 @@
       "value": "AMS-III.F. | BOLD Recycling Credit"
     },
     {
-      "trait_type": "Recycled Mass Weight (kg)",
+      "trait_type": "Recycled Weight (kg)",
       "value": 3250.5,
       "display_type": "number"
     },
@@ -74,6 +73,10 @@
     {
       "trait_type": "Origin City",
       "value": "Brasília"
+    },
+    {
+      "trait_type": "Origin Country Subdivision",
+      "value": "BR-DF"
     },
     {
       "trait_type": "MassID",
@@ -110,7 +113,7 @@
       "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
       "result": "PASSED",
       "rules_executed": 18,
-      "report_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
+      "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
       "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
@@ -122,7 +125,7 @@
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
-      "net_weight_kg": 3250.5
+      "weight_kg": 3250.5
     },
     "origin_location": {
       "id_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489",
@@ -134,72 +137,6 @@
         "longitude": -48.1
       },
       "responsible_participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd"
-    },
-    "participant_rewards": {
-      "distribution_basis": "Composting of Mixed Organic Waste rewards distribution per Rewards Distribution Policy v1.0",
-      "reward_allocations": [
-        {
-          "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
-          "role": "Waste Generator",
-          "reward_percentage": 30,
-          "discounts": [
-            {
-              "type": "large_business",
-              "percentage": 50,
-              "reason": "Large business with >$4M annual revenue"
-            }
-          ],
-          "effective_percentage": 15
-        },
-        {
-          "participant_id_hash": "f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcdefab",
-          "role": "Hauler",
-          "reward_percentage": 10,
-          "effective_percentage": 10
-        },
-        {
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "role": "Processor",
-          "reward_percentage": 10,
-          "effective_percentage": 10
-        },
-        {
-          "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
-          "role": "Recycler",
-          "reward_percentage": 20,
-          "effective_percentage": 20
-        },
-        {
-          "participant_id_hash": "d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdefabcd",
-          "role": "Network Integrator",
-          "reward_percentage": 8,
-          "effective_percentage": 8
-        },
-        {
-          "participant_id_hash": "a9b8c7d6e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
-          "role": "Methodology Author",
-          "reward_percentage": 1,
-          "effective_percentage": 1
-        },
-        {
-          "participant_id_hash": "b9c8d7e6f54321098765432109876543210fedcba9876543210fedcba9876543",
-          "role": "Methodology Developer",
-          "reward_percentage": 1,
-          "effective_percentage": 1
-        },
-        {
-          "participant_id_hash": "c9d8e7f654321098765432109876543210fedcba9876543210fedcba98765432",
-          "role": "Network",
-          "reward_percentage": 20,
-          "effective_percentage": 20
-        }
-      ],
-      "distribution_notes": {
-        "discounts_applied": [
-          "50% reduction applied to Waste Generator participants with >$4M annual revenue"
-        ],
-        "redirected_rewards": "Discounted rewards from large businesses redirected to the Community Impact Pool managed by Carrot Foundation"
-      }
     }
   }
 }

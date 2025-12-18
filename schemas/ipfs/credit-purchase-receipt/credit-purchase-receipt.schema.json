@@ -93,15 +93,6 @@
       "type": "string",
       "format": "uri"
     },
-    "content_hash": {
-      "title": "Content Hash",
-      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
-      "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
-    },
     "viewer_reference": {
       "title": "Metadata Viewer Reference",
       "description": "References to the metadata viewer dApp, including immutable and latest entry points",
@@ -719,73 +710,6 @@
             "additionalProperties": false
           }
         },
-        "participant_rewards": {
-          "title": "Participant Rewards",
-          "description": "Rewards distributed to participants in the supply chain for this purchase",
-          "minItems": 1,
-          "type": "array",
-          "items": {
-            "title": "Participant Reward",
-            "description": "Reward distribution for a participant",
-            "type": "object",
-            "properties": {
-              "participant_id_hash": {
-                "title": "Participant ID Hash",
-                "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
-                "examples": [
-                  "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                ],
-                "type": "string",
-                "pattern": "^[0-9a-fA-F]{64}$"
-              },
-              "roles": {
-                "title": "Participant Roles",
-                "description": "Roles the participant has in the supply chain",
-                "minItems": 1,
-                "type": "array",
-                "items": {
-                  "title": "Participant Role",
-                  "description": "Role that a participant plays in the waste management supply chain",
-                  "examples": [
-                    "Waste Generator",
-                    "Hauler",
-                    "Recycler"
-                  ],
-                  "type": "string",
-                  "enum": [
-                    "Community Impact Pool",
-                    "Hauler",
-                    "Network Integrator",
-                    "Methodology Author",
-                    "Methodology Developer",
-                    "Network",
-                    "Processor",
-                    "Recycler",
-                    "Waste Generator"
-                  ]
-                }
-              },
-              "usdc_amount": {
-                "title": "USDC Reward Amount",
-                "description": "USDC amount allocated to this participant",
-                "examples": [
-                  0,
-                  100.5,
-                  1000.123456,
-                  50000.12
-                ],
-                "type": "number",
-                "minimum": 0
-              }
-            },
-            "required": [
-              "participant_id_hash",
-              "roles",
-              "usdc_amount"
-            ],
-            "additionalProperties": false
-          }
-        },
         "retirement_receipt": {
           "title": "Credit Retirement Receipt Reference",
           "description": "Reference to the retirement receipt NFT",
@@ -858,14 +782,13 @@
         "buyer",
         "collections",
         "credits",
-        "certificates",
-        "participant_rewards"
+        "certificates"
       ],
       "additionalProperties": false
     },
-    "full_content_hash": {
-      "title": "Full Content Hash",
-      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
+    "audit_data_hash": {
+      "title": "Audit Data Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ],
@@ -1379,11 +1302,10 @@
     "created_at",
     "external_id",
     "external_url",
-    "content_hash",
     "viewer_reference",
     "environment",
     "data",
-    "full_content_hash",
+    "audit_data_hash",
     "blockchain",
     "name",
     "short_name",

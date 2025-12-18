@@ -93,15 +93,6 @@
       "type": "string",
       "format": "uri"
     },
-    "content_hash": {
-      "title": "Content Hash",
-      "description": "SHA-256 hash of RFC 8785 canonicalized JSON after schema validation",
-      "examples": [
-        "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
-    },
     "viewer_reference": {
       "title": "Metadata Viewer Reference",
       "description": "References to the metadata viewer dApp, including immutable and latest entry points",
@@ -246,7 +237,7 @@
               ],
               "additionalProperties": false
             },
-            "net_weight_kg": {
+            "weight_kg": {
               "title": "Net Weight",
               "description": "Net weight of the waste batch in kilograms (kg)",
               "examples": [
@@ -259,7 +250,7 @@
           "required": [
             "type",
             "subtype",
-            "net_weight_kg"
+            "weight_kg"
           ],
           "additionalProperties": false
         },
@@ -986,9 +977,9 @@
       ],
       "additionalProperties": false
     },
-    "full_content_hash": {
-      "title": "Full Content Hash",
-      "description": "SHA-256 hash of the original JSON content including private data before schema validation",
+    "audit_data_hash": {
+      "title": "Audit Data Hash",
+      "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ],
@@ -1171,9 +1162,9 @@
     },
     "attributes": {
       "title": "MassID Attributes",
-      "description": "Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.\n\nRequired attributes (9): Waste Type, Waste Subtype, Weight (kg), Origin City, Pick-up Vehicle Type, Recycling Method, Pick-up Date, Drop-off Date, Recycling Date\nOptional attributes (5): Local Waste Classification ID, Recycling Manifest Number, Transport Manifest Number, Weighing Capture Method, Scale Type",
-      "minItems": 9,
-      "maxItems": 14,
+      "description": "Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.\n\nRequired attributes (10): Waste Type, Waste Subtype, Weight (kg), Origin City, Origin Country Subdivision, Pick-up Vehicle Type, Recycling Method, Pick-up Date, Drop-off Date, Recycling Date\nOptional attributes (5): Local Waste Classification ID, Recycling Manifest Number, Transport Manifest Number, Weighing Capture Method, Scale Type",
+      "minItems": 10,
+      "maxItems": 15,
       "type": "array",
       "items": {
         "anyOf": [
@@ -1343,6 +1334,54 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 50
+              },
+              "display_type": {
+                "title": "Display Type",
+                "description": "How the trait should be displayed in marketplace UIs",
+                "type": "string",
+                "enum": [
+                  "number",
+                  "date",
+                  "boost_number",
+                  "boost_percentage"
+                ]
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ],
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "title": "Origin Country Subdivision Attribute",
+            "description": "ISO 3166-2 country subdivision code where waste was originally generated and picked up",
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Origin Country Subdivision"
+              },
+              "value": {
+                "title": "Country Subdivision Code",
+                "description": "Subdivision code following ISO 3166-2 standard",
+                "examples": [
+                  "BR-AP",
+                  "BR-DF"
+                ],
+                "type": "string",
+                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
               },
               "display_type": {
                 "title": "Display Type",
@@ -1842,11 +1881,10 @@
     "created_at",
     "external_id",
     "external_url",
-    "content_hash",
     "viewer_reference",
     "environment",
     "data",
-    "full_content_hash",
+    "audit_data_hash",
     "blockchain",
     "name",
     "short_name",

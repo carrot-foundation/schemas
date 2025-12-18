@@ -37,7 +37,7 @@ export const AuditReferenceSchema = z
       title: 'Rules Executed',
       description: 'Number of rules executed during the audit',
     }),
-    report_uri: IpfsUriSchema.meta({
+    ipfs_uri: IpfsUriSchema.meta({
       title: 'Audit Report',
       description: 'IPFS URI of the audit report',
     }),

@@ -146,11 +146,11 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
       ctx,
       attributeByTraitType,
       traitType: 'Source Weight (kg)',
-      expectedValue: data.waste_properties.net_weight_kg,
+      expectedValue: data.waste_properties.weight_kg,
       missingMessage:
-        'Source Weight (kg) attribute must be present and match data.waste_properties.net_weight_kg',
+        'Source Weight (kg) attribute must be present and match data.waste_properties.weight_kg',
       mismatchMessage:
-        'Source Weight (kg) attribute must equal data.waste_properties.net_weight_kg',
+        'Source Weight (kg) attribute must equal data.waste_properties.weight_kg',
     });
 
     validateAttributeValue({
