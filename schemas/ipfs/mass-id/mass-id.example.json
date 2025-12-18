@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.61/schemas/ipfs/mass-id/mass-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.62/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "3cee3677fc08c6915db29fc6077564b8af07c936ead36bfced406597200458d3",
+    "hash": "a6dc2a2795d3f523bb298d28b699489f6d2172e0e790c751363abb736d7a5ce0",
     "type": "MassID",
-    "version": "0.1.61",
+    "version": "0.1.62",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -108,7 +108,7 @@
       "display_type": "date"
     }
   ],
-  "audit_data_hash": "1b2c049dff0b7a4fd8a6bb6537883a2853334050d969d4d3234fd5a14a9576a4",
+  "audit_data_hash": "b88fa6e6b8154c752585f992c9eb0517dc8babacecf5b246a6e902f3f0a24e03",
   "data": {
     "waste_properties": {
       "type": "Organic",
