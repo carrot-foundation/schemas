@@ -221,6 +221,16 @@
               "type": "number",
               "minimum": 0
             },
+            "recycling_date": {
+              "title": "Recycling Date",
+              "description": "ISO 8601 timestamp when the recycling occurred (when the environmental gain was achieved)",
+              "examples": [
+                "2024-12-05T11:02:47.000Z"
+              ],
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+            },
             "issued_at": {
               "title": "Issued At",
               "description": "ISO 8601 timestamp when the certificate was issued",
@@ -237,6 +247,7 @@
             "credit_type",
             "credit_amount",
             "prevented_co2e_kg",
+            "recycling_date",
             "issued_at"
           ],
           "additionalProperties": false
@@ -909,7 +920,7 @@
     },
     "attributes": {
       "title": "GasID NFT Attribute Array",
-      "description": "Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait.\n\nRequired attributes (12, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, Certificate Issuance Date.",
+      "description": "Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait.\n\nRequired attributes (13, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, Recycling Date, Certificate Issuance Date.",
       "type": "array",
       "prefixItems": [
         {
@@ -1395,6 +1406,37 @@
             "value": {
               "title": "MassID Recycling Date",
               "description": "Unix timestamp in milliseconds when the source waste was recycled",
+              "examples": [
+                1704067200000
+              ],
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            },
+            "display_type": {
+              "type": "string",
+              "const": "date"
+            }
+          },
+          "required": [
+            "trait_type",
+            "value",
+            "display_type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "title": "Recycling Date Attribute",
+          "description": "Unix timestamp in milliseconds when the recycling occurred (when the environmental gain was achieved) attribute",
+          "type": "object",
+          "properties": {
+            "trait_type": {
+              "type": "string",
+              "const": "Recycling Date"
+            },
+            "value": {
+              "title": "Recycling Date",
+              "description": "Unix timestamp in milliseconds when the recycling occurred (when the environmental gain was achieved)",
               "examples": [
                 1704067200000
               ],

@@ -20,6 +20,11 @@ const RecycledIDSummarySchema = z
     }),
     credit_type: CreditTypeSchema,
     credit_amount: CreditAmountSchema,
+    recycling_date: IsoDateTimeSchema.meta({
+      title: 'Recycling Date',
+      description:
+        'ISO 8601 timestamp when the recycling occurred (when the environmental gain was achieved)',
+    }),
     issued_at: IsoDateTimeSchema.meta({
       title: 'Issued At',
       description: 'ISO 8601 timestamp when the certificate was issued',

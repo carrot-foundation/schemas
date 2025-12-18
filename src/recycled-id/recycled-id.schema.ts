@@ -181,6 +181,19 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
     validateDateTimeAttribute({
       ctx,
       attributeByTraitType,
+      traitType: 'Recycling Date',
+      dateTimeValue: data.summary.recycling_date,
+      missingMessage:
+        'Recycling Date attribute must be present and match data.summary.recycling_date',
+      invalidDateMessage:
+        'data.summary.recycling_date must be a valid ISO 8601 date-time string',
+      mismatchMessage:
+        'Recycling Date attribute must equal data.summary.recycling_date as a Unix timestamp in milliseconds',
+    });
+
+    validateDateTimeAttribute({
+      ctx,
+      attributeByTraitType,
       traitType: 'Certificate Issuance Date',
       dateTimeValue: data.summary.issued_at,
       missingMessage:

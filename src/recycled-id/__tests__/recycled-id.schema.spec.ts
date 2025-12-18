@@ -38,7 +38,7 @@ describe('RecycledIDIpfsSchema', () => {
       mutate: (invalid: z.input<typeof schema>) => {
         invalid.attributes = invalid.attributes.slice(
           0,
-          10,
+          11,
         ) as typeof invalid.attributes;
       },
     },
@@ -69,7 +69,7 @@ describe('RecycledIDIpfsSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('RecycledID');
-        expect(data.attributes).toHaveLength(11);
+        expect(data.attributes).toHaveLength(12);
         expect(data.data.summary.recycled_mass_kg).toBeGreaterThan(0);
       },
     );
@@ -175,5 +175,20 @@ describe('RecycledIDIpfsSchema', () => {
       }
       return next;
     }, ['Origin City attribute must equal data.origin_location.city']);
+  });
+
+  it('requires Recycling Date attribute to match summary', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const recyclingDateAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Recycling Date',
+      );
+      if (recyclingDateAttrIndex >= 0) {
+        next.attributes[recyclingDateAttrIndex].value = 9999999999999;
+      }
+      return next;
+    }, [
+      'Recycling Date attribute must equal data.summary.recycling_date as a Unix timestamp in milliseconds',
+    ]);
   });
 });

@@ -55,7 +55,7 @@ describe('GasIDIpfsSchema', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       invalid.attributes = invalid.attributes.slice(
         0,
-        11,
+        12,
       ) as typeof invalid.attributes;
     });
   });
@@ -195,6 +195,21 @@ describe('GasIDIpfsSchema', () => {
       return next;
     }, [
       'prevented_emissions_calculation.values must include a value with reference "R"',
+    ]);
+  });
+
+  it('requires Recycling Date attribute to match summary', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const recyclingDateAttrIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Recycling Date',
+      );
+      if (recyclingDateAttrIndex >= 0) {
+        next.attributes[recyclingDateAttrIndex].value = 9999999999999;
+      }
+      return next;
+    }, [
+      'Recycling Date attribute must equal data.summary.recycling_date as a Unix timestamp in milliseconds',
     ]);
   });
 });

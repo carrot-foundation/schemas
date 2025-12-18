@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.63/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "2058d88b01657a291d90ba86921fe985aa092f15573cc8d73dce118abc12839e",
+    "hash": "06110924cc8a184a17bb201e02ab67badb33b8dacac5664bdccb667849737312",
     "type": "GasID",
     "version": "0.1.63",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,7 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "audit_data_hash": "5e1a1310c5ecd34132516ff8e26c9e5371134d29e108d231316bdce7cbfbb65f",
+  "audit_data_hash": "fb6bc12727608bcff17ab8c8a8dbc665e55e511c9acf7ee221a9ea7fdeca470e",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -92,6 +92,11 @@
       "display_type": "date"
     },
     {
+      "trait_type": "Recycling Date",
+      "value": 1733657567000,
+      "display_type": "date"
+    },
+    {
       "trait_type": "Certificate Issuance Date",
       "value": 1733657567000,
       "display_type": "date"
@@ -103,6 +108,7 @@
       "credit_type": "Carbon (CH₄)",
       "credit_amount": 0.123519,
       "prevented_co2e_kg": 123.519,
+      "recycling_date": "2024-12-08T11:32:47.000Z",
       "issued_at": "2024-12-08T11:32:47.000Z"
     },
     "waste_properties": {

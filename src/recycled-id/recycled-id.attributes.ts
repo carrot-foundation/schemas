@@ -9,6 +9,7 @@ import {
   OriginCountrySubdivisionAttributeSchema,
   MassIDTokenIdAttributeSchema,
   MassIDRecyclingDateAttributeSchema,
+  RecyclingDateAttributeSchema,
   CertificateIssuanceDateAttributeSchema,
   createWeightAttributeSchema,
 } from '../shared';
@@ -71,6 +72,11 @@ export type RecycledIDAttributeMassIDRecyclingDate = z.infer<
   typeof RecycledIDAttributeMassIDRecyclingDateSchema
 >;
 
+const RecycledIDAttributeRecyclingDateSchema = RecyclingDateAttributeSchema;
+export type RecycledIDAttributeRecyclingDate = z.infer<
+  typeof RecycledIDAttributeRecyclingDateSchema
+>;
+
 const RecycledIDAttributeCertificateIssuanceDateSchema =
   CertificateIssuanceDateAttributeSchema;
 export type RecycledIDAttributeCertificateIssuanceDate = z.infer<
@@ -89,14 +95,15 @@ export const RecycledIDAttributesSchema = z
     RecycledIDAttributeOriginCountrySubdivisionSchema,
     RecycledIDAttributeMassIDTokenIdSchema,
     RecycledIDAttributeMassIDRecyclingDateSchema,
+    RecycledIDAttributeRecyclingDateSchema,
     RecycledIDAttributeCertificateIssuanceDateSchema,
   ])
   .meta({
     title: 'RecycledID NFT Attribute Array',
     description:
       'Schema for the fixed set of RecycledID NFT attributes, enforcing order and type for each trait.\n\n' +
-      'Required attributes (11, in order): Methodology, Recycled Weight (kg), Credit Amount, ' +
+      'Required attributes (12, in order): Methodology, Recycled Weight (kg), Credit Amount, ' +
       'Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, ' +
-      'Certificate Issuance Date.',
+      'Recycling Date, Certificate Issuance Date.',
   });
 export type RecycledIDAttributes = z.infer<typeof RecycledIDAttributesSchema>;
