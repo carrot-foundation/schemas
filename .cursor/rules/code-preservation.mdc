@@ -1,61 +1,116 @@
 ---
-description: Code preservation rules - never delete or revert code without explicit approval
+description: 'Preserve existing behavior during refactoring — no silent deletions or reversions'
 globs:
+  - '*'
 alwaysApply: true
 ---
 
-# Code Preservation Rules
+# Preserving existing code and behavior
 
-## 🚨 CRITICAL RULE: NEVER DELETE/REVERT/STASH CODE
+This rule governs how AI assistants interact with existing code. It exists because AI tools have a tendency to "clean up" code that looks unused, redundant, or suboptimal — often destroying intentional work in the process.
 
-### ABSOLUTE PROHIBITION
+## Core principle
 
-❌ **NEVER** run these commands without EXPLICIT user approval:
+Every line of existing code was written intentionally. Do not remove, revert, or modify code outside the scope of the current task without explicit approval from the developer.
 
-- `git checkout <file>` to revert changes
-- `git restore <file>` to discard changes
-- `git stash` to hide changes
-- `git reset` to undo changes
-- Delete or revert ANY code changes
-- Delete files
-- Suggest "removing unrelated changes"
-- Suggest "reverting unrelated changes"
+## Never silently delete code
 
-### ALWAYS
+If code appears unused, redundant, or unnecessary, ask before removing it. What looks like dead code may be:
 
-✅ **ALWAYS** follow these principles:
+- Scaffolding for an in-progress feature
+- Required by a downstream consumer not visible in this repo
+- Part of a deliberate pattern that prevents regressions
+- Intentionally preserved for backward compatibility
 
-- Commit ALL changes that exist
-- Build upon existing code
-- Ask user about changes that seem unrelated: "I see changes in X and Y. Should these be in separate commits or one commit?"
-- Let the user decide what to do with their changes
-- Trust that the developer made those changes for a reason
-- Preserve ALL existing changes
+```
+BAD behavior:
+  "I noticed `ExperimentalSchema` isn't used anywhere, so I removed it."
 
-### If Changes Seem Unrelated
+GOOD behavior:
+  "I noticed `ExperimentalSchema` doesn't appear to have any consumers
+  in this repo. Should I remove it, or is it used externally?"
+```
 
-When you encounter changes that appear unrelated to the current task:
+## Never revert changes from previous sessions
 
-1. **Create separate commits** for different concerns
-2. **Ask the user** if they want separate PRs
-3. **NEVER** delete or revert the changes yourself
-4. **Include ALL** existing changes in commits/PRs
+Changes made in prior sessions represent completed work. Do not undo them even if they seem inconsistent with the current task.
 
-## Rationale
+```
+BAD behavior:
+  Reverting a schema field addition from yesterday because today's task
+  doesn't reference it.
 
-- Developers make changes intentionally
-- "Unrelated" changes may have context you don't see
-- User can always discard changes themselves if needed
-- Better to commit everything than lose work
-- Separate commits/PRs can be created for different concerns
+GOOD behavior:
+  Preserving all existing fields and adding the new ones requested in
+  the current task.
+```
 
-## Application
+## Commit ALL changes
 
-This rule applies to ALL commands and workflows:
+When making modifications, ensure all changes are committed — including those that fall outside the original task scope but were made as part of the work. Do not selectively stage files to hide auxiliary changes.
 
-- `/commit` - Commit all changes, ask about grouping
-- `/create-pr` - Include all changes, suggest separate PRs if needed
-- `/finish-task` - Preserve all work
-- `/task-exec` - Build on existing code
+```
+BAD behavior:
+  Only committing the new schema file while leaving formatting fixes
+  and import updates unstaged.
 
-**Trust the developer. Preserve their work. Ask before destructive actions.**
+GOOD behavior:
+  Committing all modified files, noting in the commit message which
+  changes are auxiliary (e.g., "also fix import ordering in index.ts").
+```
+
+## Never delete tests to fix coverage
+
+If tests fail or coverage drops, the correct response is to fix the code or add tests — never to remove existing tests.
+
+```
+BAD behavior:
+  Removing a failing test that covers an edge case to make the suite pass.
+
+GOOD behavior:
+  Investigating why the test fails and fixing either the test or the
+  implementation to maintain coverage.
+```
+
+## Never remove imports or exports without verification
+
+Before removing an import or export, verify it is truly unused. In a published npm package like `@carrot-foundation/schemas`, exports may be consumed by projects outside this repository.
+
+```
+BAD behavior:
+  Removing an export from index.ts because no internal file imports it.
+
+GOOD behavior:
+  Asking the developer whether the export is consumed externally before
+  removing it from the public API.
+```
+
+## Refactoring guidelines
+
+When refactoring, maintain behavioral equivalence:
+
+- **Rename**: Update all references, including tests and re-exports
+- **Move**: Update all import paths, verify barrel exports still work
+- **Extract**: Ensure the original call site uses the extracted function
+- **Inline**: Only when the abstraction genuinely adds no value and the developer approves
+
+## Trust developer intentions
+
+If existing code contains patterns that seem suboptimal, assume there is a reason. Common cases:
+
+- **Verbose validation** — may be required for specific edge cases discovered in production
+- **Redundant type annotations** — may exist for documentation or IDE support
+- **Seemingly unnecessary re-exports** — may be part of the public API contract
+- **Extra test fixtures** — may cover regression cases from past bugs
+
+When in doubt, ask. Preserving working code is always safer than "improving" it based on incomplete context.
+
+## Scope boundaries
+
+Stay within the boundaries of the current task:
+
+- If asked to add a schema, add the schema. Do not refactor neighboring schemas.
+- If asked to fix a test, fix the test. Do not restructure the test suite.
+- If asked to update a dependency, update the dependency. Do not migrate usage patterns.
+
+Expanding scope requires explicit approval. Mention what you would like to change and why, then wait for confirmation.

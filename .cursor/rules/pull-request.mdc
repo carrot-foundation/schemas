@@ -1,469 +1,135 @@
 ---
-description: Rules for creating pull requests following project conventions
+description: 'PR creation workflow, title format, description template, and quality gates'
+globs:
+  - '*'
+alwaysApply: true
 ---
 
-# Pull Request Creation Rules
+# Pull request guidelines for the schemas repo
 
-## Purpose
+Pull requests are the primary review mechanism for changes to a published npm package. Every PR must be focused, well-described, and pass all quality gates.
 
-Guide developers and AI agents in creating well-structured pull requests that follow project conventions and facilitate efficient code review.
+## PR title format
 
-## Core Principles for AI Agents
+PR titles are human-readable summaries — NOT conventional commit messages. The title should describe what the PR accomplishes at a high level.
 
-- **Question everything**: If PR scope seems too large, commits are vague, or value is unclear, say so
-- **Be ruthless with scope**: Aggressively challenge PRs >400 lines or >20 files
-- **Remove noise**: Delete template sections that don't add value—no "N/A" placeholders
-- **Be practical**: Focus on concrete changes and business impact, not boilerplate
-- **Challenge weak descriptions**: Generic summaries like "improve UX" or "refactor code" are not acceptable
+```
+GOOD titles:
+  "Add MassID IPFS and JSON schema definitions"
+  "Implement shared coordinate validation schema"
+  "Fix UUID validation edge case for nil values"
+  "Upgrade Zod to v4 with strict object migration"
 
-**Your job is to ensure pristine PR quality, not just document commits. Be critical, be helpful, be specific.**
-
-## AI Agent Usage
-
-When prompted to create a PR (e.g., "use @pull-request.mdc to create the PR for the last X commits using branch Y as base"), follow this workflow:
-
-1. **Gather required information** using these commands:
-   - `git log --oneline <base-branch>..HEAD`
-   - `git diff --stat <base-branch>..HEAD`
-   - `git diff <base-branch>..HEAD --name-only`
-   - `pnpm nx show projects --affected` (if available)
-
-2. **Assess context sufficiency**: If commits are unclear, file changes are cryptic, or business purpose is ambiguous, **ask the user for clarification** before proceeding.
-
-3. **Request additional context** when needed:
-   - "The commit messages don't clearly explain the business purpose. Can you provide more context about why this change was needed?"
-   - "What user problem does this solve?"
-   - "Are there any breaking changes or special testing requirements?"
-   - "Should this PR be linked to any issues or documentation?"
-
-4. **Create the PR description** following the template requirements
-5. **Output the gh command** as a markdown code block for manual execution
-6. **Open the description file** for review
-
-## PR Title Format
-
-PR titles should be **clear, descriptive, and user-focused** rather than following Conventional Commit format:
-
-- **Start with capital letter** - First word capitalized, rest in sentence case
-- **Be concise** - Aim for 50-60 characters maximum
-- **Focus on the outcome** - What the PR accomplishes, not how it's implemented
-- **Use plain English** - Avoid technical jargon when simpler words convey the same meaning
-- **Match PR content** - Title should align with the summary and scope sections
-
-### Title Examples
-
-❌ **Avoid**: Conventional commit format in titles
-
-```text
-feat(schema): add mass-id IPFS schema
-fix(shared): resolve UUID validation edge case
-refactor(schema): consolidate schema composition utilities
+BAD titles (conventional commit format):
+  "feat(schema): add mass-id ipfs schema"
+  "fix(shared): resolve uuid validation"
+  "chore: upgrade zod"
 ```
 
-✅ **Good**: Clear, descriptive titles
+Keep titles under 70 characters when possible. Use the description for details.
 
-```text
-Add MassID IPFS and JSON schema definitions
-Fix UUID validation edge case in shared definitions
-Consolidate schema composition utilities for better maintainability
+## PR size limits
+
+Aim for focused, reviewable PRs:
+
+- **Lines changed**: <= 400 (additions + deletions)
+- **Files changed**: <= 20
+
+When a change exceeds these limits, split it into logical increments:
+
+1. **Foundation first** — shared schemas, utilities, types
+2. **Feature schemas** — the main schema definitions
+3. **Tests and fixtures** — test coverage for the new schemas
+4. **Generated output** — JSON schema generation and validation
+
+If a PR must exceed limits (e.g., initial schema creation), add a comment explaining why splitting is not practical.
+
+## Quality gates
+
+Run `pnpm check` before creating a PR. This executes the full quality gate pipeline:
+
+```bash
+pnpm check
 ```
 
-### Title Guidelines by Change Type
+This includes:
 
-**New Features:**
+- TypeScript type checking (`tsc --noEmit`)
+- Linting (ESLint + Prettier)
+- Tests with 100% coverage (Vitest)
+- Schema generation and validation
+- Spell checking (cspell)
 
-- "Add [feature] for [benefit]"
-- "Implement [functionality] to enable [capability]"
-- "Introduce [component] for improved [aspect]"
+All gates must pass. Do not create a PR with failing checks.
 
-**Bug Fixes:**
+## PR description template
 
-- "Fix [issue] in [component]"
-- "Resolve [problem] when [condition]"
-- "Correct [behavior] for [scenario]"
-
-**Improvements:**
-
-- "Improve [aspect] by [method]"
-- "Optimize [component] for better [outcome]"
-- "Enhance [feature] with [addition]"
-
-**Configuration/Maintenance:**
-
-- "Update [component] configuration"
-- "Upgrade [dependency] to version [X]"
-- "Refactor [module] for better maintainability"
-
-## PR description
-
-- **Always use the existing template at `.github/pull_request_template.md`**
-- Complete only applicable sections; remove the rest
-- See additional guidance in `pull-request-description.mdc`
-- **Template usage is mandatory - never create PR descriptions without following the template structure**
-
-## AI Agent PR Description Creation
-
-### Information Gathering Requirements
-
-**Mandatory inputs:**
-
-- Current branch name
-- Target/base branch (defaults to `main`)
-- Commit history: `git log --oneline <base-branch>..HEAD`
-- File changes: `git diff --stat <base-branch>..HEAD` and `git diff <base-branch>..HEAD --name-only`
-
-**Optional inputs:**
-
-- Affected projects: `pnpm nx show projects --affected`
-- Additional context from user when commits/changes are unclear
-
-### Critical Analysis Requirements
-
-Before creating the PR description, **actively challenge these red flags**:
-
-**🔴 Scope Red Flags:**
-
-- **If lines changed >400 or files >20**: "This PR is too large. Can we split it? What's the smallest valuable increment we can ship first?"
-- **If commits span multiple unrelated concerns**: "These changes seem mixed. Should we split this into: (1) [concern A], (2) [concern B]?"
-- **If 'Intentionally excluded' has 3+ items**: "The excluded items suggest this PR is trying to do too much. Should we narrow the scope?"
-
-**🔴 Clarity Red Flags:**
-
-- **If commit messages are vague** ("fix bug", "update", "changes"): "The commit messages don't explain the business purpose. What specific problem does this solve?"
-- **If file changes seem cryptic**: "The changed files don't tell a clear story. Can you explain what problem you're solving?"
-- **If no clear user/business value**: "What user problem does this solve? Who benefits and how?"
-
-**🔴 Quality Red Flags:**
-
-- **If no test files changed**: "I don't see any test changes. Should we add test coverage? Or is this refactor-only?"
-- **If breaking changes but poorly documented**: "I see breaking changes. What's the migration path? Who's affected?"
-- **If "quick fix" with >100 lines changed**: "This 'quick fix' has substantial changes. Are we addressing the root cause?"
-
-**If ANY red flag is triggered, stop and ask the user for clarification before proceeding.**
-
-### Value Proposition Validation
-
-**Challenge weak value statements:**
-
-❌ **Weak** → ✅ **Specific**
-
-- "Improves platform" → "Reduces schema validation errors from 12% to <1% by fixing UUID format edge cases"
-- "Better UX" → "Eliminates need for manual JSON schema validation—schemas now auto-validate on generation"
-- "Code quality" → "Reduces generated JSON schema size by 23% through shared definition references"
-- "Bug fix" → "Fixes critical validation issue where invalid timestamps were accepted (severity: HIGH)"
-- "Refactor" → "Consolidates 3 duplicate validation functions into single utility, reducing bundle size by 15KB"
-
-**If the user provides a weak value statement, ask:**
-
-- "What specific metric or behavior improves?"
-- "What was broken before and what works now?"
-- "How will we measure success?"
-
-### PR Description Creation Process
-
-1. **Analyze** the gathered information to understand purpose, scope, and impact
-2. **Challenge** weak value propositions and unclear scope
-3. **Fill the template** following `.github/pull_request_template.md` structure
-4. **Apply quality standards** from `pull-request-description.mdc`
-5. **Aggressively remove** template sections that don't add value
-6. **Remove all HTML comments** - delete `<!-- -->` comment blocks after addressing their content
-7. **Save** to `tmp/pull-requests/{branch-name}.md` (replace "/" with "-" in branch names)
-8. **Open** the file for user review
-9. **Output** the GitHub CLI command as a markdown code block
-
-### Template Requirements
-
-- **Follow** `.github/pull_request_template.md` structure exactly
-- **Remove** sections that don't apply (don't leave empty or "N/A")
-- **Include** specific file paths, commands, and testing instructions
-- **Focus** on user/business value in summary and context
-- **Complete** all checklist items or explain why they don't apply
-- **No placeholders** - all content must be meaningful and specific
-- **Remove all HTML comments** - delete `<!-- -->` comment blocks after addressing their content
-
-### Aggressive Template Optimization
-
-**Your mission: Remove noise aggressively.**
-
-**Always Remove:**
-
-- ❌ Summary that just restates the PR title
-- ❌ Context that just restates the summary
-- ❌ "Intentionally excluded" with generic items like "future improvements"
-- ❌ Empty "Breaking Changes" or "Deployment Notes" sections
-- ❌ "Related Links" without actual URLs
-- ❌ Unchecked scope checkboxes without explanation
-
-**Always Keep:**
-
-- ✅ Summary if it adds context beyond the title
-- ✅ Concrete business value statement
-- ✅ Specific testing instructions with commands
-- ✅ Key files with meaningful descriptions
-- ✅ All checklist items (checked or explained)
-
-**Challenge the user:**
-
-- If "Breaking Changes" section is empty: Remove it
-- If "Deployment Notes" says "standard deployment": Remove it, that's assumed
-- If "Related Links" says "see Notion" without URL: Ask for the URL or remove the section
-
-### Section Handling Rules
-
-- **Deployment Notes**: Only include if there are actual deployment considerations (environment variables, database migrations, etc.). If no special steps needed, omit the entire section.
-- **Related Links**: Only include if there are actual links to issues, documentation, or related PRs. If none exist, omit the entire section.
-- **Checkboxes**:
-  - Check boxes that are completed: `- [x] Completed item`
-  - Leave unchecked boxes that need action: `- [ ] Action needed`
-  - For sections that don't apply, add explanation: `- [ ] Not applicable: <reason>`
-
-**Examples of proper section handling:**
-
-- If no deployment considerations: Remove entire "📦 Deployment Notes" section
-- If no related links: Remove entire "🔗 Related Links" section
-
-### Comment Handling
-
-- **Remove all HTML comments** (`<!-- -->`) from the final PR description
-- **Address comment content** before removing - ensure all guidance is followed
-- **No placeholder text** should remain in the final description
-- **Clean, production-ready** markdown without development artifacts
-
-## Output Format for PR Creation
-
-### Initial Analysis (Before Creating Description)
-
-Always output this analysis first:
+Every PR must include a meaningful description following this structure:
 
 ```markdown
-**🔍 PR Analysis:**
+## Summary
 
-**Size assessment:**
+Brief description of what this PR accomplishes and why.
 
-- Lines changed: [X] ([within/exceeds] limit)
-- Files changed: [Y] ([within/exceeds] limit)
-- [✅ Reasonable size | ⚠️ Recommend splitting]
+- Key change 1
+- Key change 2
+- Key change 3
 
-**Clarity assessment:**
+## Changes
 
-- Commit messages: [Clear/Vague/Mixed]
-- Business value: [Clear/Unclear]
-- Testing requirements: [Can infer/Need clarification]
+### Added
+- New schemas, files, or capabilities
 
-**Red flags:**
+### Changed
+- Modifications to existing schemas or behavior
 
-- [ ] [Specific issue 1]
-- [ ] [Specific issue 2]
+### Removed
+- Anything removed (with justification)
 
-**Questions before proceeding:**
+## Test plan
 
-1. [Critical question about scope/value]
-2. [Clarification needed for X]
+- [ ] Unit tests cover all new schemas
+- [ ] 100% coverage maintained
+- [ ] Both valid and invalid inputs tested
+- [ ] Generated JSON schemas validated
+- [ ] `pnpm check` passes
 
-**OR if everything is clear:**
+## Related issues
 
-**✅ Analysis complete:** All information sufficient to create high-quality PR description.
+Closes #123
+Related to #456
 ```
 
-### Then Create Description
+## Review approach — active criticism
 
-Only proceed to create the PR description file after:
+Reviewers should challenge every PR on three dimensions:
 
-1. User answers questions, OR
-2. Analysis confirms everything is clear
+1. **Scope** — Does this PR do exactly what it claims? Are there scope creep changes mixed in?
+2. **Clarity** — Can a developer unfamiliar with this area understand the changes? Are schema names, field names, and meta descriptions clear?
+3. **Quality** — Are edge cases covered? Are `.meta()` descriptions accurate? Do examples represent realistic data?
 
-### Active Criticism in Action
+## Linking issues
 
-**✅ Good Active Criticism (Do This):**
+Always link related issues in the PR description:
 
-- "This PR changes 35 files across multiple schema types. I suggest splitting into: (1) Shared definitions refactor (10 files), (2) MassID schema implementation (15 files), (3) GasID schema updates (10 files). Which should we prioritize?"
-- "The summary says 'improve performance' but doesn't quantify the improvement. What specific metric changed? That affects how we test and document this."
-- "You've marked this as urgent, but it's a refactor with no external dependencies. Can we prioritize user-facing bugs first?"
-- "I see database schema changes but no migration notes. What's the deployment strategy? Do we need downtime?"
+- `Closes #123` — automatically closes the issue on merge
+- `Related to #456` — creates a reference without auto-closing
+- `Blocked by #789` — indicates a dependency
 
-**❌ Passive (Don't Do This):**
+## Draft PRs
 
-- "Looks good! Here's the PR description..."
-- "I've filled out the template as requested."
-- "Let me know if you need changes."
-- "The template is complete. Please review."
+Use draft PRs for:
 
-## Branch Naming
+- Work in progress that needs early feedback
+- Changes that depend on other PRs
+- Exploratory changes that may not be merged
 
-Follow `branch-naming.mdc`. Preferred patterns:
+Convert to ready-for-review only when all quality gates pass.
 
-```text
-<type>/<short-description>[-<TICKET>]
-<type>/<scope>-<short-description>[-<TICKET>]
-```
+## Post-merge
 
-Examples:
+After merging:
 
-```text
-feat/schema-add-mass-id-schema
-fix/shared-harden-uuid-validation
-CARROT-123/feat/schema-add-mass-id-schema
-```
-
-Ensure branch `type`/`scope` align with your commits. Note that PR titles now use clear, descriptive format rather than Conventional Commits format.
-
-## GitHub CLI Command Output
-
-After creating the PR description file, **output the command as a markdown code block** for the developer to execute manually:
-
-### Command Template
-
-```bash
-gh pr create \
-  -r carrot-foundation/developers \
-  -R carrot-foundation/schemas \
-  -t "<PR Title>" \
-  -B <base-branch> \
-  -F tmp/pull-requests/{branch-name}.md
-```
-
-**Important**: Remove any `!` characters from the PR title as they can cause GitHub CLI parsing issues.
-
-### Command Options
-
-- Add `-d` to open as draft if requested
-- Replace `<PR Title>` with the actual PR title (clear, descriptive format)
-- Replace `<base-branch>` with target branch (defaults to `main`)
-- Replace `{branch-name}` with sanitized branch name (replacing "/" with "-")
-- Include additional GitHub CLI options as needed
-
-### Example Output
-
-```bash
-# Execute this command to create the PR:
-gh pr create \
-  -r carrot-foundation/developers \
-  -R carrot-foundation/schemas \
-  -t "Add MassID IPFS and JSON schema definitions" \
-  -B main \
-  -F tmp/pull-requests/feat-schema-add-mass-id-schema.md
-```
-
-## Pre-PR Workflow
-
-### For AI Agents
-
-1. **Gather information** using git commands specified above
-2. **Assess context clarity** - ask user for clarification if needed
-3. **Create PR description** following template requirements
-4. **Save** to `tmp/pull-requests/{branch-name}.md`
-5. **Open file** for user review
-6. **Output GitHub CLI command** as markdown code block
-
-### For Developers
-
-1. **Quality checks**:
-   - Rebase: `git fetch origin && git rebase origin/<base-branch>`
-   - Format and lint: `pnpm nx format:write && pnpm lint:affected`
-   - Typecheck: `pnpm ts:affected`
-   - Build: `pnpm build:affected`
-   - Test: `pnpm test:affected`
-
-2. **Review PR description** in the created file
-3. **Execute the provided GitHub CLI command** to create the PR
-
-## Size Guidelines & Active Enforcement
-
-### Hard Limits
-
-- **Lines changed**: < 400 (excluding generated files)
-- **Files changed**: < 20 files
-- **Commits**: 1-10 related commits
-- **Review time**: < 1 hour estimated
-
-### When Limits Are Exceeded
-
-**Agent response template:**
-
-```
-⚠️ **Size Alert**: This PR exceeds recommended limits:
-- [X lines changed] (limit: 400)
-- [Y files changed] (limit: 20)
-
-**Split recommendation:**
-1. [First logical split] - [estimated size]
-2. [Second logical split] - [estimated size]
-3. [Third logical split] - [estimated size]
-
-**Which should we tackle first?** I can help create separate PRs following this breakdown.
-```
-
-### If User Insists on Large PR
-
-- Add to PR description: "⚠️ **Large PR Note**: Exceeds size guidelines due to [specific reason]. Reviewers: focus on [specific areas]."
-- Strengthen "Considerations for Review" section with detailed breakdown
-- Provide commit-by-commit review guide
-
-### Quick Reference for Splitting
-
-- Split by **feature** (e.g., implementation vs tests vs docs)
-- Split by **module** (e.g., schema types vs shared definitions vs generation scripts)
-- Split by **change type** (e.g., refactor vs new features vs bug fixes)
-
-**Prefer small, incremental PRs. If a PR is too large, actively suggest splits—don't just document the excess.**
-
-Use Draft PRs for ongoing work; mark Ready for Review when all quality gates pass.
-
-## CI and Quality Gates
-
-- All required CI checks must pass (lint, tests, build, typecheck)
-- No linter errors or warnings remain
-- Test coverage preserved or improved for critical paths
-
-## Quick reference
-
-- **Title conventions**: see `pull-request-description.mdc` for PR title standards
-- **Commit conventions**: see `commit.mdc`
-- **Branch names**: see `branch-naming.mdc`
-
-## Common Mistakes to Avoid
-
-### For AI Agents (Critical Behaviors)
-
-**❌ Passive Behaviors (Never Do):**
-
-- Creating descriptions without sufficient context
-- Accepting vague summaries without challenging
-- Proceeding when PR size exceeds limits without discussion
-- Including placeholder text or template boilerplate
-- Not following template structure
-- Leaving empty or "N/A" sections instead of removing them
-- Auto-executing GitHub CLI commands
-- Not questioning large scope or unclear value
-
-**✅ Active Behaviors (Always Do):**
-
-- Question large PRs immediately and suggest splits
-- Challenge weak value statements with specific requests
-- Request clarification for vague commits before proceeding
-- Remove template sections that don't add value
-- Provide specific, actionable testing instructions
-- Identify and call out potential red flags
-- Output initial analysis before creating PR description
-- Push back on excessive scope with split recommendations
-
-### Specific Technical Mistakes
-
-- Using conventional commit format in PR titles
-- Missing/vague testing instructions
-- Generic summaries without concrete value
-- Improper checkbox handling
-- Leaving HTML comments in final description
-- Using exclamation marks in PR titles
-- Not checking for test file changes
-- Incorrect file naming (replace "/" with "-" in branch names)
-
-### General Issues
-
-- Using past tense in titles (use "add", not "added")
-- Generic titles like "updates" or "fixes"
-- Branch names not matching `branch-naming.mdc`
-- Large, mixed-scope PRs instead of splitting
-- Unchecked pre-merge checklist items without explanation
-
-**Remember: Your role is to ensure pristine PR quality through active criticism, not passive documentation.**
+- Verify CI passes on the main branch
+- If the change affects published schemas, coordinate the npm release
+- Update downstream consumers if the change is breaking

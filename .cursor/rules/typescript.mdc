@@ -1,0 +1,139 @@
+---
+description: 'TypeScript conventions — strict mode, type patterns, and inference preferences'
+globs:
+  - 'src/**/*.ts'
+alwaysApply: false
+---
+
+# TypeScript conventions for the schemas package
+
+This is a published npm library where type safety directly impacts every consumer. Strict TypeScript configuration is non-negotiable.
+
+## Strict mode
+
+The tsconfig extends `@tsconfig/recommended` and enables `strict: true`, which covers all strict family checks (strictNullChecks, strictFunctionTypes, strictBindCallApply, etc.).
+
+## No `any` — ever
+
+In a schema library, `any` undermines the entire value proposition. Every `any` is a hole in the type system that propagates to consumers.
+
+```typescript
+// BAD: any leaks to consumers
+export function parseSchema(data: any): any {
+  return SomeSchema.parse(data);
+}
+
+// GOOD: unknown at boundaries, precise types internally
+export function parseSchema(data: unknown): MassIDData {
+  return MassIDDataSchema.parse(data);
+}
+```
+
+When working with truly dynamic data, use `unknown` and narrow:
+
+```typescript
+// BAD: type assertion
+const result = response.data as MassIDData;
+
+// GOOD: runtime validation
+const result = MassIDDataSchema.parse(response.data);
+```
+
+## Explicit return types for exports
+
+Every exported function must declare its return type. This serves as documentation and prevents accidental API changes.
+
+```typescript
+// BAD: inferred return type can change silently
+export function createFixture() {
+  return { name: 'test', weight_kg: 100 };
+}
+
+// GOOD: explicit contract
+export function createFixture(): MassIDData {
+  return { name: 'test', weight_kg: 100 };
+}
+```
+
+Internal (non-exported) functions should prefer inference to reduce noise:
+
+```typescript
+// Internal — inference is fine
+function buildMetadata(input: RawInput) {
+  return { title: input.name, created_at: new Date().toISOString() };
+}
+```
+
+## Zod for runtime validation
+
+Never write manual type guards when Zod can validate. The schemas ARE the source of truth — use them.
+
+```typescript
+// BAD: manual type guard duplicates schema logic
+function isMassIDData(data: unknown): data is MassIDData {
+  return typeof data === 'object' && data !== null && 'name' in data;
+}
+
+// GOOD: Zod handles validation and type narrowing
+const result = MassIDDataSchema.safeParse(data);
+if (result.success) {
+  // result.data is typed as MassIDData
+}
+```
+
+## Interface vs type
+
+Use `interface` for object shapes that may be extended by consumers or composed with other interfaces. Use `type` for unions, intersections, mapped types, and Zod inferences.
+
+```typescript
+// GOOD: interface for extensible shapes
+interface SchemaMetadata {
+  title: string;
+  description: string;
+}
+
+// GOOD: type for Zod inference (cannot be interface)
+type MassIDData = z.infer<typeof MassIDDataSchema>;
+
+// GOOD: type for unions
+type SchemaResult = MassIDData | CertificateData;
+```
+
+## Imports
+
+This project does not use path aliases. Use relative imports:
+
+```typescript
+// GOOD: relative import
+import { UuidSchema } from '../../../shared/schemas/primitives/ids.schema';
+```
+
+## Type assertions
+
+Avoid `as` assertions. If you must assert, prefer `satisfies` for compile-time checking without widening:
+
+```typescript
+// BAD: assertion bypasses type checking
+const config = { timeout: 5000 } as Config;
+
+// GOOD: satisfies validates at compile time
+const config = { timeout: 5000 } satisfies Config;
+```
+
+The only acceptable `as` usage is `as const` for literal types and narrowing from `unknown` after validation.
+
+## `@ts-ignore` and `@ts-expect-error`
+
+Never use `@ts-ignore`. If you must suppress an error, use `@ts-expect-error` with a comment explaining why:
+
+```typescript
+// BAD: suppresses without explanation
+// @ts-ignore
+const result = legacyFunction();
+
+// ACCEPTABLE: documented reason
+// @ts-expect-error — legacy function has incorrect typings, tracked in SCHEMAS-123
+const result = legacyFunction();
+```
+
+If you find yourself needing `@ts-expect-error`, consider fixing the root cause first.

@@ -1,0 +1,204 @@
+---
+id: json-schema
+intent: 'Generated JSON Schema structure — required fields, validation patterns, and $ref usage'
+scope:
+  - 'schemas/**/*.schema.json'
+requirements:
+  - 'Every schema has $schema/$id/title/description/type/properties/required/additionalProperties:false'
+  - 'Never edit generated schemas manually'
+  - 'Use `format` validation where applicable'
+  - 'Include description for all properties'
+  - 'Define reusable structures in `$defs` with `$ref`'
+anti_patterns:
+  - 'Manually editing generated JSON schemas'
+  - 'Missing required top-level fields'
+  - 'Using `anyOf`/`oneOf` when `enum` suffices'
+  - 'Inconsistent property descriptions'
+  - 'Schemas without examples'
+---
+
+# JSON Schema Rule
+
+## Rule body
+
+# Generated JSON Schema standards
+
+JSON Schema files in the `schemas/` directory are **generated artifacts** — they are produced from Zod schemas via `pnpm generate-ipfs-schemas`. Never edit them manually. If a JSON Schema has an issue, fix it in the Zod source schema.
+
+## Generation workflow
+
+```bash
+# Build the project, then generate JSON schemas from Zod definitions
+pnpm generate-ipfs-schemas
+
+# Validate all generated schemas
+pnpm validate-schemas
+```
+
+The generation pipeline:
+
+1. Zod schemas are built via `tsup` into `dist/`
+2. The generation script reads Zod schemas and converts to JSON Schema
+3. Output lands in `schemas/` directory organized by type
+4. Validation script checks all generated schemas for structural correctness
+
+## Required top-level fields
+
+Every generated JSON Schema must include these top-level fields:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json",
+  "title": "Human-Readable Schema Title",
+  "description": "Comprehensive description of what this schema validates",
+  "type": "object",
+  "properties": { ... },
+  "required": ["field1", "field2"],
+  "additionalProperties": false
+}
+```
+
+If any of these fields are missing in the output, the issue is in the Zod source — fix the `.meta()` and schema structure there.
+
+## The `$id` URL format
+
+Schema `$id` values follow a strict URL format using GitHub raw content URLs with git tags:
+
+```
+https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
+```
+
+Where:
+
+- `{version}` — the schema version (from `SCHEMA_VERSION` env var or `package.json`)
+- `{type}` — the schema type in kebab-case (e.g., `mass-id`, `certificate`)
+
+The version is injected at build time — see the `schema-versioning` rule for details.
+
+## Property descriptions
+
+Every property in the generated JSON Schema must have a `description`. This comes from the Zod schema's `.meta({ description: '...' })`. If a property lacks a description in the output, add `.meta()` to the Zod source field.
+
+```json
+{
+  "properties": {
+    "waste_type": {
+      "type": "string",
+      "description": "Category or type of waste material",
+      "minLength": 1,
+      "maxLength": 100
+    }
+  }
+}
+```
+
+## Format validation
+
+Use JSON Schema `format` for well-known string formats. These are generated from Zod's built-in validators:
+
+| Zod validator (Zod 4.x) | JSON Schema `format` |
+| ----------------------- | -------------------- |
+| `z.email()`             | `"email"`            |
+| `z.url()`               | `"uri"`              |
+| `z.uuidv4()`            | `"uuid"`             |
+| `z.iso.datetime()`      | `"date-time"`        |
+| `z.iso.date()`          | `"date"`             |
+| `z.ip()`                | `"ipv4"` / `"ipv6"`  |
+
+## Reusable structures with `$defs` and `$ref`
+
+Common structures should be defined in `$defs` and referenced via `$ref`:
+
+```json
+{
+  "$defs": {
+    "Coordinates": {
+      "type": "object",
+      "properties": {
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180 }
+      },
+      "required": ["latitude", "longitude"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "location": { "$ref": "#/$defs/Coordinates" }
+  }
+}
+```
+
+This is driven by schema extraction in Zod — when you extract a named Zod schema, it becomes a `$def` in the generated output.
+
+## Carrot-specific patterns
+
+### Timestamps
+
+ISO 8601 datetime strings use `"format": "date-time"`:
+
+```json
+"created_at": {
+  "type": "string",
+  "format": "date-time",
+  "description": "Timestamp when the record was created"
+}
+```
+
+### External references
+
+IDs referencing external systems use UUID format:
+
+```json
+"external_id": {
+  "type": "string",
+  "format": "uuid",
+  "description": "UUID identifier for external system references"
+}
+```
+
+### Signatures and hashes
+
+SHA-256 hashes use pattern validation:
+
+```json
+"id_hash": {
+  "type": "string",
+  "pattern": "^[a-f0-9]{64}$",
+  "description": "SHA-256 hash identifier"
+}
+```
+
+### NFT attributes
+
+Attributes follow the OpenSea metadata standard with `trait_type`, `value`, and optional `display_type`:
+
+```json
+"attributes": {
+  "type": "array",
+  "items": { "$ref": "#/$defs/NftAttribute" },
+  "description": "NFT metadata attributes following OpenSea standard"
+}
+```
+
+## Validation
+
+Run `pnpm validate-schemas` after generation to verify all schemas are structurally correct. This checks:
+
+- All required top-level fields are present
+- `$ref` targets resolve correctly
+- `additionalProperties: false` is set on all objects
+- Property descriptions are present
+- Examples are valid against the schema
+
+## Fixing issues
+
+When a generated JSON Schema has a problem:
+
+1. **Identify the Zod source** — find the corresponding `.schema.ts` file
+2. **Fix the Zod schema** — add missing `.meta()`, fix validation, adjust structure
+3. **Regenerate** — run `pnpm generate-ipfs-schemas`
+4. **Validate** — run `pnpm validate-schemas`
+5. **Commit both** — the Zod source change and the regenerated JSON Schema
+
+Never manually patch the JSON output. It will be overwritten on the next generation.

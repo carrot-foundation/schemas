@@ -1,190 +1,198 @@
 ---
-description: Testing patterns and standards for Vitest tests in the schemas repository
-globs: src/**/__tests__/**/*.spec.ts
-alwaysApply: true
+description: 'Vitest patterns, 100% coverage thresholds, and fixture-driven schema validation'
+globs:
+  - 'src/**/*.spec.ts'
+  - 'src/test-utils/**'
+alwaysApply: false
 ---
 
-# Testing Rules
+# Testing guide for the schemas package
 
-Purpose
+The schemas package enforces 100% test coverage. Every schema, utility, and export must be thoroughly tested because this is a published library — bugs propagate to every consumer.
 
-- Standardize test organization, fixtures, and patterns across the repository.
-- Ensure consistent test structure and maintainability.
-- Achieve and maintain 100% code coverage.
+## Test file organization
 
-Scope
+Tests live in `__tests__/` directories adjacent to the source code they test:
 
-- Applies to all test files in `src/**/__tests__/**/*.spec.ts`.
-- Complements Zod schema rules and code comment standards.
+```
+src/
+  mass-id/
+    __tests__/
+      mass-id.data.schema.spec.ts
+      mass-id.schema.spec.ts
+    mass-id.data.schema.ts
+    mass-id.schema.ts
+  shared/
+    schemas/
+      primitives/
+        __tests__/
+          ids.schema.spec.ts
+        ids.schema.ts
+```
 
-Test Organization
+Always use the `.spec.ts` extension. Never use `.test.ts` — the project is configured for `.spec.ts` only.
 
-- Tests MUST be placed in `__tests__` folders next to their source files.
-- Test file names MUST match source file names with `.spec.ts` suffix.
-- Example: `src/mass-id/mass-id.schema.ts` → `src/mass-id/__tests__/mass-id.schema.spec.ts`
+## Coverage requirements
 
-Fixture Structure
+Coverage thresholds are enforced at 100% for all metrics:
 
-- Use centralized `src/test-utils/fixtures/` for reusable test data.
-- Import fixtures from `src/test-utils/fixtures/` barrel export.
-- Create module-specific fixtures only when needed for complex test scenarios.
-- Fixtures MUST be typed and well-documented with JSDoc comments.
+- **Branches**: 100%
+- **Functions**: 100%
+- **Lines**: 100%
+- **Statements**: 100%
 
-Naming Conventions
+If coverage drops, add tests. Never reduce thresholds or delete tests to meet them.
 
-- Test files: `*.spec.ts` (not `*.test.ts`).
-- Test files MUST match source file names.
-- Use descriptive `describe` blocks for schema/function grouping.
-- Use clear `it` statements describing what is being tested.
+## Fixture patterns
 
-Fixture Naming Conventions
+Use centralized fixtures from `src/test-utils/fixtures/` for valid data. Fixtures follow these conventions:
 
-- **Static Fixtures (Constants)**: Use format `[descriptor][TypeName]Fixture` or `[descriptor][TypeName]Stub`
-  - `Fixture` suffix: Complete, realistic test data representing valid instances
-  - `Stub` suffix: Minimal test data with only required fields
-  - Always include the TypeScript type name in the fixture name
-  - Use descriptive prefixes for variants (e.g., `valid`, `minimal`, `invalid`, `polygon`)
-  - Examples:
-    - `polygonBlockchainReferenceFixture: BlockchainReference`
-    - `minimalNftIpfsFixture: NftIpfs`
-    - `validAuditReferenceFixture: AuditReference`
-    - `minimalBlockchainReferenceStub: BlockchainReference`
-
-- **Factory Functions**: Use format `create[TypeName]Fixture(overrides?)`
-  - Use `create` prefix followed by the TypeScript type name
-  - Accept optional `overrides` parameter for customization
-  - Return typed fixture data
-  - Examples:
-    - `createBlockchainReferenceFixture(overrides?: Partial<BlockchainReference>): BlockchainReference`
-    - `createNftIpfsFixture(overrides?: Partial<NftIpfs>): NftIpfs`
-
-- **When to Use Each**:
-  - `Fixture`: Complete, realistic test data for validation tests
-  - `Stub`: Minimal required fields only, useful for testing optional fields
-  - Factory Function: When you need to generate variations with custom overrides
-
-- **Complete Pattern Example**:
-
-  ```typescript
-  // Static fixtures
-  export const polygonBlockchainReferenceFixture: BlockchainReference = { ... };
-  export const minimalBlockchainReferenceStub: BlockchainReference = { ... };
-
-  // Factory function
-  export function createBlockchainReferenceFixture(
-    overrides?: Partial<BlockchainReference>
-  ): BlockchainReference {
-    return {
-      ...minimalBlockchainReferenceStub,
-      ...overrides,
-    };
-  }
-  ```
-
-- **Avoid Nested Fixtures**: Each schema MUST have its own fixture/stub file
-  - DO NOT define nested objects inline within fixtures
-  - DO create separate fixture files for each exported schema type
-  - DO reuse fixtures from other schemas when composing complex fixtures
-  - Example: `NftAttributeSchema` should have its own `nft-attribute.fixtures.ts` file
-  - Example: `ExternalLinkSchema` should have its own `external-link.fixtures.ts` file
-  - When creating `NftIpfs` fixtures, import and reuse `NftAttribute` and `ExternalLink` fixtures instead of defining them inline
-  - This ensures fixtures are reusable, maintainable, and testable independently
-
-Coverage Requirements
-
-- 100% coverage thresholds for branches, functions, lines, and statements.
-- All schema validation logic MUST be tested.
-- Edge cases MUST be covered (empty arrays, optional fields, invalid data).
-
-Test Patterns
-
-- Use `describe` blocks to group related tests by schema or function.
-- Test both valid and invalid inputs for every schema.
-- Test edge cases:
-  - Empty arrays/objects where allowed
-  - Optional fields (present and absent)
-  - Boundary values (min/max lengths, numbers)
-  - Invalid data types
-- Use fixtures for consistent test data across tests.
-- Validate type inference in tests when applicable.
-- Use `safeParse` for Zod schema validation tests.
-- Check error messages for invalid inputs to ensure proper validation.
-
-Import Patterns
-
-- Import fixtures from `src/test-utils/fixtures/` (barrel export).
-- Import schemas with relative paths from test file location.
-- Import example JSON files from `schemas/ipfs/` for integration tests.
-- Example:
-  ```typescript
-  import { minimalNftIpfsFixture } from '../../test-utils/fixtures';
-  import { MassIDIpfsSchema } from '../mass-id.schema';
-  import exampleJson from '../../../schemas/ipfs/mass-id/mass-id.example.json';
-  ```
-
-Example JSON Files
-
-- Use example JSON files from `schemas/ipfs/` for integration tests.
-- Example files validate that schemas correctly parse production-like data.
-- Test that example files pass validation.
-- Test modifications to example files to verify rejection of invalid data.
-
-Test Structure Example
+### Fixture suffix for valid baseline data
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { SomeSchema } from '../some.schema';
-import { validSomeTypeFixture } from '../../test-utils/fixtures';
+// src/test-utils/fixtures/mass-id-data.fixture.ts
+export const MassIDDataFixture: MassIDData = {
+  type: 'Mass ID',
+  name: 'Test Mass ID',
+  weight_kg: 1500,
+  // ... all required fields with valid values
+};
+```
 
-describe('SomeSchema', () => {
-  it('validates valid data successfully', () => {
-    const result = SomeSchema.safeParse(validSomeTypeFixture);
+### Factory functions for variants
 
-    expect(result.success).toBe(true);
-  });
+When tests need variations of valid data, use factory functions:
 
-  it('rejects invalid data', () => {
-    const invalid = { ...validSomeTypeFixture, invalidField: 'invalid' };
-    const result = SomeSchema.safeParse(invalid);
+```typescript
+export function createMassIDDataFixture(
+  overrides?: Partial<MassIDData>,
+): MassIDData {
+  return {
+    ...MassIDDataFixture,
+    ...overrides,
+  };
+}
+```
 
-    expect(result.success).toBe(false);
-  });
+### Check for existing fixtures
 
-  it('validates type inference works correctly', () => {
-    const result = SomeSchema.safeParse(validSomeTypeFixture);
+Before creating local test data, check `src/test-utils/fixtures/` for existing fixtures. Import and override rather than duplicating.
 
-    expect(result.success).toBe(true);
+## Using `.safeParse()` for validation tests
 
-    if (result.success) {
-      const data: typeof result.data = result.data;
+Always use `.safeParse()` instead of `.parse()` in tests. This allows explicit assertions on both success and failure cases without try/catch.
 
-      expect(data.someField).toBeDefined();
-    }
-  });
+```typescript
+// GOOD: safeParse for success
+it('should accept valid mass-id data', () => {
+  const result = MassIDDataSchema.safeParse(MassIDDataFixture);
+
+  expect(result.success).toBe(true);
+  expect(result.data).toEqual(MassIDDataFixture);
+});
+
+// GOOD: safeParse for failure
+it('should reject missing required field', () => {
+  const { name, ...withoutName } = MassIDDataFixture;
+
+  const result = MassIDDataSchema.safeParse(withoutName);
+
+  expect(result.success).toBe(false);
+  expect(result.error?.issues).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ path: ['name'] }),
+    ]),
+  );
 });
 ```
 
-Author Checklist
+## Testing both valid and invalid inputs
 
-- Test file is in `__tests__` folder next to source file.
-- Test file name matches source file name with `.spec.ts` suffix.
-- Fixtures are imported from `src/test-utils/fixtures/`.
-- Both valid and invalid inputs are tested.
-- Edge cases are covered.
-- Type inference is validated where applicable.
-- All tests pass with 100% coverage.
+Every schema test suite must cover:
 
-Reviewer Checklist
+1. **Valid complete input** — all fields present with correct types
+2. **Valid minimal input** — only required fields (optional fields omitted)
+3. **Invalid types** — wrong types for each field
+4. **Missing required fields** — each required field omitted
+5. **Extra properties** — strict object rejects unknown fields
+6. **Boundary values** — min/max lengths, empty strings, zero, negative numbers
+7. **Optional field presence** — optional fields accepted when present, accepted when absent
 
-- Test organization follows `__tests__` folder structure.
-- Fixtures are used consistently from centralized location.
-- Test patterns follow repository standards.
-- Coverage meets 100% thresholds.
-- Test names are descriptive and clear.
-- Invalid data tests verify proper error messages.
+```typescript
+describe('LocationSchema', () => {
+  it('should accept valid complete location', () => { ... });
+  it('should accept location with only required fields', () => { ... });
+  it('should reject invalid latitude type', () => { ... });
+  it('should reject missing longitude', () => { ... });
+  it('should reject extra properties', () => { ... });
+  it('should reject latitude outside range [-90, 90]', () => { ... });
+  it('should accept optional description when present', () => { ... });
+});
+```
 
-References
+## Table-driven tests with `it.each`
 
-- Vitest Documentation: https://vitest.dev/
-- Zod Testing Guide: https://zod.dev/?id=testing
-- Project testing patterns: See existing test files in `src/**/__tests__/`
+Use `it.each` for testing multiple inputs against the same assertion. This is especially useful for enum validations, boundary checks, and field type validations.
+
+```typescript
+it.each([
+  ['valid-uuid', true],
+  ['not-a-uuid', false],
+  ['', false],
+  ['123e4567-e89b-12d3-a456-426614174000', true],
+])('should validate UUID "%s" as %s', (input, expected) => {
+  const result = UuidSchema.safeParse(input);
+  expect(result.success).toBe(expected);
+});
+
+it.each([
+  ['None', true],
+  ['Low', true],
+  ['Medium', true],
+  ['High', true],
+  ['none', false],
+  ['NONE', false],
+  ['Invalid', false],
+])('should validate contamination level "%s" as %s', (input, expected) => {
+  const result = ContaminationLevelSchema.safeParse(input);
+  expect(result.success).toBe(expected);
+});
+```
+
+## Testing type inference
+
+Verify that Zod's inferred types match expected TypeScript types using `expectTypeOf` from Vitest:
+
+```typescript
+import { expectTypeOf } from 'vitest';
+
+it('should infer correct type from MassIDDataSchema', () => {
+  type Inferred = z.infer<typeof MassIDDataSchema>;
+  expectTypeOf<Inferred>().toMatchTypeOf<MassIDData>();
+});
+```
+
+## Test structure
+
+Follow the Arrange-Act-Assert pattern:
+
+```typescript
+it('should reject weight below minimum', () => {
+  // Arrange
+  const input = createMassIDDataFixture({ weight_kg: -1 });
+
+  // Act
+  const result = MassIDDataSchema.safeParse(input);
+
+  // Assert
+  expect(result.success).toBe(false);
+});
+```
+
+## Prohibited patterns
+
+- **No `.only`** — committed tests must never use `it.only` or `describe.only`
+- **No mocking Zod** — test schemas as black boxes; never mock Zod internals
+- **No `expect(true).toBe(true)`** — always assert meaningful values
+- **No test interdependence** — each test must be independently runnable
+- **No snapshot testing for schemas** — assert specific fields and values explicitly

@@ -1,0 +1,213 @@
+---
+id: testing
+intent: 'Vitest patterns, 100% coverage thresholds, and fixture-driven schema validation'
+scope:
+  - 'src/**/*.spec.ts'
+  - 'src/test-utils/**'
+requirements:
+  - 'Tests in `__tests__/` folders named `*.spec.ts`'
+  - '100% coverage for branches/functions/lines/statements'
+  - 'Use `.safeParse()` for validation tests'
+  - 'Centralized fixtures from `src/test-utils/fixtures/`'
+  - 'Test both valid and invalid inputs'
+  - 'Table-driven tests via `it.each` for input/output matrices'
+anti_patterns:
+  - 'Using `.test.ts` extension'
+  - 'Skipping edge cases (empty arrays, optional fields, boundary values)'
+  - 'Creating local test helpers when centralized fixtures exist'
+  - '`.only` in committed tests'
+  - 'Mocking Zod internals'
+---
+
+# Testing Rule
+
+## Rule body
+
+# Testing guide for the schemas package
+
+The schemas package enforces 100% test coverage. Every schema, utility, and export must be thoroughly tested because this is a published library — bugs propagate to every consumer.
+
+## Test file organization
+
+Tests live in `__tests__/` directories adjacent to the source code they test:
+
+```
+src/
+  mass-id/
+    __tests__/
+      mass-id.data.schema.spec.ts
+      mass-id.schema.spec.ts
+    mass-id.data.schema.ts
+    mass-id.schema.ts
+  shared/
+    schemas/
+      primitives/
+        __tests__/
+          ids.schema.spec.ts
+        ids.schema.ts
+```
+
+Always use the `.spec.ts` extension. Never use `.test.ts` — the project is configured for `.spec.ts` only.
+
+## Coverage requirements
+
+Coverage thresholds are enforced at 100% for all metrics:
+
+- **Branches**: 100%
+- **Functions**: 100%
+- **Lines**: 100%
+- **Statements**: 100%
+
+If coverage drops, add tests. Never reduce thresholds or delete tests to meet them.
+
+## Fixture patterns
+
+Use centralized fixtures from `src/test-utils/fixtures/` for valid data. Fixtures follow these conventions:
+
+### Fixture suffix for valid baseline data
+
+```typescript
+// src/test-utils/fixtures/mass-id-data.fixture.ts
+export const MassIDDataFixture: MassIDData = {
+  type: 'Mass ID',
+  name: 'Test Mass ID',
+  weight_kg: 1500,
+  // ... all required fields with valid values
+};
+```
+
+### Factory functions for variants
+
+When tests need variations of valid data, use factory functions:
+
+```typescript
+export function createMassIDDataFixture(
+  overrides?: Partial<MassIDData>,
+): MassIDData {
+  return {
+    ...MassIDDataFixture,
+    ...overrides,
+  };
+}
+```
+
+### Check for existing fixtures
+
+Before creating local test data, check `src/test-utils/fixtures/` for existing fixtures. Import and override rather than duplicating.
+
+## Using `.safeParse()` for validation tests
+
+Always use `.safeParse()` instead of `.parse()` in tests. This allows explicit assertions on both success and failure cases without try/catch.
+
+```typescript
+// GOOD: safeParse for success
+it('should accept valid mass-id data', () => {
+  const result = MassIDDataSchema.safeParse(MassIDDataFixture);
+
+  expect(result.success).toBe(true);
+  expect(result.data).toEqual(MassIDDataFixture);
+});
+
+// GOOD: safeParse for failure
+it('should reject missing required field', () => {
+  const { name, ...withoutName } = MassIDDataFixture;
+
+  const result = MassIDDataSchema.safeParse(withoutName);
+
+  expect(result.success).toBe(false);
+  expect(result.error?.issues).toEqual(
+    expect.arrayContaining([expect.objectContaining({ path: ['name'] })]),
+  );
+});
+```
+
+## Testing both valid and invalid inputs
+
+Every schema test suite must cover:
+
+1. **Valid complete input** — all fields present with correct types
+2. **Valid minimal input** — only required fields (optional fields omitted)
+3. **Invalid types** — wrong types for each field
+4. **Missing required fields** — each required field omitted
+5. **Extra properties** — strict object rejects unknown fields
+6. **Boundary values** — min/max lengths, empty strings, zero, negative numbers
+7. **Optional field presence** — optional fields accepted when present, accepted when absent
+
+```typescript
+describe('LocationSchema', () => {
+  it('should accept valid complete location', () => { ... });
+  it('should accept location with only required fields', () => { ... });
+  it('should reject invalid latitude type', () => { ... });
+  it('should reject missing longitude', () => { ... });
+  it('should reject extra properties', () => { ... });
+  it('should reject latitude outside range [-90, 90]', () => { ... });
+  it('should accept optional description when present', () => { ... });
+});
+```
+
+## Table-driven tests with `it.each`
+
+Use `it.each` for testing multiple inputs against the same assertion. This is especially useful for enum validations, boundary checks, and field type validations.
+
+```typescript
+it.each([
+  ['valid-uuid', true],
+  ['not-a-uuid', false],
+  ['', false],
+  ['123e4567-e89b-12d3-a456-426614174000', true],
+])('should validate UUID "%s" as %s', (input, expected) => {
+  const result = UuidSchema.safeParse(input);
+  expect(result.success).toBe(expected);
+});
+
+it.each([
+  ['None', true],
+  ['Low', true],
+  ['Medium', true],
+  ['High', true],
+  ['none', false],
+  ['NONE', false],
+  ['Invalid', false],
+])('should validate contamination level "%s" as %s', (input, expected) => {
+  const result = ContaminationLevelSchema.safeParse(input);
+  expect(result.success).toBe(expected);
+});
+```
+
+## Testing type inference
+
+Verify that Zod's inferred types match expected TypeScript types using `expectTypeOf` from Vitest:
+
+```typescript
+import { expectTypeOf } from 'vitest';
+
+it('should infer correct type from MassIDDataSchema', () => {
+  type Inferred = z.infer<typeof MassIDDataSchema>;
+  expectTypeOf<Inferred>().toMatchTypeOf<MassIDData>();
+});
+```
+
+## Test structure
+
+Follow the Arrange-Act-Assert pattern:
+
+```typescript
+it('should reject weight below minimum', () => {
+  // Arrange
+  const input = createMassIDDataFixture({ weight_kg: -1 });
+
+  // Act
+  const result = MassIDDataSchema.safeParse(input);
+
+  // Assert
+  expect(result.success).toBe(false);
+});
+```
+
+## Prohibited patterns
+
+- **No `.only`** — committed tests must never use `it.only` or `describe.only`
+- **No mocking Zod** — test schemas as black boxes; never mock Zod internals
+- **No `expect(true).toBe(true)`** — always assert meaningful values
+- **No test interdependence** — each test must be independently runnable
+- **No snapshot testing for schemas** — assert specific fields and values explicitly
