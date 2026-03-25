@@ -152,7 +152,7 @@ For each `.refine()` call, ask: "Can this be expressed with a built-in Zod valid
 After schema changes, verify the generated JSON Schema:
 
 ```bash
-pnpm generate-ipfs-schemas
+pnpm generate-schemas
 ```
 
 Then inspect the output for:

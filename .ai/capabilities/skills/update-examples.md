@@ -9,7 +9,7 @@ when_to_use:
   - 'Before creating a PR with schema changes'
 workflow:
   - '[ ] Run pnpm build'
-  - '[ ] Run pnpm generate-ipfs-schemas'
+  - '[ ] Run pnpm generate-schemas'
   - '[ ] Run pnpm hash-schemas'
   - '[ ] Run pnpm update-examples'
   - '[ ] Run pnpm validate-schemas'
@@ -115,7 +115,21 @@ This runs `node scripts/validate-schemas.js`.
 - Verify `$ref` pointers target existing schemas
 - Look for non-standard JSON Schema keywords
 
-#### Step 6: Validate Examples
+#### Step 6: Check References
+
+Validate internal `$ref` pointers between schemas:
+
+```bash
+pnpm check-refs
+```
+
+This runs `node scripts/check-refs.js`.
+
+**Expected outcome**: All `$ref` pointers resolve to existing schemas.
+
+**If it fails**: Ensure referenced schemas exist and paths are correct.
+
+#### Step 7: Validate Examples
 
 Run validation specifically on example data files:
 
@@ -129,7 +143,7 @@ This runs `node scripts/validate-schemas.js --data-only`.
 
 **If it fails**: Example data doesn't conform to the schema. Since examples are generated, this usually means the generation script has a bug. Fix the script or the Zod source.
 
-#### Step 7: Verify Schema Versions
+#### Step 8: Verify Schema Versions
 
 Check that schema versions are consistent:
 
@@ -145,7 +159,7 @@ This runs `node scripts/verify-schema-versions.js`.
 
 ### Shortcut: Full Validation Pipeline
 
-If you want to run steps 2-7 in a single command:
+If you want to run steps 2-8 in a single command:
 
 ```bash
 pnpm validate-all

@@ -98,7 +98,7 @@ export const CreditAuditSchema = NftIpfsSchema.safeExtend({
 });
 ```
 
-**Why `.safeExtend()` and not `.extend()`**: The `extend` method creates a new plain `z.object`, losing the `strictObject` enforcement from the base schema. `safeExtend` preserves it.
+**Why `.safeExtend()` and not `.extend()`**: While both preserve `strictObject` enforcement, `.extend()` throws at runtime on schemas with refinements and clears existing checks. `.safeExtend()` preserves refinements and provides stricter TypeScript types that prevent incompatible field overrides.
 
 ### Field Type Patterns
 
@@ -250,7 +250,7 @@ const Extended = Base.safeExtend({
   newField: z.string().meta({ description: '...' }),
 });
 
-// DON'T: extend (loses strictObject)
+// DON'T: extend (throws on schemas with refinements, clears checks)
 const Extended = Base.extend({ newField: z.string() });
 
 // DO: snake_case properties

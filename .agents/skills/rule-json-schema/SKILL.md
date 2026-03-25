@@ -92,7 +92,7 @@ Use JSON Schema `format` for well-known string formats. These are generated from
 | `z.uuidv4()`            | `"uuid"`             |
 | `z.iso.datetime()`      | `"date-time"`        |
 | `z.iso.date()`          | `"date"`             |
-| `z.ip()`                | `"ipv4"` / `"ipv6"`  |
+| `z.ipv4()` / `z.ipv6()` | `"ipv4"` / `"ipv6"`  |
 
 ## Reusable structures with `$defs` and `$ref`
 

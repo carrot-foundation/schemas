@@ -5,7 +5,7 @@ scope:
   - '*'
 requirements:
   - 'Never delete or revert code without explicit user approval'
-  - 'Commit ALL changes including those outside original scope'
+  - 'Commit all intended changes; isolate out-of-scope edits into follow-up commits'
   - 'Ask about unrelated modifications before discarding'
   - 'Trust developer intentions for existing code'
 anti_patterns:
@@ -61,7 +61,7 @@ GOOD behavior:
 
 ## Commit ALL changes
 
-When making modifications, ensure all changes are committed — including those that fall outside the original task scope but were made as part of the work. Do not selectively stage files to hide auxiliary changes.
+When making modifications, commit all intended changes required for the task. If incidental or out-of-scope edits are introduced, either revert them or isolate them in a clearly labeled follow-up commit/PR.
 
 ```
 BAD behavior:

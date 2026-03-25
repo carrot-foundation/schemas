@@ -64,7 +64,7 @@ This validates that canonical AI instructions are consistent across tool adapter
 | validate-schemas       | Generated JSON schema is structurally invalid | Fix the Zod source; check `$id` URLs and `$ref` pointers    |
 | verify-schema-versions | Version mismatch between schema files         | Align version fields in the Zod source                      |
 | check-refs             | Broken `$ref` pointers in generated schemas   | Ensure referenced schemas exist and paths are correct       |
-| validate-examples      | Example data doesn't match schema             | Fix example data or update the schema                       |
+| validate-examples      | Generated example data doesn't match schema   | Fix Zod source or generation logic, then rerun regeneration |
 | test                   | Test failures or coverage below 100%          | Fix failing tests; add missing coverage                     |
 
 ### Recovery Workflow
