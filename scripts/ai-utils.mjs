@@ -5,6 +5,10 @@ export function log(message) {
   process.stdout.write(`${message}\n`);
 }
 
+export function warn(message) {
+  process.stderr.write(`${message}\n`);
+}
+
 export async function pathExists(targetPath) {
   try {
     await fs.access(targetPath);
@@ -33,8 +37,9 @@ export function parseScalar(value) {
 
 /**
  * Parses YAML-like frontmatter delimited by `---`.
- * Supports key-value pairs, list items, and comments.
- * Does not handle nested objects or multi-line string blocks.
+ * Supports scalar key-value pairs, YAML-style list items (indented `- value`),
+ * and comment lines (starting with `#`).
+ * Does not handle nested objects, block scalars (`|`, `>`), or flow sequences.
  */
 export function parseFrontmatter(rawContent, prefix = '') {
   const content = rawContent.replace(/\r\n/g, '\n');
@@ -44,7 +49,7 @@ export function parseFrontmatter(rawContent, prefix = '') {
 
   const closing = content.indexOf('\n---\n', 4);
   if (closing === -1) {
-    log(
+    warn(
       `${prefix}warning: file starts with "---" but has no closing delimiter — treating as no frontmatter`,
     );
     return { data: {}, body: content.trim() };
@@ -66,7 +71,7 @@ export function parseFrontmatter(rawContent, prefix = '') {
 
     const listMatch = line.match(/^\s*-\s+(.*)$/);
     if (listMatch && !currentArrayKey) {
-      log(
+      warn(
         `${prefix}warning: list item found but no parent key — skipping: ${line}`,
       );
       continue;
@@ -78,7 +83,7 @@ export function parseFrontmatter(rawContent, prefix = '') {
 
     const kvMatch = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
     if (!kvMatch) {
-      log(`${prefix}warning: malformed frontmatter line: ${line}`);
+      warn(`${prefix}warning: malformed frontmatter line: ${line}`);
       continue;
     }
 
@@ -110,6 +115,10 @@ export function normalizeArray(value) {
       .filter(Boolean);
   }
 
+  if (value != null && value !== '') {
+    warn(`warning: expected array or string but got ${typeof value}: ${value}`);
+  }
+
   return [];
 }
 
@@ -123,35 +132,124 @@ export async function readFileWithContext(filePath, operation = 'read') {
   }
 }
 
+export async function readdirWithContext(
+  dirPath,
+  options,
+  operation = 'list directory',
+) {
+  try {
+    return await fs.readdir(dirPath, options);
+  } catch (error) {
+    throw new Error(`Failed to ${operation} ${dirPath}: ${error.message}`, {
+      cause: error,
+    });
+  }
+}
+
 export async function listFilesRecursive(dir, extension) {
   if (!(await pathExists(dir))) {
     return [];
   }
 
-  const result = [];
+  const entries = await readdirWithContext(
+    dir,
+    { withFileTypes: true, recursive: true },
+    `scan ${dir}`,
+  );
 
-  async function walk(current) {
-    let entries;
-    try {
-      entries = await fs.readdir(current, { withFileTypes: true });
-    } catch (error) {
-      throw new Error(`Failed to read directory ${current}: ${error.message}`, {
-        cause: error,
-      });
-    }
-    for (const entry of entries) {
-      const fullPath = path.join(current, entry.name);
-      if (entry.isDirectory()) {
-        await walk(fullPath);
-        continue;
-      }
+  return entries
+    .filter((e) => e.isFile() && e.name.endsWith(extension))
+    .map((e) => path.join(e.parentPath, e.name))
+    .sort();
+}
 
-      if (entry.isFile() && fullPath.endsWith(extension)) {
-        result.push(fullPath);
-      }
-    }
+export function buildPaths(root) {
+  return {
+    canonicalRoot: path.join(root, '.ai'),
+    canonicalRules: path.join(root, '.ai', 'rules'),
+    canonicalSkills: path.join(root, '.ai', 'capabilities', 'skills'),
+    canonicalAgents: path.join(root, '.ai', 'capabilities', 'agents'),
+    canonicalSchemas: path.join(root, '.ai', 'schemas'),
+
+    cursorRules: path.join(root, '.cursor', 'rules'),
+    cursorSkills: path.join(root, '.cursor', 'skills'),
+    cursorAgents: path.join(root, '.cursor', 'agents'),
+
+    claudeSkills: path.join(root, '.claude', 'skills'),
+    claudeAgents: path.join(root, '.claude', 'agents'),
+
+    codexSkills: path.join(root, '.agents', 'skills'),
+
+    parityMatrix: path.join(root, '.ai', 'PARITY_MATRIX.md'),
+  };
+}
+
+const ID_PATTERN = /^[a-z0-9][a-z0-9_-]*$/;
+
+export async function loadCanonicalEntries(
+  dir,
+  { onError = 'throw', prefix = '' } = {},
+) {
+  const files = await listFilesRecursive(dir, '.md');
+  const parsed = [];
+  const errors = [];
+
+  for (const file of files) {
+    const raw = await readFileWithContext(file, 'load canonical');
+    const { data, body } = parseFrontmatter(raw, prefix);
+    parsed.push({ file, data, body, raw });
   }
 
-  await walk(dir);
-  return result.sort();
+  const seenIds = new Map();
+  const validEntries = [];
+
+  for (const entry of parsed) {
+    const id = entry.data.id;
+    const rel = path.relative(process.cwd(), entry.file);
+
+    if (id == null) {
+      const msg = `[validation] ${rel} is missing "id" in frontmatter`;
+      if (onError === 'throw') throw new Error(msg);
+      errors.push(msg);
+      continue;
+    }
+    if (typeof id !== 'string') {
+      const msg = `[validation] ${rel} has non-string id (got ${typeof id}: ${id}) — if the id is numeric, quote it in frontmatter (e.g., id: '${id}')`;
+      if (onError === 'throw') throw new Error(msg);
+      errors.push(msg);
+      continue;
+    }
+    if (id === '') {
+      const msg = `[validation] ${rel} has empty "id" in frontmatter`;
+      if (onError === 'throw') throw new Error(msg);
+      errors.push(msg);
+      continue;
+    }
+    if (!ID_PATTERN.test(id)) {
+      const msg = `[validation] ${rel} has malformed id "${id}" — only lowercase alphanumeric, hyphens, and underscores allowed`;
+      if (onError === 'throw') throw new Error(msg);
+      errors.push(msg);
+      continue;
+    }
+    if (seenIds.has(id)) {
+      const msg = `[validation] duplicate id "${id}" in ${rel} and ${seenIds.get(id)}`;
+      if (onError === 'throw') throw new Error(msg);
+      errors.push(msg);
+    } else {
+      seenIds.set(id, rel);
+    }
+    validEntries.push(entry);
+  }
+
+  return {
+    entries: validEntries.sort((a, b) =>
+      String(a.data.id).localeCompare(String(b.data.id)),
+    ),
+    errors,
+  };
+}
+
+export function setsAreIdentical(a, b) {
+  if (a.size === 0 || a.size !== b.size) return false;
+  return [...b].every((item) => a.has(item));
 }

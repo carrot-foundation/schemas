@@ -4,11 +4,15 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import {
   log,
+  warn,
   pathExists,
   readFileWithContext,
   parseFrontmatter as parseFrontmatterBase,
   normalizeArray,
   listFilesRecursive,
+  readdirWithContext,
+  buildPaths,
+  loadCanonicalEntries,
 } from './ai-utils.mjs';
 
 const ROOT = process.cwd();
@@ -17,37 +21,28 @@ const FORCE = args.has('--force');
 const DRY_RUN = args.has('--dry-run');
 
 const PATHS = {
-  canonicalRoot: path.join(ROOT, '.ai'),
-  canonicalRules: path.join(ROOT, '.ai', 'rules'),
-  canonicalSkills: path.join(ROOT, '.ai', 'capabilities', 'skills'),
-  canonicalAgents: path.join(ROOT, '.ai', 'capabilities', 'agents'),
-  canonicalSchemas: path.join(ROOT, '.ai', 'schemas'),
-
-  cursorRules: path.join(ROOT, '.cursor', 'rules'),
-  cursorSkills: path.join(ROOT, '.cursor', 'skills'),
-  cursorAgents: path.join(ROOT, '.cursor', 'agents'),
-
+  ...buildPaths(ROOT),
   claudeRoot: path.join(ROOT, '.claude'),
-  claudeSkills: path.join(ROOT, '.claude', 'skills'),
-  claudeAgents: path.join(ROOT, '.claude', 'agents'),
-
-  codexSkills: path.join(ROOT, '.agents', 'skills'),
   rootAgents: path.join(ROOT, 'AGENTS.md'),
   rootClaude: path.join(ROOT, 'CLAUDE.md'),
-
-  parityMatrix: path.join(ROOT, '.ai', 'PARITY_MATRIX.md'),
   projectContext: path.join(ROOT, '.ai', 'PROJECT_CONTEXT.md'),
 };
 
-// Note: in dry-run mode, ensureDir is a no-op and writeFile logs what would
-// happen. This means dry-run output may not fully reflect a real run — e.g.,
-// files shown as "would be written" on first dry-run may be skipped on
-// subsequent dry-runs if they already exist from a prior real run.
+// Note: in dry-run mode, ensureDir is a no-op and writeFile only logs what
+// would be written. writeIfMissing still checks the real filesystem, so it
+// may silently skip files that already exist on disk.
 async function ensureDir(targetPath) {
   if (DRY_RUN) {
     return;
   }
-  await fs.mkdir(targetPath, { recursive: true });
+  try {
+    await fs.mkdir(targetPath, { recursive: true });
+  } catch (error) {
+    throw new Error(
+      `Failed to create directory ${targetPath}: ${error.message}`,
+      { cause: error },
+    );
+  }
 }
 
 function parseFrontmatter(rawContent) {
@@ -121,7 +116,7 @@ function getSectionBody(
   const start = lines.findIndex((line) => matchSectionHeading(line, heading));
   if (start === -1) {
     const ctx = contextLabel ? ` (${contextLabel})` : '';
-    log(
+    warn(
       `[sync] warning: section "## ${heading}" not found${ctx}; using full body`,
     );
     return markdownBody.trim();
@@ -167,7 +162,14 @@ async function writeFile(targetPath, content) {
     return;
   }
   await ensureDir(path.dirname(targetPath));
-  await fs.writeFile(targetPath, `${content.replace(/\s+$/u, '')}\n`, 'utf8');
+  try {
+    await fs.writeFile(targetPath, `${content.replace(/\s+$/u, '')}\n`, 'utf8');
+  } catch (error) {
+    throw new Error(
+      `Failed to write ${path.relative(ROOT, targetPath)}: ${error.message}`,
+      { cause: error },
+    );
+  }
 }
 
 const CANONICAL_BASE_FILENAMES = new Set([
@@ -196,6 +198,7 @@ function isCanonicalTarget(targetPath) {
 async function writeIfMissing(targetPath, content) {
   if (await pathExists(targetPath)) {
     if (isCanonicalTarget(targetPath) || !FORCE) {
+      log(`[sync] skipped (exists): ${path.relative(ROOT, targetPath)}`);
       return;
     }
   }
@@ -279,35 +282,31 @@ async function bootstrapCanonicalRules() {
   }
 }
 
+const PATH_DISQUALIFY = /[\s'"()<{@]/;
+
 function collectPathReferences(text) {
   const refs = new Set();
-  const regex = /`([^`]+)`/g;
-  let match = regex.exec(text);
-  while (match) {
-    const value = match[1];
+  for (const [, value] of text.matchAll(/`([^`]+)`/g)) {
     if (
       value.includes('/') &&
       !value.startsWith('http') &&
-      !value.includes(' ') &&
-      !value.includes("'") &&
-      !value.includes('"') &&
-      !value.includes('(') &&
-      !value.includes('<') &&
-      !value.includes('{') &&
-      !value.startsWith('@') &&
+      !PATH_DISQUALIFY.test(value) &&
       value.length < 80 &&
       /^[./A-Za-z]/.test(value)
     ) {
       refs.add(value);
     }
-    match = regex.exec(text);
   }
   return [...refs].slice(0, 10);
 }
 
 async function bootstrapCanonicalSkills() {
   if (!(await pathExists(PATHS.cursorSkills))) return;
-  const entries = await fs.readdir(PATHS.cursorSkills, { withFileTypes: true });
+  const entries = await readdirWithContext(
+    PATHS.cursorSkills,
+    { withFileTypes: true },
+    'list cursor skills',
+  );
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
 
@@ -500,47 +499,6 @@ function renderAgentAsCodexSkill(agent) {
   return `${fm}\n# Specialist Role: ${agent.data.name || agent.data.id}\n\nUse this skill when:\n${whenToDelegate.map((item) => `- ${item}`).join('\n')}\n\n## Checklist\n${checklist.map((item) => `- ${item}`).join('\n')}\n\n## Report format\n${agent.data.report_format || 'Provide a structured report with findings and verification.'}\n\n## Instructions\n\n${getSectionBody(agent.body, 'Instructions', { toEnd: true, contextLabel: `agent:${agent.data.id}` })}\n`;
 }
 
-async function loadCanonicalFiles(dir) {
-  const files = await listFilesRecursive(dir, '.md');
-  const out = [];
-  for (const file of files) {
-    const raw = await readFileWithContext(file, 'load canonical');
-    const parsed = parseFrontmatter(raw);
-    out.push({ file, data: parsed.data, body: parsed.body });
-  }
-
-  const ID_PATTERN = /^[a-z0-9][a-z0-9_-]*$/;
-  const seenIds = new Map();
-  for (const entry of out) {
-    const rel = path.relative(ROOT, entry.file);
-    const id = entry.data.id;
-    if (id == null) {
-      throw new Error(`[validation] ${rel} is missing "id" in frontmatter`);
-    }
-    if (typeof id !== 'string') {
-      throw new Error(
-        `[validation] ${rel} has non-string id (got ${typeof id}: ${id}) — id must be a string`,
-      );
-    }
-    if (id === '') {
-      throw new Error(`[validation] ${rel} has empty "id" in frontmatter`);
-    }
-    if (!ID_PATTERN.test(id)) {
-      throw new Error(
-        `[validation] ${rel} has malformed id "${id}" — only lowercase alphanumeric, hyphens, and underscores allowed`,
-      );
-    }
-    if (seenIds.has(id)) {
-      throw new Error(
-        `[validation] duplicate id "${id}" in ${rel} and ${seenIds.get(id)}`,
-      );
-    }
-    seenIds.set(id, rel);
-  }
-
-  return out.sort((a, b) => String(a.data.id).localeCompare(String(b.data.id)));
-}
-
 async function writeCanonicalBaseDocs() {
   await ensureDir(PATHS.canonicalRoot);
   await ensureDir(PATHS.canonicalSchemas);
@@ -583,7 +541,11 @@ async function writeCanonicalBaseDocs() {
 
 async function dirHasFiles(dir) {
   if (!(await pathExists(dir))) return false;
-  const entries = await fs.readdir(dir);
+  const entries = await readdirWithContext(
+    dir,
+    undefined,
+    `check contents of ${dir}`,
+  );
   return entries.length > 0;
 }
 
@@ -1005,18 +967,23 @@ ${sharedLinks}
 - Agents/Roles: ${canonicalAgents.length}
 `;
 
-  const projectContextContent = (await pathExists(PATHS.projectContext))
+  const rawProjectContext = (await pathExists(PATHS.projectContext))
     ? (
         await readFileWithContext(PATHS.projectContext, 'load project context')
       ).trim()
     : null;
 
-  const claudeContent = projectContextContent
-    ? `${claudeHeader.trimEnd()}\n\n${projectContextContent}\n`
+  // Demote H1 to H2 to avoid duplicate H1 headings in generated adapters
+  const demotedContext = rawProjectContext
+    ? rawProjectContext.replace(/^# /m, '## ')
+    : null;
+
+  const claudeContent = demotedContext
+    ? `${claudeHeader.trimEnd()}\n\n${demotedContext}\n`
     : claudeHeader;
 
-  const codexContent = projectContextContent
-    ? `${agentsContent.trimEnd()}\n\n${projectContextContent}\n`
+  const codexContent = demotedContext
+    ? `${agentsContent.trimEnd()}\n\n${demotedContext}\n`
     : agentsContent;
 
   await writeFile(PATHS.rootAgents, codexContent);
@@ -1047,7 +1014,11 @@ async function removeStaleAdapters(
     if (!(await pathExists(baseDir))) continue;
     const allowedIds =
       baseDir === PATHS.codexSkills ? validSkillAndAgentIds : validSkillIds;
-    const entries = await fs.readdir(baseDir, { withFileTypes: true });
+    const entries = await readdirWithContext(
+      baseDir,
+      { withFileTypes: true },
+      `scan stale adapters in ${path.relative(ROOT, baseDir)}`,
+    );
     for (const entry of entries) {
       if (!entry.isDirectory()) continue;
       const id = entry.name;
@@ -1073,9 +1044,11 @@ async function removeStaleAdapters(
   }
 
   if (await pathExists(PATHS.cursorRules)) {
-    const ruleFiles = await fs.readdir(PATHS.cursorRules, {
-      withFileTypes: true,
-    });
+    const ruleFiles = await readdirWithContext(
+      PATHS.cursorRules,
+      { withFileTypes: true },
+      'scan stale cursor rules',
+    );
     for (const entry of ruleFiles) {
       if (!entry.isFile() || !entry.name.endsWith('.mdc')) continue;
       const id = entry.name.replace(/\.mdc$/, '');
@@ -1099,7 +1072,11 @@ async function removeStaleAdapters(
   const validAgentIds = new Set(canonicalAgents.map((a) => String(a.data.id)));
   for (const agentsDir of [PATHS.cursorAgents, PATHS.claudeAgents]) {
     if (!(await pathExists(agentsDir))) continue;
-    const files = await fs.readdir(agentsDir, { withFileTypes: true });
+    const files = await readdirWithContext(
+      agentsDir,
+      { withFileTypes: true },
+      `scan stale agents in ${path.relative(ROOT, agentsDir)}`,
+    );
     for (const entry of files) {
       if (!entry.isFile() || !entry.name.endsWith('.md')) continue;
       const id = entry.name.replace(/\.md$/, '');
@@ -1134,9 +1111,18 @@ async function main() {
 
   await ensureCanonicalStructure();
 
-  const canonicalRules = await loadCanonicalFiles(PATHS.canonicalRules);
-  const canonicalSkills = await loadCanonicalFiles(PATHS.canonicalSkills);
-  const canonicalAgents = await loadCanonicalFiles(PATHS.canonicalAgents);
+  const { entries: canonicalRules } = await loadCanonicalEntries(
+    PATHS.canonicalRules,
+    { prefix: '[sync] ' },
+  );
+  const { entries: canonicalSkills } = await loadCanonicalEntries(
+    PATHS.canonicalSkills,
+    { prefix: '[sync] ' },
+  );
+  const { entries: canonicalAgents } = await loadCanonicalEntries(
+    PATHS.canonicalAgents,
+    { prefix: '[sync] ' },
+  );
 
   const skillIds = new Set(canonicalSkills.map((s) => String(s.data.id)));
   for (const skill of canonicalSkills) {
@@ -1183,12 +1169,12 @@ async function main() {
   );
   if (removalFailures > 0) {
     log(
-      `[sync] warning: ${removalFailures} stale adapter(s) could not be removed`,
+      `[sync] completed with ${removalFailures} warning(s): some stale adapters could not be removed`,
     );
     process.exitCode = 1;
+  } else {
+    log('ai sync complete');
   }
-
-  log('ai sync complete');
   log(`rules: ${canonicalRules.length}`);
   log(`skills: ${canonicalSkills.length}`);
   log(`agents: ${canonicalAgents.length}`);
