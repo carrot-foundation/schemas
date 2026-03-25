@@ -61,7 +61,9 @@ Schema libraries encode business rules. Document the domain knowledge that futur
 // ISO 3166-2 subdivision codes (e.g., "BR-SP" for Sao Paulo, Brazil).
 // Required by the MassID methodology for geographic attribution of
 // waste collection impact.
-const AdministrativeDivisionCodeSchema = z.string().regex(/^[A-Z]{2}-[A-Z0-9]+$/);
+const AdministrativeDivisionCodeSchema = z
+  .string()
+  .regex(/^[A-Z]{2}-[A-Z0-9]+$/);
 
 // GOOD: explains constraint origin
 // Maximum 17 attributes enforced by the smart contract's mint function.

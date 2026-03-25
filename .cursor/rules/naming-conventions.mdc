@@ -88,8 +88,8 @@ export type Location = z.infer<typeof LocationSchema>;
 export type Participant = z.infer<typeof ParticipantSchema>;
 
 // BAD: Schema suffix on type
-export type MassIDDataSchema = z.infer<typeof MassIDDataSchema>;  // Conflicts!
-export type LocationSchemaType = z.infer<typeof LocationSchema>;  // Redundant suffix
+export type MassIDDataSchema = z.infer<typeof MassIDDataSchema>; // Conflicts!
+export type LocationSchemaType = z.infer<typeof LocationSchema>; // Redundant suffix
 ```
 
 ## ID field naming — `_id` suffix

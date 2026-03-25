@@ -34,7 +34,7 @@ Claude adapter for Schemas AI instructions. This file is generated from canonica
 - Skills: 12
 - Agents/Roles: 2
 
-# Schemas Project Context
+## Schemas Project Context
 
 Project-specific knowledge for AI assistants working on Schemas. This content is appended to the generated CLAUDE.md adapter.
 

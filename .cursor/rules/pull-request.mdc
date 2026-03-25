@@ -78,12 +78,15 @@ Brief description of what this PR accomplishes and why.
 ## Changes
 
 ### Added
+
 - New schemas, files, or capabilities
 
 ### Changed
+
 - Modifications to existing schemas or behavior
 
 ### Removed
+
 - Anything removed (with justification)
 
 ## Test plan

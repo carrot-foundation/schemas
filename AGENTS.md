@@ -89,7 +89,7 @@ Schemas AI instructions for Codex, Claude, and Cursor with equal capability pari
 - **Generated schemas**: `schemas/ipfs/` — JSON Schema output (never edit directly)
 - **Build scripts**: `scripts/` — generation, validation, hashing
 
-# Schemas Project Context
+## Schemas Project Context
 
 Project-specific knowledge for AI assistants working on Schemas. This content is appended to the generated CLAUDE.md adapter.
 

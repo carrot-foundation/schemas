@@ -54,6 +54,7 @@ https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/
 ```
 
 Where:
+
 - `{version}` — the schema version (from `SCHEMA_VERSION` env var or `package.json`)
 - `{type}` — the schema type in kebab-case (e.g., `mass-id`, `certificate`)
 
@@ -80,14 +81,14 @@ Every property in the generated JSON Schema must have a `description`. This come
 
 Use JSON Schema `format` for well-known string formats. These are generated from Zod's built-in validators:
 
-| Zod validator (Zod 4.x)  | JSON Schema `format` |
-| ------------------------ | -------------------- |
-| `z.email()`              | `"email"`            |
-| `z.url()`                | `"uri"`              |
-| `z.uuidv4()`             | `"uuid"`             |
-| `z.iso.datetime()`       | `"date-time"`        |
-| `z.iso.date()`           | `"date"`             |
-| `z.ip()`                 | `"ipv4"` / `"ipv6"`  |
+| Zod validator (Zod 4.x) | JSON Schema `format` |
+| ----------------------- | -------------------- |
+| `z.email()`             | `"email"`            |
+| `z.url()`               | `"uri"`              |
+| `z.uuidv4()`            | `"uuid"`             |
+| `z.iso.datetime()`      | `"date-time"`        |
+| `z.iso.date()`          | `"date"`             |
+| `z.ip()`                | `"ipv4"` / `"ipv6"`  |
 
 ## Reusable structures with `$defs` and `$ref`
 

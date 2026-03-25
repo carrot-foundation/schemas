@@ -99,9 +99,7 @@ it('should reject missing required field', () => {
 
   expect(result.success).toBe(false);
   expect(result.error?.issues).toEqual(
-    expect.arrayContaining([
-      expect.objectContaining({ path: ['name'] }),
-    ]),
+    expect.arrayContaining([expect.objectContaining({ path: ['name'] })]),
   );
 });
 ```

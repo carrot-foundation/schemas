@@ -21,19 +21,19 @@ All commits must follow the Conventional Commits specification. This is enforced
 
 ## Types
 
-| Type       | When to use                                    |
-| ---------- | ---------------------------------------------- |
-| `feat`     | New schema, field, or capability               |
-| `fix`      | Bug fix in schema validation or generation     |
-| `refactor` | Code restructuring without behavior change     |
-| `docs`     | Documentation only (README, TSDoc, comments)   |
-| `test`     | Adding or updating tests                       |
-| `chore`    | Maintenance (deps, config, CI scripts)         |
-| `build`    | Build system changes (tsup, scripts)           |
-| `ci`       | CI/CD pipeline changes                         |
-| `perf`     | Performance improvements                       |
-| `style`    | Formatting, whitespace, semicolons             |
-| `revert`   | Reverting a previous commit                    |
+| Type       | When to use                                  |
+| ---------- | -------------------------------------------- |
+| `feat`     | New schema, field, or capability             |
+| `fix`      | Bug fix in schema validation or generation   |
+| `refactor` | Code restructuring without behavior change   |
+| `docs`     | Documentation only (README, TSDoc, comments) |
+| `test`     | Adding or updating tests                     |
+| `chore`    | Maintenance (deps, config, CI scripts)       |
+| `build`    | Build system changes (tsup, scripts)         |
+| `ci`       | CI/CD pipeline changes                       |
+| `perf`     | Performance improvements                     |
+| `style`    | Formatting, whitespace, semicolons           |
+| `revert`   | Reverting a previous commit                  |
 
 ## Scopes for the schemas repo
 

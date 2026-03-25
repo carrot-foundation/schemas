@@ -118,7 +118,8 @@ To test a specific version locally:
 
 ```typescript
 // BAD: hardcoded version
-const schemaId = 'https://raw.githubusercontent.com/.../refs/tags/1.2.3/schemas/...';
+const schemaId =
+  'https://raw.githubusercontent.com/.../refs/tags/1.2.3/schemas/...';
 
 // GOOD: dynamic version
 const schemaId = `https://raw.githubusercontent.com/.../refs/tags/${getSchemaVersionOrDefault()}/schemas/...`;
