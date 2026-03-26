@@ -1,0 +1,154 @@
+---
+id: pull-request
+intent: 'PR creation workflow, title format, description template, and quality gates'
+scope:
+  - '*'
+requirements:
+  - 'Clear descriptive titles (NOT conventional commit format)'
+  - '<= 400 lines changed and <= 20 files (split if larger)'
+  - 'All quality gates pass before PR (`pnpm check`)'
+  - 'Follow PR template'
+  - 'Link related issues'
+anti_patterns:
+  - 'Conventional commit format in PR titles'
+  - 'PRs exceeding size limits without justification'
+  - 'Skipping quality gates'
+  - 'Empty or template-only descriptions'
+  - 'Merging without review'
+---
+
+# Pull Request Rule
+
+## Rule body
+
+# Pull request guidelines for the schemas repo
+
+Pull requests are the primary review mechanism for changes to a published npm package. Every PR must be focused, well-described, and pass all quality gates.
+
+## PR title format
+
+PR titles are human-readable summaries — NOT conventional commit messages. The title should describe what the PR accomplishes at a high level.
+
+```
+GOOD titles:
+  "Add MassID IPFS and JSON schema definitions"
+  "Implement shared coordinate validation schema"
+  "Fix UUID validation edge case for nil values"
+  "Upgrade Zod to v4 with strict object migration"
+
+BAD titles (conventional commit format):
+  "feat(schema): add mass-id ipfs schema"
+  "fix(shared): resolve uuid validation"
+  "chore: upgrade zod"
+```
+
+Keep titles under 70 characters when possible. Use the description for details.
+
+## PR size limits
+
+Aim for focused, reviewable PRs:
+
+- **Lines changed**: <= 400 (additions + deletions)
+- **Files changed**: <= 20
+
+When a change exceeds these limits, split it into logical increments:
+
+1. **Foundation first** — shared schemas, utilities, types
+2. **Feature schemas** — the main schema definitions
+3. **Tests and fixtures** — test coverage for the new schemas
+4. **Generated output** — JSON schema generation and validation
+
+If a PR must exceed limits (e.g., initial schema creation), add a comment explaining why splitting is not practical.
+
+## Quality gates
+
+Run `pnpm check` before creating a PR. This executes the full quality gate pipeline:
+
+```bash
+pnpm check
+```
+
+This includes:
+
+- TypeScript type checking (`tsc --noEmit`)
+- Linting (ESLint + Prettier)
+- Tests with 100% coverage (Vitest)
+- Schema generation and validation
+- Spell checking (cspell)
+
+All gates must pass. Do not create a PR with failing checks.
+
+## PR description template
+
+Every PR must include a meaningful description following this structure:
+
+```markdown
+## Summary
+
+Brief description of what this PR accomplishes and why.
+
+- Key change 1
+- Key change 2
+- Key change 3
+
+## Changes
+
+### Added
+
+- New schemas, files, or capabilities
+
+### Changed
+
+- Modifications to existing schemas or behavior
+
+### Removed
+
+- Anything removed (with justification)
+
+## Test plan
+
+- [ ] Unit tests cover all new schemas
+- [ ] 100% coverage maintained
+- [ ] Both valid and invalid inputs tested
+- [ ] Generated JSON schemas validated
+- [ ] `pnpm check` passes
+
+## Related issues
+
+Closes #123
+Related to #456
+```
+
+## Review approach — active criticism
+
+Reviewers should challenge every PR on three dimensions:
+
+1. **Scope** — Does this PR do exactly what it claims? Are there scope creep changes mixed in?
+2. **Clarity** — Can a developer unfamiliar with this area understand the changes? Are schema names, field names, and meta descriptions clear?
+3. **Quality** — Are edge cases covered? Are `.meta()` descriptions accurate? Do examples represent realistic data?
+
+## Linking issues
+
+Always link related issues in the PR description:
+
+- `Closes #123` — automatically closes the issue on merge
+- `Related to #456` — creates a reference without auto-closing
+- `Blocked by #789` — indicates a dependency
+
+## Draft PRs
+
+Use draft PRs for:
+
+- Work in progress that needs early feedback
+- Changes that depend on other PRs
+- Exploratory changes that may not be merged
+
+Convert to ready-for-review only when all quality gates pass.
+
+## Post-merge
+
+After merging:
+
+- Verify CI passes on the main branch
+- If the change affects published schemas, coordinate the npm release
+- Update downstream consumers if the change is breaking

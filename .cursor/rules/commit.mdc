@@ -1,137 +1,143 @@
 ---
-description: Creating commit messages
+description: 'Conventional commit messages with schemas-specific scopes'
+globs:
+  - '*'
+alwaysApply: true
 ---
 
-# Commit Message Rules (Conventional Commits)
+# Conventional commit messages for the schemas repo
 
-These rules define how to write clear, consistent commit messages using the Conventional Commits specification.
+All commits must follow the Conventional Commits specification. This is enforced by commitlint via Husky `commit-msg` hook.
 
 ## Format
 
-- **Structure**: `<type>(optional scope): <description>`
-- **Examples**:
-  - `feat(schema): add mass-id data schema`
-  - `fix(shared): resolve UUID validation edge case`
+```
+<type>(optional scope): <description>
 
-## Requirements
+[optional body]
 
-- **MUST** follow Conventional Commits
-- **MUST** use imperative mood (add, fix, update; not added, fixed, updated)
-- **MUST** start description with lowercase letter
-- **MUST NOT** end description with a period
-- **MUST** keep full header ≤ 100 characters
-- **SHOULD** keep the description (subject) ≤ 72 characters for readability
-- **SHOULD** include a scope when the change affects a specific module or area
-- **SHOULD** include a body for complex or multi-part changes
+[optional footer(s)]
+```
 
-## Allowed types (ordered by frequency)
+## Types
 
-- **feat**: new feature or functionality
-- **fix**: bug fix or error correction
-- **refactor**: code restructuring without functional changes
-- **docs**: documentation changes only
-- **test**: adding or modifying tests
-- **style**: formatting, whitespace, semicolons (no logic changes)
-- **perf**: performance improvements
-- **build**: build system or dependency changes
-- **ci**: CI/CD configuration changes
-- **chore**: maintenance tasks, tooling, configuration
-- **revert**: revert a previous commit
+| Type       | When to use                                  |
+| ---------- | -------------------------------------------- |
+| `feat`     | New schema, field, or capability             |
+| `fix`      | Bug fix in schema validation or generation   |
+| `refactor` | Code restructuring without behavior change   |
+| `docs`     | Documentation only (README, TSDoc, comments) |
+| `test`     | Adding or updating tests                     |
+| `chore`    | Maintenance (deps, config, CI scripts)       |
+| `build`    | Build system changes (tsup, scripts)         |
+| `ci`       | CI/CD pipeline changes                       |
+| `perf`     | Performance improvements                     |
+| `style`    | Formatting, whitespace, semicolons           |
+| `revert`   | Reverting a previous commit                  |
 
-## Scopes for this repository
+## Scopes for the schemas repo
 
-This repository uses a single, optional scope aligned with commitlint configuration.
+Use scopes to indicate which area of the codebase is affected:
 
-- Allowed scopes: `schema`, `shared`
-- Use at most one scope. Do not combine domain/main scopes
-- Omit the scope for repo-wide changes (tooling, CI, configs, README)
+- **`schema`** — changes to Zod schema definitions or generated JSON schemas
+- **`shared`** — changes to shared utilities, helpers, or base schemas
 
-Examples:
+Scope is optional but encouraged for `feat` and `fix` types.
 
-```text
+## Examples
+
+```
 feat(schema): add mass-id data schema
-fix(shared): harden UUID validation
-docs: update README with build instructions
-ci: add schema validation job
+feat(schema): add certificate nft ipfs schema definition
+fix(shared): resolve UUID validation edge case for nil UUIDs
+refactor(schema): extract location schema to shared module
+test(schema): add boundary value tests for coordinates
+docs: update installation instructions in README
+chore: upgrade zod to 4.x
+build: configure tsup for dual ESM/CJS output
+ci: add schema validation step to pipeline
+perf(shared): optimize uniqueBy for large arrays
+style: fix formatting in shared schemas
 ```
 
-### Scope selection for this repo
+## Rules
 
-- `src/shared/**` → `shared`
-- `src/*/**` (type-specific schemas, helpers, attributes) → `schema`
-- `schemas/ipfs/**` → generated artifacts; pair with `schema` when changing sources
-- `scripts/**`, `README.md`, `.github/**`, `package.json`, config files → no scope
+### Imperative mood
 
-## Infrastructure and DevOps
+Write the description as a command — what the commit does when applied:
 
-- Prefer specific scopes: **docker**, **terraform**, **ci**, **deploy**, **infra**
-- Include the environment or service affected when helpful
+```
+GOOD: add mass-id data schema
+GOOD: fix UUID validation for nil values
+GOOD: remove deprecated legacy schema
 
-Examples:
-
-```text
-build: add multi-stage Docker build for production
-fix: resolve IAM permissions for S3 access
-ci: update Node.js version in pipeline
-ci: add automated rollback mechanism
+BAD: added mass-id data schema
+BAD: fixing UUID validation
+BAD: removed deprecated legacy schema
 ```
 
-## Documentation
+### Lowercase description
 
-- Use **docs** for general documentation; **readme** for README files
-- Specify the section or topic
+The description starts with a lowercase letter:
 
-Examples:
-
-```text
-docs(schema): add mass-id schema documentation
-docs: update installation instructions
-docs: add schema validation examples
+```
+GOOD: feat(schema): add participant role enum
+BAD:  feat(schema): Add participant role enum
 ```
 
-## Examples by change type
+### No trailing period
 
-```text
-feat(schema): add mass-id data schema
-feat(shared): add zod helpers for timestamps
-
-fix(schema): correct attribute constraints in gas-id schema
-fix(shared): resolve UUID validation edge case
-
-refactor(shared): extract common validation utilities
-refactor(schema): simplify mass-id schema composition
-
-docs(schema): add function documentation and examples
-docs: add troubleshooting section to README
-
-test(schema): add unit tests for mass-id schema
-test(shared): add tests for helper utilities
-
-chore: update dev dependencies
-ci: add automated schema validation step
-build: pin tsup version
+```
+GOOD: fix(shared): handle empty array in uniqueBy
+BAD:  fix(shared): handle empty array in uniqueBy.
 ```
 
-## Context analysis (to choose a scope)
+### Header length
 
-- File patterns:
-  - `src/shared/**` → shared
-  - `src/*/**` (type directories, helpers, attributes) → schema
-  - `schemas/ipfs/**` → generated artifacts (commit with related schema/source change)
-  - `scripts/**`, `.github/**`, `*.md`, `package.json`, config files → no scope
+Keep the full header (type + scope + description) under 100 characters. If the description is too long, move details to the commit body.
 
-## AI generation checklist
+```
+GOOD: feat(schema): add waste classification properties schema
 
-1. Analyze the diff to understand what changed
-2. Pick the most specific applicable scope
-3. Use imperative mood and start with lowercase
-4. Keep header ≤ 72 chars; prefer subject ≤ 50 chars
-5. Include technical details when relevant (functions, endpoints, contracts)
-6. Follow Conventional Commits strictly
-7. Consider the Carrot Foundation business context
-8. Use appropriate Web3/AI/fintech terminology
-9. Optimize for clarity and searchability
-10. Prefer more specific scopes when in doubt
-11. Never suggest reverting or discarding existing code; see `code-preservation.mdc` for preservation rules
+BAD:  feat(schema): add waste classification properties schema with contamination levels and measurement units
+```
 
-Remember: Good commit messages make history readable and debugging easier.
+### One concern per commit
+
+Each commit should address a single logical change. Do not mix unrelated changes:
+
+```
+GOOD (two commits):
+  feat(schema): add location schema with coordinates
+  test(schema): add location schema validation tests
+
+BAD (one commit):
+  feat(schema): add location schema and fix UUID validation and update README
+```
+
+### Commit body
+
+Use the body for additional context when the header alone is insufficient:
+
+```
+fix(shared): handle NaN in numeric schema validation
+
+Zod's `.number()` validator accepts NaN by default. Added explicit
+`.refine()` to reject NaN values in weight and distance fields,
+matching the methodology's requirement for finite measurements.
+```
+
+## Breaking changes
+
+For breaking changes, add `!` after the type/scope and include a `BREAKING CHANGE:` footer:
+
+```
+feat(schema)!: rename mass_id to mass_id_data in exports
+
+BREAKING CHANGE: The exported schema name changed from `MassIdSchema`
+to `MassIDDataSchema`. Update imports accordingly.
+```
+
+## Enforcement
+
+Commitlint runs automatically via Husky on every commit. Invalid commit messages will be rejected.

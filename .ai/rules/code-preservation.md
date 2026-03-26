@@ -1,0 +1,130 @@
+---
+id: code-preservation
+intent: 'Preserve existing behavior during refactoring — no silent deletions or reversions'
+scope:
+  - '*'
+requirements:
+  - 'Never delete or revert code without explicit user approval'
+  - 'Commit all intended changes; isolate out-of-scope edits into follow-up commits'
+  - 'Ask about unrelated modifications before discarding'
+  - 'Trust developer intentions for existing code'
+anti_patterns:
+  - 'Silently removing code deemed unnecessary'
+  - 'Reverting changes from previous sessions'
+  - 'Deleting tests to make coverage pass'
+  - 'Removing imports or exports without checking usage'
+---
+
+# Code Preservation Rule
+
+## Rule body
+
+# Preserving existing code and behavior
+
+This rule governs how AI assistants interact with existing code. It exists because AI tools have a tendency to "clean up" code that looks unused, redundant, or suboptimal — often destroying intentional work in the process.
+
+## Core principle
+
+Every line of existing code was written intentionally. Do not remove, revert, or modify code outside the scope of the current task without explicit approval from the developer.
+
+## Never silently delete code
+
+If code appears unused, redundant, or unnecessary, ask before removing it. What looks like dead code may be:
+
+- Scaffolding for an in-progress feature
+- Required by a downstream consumer not visible in this repo
+- Part of a deliberate pattern that prevents regressions
+- Intentionally preserved for backward compatibility
+
+```text
+BAD behavior:
+  "I noticed `ExperimentalSchema` isn't used anywhere, so I removed it."
+
+GOOD behavior:
+  "I noticed `ExperimentalSchema` doesn't appear to have any consumers
+  in this repo. Should I remove it, or is it used externally?"
+```
+
+## Never revert changes from previous sessions
+
+Changes made in prior sessions represent completed work. Do not undo them even if they seem inconsistent with the current task.
+
+```text
+BAD behavior:
+  Reverting a schema field addition from yesterday because today's task
+  doesn't reference it.
+
+GOOD behavior:
+  Preserving all existing fields and adding the new ones requested in
+  the current task.
+```
+
+## Commit all intended changes
+
+When making modifications, commit all intended changes required for the task. If incidental or out-of-scope edits are introduced, either revert them or isolate them in a clearly labeled follow-up commit/PR.
+
+```text
+BAD behavior:
+  Only committing the new schema file while leaving formatting fixes
+  and import updates unstaged.
+
+GOOD behavior:
+  Committing all modified files, noting in the commit message which
+  changes are auxiliary (e.g., "also fix import ordering in index.ts").
+```
+
+## Never delete tests to fix coverage
+
+If tests fail or coverage drops, the correct response is to fix the code or add tests — never to remove existing tests.
+
+```text
+BAD behavior:
+  Removing a failing test that covers an edge case to make the suite pass.
+
+GOOD behavior:
+  Investigating why the test fails and fixing either the test or the
+  implementation to maintain coverage.
+```
+
+## Never remove imports or exports without verification
+
+Before removing an import or export, verify it is truly unused. In a published npm package like `@carrot-foundation/schemas`, exports may be consumed by projects outside this repository.
+
+```text
+BAD behavior:
+  Removing an export from index.ts because no internal file imports it.
+
+GOOD behavior:
+  Asking the developer whether the export is consumed externally before
+  removing it from the public API.
+```
+
+## Refactoring guidelines
+
+When refactoring, maintain behavioral equivalence:
+
+- **Rename**: Update all references, including tests and re-exports
+- **Move**: Update all import paths, verify barrel exports still work
+- **Extract**: Ensure the original call site uses the extracted function
+- **Inline**: Only when the abstraction genuinely adds no value and the developer approves
+
+## Trust developer intentions
+
+If existing code contains patterns that seem suboptimal, assume there is a reason. Common cases:
+
+- **Verbose validation** — may be required for specific edge cases discovered in production
+- **Redundant type annotations** — may exist for documentation or IDE support
+- **Seemingly unnecessary re-exports** — may be part of the public API contract
+- **Extra test fixtures** — may cover regression cases from past bugs
+
+When in doubt, ask. Preserving working code is always safer than "improving" it based on incomplete context.
+
+## Scope boundaries
+
+Stay within the boundaries of the current task:
+
+- If asked to add a schema, add the schema. Do not refactor neighboring schemas.
+- If asked to fix a test, fix the test. Do not restructure the test suite.
+- If asked to update a dependency, update the dependency. Do not migrate usage patterns.
+
+Expanding scope requires explicit approval. Mention what you would like to change and why, then wait for confirmation.

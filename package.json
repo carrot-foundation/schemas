@@ -45,10 +45,12 @@
     "url": "https://github.com/carrot-foundation/schemas.git"
   },
   "scripts": {
+    "ai:check": "node scripts/check-ai-instructions.mjs",
+    "ai:sync": "node scripts/sync-ai-instructions.mjs",
     "build": "tsup",
-    "check": "run-s lint:fix format type-check spell-check pkgJsonLint generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test",
+    "check": "run-s lint:fix format type-check spell-check pkgJsonLint generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test ai:check",
     "check-refs": "node scripts/check-refs.js",
-    "check:parallel": "run-p lint:fix format type-check spell-check pkgJsonLint test generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples",
+    "check:parallel": "run-p lint:fix format type-check spell-check pkgJsonLint test generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples ai:check",
     "clean": "rm -rf dist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

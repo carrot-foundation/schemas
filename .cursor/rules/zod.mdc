@@ -1,158 +1,203 @@
 ---
-description: Standardized Zod schema authoring patterns for the repository
-globs: src/**/*.schema.ts
-alwaysApply: true
+description: 'Zod schema authoring — strictObject, safeExtend, meta(), and composition layers'
+globs:
+  - 'src/**/*.schema.ts'
+  - 'src/**/*.schemas.ts'
+alwaysApply: false
 ---
 
-# Zod Schema Authoring Rules
+# Zod schema authoring patterns for the schemas package
 
-Purpose
+Zod schemas are the single source of truth in this project. They drive TypeScript types, JSON Schema generation, documentation, and runtime validation. Getting them right is critical.
 
-- Standardize how Zod schemas are authored in this repository.
-- Zod is the single source of truth; JSON Schemas are generated artifacts.
-- Keep guidance concise and aligned with existing code and ZOD_SCHEMA_PATTERNS.md.
+## `z.strictObject()` — always
 
-Scope
+Use `z.strictObject()` for all object schemas. This rejects unknown properties at parse time, which is essential for IPFS data integrity (extra fields change content hashes).
 
-- Applies to all schema work in src/ and generated outputs in schemas/.
-- Complements JSON/JSON Schema rules and code comment standards.
-
-Core Rules
-
-- Use z.strictObject({...}); do not use object().strict().
-- Compose schemas via layers: Base → NFT → type-specific using .safeExtend().
-- Add .meta({ title, description, example(s) }) to every field and object schema.
-- Use snake_case for all property names. Avoid abbreviations except id, url.
-- Prefer built-in validators over refine(); reserve refine() for cross-field/domain rules.
-- Export both the schema and inferred type:
-  - Schema export: [Entity]Schema (e.g., MassIDDataSchema)
-  - Type export: [Entity] (e.g., MassID)
-- Place type-specific schemas under src/{type}/ and shared under src/shared/.
-- Timestamps and dates:
-  - Top-level metadata: ISO 8601 (string, format: date-time)
-  - Attributes/events/on-chain: Unix timestamp in milliseconds (integer)
-  - Date-only values: ISO 8601 date (string, format: date)
-- Enums:
-  - User-facing values: Title Case (e.g., 'None', 'Low')
-  - Technical/system values: lowercase (e.g., 'mainnet')
-  - Constants: UPPERCASE (e.g., 'TEST')
-- Examples in meta should be realistic and representative of production data.
-- Example usage:
-  - Use `examples` (plural array) by default to show variety
-  - Use `example` (singular) only for canonical patterns or when one is sufficient
-  - Add array/object examples for complex nested structures
-  - Rely on item schema examples for simple arrays of primitives
-- Schema extraction:
-  - Extract when: reusable (2+ uses), complex (3+ fields), domain entity, or needs testing
-  - Keep inline when: simple primitive, schema-specific enum, or single-field wrapper
-  - Extract array schemas based on complexity (union types, domain constraints), not just wrapper functions
-- Never manually edit files in schemas/. Generate from Zod via build + generation.
-
-Versioning and Interop Notes
-
-- Schema $id URLs are versioned from the environment. See src/shared/schema-version.ts and CLAUDE.md.
-- Ensure JSON Schema output aligns with .cursor/rules/json-schema.mdc (title, description, $schema, $id, properties, required, additionalProperties false).
-
-Minimal Examples
-
-Strict object with meta
-
-```ts
-import { z } from 'zod';
-
-export const ExampleSchema = z
-  .strictObject({
-    example_field: z
-      .string()
-      .min(1)
-      .meta({
-        title: 'Example Field',
-        description: 'A non-empty string.',
-        examples: ['alpha', 'beta'],
-      }),
+```typescript
+// BAD: chaining .strict() on z.object()
+const LocationSchema = z
+  .object({
+    latitude: LatitudeSchema,
+    longitude: LongitudeSchema,
   })
-  .meta({
-    title: 'Example',
-    description: 'Example object schema.',
-  });
+  .strict();
 
-export type Example = z.infer<typeof ExampleSchema>;
+// GOOD: strictObject from the start
+const LocationSchema = z.strictObject({
+  latitude: LatitudeSchema,
+  longitude: LongitudeSchema,
+});
 ```
 
-Layered composition using safeExtend
+## Composition layers with `.safeExtend()`
 
-```ts
-import { z } from 'zod';
-// Assume BaseIpfsSchema, NftIpfsSchema exist in src/shared/
+Schemas compose in layers. Use `.safeExtend()` to build from base to specific:
 
+```
+BaseIpfsSchema (shared $schema, schema, created_at, external_id, external_url, ...)
+  -> NftIpfsSchema (adds blockchain, name, description, image, attributes, ...)
+    -> MassIDNftIpfsSchema (adds mass-id-specific data and attributes)
+```
+
+```typescript
+// Base layer — common IPFS record fields
+export const BaseIpfsSchema = z.strictObject({
+  $schema: z.url().meta({ ... }),
+  schema: SchemaInfoSchema,
+  created_at: IsoDateTimeSchema.meta({ ... }),
+  external_id: ExternalIdSchema,
+  external_url: ExternalUrlSchema,
+  viewer_reference: ViewerReferenceSchema.optional(),
+  environment: RecordEnvironmentSchema.optional(),
+  data: z.record(z.string(), z.unknown()).optional().meta({ ... }),
+});
+
+// NFT layer extends base with blockchain and display fields
 export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
-  // nft-specific additions...
+  blockchain: BlockchainReferenceSchema,
+  name: NonEmptyStringSchema.max(100).meta({ ... }),
+  short_name: NonEmptyStringSchema.max(50).meta({ ... }),
+  description: NonEmptyStringSchema.max(500).meta({ ... }),
+  image: IpfsUriSchema.meta({ ... }),
+  audit_data_hash: Sha256HashSchema.meta({ ... }),
+  attributes: uniqueBy(NftAttributeSchema, ...).meta({ ... }),
 });
 
-export const SomeTypeIpfsSchema = NftIpfsSchema.safeExtend({
-  data: z.strictObject({
-    primary_type: z.string().meta({
-      title: 'Primary Type',
-      description: 'Primary domain-specific type.',
-      examples: ['Plastic', 'Metal'],
-    }),
-  }),
-}).meta({
-  title: 'Some Type IPFS Schema',
-  description: 'IPFS metadata schema for Some Type.',
+// Type-specific layer extends NFT
+export const MassIDNftIpfsSchema = NftIpfsSchema.safeExtend({
+  mass_id_data: MassIDDataSchema.meta({ ... }),
 });
-
-export type SomeTypeIpfs = z.infer<typeof SomeTypeIpfsSchema>;
 ```
 
-Constrained enums
+Never use `.merge()` — it does not preserve strict object behavior. Always use `.safeExtend()`.
 
-```ts
-import { z } from 'zod';
+## `.meta()` on every field
 
-export const ContaminationLevelSchema = z
-  .enum(['None', 'Low', 'Medium', 'High'])
-  .meta({
-    title: 'Contamination Level',
-    description: 'Level of contamination in the waste batch.',
-    examples: ['Low', 'None'],
-  });
+Every field must include `.meta()` with at minimum `title` and `description`. Add examples based on field complexity.
+
+### When to use `examples` (plural array)
+
+Use `examples` by default to show variety — 2 to 4 values is typical:
+
+```typescript
+waste_type: z.string().min(1).max(100).meta({
+  title: 'Waste Type',
+  description: 'Category or type of waste material',
+  examples: ['Organic', 'Plastic', 'Metal', 'Paper'],
+}),
 ```
 
-Author Checklist
+### When to use `example` (singular)
 
-- z.strictObject used for all object schemas; no object().strict().
-- Every field and object has meta with title, description, and example(s).
-- Property names use snake_case across all schemas.
-- Built-in validators used where possible; refine() only for cross-field/domain rules.
-- Schema export name ends with Schema; type export name omits Schema.
-- Timestamps and dates follow repository conventions.
-- Layered composition via .safeExtend() aligns with Base → NFT → type-specific.
-- Examples use `examples` (plural) by default; `example` (singular) only for canonical patterns.
-- Array/object examples provided for complex nested structures; item examples sufficient for simple arrays.
-- Schema extraction decisions based on reusability, complexity, and domain cohesion.
-- No manual edits in schemas/; run:
-  - pnpm build
-  - pnpm generate-ipfs-schemas
+Use singular `example` for canonical patterns where one value is sufficient:
 
-Reviewer Checklist
+```typescript
+$schema: z.url().meta({
+  title: 'JSON Schema URI',
+  description: 'URI of the JSON Schema used to validate this record',
+  example: 'https://raw.githubusercontent.com/carrot-foundation/schemas/...',
+}),
+```
 
-- Naming patterns for schemas/types are correct and consistent.
-- Meta coverage is complete and meaningful (titles, descriptions, examples).
-- snake_case property names; enums follow title/lower/UPPERCASE conventions.
-- Composition pattern (Base → NFT → type-specific) is followed; .safeExtend used.
-- No custom refine() unless necessary for cross-field/domain logic.
-- Example usage follows guidelines (plural for variety, singular for canonical patterns).
-- Array/object examples provided where complex structures benefit from full examples.
-- Schema extraction decisions are appropriate (complex/reusable extracted, simple inline).
-- Generated JSON Schemas include required fields and constraints per json-schema rules.
-- Build and schema generation commands pass locally/CI.
+### When to skip examples
 
-References
+Skip examples when a base schema already provides them:
 
-- ZOD schema patterns: ZOD_SCHEMA_PATTERNS.md
-- Project overview and versioning: CLAUDE.md
-- JSON data rules: .cursor/rules/json.mdc
-- JSON Schema rules: .cursor/rules/json-schema.mdc
-- Code comment standards: .cursor/rules/code-comments.mdc
-- PR rules and descriptions: .cursor/rules/pull-request.mdc, .cursor/rules/pull-request-description.mdc
+```typescript
+external_id: ExternalIdSchema.meta({
+  title: 'External ID',
+  description: 'UUID identifier for external system references',
+  // No examples needed — ExternalIdSchema (UuidSchema) already has examples
+}),
+```
+
+## Schema naming conventions
+
+### PascalCase for schema exports
+
+```typescript
+export const MassIDDataSchema = z.strictObject({ ... });
+export const LocationSchema = z.strictObject({ ... });
+export const ParticipantSchema = z.strictObject({ ... });
+```
+
+### Type exports match schema name without suffix
+
+```typescript
+export type MassIDData = z.infer<typeof MassIDDataSchema>;
+export type Location = z.infer<typeof LocationSchema>;
+export type Participant = z.infer<typeof ParticipantSchema>;
+```
+
+## Minimize `.refine()`
+
+Use `.refine()` only when built-in validators cannot express the constraint:
+
+```typescript
+// BAD: refine for something built-in
+z.string().refine((s) => s.includes('@'), 'Must be email');
+// GOOD: built-in validator
+z.string().email('Must be valid email');
+
+// BAD: refine for length
+z.string().refine((s) => s.length >= 1, 'Required');
+// GOOD: built-in constraint
+z.string().min(1, 'Required');
+
+// GOOD: refine for cross-field validation (no built-in alternative)
+.refine((data) => {
+  const ids = new Set(data.participants.map((p) => p.id));
+  return data.events.every((e) => ids.has(e.participant_id));
+}, 'All event participant IDs must exist in participants array')
+```
+
+## Schema extraction guidelines
+
+### Extract when
+
+1. **Reused by 2+ consumers** — shared across multiple schemas
+2. **3+ fields** — complex enough to warrant a named concept
+3. **Testable independently** — has validation logic worth testing
+4. **Domain entity** — represents a cohesive business concept
+
+```typescript
+// GOOD: extracted — reused, 3+ fields, domain concept
+export const CoordinatesSchema = z.strictObject({
+  latitude: LatitudeSchema,
+  longitude: LongitudeSchema,
+});
+```
+
+### Keep inline when
+
+1. **Simple single-use primitive** — one constraint, used once
+2. **Schema-specific enum** — not reused elsewhere
+3. **Single-field wrapper** — only adds metadata
+
+```typescript
+// GOOD: inline — simple, single-use
+name: z.string().min(1).max(100).meta({
+  title: 'Name',
+  description: 'Name of the entity',
+  examples: ['Example Name'],
+}),
+```
+
+## Enum conventions
+
+Use consistent casing based on semantic meaning:
+
+- **Title Case** for user-facing values: `['None', 'Low', 'Medium', 'High']`
+- **lowercase** for technical values: `['mainnet', 'testnet']`
+- **UPPERCASE** for constants: `['KILOGRAM', 'DATE', 'CURRENCY']`
+
+## Timestamp patterns
+
+Use `IsoDateTimeSchema` for ISO 8601 strings and unix milliseconds for epoch timestamps. Always include the pattern in the field name:
+
+```typescript
+created_at: IsoDateTimeSchema.meta({ ... }),  // ISO 8601 string
+pickup_date: IsoDateSchema.meta({ ... }),     // ISO 8601 date only
+minted_at_ms: z.number().int().meta({ ... }), // Unix milliseconds
+```

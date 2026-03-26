@@ -1,204 +1,188 @@
 ---
-description:
-globs: *.schema.json
+description: 'Generated JSON Schema structure — required fields, validation patterns, and $ref usage'
+globs:
+  - 'schemas/**/*.schema.json'
 alwaysApply: false
 ---
 
-# Cursor Rules for JSON Schema Files
+# Generated JSON Schema standards
 
-### Schema Structure Requirements
+JSON Schema files in the `schemas/` directory are **generated artifacts** — they are produced from Zod schemas via `pnpm generate-ipfs-schemas`. Never edit them manually. If a JSON Schema has an issue, fix it in the Zod source schema.
 
-- Always include `$schema` field pointing to JSON Schema draft version
-- Include `$id` with full URI pointing to the schema location
-- Provide meaningful `title` and `description` fields
-- Use semantic versioning in file paths and references (e.g., v0.1.0)
+## Generation workflow
 
-### Metadata Requirements
+```bash
+# Build the project, then generate JSON schemas from Zod definitions
+pnpm generate-ipfs-schemas
 
-- Every schema must have:
-  - `title`: Clear, descriptive name
-  - `description`: Comprehensive explanation of purpose
-  - `type`: Primary type definition
-- Include `example` (singular) for single example values
-- Include `examples` (plural, array) when multiple examples clarify usage patterns
-- Always provide at least one example for properties when helpful
-- Document all `enum` values with clear meanings
-
-### Property Definitions
-
-- Always specify `type` for every property
-- Use `format` validation where applicable (uri, date-time, email)
-- Include `description` for all properties
-- Provide `example` or `examples` values for guidance
-- Set appropriate constraints (`maxLength`, `minimum`, `maximum`)
-- Use `required` arrays to specify mandatory fields
-
-### Timestamp and Date Formats
-
-- **ISO 8601 timestamps**: Use for human-readable timestamps
-  - Type: `string`
-  - Format: `"date-time"`
-  - Pattern: Include strict ISO 8601 validation regex when needed
-  - Example: `"2024-12-05T14:30:00.000Z"`
-  - Use for: `created_at` and other top-level temporal metadata
-- **Unix timestamps**: Use for attributes, events, and on-chain compatibility
-  - Type: `integer`
-  - Constraints: `exclusiveMinimum: 0`, `maximum: 9007199254740991` (JS safe integer)
-  - Unit: Milliseconds since Unix epoch
-  - Example: `1710518400000`
-  - Use for: Chain of custody events, issue timestamps, date attributes
-- **ISO 8601 dates**: Use for date-only values (no time component)
-  - Type: `string`
-  - Format: `"date"`
-  - Pattern: `YYYY-MM-DD`
-  - Example: `"2024-02-10"`
-
-Project-wide timestamp and date guidance (including how these map into Zod schemas and generated JSON Schemas) is documented in `CLAUDE.md` under Schema Development → Timestamp and Date Formats.
-
-### Documentation Standards
-
-- Write clear, concise descriptions for all schema elements
-- Include practical examples that demonstrate real usage
-- Document any business logic or validation rules
-- Explain relationships between properties when relevant
-- Use consistent language and terminology across schemas
-
-### Reusability Patterns
-
-- Define common structures in `$defs` section
-- Use `$ref` to reference shared definitions
-- Create shared schemas for common data types
-- Maintain backward compatibility when versioning schemas
-- Follow consistent URI patterns for schema references
-
-### Validation Rules
-
-- Set `additionalProperties: false` unless explicitly allowing extensions
-- Use appropriate string formats (`uri`, `date-time`, `email`, etc.)
-- Define reasonable length limits for strings
-- Use `enum` for restricted value sets
-- Implement proper array item validation with `items`
-
-## Code Quality Standards
-
-### File Organization
-
-```glob
-schemas/*/v*/: JSON schema files
-*.example.json: Example data files
-*.schema.json: Schema definition files
+# Validate all generated schemas
+pnpm validate-schemas
 ```
 
-### Naming Conventions
+The generation pipeline:
 
-- Schema files: `{type}.schema.json` (e.g., `mass-id.schema.json`)
-- Example files: `{type}.example.json` (e.g., `mass-id.example.json`)
-- Use kebab-case for file names
-- Include version in directory structure (`v0.1.0/`)
+1. Zod schemas are built via `tsup` into `dist/`
+2. The generation script reads Zod schemas and converts to JSON Schema
+3. Output lands in `schemas/` directory organized by type
+4. Validation script checks all generated schemas for structural correctness
 
-### Required Fields for All Schemas
+## Required top-level fields
 
-- `$schema`: JSON Schema draft version
-- `$id`: Canonical URI for the schema
-- `title`: Human-readable name
-- `description`: Purpose and usage explanation
-- `type`: Primary data type
-- `properties`: Property definitions (for objects)
-- `required`: Array of mandatory properties (for objects)
-- `additionalProperties`: Explicitly set to false unless extensions allowed
+Every generated JSON Schema must include these top-level fields:
 
-### Error Prevention
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json",
+  "title": "Human-Readable Schema Title",
+  "description": "Comprehensive description of what this schema validates",
+  "type": "object",
+  "properties": { ... },
+  "required": ["field1", "field2"],
+  "additionalProperties": false
+}
+```
 
-- Validate all JSON syntax before committing
-- Ensure all `$ref` references resolve correctly
-- Verify examples validate against their schemas
-- Check that required fields are actually defined in properties
-- Ensure URI formats are valid and accessible
+If any of these fields are missing in the output, the issue is in the Zod source — fix the `.meta()` and schema structure there.
 
-## Project-Specific Requirements
+## The `$id` URL format
 
-### Schema References
+Schema `$id` values follow a strict URL format using GitHub raw content URLs with git tags:
 
-- Use GitHub raw URLs for `$id` and `$schema` references
-- **Versioning patterns** (determined by `SCHEMA_VERSION` environment variable):
-  - **All builds (including development)**: `refs/tags/{version}` where version defaults to `0.0.0-dev` when `SCHEMA_VERSION` is not set
-  - **Production builds**: `refs/tags/{version}` (e.g., `refs/tags/0.1.27`)
-- Pattern: `https://raw.githubusercontent.com/carrot-foundation/schemas/{ref}/{path}`
-- Examples:
-  - Dev: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.0.0-dev/schemas/ipfs/mass-id/mass-id.schema.json`
-  - Prod: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.27/schemas/ipfs/mass-id/mass-id.schema.json`
-- Version is automatically injected during build process via scripts
+```text
+https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
+```
 
-### Common Patterns
+Where:
 
-- Use `external_id` for off-chain references (UUIDs)
-- Use `external_url` for public-facing links
-- Include `created_at` timestamp for temporal tracking
-- Implement signature objects using EIP-712 pattern
-- Use `attributes` array for NFT trait compatibility
+- `{version}` — the schema version (from `SCHEMA_VERSION` env var or `package.json`)
+- `{type}` — the schema type in kebab-case (e.g., `mass-id`, `certificate`)
 
-### Property Naming Conventions
+The version is injected at build time — see the `schema-versioning` rule for details.
 
-- **Always use snake_case** for property names (never camelCase)
-- Use descriptive suffixes for clarity:
-  - `_id`: For identifier fields (`external_id`, `event_id`, `token_id`)
-  - `_hash`: For hash values (`content_hash`, `id_hash`, `location_id_hash`)
-  - `_timestamp`: For Unix timestamps in milliseconds (`issue_timestamp`, `first_reported_timestamp`)
-  - `_url`: For HTTP(S) URLs (`external_url`)
-  - `_uri`: For resource identifiers including IPFS (`target_uri`)
-  - `_at`: For ISO 8601 timestamps (`created_at`)
-  - `_date`: For date-only values (`issue_date`)
-- Examples: `created_at`, `external_id`, `content_hash`, `chain_of_custody`, `smart_contract_address`
-- Avoid abbreviations unless well-established (e.g., `id`, `url`, `uri` are acceptable)
+## Property descriptions
 
-### Signature Objects
+Every property in the generated JSON Schema must have a `description`. This comes from the Zod schema's `.meta({ description: '...' })`. If a property lacks a description in the output, add `.meta()` to the Zod source field.
 
-- Follow EIP-712 structure in `$defs/signature`
-- Include required fields: signer, signing_method, domain, hash_algorithm, hash, signature
-- Set `additionalProperties: false` for security
+```json
+{
+  "properties": {
+    "waste_type": {
+      "type": "string",
+      "description": "Category or type of waste material",
+      "minLength": 1,
+      "maxLength": 100
+    }
+  }
+}
+```
 
-### Integration Standards
+## Format validation
 
-- Ensure compatibility with existing validation scripts
-- Follow semantic versioning for schema evolution
-- Maintain consistency with schema consumer expectations (applications using these schemas)
-- Support both development and production environments
+Use JSON Schema `format` for well-known string formats. These are generated from Zod's built-in validators:
 
-## Best Practices
+| Zod validator (Zod 4.x) | JSON Schema `format` |
+| ----------------------- | -------------------- |
+| `z.email()`             | `"email"`            |
+| `z.url()`               | `"uri"`              |
+| `z.uuidv4()`            | `"uuid"`             |
+| `z.iso.datetime()`      | `"date-time"`        |
+| `z.iso.date()`          | `"date"`             |
+| `z.ipv4()` / `z.ipv6()` | `"ipv4"` / `"ipv6"`  |
 
-### Performance Considerations
+## Reusable structures with `$defs` and `$ref`
 
-- Avoid overly complex nested structures
-- Use appropriate data types to minimize parsing overhead
-- Keep example values realistic but concise
-- Implement efficient validation patterns
+Common structures should be defined in `$defs` and referenced via `$ref`:
 
-### Maintainability Guidelines
+```json
+{
+  "$defs": {
+    "Coordinates": {
+      "type": "object",
+      "properties": {
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180 }
+      },
+      "required": ["latitude", "longitude"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "location": { "$ref": "#/$defs/Coordinates" }
+  }
+}
+```
 
-- Document breaking changes in schema evolution
-- Use consistent vocabulary across all schemas
-- Implement deprecation patterns for obsolete fields
-- Maintain clear upgrade paths between versions
+This is driven by schema extraction in Zod — when you extract a named Zod schema, it becomes an entry under `$defs` in the generated output.
 
-### Version Control Integration
+## Carrot-specific patterns
 
-- Include schema validation in CI/CD pipeline
-- Use meaningful commit messages for schema changes
-- Tag schema releases appropriately
-- Maintain changelog for schema modifications
+### Timestamps
 
-## Enforcement Rules
+ISO 8601 datetime strings use `"format": "date-time"`:
 
-### Validation Requirements
+```json
+"created_at": {
+  "type": "string",
+  "format": "date-time",
+  "description": "Timestamp when the record was created"
+}
+```
 
-- All JSON files must be valid JSON syntax
-- All schema files must be valid JSON Schema 2020-12
-- Example files must validate against their corresponding schemas
-- URI references must be properly formatted
+### External references
 
-### Quality Gates
+IDs referencing external systems use UUID format:
 
-- No undefined references in schemas
-- All required properties must exist in property definitions
-- Examples must be realistic and useful
-- Documentation must be complete and accurate
+```json
+"external_id": {
+  "type": "string",
+  "format": "uuid",
+  "description": "UUID identifier for external system references"
+}
+```
+
+### Signatures and hashes
+
+SHA-256 hashes use pattern validation:
+
+```json
+"id_hash": {
+  "type": "string",
+  "pattern": "^[a-f0-9]{64}$",
+  "description": "SHA-256 hash identifier"
+}
+```
+
+### NFT attributes
+
+Attributes follow the OpenSea metadata standard with `trait_type`, `value`, and optional `display_type`:
+
+```json
+"attributes": {
+  "type": "array",
+  "items": { "$ref": "#/$defs/NftAttribute" },
+  "description": "NFT metadata attributes following OpenSea standard"
+}
+```
+
+## Validation
+
+Run `pnpm validate-schemas` after generation to verify all schemas are structurally correct. This checks:
+
+- All required top-level fields are present
+- `$ref` targets resolve correctly
+- `additionalProperties: false` is set on all objects
+- Property descriptions are present
+- Examples are valid against the schema
+
+## Fixing issues
+
+When a generated JSON Schema has a problem:
+
+1. **Identify the Zod source** — find the corresponding `.schema.ts` file
+2. **Fix the Zod schema** — add missing `.meta()`, fix validation, adjust structure
+3. **Regenerate** — run `pnpm generate-ipfs-schemas`
+4. **Validate** — run `pnpm validate-schemas`
+5. **Commit both** — the Zod source change and the regenerated JSON Schema
+
+Never manually patch the JSON output. It will be overwritten on the next generation.

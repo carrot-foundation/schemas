@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(ls:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx prettier:*)",
+      "Bash(pnpm ai\\:check:*)",
+      "Bash(pnpm ai\\:sync:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm check-refs:*)",
+      "Bash(pnpm check:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm generate-ipfs-schemas:*)",
+      "Bash(pnpm hash-schemas:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm spell-check:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm validate-schemas:*)",
+      "Bash(pnpm verify-schema-versions:*)",
+      "Bash(rg:*)",
+      "Bash(sed:*)"
+    ]
+  }
+}
