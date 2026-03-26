@@ -53,8 +53,22 @@ jobs:
             command: pnpm build && pnpm size-limit
           - name: Package Validation
             command: pnpm build && pnpm publint && pnpm check-types-exports
+          - name: Dead Exports
+            command: pnpm knip
+          - name: License Compliance
+            command: pnpm license-check
+          - name: Pack Dry Run
+            command: pnpm build && npm pack --dry-run
           - name: Audit
             command: pnpm audit --prod || true
+          - name: Schema Compatibility
+            command: >-
+              git fetch origin main --depth=1 &&
+              git worktree add /tmp/baseline-schemas origin/main &&
+              cd /tmp/baseline-schemas && pnpm install --frozen-lockfile && pnpm build && pnpm generate-schemas &&
+              cd $GITHUB_WORKSPACE &&
+              pnpm build && pnpm generate-schemas &&
+              BASELINE_SCHEMAS_DIR=/tmp/baseline-schemas/schemas/ipfs pnpm check-schema-compat
 
     steps:
       - name: Checkout
@@ -76,6 +90,7 @@ jobs:
 
       - name: Run check
         run: ${{ matrix.check.command }}
+        continue-on-error: ${{ matrix.check.name == 'Schema Compatibility' }}
 
       - name: Upload coverage to Codecov
         if: matrix.check.name == 'Test'
