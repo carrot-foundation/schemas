@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "c56a6ba6d3aa602c6d3ce2c27c9e4788734b0d47b2b9f96b6e4b66ad76a980b0",
+    "hash": "2153da16235648a947c22688612a829ad1d52b791d03be19783fe564008080b6",
     "type": "RecycledID",
     "version": "0.2.3",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,7 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "audit_data_hash": "299f1f7a7cba7b5efaf53a5fc03c8a9b83e838b9c9bfcf571d2af058a712c0cd",
+  "audit_data_hash": "a4a1d94714d0dd501b0183bb4ddeb5755075959f676863c03616f2fd370cbd86",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"

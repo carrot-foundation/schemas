@@ -1,58 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MassID NFT IPFS Record",
-  "description": "Complete MassID NFT IPFS record schema defining waste tracking metadata, chain of custody events, and NFT display attributes",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/mass-id/mass-id.schema.json",
-  "version": "0.2.3",
   "type": "object",
   "properties": {
     "$schema": {
+      "type": "string",
+      "format": "uri",
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
-      "type": "string",
-      "format": "uri"
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
     },
     "schema": {
       "type": "object",
       "properties": {
         "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         },
         "type": {
-          "title": "MassID Schema Type",
-          "description": "Schema type identifier for this record",
           "type": "string",
-          "const": "MassID"
+          "const": "MassID",
+          "title": "MassID Schema Type",
+          "description": "Schema type identifier for this record"
         },
         "version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
           "examples": [
             "0.1.0",
             "1.0.0",
             "2.1.3"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+          ]
         },
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         }
       },
       "required": [
@@ -64,99 +60,97 @@
       "additionalProperties": false
     },
     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
         "2024-12-05T11:02:47.000Z"
-      ],
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+      ]
     },
     "external_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
       "description": "UUID identifier for external system references",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-      ],
-      "type": "string",
-      "format": "uuid",
-      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+      ]
     },
     "external_url": {
+      "type": "string",
+      "format": "uri",
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
         "https://whitepaper.carrot.eco/"
-      ],
-      "type": "string",
-      "format": "uri"
+      ]
     },
     "viewer_reference": {
-      "title": "Metadata Viewer Reference",
-      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
       "type": "object",
       "properties": {
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Viewer IPFS URI",
           "description": "IPFS URI of the metadata viewer dApp build",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         },
         "integrity_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         }
       },
       "required": [
         "ipfs_uri",
         "integrity_hash"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points"
     },
     "environment": {
-      "title": "Record Environment",
-      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
-          "title": "Blockchain Network",
-          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
             "testnet"
-          ]
+          ],
+          "title": "Blockchain Network",
+          "description": "Blockchain network where this record is deployed"
         },
         "deployment": {
-          "title": "Deployment Environment",
-          "description": "System environment where this record was generated",
           "type": "string",
           "enum": [
             "production",
             "development",
             "testing"
-          ]
+          ],
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated"
         },
         "data_set_name": {
-          "title": "Data Set Name",
-          "description": "Name of the data set for this record",
           "type": "string",
           "enum": [
             "TEST",
             "PROD"
-          ]
+          ],
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record"
         }
       },
       "required": [
@@ -164,36 +158,28 @@
         "deployment",
         "data_set_name"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Record Environment",
+      "description": "Environment information for the record"
     },
     "data": {
-      "title": "MassID Data",
-      "description": "MassID data containing waste tracking events and supporting information",
       "type": "object",
       "properties": {
         "waste_properties": {
-          "title": "Waste Properties",
-          "description": "Waste material classification, regulatory codes, and net weight for the tracked batch",
           "type": "object",
           "properties": {
             "type": {
+              "type": "string",
+              "enum": [
+                "Organic"
+              ],
               "title": "Waste Type",
               "description": "Waste material category",
               "examples": [
                 "Organic"
-              ],
-              "type": "string",
-              "enum": [
-                "Organic"
               ]
             },
             "subtype": {
-              "title": "Waste Subtype",
-              "description": "Specific subcategory of waste material",
-              "examples": [
-                "Food, Food Waste and Beverages",
-                "Domestic Sludge"
-              ],
               "type": "string",
               "enum": [
                 "Domestic Sludge",
@@ -203,48 +189,54 @@
                 "Industrial Sludge",
                 "Tobacco",
                 "Wood and Wood Products"
+              ],
+              "title": "Waste Subtype",
+              "description": "Specific subcategory of waste material",
+              "examples": [
+                "Food, Food Waste and Beverages",
+                "Domestic Sludge"
               ]
             },
             "local_classification": {
-              "title": "Local Classification",
-              "description": "Regulatory classification reference for the waste material",
               "type": "object",
               "properties": {
                 "code": {
+                  "type": "string",
+                  "pattern": "^\\d{2} \\d{2} \\d{2}\\*?$",
                   "title": "Ibama Classification Code",
                   "description": "Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *",
                   "examples": [
                     "20 01 01",
                     "20 01 01*",
                     "04 02 20"
-                  ],
-                  "type": "string",
-                  "pattern": "^\\d{2} \\d{2} \\d{2}\\*?$"
+                  ]
                 },
                 "system": {
+                  "type": "string",
+                  "const": "Ibama",
                   "title": "Classification System",
                   "description": "Authority or standard providing the classification code",
                   "examples": [
                     "Ibama"
-                  ],
-                  "type": "string",
-                  "const": "Ibama"
+                  ]
                 }
               },
               "required": [
                 "code",
                 "system"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "title": "Local Classification",
+              "description": "Regulatory classification reference for the waste material"
             },
             "weight_kg": {
+              "type": "number",
+              "minimum": 0,
               "title": "Net Weight",
               "description": "Net weight of the waste batch in kilograms (kg)",
               "examples": [
                 3000
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
@@ -252,101 +244,99 @@
             "subtype",
             "weight_kg"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Waste Properties",
+          "description": "Waste material classification, regulatory codes, and net weight for the tracked batch"
         },
         "locations": {
-          "title": "Locations",
-          "description": "Geographic locations involved in the waste chain of custody, including origin, processing, and destination sites",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "Location",
-            "description": "Geographic location with address and coordinate information",
             "type": "object",
             "properties": {
               "id_hash": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$",
                 "title": "Location ID Hash",
                 "description": "Anonymized identifier for the location",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                ],
-                "type": "string",
-                "pattern": "^[0-9a-fA-F]{64}$"
+                ]
               },
               "city": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 50,
                 "title": "City",
                 "description": "City name",
                 "examples": [
                   "Brasília",
                   "São Paulo"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 50
+                ]
               },
               "subdivision_code": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
                 "title": "Country Subdivision Code",
                 "description": "Subdivision code following ISO 3166-2 standard",
                 "examples": [
                   "BR-AP",
                   "BR-DF"
-                ],
-                "type": "string",
-                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
+                ]
               },
               "country_code": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$",
                 "title": "Country Code",
                 "description": "Two-letter country code following ISO 3166-1 alpha-2 standard",
                 "examples": [
                   "BR"
-                ],
-                "type": "string",
-                "pattern": "^[A-Z]{2}$"
+                ]
               },
               "responsible_participant_id_hash": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$",
                 "title": "Responsible Participant ID Hash",
                 "description": "Anonymized ID of the participant responsible for this location",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                ],
-                "type": "string",
-                "pattern": "^[0-9a-fA-F]{64}$"
+                ]
               },
               "coordinates": {
-                "title": "Coordinates",
-                "description": "GPS coordinates of the location",
                 "type": "object",
                 "properties": {
                   "latitude": {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90,
+                    "multipleOf": 0.1,
                     "title": "Latitude",
                     "description": "Geographic latitude coordinate in decimal degrees with maximum 1 decimal place precision (~11km accuracy for city-level)",
                     "examples": [
                       -0.2,
                       -20.3
-                    ],
-                    "type": "number",
-                    "minimum": -90,
-                    "maximum": 90,
-                    "multipleOf": 0.1
+                    ]
                   },
                   "longitude": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180,
+                    "multipleOf": 0.1,
                     "title": "Longitude",
                     "description": "Geographic longitude coordinate in decimal degrees with maximum 1 decimal place precision (~11km accuracy for city-level)",
                     "examples": [
                       -51,
                       -40.3
-                    ],
-                    "type": "number",
-                    "minimum": -180,
-                    "maximum": 180,
-                    "multipleOf": 0.1
+                    ]
                   }
                 },
                 "required": [
                   "latitude",
                   "longitude"
                 ],
-                "additionalProperties": false
+                "additionalProperties": false,
+                "title": "Coordinates",
+                "description": "GPS coordinates of the location"
               }
             },
             "required": [
@@ -357,41 +347,32 @@
               "responsible_participant_id_hash",
               "coordinates"
             ],
-            "additionalProperties": false
-          }
+            "additionalProperties": false,
+            "title": "Location",
+            "description": "Geographic location with address and coordinate information"
+          },
+          "title": "Locations",
+          "description": "Geographic locations involved in the waste chain of custody, including origin, processing, and destination sites"
         },
         "participants": {
-          "title": "Participants",
-          "description": "Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "Participant",
-            "description": "A participant in the waste management supply chain",
             "type": "object",
             "properties": {
               "id_hash": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{64}$",
                 "title": "Participant ID Hash",
                 "description": "Anonymized identifier for the participant",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                ],
-                "type": "string",
-                "pattern": "^[0-9a-fA-F]{64}$"
+                ]
               },
               "roles": {
-                "title": "Participant Roles",
-                "description": "Roles of the participant in the waste management supply chain",
                 "minItems": 1,
                 "type": "array",
                 "items": {
-                  "title": "Participant Role",
-                  "description": "Role that a participant plays in the waste management supply chain",
-                  "examples": [
-                    "Waste Generator",
-                    "Hauler",
-                    "Recycler"
-                  ],
                   "type": "string",
                   "enum": [
                     "Community Impact Pool",
@@ -403,75 +384,84 @@
                     "Processor",
                     "Recycler",
                     "Waste Generator"
+                  ],
+                  "title": "Participant Role",
+                  "description": "Role that a participant plays in the waste management supply chain",
+                  "examples": [
+                    "Waste Generator",
+                    "Hauler",
+                    "Recycler"
                   ]
-                }
+                },
+                "title": "Participant Roles",
+                "description": "Roles of the participant in the waste management supply chain"
               }
             },
             "required": [
               "id_hash",
               "roles"
             ],
-            "additionalProperties": false
-          }
+            "additionalProperties": false,
+            "title": "Participant",
+            "description": "A participant in the waste management supply chain"
+          },
+          "title": "Participants",
+          "description": "Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool"
         },
         "events": {
-          "title": "MassID Events",
-          "description": "Chronological sequence of waste lifecycle events: Pick-up, Weighing, Drop-off, Sorting, and Recycling operations",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "MassID Event",
-            "description": "Lifecycle event describing custody, processing, documentation, or recycling steps",
             "oneOf": [
               {
                 "type": "object",
                 "properties": {
                   "event_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "Event ID",
                     "description": "Unique event identifier",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                    ],
-                    "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    ]
                   },
                   "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
                     "examples": [
                       "2024-12-05T11:02:47.000Z"
-                    ],
-                    "type": "string",
-                    "format": "date-time",
-                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    ]
                   },
                   "participant_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
                     "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "location_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
                     "description": "Reference to location in the locations array",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "event_name": {
+                    "type": "string",
+                    "const": "Pick-up",
                     "title": "Event Name",
                     "description": "Type of event, indicating this is a Pick-up event",
                     "examples": [
                       "Pick-up"
-                    ],
-                    "type": "string",
-                    "const": "Pick-up"
+                    ]
                   },
                   "data": {
                     "title": "Pick-up Event Data",
@@ -480,10 +470,6 @@
                     "properties": {
                       "vehicle_type": {
                         "description": "Type of vehicle used for pick-up operations",
-                        "title": "Vehicle Type",
-                        "examples": [
-                          "Truck"
-                        ],
                         "type": "string",
                         "enum": [
                           "Bicycle",
@@ -496,17 +482,21 @@
                           "Others",
                           "Sludge Pipes",
                           "Truck"
+                        ],
+                        "title": "Vehicle Type",
+                        "examples": [
+                          "Truck"
                         ]
                       },
                       "weight_kg": {
                         "title": "Pick-up Waste Weight",
                         "description": "Weight of waste collected at the origin location, measured in kilograms (kg)",
+                        "type": "number",
+                        "minimum": 0,
                         "examples": [
                           500.35,
                           3000
-                        ],
-                        "type": "number",
-                        "minimum": 0
+                        ]
                       }
                     },
                     "additionalProperties": false
@@ -525,51 +515,51 @@
                 "type": "object",
                 "properties": {
                   "event_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "Event ID",
                     "description": "Unique event identifier",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                    ],
-                    "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    ]
                   },
                   "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
                     "examples": [
                       "2024-12-05T11:02:47.000Z"
-                    ],
-                    "type": "string",
-                    "format": "date-time",
-                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    ]
                   },
                   "participant_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
                     "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "location_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
                     "description": "Reference to location in the locations array",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "event_name": {
+                    "type": "string",
+                    "const": "Weighing",
                     "title": "Event Name",
                     "description": "Type of event, indicating this is a Weighing event",
                     "examples": [
                       "Weighing"
-                    ],
-                    "type": "string",
-                    "const": "Weighing"
+                    ]
                   },
                   "data": {
                     "title": "Weighing Event Data",
@@ -577,26 +567,21 @@
                     "type": "object",
                     "properties": {
                       "weighing_capture_method": {
-                        "title": "Weighing Capture Method",
-                        "description": "Method used to capture weight data",
-                        "examples": [
-                          "Digital",
-                          "Manual"
-                        ],
                         "type": "string",
                         "enum": [
                           "Digital",
                           "Manual",
                           "Photo (Scale + Cargo)",
                           "Transport Manifest"
+                        ],
+                        "title": "Weighing Capture Method",
+                        "description": "Method used to capture weight data",
+                        "examples": [
+                          "Digital",
+                          "Manual"
                         ]
                       },
                       "scale_type": {
-                        "title": "Scale Type",
-                        "description": "Type of scale used to weigh the load",
-                        "examples": [
-                          "Weighbridge (Truck Scale)"
-                        ],
                         "type": "string",
                         "enum": [
                           "Bin Scale",
@@ -609,15 +594,15 @@
                           "Portable Axle Weigher",
                           "Precision / Bench Scale",
                           "Weighbridge (Truck Scale)"
+                        ],
+                        "title": "Scale Type",
+                        "description": "Type of scale used to weigh the load",
+                        "examples": [
+                          "Weighbridge (Truck Scale)"
                         ]
                       },
                       "container_type": {
                         "description": "Type of container or vehicle holding the waste material during the weighing operation",
-                        "title": "Container Type",
-                        "examples": [
-                          "Bag",
-                          "Bin"
-                        ],
                         "type": "string",
                         "enum": [
                           "Bag",
@@ -627,14 +612,15 @@
                           "Street Bin",
                           "Truck",
                           "Waste Box"
+                        ],
+                        "title": "Container Type",
+                        "examples": [
+                          "Bag",
+                          "Bin"
                         ]
                       },
                       "vehicle_type": {
                         "description": "Type of vehicle used during weighing",
-                        "title": "Vehicle Type",
-                        "examples": [
-                          "Truck"
-                        ],
                         "type": "string",
                         "enum": [
                           "Bicycle",
@@ -647,37 +633,41 @@
                           "Others",
                           "Sludge Pipes",
                           "Truck"
+                        ],
+                        "title": "Vehicle Type",
+                        "examples": [
+                          "Truck"
                         ]
                       },
                       "container_capacity_kg": {
                         "title": "Container Capacity",
                         "description": "Maximum container capacity in kilograms (kg)",
+                        "type": "number",
+                        "minimum": 0,
                         "examples": [
                           500.35,
                           3000
-                        ],
-                        "type": "number",
-                        "minimum": 0
+                        ]
                       },
                       "gross_weight_kg": {
                         "title": "Gross Weight",
                         "description": "Total weight including vehicle/container before tare in kilograms (kg)",
+                        "type": "number",
+                        "minimum": 0,
                         "examples": [
                           500.35,
                           3000
-                        ],
-                        "type": "number",
-                        "minimum": 0
+                        ]
                       },
                       "tare_kg": {
                         "title": "Tare Weight",
                         "description": "Weight of the empty vehicle or container in kilograms (kg)",
+                        "type": "number",
+                        "minimum": 0,
                         "examples": [
                           500.35,
                           3000
-                        ],
-                        "type": "number",
-                        "minimum": 0
+                        ]
                       }
                     },
                     "additionalProperties": false
@@ -693,56 +683,54 @@
                 "additionalProperties": false
               },
               {
-                "title": "Drop-off Event",
-                "description": "Waste delivered to the destination location",
                 "type": "object",
                 "properties": {
                   "event_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "Event ID",
                     "description": "Unique event identifier",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                    ],
-                    "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    ]
                   },
                   "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
                     "examples": [
                       "2024-12-05T11:02:47.000Z"
-                    ],
-                    "type": "string",
-                    "format": "date-time",
-                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    ]
                   },
                   "participant_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
                     "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "location_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
                     "description": "Reference to location in the locations array",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "event_name": {
+                    "type": "string",
+                    "const": "Drop-off",
                     "title": "Event Name",
                     "description": "Type of event, indicating this is a Drop-off event",
                     "examples": [
                       "Drop-off"
-                    ],
-                    "type": "string",
-                    "const": "Drop-off"
+                    ]
                   }
                 },
                 "required": [
@@ -752,57 +740,59 @@
                   "location_id_hash",
                   "event_name"
                 ],
-                "additionalProperties": false
+                "additionalProperties": false,
+                "title": "Drop-off Event",
+                "description": "Waste delivered to the destination location"
               },
               {
                 "type": "object",
                 "properties": {
                   "event_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "Event ID",
                     "description": "Unique event identifier",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                    ],
-                    "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    ]
                   },
                   "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
                     "examples": [
                       "2024-12-05T11:02:47.000Z"
-                    ],
-                    "type": "string",
-                    "format": "date-time",
-                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    ]
                   },
                   "participant_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
                     "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "location_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
                     "description": "Reference to location in the locations array",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "event_name": {
+                    "type": "string",
+                    "const": "Sorting",
                     "title": "Event Name",
                     "description": "Type of event, indicating this is a Sorting event",
                     "examples": [
                       "Sorting"
-                    ],
-                    "type": "string",
-                    "const": "Sorting"
+                    ]
                   },
                   "data": {
                     "title": "Sorting Event Data",
@@ -812,22 +802,22 @@
                       "initial_weight_kg": {
                         "title": "Initial Weight",
                         "description": "Weight of the material entering the sorting process in kilograms (kg)",
+                        "type": "number",
+                        "minimum": 0,
                         "examples": [
                           500.35,
                           3000
-                        ],
-                        "type": "number",
-                        "minimum": 0
+                        ]
                       },
                       "deducted_weight_kg": {
                         "title": "Deducted Weight",
                         "description": "Weight removed during sorting (e.g., contaminants or moisture) in kilograms (kg)",
+                        "type": "number",
+                        "minimum": 0,
                         "examples": [
                           500.35,
                           3000
-                        ],
-                        "type": "number",
-                        "minimum": 0
+                        ]
                       }
                     },
                     "additionalProperties": false
@@ -843,56 +833,54 @@
                 "additionalProperties": false
               },
               {
-                "title": "Recycling Event",
-                "description": "Waste processing or recycling completion event, marking the final transformation of waste material",
                 "type": "object",
                 "properties": {
                   "event_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "Event ID",
                     "description": "Unique event identifier",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                    ],
-                    "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    ]
                   },
                   "timestamp": {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                     "title": "Event Timestamp",
                     "description": "ISO 8601 timestamp when the event occurred",
                     "examples": [
                       "2024-12-05T11:02:47.000Z"
-                    ],
-                    "type": "string",
-                    "format": "date-time",
-                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                    ]
                   },
                   "participant_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
                     "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "location_id_hash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
                     "description": "Reference to location in the locations array",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-                    ],
-                    "type": "string",
-                    "pattern": "^[0-9a-fA-F]{64}$"
+                    ]
                   },
                   "event_name": {
+                    "type": "string",
+                    "const": "Recycling",
                     "title": "Event Name",
                     "description": "Type of event, indicating this is a Recycling event",
                     "examples": [
                       "Recycling"
-                    ],
-                    "type": "string",
-                    "const": "Recycling"
+                    ]
                   }
                 },
                 "required": [
@@ -902,29 +890,33 @@
                   "location_id_hash",
                   "event_name"
                 ],
-                "additionalProperties": false
+                "additionalProperties": false,
+                "title": "Recycling Event",
+                "description": "Waste processing or recycling completion event, marking the final transformation of waste material"
               }
-            ]
-          }
+            ],
+            "title": "MassID Event",
+            "description": "Lifecycle event describing custody, processing, documentation, or recycling steps"
+          },
+          "title": "MassID Events",
+          "description": "Chronological sequence of waste lifecycle events: Pick-up, Weighing, Drop-off, Sorting, and Recycling operations"
         },
         "attachments": {
           "title": "Attachments",
           "description": "Official regulatory documents linked to specific chain of custody events via event_id. Document types include Transport Manifest and Recycling Manifest",
           "type": "array",
           "items": {
-            "title": "MassID Attachment",
-            "description": "Attachment associated with a specific MassID event, linked by event_id",
             "type": "object",
             "properties": {
               "type": {
-                "title": "Attachment Type",
-                "description": "Type of supporting attachment linked to a MassID event",
-                "examples": [
+                "type": "string",
+                "enum": [
                   "Recycling Manifest",
                   "Transport Manifest"
                 ],
-                "type": "string",
-                "enum": [
+                "title": "Attachment Type",
+                "description": "Type of supporting attachment linked to a MassID event",
+                "examples": [
                   "Recycling Manifest",
                   "Transport Manifest"
                 ]
@@ -943,29 +935,31 @@
               "issued_at": {
                 "title": "Issued At",
                 "description": "ISO 8601 timestamp when the attachment was issued",
-                "examples": [
-                  "2024-12-05T11:02:47.000Z"
-                ],
                 "type": "string",
                 "format": "date-time",
-                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+                "examples": [
+                  "2024-12-05T11:02:47.000Z"
+                ]
               },
               "event_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Event ID",
                 "description": "Identifier of the event this attachment belongs to",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                ]
               }
             },
             "required": [
               "type",
               "event_id"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "MassID Attachment",
+            "description": "Attachment associated with a specific MassID event, linked by event_id"
           }
         }
       },
@@ -975,38 +969,32 @@
         "participants",
         "events"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "MassID Data",
+      "description": "MassID data containing waste tracking events and supporting information"
     },
     "audit_data_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$",
       "title": "Audit Data Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
+      ]
     },
     "blockchain": {
-      "title": "Blockchain Information",
-      "description": "Blockchain deployment information including smart contract address, network, and token identifier",
       "type": "object",
       "properties": {
         "smart_contract_address": {
+          "type": "string",
+          "pattern": "^0x[a-f0-9]{40}$",
           "title": "Smart Contract Address",
           "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
-          ],
-          "type": "string",
-          "pattern": "^0x[a-f0-9]{40}$"
+          ]
         },
         "chain_id": {
-          "title": "Chain ID",
-          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
-          "examples": [
-            137,
-            80002
-          ],
           "anyOf": [
             {
               "type": "number",
@@ -1016,31 +1004,37 @@
               "type": "number",
               "const": 80002
             }
+          ],
+          "title": "Chain ID",
+          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
+          "examples": [
+            137,
+            80002
           ]
         },
         "network_name": {
+          "type": "string",
+          "enum": [
+            "Polygon",
+            "Amoy"
+          ],
           "title": "Blockchain Network Name",
           "description": "Blockchain network name. Supported values include Polygon and Amoy",
           "examples": [
             "Polygon",
             "Amoy"
-          ],
-          "type": "string",
-          "enum": [
-            "Polygon",
-            "Amoy"
           ]
         },
         "token_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\d+$",
           "title": "Token ID",
           "description": "NFT token ID",
           "examples": [
             "456789",
             "1000000"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^\\d+$"
+          ]
         }
       },
       "required": [
@@ -1049,64 +1043,66 @@
         "network_name",
         "token_id"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Blockchain Information",
+      "description": "Blockchain deployment information including smart contract address, network, and token identifier"
     },
     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^MassID #\\d+ • .+ • .+t$",
       "title": "MassID Name",
       "description": "Full display name for this MassID NFT. Format: \"MassID #[token_id] • [waste_type] • [weight]t\"",
       "examples": [
         "MassID #1034 • Organic • 3.25t",
         "MassID #123 • Plastic • 2.5t"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 100,
-      "pattern": "^MassID #\\d+ • .+ • .+t$"
+      ]
     },
     "short_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^MassID #\\d+$",
       "title": "MassID Short Name",
       "description": "Compact name for UI summaries, tables, or tooltips. Format: \"MassID #[token_id]\"",
       "examples": [
         "MassID #1034",
         "MassID #123"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 50,
-      "pattern": "^MassID #\\d+$"
+      ]
     },
     "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
       "title": "Description",
       "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
       "examples": [
         "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 500
+      ]
     },
     "image": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
       "title": "Image URI",
       "description": "IPFS URI pointing to the NFT preview image displayed in marketplaces and wallets",
       "examples": [
         "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
         "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+      ]
     },
     "background_color": {
       "title": "Background Color",
       "description": "Hexadecimal color code used as background color in NFT marketplace displays",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^#[0-9A-F]{6}$",
       "examples": [
         "#2D5A27",
         "#FF5733"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^#[0-9A-F]{6}$"
+      ]
     },
     "animation_url": {
       "title": "Animation URL",
@@ -1124,26 +1120,28 @@
       "description": "Optional list of public resource links with labels",
       "type": "array",
       "items": {
-        "title": "External Link",
-        "description": "External link with label and description",
         "type": "object",
         "properties": {
           "label": {
-            "title": "Link Label",
-            "description": "Display name for the external link",
             "type": "string",
             "minLength": 1,
-            "maxLength": 50
+            "maxLength": 50,
+            "title": "Link Label",
+            "description": "Display name for the external link",
+            "examples": [
+              "Example text",
+              "Sample value"
+            ]
           },
           "url": {
+            "type": "string",
+            "format": "uri",
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
               "https://explore.carrot.eco/",
               "https://whitepaper.carrot.eco/"
-            ],
-            "type": "string",
-            "format": "uri"
+            ]
           },
           "description": {
             "title": "Link Description",
@@ -1157,20 +1155,18 @@
           "label",
           "url"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "title": "External Link",
+        "description": "External link with label and description"
       }
     },
     "attributes": {
-      "title": "MassID Attributes",
-      "description": "Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.\n\nRequired attributes (10): Waste Type, Waste Subtype, Weight (kg), Origin City, Origin Country Subdivision, Pick-up Vehicle Type, Recycling Method, Pick-up Date, Drop-off Date, Recycling Date\nOptional attributes (5): Local Waste Classification ID, Recycling Manifest Number, Transport Manifest Number, Weighing Capture Method, Scale Type",
       "minItems": 10,
       "maxItems": 15,
       "type": "array",
       "items": {
         "anyOf": [
           {
-            "title": "Waste Type Attribute",
-            "description": "Primary waste material category",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1178,13 +1174,13 @@
                 "const": "Waste Type"
               },
               "value": {
+                "type": "string",
+                "enum": [
+                  "Organic"
+                ],
                 "title": "Waste Type",
                 "description": "Category or type of waste material",
                 "examples": [
-                  "Organic"
-                ],
-                "type": "string",
-                "enum": [
                   "Organic"
                 ]
               },
@@ -1202,24 +1198,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Waste Type Attribute",
+            "description": "Primary waste material category"
           },
           {
-            "title": "Waste Subtype Attribute",
-            "description": "Regulatory or operational waste subtype (e.g., Food, Food Waste and Beverages)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1227,12 +1223,6 @@
                 "const": "Waste Subtype"
               },
               "value": {
-                "title": "Waste Subtype",
-                "description": "Specific subcategory of waste within a waste type",
-                "examples": [
-                  "Food, Food Waste and Beverages",
-                  "Domestic Sludge"
-                ],
                 "type": "string",
                 "enum": [
                   "Domestic Sludge",
@@ -1242,6 +1232,12 @@
                   "Industrial Sludge",
                   "Tobacco",
                   "Wood and Wood Products"
+                ],
+                "title": "Waste Subtype",
+                "description": "Specific subcategory of waste within a waste type",
+                "examples": [
+                  "Food, Food Waste and Beverages",
+                  "Domestic Sludge"
                 ]
               },
               "display_type": {
@@ -1258,24 +1254,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Waste Subtype Attribute",
+            "description": "Regulatory or operational waste subtype (e.g., Food, Food Waste and Beverages)"
           },
           {
-            "title": "Weight Attribute",
-            "description": "Net batch weight in kilograms (kg) for this MassID attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1283,14 +1279,14 @@
                 "const": "Weight (kg)"
               },
               "value": {
+                "type": "number",
+                "minimum": 0,
                 "title": "Weight",
                 "description": "Net batch weight in kilograms (kg) for this MassID",
                 "examples": [
                   500.35,
                   3000
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1299,13 +1295,13 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
@@ -1313,11 +1309,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Weight Attribute",
+            "description": "Net batch weight in kilograms (kg) for this MassID attribute with numeric display"
           },
           {
-            "title": "Origin City Attribute",
-            "description": "City or municipality where waste was originally generated and picked up",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1325,15 +1321,15 @@
                 "const": "Origin City"
               },
               "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 50,
                 "title": "City",
                 "description": "City name",
                 "examples": [
                   "Brasília",
                   "São Paulo"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 50
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1349,24 +1345,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Origin City Attribute",
+            "description": "City or municipality where waste was originally generated and picked up"
           },
           {
-            "title": "Origin Country Subdivision Attribute",
-            "description": "ISO 3166-2 country subdivision code where waste was originally generated and picked up",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1374,14 +1370,14 @@
                 "const": "Origin Country Subdivision"
               },
               "value": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
                 "title": "Country Subdivision Code",
                 "description": "Subdivision code following ISO 3166-2 standard",
                 "examples": [
                   "BR-AP",
                   "BR-DF"
-                ],
-                "type": "string",
-                "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1397,24 +1393,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Origin Country Subdivision Attribute",
+            "description": "ISO 3166-2 country subdivision code where waste was originally generated and picked up"
           },
           {
-            "title": "Pick-up Vehicle Type Attribute",
-            "description": "Type of vehicle used to transport waste from the origin location during pick-up",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1422,11 +1418,6 @@
                 "const": "Pick-up Vehicle Type"
               },
               "value": {
-                "title": "Pick-up Vehicle Type",
-                "description": "Type of vehicle used for waste pick-up operations",
-                "examples": [
-                  "Truck"
-                ],
                 "type": "string",
                 "enum": [
                   "Bicycle",
@@ -1439,6 +1430,11 @@
                   "Others",
                   "Sludge Pipes",
                   "Truck"
+                ],
+                "title": "Pick-up Vehicle Type",
+                "description": "Type of vehicle used for waste pick-up operations",
+                "examples": [
+                  "Truck"
                 ]
               },
               "display_type": {
@@ -1455,24 +1451,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Pick-up Vehicle Type Attribute",
+            "description": "Type of vehicle used to transport waste from the origin location during pick-up"
           },
           {
-            "title": "Recycling Method Attribute",
-            "description": "Processing or recycling method applied to transform the waste material",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1480,16 +1476,16 @@
                 "const": "Recycling Method"
               },
               "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
                 "title": "Recycling Method",
                 "description": "Method used for recycling or processing the waste",
                 "examples": [
                   "Composting",
                   "Mechanical Recycling",
                   "Anaerobic Digestion"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1505,24 +1501,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Recycling Method Attribute",
+            "description": "Processing or recycling method applied to transform the waste material"
           },
           {
-            "title": "Pick-up Date Attribute",
-            "description": "Unix timestamp in milliseconds when waste was picked up from the origin location attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1530,14 +1526,14 @@
                 "const": "Pick-up Date"
               },
               "value": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991,
                 "title": "Pick-up Date",
                 "description": "Unix timestamp in milliseconds when waste was picked up from the origin location",
                 "examples": [
                   1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1549,11 +1545,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Pick-up Date Attribute",
+            "description": "Unix timestamp in milliseconds when waste was picked up from the origin location attribute"
           },
           {
-            "title": "Drop-off Date Attribute",
-            "description": "Unix timestamp in milliseconds when waste was delivered to the destination location attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1561,14 +1557,14 @@
                 "const": "Drop-off Date"
               },
               "value": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991,
                 "title": "Drop-off Date",
                 "description": "Unix timestamp in milliseconds when waste was delivered to the destination location",
                 "examples": [
                   1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1580,11 +1576,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Drop-off Date Attribute",
+            "description": "Unix timestamp in milliseconds when waste was delivered to the destination location attribute"
           },
           {
-            "title": "Recycling Date Attribute",
-            "description": "Unix timestamp in milliseconds when waste recycling or processing was completed attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1592,14 +1588,14 @@
                 "const": "Recycling Date"
               },
               "value": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991,
                 "title": "Recycling Date",
                 "description": "Unix timestamp in milliseconds when waste recycling or processing was completed",
                 "examples": [
                   1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1611,11 +1607,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Recycling Date Attribute",
+            "description": "Unix timestamp in milliseconds when waste recycling or processing was completed attribute"
           },
           {
-            "title": "Local Waste Classification ID Attribute",
-            "description": "Regulatory waste classification code in Ibama format (NN NN NN with optional trailing asterisk)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1623,15 +1619,15 @@
                 "const": "Local Waste Classification ID"
               },
               "value": {
+                "type": "string",
+                "pattern": "^\\d{2} \\d{2} \\d{2}\\*?$",
                 "title": "Ibama Classification Code",
                 "description": "Ibama waste classification code in the format NN NN NN with required spaces and optional trailing *",
                 "examples": [
                   "20 01 01",
                   "20 01 01*",
                   "04 02 20"
-                ],
-                "type": "string",
-                "pattern": "^\\d{2} \\d{2} \\d{2}\\*?$"
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1647,24 +1643,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Local Waste Classification ID Attribute",
+            "description": "Regulatory waste classification code in Ibama format (NN NN NN with optional trailing asterisk)"
           },
           {
-            "title": "Recycling Manifest Number Attribute",
-            "description": "Official recycling manifest document number issued by regulatory authorities, linked to the Recycling event (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1672,15 +1668,15 @@
                 "const": "Recycling Manifest Number"
               },
               "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
                 "title": "Recycling Manifest Number",
                 "description": "Official recycling manifest identifier",
                 "examples": [
                   "2353",
                   "12345"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1696,24 +1692,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Recycling Manifest Number Attribute",
+            "description": "Official recycling manifest document number issued by regulatory authorities, linked to the Recycling event (optional)"
           },
           {
-            "title": "Transport Manifest Number Attribute",
-            "description": "Official transport manifest document number issued by logistics authorities, linked to transport events (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1721,15 +1717,15 @@
                 "const": "Transport Manifest Number"
               },
               "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
                 "title": "Transport Manifest Number",
                 "description": "Official transport manifest identifier",
                 "examples": [
                   "2353",
                   "12345"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1745,24 +1741,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Transport Manifest Number Attribute",
+            "description": "Official transport manifest document number issued by logistics authorities, linked to transport events (optional)"
           },
           {
-            "title": "Weighing Capture Method Attribute",
-            "description": "Method used to capture weight measurements during weighing operations (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1770,18 +1766,18 @@
                 "const": "Weighing Capture Method"
               },
               "value": {
-                "title": "Weighing Capture Method",
-                "description": "Method used to capture weight data",
-                "examples": [
-                  "Digital",
-                  "Manual"
-                ],
                 "type": "string",
                 "enum": [
                   "Digital",
                   "Manual",
                   "Photo (Scale + Cargo)",
                   "Transport Manifest"
+                ],
+                "title": "Weighing Capture Method",
+                "description": "Method used to capture weight data",
+                "examples": [
+                  "Digital",
+                  "Manual"
                 ]
               },
               "display_type": {
@@ -1798,24 +1794,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Weighing Capture Method Attribute",
+            "description": "Method used to capture weight measurements during weighing operations (optional)"
           },
           {
-            "title": "Scale Type Attribute",
-            "description": "Type of weighing equipment used to measure waste weight (optional)",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1823,11 +1819,6 @@
                 "const": "Scale Type"
               },
               "value": {
-                "title": "Scale Type",
-                "description": "Type of scale used to weigh the load",
-                "examples": [
-                  "Weighbridge (Truck Scale)"
-                ],
                 "type": "string",
                 "enum": [
                   "Bin Scale",
@@ -1840,6 +1831,11 @@
                   "Portable Axle Weigher",
                   "Precision / Bench Scale",
                   "Weighbridge (Truck Scale)"
+                ],
+                "title": "Scale Type",
+                "description": "Type of scale used to weigh the load",
+                "examples": [
+                  "Weighbridge (Truck Scale)"
                 ]
               },
               "display_type": {
@@ -1856,23 +1852,27 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Scale Type Attribute",
+            "description": "Type of weighing equipment used to measure waste weight (optional)"
           }
         ]
-      }
+      },
+      "title": "MassID Attributes",
+      "description": "Array of NFT attributes describing waste characteristics, origin, logistics, and lifecycle events.\n\nRequired attributes (10): Waste Type, Waste Subtype, Weight (kg), Origin City, Origin Country Subdivision, Pick-up Vehicle Type, Recycling Method, Pick-up Date, Drop-off Date, Recycling Date\nOptional attributes (5): Local Waste Classification ID, Recycling Manifest Number, Transport Manifest Number, Weighing Capture Method, Scale Type"
     }
   },
   "required": [
@@ -1892,5 +1892,9 @@
     "image",
     "attributes"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "MassID NFT IPFS Record",
+  "description": "Complete MassID NFT IPFS record schema defining waste tracking metadata, chain of custody events, and NFT display attributes",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/mass-id/mass-id.schema.json",
+  "version": "0.2.3"
 }

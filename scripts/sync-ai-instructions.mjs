@@ -642,6 +642,7 @@ async function generateClaudeArtifacts(
     } catch (parseError) {
       throw new Error(
         `[sync] ${settingsPath} contains invalid JSON: ${parseError.message}\nFix the file manually or delete it to start fresh, then re-run pnpm ai:sync.`,
+        { cause: parseError },
       );
     }
   }

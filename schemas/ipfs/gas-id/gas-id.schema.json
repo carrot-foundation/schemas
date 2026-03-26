@@ -1,58 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "GasID NFT IPFS Record",
-  "description": "Complete GasID NFT IPFS record including fixed attributes and detailed carbon emissions prevention data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/gas-id/gas-id.schema.json",
-  "version": "0.2.3",
   "type": "object",
   "properties": {
     "$schema": {
+      "type": "string",
+      "format": "uri",
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
-      "type": "string",
-      "format": "uri"
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
     },
     "schema": {
       "type": "object",
       "properties": {
         "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         },
         "type": {
-          "title": "GasID Schema Type",
-          "description": "GasID NFT schema type",
           "type": "string",
-          "const": "GasID"
+          "const": "GasID",
+          "title": "GasID Schema Type",
+          "description": "GasID NFT schema type"
         },
         "version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
           "examples": [
             "0.1.0",
             "1.0.0",
             "2.1.3"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+          ]
         },
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         }
       },
       "required": [
@@ -64,99 +60,97 @@
       "additionalProperties": false
     },
     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
         "2024-12-05T11:02:47.000Z"
-      ],
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+      ]
     },
     "external_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
       "description": "UUID identifier for external system references",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-      ],
-      "type": "string",
-      "format": "uuid",
-      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+      ]
     },
     "external_url": {
+      "type": "string",
+      "format": "uri",
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
         "https://whitepaper.carrot.eco/"
-      ],
-      "type": "string",
-      "format": "uri"
+      ]
     },
     "viewer_reference": {
-      "title": "Metadata Viewer Reference",
-      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
       "type": "object",
       "properties": {
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Viewer IPFS URI",
           "description": "IPFS URI of the metadata viewer dApp build",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         },
         "integrity_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         }
       },
       "required": [
         "ipfs_uri",
         "integrity_hash"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points"
     },
     "environment": {
-      "title": "Record Environment",
-      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
-          "title": "Blockchain Network",
-          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
             "testnet"
-          ]
+          ],
+          "title": "Blockchain Network",
+          "description": "Blockchain network where this record is deployed"
         },
         "deployment": {
-          "title": "Deployment Environment",
-          "description": "System environment where this record was generated",
           "type": "string",
           "enum": [
             "production",
             "development",
             "testing"
-          ]
+          ],
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated"
         },
         "data_set_name": {
-          "title": "Data Set Name",
-          "description": "Name of the data set for this record",
           "type": "string",
           "enum": [
             "TEST",
             "PROD"
-          ]
+          ],
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record"
         }
       },
       "required": [
@@ -164,82 +158,80 @@
         "deployment",
         "data_set_name"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Record Environment",
+      "description": "Environment information for the record"
     },
     "data": {
-      "title": "GasID Data",
-      "description": "Complete data structure for GasID certificate",
       "type": "object",
       "properties": {
         "summary": {
-          "title": "GasID Summary",
-          "description": "Summary information for the GasID certificate",
           "type": "object",
           "properties": {
             "gas_type": {
+              "type": "string",
+              "enum": [
+                "Methane (CH₄)"
+              ],
               "title": "Gas Type",
               "description": "Type of gas prevented",
               "examples": [
                 "Methane (CH₄)"
-              ],
-              "type": "string",
-              "enum": [
-                "Methane (CH₄)"
               ]
             },
             "credit_type": {
+              "type": "string",
+              "enum": [
+                "Biowaste",
+                "Carbon (CH₄)"
+              ],
               "title": "Credit Type",
               "description": "Type of credit issued",
               "examples": [
                 "Biowaste",
                 "Carbon (CH₄)"
-              ],
-              "type": "string",
-              "enum": [
-                "Biowaste",
-                "Carbon (CH₄)"
               ]
             },
             "credit_amount": {
+              "type": "number",
+              "minimum": 0,
               "title": "Credit Amount",
               "description": "Amount of credits issued",
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             },
             "prevented_co2e_kg": {
+              "type": "number",
+              "minimum": 0,
               "title": "Prevented Emissions (CO₂e)",
               "description": "CO₂e weight of the prevented emissions in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             },
             "recycling_date": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Recycling Date",
               "description": "ISO 8601 timestamp when the recycling occurred (when the environmental gain was achieved)",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             },
             "issued_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Issued At",
               "description": "ISO 8601 timestamp when the certificate was issued",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             }
           },
           "required": [
@@ -250,68 +242,68 @@
             "recycling_date",
             "issued_at"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "GasID Summary",
+          "description": "Summary information for the GasID certificate"
         },
         "methodology": {
-          "title": "Methodology Reference",
-          "description": "Reference to a methodology record",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "Methodology External ID",
               "description": "Unique identifier for the methodology",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "name": {
+              "type": "string",
+              "enum": [
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
+              ],
               "title": "Methodology Name",
               "description": "Full official name of the methodology",
               "examples": [
                 "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
                 "AMS-III.F. | BOLD Recycling Credit"
-              ],
-              "type": "string",
-              "enum": [
-                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
-                "AMS-III.F. | BOLD Recycling Credit"
               ]
             },
             "version": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
               "title": "Methodology Version",
               "description": "Version of the methodology",
               "examples": [
                 "0.1.0",
                 "1.0.0",
                 "2.1.3"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "Methodology External URL",
               "description": "URL to view the methodology on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             }
           },
           "required": [
@@ -321,78 +313,78 @@
             "external_url",
             "ipfs_uri"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Methodology Reference",
+          "description": "Reference to a methodology record"
         },
         "audit": {
-          "title": "Audit Reference",
-          "description": "Reference to an audit record",
           "type": "object",
           "properties": {
             "completed_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Audit Completion Timestamp",
               "description": "ISO 8601 timestamp when the audit was completed",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             },
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "Audit External ID",
               "description": "Unique identifier for the audit",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "Audit External URL",
               "description": "URL to view the audit on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "result": {
+              "type": "string",
+              "enum": [
+                "PASSED",
+                "FAILED"
+              ],
               "title": "Audit Result",
               "description": "Result of audit execution",
               "examples": [
                 "PASSED",
                 "FAILED"
-              ],
-              "type": "string",
-              "enum": [
-                "PASSED",
-                "FAILED"
               ]
             },
             "rules_executed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991,
               "title": "Rules Executed",
               "description": "Number of rules executed during the audit",
               "examples": [
                 0,
                 123,
                 4126
-              ],
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 9007199254740991
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "Audit Report",
               "description": "IPFS URI of the audit report",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             }
           },
           "required": [
@@ -403,63 +395,63 @@
             "rules_executed",
             "ipfs_uri"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Audit Reference",
+          "description": "Reference to an audit record"
         },
         "mass_id": {
-          "title": "MassID Reference",
-          "description": "Reference to a MassID record",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
               "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "IPFS URI",
               "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             },
             "smart_contract_address": {
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
               "title": "Smart Contract Address",
               "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
-              ],
-              "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$"
+              ]
             },
             "token_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$",
               "title": "Token ID",
               "description": "Unique token identifier for this NFT within the smart contract",
               "examples": [
                 "456789",
                 "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
+              ]
             }
           },
           "required": [
@@ -469,31 +461,25 @@
             "smart_contract_address",
             "token_id"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "MassID Reference",
+          "description": "Reference to a MassID record"
         },
         "waste_properties": {
-          "title": "Waste Properties",
-          "description": "Properties of the source waste (MassID)",
           "type": "object",
           "properties": {
             "type": {
+              "type": "string",
+              "enum": [
+                "Organic"
+              ],
               "title": "Source Waste Type",
               "description": "Type of the source waste",
               "examples": [
                 "Organic"
-              ],
-              "type": "string",
-              "enum": [
-                "Organic"
               ]
             },
             "subtype": {
-              "title": "Source Waste Subtype",
-              "description": "Subtype of the source waste",
-              "examples": [
-                "Food, Food Waste and Beverages",
-                "Domestic Sludge"
-              ],
               "type": "string",
               "enum": [
                 "Domestic Sludge",
@@ -503,17 +489,23 @@
                 "Industrial Sludge",
                 "Tobacco",
                 "Wood and Wood Products"
+              ],
+              "title": "Source Waste Subtype",
+              "description": "Subtype of the source waste",
+              "examples": [
+                "Food, Food Waste and Beverages",
+                "Domestic Sludge"
               ]
             },
             "weight_kg": {
+              "type": "number",
+              "minimum": 0,
               "title": "Source Waste Net Weight",
               "description": "Net weight of the source waste in kilograms (kg)",
               "examples": [
                 500.35,
                 3000
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
@@ -521,96 +513,96 @@
             "subtype",
             "weight_kg"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Waste Properties",
+          "description": "Properties of the source waste (MassID)"
         },
         "origin_location": {
-          "title": "Source Waste Origin Location",
-          "description": "Location of the waste origin",
           "type": "object",
           "properties": {
             "id_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$",
               "title": "Location ID Hash",
               "description": "Anonymized identifier for the location",
               "examples": [
                 "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-              ],
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]{64}$"
+              ]
             },
             "city": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
               "title": "City",
               "description": "City name",
               "examples": [
                 "Brasília",
                 "São Paulo"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 50
+              ]
             },
             "subdivision_code": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
               "title": "Country Subdivision Code",
               "description": "Subdivision code following ISO 3166-2 standard",
               "examples": [
                 "BR-AP",
                 "BR-DF"
-              ],
-              "type": "string",
-              "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
+              ]
             },
             "country_code": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$",
               "title": "Country Code",
               "description": "Two-letter country code following ISO 3166-1 alpha-2 standard",
               "examples": [
                 "BR"
-              ],
-              "type": "string",
-              "pattern": "^[A-Z]{2}$"
+              ]
             },
             "responsible_participant_id_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$",
               "title": "Responsible Participant ID Hash",
               "description": "Anonymized ID of the participant responsible for this location",
               "examples": [
                 "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-              ],
-              "type": "string",
-              "pattern": "^[0-9a-fA-F]{64}$"
+              ]
             },
             "coordinates": {
-              "title": "Coordinates",
-              "description": "GPS coordinates of the location",
               "type": "object",
               "properties": {
                 "latitude": {
+                  "type": "number",
+                  "minimum": -90,
+                  "maximum": 90,
+                  "multipleOf": 0.1,
                   "title": "Latitude",
                   "description": "Geographic latitude coordinate in decimal degrees with maximum 1 decimal place precision (~11km accuracy for city-level)",
                   "examples": [
                     -0.2,
                     -20.3
-                  ],
-                  "type": "number",
-                  "minimum": -90,
-                  "maximum": 90,
-                  "multipleOf": 0.1
+                  ]
                 },
                 "longitude": {
+                  "type": "number",
+                  "minimum": -180,
+                  "maximum": 180,
+                  "multipleOf": 0.1,
                   "title": "Longitude",
                   "description": "Geographic longitude coordinate in decimal degrees with maximum 1 decimal place precision (~11km accuracy for city-level)",
                   "examples": [
                     -51,
                     -40.3
-                  ],
-                  "type": "number",
-                  "minimum": -180,
-                  "maximum": 180,
-                  "multipleOf": 0.1
+                  ]
                 }
               },
               "required": [
                 "latitude",
                 "longitude"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "title": "Coordinates",
+              "description": "GPS coordinates of the location"
             }
           },
           "required": [
@@ -621,54 +613,53 @@
             "responsible_participant_id_hash",
             "coordinates"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Source Waste Origin Location",
+          "description": "Location of the waste origin"
         },
         "prevented_emissions_calculation": {
-          "title": "Prevented Emissions Calculation",
-          "description": "Details of the prevented emissions calculation",
           "type": "object",
           "properties": {
             "formula": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
               "title": "Calculation Formula",
               "description": "Formula used to calculate the prevented emissions",
               "examples": [
                 "W * B - W * E"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              ]
             },
             "method": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
               "title": "Calculation Method",
               "description": "Method used to calculate the prevented emissions",
               "examples": [
                 "UNFCCC AMS-III.F"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              ]
             },
             "calculated_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Calculated At",
               "description": "ISO 8601 timestamp when the calculation was performed",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             },
             "values": {
-              "title": "Calculation Values",
-              "description": "Values used to calculate the prevented emissions",
               "minItems": 1,
               "type": "array",
               "items": {
-                "title": "Calculation Value",
-                "description": "Single value used in the emissions calculation",
                 "type": "object",
                 "properties": {
                   "reference": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
                     "title": "Calculation Reference",
                     "description": "Reference symbol used in the calculation formula",
                     "examples": [
@@ -676,23 +667,23 @@
                       "B",
                       "W",
                       "R"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 3
+                    ]
                   },
                   "value": {
+                    "type": "number",
+                    "minimum": 0,
                     "title": "Calculation Value",
                     "description": "Numeric value for this calculation parameter",
                     "examples": [
                       0,
                       45.2,
                       72.5
-                    ],
-                    "type": "number",
-                    "minimum": 0
+                    ]
                   },
                   "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
                     "title": "Calculation Label",
                     "description": "Human-readable label for this calculation value",
                     "examples": [
@@ -700,10 +691,7 @@
                       "Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton",
                       "Waste Weight",
                       "Prevented Emissions (CO₂e kg)"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 100
+                    ]
                   }
                 },
                 "required": [
@@ -711,8 +699,12 @@
                   "value",
                   "label"
                 ],
-                "additionalProperties": false
-              }
+                "additionalProperties": false,
+                "title": "Calculation Value",
+                "description": "Single value used in the emissions calculation"
+              },
+              "title": "Calculation Values",
+              "description": "Values used to calculate the prevented emissions"
             }
           },
           "required": [
@@ -721,7 +713,9 @@
             "calculated_at",
             "values"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Prevented Emissions Calculation",
+          "description": "Details of the prevented emissions calculation"
         }
       },
       "required": [
@@ -733,38 +727,32 @@
         "origin_location",
         "prevented_emissions_calculation"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "GasID Data",
+      "description": "Complete data structure for GasID certificate"
     },
     "audit_data_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$",
       "title": "Audit Data Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
+      ]
     },
     "blockchain": {
-      "title": "Blockchain Information",
-      "description": "Blockchain deployment information including smart contract address, network, and token identifier",
       "type": "object",
       "properties": {
         "smart_contract_address": {
+          "type": "string",
+          "pattern": "^0x[a-f0-9]{40}$",
           "title": "Smart Contract Address",
           "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
-          ],
-          "type": "string",
-          "pattern": "^0x[a-f0-9]{40}$"
+          ]
         },
         "chain_id": {
-          "title": "Chain ID",
-          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
-          "examples": [
-            137,
-            80002
-          ],
           "anyOf": [
             {
               "type": "number",
@@ -774,31 +762,37 @@
               "type": "number",
               "const": 80002
             }
+          ],
+          "title": "Chain ID",
+          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
+          "examples": [
+            137,
+            80002
           ]
         },
         "network_name": {
+          "type": "string",
+          "enum": [
+            "Polygon",
+            "Amoy"
+          ],
           "title": "Blockchain Network Name",
           "description": "Blockchain network name. Supported values include Polygon and Amoy",
           "examples": [
             "Polygon",
             "Amoy"
-          ],
-          "type": "string",
-          "enum": [
-            "Polygon",
-            "Amoy"
           ]
         },
         "token_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\d+$",
           "title": "Token ID",
           "description": "NFT token ID",
           "examples": [
             "456789",
             "1000000"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^\\d+$"
+          ]
         }
       },
       "required": [
@@ -807,64 +801,66 @@
         "network_name",
         "token_id"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Blockchain Information",
+      "description": "Blockchain deployment information including smart contract address, network, and token identifier"
     },
     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^GasID #\\d+ • .+ • .+t CO₂e$",
       "title": "GasID Name",
       "description": "Full display name for this GasID NFT. Format: \"GasID #[token_id] • [methodology] • [co2e]t CO₂e\"",
       "examples": [
         "GasID #456 • BOLD Carbon (CH₄) • 0.86t CO₂e",
         "GasID #789 • BOLD Carbon (CH₄) • 1.2t CO₂e"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 100,
-      "pattern": "^GasID #\\d+ • .+ • .+t CO₂e$"
+      ]
     },
     "short_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^GasID #\\d+$",
       "title": "GasID Short Name",
       "description": "Compact name for UI summaries, tables, or tooltips. Format: \"GasID #[token_id]\"",
       "examples": [
         "GasID #456",
         "GasID #789"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 50,
-      "pattern": "^GasID #\\d+$"
+      ]
     },
     "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
       "title": "Description",
       "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
       "examples": [
         "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 500
+      ]
     },
     "image": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
       "title": "Image URI",
       "description": "IPFS URI pointing to the NFT preview image displayed in marketplaces and wallets",
       "examples": [
         "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
         "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+      ]
     },
     "background_color": {
       "title": "Background Color",
       "description": "Hexadecimal color code used as background color in NFT marketplace displays",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^#[0-9A-F]{6}$",
       "examples": [
         "#2D5A27",
         "#FF5733"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^#[0-9A-F]{6}$"
+      ]
     },
     "animation_url": {
       "title": "Animation URL",
@@ -882,26 +878,28 @@
       "description": "Optional list of public resource links with labels",
       "type": "array",
       "items": {
-        "title": "External Link",
-        "description": "External link with label and description",
         "type": "object",
         "properties": {
           "label": {
-            "title": "Link Label",
-            "description": "Display name for the external link",
             "type": "string",
             "minLength": 1,
-            "maxLength": 50
+            "maxLength": 50,
+            "title": "Link Label",
+            "description": "Display name for the external link",
+            "examples": [
+              "Example text",
+              "Sample value"
+            ]
           },
           "url": {
+            "type": "string",
+            "format": "uri",
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
               "https://explore.carrot.eco/",
               "https://whitepaper.carrot.eco/"
-            ],
-            "type": "string",
-            "format": "uri"
+            ]
           },
           "description": {
             "title": "Link Description",
@@ -915,17 +913,15 @@
           "label",
           "url"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "title": "External Link",
+        "description": "External link with label and description"
       }
     },
     "attributes": {
-      "title": "GasID NFT Attribute Array",
-      "description": "Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait.\n\nRequired attributes (13, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, Recycling Date, Certificate Issuance Date.",
       "type": "array",
       "prefixItems": [
         {
-          "title": "Methodology Attribute",
-          "description": "Methodology used for certification",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -933,14 +929,14 @@
               "const": "Methodology"
             },
             "value": {
-              "title": "Methodology Name",
-              "description": "Full official name of the methodology",
-              "examples": [
+              "type": "string",
+              "enum": [
                 "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
                 "AMS-III.F. | BOLD Recycling Credit"
               ],
-              "type": "string",
-              "enum": [
+              "title": "Methodology Name",
+              "description": "Full official name of the methodology",
+              "examples": [
                 "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
                 "AMS-III.F. | BOLD Recycling Credit"
               ]
@@ -959,24 +955,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Methodology Attribute",
+          "description": "Methodology used for certification"
         },
         {
-          "title": "Gas Type Attribute",
-          "description": "Gas type attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -984,13 +980,13 @@
               "const": "Gas Type"
             },
             "value": {
+              "type": "string",
+              "enum": [
+                "Methane (CH₄)"
+              ],
               "title": "Gas Type",
               "description": "Type of gas prevented",
               "examples": [
-                "Methane (CH₄)"
-              ],
-              "type": "string",
-              "enum": [
                 "Methane (CH₄)"
               ]
             },
@@ -1008,24 +1004,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Gas Type Attribute",
+          "description": "Gas type attribute"
         },
         {
-          "title": "CO₂e Prevented Attribute",
-          "description": "Total CO₂ equivalent emissions prevented in kilograms attribute with numeric display",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1033,15 +1029,15 @@
               "const": "CO₂e Prevented (kg)"
             },
             "value": {
+              "type": "number",
+              "minimum": 0,
               "title": "CO₂e Prevented",
               "description": "Total CO₂ equivalent emissions prevented in kilograms",
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             },
             "display_type": {
               "type": "string",
@@ -1050,13 +1046,13 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
@@ -1064,11 +1060,11 @@
             "value",
             "display_type"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "CO₂e Prevented Attribute",
+          "description": "Total CO₂ equivalent emissions prevented in kilograms attribute with numeric display"
         },
         {
-          "title": "Credit Amount Attribute",
-          "description": "Credit amount attribute with numeric display",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1076,15 +1072,15 @@
               "const": "Credit Amount"
             },
             "value": {
+              "type": "number",
+              "minimum": 0,
               "title": "Credit Amount",
               "description": "Credit amount",
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             },
             "display_type": {
               "type": "string",
@@ -1093,13 +1089,13 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
@@ -1107,11 +1103,11 @@
             "value",
             "display_type"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Credit Amount Attribute",
+          "description": "Credit amount attribute with numeric display"
         },
         {
-          "title": "Credit Type Attribute",
-          "description": "Credit type attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1119,14 +1115,14 @@
               "const": "Credit Type"
             },
             "value": {
-              "title": "Credit Type",
-              "description": "Type of credit issued",
-              "examples": [
+              "type": "string",
+              "enum": [
                 "Biowaste",
                 "Carbon (CH₄)"
               ],
-              "type": "string",
-              "enum": [
+              "title": "Credit Type",
+              "description": "Type of credit issued",
+              "examples": [
                 "Biowaste",
                 "Carbon (CH₄)"
               ]
@@ -1145,24 +1141,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Credit Type Attribute",
+          "description": "Credit type attribute"
         },
         {
-          "title": "Source Waste Type Attribute",
-          "description": "Source waste type attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1170,13 +1166,13 @@
               "const": "Source Waste Type"
             },
             "value": {
+              "type": "string",
+              "enum": [
+                "Organic"
+              ],
               "title": "Waste Type",
               "description": "Category or type of waste material",
               "examples": [
-                "Organic"
-              ],
-              "type": "string",
-              "enum": [
                 "Organic"
               ]
             },
@@ -1194,24 +1190,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Source Waste Type Attribute",
+          "description": "Source waste type attribute"
         },
         {
-          "title": "Source Weight Attribute",
-          "description": "Weight of the source waste in kilograms attribute with numeric display",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1219,14 +1215,14 @@
               "const": "Source Weight (kg)"
             },
             "value": {
+              "type": "number",
+              "minimum": 0,
               "title": "Source Weight",
               "description": "Weight of the source waste in kilograms",
               "examples": [
                 500.35,
                 3000
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             },
             "display_type": {
               "type": "string",
@@ -1235,13 +1231,13 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
@@ -1249,11 +1245,11 @@
             "value",
             "display_type"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Source Weight Attribute",
+          "description": "Weight of the source waste in kilograms attribute with numeric display"
         },
         {
-          "title": "Origin City Attribute",
-          "description": "City or municipality where waste was originally generated and picked up",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1261,15 +1257,15 @@
               "const": "Origin City"
             },
             "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50,
               "title": "City",
               "description": "City name",
               "examples": [
                 "Brasília",
                 "São Paulo"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 50
+              ]
             },
             "display_type": {
               "title": "Display Type",
@@ -1285,24 +1281,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Origin City Attribute",
+          "description": "City or municipality where waste was originally generated and picked up"
         },
         {
-          "title": "Origin Country Subdivision Attribute",
-          "description": "ISO 3166-2 country subdivision code where waste was originally generated and picked up",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1310,14 +1306,14 @@
               "const": "Origin Country Subdivision"
             },
             "value": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
               "title": "Country Subdivision Code",
               "description": "Subdivision code following ISO 3166-2 standard",
               "examples": [
                 "BR-AP",
                 "BR-DF"
-              ],
-              "type": "string",
-              "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$"
+              ]
             },
             "display_type": {
               "title": "Display Type",
@@ -1333,24 +1329,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Origin Country Subdivision Attribute",
+          "description": "ISO 3166-2 country subdivision code where waste was originally generated and picked up"
         },
         {
-          "title": "MassID Token ID Attribute",
-          "description": "MassID token ID attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1358,12 +1354,16 @@
               "const": "MassID"
             },
             "value": {
-              "title": "MassID Token ID",
-              "description": "Token ID of the source MassID NFT as #<token_id>",
-              "example": "#123",
               "type": "string",
               "minLength": 1,
-              "pattern": "^#\\d+$"
+              "pattern": "^#\\d+$",
+              "title": "MassID Token ID",
+              "description": "Token ID of the source MassID NFT as #<token_id>",
+              "examples": [
+                "Example text",
+                "Sample value"
+              ],
+              "example": "#123"
             },
             "display_type": {
               "title": "Display Type",
@@ -1379,24 +1379,24 @@
             "max_value": {
               "title": "Max Value",
               "description": "Maximum possible value for numeric traits",
+              "type": "number",
+              "minimum": 0,
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             }
           },
           "required": [
             "trait_type",
             "value"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "MassID Token ID Attribute",
+          "description": "MassID token ID attribute"
         },
         {
-          "title": "MassID Recycling Date Attribute",
-          "description": "Unix timestamp in milliseconds when the source waste was recycled attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1404,14 +1404,14 @@
               "const": "MassID Recycling Date"
             },
             "value": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
               "title": "MassID Recycling Date",
               "description": "Unix timestamp in milliseconds when the source waste was recycled",
               "examples": [
                 1704067200000
-              ],
-              "type": "integer",
-              "exclusiveMinimum": 0,
-              "maximum": 9007199254740991
+              ]
             },
             "display_type": {
               "type": "string",
@@ -1423,11 +1423,11 @@
             "value",
             "display_type"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "MassID Recycling Date Attribute",
+          "description": "Unix timestamp in milliseconds when the source waste was recycled attribute"
         },
         {
-          "title": "Recycling Date Attribute",
-          "description": "Unix timestamp in milliseconds when the recycling occurred (when the environmental gain was achieved) attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1435,14 +1435,14 @@
               "const": "Recycling Date"
             },
             "value": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
               "title": "Recycling Date",
               "description": "Unix timestamp in milliseconds when the recycling occurred (when the environmental gain was achieved)",
               "examples": [
                 1704067200000
-              ],
-              "type": "integer",
-              "exclusiveMinimum": 0,
-              "maximum": 9007199254740991
+              ]
             },
             "display_type": {
               "type": "string",
@@ -1454,11 +1454,11 @@
             "value",
             "display_type"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Recycling Date Attribute",
+          "description": "Unix timestamp in milliseconds when the recycling occurred (when the environmental gain was achieved) attribute"
         },
         {
-          "title": "Certificate Issuance Date Attribute",
-          "description": "Unix timestamp in milliseconds when the certificate was issued attribute",
           "type": "object",
           "properties": {
             "trait_type": {
@@ -1466,14 +1466,14 @@
               "const": "Certificate Issuance Date"
             },
             "value": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
               "title": "Certificate Issuance Date",
               "description": "Unix timestamp in milliseconds when the certificate was issued",
               "examples": [
                 1704067200000
-              ],
-              "type": "integer",
-              "exclusiveMinimum": 0,
-              "maximum": 9007199254740991
+              ]
             },
             "display_type": {
               "type": "string",
@@ -1485,9 +1485,13 @@
             "value",
             "display_type"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Certificate Issuance Date Attribute",
+          "description": "Unix timestamp in milliseconds when the certificate was issued attribute"
         }
       ],
+      "title": "GasID NFT Attribute Array",
+      "description": "Schema for the fixed set of GasID NFT attributes, enforcing order and type for each trait.\n\nRequired attributes (13, in order): Methodology, Gas Type, CO₂e Prevented (kg), Credit Amount, Credit Type, Source Waste Type, Source Weight (kg), Origin City, Origin Country Subdivision, MassID, MassID Recycling Date, Recycling Date, Certificate Issuance Date.",
       "items": false
     }
   },
@@ -1508,5 +1512,9 @@
     "image",
     "attributes"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "GasID NFT IPFS Record",
+  "description": "Complete GasID NFT IPFS record including fixed attributes and detailed carbon emissions prevention data",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/gas-id/gas-id.schema.json",
+  "version": "0.2.3"
 }

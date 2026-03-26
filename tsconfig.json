@@ -3,9 +3,11 @@
   "extends": "@tsconfig/recommended/tsconfig.json",
   "display": "Recommended",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "types": ["node"],
     "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,

@@ -1,58 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Credit IPFS Record",
-  "description": "Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/credit/credit.schema.json",
-  "version": "0.2.3",
   "type": "object",
   "properties": {
     "$schema": {
+      "type": "string",
+      "format": "uri",
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
-      "type": "string",
-      "format": "uri"
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
     },
     "schema": {
       "type": "object",
       "properties": {
         "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         },
         "type": {
-          "title": "Credit Schema Type",
-          "description": "Schema type identifier for this record",
           "type": "string",
-          "const": "Credit"
+          "const": "Credit",
+          "title": "Credit Schema Type",
+          "description": "Schema type identifier for this record"
         },
         "version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
           "examples": [
             "0.1.0",
             "1.0.0",
             "2.1.3"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+          ]
         },
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         }
       },
       "required": [
@@ -64,99 +60,97 @@
       "additionalProperties": false
     },
     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
         "2024-12-05T11:02:47.000Z"
-      ],
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+      ]
     },
     "external_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
       "description": "UUID identifier for external system references",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-      ],
-      "type": "string",
-      "format": "uuid",
-      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+      ]
     },
     "external_url": {
+      "type": "string",
+      "format": "uri",
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
         "https://whitepaper.carrot.eco/"
-      ],
-      "type": "string",
-      "format": "uri"
+      ]
     },
     "viewer_reference": {
-      "title": "Metadata Viewer Reference",
-      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
       "type": "object",
       "properties": {
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Viewer IPFS URI",
           "description": "IPFS URI of the metadata viewer dApp build",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         },
         "integrity_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         }
       },
       "required": [
         "ipfs_uri",
         "integrity_hash"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points"
     },
     "environment": {
-      "title": "Record Environment",
-      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
-          "title": "Blockchain Network",
-          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
             "testnet"
-          ]
+          ],
+          "title": "Blockchain Network",
+          "description": "Blockchain network where this record is deployed"
         },
         "deployment": {
-          "title": "Deployment Environment",
-          "description": "System environment where this record was generated",
           "type": "string",
           "enum": [
             "production",
             "development",
             "testing"
-          ]
+          ],
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated"
         },
         "data_set_name": {
-          "title": "Data Set Name",
-          "description": "Name of the data set for this record",
           "type": "string",
           "enum": [
             "TEST",
             "PROD"
-          ]
+          ],
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record"
         }
       },
       "required": [
@@ -164,7 +158,9 @@
         "deployment",
         "data_set_name"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Record Environment",
+      "description": "Environment information for the record"
     },
     "data": {
       "title": "Custom Data",
@@ -176,73 +172,73 @@
       "additionalProperties": {}
     },
     "symbol": {
+      "type": "string",
+      "enum": [
+        "C-CARB.CH4",
+        "C-BIOW"
+      ],
       "title": "Credit Token Symbol",
       "description": "ERC20 token symbol identifier",
       "examples": [
         "C-CARB.CH4",
         "C-BIOW"
-      ],
-      "type": "string",
-      "enum": [
-        "C-CARB.CH4",
-        "C-BIOW"
       ]
     },
     "slug": {
+      "type": "string",
+      "enum": [
+        "carbon-methane",
+        "biowaste"
+      ],
       "title": "Credit Token Slug",
       "description": "URL-friendly identifier for the credit token",
       "examples": [
         "carbon-methane",
         "biowaste"
-      ],
-      "type": "string",
-      "enum": [
-        "carbon-methane",
-        "biowaste"
       ]
     },
     "name": {
+      "type": "string",
+      "enum": [
+        "Carrot Carbon (CH₄)",
+        "Carrot Biowaste"
+      ],
       "title": "Credit Token Name",
       "description": "Human-readable display name for the credit token",
       "examples": [
         "Carrot Carbon (CH₄)",
         "Carrot Biowaste"
-      ],
-      "type": "string",
-      "enum": [
-        "Carrot Carbon (CH₄)",
-        "Carrot Biowaste"
       ]
     },
     "decimals": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18,
       "title": "Token Decimals",
       "description": "Number of decimal places for the ERC20 token",
       "examples": [
         18
-      ],
-      "type": "integer",
-      "minimum": 0,
-      "maximum": 18
+      ]
     },
     "image": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
       "title": "Token Image",
       "description": "IPFS URI pointing to the token's visual representation image",
       "examples": [
         "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+      ]
     },
     "description": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 1000,
       "title": "Token Description",
       "description": "Comprehensive description of the credit token, its purpose, and impact",
       "examples": [
         "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices."
-      ],
-      "type": "string",
-      "minLength": 50,
-      "maxLength": 1000
+      ]
     }
   },
   "required": [
@@ -258,5 +254,9 @@
     "image",
     "description"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "Credit IPFS Record",
+  "description": "Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/credit/credit.schema.json",
+  "version": "0.2.3"
 }
