@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/carrot-foundation/schemas/compare/v0.2.0...v0.2.1) (2026-03-26)
+
+### Bug Fixes
+
+- **release:** use exec plugin for npm publish to preserve OIDC auth ([e3207f4](https://github.com/carrot-foundation/schemas/commit/e3207f4dcad8ac2291c758338f227d485ca144ba))
+
 ## [0.2.0](https://github.com/carrot-foundation/schemas/compare/v0.1.32...v0.2.0) (2026-03-26)
 
 ### Features
