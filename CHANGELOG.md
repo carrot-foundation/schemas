@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/carrot-foundation/schemas/compare/v0.2.1...v0.2.2) (2026-03-26)
+
+### Bug Fixes
+
+- **release:** restore NPM_TOKEN for npm auth, keep OIDC for provenance ([e587147](https://github.com/carrot-foundation/schemas/commit/e587147225836e9cac20d715d5fae495fa34cbfd))
+
 ## [0.2.1](https://github.com/carrot-foundation/schemas/compare/v0.2.0...v0.2.1) (2026-03-26)
 
 ### Bug Fixes
