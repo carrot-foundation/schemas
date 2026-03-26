@@ -16,7 +16,7 @@ export default defineConfig({
         lines: 100,
         statements: 100,
       },
-      reporter: ['text', 'json', 'html', 'lcov'],
+      reporter: ['text', 'json', 'html', 'lcov', 'cobertura'],
     },
     clearMocks: true,
     mockReset: true,
