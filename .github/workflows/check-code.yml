@@ -36,39 +36,27 @@ jobs:
           - name: Package JSON Lint
             command: pnpm pkgJsonLint
           - name: Build and Validate
-            command: >-
-              pnpm build &&
-              pnpm generate-schemas &&
-              pnpm hash-schemas &&
-              pnpm validate-schemas &&
-              pnpm verify-schema-versions &&
-              pnpm check-refs &&
-              pnpm update-examples &&
-              pnpm validate-examples
+            command: pnpm validate-all
           - name: Test
             command: pnpm test:coverage
           - name: AI Check
             command: pnpm ai:check
-          - name: Bundle Size
-            command: pnpm build && pnpm size-limit
-          - name: Package Validation
-            command: pnpm build && pnpm publint && pnpm check-types-exports
+          - name: Package Quality
+            command: pnpm build && pnpm size-limit && pnpm publint && pnpm check-types-exports && npm pack --dry-run
           - name: Dead Exports
             command: pnpm knip
           - name: License Compliance
             command: pnpm license-check
-          - name: Pack Dry Run
-            command: pnpm build && npm pack --dry-run
           - name: Audit
-            command: pnpm audit --prod || true
-          - name: Schema Compatibility
+            command: pnpm audit --prod --audit-level=critical
+          - name: Schema Compatibility (advisory)
             command: >-
-              git fetch origin main --depth=1 &&
+              git fetch origin main:refs/remotes/origin/main --depth=1 &&
               git worktree add /tmp/baseline-schemas origin/main &&
               cd /tmp/baseline-schemas && pnpm install --frozen-lockfile && pnpm build && pnpm generate-schemas &&
               cd $GITHUB_WORKSPACE &&
               pnpm build && pnpm generate-schemas &&
-              BASELINE_SCHEMAS_DIR=/tmp/baseline-schemas/schemas/ipfs pnpm check-schema-compat
+              BASELINE_SCHEMAS_DIR=/tmp/baseline-schemas/schemas/ipfs pnpm check-schema-compat --advisory
 
     steps:
       - name: Checkout
@@ -90,7 +78,8 @@ jobs:
 
       - name: Run check
         run: ${{ matrix.check.command }}
-        continue-on-error: ${{ matrix.check.name == 'Schema Compatibility' }}
+        # Schema Compatibility is advisory during transition; failures surface as warnings, not blockers
+        continue-on-error: ${{ contains(matrix.check.name, 'advisory') }}
 
       - name: Upload coverage to Codecov
         if: matrix.check.name == 'Test'
