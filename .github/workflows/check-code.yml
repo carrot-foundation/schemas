@@ -89,3 +89,19 @@ jobs:
           fail_ci_if_error: false
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results to Codecov
+        id: upload-test-results
+        if: ${{ !cancelled() && matrix.check.name == 'Test' }}
+        continue-on-error: true
+        uses: codecov/codecov-action@1af58845a975a7985b0beb0cbe6fbbb71a41dbad # v5.5.3
+        with:
+          directory: ./coverage
+          token: ${{ secrets.CODECOV_TOKEN }}
+          report_type: test_results
+          files: '**/junit.xml'
+          fail_ci_if_error: true
+
+      - name: Warn if test results upload failed
+        if: ${{ !cancelled() && steps.upload-test-results.outcome == 'failure' }}
+        run: echo "::warning::Codecov test results upload failed -- check step logs above"
