@@ -38,6 +38,9 @@ local/
 # Generated documentation output (not source docs)
 docs/
 
+# Caches
+.cache
+
 # Testing
 coverage
 *.lcov

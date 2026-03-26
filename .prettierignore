@@ -7,3 +7,4 @@ node_modules
 *.tsbuildinfo
 .eslintcache
 coverage/
+.cache/
