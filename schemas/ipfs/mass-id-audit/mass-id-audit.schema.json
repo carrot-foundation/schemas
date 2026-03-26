@@ -674,6 +674,6 @@
   "additionalProperties": false,
   "title": "MassID Audit IPFS Record",
   "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
-  "version": "0.2.3"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "version": "0.2.4"
 }

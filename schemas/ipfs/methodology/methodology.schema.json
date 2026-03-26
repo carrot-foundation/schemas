@@ -369,6 +369,6 @@
   "additionalProperties": false,
   "title": "Methodology IPFS Record",
   "description": "Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.3/schemas/ipfs/methodology/methodology.schema.json",
-  "version": "0.2.3"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/methodology/methodology.schema.json",
+  "version": "0.2.4"
 }

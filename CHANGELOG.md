@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/carrot-foundation/schemas/compare/v0.2.3...v0.2.4) (2026-03-26)
+
+### Code Refactoring
+
+- improve code quality from technical review ([fd09f01](https://github.com/carrot-foundation/schemas/commit/fd09f0152345e8d972eab0702533c5191c9fd65e))
+- **shared:** simplify getSchemaMetadata by removing dead code ([46a2b36](https://github.com/carrot-foundation/schemas/commit/46a2b36ba26c27f875efa330f3c96a718eb8112f))
+
 ## [0.2.3](https://github.com/carrot-foundation/schemas/compare/v0.2.2...v0.2.3) (2026-03-26)
 
 ### Bug Fixes
