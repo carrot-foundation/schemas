@@ -17,7 +17,7 @@ on:
 
 permissions:
   contents: write # Push release commits and tags
-  id-token: write # npm Trusted Publishing via OIDC
+  id-token: write # npm provenance attestation via OIDC
 
 concurrency:
   group: release
@@ -80,6 +80,7 @@ jobs:
         run: pnpm release ${{ inputs.dry_run == true && '--dry-run' || '' }}
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Release failure summary
         if: failure()
@@ -88,4 +89,5 @@ jobs:
           echo "  - GitHub App token: verify RELEASE_APP_ID and RELEASE_APP_PRIVATE_KEY secrets"
           echo "  - GitHub App permissions: contents:write"
           echo "  - App installation on this repository"
-          echo "  - npm Trusted Publishing: verify OIDC is configured for this repo at npmjs.com"
+          echo "  - npm auth: verify NPM_TOKEN secret is configured"
+          echo "  - npm provenance: verify OIDC is configured for this repo at npmjs.com"
