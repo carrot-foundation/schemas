@@ -65,7 +65,7 @@ If any of these fields are missing in the output, the issue is in the Zod source
 
 Schema `$id` values follow a strict URL format using GitHub raw content URLs with git tags:
 
-```
+```text
 https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
 ```
 
@@ -129,7 +129,7 @@ Common structures should be defined in `$defs` and referenced via `$ref`:
 }
 ```
 
-This is driven by schema extraction in Zod — when you extract a named Zod schema, it becomes a `$def` in the generated output.
+This is driven by schema extraction in Zod — when you extract a named Zod schema, it becomes an entry under `$defs` in the generated output.
 
 ## Carrot-specific patterns
 

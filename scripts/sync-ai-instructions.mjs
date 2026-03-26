@@ -681,9 +681,9 @@ async function generateClaudeArtifacts(
     'Bash(npx prettier:*)',
     'Bash(npx eslint:*)',
   ];
-  const mergedAllow = [
-    ...new Set([...existingAllow, ...hardcodedAllow]),
-  ].sort();
+  const mergedAllow = [...new Set([...existingAllow, ...hardcodedAllow])].sort(
+    (a, b) => a.localeCompare(b),
+  );
   const mergedSettings = {
     ...existingSettings,
     permissions: {

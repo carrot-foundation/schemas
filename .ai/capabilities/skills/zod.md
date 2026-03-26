@@ -101,7 +101,7 @@ const Schema = z
 
 The schemas package uses a layered composition pattern:
 
-```
+```text
 BaseIpfsSchema          (common IPFS fields: name, description, image, external_url)
   └── NftIpfsSchema     (adds NFT fields: attributes, data)
         └── TypeSchema   (type-specific data and attributes)
