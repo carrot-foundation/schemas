@@ -128,17 +128,22 @@ function compareProperties(
     const baseVal = baseProps[prop];
     const curVal = curProps[prop];
 
-    // Only compare scalar type values; array types (e.g., ["string", "null"]) are skipped
-    if (
-      typeof baseVal.type === 'string' &&
-      typeof curVal.type === 'string' &&
-      baseVal.type !== curVal.type
-    ) {
-      addFinding(
-        schemaName,
-        'TYPE_CHANGED',
-        `"${fullPath}" changed type from "${baseVal.type}" to "${curVal.type}"`,
+    // Compare type values — handles both scalar ("string") and array (["string", "null"]) forms
+    if (baseVal.type !== undefined && curVal.type !== undefined) {
+      const baseTypes = new Set(
+        Array.isArray(baseVal.type) ? baseVal.type : [baseVal.type],
       );
+      const curTypes = new Set(
+        Array.isArray(curVal.type) ? curVal.type : [curVal.type],
+      );
+      const removedTypes = [...baseTypes].filter((t) => !curTypes.has(t));
+      if (removedTypes.length > 0) {
+        addFinding(
+          schemaName,
+          'TYPE_CHANGED',
+          `"${fullPath}" removed allowed type(s): ${removedTypes.map((t) => `"${t}"`).join(', ')} (was ${JSON.stringify(baseVal.type)}, now ${JSON.stringify(curVal.type)})`,
+        );
+      }
     }
 
     if (baseVal.enum && curVal.enum) {
