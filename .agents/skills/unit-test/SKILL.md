@@ -9,7 +9,7 @@ Write and maintain Vitest tests for Zod schemas in the schemas package, targetin
 
 Tests live alongside their source in `__tests__/` directories:
 
-```
+```text
 src/
   {type}/
     {type}.schema.ts
@@ -221,10 +221,19 @@ describe('edge cases', () => {
     expect(result.success).toBe(true);
   });
 
-  it('should handle empty arrays for attributes', () => {
+  it('should reject empty arrays when attributes use .min(1)', () => {
     const input = { ...validInput, attributes: [] };
     const result = Schema.safeParse(input);
-    // Depends on whether .min(1) is applied
+    expect(result.success).toBe(false);
+  });
+
+  it('should accept empty arrays when attributes have no minimum', () => {
+    const input = { ...validInput, attributes: [] };
+    const result = Schema.safeParse(input);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.attributes).toEqual([]);
+    }
   });
 
   it('should handle unicode strings', () => {

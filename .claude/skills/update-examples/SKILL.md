@@ -89,35 +89,7 @@ This runs `node scripts/validate-schemas.js`.
 - Verify `$ref` pointers target existing schemas
 - Look for non-standard JSON Schema keywords
 
-#### Step 6: Check References
-
-Validate internal `$ref` pointers between schemas:
-
-```bash
-pnpm check-refs
-```
-
-This runs `node scripts/check-refs.js`.
-
-**Expected outcome**: All `$ref` pointers resolve to existing schemas.
-
-**If it fails**: Ensure referenced schemas exist and paths are correct.
-
-#### Step 7: Validate Examples
-
-Run validation specifically on example data files:
-
-```bash
-pnpm validate-examples
-```
-
-This runs `node scripts/validate-schemas.js --data-only`.
-
-**Expected outcome**: All example files validate against their corresponding schemas.
-
-**If it fails**: Example data doesn't conform to the schema. Since examples are generated, this usually means the generation script has a bug. Fix the script or the Zod source.
-
-#### Step 8: Verify Schema Versions
+#### Step 6: Verify Schema Versions
 
 Check that schema versions are consistent:
 
@@ -131,6 +103,34 @@ This runs `node scripts/verify-schema-versions.js`.
 
 **If it fails**: Update the version field in the Zod source schema to match the expected version.
 
+#### Step 7: Check References
+
+Validate internal `$ref` pointers between schemas:
+
+```bash
+pnpm check-refs
+```
+
+This runs `node scripts/check-refs.js`.
+
+**Expected outcome**: All `$ref` pointers resolve to existing schemas.
+
+**If it fails**: Ensure referenced schemas exist and paths are correct.
+
+#### Step 8: Validate Examples
+
+Run validation specifically on example data files:
+
+```bash
+pnpm validate-examples
+```
+
+This runs `node scripts/validate-schemas.js --data-only`.
+
+**Expected outcome**: All example files validate against their corresponding schemas.
+
+**If it fails**: Example data doesn't conform to the schema. Since examples are generated, this usually means the generation script has a bug. Fix the script or the Zod source.
+
 ### Shortcut: Full Validation Pipeline
 
 If you want to run steps 2-8 in a single command:
@@ -140,6 +140,8 @@ pnpm validate-all
 ```
 
 This runs: `generate-schemas -> hash-schemas -> update-examples -> validate-schemas -> verify-schema-versions -> check-refs -> validate-examples`.
+
+This matches the canonical pipeline order used above.
 
 ### Checking for Unexpected Changes
 

@@ -22,7 +22,7 @@ If code appears unused, redundant, or unnecessary, ask before removing it. What 
 - Part of a deliberate pattern that prevents regressions
 - Intentionally preserved for backward compatibility
 
-```
+```text
 BAD behavior:
   "I noticed `ExperimentalSchema` isn't used anywhere, so I removed it."
 
@@ -35,7 +35,7 @@ GOOD behavior:
 
 Changes made in prior sessions represent completed work. Do not undo them even if they seem inconsistent with the current task.
 
-```
+```text
 BAD behavior:
   Reverting a schema field addition from yesterday because today's task
   doesn't reference it.
@@ -45,11 +45,11 @@ GOOD behavior:
   the current task.
 ```
 
-## Commit ALL changes
+## Commit all intended changes
 
 When making modifications, commit all intended changes required for the task. If incidental or out-of-scope edits are introduced, either revert them or isolate them in a clearly labeled follow-up commit/PR.
 
-```
+```text
 BAD behavior:
   Only committing the new schema file while leaving formatting fixes
   and import updates unstaged.
@@ -63,7 +63,7 @@ GOOD behavior:
 
 If tests fail or coverage drops, the correct response is to fix the code or add tests — never to remove existing tests.
 
-```
+```text
 BAD behavior:
   Removing a failing test that covers an edge case to make the suite pass.
 
@@ -76,7 +76,7 @@ GOOD behavior:
 
 Before removing an import or export, verify it is truly unused. In a published npm package like `@carrot-foundation/schemas`, exports may be consumed by projects outside this repository.
 
-```
+```text
 BAD behavior:
   Removing an export from index.ts because no internal file imports it.
 

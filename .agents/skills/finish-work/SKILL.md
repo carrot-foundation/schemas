@@ -134,7 +134,7 @@ EOF
 
 Provide a concise summary to the user:
 
-```
+```md
 ## Summary
 
 - **Branch**: feat/schema-add-mass-id-schema
@@ -155,7 +155,7 @@ If issues arise during the workflow:
 | `pnpm check` fails         | Fix the issue, re-run check, then continue        |
 | Commit hook fails          | Fix lint/format issues, stage fixes, commit again |
 | Push fails (no remote)     | Run `git push -u origin HEAD`                     |
-| Push fails (behind remote) | Run `git pull --rebase` then push                 |
+| Push fails (behind remote) | Run `git pull --rebase @{u}` then push            |
 | `gh pr create` fails       | Check `gh auth status`, ensure branch is pushed   |
 | PR title too long          | Shorten to under 70 characters                    |
 
