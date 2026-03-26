@@ -42,13 +42,14 @@
         "changelogTitle": "# Changelog\n\nAll notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines."
       }
     ],
+    ["@semantic-release/npm", { "npmPublish": false }],
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "SCHEMA_VERSION=${nextRelease.version} pnpm build && pnpm generate-schemas && pnpm hash-schemas && pnpm validate-schemas && pnpm verify-schema-versions && pnpm check-refs && pnpm update-examples && pnpm validate-examples"
+        "prepareCmd": "SCHEMA_VERSION=${nextRelease.version} pnpm build && pnpm generate-schemas && pnpm hash-schemas && pnpm validate-schemas && pnpm verify-schema-versions && pnpm check-refs && pnpm update-examples && pnpm validate-examples",
+        "publishCmd": "npm publish --access public --provenance"
       }
     ],
-    ["@semantic-release/npm", { "provenance": true }],
     [
       "@semantic-release/git",
       {
