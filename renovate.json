@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices", ":dependencyDashboard"],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "automergeType": "pr",
+  "reviewers": ["team:Developers"],
+  "schedule": ["on tuesday and thursday"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major devDependencies",
+      "groupSlug": "all-devDependencies-minor-patch",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackageNames": ["*"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major production dependencies",
+      "groupSlug": "all-productionDependencies-minor-patch",
+      "matchDepTypes": ["dependencies"],
+      "matchPackageNames": ["*"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "lint non-major dependencies",
+      "groupSlug": "lint-minor-patch",
+      "matchPackageNames": [
+        "/lint/",
+        "/cspell/",
+        "/prettier/",
+        "/eslint/",
+        "/commitlint/",
+        "/husky/"
+      ]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "vitest non-major dependencies",
+      "groupSlug": "vitest-minor-patch",
+      "matchPackageNames": ["/vitest/"]
+    },
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "typescript non-major dependencies",
+      "groupSlug": "typescript-minor-patch",
+      "matchPackageNames": ["typescript", "/tsup/", "/tsconfig/"]
+    }
+  ],
+  "major": {
+    "dependencyDashboardApproval": true
+  }
+}
