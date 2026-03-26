@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.64/schemas/ipfs/credit/credit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.65/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "277de2cc85737442c954c7e5ab846c551e942b1c924734494df607232f2b9e04",
+    "hash": "3d1be554485f6079bfe0c73d7d235513dab915985f3eec10b376f34919c08960",
     "type": "Credit",
-    "version": "0.1.64",
+    "version": "0.1.65",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
