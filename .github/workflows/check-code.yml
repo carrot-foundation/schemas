@@ -50,7 +50,6 @@ jobs:
           - name: Audit
             command: pnpm audit --prod --audit-level=critical
           - name: Schema Compatibility
-            advisory: true
             command: >-
               git fetch origin main:refs/remotes/origin/main --depth=1 &&
               git worktree add /tmp/baseline-schemas origin/main &&
@@ -79,8 +78,8 @@ jobs:
 
       - name: Run check
         run: ${{ matrix.check.command }}
-        # Advisory checks exit 0 on findings via --advisory flag; infrastructure failures still propagate
-        continue-on-error: ${{ matrix.check.advisory == true }}
+        # Advisory checks use --advisory flag to exit 0 on findings;
+        # infrastructure failures propagate naturally as job failures.
 
       - name: Upload coverage to Codecov
         if: matrix.check.name == 'Test'

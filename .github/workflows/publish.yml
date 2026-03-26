@@ -17,7 +17,7 @@ on:
 
 permissions:
   contents: write # Push release commits and tags
-  id-token: write # Required if npm provenance is enabled
+  id-token: write # Kept for npm provenance (not currently enabled)
 
 concurrency:
   group: release

@@ -47,7 +47,27 @@ if (!existsSync(BASELINE_DIR)) {
   process.exit(1);
 }
 
+if (!existsSync(SCHEMAS_DIR)) {
+  console.error(
+    `ERROR: Current schemas directory "${SCHEMAS_DIR}" does not exist. ` +
+      'Run "pnpm generate-schemas" before the compatibility check.',
+  );
+  process.exit(1);
+}
+
+const baselineSchemaCount = globSync('**/*.schema.json', {
+  cwd: BASELINE_DIR,
+}).length;
+if (baselineSchemaCount === 0) {
+  console.error(
+    `ERROR: BASELINE_SCHEMAS_DIR "${BASELINE_DIR}" exists but contains no .schema.json files. ` +
+      'The baseline schema generation likely failed or wrote to the wrong directory.',
+  );
+  process.exit(1);
+}
+
 const findings = [];
+let hasInfrastructureFailure = false;
 
 function joinPath(parent, segment) {
   return parent ? `${parent}.${segment}` : segment;
@@ -57,6 +77,7 @@ function addFinding(schema, type, detail) {
   const finding = { schema, type, detail };
   findings.push(finding);
   if (isCI) {
+    // Must be console.log (stdout) for GitHub Actions to parse the ::warning:: annotation
     console.log(
       `::warning::Schema compat [${finding.type}] ${finding.schema}: ${finding.detail}`,
     );
@@ -107,8 +128,12 @@ function compareProperties(
     const baseVal = baseProps[prop];
     const curVal = curProps[prop];
 
-    // Only handles single-type values; array types (e.g., ["string", "null"]) are not compared
-    if (baseVal.type && curVal.type && baseVal.type !== curVal.type) {
+    // Only compare scalar type values; array types (e.g., ["string", "null"]) are skipped
+    if (
+      typeof baseVal.type === 'string' &&
+      typeof curVal.type === 'string' &&
+      baseVal.type !== curVal.type
+    ) {
       addFinding(
         schemaName,
         'TYPE_CHANGED',
@@ -206,12 +231,17 @@ for (const schemaFile of currentSchemas) {
     try {
       checkSchema(currentPath, baselinePath);
     } catch (error) {
-      // Infrastructure failures are not advisory -- the tool cannot function
+      // Infrastructure failures (JSON parse, filesystem) are not advisory
       console.error(
-        `FATAL: Failed to compare schema ${schemaFile}: ${error.message}`,
+        `ERROR: Failed to compare schema ${schemaFile}: ${error.message}`,
       );
       if (error.stack) console.error(error.stack);
-      process.exit(1);
+      addFinding(
+        schemaFile,
+        'PARSE_ERROR',
+        `Failed to compare schema: ${error.message}`,
+      );
+      hasInfrastructureFailure = true;
     }
   } else {
     console.log(`  [NEW_SCHEMA] ${schemaFile}: Not present in baseline`);
@@ -238,6 +268,14 @@ if (findings.length === 0) {
   console.error(`Found ${findings.length} potential breaking change(s):\n`);
   for (const f of findings) {
     console.error(`  [${f.type}] ${f.schema}: ${f.detail}`);
+  }
+
+  // Infrastructure errors are never advisory — they mean the tool could not function
+  if (hasInfrastructureFailure) {
+    console.error(
+      '\nInfrastructure errors occurred — exiting 1 regardless of advisory mode.',
+    );
+    process.exit(1);
   }
 
   if (isAdvisory) {
