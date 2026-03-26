@@ -209,11 +209,16 @@ describe('edge cases', () => {
     expect(result.success).toBe(true);
   });
 
-  it('should handle zero for numeric fields', () => {
+  it('should reject zero when field uses .positive()', () => {
     const input = { ...validInput, data: { ...validInput.data, amount: 0 } };
     const result = Schema.safeParse(input);
-    // Depends on whether .positive() or .nonnegative() is used
-    expect(result.success).toBe(false); // or true
+    expect(result.success).toBe(false);
+  });
+
+  it('should accept zero when field uses .nonnegative()', () => {
+    const input = { ...validInput, data: { ...validInput.data, amount: 0 } };
+    const result = Schema.safeParse(input);
+    expect(result.success).toBe(true);
   });
 
   it('should handle empty arrays for attributes', () => {

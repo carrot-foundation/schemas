@@ -36,8 +36,6 @@ Claude adapter for Schemas AI instructions. This file is generated from canonica
 
 ## Schemas Project Context
 
-Project-specific knowledge for AI assistants working on Schemas. This content is appended to the generated CLAUDE.md adapter.
-
 ## Project Overview
 
 Published npm package (`@carrot-foundation/schemas`) providing Zod validation schemas and JSON schemas for IPFS metadata in the Carrot ecosystem. Supports ESM and CJS. Apache-2.0 licensed.

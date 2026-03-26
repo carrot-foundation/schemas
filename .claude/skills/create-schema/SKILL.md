@@ -98,7 +98,9 @@ export const {typeName}Attributes: NftAttribute[] = [
 Extend `NftIpfsSchema` using `.safeExtend()`:
 
 ```typescript
+import { z } from 'zod';
 import { NftIpfsSchema } from '../shared/nft-ipfs.schema';
+import { NftAttributeSchema } from '../shared/nft-attribute.schema';
 import { {TypeName}DataSchema } from './{type}.data.schema';
 import { {typeName}Attributes } from './{type}.attributes';
 

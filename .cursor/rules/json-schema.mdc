@@ -113,7 +113,7 @@ Common structures should be defined in `$defs` and referenced via `$ref`:
 }
 ```
 
-This is driven by schema extraction in Zod — when you extract a named Zod schema, it becomes a `$defs` entry in the generated output.
+This is driven by schema extraction in Zod — when you extract a named Zod schema, it becomes a `$def` in the generated output.
 
 ## Carrot-specific patterns
 
