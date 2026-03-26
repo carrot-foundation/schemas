@@ -30,7 +30,7 @@ const PATHS = {
 
 // Note: in dry-run mode, ensureDir is a no-op and writeFile only logs what
 // would be written. writeIfMissing still checks the real filesystem, so it
-// may silently skip files that already exist on disk.
+// will log and skip files that already exist on disk.
 async function ensureDir(targetPath) {
   if (DRY_RUN) {
     return;
@@ -116,10 +116,7 @@ function getSectionBody(
   const start = lines.findIndex((line) => matchSectionHeading(line, heading));
   if (start === -1) {
     const ctx = contextLabel ? ` (${contextLabel})` : '';
-    warn(
-      `[sync] warning: section "## ${heading}" not found${ctx}; using full body`,
-    );
-    return markdownBody.trim();
+    throw new Error(`[sync] required section "## ${heading}" not found${ctx}`);
   }
 
   if (toEnd) {
@@ -973,9 +970,9 @@ ${sharedLinks}
       ).trim()
     : null;
 
-  // Demote H1 to H2 to avoid duplicate H1 headings in generated adapters
+  // Demote all H1 headings to H2 to avoid duplicate H1 headings in generated adapters
   const demotedContext = rawProjectContext
-    ? rawProjectContext.replace(/^# /m, '## ')
+    ? rawProjectContext.replace(/^# /gm, '## ')
     : null;
 
   const claudeContent = demotedContext
@@ -1032,7 +1029,7 @@ async function removeStaleAdapters(
         try {
           await fs.rm(staleDir, { recursive: true });
         } catch (rmError) {
-          log(
+          warn(
             `[sync] warning: failed to remove ${path.relative(ROOT, staleDir)}: ${rmError.message}. Close any editors locking this file and re-run pnpm ai:sync.`,
           );
           removalFailures++;
@@ -1058,7 +1055,7 @@ async function removeStaleAdapters(
         try {
           await fs.unlink(stalePath);
         } catch (unlinkError) {
-          log(
+          warn(
             `[sync] warning: failed to remove ${path.relative(ROOT, stalePath)}: ${unlinkError.message}. Close any editors locking this file and re-run pnpm ai:sync.`,
           );
           removalFailures++;
@@ -1086,7 +1083,7 @@ async function removeStaleAdapters(
         try {
           await fs.unlink(stalePath);
         } catch (unlinkError) {
-          log(
+          warn(
             `[sync] warning: failed to remove ${path.relative(ROOT, stalePath)}: ${unlinkError.message}. Close any editors locking this file and re-run pnpm ai:sync.`,
           );
           removalFailures++;

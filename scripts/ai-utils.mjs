@@ -146,8 +146,15 @@ export async function readdirWithContext(
   }
 }
 
-export async function listFilesRecursive(dir, extension) {
+export async function listFilesRecursive(
+  dir,
+  extension,
+  { warnIfMissing = false } = {},
+) {
   if (!(await pathExists(dir))) {
+    if (warnIfMissing) {
+      warn(`warning: directory does not exist: ${dir}`);
+    }
     return [];
   }
 
@@ -190,13 +197,14 @@ export async function loadCanonicalEntries(
   dir,
   { onError = 'throw', prefix = '' } = {},
 ) {
-  const files = await listFilesRecursive(dir, '.md');
+  const files = await listFilesRecursive(dir, '.md', { warnIfMissing: true });
   const parsed = [];
   const errors = [];
 
   for (const file of files) {
     const raw = await readFileWithContext(file, 'load canonical');
-    const { data, body } = parseFrontmatter(raw, prefix);
+    const rel = path.relative(process.cwd(), file);
+    const { data, body } = parseFrontmatter(raw, `${prefix}${rel}: `);
     parsed.push({ file, data, body, raw });
   }
 
@@ -235,9 +243,9 @@ export async function loadCanonicalEntries(
       const msg = `[validation] duplicate id "${id}" in ${rel} and ${seenIds.get(id)}`;
       if (onError === 'throw') throw new Error(msg);
       errors.push(msg);
-    } else {
-      seenIds.set(id, rel);
+      continue;
     }
+    seenIds.set(id, rel);
     validEntries.push(entry);
   }
 
@@ -249,6 +257,8 @@ export async function loadCanonicalEntries(
   };
 }
 
+// Returns false for two empty sets to avoid false positives in quality checks
+// where both fields being absent is a separate concern from being identical.
 export function setsAreIdentical(a, b) {
   if (a.size === 0 || a.size !== b.size) return false;
   return [...b].every((item) => a.has(item));

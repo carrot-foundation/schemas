@@ -11,8 +11,10 @@ Neutral source-of-truth for Cursor, Claude, and Codex instructions.
 
 ## Structure
 
+- `README.md`
 - `DEFINITIONS.md`
 - `STANDARDS.md`
+- `PROJECT_CONTEXT.md`
 - `PARITY_MATRIX.md`
 - `rules/*.md`
 - `capabilities/skills/*.md`
