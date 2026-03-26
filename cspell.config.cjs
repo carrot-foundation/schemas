@@ -38,6 +38,7 @@ module.exports = {
     '.git',
     'cspell.config.cjs',
     'brazil-municipalities.json',
+    'CHANGELOG.md',
   ],
   language: 'en',
   useGitignore: true,
