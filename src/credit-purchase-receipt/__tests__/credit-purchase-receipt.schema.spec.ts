@@ -42,22 +42,11 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     {
       description: 'rejects certificate credit slug not present in credits',
       mutate: (invalid) => {
-        invalid.data.certificates[0].credit_slug =
-          'unknown-credit' as unknown as (typeof invalid.data.certificates)[number]['credit_slug'];
-      },
-    },
-    {
-      description:
-        'rejects when all certificates reference a credit_slug with no matching credit',
-      mutate: (invalid) => {
-        const unknownSlug =
-          'unknown-credit' as (typeof invalid.data.certificates)[number]['credit_slug'];
-
-        invalid.data.certificates = invalid.data.certificates.map(
-          (certificate) => ({
-            ...certificate,
-            credit_slug: unknownSlug,
-          }),
+        // Remove the credit that the first certificate references so the
+        // slug is still a valid enum value but has no matching credit entry
+        const slugToRemove = invalid.data.certificates[0].credit_slug;
+        invalid.data.credits = invalid.data.credits.filter(
+          (credit) => credit.slug !== slugToRemove,
         );
       },
     },
