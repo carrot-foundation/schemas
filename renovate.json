@@ -8,20 +8,7 @@
   "schedule": ["on tuesday and thursday"],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major devDependencies",
-      "groupSlug": "all-devDependencies-minor-patch",
-      "matchDepTypes": ["devDependencies"],
-      "matchPackageNames": ["*"]
-    },
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major production dependencies",
-      "groupSlug": "all-productionDependencies-minor-patch",
-      "matchDepTypes": ["dependencies"],
-      "matchPackageNames": ["*"]
-    },
-    {
+      "description": "Group lint tools together (overrides catch-all below)",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "lint non-major dependencies",
       "groupSlug": "lint-minor-patch",
@@ -35,16 +22,34 @@
       ]
     },
     {
+      "description": "Group vitest packages together (overrides catch-all below)",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "vitest non-major dependencies",
       "groupSlug": "vitest-minor-patch",
       "matchPackageNames": ["/vitest/"]
     },
     {
+      "description": "Group TypeScript toolchain together (overrides catch-all below)",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "typescript non-major dependencies",
       "groupSlug": "typescript-minor-patch",
       "matchPackageNames": ["typescript", "/tsup/", "/tsconfig/"]
+    },
+    {
+      "description": "Catch-all: remaining devDependencies grouped together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major devDependencies",
+      "groupSlug": "all-devDependencies-minor-patch",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackageNames": ["*"]
+    },
+    {
+      "description": "Catch-all: remaining production dependencies grouped together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major production dependencies",
+      "groupSlug": "all-productionDependencies-minor-patch",
+      "matchDepTypes": ["dependencies"],
+      "matchPackageNames": ["*"]
     }
   ],
   "major": {
