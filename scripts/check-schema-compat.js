@@ -2,10 +2,11 @@
 
 /**
  * Schema backward compatibility checker.
- * Compares generated JSON schemas from main branch against current branch.
+ * Compares generated JSON schemas in `schemas/ipfs/` against a baseline
+ * directory specified by the `BASELINE_SCHEMAS_DIR` environment variable.
  * Detects breaking changes: removed properties, new required fields,
  * type changes, narrowed enums, additionalProperties restrictions,
- * and deleted schemas.
+ * deleted schemas, and deleted $defs.
  *
  * Checks nested properties recursively (including $defs).
  *
@@ -23,7 +24,18 @@ const isAdvisory = process.argv.includes('--advisory');
 const isCI = !!process.env.CI;
 
 if (!BASELINE_DIR) {
-  console.log('BASELINE_SCHEMAS_DIR not set. Skipping compatibility check.');
+  // In CI the variable is required; locally it's acceptable to skip
+  if (isCI) {
+    console.error(
+      'ERROR: BASELINE_SCHEMAS_DIR is not set but CI=true. ' +
+        'The compatibility check cannot run without a baseline. ' +
+        'Ensure the baseline schema generation step completed successfully.',
+    );
+    process.exit(1);
+  }
+  console.warn(
+    'BASELINE_SCHEMAS_DIR not set. Skipping compatibility check (local dev only).',
+  );
   process.exit(0);
 }
 
@@ -37,7 +49,13 @@ if (!existsSync(BASELINE_DIR)) {
 
 const findings = [];
 
-function emitAnnotation(finding) {
+function joinPath(parent, segment) {
+  return parent ? `${parent}.${segment}` : segment;
+}
+
+function addFinding(schema, type, detail) {
+  const finding = { schema, type, detail };
+  findings.push(finding);
   if (isCI) {
     console.log(
       `::warning::Schema compat [${finding.type}] ${finding.schema}: ${finding.detail}`,
@@ -50,64 +68,71 @@ function emitAnnotation(finding) {
  * @param {object} baselineObj - Baseline schema or sub-schema object
  * @param {object} currentObj - Current schema or sub-schema object
  * @param {string} schemaName - Schema name for reporting
- * @param {string} path - Dot-separated property path for context
+ * @param {string} propertyPath - Dot-separated property path for context
  */
-function compareProperties(baselineObj, currentObj, schemaName, path = '') {
+function compareProperties(
+  baselineObj,
+  currentObj,
+  schemaName,
+  propertyPath = '',
+) {
   const baseProps = baselineObj.properties;
   const curProps = currentObj.properties;
 
-  if (!baseProps || !curProps) return;
+  if (!baseProps && !curProps) return;
+
+  if (baseProps && !curProps) {
+    addFinding(
+      schemaName,
+      'PROPERTIES_REMOVED',
+      `Properties block removed${propertyPath ? ` at "${propertyPath}"` : ''} (was ${Object.keys(baseProps).length} properties)`,
+    );
+    return;
+  }
+
+  if (!baseProps && curProps) return;
 
   for (const prop of Object.keys(baseProps)) {
-    const fullPath = path ? `${path}.${prop}` : prop;
+    const fullPath = joinPath(propertyPath, prop);
 
     if (!(prop in curProps)) {
-      const finding = {
-        schema: schemaName,
-        type: 'REMOVED_PROPERTY',
-        detail: `Property "${fullPath}" was removed`,
-      };
-      findings.push(finding);
-      emitAnnotation(finding);
+      addFinding(
+        schemaName,
+        'REMOVED_PROPERTY',
+        `Property "${fullPath}" was removed`,
+      );
       continue;
     }
 
     const baseVal = baseProps[prop];
     const curVal = curProps[prop];
 
-    // Check type changes
+    // Only handles single-type values; array types (e.g., ["string", "null"]) are not compared
     if (baseVal.type && curVal.type && baseVal.type !== curVal.type) {
-      const finding = {
-        schema: schemaName,
-        type: 'TYPE_CHANGED',
-        detail: `"${fullPath}" changed type from "${baseVal.type}" to "${curVal.type}"`,
-      };
-      findings.push(finding);
-      emitAnnotation(finding);
+      addFinding(
+        schemaName,
+        'TYPE_CHANGED',
+        `"${fullPath}" changed type from "${baseVal.type}" to "${curVal.type}"`,
+      );
     }
 
-    // Check narrowed enums
     if (baseVal.enum && curVal.enum) {
       const currentEnumSet = new Set(curVal.enum);
       for (const val of baseVal.enum) {
         if (!currentEnumSet.has(val)) {
-          const finding = {
-            schema: schemaName,
-            type: 'ENUM_VALUE_REMOVED',
-            detail: `"${fullPath}" lost enum value "${val}"`,
-          };
-          findings.push(finding);
-          emitAnnotation(finding);
+          addFinding(
+            schemaName,
+            'ENUM_VALUE_REMOVED',
+            `"${fullPath}" lost enum value "${val}"`,
+          );
         }
       }
     }
 
-    // Recurse into nested properties
     if (baseVal.properties && curVal.properties) {
       compareProperties(baseVal, curVal, schemaName, fullPath);
     }
 
-    // Recurse into array items
     if (baseVal.items?.properties && curVal.items?.properties) {
       compareProperties(
         baseVal.items,
@@ -118,34 +143,27 @@ function compareProperties(baselineObj, currentObj, schemaName, path = '') {
     }
   }
 
-  // Check new required fields at this level
   const baselineRequired = new Set(baselineObj.required || []);
   const currentRequired = new Set(currentObj.required || []);
   for (const req of currentRequired) {
     if (!baselineRequired.has(req)) {
-      const fullPath = path ? `${path}.${req}` : req;
-      const finding = {
-        schema: schemaName,
-        type: 'NEW_REQUIRED_FIELD',
-        detail: `"${fullPath}" is now required (was optional or absent)`,
-      };
-      findings.push(finding);
-      emitAnnotation(finding);
+      addFinding(
+        schemaName,
+        'NEW_REQUIRED_FIELD',
+        `"${joinPath(propertyPath, req)}" is now required (was optional or absent)`,
+      );
     }
   }
 
-  // Check additionalProperties restriction at this level
   if (
     baselineObj.additionalProperties !== false &&
     currentObj.additionalProperties === false
   ) {
-    const finding = {
-      schema: schemaName,
-      type: 'ADDITIONAL_PROPERTIES_RESTRICTED',
-      detail: `additionalProperties changed to false${path ? ` at "${path}"` : ''}`,
-    };
-    findings.push(finding);
-    emitAnnotation(finding);
+    addFinding(
+      schemaName,
+      'ADDITIONAL_PROPERTIES_RESTRICTED',
+      `additionalProperties changed to false${propertyPath ? ` at "${propertyPath}"` : ''}`,
+    );
   }
 }
 
@@ -154,10 +172,8 @@ function checkSchema(currentPath, baselinePath) {
   const baseline = JSON.parse(readFileSync(baselinePath, 'utf8'));
   const schemaName = basename(currentPath, '.schema.json');
 
-  // Compare top-level and nested properties recursively
   compareProperties(baseline, current, schemaName);
 
-  // Also recurse into $defs
   if (baseline.$defs && current.$defs) {
     for (const defName of Object.keys(baseline.$defs)) {
       if (current.$defs[defName]) {
@@ -167,12 +183,19 @@ function checkSchema(currentPath, baselinePath) {
           schemaName,
           `$defs.${defName}`,
         );
+      } else {
+        addFinding(schemaName, 'DEF_REMOVED', `$defs.${defName} was removed`);
       }
     }
+  } else if (baseline.$defs && !current.$defs) {
+    addFinding(
+      schemaName,
+      'ALL_DEFS_REMOVED',
+      `Entire $defs block was removed (had ${Object.keys(baseline.$defs).length} definitions)`,
+    );
   }
 }
 
-// Find all current schemas and compare against baseline
 const currentSchemas = globSync('**/*.schema.json', { cwd: SCHEMAS_DIR });
 
 for (const schemaFile of currentSchemas) {
@@ -183,13 +206,12 @@ for (const schemaFile of currentSchemas) {
     try {
       checkSchema(currentPath, baselinePath);
     } catch (error) {
-      const finding = {
-        schema: schemaFile,
-        type: 'PARSE_ERROR',
-        detail: `Failed to compare schema: ${error.message}`,
-      };
-      findings.push(finding);
-      emitAnnotation(finding);
+      // Infrastructure failures are not advisory -- the tool cannot function
+      console.error(
+        `FATAL: Failed to compare schema ${schemaFile}: ${error.message}`,
+      );
+      if (error.stack) console.error(error.stack);
+      process.exit(1);
     }
   } else {
     console.log(`  [NEW_SCHEMA] ${schemaFile}: Not present in baseline`);
@@ -201,13 +223,11 @@ const baselineSchemas = globSync('**/*.schema.json', { cwd: BASELINE_DIR });
 for (const schemaFile of baselineSchemas) {
   const currentPath = resolve(SCHEMAS_DIR, schemaFile);
   if (!existsSync(currentPath)) {
-    const finding = {
-      schema: basename(schemaFile, '.schema.json'),
-      type: 'SCHEMA_DELETED',
-      detail: `Schema file "${schemaFile}" was deleted entirely`,
-    };
-    findings.push(finding);
-    emitAnnotation(finding);
+    addFinding(
+      basename(schemaFile, '.schema.json'),
+      'SCHEMA_DELETED',
+      `Schema file "${schemaFile}" was deleted entirely`,
+    );
   }
 }
 
@@ -215,13 +235,13 @@ if (findings.length === 0) {
   console.log('No breaking schema changes detected.');
   process.exit(0);
 } else {
-  console.log(`Found ${findings.length} potential breaking change(s):\n`);
+  console.error(`Found ${findings.length} potential breaking change(s):\n`);
   for (const f of findings) {
-    console.log(`  [${f.type}] ${f.schema}: ${f.detail}`);
+    console.error(`  [${f.type}] ${f.schema}: ${f.detail}`);
   }
 
   if (isAdvisory) {
-    console.log('\nRunning in advisory mode — exiting 0 despite findings.');
+    console.error('\nRunning in advisory mode — exiting 0 despite findings.');
     process.exit(0);
   } else {
     process.exit(1);
