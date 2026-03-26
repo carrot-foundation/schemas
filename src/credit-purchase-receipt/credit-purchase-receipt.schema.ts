@@ -169,7 +169,15 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     data.certificates.forEach((certificate) => {
       const credit = data.credits.find(
         (c) => c.slug === certificate.credit_slug,
-      )!;
+      );
+      if (!credit) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `No credit found matching certificate credit_slug "${certificate.credit_slug}"`,
+          path: ['data', 'certificates'],
+        });
+        return;
+      }
       const certificatePurchasedTotal = certificate.collections.reduce(
         (sum, collection) => sum + Number(collection.purchased_amount),
         0,
