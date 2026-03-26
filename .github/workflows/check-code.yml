@@ -49,6 +49,10 @@ jobs:
             command: pnpm test:coverage
           - name: AI Check
             command: pnpm ai:check
+          - name: Bundle Size
+            command: pnpm build && pnpm size-limit
+          - name: Package Validation
+            command: pnpm build && pnpm publint && pnpm check-types-exports
           - name: Audit
             command: pnpm audit --prod || true
 

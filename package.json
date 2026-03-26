@@ -10,10 +10,14 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./schemas/*": {
       "import": "./schemas/*",
@@ -42,7 +46,7 @@
   "author": "Carrot Foundation",
   "repository": {
     "type": "git",
-    "url": "https://github.com/carrot-foundation/schemas.git"
+    "url": "git+https://github.com/carrot-foundation/schemas.git"
   },
   "scripts": {
     "ai:check": "node scripts/check-ai-instructions.mjs",
@@ -50,6 +54,7 @@
     "build": "tsup",
     "check": "run-s lint:fix format type-check spell-check pkgJsonLint generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test ai:check",
     "check-refs": "node scripts/check-refs.js",
+    "check-types-exports": "attw --pack .",
     "check:parallel": "run-p lint:fix format type-check spell-check pkgJsonLint test generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples ai:check",
     "clean": "rm -rf dist",
     "format": "prettier --write .",
@@ -65,6 +70,8 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
     "prepublishOnly": "pnpm build",
+    "publint": "publint",
+    "size-limit": "size-limit",
     "spell-check": "cspell lint --no-must-find-files \"src/**/*\"",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -82,10 +89,12 @@
     "zod": "4.1.13"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.2",
     "@commitlint/cli": "20.1.0",
     "@commitlint/config-conventional": "20.0.0",
     "@cspell/dict-pt-br": "2.4.2",
     "@eslint/js": "9.39.1",
+    "@size-limit/file": "12.0.1",
     "@tsconfig/recommended": "1.0.13",
     "@types/node": "24.10.1",
     "@vitest/coverage-v8": "4.0.15",
@@ -105,6 +114,8 @@
     "npm-package-json-lint-config-default": "8.0.1",
     "npm-run-all2": "8.0.4",
     "prettier": "3.7.4",
+    "publint": "0.3.18",
+    "size-limit": "12.0.1",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
     "typescript-eslint": "8.48.1",
