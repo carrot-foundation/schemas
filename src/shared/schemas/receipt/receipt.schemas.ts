@@ -24,7 +24,7 @@ const SummaryBaseSchema = z.strictObject({
   }),
 });
 
-export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.extend({
+export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.safeExtend({
   total_amount_usdc: UsdcAmountSchema.meta({
     title: 'Total Amount (USDC)',
     description: 'Total amount paid in USDC for the purchase',
@@ -46,20 +46,21 @@ export type CreditPurchaseReceiptSummary = z.infer<
   typeof CreditPurchaseReceiptSummarySchema
 >;
 
-export const CreditRetirementReceiptSummarySchema = SummaryBaseSchema.extend({
-  total_credits_retired: CreditAmountSchema.meta({
-    title: 'Total Credits Retired',
-    description: 'Total amount of credits retired',
-  }),
-  retired_at: IsoDateTimeSchema.meta({
-    title: 'Retired At',
-    description: 'ISO 8601 timestamp when the retirement occurred',
-  }),
-}).meta({
-  title: 'Credit Retirement Receipt Summary',
-  description:
-    'Summary totals for the credit retirement including amounts and collections represented',
-});
+export const CreditRetirementReceiptSummarySchema =
+  SummaryBaseSchema.safeExtend({
+    total_credits_retired: CreditAmountSchema.meta({
+      title: 'Total Credits Retired',
+      description: 'Total amount of credits retired',
+    }),
+    retired_at: IsoDateTimeSchema.meta({
+      title: 'Retired At',
+      description: 'ISO 8601 timestamp when the retirement occurred',
+    }),
+  }).meta({
+    title: 'Credit Retirement Receipt Summary',
+    description:
+      'Summary totals for the credit retirement including amounts and collections represented',
+  });
 export type CreditRetirementReceiptSummary = z.infer<
   typeof CreditRetirementReceiptSummarySchema
 >;
