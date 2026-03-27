@@ -2,13 +2,21 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices", ":dependencyDashboard"],
   "dependencyDashboard": true,
+  "rangeStrategy": "pin",
   "automerge": true,
   "automergeType": "pr",
+  "platformAutomerge": true,
   "reviewers": ["team:Developers"],
+  "labels": ["dependencies"],
   "schedule": ["on tuesday and thursday"],
+  "postUpdateOptions": ["pnpmDedupe"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on the first day of the month"]
+  },
   "packageRules": [
     {
-      "description": "Group lint tools together (overrides catch-all below)",
+      "description": "Group lint tools together",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "lint non-major dependencies",
       "groupSlug": "lint-minor-patch",
@@ -22,18 +30,31 @@
       ]
     },
     {
-      "description": "Group vitest packages together (overrides catch-all below)",
+      "description": "Group vitest packages together",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "vitest non-major dependencies",
       "groupSlug": "vitest-minor-patch",
       "matchPackageNames": ["/vitest/"]
     },
     {
-      "description": "Group TypeScript toolchain together (overrides catch-all below)",
+      "description": "Group TypeScript toolchain together",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "typescript non-major dependencies",
       "groupSlug": "typescript-minor-patch",
       "matchPackageNames": ["typescript", "/tsup/", "/tsconfig/"]
+    },
+    {
+      "description": "Group semantic-release plugins together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "semantic-release non-major dependencies",
+      "groupSlug": "semantic-release-minor-patch",
+      "matchPackageNames": ["/semantic-release/", "/conventional-changelog/"]
+    },
+    {
+      "description": "Automerge GitHub Actions minor/patch/digest updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true
     },
     {
       "description": "Catch-all: remaining devDependencies grouped together",
