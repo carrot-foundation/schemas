@@ -217,4 +217,20 @@ describe('MassIDIpfsSchema', () => {
       return next;
     }, ['Short name token_id must match blockchain.token_id: 1034']);
   });
+
+  it('rejects name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.name = 'MassID #1034 • Invalid Format';
+      return next;
+    }, ['Name must match format']);
+  });
+
+  it('rejects short_name with correct token_id but invalid format', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.short_name = 'MassID #1034 Extra';
+      return next;
+    }, ['Short name must be exactly']);
+  });
 });

@@ -1,4 +1,3 @@
-/* v8 ignore file -- @preserve */
 import { z } from 'zod';
 import { NftAttributeSchema, type NftAttribute } from './nft.schema';
 import { WeightKgSchema, UnixTimestampSchema } from '../primitives';
@@ -7,22 +6,10 @@ import { uniqueBy } from '../../schema-helpers';
 function getSchemaMetadata<T extends z.ZodTypeAny>(
   schema: T,
 ): Record<string, unknown> | undefined {
-  if (typeof schema.meta === 'function') {
-    const meta = schema.meta();
-    if (meta && typeof meta === 'object') {
-      return meta as Record<string, unknown>;
-    }
+  const meta = schema.meta();
+  if (meta && typeof meta === 'object') {
+    return meta as Record<string, unknown>;
   }
-
-  try {
-    const meta = z.globalRegistry.get(schema);
-    if (meta && typeof meta === 'object') {
-      return meta as Record<string, unknown>;
-    }
-  } catch {
-    // Registry lookup failed, return undefined
-  }
-
   return undefined;
 }
 
@@ -70,7 +57,7 @@ function extractTraitType(schema: z.ZodTypeAny): string {
     if (meta?.title) {
       const title = meta.title as string;
       if (title.endsWith(' Attribute')) {
-        const inferred = title.slice(0, -11);
+        const inferred = title.slice(0, -' Attribute'.length);
         if (inferred.length > 3) {
           return inferred;
         }

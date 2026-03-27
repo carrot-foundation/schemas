@@ -27,7 +27,7 @@ export function expectSchemaInvalid<T>(
 
 export function expectIssues<T>(
   schema: z.ZodType<T>,
-  buildData: () => T,
+  buildData: () => unknown,
   expectedMessages: string[],
 ) {
   const result = schema.safeParse(buildData());
@@ -42,7 +42,7 @@ export function expectIssues<T>(
 
 export function expectIssuesContain<T>(
   schema: z.ZodType<T>,
-  buildData: () => T,
+  buildData: () => unknown,
   expectedSubstrings: string[],
 ) {
   const result = schema.safeParse(buildData());

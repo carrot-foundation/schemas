@@ -1,58 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including attributes and credit retirement data",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.65/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
-  "version": "0.1.65",
   "type": "object",
   "properties": {
     "$schema": {
+      "type": "string",
+      "format": "uri",
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
-      "type": "string",
-      "format": "uri"
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
     },
     "schema": {
       "type": "object",
       "properties": {
         "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         },
         "type": {
-          "title": "CreditRetirementReceipt Schema Type",
-          "description": "Schema type identifier for this record",
           "type": "string",
-          "const": "CreditRetirementReceipt"
+          "const": "CreditRetirementReceipt",
+          "title": "CreditRetirementReceipt Schema Type",
+          "description": "Schema type identifier for this record"
         },
         "version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
           "examples": [
             "0.1.0",
             "1.0.0",
             "2.1.3"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+          ]
         },
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         }
       },
       "required": [
@@ -64,99 +60,97 @@
       "additionalProperties": false
     },
     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
         "2024-12-05T11:02:47.000Z"
-      ],
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+      ]
     },
     "external_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
       "description": "UUID identifier for external system references",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-      ],
-      "type": "string",
-      "format": "uuid",
-      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+      ]
     },
     "external_url": {
+      "type": "string",
+      "format": "uri",
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
         "https://whitepaper.carrot.eco/"
-      ],
-      "type": "string",
-      "format": "uri"
+      ]
     },
     "viewer_reference": {
-      "title": "Metadata Viewer Reference",
-      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
       "type": "object",
       "properties": {
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Viewer IPFS URI",
           "description": "IPFS URI of the metadata viewer dApp build",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         },
         "integrity_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         }
       },
       "required": [
         "ipfs_uri",
         "integrity_hash"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points"
     },
     "environment": {
-      "title": "Record Environment",
-      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
-          "title": "Blockchain Network",
-          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
             "testnet"
-          ]
+          ],
+          "title": "Blockchain Network",
+          "description": "Blockchain network where this record is deployed"
         },
         "deployment": {
-          "title": "Deployment Environment",
-          "description": "System environment where this record was generated",
           "type": "string",
           "enum": [
             "production",
             "development",
             "testing"
-          ]
+          ],
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated"
         },
         "data_set_name": {
-          "title": "Data Set Name",
-          "description": "Name of the data set for this record",
           "type": "string",
           "enum": [
             "TEST",
             "PROD"
-          ]
+          ],
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record"
         }
       },
       "required": [
@@ -164,50 +158,48 @@
         "deployment",
         "data_set_name"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Record Environment",
+      "description": "Environment information for the record"
     },
     "data": {
-      "title": "Credit Retirement Receipt Data",
-      "description": "Complete data structure for a credit retirement receipt",
       "type": "object",
       "properties": {
         "summary": {
-          "title": "Credit Retirement Receipt Summary",
-          "description": "Summary totals for the credit retirement including amounts and collections represented",
           "type": "object",
           "properties": {
             "total_certificates": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991,
               "title": "Total Certificates",
               "description": "Total number of certificates represented in the receipt",
               "examples": [
                 1,
                 123,
                 456
-              ],
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 9007199254740991
+              ]
             },
             "total_credits_retired": {
+              "type": "number",
+              "minimum": 0,
               "title": "Total Credits Retired",
               "description": "Total amount of credits retired",
               "examples": [
                 0,
                 45.2,
                 72.5
-              ],
-              "type": "number",
-              "minimum": 0
+              ]
             },
             "retired_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Retired At",
               "description": "ISO 8601 timestamp when the retirement occurred",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             }
           },
           "required": [
@@ -215,58 +207,56 @@
             "total_credits_retired",
             "retired_at"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Credit Retirement Receipt Summary",
+          "description": "Summary totals for the credit retirement including amounts and collections represented"
         },
         "beneficiary": {
-          "title": "Beneficiary",
-          "description": "Beneficiary receiving the retirement benefit",
           "type": "object",
           "properties": {
             "beneficiary_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "Retirement Beneficiary ID",
               "description": "UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "identity": {
-              "title": "Identity",
-              "description": "Participant identity information",
               "type": "object",
               "properties": {
                 "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
                   "title": "Identity Name",
                   "description": "Display name for the participant",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
-                  ],
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100
+                  ]
                 },
                 "external_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "title": "Identity External ID",
                   "description": "External identifier for the participant",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                  ],
-                  "type": "string",
-                  "format": "uuid",
-                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                  ]
                 },
                 "external_url": {
+                  "type": "string",
+                  "format": "uri",
                   "title": "Identity External URL",
                   "description": "External URL for the participant profile",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
-                  ],
-                  "type": "string",
-                  "format": "uri"
+                  ]
                 }
               },
               "required": [
@@ -274,64 +264,64 @@
                 "external_id",
                 "external_url"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "title": "Identity",
+              "description": "Participant identity information"
             }
           },
           "required": [
             "beneficiary_id",
             "identity"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Beneficiary",
+          "description": "Beneficiary receiving the retirement benefit"
         },
         "credit_holder": {
-          "title": "Credit Holder",
-          "description": "Credit holder wallet and optional identity information",
           "type": "object",
           "properties": {
             "wallet_address": {
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
               "title": "Credit Holder Wallet Address",
               "description": "Ethereum address of the credit holder surrendering credits",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
-              ],
-              "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$"
+              ]
             },
             "identity": {
-              "title": "Identity",
-              "description": "Participant identity information",
               "type": "object",
               "properties": {
                 "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
                   "title": "Identity Name",
                   "description": "Display name for the participant",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
-                  ],
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100
+                  ]
                 },
                 "external_id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "title": "Identity External ID",
                   "description": "External identifier for the participant",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                  ],
-                  "type": "string",
-                  "format": "uuid",
-                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                  ]
                 },
                 "external_url": {
+                  "type": "string",
+                  "format": "uri",
                   "title": "Identity External URL",
                   "description": "External URL for the participant profile",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
-                  ],
-                  "type": "string",
-                  "format": "uri"
+                  ]
                 }
               },
               "required": [
@@ -339,84 +329,84 @@
                 "external_id",
                 "external_url"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "title": "Identity",
+              "description": "Participant identity information"
             }
           },
           "required": [
             "wallet_address"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Credit Holder",
+          "description": "Credit holder wallet and optional identity information"
         },
         "collections": {
-          "title": "Collections",
-          "description": "Collections included in the retirement",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "Collection",
-            "description": "Collection included in the retirement",
             "type": "object",
             "properties": {
               "slug": {
-                "title": "Collection Slug",
-                "description": "URL-friendly identifier for a collection",
-                "examples": [
-                  "bold-cold-start-carazinho",
-                  "bold-brazil"
-                ],
                 "type": "string",
                 "enum": [
                   "bold-innovators",
                   "bold-cold-start-jundiai",
                   "bold-cold-start-carazinho",
                   "bold-brazil"
+                ],
+                "title": "Collection Slug",
+                "description": "URL-friendly identifier for a collection",
+                "examples": [
+                  "bold-cold-start-carazinho",
+                  "bold-brazil"
                 ]
               },
               "external_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Collection External ID",
                 "description": "External identifier for the collection",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                ]
               },
               "name": {
-                "title": "Collection Name",
-                "description": "Display name of the collection",
-                "examples": [
-                  "BOLD Cold Start - Carazinho",
-                  "BOLD Brazil"
-                ],
                 "type": "string",
                 "enum": [
                   "BOLD Innovators",
                   "BOLD Cold Start - Carazinho",
                   "BOLD Cold Start - Jundiaí",
                   "BOLD Brazil"
+                ],
+                "title": "Collection Name",
+                "description": "Display name of the collection",
+                "examples": [
+                  "BOLD Cold Start - Carazinho",
+                  "BOLD Brazil"
                 ]
               },
               "external_url": {
+                "type": "string",
+                "format": "uri",
                 "title": "Collection External URL",
                 "description": "External URL for the collection",
                 "examples": [
                   "https://explore.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
-                ],
-                "type": "string",
-                "format": "uri"
+                ]
               },
               "ipfs_uri": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                 "title": "Collection IPFS URI",
                 "description": "IPFS URI for the collection metadata",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+                ]
               }
             },
             "required": [
@@ -426,81 +416,81 @@
               "external_url",
               "ipfs_uri"
             ],
-            "additionalProperties": false
-          }
+            "additionalProperties": false,
+            "title": "Collection",
+            "description": "Collection included in the retirement"
+          },
+          "title": "Collections",
+          "description": "Collections included in the retirement"
         },
         "credits": {
-          "title": "Credits",
-          "description": "Credits included in the retirement",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "Credit",
-            "description": "Credit token retired in this receipt",
             "type": "object",
             "properties": {
               "external_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "External ID",
                 "description": "UUID identifier for external system references",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                ]
               },
               "external_url": {
+                "type": "string",
+                "format": "uri",
                 "title": "External URL",
                 "description": "URL pointing to external resources",
                 "examples": [
                   "https://explore.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
-                ],
-                "type": "string",
-                "format": "uri"
+                ]
               },
               "ipfs_uri": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                 "title": "IPFS URI",
                 "description": "InterPlanetary File System URI pointing to distributed content",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+                ]
               },
               "smart_contract_address": {
+                "type": "string",
+                "pattern": "^0x[a-f0-9]{40}$",
                 "title": "Smart Contract Address",
                 "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                 "examples": [
                   "0x1234567890abcdef1234567890abcdef12345678"
-                ],
-                "type": "string",
-                "pattern": "^0x[a-f0-9]{40}$"
+                ]
               },
               "slug": {
+                "type": "string",
+                "enum": [
+                  "carbon-methane",
+                  "biowaste"
+                ],
                 "title": "Credit Token Slug",
                 "description": "URL-friendly identifier for the credit token",
                 "examples": [
                   "carbon-methane",
                   "biowaste"
-                ],
-                "type": "string",
-                "enum": [
-                  "carbon-methane",
-                  "biowaste"
                 ]
               },
               "symbol": {
-                "title": "Credit Token Symbol",
-                "description": "ERC20 token symbol identifier",
-                "examples": [
+                "type": "string",
+                "enum": [
                   "C-CARB.CH4",
                   "C-BIOW"
                 ],
-                "type": "string",
-                "enum": [
+                "title": "Credit Token Symbol",
+                "description": "ERC20 token symbol identifier",
+                "examples": [
                   "C-CARB.CH4",
                   "C-BIOW"
                 ]
@@ -514,149 +504,147 @@
               "slug",
               "symbol"
             ],
-            "additionalProperties": false
-          }
+            "additionalProperties": false,
+            "title": "Credit",
+            "description": "Credit token retired in this receipt"
+          },
+          "title": "Credits",
+          "description": "Credits included in the retirement"
         },
         "certificates": {
-          "title": "Certificates",
-          "description": "Certificates retired in this receipt",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "Certificate",
-            "description": "Certificate associated with the retirement",
             "type": "object",
             "properties": {
               "external_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "External ID",
                 "description": "UUID identifier for external system references",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                ]
               },
               "external_url": {
+                "type": "string",
+                "format": "uri",
                 "title": "External URL",
                 "description": "URL pointing to external resources",
                 "examples": [
                   "https://explore.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
-                ],
-                "type": "string",
-                "format": "uri"
+                ]
               },
               "ipfs_uri": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                 "title": "IPFS URI",
                 "description": "InterPlanetary File System URI pointing to distributed content",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+                ]
               },
               "smart_contract_address": {
+                "type": "string",
+                "pattern": "^0x[a-f0-9]{40}$",
                 "title": "Smart Contract Address",
                 "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                 "examples": [
                   "0x1234567890abcdef1234567890abcdef12345678"
-                ],
-                "type": "string",
-                "pattern": "^0x[a-f0-9]{40}$"
+                ]
               },
               "token_id": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^\\d+$",
                 "title": "Token ID",
                 "description": "Unique token identifier for this NFT within the smart contract",
                 "examples": [
                   "456789",
                   "1000000"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^\\d+$"
+                ]
               },
               "type": {
+                "type": "string",
+                "enum": [
+                  "GasID",
+                  "RecycledID"
+                ],
                 "title": "Certificate Type",
                 "description": "Type of certificate (e.g., GasID, RecycledID)",
                 "examples": [
                   "GasID",
                   "RecycledID"
-                ],
-                "type": "string",
-                "enum": [
-                  "GasID",
-                  "RecycledID"
                 ]
               },
               "total_amount": {
+                "type": "number",
+                "minimum": 0,
                 "title": "Certificate Total Amount",
                 "description": "Total credits available in this certificate",
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               },
               "mass_id": {
-                "title": "MassID Reference",
-                "description": "Reference to a MassID record",
                 "type": "object",
                 "properties": {
                   "external_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "External ID",
                     "description": "UUID identifier for external system references",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                    ],
-                    "type": "string",
-                    "format": "uuid",
-                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                    ]
                   },
                   "external_url": {
+                    "type": "string",
+                    "format": "uri",
                     "title": "External URL",
                     "description": "URL pointing to external resources",
                     "examples": [
                       "https://explore.carrot.eco/",
                       "https://whitepaper.carrot.eco/"
-                    ],
-                    "type": "string",
-                    "format": "uri"
+                    ]
                   },
                   "ipfs_uri": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                     "title": "IPFS URI",
                     "description": "InterPlanetary File System URI pointing to distributed content",
                     "examples": [
                       "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                       "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+                    ]
                   },
                   "smart_contract_address": {
+                    "type": "string",
+                    "pattern": "^0x[a-f0-9]{40}$",
                     "title": "Smart Contract Address",
                     "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
                     "examples": [
                       "0x1234567890abcdef1234567890abcdef12345678"
-                    ],
-                    "type": "string",
-                    "pattern": "^0x[a-f0-9]{40}$"
+                    ]
                   },
                   "token_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^\\d+$",
                     "title": "Token ID",
                     "description": "Unique token identifier for this NFT within the smart contract",
                     "examples": [
                       "456789",
                       "1000000"
-                    ],
-                    "type": "string",
-                    "minLength": 1,
-                    "pattern": "^\\d+$"
+                    ]
                   }
                 },
                 "required": [
@@ -666,118 +654,116 @@
                   "smart_contract_address",
                   "token_id"
                 ],
-                "additionalProperties": false
+                "additionalProperties": false,
+                "title": "MassID Reference",
+                "description": "Reference to a MassID record"
               },
               "collections": {
-                "title": "Certificate Collections",
-                "description": "Collections associated with this certificate, each with retired amounts",
                 "minItems": 1,
                 "type": "array",
                 "items": {
-                  "title": "Certificate Collection Item (Retirement)",
-                  "description": "Collection reference with retired amount for a certificate in a retirement receipt",
                   "type": "object",
                   "properties": {
                     "slug": {
-                      "title": "Collection Slug",
-                      "description": "URL-friendly identifier for a collection",
-                      "examples": [
-                        "bold-cold-start-carazinho",
-                        "bold-brazil"
-                      ],
                       "type": "string",
                       "enum": [
                         "bold-innovators",
                         "bold-cold-start-jundiai",
                         "bold-cold-start-carazinho",
                         "bold-brazil"
+                      ],
+                      "title": "Collection Slug",
+                      "description": "URL-friendly identifier for a collection",
+                      "examples": [
+                        "bold-cold-start-carazinho",
+                        "bold-brazil"
                       ]
                     },
                     "retired_amount": {
+                      "type": "number",
+                      "minimum": 0,
                       "title": "Collection Retired Amount",
                       "description": "Credits retired from this collection for this certificate",
                       "examples": [
                         0,
                         45.2,
                         72.5
-                      ],
-                      "type": "number",
-                      "minimum": 0
+                      ]
                     }
                   },
                   "required": [
                     "slug",
                     "retired_amount"
                   ],
-                  "additionalProperties": false
-                }
+                  "additionalProperties": false,
+                  "title": "Certificate Collection Item (Retirement)",
+                  "description": "Collection reference with retired amount for a certificate in a retirement receipt"
+                },
+                "title": "Certificate Collections",
+                "description": "Collections associated with this certificate, each with retired amounts"
               },
               "credits_retired": {
-                "title": "Credits Retired",
-                "description": "Breakdown of credits retired from this certificate by symbol",
                 "minItems": 1,
                 "type": "array",
                 "items": {
-                  "title": "Certificate Credit Retirement",
-                  "description": "Credit retirement breakdown for a certificate",
                   "type": "object",
                   "properties": {
                     "credit_symbol": {
+                      "type": "string",
+                      "enum": [
+                        "C-CARB.CH4",
+                        "C-BIOW"
+                      ],
                       "title": "Credit Token Symbol",
                       "description": "Symbol of the credit token retired from the certificate",
                       "examples": [
                         "C-CARB.CH4",
                         "C-BIOW"
-                      ],
-                      "type": "string",
-                      "enum": [
-                        "C-CARB.CH4",
-                        "C-BIOW"
                       ]
                     },
                     "credit_slug": {
+                      "type": "string",
+                      "enum": [
+                        "carbon-methane",
+                        "biowaste"
+                      ],
                       "title": "Credit Token Slug",
                       "description": "Slug of the credit type retired from the certificate",
                       "examples": [
                         "carbon-methane",
                         "biowaste"
-                      ],
-                      "type": "string",
-                      "enum": [
-                        "carbon-methane",
-                        "biowaste"
                       ]
                     },
                     "amount": {
+                      "type": "number",
+                      "minimum": 0,
                       "title": "Retired Credit Amount",
                       "description": "Credits retired of this type from the certificate",
                       "examples": [
                         0,
                         45.2,
                         72.5
-                      ],
-                      "type": "number",
-                      "minimum": 0
+                      ]
                     },
                     "external_id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                       "title": "Retired Credit External ID",
                       "description": "External identifier for the retired credit entry",
                       "examples": [
                         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                      ],
-                      "type": "string",
-                      "format": "uuid",
-                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                      ]
                     },
                     "external_url": {
+                      "type": "string",
+                      "format": "uri",
                       "title": "Retired Credit External URL",
                       "description": "External URL for the retired credit entry",
                       "examples": [
                         "https://explore.carrot.eco/",
                         "https://whitepaper.carrot.eco/"
-                      ],
-                      "type": "string",
-                      "format": "uri"
+                      ]
                     }
                   },
                   "required": [
@@ -787,8 +773,12 @@
                     "external_id",
                     "external_url"
                   ],
-                  "additionalProperties": false
-                }
+                  "additionalProperties": false,
+                  "title": "Certificate Credit Retirement",
+                  "description": "Credit retirement breakdown for a certificate"
+                },
+                "title": "Credits Retired",
+                "description": "Breakdown of credits retired from this certificate by symbol"
               }
             },
             "required": [
@@ -803,64 +793,66 @@
               "collections",
               "credits_retired"
             ],
-            "additionalProperties": false
-          }
+            "additionalProperties": false,
+            "title": "Certificate",
+            "description": "Certificate associated with the retirement"
+          },
+          "title": "Certificates",
+          "description": "Certificates retired in this receipt"
         },
         "purchase_receipt": {
-          "title": "Credit Purchase Receipt Reference",
-          "description": "Reference to the credit purchase receipt when retirement occurs during purchase",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
               "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "IPFS URI",
               "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             },
             "smart_contract_address": {
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
               "title": "Smart Contract Address",
               "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
-              ],
-              "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$"
+              ]
             },
             "token_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$",
               "title": "Token ID",
               "description": "Unique token identifier for this NFT within the smart contract",
               "examples": [
                 "456789",
                 "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
+              ]
             }
           },
           "required": [
@@ -870,7 +862,9 @@
             "smart_contract_address",
             "token_id"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Credit Purchase Receipt Reference",
+          "description": "Reference to the credit purchase receipt when retirement occurs during purchase"
         }
       },
       "required": [
@@ -881,38 +875,32 @@
         "credits",
         "certificates"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Credit Retirement Receipt Data",
+      "description": "Complete data structure for a credit retirement receipt"
     },
     "audit_data_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$",
       "title": "Audit Data Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-      ],
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$"
+      ]
     },
     "blockchain": {
-      "title": "Blockchain Information",
-      "description": "Blockchain deployment information including smart contract address, network, and token identifier",
       "type": "object",
       "properties": {
         "smart_contract_address": {
+          "type": "string",
+          "pattern": "^0x[a-f0-9]{40}$",
           "title": "Smart Contract Address",
           "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
           "examples": [
             "0x1234567890abcdef1234567890abcdef12345678"
-          ],
-          "type": "string",
-          "pattern": "^0x[a-f0-9]{40}$"
+          ]
         },
         "chain_id": {
-          "title": "Chain ID",
-          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
-          "examples": [
-            137,
-            80002
-          ],
           "anyOf": [
             {
               "type": "number",
@@ -922,31 +910,37 @@
               "type": "number",
               "const": 80002
             }
+          ],
+          "title": "Chain ID",
+          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
+          "examples": [
+            137,
+            80002
           ]
         },
         "network_name": {
+          "type": "string",
+          "enum": [
+            "Polygon",
+            "Amoy"
+          ],
           "title": "Blockchain Network Name",
           "description": "Blockchain network name. Supported values include Polygon and Amoy",
           "examples": [
             "Polygon",
             "Amoy"
-          ],
-          "type": "string",
-          "enum": [
-            "Polygon",
-            "Amoy"
           ]
         },
         "token_id": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^\\d+$",
           "title": "Token ID",
           "description": "NFT token ID",
           "examples": [
             "456789",
             "1000000"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^\\d+$"
+          ]
         }
       },
       "required": [
@@ -955,64 +949,66 @@
         "network_name",
         "token_id"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Blockchain Information",
+      "description": "Blockchain deployment information including smart contract address, network, and token identifier"
     },
     "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^Credit Retirement Receipt #\\d+ • .+ Credits Retired$",
       "title": "Credit Retirement Receipt Name",
       "description": "Full display name for this Credit Retirement Receipt NFT. Format: \"Credit Retirement Receipt #[token_id] • [amount] Credits Retired\"",
       "examples": [
         "Credit Retirement Receipt #1245 • 10.5 Credits Retired",
         "Credit Retirement Receipt #1200 • 3.0 Credits Retired"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 100,
-      "pattern": "^Credit Retirement Receipt #\\d+ • .+ Credits Retired$"
+      ]
     },
     "short_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^Retirement Receipt #\\d+$",
       "title": "Credit Retirement Receipt Short Name",
       "description": "Compact name for UI summaries, tables, or tooltips. Format: \"Retirement Receipt #[token_id]\"",
       "examples": [
         "Retirement Receipt #1245",
         "Retirement Receipt #1200"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 50,
-      "pattern": "^Retirement Receipt #\\d+$"
+      ]
     },
     "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
       "title": "Description",
       "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
       "examples": [
         "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
         "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
-      ],
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 500
+      ]
     },
     "image": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
       "title": "Image URI",
       "description": "IPFS URI pointing to the NFT preview image displayed in marketplaces and wallets",
       "examples": [
         "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
         "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+      ]
     },
     "background_color": {
       "title": "Background Color",
       "description": "Hexadecimal color code used as background color in NFT marketplace displays",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^#[0-9A-F]{6}$",
       "examples": [
         "#2D5A27",
         "#FF5733"
-      ],
-      "type": "string",
-      "minLength": 1,
-      "pattern": "^#[0-9A-F]{6}$"
+      ]
     },
     "animation_url": {
       "title": "Animation URL",
@@ -1030,26 +1026,28 @@
       "description": "Optional list of public resource links with labels",
       "type": "array",
       "items": {
-        "title": "External Link",
-        "description": "External link with label and description",
         "type": "object",
         "properties": {
           "label": {
-            "title": "Link Label",
-            "description": "Display name for the external link",
             "type": "string",
             "minLength": 1,
-            "maxLength": 50
+            "maxLength": 50,
+            "title": "Link Label",
+            "description": "Display name for the external link",
+            "examples": [
+              "Example text",
+              "Sample value"
+            ]
           },
           "url": {
+            "type": "string",
+            "format": "uri",
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
               "https://explore.carrot.eco/",
               "https://whitepaper.carrot.eco/"
-            ],
-            "type": "string",
-            "format": "uri"
+            ]
           },
           "description": {
             "title": "Link Description",
@@ -1063,19 +1061,17 @@
           "label",
           "url"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "title": "External Link",
+        "description": "External link with label and description"
       }
     },
     "attributes": {
-      "title": "Credit Retirement Receipt NFT Attribute Array",
-      "description": "Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and optional purchase info. Fixed required attributes: Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired. Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). Dynamic attributes: Credit attributes (one per credit symbol in data.credits).\n\nRequired attributes (4): Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired",
       "minItems": 4,
       "type": "array",
       "items": {
         "anyOf": [
           {
-            "title": "Total Credits Retired Attribute",
-            "description": "Total number of credits retired across all tokens attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1083,15 +1079,15 @@
                 "const": "Total Credits Retired"
               },
               "value": {
+                "type": "number",
+                "minimum": 0,
                 "title": "Total Credits Retired",
                 "description": "Total number of credits retired across all tokens",
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1100,13 +1096,13 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
@@ -1114,11 +1110,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Total Credits Retired Attribute",
+            "description": "Total number of credits retired across all tokens attribute with numeric display"
           },
           {
-            "title": "Beneficiary Attribute",
-            "description": "Attribute containing the beneficiary display name",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1126,14 +1122,14 @@
                 "const": "Beneficiary"
               },
               "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
                 "title": "Beneficiary",
                 "description": "Beneficiary receiving the retirement benefit",
                 "examples": [
                   "Climate Action Corp"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1149,24 +1145,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Beneficiary Attribute",
+            "description": "Attribute containing the beneficiary display name"
           },
           {
-            "title": "Retirement Date Attribute",
-            "description": "Unix timestamp in milliseconds when the retirement was completed attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1174,14 +1170,14 @@
                 "const": "Retirement Date"
               },
               "value": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991,
                 "title": "Retirement Date",
                 "description": "Unix timestamp in milliseconds when the retirement was completed",
                 "examples": [
                   1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1193,11 +1189,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Retirement Date Attribute",
+            "description": "Unix timestamp in milliseconds when the retirement was completed attribute"
           },
           {
-            "title": "Certificates Retired Attribute",
-            "description": "Total number of certificates retired attribute with numeric display",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1205,16 +1201,16 @@
                 "const": "Certificates Retired"
               },
               "value": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991,
                 "title": "Certificates Retired",
                 "description": "Total number of certificates retired",
                 "examples": [
                   1,
                   123,
                   456
-                ],
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9007199254740991
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1223,13 +1219,13 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
@@ -1237,11 +1233,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Certificates Retired Attribute",
+            "description": "Total number of certificates retired attribute with numeric display"
           },
           {
-            "title": "Credit Holder Attribute",
-            "description": "Attribute containing the credit holder display name",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1249,14 +1245,14 @@
                 "const": "Credit Holder"
               },
               "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
                 "title": "Credit Holder",
                 "description": "Entity that surrendered the credits",
                 "examples": [
                   "EcoTech Solutions Inc."
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                ]
               },
               "display_type": {
                 "title": "Display Type",
@@ -1272,24 +1268,24 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Credit Holder Attribute",
+            "description": "Attribute containing the credit holder display name"
           },
           {
-            "title": "Purchase Date Attribute",
-            "description": "Unix timestamp in milliseconds when credits were purchased (if purchase_receipt is present) attribute",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1297,14 +1293,14 @@
                 "const": "Purchase Date"
               },
               "value": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991,
                 "title": "Purchase Date",
                 "description": "Unix timestamp in milliseconds when credits were purchased (if purchase_receipt is present)",
                 "examples": [
                   1704067200000
-                ],
-                "type": "integer",
-                "exclusiveMinimum": 0,
-                "maximum": 9007199254740991
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1316,11 +1312,11 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Purchase Date Attribute",
+            "description": "Unix timestamp in milliseconds when credits were purchased (if purchase_receipt is present) attribute"
           },
           {
-            "title": "Purchase Receipt Attribute",
-            "description": "Attribute representing the purchase receipt token ID",
             "type": "object",
             "properties": {
               "trait_type": {
@@ -1328,12 +1324,16 @@
                 "const": "Purchase Receipt"
               },
               "value": {
-                "title": "Purchase Receipt Token ID",
-                "description": "Token ID of the purchase receipt NFT as #<token_id> (if purchase_receipt is present)",
-                "example": "#123",
                 "type": "string",
                 "minLength": 1,
-                "pattern": "^#\\d+$"
+                "pattern": "^#\\d+$",
+                "title": "Purchase Receipt Token ID",
+                "description": "Token ID of the purchase receipt NFT as #<token_id> (if purchase_receipt is present)",
+                "examples": [
+                  "Example text",
+                  "Sample value"
+                ],
+                "example": "#123"
               },
               "display_type": {
                 "title": "Display Type",
@@ -1349,49 +1349,49 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
               "trait_type",
               "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Purchase Receipt Attribute",
+            "description": "Attribute representing the purchase receipt token ID"
           },
           {
-            "title": "Credit Attribute",
-            "description": "Attribute representing retired amount per credit token symbol",
             "type": "object",
             "properties": {
               "trait_type": {
+                "type": "string",
+                "enum": [
+                  "C-CARB.CH4",
+                  "C-BIOW"
+                ],
                 "title": "Credit Token Symbol",
                 "description": "ERC20 token symbol identifier",
                 "examples": [
                   "C-CARB.CH4",
                   "C-BIOW"
-                ],
-                "type": "string",
-                "enum": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
                 ]
               },
               "value": {
+                "type": "number",
+                "minimum": 0,
                 "title": "Credit Retirement Amount",
                 "description": "Amount of credits retired for the token symbol",
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               },
               "display_type": {
                 "type": "string",
@@ -1400,13 +1400,13 @@
               "max_value": {
                 "title": "Max Value",
                 "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
                 "examples": [
                   0,
                   45.2,
                   72.5
-                ],
-                "type": "number",
-                "minimum": 0
+                ]
               }
             },
             "required": [
@@ -1414,10 +1414,14 @@
               "value",
               "display_type"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "title": "Credit Attribute",
+            "description": "Attribute representing retired amount per credit token symbol"
           }
         ]
-      }
+      },
+      "title": "Credit Retirement Receipt NFT Attribute Array",
+      "description": "Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and optional purchase info. Fixed required attributes: Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired. Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). Dynamic attributes: Credit attributes (one per credit symbol in data.credits).\n\nRequired attributes (4): Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired"
     }
   },
   "required": [
@@ -1437,5 +1441,9 @@
     "image",
     "attributes"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "CreditRetirementReceipt NFT IPFS Record",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including attributes and credit retirement data",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
+  "version": "0.2.4"
 }

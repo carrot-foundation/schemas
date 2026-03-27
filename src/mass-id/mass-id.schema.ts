@@ -6,9 +6,12 @@ import {
   NftIpfsSchema,
   MassIDNameSchema,
   MassIDShortNameSchema,
+  createMassIDNameSchema,
+  createMassIDShortNameSchema,
   createAttributeMap,
   validateAttributeValue,
   validateDateTimeAttribute,
+  validateFormattedName,
   validateTokenIdInName,
 } from '../shared';
 import { MassIDAttributesSchema } from './mass-id.attributes';
@@ -66,6 +69,24 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
       pattern: /^MassID #(\d+)/,
       path: ['short_name'],
       message: `Short name token_id must match blockchain.token_id: ${record.blockchain.token_id}`,
+    });
+
+    const nameSchema = createMassIDNameSchema(record.blockchain.token_id);
+    validateFormattedName({
+      ctx,
+      name: record.name,
+      schema: nameSchema,
+      path: ['name'],
+    });
+
+    const shortNameSchema = createMassIDShortNameSchema(
+      record.blockchain.token_id,
+    );
+    validateFormattedName({
+      ctx,
+      name: record.short_name,
+      schema: shortNameSchema,
+      path: ['short_name'],
     });
 
     const { data, attributes } = record;

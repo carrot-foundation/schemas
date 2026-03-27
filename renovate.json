@@ -1,6 +1,79 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "extends": ["config:best-practices", ":dependencyDashboard"],
+  "dependencyDashboard": true,
+  "rangeStrategy": "pin",
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "reviewers": ["team:Developers"],
+  "labels": ["dependencies"],
+  "schedule": ["on tuesday and thursday"],
+  "postUpdateOptions": ["pnpmDedupe"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on the first day of the month"]
+  },
+  "packageRules": [
+    {
+      "description": "Group lint tools together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "lint non-major dependencies",
+      "groupSlug": "lint-minor-patch",
+      "matchPackageNames": [
+        "/lint/",
+        "/cspell/",
+        "/prettier/",
+        "/eslint/",
+        "/commitlint/",
+        "/husky/"
+      ]
+    },
+    {
+      "description": "Group vitest packages together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "vitest non-major dependencies",
+      "groupSlug": "vitest-minor-patch",
+      "matchPackageNames": ["/vitest/"]
+    },
+    {
+      "description": "Group TypeScript toolchain together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "typescript non-major dependencies",
+      "groupSlug": "typescript-minor-patch",
+      "matchPackageNames": ["typescript", "/tsup/", "/tsconfig/"]
+    },
+    {
+      "description": "Group semantic-release plugins together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "semantic-release non-major dependencies",
+      "groupSlug": "semantic-release-minor-patch",
+      "matchPackageNames": ["/semantic-release/", "/conventional-changelog/"]
+    },
+    {
+      "description": "Automerge GitHub Actions minor/patch/digest updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "automerge": true
+    },
+    {
+      "description": "Catch-all: remaining devDependencies grouped together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major devDependencies",
+      "groupSlug": "all-devDependencies-minor-patch",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackageNames": ["*"]
+    },
+    {
+      "description": "Catch-all: remaining production dependencies grouped together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all non-major production dependencies",
+      "groupSlug": "all-productionDependencies-minor-patch",
+      "matchDepTypes": ["dependencies"],
+      "matchPackageNames": ["*"]
+    }
+  ],
+  "major": {
+    "dependencyDashboardApproval": true
+  }
 }

@@ -1,58 +1,54 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "MassID Audit IPFS Record",
-  "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.1.65/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
-  "version": "0.1.65",
   "type": "object",
   "properties": {
     "$schema": {
+      "type": "string",
+      "format": "uri",
       "title": "JSON Schema URI",
       "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json",
-      "type": "string",
-      "format": "uri"
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
     },
     "schema": {
       "type": "object",
       "properties": {
         "hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         },
         "type": {
-          "title": "MassID Audit Schema Type",
-          "description": "MassID Audit schema type",
           "type": "string",
-          "const": "MassID Audit"
+          "const": "MassID Audit",
+          "title": "MassID Audit Schema Type",
+          "description": "MassID Audit schema type"
         },
         "version": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Schema Version",
           "description": "Version of the schema, using semantic versioning",
           "examples": [
             "0.1.0",
             "1.0.0",
             "2.1.3"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+          ]
         },
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
           "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         }
       },
       "required": [
@@ -64,99 +60,97 @@
       "additionalProperties": false
     },
     "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
       "description": "ISO 8601 creation timestamp for this record",
       "examples": [
         "2024-12-05T11:02:47.000Z"
-      ],
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+      ]
     },
     "external_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
       "description": "UUID identifier for external system references",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-      ],
-      "type": "string",
-      "format": "uuid",
-      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+      ]
     },
     "external_url": {
+      "type": "string",
+      "format": "uri",
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
         "https://explore.carrot.eco/",
         "https://whitepaper.carrot.eco/"
-      ],
-      "type": "string",
-      "format": "uri"
+      ]
     },
     "viewer_reference": {
-      "title": "Metadata Viewer Reference",
-      "description": "References to the metadata viewer dApp, including immutable and latest entry points",
       "type": "object",
       "properties": {
         "ipfs_uri": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Viewer IPFS URI",
           "description": "IPFS URI of the metadata viewer dApp build",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-          ],
-          "type": "string",
-          "minLength": 1,
-          "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+          ]
         },
         "integrity_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ],
-          "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$"
+          ]
         }
       },
       "required": [
         "ipfs_uri",
         "integrity_hash"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Metadata Viewer Reference",
+      "description": "References to the metadata viewer dApp, including immutable and latest entry points"
     },
     "environment": {
-      "title": "Record Environment",
-      "description": "Environment information for the record",
       "type": "object",
       "properties": {
         "blockchain_network": {
-          "title": "Blockchain Network",
-          "description": "Blockchain network where this record is deployed",
           "type": "string",
           "enum": [
             "mainnet",
             "testnet"
-          ]
+          ],
+          "title": "Blockchain Network",
+          "description": "Blockchain network where this record is deployed"
         },
         "deployment": {
-          "title": "Deployment Environment",
-          "description": "System environment where this record was generated",
           "type": "string",
           "enum": [
             "production",
             "development",
             "testing"
-          ]
+          ],
+          "title": "Deployment Environment",
+          "description": "System environment where this record was generated"
         },
         "data_set_name": {
-          "title": "Data Set Name",
-          "description": "Name of the data set for this record",
           "type": "string",
           "enum": [
             "TEST",
             "PROD"
-          ]
+          ],
+          "title": "Data Set Name",
+          "description": "Name of the data set for this record"
         }
       },
       "required": [
@@ -164,73 +158,71 @@
         "deployment",
         "data_set_name"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "Record Environment",
+      "description": "Environment information for the record"
     },
     "data": {
-      "title": "MassID Audit Data",
-      "description": "Complete data structure for MassID Audit records. Must include exactly one of gas_id or recycled_id.",
       "type": "object",
       "properties": {
         "methodology": {
-          "title": "Methodology Reference",
-          "description": "Reference to a methodology record",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "Methodology External ID",
               "description": "Unique identifier for the methodology",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "name": {
+              "type": "string",
+              "enum": [
+                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
+                "AMS-III.F. | BOLD Recycling Credit"
+              ],
               "title": "Methodology Name",
               "description": "Full official name of the methodology",
               "examples": [
                 "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
                 "AMS-III.F. | BOLD Recycling Credit"
-              ],
-              "type": "string",
-              "enum": [
-                "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
-                "AMS-III.F. | BOLD Recycling Credit"
               ]
             },
             "version": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
               "title": "Methodology Version",
               "description": "Version of the methodology",
               "examples": [
                 "0.1.0",
                 "1.0.0",
                 "2.1.3"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "Methodology External URL",
               "description": "URL to view the methodology on Carrot Explorer",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "Methodology IPFS URI",
               "description": "IPFS URI to the methodology record",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             }
           },
           "required": [
@@ -240,63 +232,63 @@
             "external_url",
             "ipfs_uri"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Methodology Reference",
+          "description": "Reference to a methodology record"
         },
         "mass_id": {
-          "title": "MassID Reference",
-          "description": "Reference to a MassID record",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
               "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "IPFS URI",
               "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             },
             "smart_contract_address": {
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
               "title": "Smart Contract Address",
               "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
-              ],
-              "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$"
+              ]
             },
             "token_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$",
               "title": "Token ID",
               "description": "Unique token identifier for this NFT within the smart contract",
               "examples": [
                 "456789",
                 "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
+              ]
             }
           },
           "required": [
@@ -306,63 +298,63 @@
             "smart_contract_address",
             "token_id"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "MassID Reference",
+          "description": "Reference to a MassID record"
         },
         "gas_id": {
-          "title": "GasID Reference",
-          "description": "Reference to a GasID record",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
               "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "IPFS URI",
               "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             },
             "smart_contract_address": {
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
               "title": "Smart Contract Address",
               "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
-              ],
-              "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$"
+              ]
             },
             "token_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$",
               "title": "Token ID",
               "description": "Unique token identifier for this NFT within the smart contract",
               "examples": [
                 "456789",
                 "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
+              ]
             }
           },
           "required": [
@@ -372,63 +364,63 @@
             "smart_contract_address",
             "token_id"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "GasID Reference",
+          "description": "Reference to a GasID record"
         },
         "recycled_id": {
-          "title": "RecycledID Reference",
-          "description": "Reference to a RecycledID record",
           "type": "object",
           "properties": {
             "external_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
               "description": "UUID identifier for external system references",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-              ],
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+              ]
             },
             "external_url": {
+              "type": "string",
+              "format": "uri",
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
                 "https://explore.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
-              ],
-              "type": "string",
-              "format": "uri"
+              ]
             },
             "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "IPFS URI",
               "description": "InterPlanetary File System URI pointing to distributed content",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$"
+              ]
             },
             "smart_contract_address": {
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
               "title": "Smart Contract Address",
               "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
-              ],
-              "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$"
+              ]
             },
             "token_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^\\d+$",
               "title": "Token ID",
               "description": "Unique token identifier for this NFT within the smart contract",
               "examples": [
                 "456789",
                 "1000000"
-              ],
-              "type": "string",
-              "minLength": 1,
-              "pattern": "^\\d+$"
+              ]
             }
           },
           "required": [
@@ -438,42 +430,42 @@
             "smart_contract_address",
             "token_id"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "RecycledID Reference",
+          "description": "Reference to a RecycledID record"
         },
         "audit_summary": {
-          "title": "Audit Summary",
-          "description": "Summary of audit execution results",
           "type": "object",
           "properties": {
             "started_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Audit Start Timestamp",
               "description": "ISO 8601 timestamp when the audit was started",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             },
             "completed_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Audit Completion Timestamp",
               "description": "ISO 8601 timestamp when the audit was completed",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
-              ],
-              "type": "string",
-              "format": "date-time",
-              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              ]
             },
             "result": {
-              "title": "Audit Result",
-              "description": "Overall outcome of the audit process",
-              "examples": [
+              "type": "string",
+              "enum": [
                 "PASSED",
                 "FAILED"
               ],
-              "type": "string",
-              "enum": [
+              "title": "Audit Result",
+              "description": "Overall outcome of the audit process",
+              "examples": [
                 "PASSED",
                 "FAILED"
               ]
@@ -484,122 +476,120 @@
             "completed_at",
             "result"
           ],
-          "additionalProperties": false
+          "additionalProperties": false,
+          "title": "Audit Summary",
+          "description": "Summary of audit execution results"
         },
         "rule_execution_results": {
-          "title": "Audit Rule Execution Results",
-          "description": "Detailed results of each audit rule execution, sorted by execution_started_at",
           "minItems": 1,
           "type": "array",
           "items": {
-            "title": "Audit Rule Execution Result",
-            "description": "Detailed result of an audit rule execution",
             "type": "object",
             "properties": {
               "rule_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Rule ID",
                 "description": "Unique identifier for the audit rule",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                ]
               },
               "rule_slug": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$",
                 "title": "Rule Slug",
                 "description": "URL-friendly identifier for the rule",
                 "examples": [
                   "mass-id-123",
                   "recycled-plastic",
                   "organic-waste"
-                ],
+                ]
+              },
+              "rule_name": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 100,
-                "pattern": "^[a-z0-9-]+$"
-              },
-              "rule_name": {
                 "title": "Rule Name",
                 "description": "Human-readable name of the rule",
                 "examples": [
                   "Waste Mass is Unique",
                   "No Conflicting GasID or Credit"
-                ],
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100
+                ]
               },
               "rule_description": {
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 500,
                 "title": "Rule Description",
                 "description": "Detailed description of what the rule validates and why it is necessary",
                 "examples": [
                   "Validates that each MassID is unique within the system to prevent duplicate entries"
-                ],
-                "type": "string",
-                "minLength": 10,
-                "maxLength": 500
+                ]
               },
               "rule_source_code_url": {
+                "type": "string",
+                "pattern": "^https:\\/\\/github\\.com\\/.*$",
                 "title": "Rule Source Code URL",
                 "description": "GitHub URL pointing to the implementation source code for this rule",
                 "examples": [
                   "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js"
-                ],
-                "type": "string",
-                "pattern": "^https:\\/\\/github\\.com\\/.*$"
+                ]
               },
               "rule_execution_order": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991,
                 "title": "Rule Execution Order",
                 "description": "Sequential order in which this rule must be executed",
                 "examples": [
                   1,
                   123,
                   456
-                ],
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9007199254740991
+                ]
               },
               "execution_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Execution ID",
                 "description": "Unique identifier for this specific rule execution",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ],
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$"
+                ]
               },
               "execution_started_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                 "title": "Execution Started At",
                 "description": "ISO 8601 timestamp when the rule execution started",
                 "examples": [
                   "2024-12-05T11:02:47.000Z"
-                ],
-                "type": "string",
-                "format": "date-time",
-                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                ]
               },
               "execution_completed_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
                 "title": "Execution Completed At",
                 "description": "ISO 8601 timestamp when the rule execution completed",
                 "examples": [
                   "2024-12-05T11:02:47.000Z"
-                ],
-                "type": "string",
-                "format": "date-time",
-                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                ]
               },
               "result": {
-                "title": "Rule Execution Result",
-                "description": "Result of the rule execution",
-                "examples": [
+                "type": "string",
+                "enum": [
                   "PASSED",
                   "FAILED"
                 ],
-                "type": "string",
-                "enum": [
+                "title": "Rule Execution Result",
+                "description": "Result of the rule execution",
+                "examples": [
                   "PASSED",
                   "FAILED"
                 ]
@@ -618,18 +608,26 @@
                 "maxLength": 2000
               },
               "rule_processor_checksum": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
                 "title": "Rule Processor Checksum",
                 "description": "Checksum for rule processor integrity verification",
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 200
+                "examples": [
+                  "Example text",
+                  "Sample value"
+                ]
               },
               "rule_source_code_version": {
-                "title": "Rule Source Code Version",
-                "description": "Version identifier for the rule source code",
                 "type": "string",
                 "minLength": 1,
-                "maxLength": 200
+                "maxLength": 200,
+                "title": "Rule Source Code Version",
+                "description": "Version identifier for the rule source code",
+                "examples": [
+                  "Example text",
+                  "Sample value"
+                ]
               }
             },
             "required": [
@@ -646,8 +644,12 @@
               "rule_processor_checksum",
               "rule_source_code_version"
             ],
-            "additionalProperties": false
-          }
+            "additionalProperties": false,
+            "title": "Audit Rule Execution Result",
+            "description": "Detailed result of an audit rule execution"
+          },
+          "title": "Audit Rule Execution Results",
+          "description": "Detailed results of each audit rule execution, sorted by execution_started_at"
         }
       },
       "required": [
@@ -656,7 +658,9 @@
         "audit_summary",
         "rule_execution_results"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "title": "MassID Audit Data",
+      "description": "Complete data structure for MassID Audit records. Must include exactly one of gas_id or recycled_id."
     }
   },
   "required": [
@@ -667,5 +671,9 @@
     "external_url",
     "data"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "title": "MassID Audit IPFS Record",
+  "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "version": "0.2.4"
 }

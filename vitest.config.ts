@@ -6,6 +6,10 @@ export default defineConfig({
     environment: 'node',
     include: ['src/**/__tests__/**/*.spec.{ts,js}', 'src/**/*.spec.{ts,js}'],
     exclude: ['**/node_modules/**', '**/dist/**', '**/coverage/**'],
+    reporters: ['default', 'junit'],
+    outputFile: {
+      junit: 'coverage/junit.xml',
+    },
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
@@ -16,7 +20,7 @@ export default defineConfig({
         lines: 100,
         statements: 100,
       },
-      reporter: ['text', 'json', 'html', 'lcov'],
+      reporter: ['text', 'json', 'html', 'lcov', 'cobertura'],
     },
     clearMocks: true,
     mockReset: true,
