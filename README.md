@@ -91,13 +91,13 @@ const { MassIDIpfsSchema } = require('@carrot-foundation/schemas');
 
 Generated JSON Schemas are available at stable URLs and included in the npm package under `schemas/`:
 
-```
+```text
 https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
 ```
 
 Example JSON data for each schema is also available:
 
-```
+```text
 schemas/ipfs/mass-id/mass-id.schema.json
 schemas/ipfs/mass-id/mass-id.example.json
 ```
@@ -106,7 +106,7 @@ schemas/ipfs/mass-id/mass-id.example.json
 
 Schemas follow a layered composition pattern using Zod's `.safeExtend()`:
 
-```
+```text
 BaseIpfsSchema            Common IPFS record fields ($schema, created_at, external_id, ...)
 ├─ NftIpfsSchema          NFT fields (blockchain, name, description, image, attributes)
 │    └─ Asset/Receipt     MassIDIpfsSchema, GasIDIpfsSchema, RecycledIDIpfsSchema,
@@ -116,7 +116,7 @@ BaseIpfsSchema            Common IPFS record fields ($schema, created_at, extern
 
 ### Source Structure
 
-```
+```text
 src/
 ├── mass-id/                    # Example: NFT schema type (has all files)
 │   ├── mass-id.schema.ts       #   IPFS schema (extends NftIpfsSchema)
