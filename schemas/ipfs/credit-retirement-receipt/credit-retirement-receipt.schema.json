@@ -421,7 +421,7 @@
             "description": "Collection included in the retirement"
           },
           "title": "Collections",
-          "description": "Collections included in the retirement"
+          "description": "Impact collections referenced by this retirement, each identified by a unique slug"
         },
         "credits": {
           "minItems": 1,
@@ -509,7 +509,7 @@
             "description": "Credit token retired in this receipt"
           },
           "title": "Credits",
-          "description": "Credits included in the retirement"
+          "description": "Credit token types retired in this receipt, each identified by a unique slug and symbol"
         },
         "certificates": {
           "minItems": 1,
@@ -798,7 +798,7 @@
             "description": "Certificate associated with the retirement"
           },
           "title": "Certificates",
-          "description": "Certificates retired in this receipt"
+          "description": "Environmental certificates retired in this receipt, each linking collection-level retired amounts to per-credit breakdowns"
         },
         "purchase_receipt": {
           "type": "object",
@@ -1435,7 +1435,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including attributes and credit retirement data",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details, credit breakdowns, certificate allocations, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "version": "0.2.4"
 }

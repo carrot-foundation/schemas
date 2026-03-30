@@ -9,7 +9,7 @@ import { MethodologyDataSchema } from './methodology.data.schema';
 export const MethodologySchemaMeta = {
   title: 'Methodology IPFS Record',
   description:
-    'Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules',
+    'Methodology metadata stored in IPFS, defining the environmental impact measurement approach including versioning, documentation, and MassID audit rules',
   $id: buildSchemaUrl('methodology/methodology.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;

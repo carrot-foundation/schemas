@@ -27,7 +27,8 @@ const GasIDAttributeGasTypeSchema = NftAttributeSchema.safeExtend({
   value: GasTypeSchema,
 }).meta({
   title: 'Gas Type Attribute',
-  description: 'Gas type attribute',
+  description:
+    'Type of greenhouse gas whose emissions were prevented (e.g., CH4, CO2)',
 });
 export type GasIDAttributeGasType = z.infer<typeof GasIDAttributeGasTypeSchema>;
 

@@ -153,7 +153,8 @@ export const CreditRetirementReceiptDataSchema = z
       .min(1)
       .meta({
         title: 'Collections',
-        description: 'Collections included in the retirement',
+        description:
+          'Impact collections referenced by this retirement, each identified by a unique slug',
       }),
     credits: uniqueBy(
       CreditRetirementReceiptCreditSchema,
@@ -163,7 +164,8 @@ export const CreditRetirementReceiptDataSchema = z
       .min(1)
       .meta({
         title: 'Credits',
-        description: 'Credits included in the retirement',
+        description:
+          'Credit token types retired in this receipt, each identified by a unique slug and symbol',
       }),
     certificates: uniqueBy(
       CreditRetirementReceiptCertificateSchema,
@@ -173,7 +175,8 @@ export const CreditRetirementReceiptDataSchema = z
       .min(1)
       .meta({
         title: 'Certificates',
-        description: 'Certificates retired in this receipt',
+        description:
+          'Environmental certificates retired in this receipt, each linking collection-level retired amounts to per-credit breakdowns',
       }),
     purchase_receipt: CreditPurchaseReceiptReferenceSchema.optional(),
   })

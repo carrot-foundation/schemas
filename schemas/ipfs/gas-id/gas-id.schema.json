@@ -25,7 +25,7 @@
           "type": "string",
           "const": "GasID",
           "title": "GasID Schema Type",
-          "description": "GasID NFT schema type"
+          "description": "Schema type identifier for this record"
         },
         "version": {
           "type": "string",
@@ -244,7 +244,7 @@
           ],
           "additionalProperties": false,
           "title": "GasID Summary",
-          "description": "Summary information for the GasID certificate"
+          "description": "Key metrics for the GasID certificate including gas type, credit details, prevented emissions, and issuance timestamps"
         },
         "methodology": {
           "type": "object",
@@ -619,7 +619,7 @@
           ],
           "additionalProperties": false,
           "title": "Source Waste Origin Location",
-          "description": "Location of the waste origin"
+          "description": "Geographic location where the source waste was originally collected"
         },
         "prevented_emissions_calculation": {
           "type": "object",
@@ -705,10 +705,10 @@
                 ],
                 "additionalProperties": false,
                 "title": "Calculation Value",
-                "description": "Single value used in the emissions calculation"
+                "description": "Named parameter or computed result used in the prevented emissions formula"
               },
               "title": "Calculation Values",
-              "description": "Values used to calculate the prevented emissions"
+              "description": "Input parameters and computed result used in the prevented emissions formula"
             }
           },
           "required": [
@@ -719,7 +719,7 @@
           ],
           "additionalProperties": false,
           "title": "Prevented Emissions Calculation",
-          "description": "Details of the prevented emissions calculation"
+          "description": "Methodology-based calculation of prevented CO2e emissions, including formula, method, input values, and computation timestamp"
         }
       },
       "required": [
@@ -733,7 +733,7 @@
       ],
       "additionalProperties": false,
       "title": "GasID Data",
-      "description": "Complete data structure for GasID certificate"
+      "description": "Complete GasID certificate data including summary metrics, methodology reference, audit trail, source MassID, waste properties, origin location, and emissions calculation"
     },
     "audit_data_hash": {
       "type": "string",
@@ -1019,7 +1019,7 @@
           ],
           "additionalProperties": false,
           "title": "Gas Type Attribute",
-          "description": "Gas type attribute"
+          "description": "Type of greenhouse gas whose emissions were prevented (e.g., CH4, CO2)"
         },
         {
           "type": "object",
@@ -1514,7 +1514,7 @@
   ],
   "additionalProperties": false,
   "title": "GasID NFT IPFS Record",
-  "description": "Complete GasID NFT IPFS record including fixed attributes and detailed carbon emissions prevention data",
+  "description": "Complete GasID NFT IPFS record including prevented emissions calculation, source waste provenance, methodology reference, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/gas-id/gas-id.schema.json",
   "version": "0.2.4"
 }

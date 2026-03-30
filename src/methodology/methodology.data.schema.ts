@@ -16,7 +16,8 @@ export const MethodologyDataSchema = z
     slug: MethodologySlugSchema,
     version: SemanticVersionSchema.meta({
       title: 'Methodology Version',
-      description: 'Version of the methodology',
+      description:
+        'Semantic version of this methodology revision (e.g., 1.0.0)',
     }),
     description: z.string().min(50).max(2000).meta({
       title: 'Methodology Description',

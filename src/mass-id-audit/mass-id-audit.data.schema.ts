@@ -38,7 +38,8 @@ export const MassIDAuditSummarySchema = z
   })
   .meta({
     title: 'Audit Summary',
-    description: 'Summary of audit execution results',
+    description:
+      'Overview of the audit execution including start time, completion time, and overall pass/fail result',
   });
 export type MassIDAuditSummary = z.infer<typeof MassIDAuditSummarySchema>;
 

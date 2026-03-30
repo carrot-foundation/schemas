@@ -25,7 +25,7 @@
           "type": "string",
           "const": "MassID Audit",
           "title": "MassID Audit Schema Type",
-          "description": "MassID Audit schema type"
+          "description": "Schema type identifier for this record"
         },
         "version": {
           "type": "string",
@@ -478,7 +478,7 @@
           ],
           "additionalProperties": false,
           "title": "Audit Summary",
-          "description": "Summary of audit execution results"
+          "description": "Overview of the audit execution including start time, completion time, and overall pass/fail result"
         },
         "rule_execution_results": {
           "minItems": 1,
@@ -665,7 +665,7 @@
   ],
   "additionalProperties": false,
   "title": "MassID Audit IPFS Record",
-  "description": "MassID audit metadata stored in IPFS, extending the base schema with audit results and references",
+  "description": "MassID audit record stored in IPFS, containing methodology reference, audit summary, rule execution results, and links to the source MassID and resulting GasID or RecycledID",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "version": "0.2.4"
 }

@@ -35,7 +35,8 @@ const GasIDSummarySchema = z
   })
   .meta({
     title: 'GasID Summary',
-    description: 'Summary information for the GasID certificate',
+    description:
+      'Key metrics for the GasID certificate including gas type, credit details, prevented emissions, and issuance timestamps',
   });
 export type GasIDSummary = z.infer<typeof GasIDSummarySchema>;
 
@@ -63,7 +64,8 @@ const CalculationValueSchema = z
   })
   .meta({
     title: 'Calculation Value',
-    description: 'Single value used in the emissions calculation',
+    description:
+      'Named parameter or computed result used in the prevented emissions formula',
   });
 export type CalculationValue = z.infer<typeof CalculationValueSchema>;
 
@@ -85,12 +87,14 @@ const PreventedEmissionsCalculationSchema = z
     }),
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',
-      description: 'Values used to calculate the prevented emissions',
+      description:
+        'Input parameters and computed result used in the prevented emissions formula',
     }),
   })
   .meta({
     title: 'Prevented Emissions Calculation',
-    description: 'Details of the prevented emissions calculation',
+    description:
+      'Methodology-based calculation of prevented CO2e emissions, including formula, method, input values, and computation timestamp',
   });
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema
@@ -105,12 +109,14 @@ export const GasIDDataSchema = z
     waste_properties: WastePropertiesSchema,
     origin_location: LocationSchema.meta({
       title: 'Source Waste Origin Location',
-      description: 'Location of the waste origin',
+      description:
+        'Geographic location where the source waste was originally collected',
     }),
     prevented_emissions_calculation: PreventedEmissionsCalculationSchema,
   })
   .meta({
     title: 'GasID Data',
-    description: 'Complete data structure for GasID certificate',
+    description:
+      'Complete GasID certificate data including summary metrics, methodology reference, audit trail, source MassID, waste properties, origin location, and emissions calculation',
   });
 export type GasIDData = z.infer<typeof GasIDDataSchema>;

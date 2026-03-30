@@ -378,7 +378,7 @@
             "description": "Collection included in the purchase"
           },
           "title": "Collections",
-          "description": "Collections included in the purchase"
+          "description": "Impact collections referenced by this purchase, each identified by a unique slug"
         },
         "credits": {
           "minItems": 1,
@@ -466,7 +466,7 @@
             "description": "Credit token included in the purchase"
           },
           "title": "Credits",
-          "description": "Credits included in the purchase"
+          "description": "Credit token types involved in this purchase, each identified by a unique slug and symbol"
         },
         "certificates": {
           "minItems": 1,
@@ -702,7 +702,7 @@
             "description": "Certificate associated with the purchase"
           },
           "title": "Certificates",
-          "description": "Certificates involved in the purchase"
+          "description": "Environmental certificates allocated in this purchase, each linking a credit type to collection-level purchased and retired amounts"
         },
         "retirement_receipt": {
           "type": "object",
@@ -1311,7 +1311,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditPurchaseReceipt NFT IPFS Record",
-  "description": "Complete CreditPurchaseReceipt NFT IPFS record including attributes and credit purchase data",
+  "description": "Complete CreditPurchaseReceipt NFT IPFS record including purchase summary, buyer details, credit breakdowns, certificate allocations, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
   "version": "0.2.4"
 }

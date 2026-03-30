@@ -20,7 +20,7 @@ import { RecycledIDAttributesSchema } from './recycled-id.attributes';
 export const RecycledIDIpfsSchemaMeta = {
   title: 'RecycledID NFT IPFS Record',
   description:
-    'Complete RecycledID NFT IPFS record including fixed attributes and recycling outcome data',
+    'Complete RecycledID NFT IPFS record including recycling outcome metrics, source waste provenance, methodology reference, and NFT display attributes',
   $id: buildSchemaUrl('recycled-id/recycled-id.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;
@@ -29,7 +29,7 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('RecycledID').meta({
       title: 'RecycledID Schema Type',
-      description: 'RecycledID NFT schema type',
+      description: 'Schema type identifier for this record',
     }),
   }),
   name: RecycledIDNameSchema,

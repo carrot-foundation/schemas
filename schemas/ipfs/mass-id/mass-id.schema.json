@@ -469,7 +469,7 @@
                   },
                   "data": {
                     "title": "Pick-up Event Data",
-                    "description": "Data associated with the pick-up event",
+                    "description": "Optional vehicle and weight details captured during waste pick-up",
                     "type": "object",
                     "properties": {
                       "vehicle_type": {
@@ -969,7 +969,7 @@
             ],
             "additionalProperties": false,
             "title": "MassID Attachment",
-            "description": "Attachment associated with a specific MassID event, linked by event_id"
+            "description": "Regulatory document (Transport Manifest or Recycling Manifest) linked to a specific lifecycle event via event_id"
           }
         }
       },
@@ -981,7 +981,7 @@
       ],
       "additionalProperties": false,
       "title": "MassID Data",
-      "description": "MassID data containing waste tracking events and supporting information"
+      "description": "Complete MassID data including waste properties, geographic locations, supply-chain participants, chronological lifecycle events, and regulatory attachments"
     },
     "audit_data_hash": {
       "type": "string",
@@ -1907,7 +1907,7 @@
   ],
   "additionalProperties": false,
   "title": "MassID NFT IPFS Record",
-  "description": "Complete MassID NFT IPFS record schema defining waste tracking metadata, chain of custody events, and NFT display attributes",
+  "description": "Complete MassID NFT IPFS record including waste classification, chain-of-custody lifecycle events, geographic locations, supply-chain participants, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/mass-id/mass-id.schema.json",
   "version": "0.2.4"
 }
