@@ -36,12 +36,13 @@ export function formatUnixMs(date) {
 }
 
 /**
- * Build a deterministic UUID-like identifier for example data.
- * Uses a fixed namespace to ensure reproducibility across runs.
+ * Build a deterministic prefixed identifier for example data.
+ * Returns a simple human-readable string (NOT a UUID).
+ * For fields requiring UUID format, use a fixed UUID constant in the reference story instead.
  *
  * @param {string} prefix - A human-readable prefix (e.g., 'mass-id', 'gas-id')
  * @param {string | number} index - A distinguishing index or key
- * @returns {string} A deterministic identifier string
+ * @returns {string} A deterministic identifier string like 'example-mass-id-1'
  */
 export function buildExampleId(prefix, index) {
   return `example-${prefix}-${index}`;
