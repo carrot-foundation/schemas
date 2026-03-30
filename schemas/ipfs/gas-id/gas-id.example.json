@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "ebdf8c7431b044eeafe90db1566e550768c5912dbd148ae5e8e6e60993ee81ac",
+    "hash": "af72e240e21f115dd87f5eff7b9f1588c549286adb5797fa6a36a250c14574b8",
     "type": "GasID",
     "version": "0.2.4",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,7 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "audit_data_hash": "68ddbcabfa4cffb17e8b93f0c85f2f7af48d97d96f8010dbafe9373e365de211",
+  "audit_data_hash": "73a7a14adb1bad780f05f8a7e96c54c21b88a3747d3c100b85a26f51b3fed7b9",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
