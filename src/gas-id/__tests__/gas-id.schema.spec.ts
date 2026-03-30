@@ -37,7 +37,7 @@ describe('GasIDIpfsSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('GasID');
-        expect(data.blockchain.token_id).toBe('456');
+        expect(data.blockchain.token_id).toBe('200001');
       },
     );
   });
@@ -86,7 +86,7 @@ describe('GasIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.name = 'GasID #999 • BOLD Carbon (CH₄) • 0.86t CO₂e';
       return next;
-    }, ['Name token_id must match blockchain.token_id: 456']);
+    }, ['Name token_id must match blockchain.token_id: 200001']);
   });
 
   it('rejects short_name with mismatched token_id', () => {
@@ -94,7 +94,7 @@ describe('GasIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.short_name = 'GasID #999';
       return next;
-    }, ['Short name token_id must match blockchain.token_id: 456']);
+    }, ['Short name token_id must match blockchain.token_id: 200001']);
   });
 
   it('rejects name that does not match regex pattern', () => {
@@ -102,7 +102,7 @@ describe('GasIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.name = 'Invalid Name Format';
       return next;
-    }, ['Name token_id must match blockchain.token_id: 456']);
+    }, ['Name token_id must match blockchain.token_id: 200001']);
   });
 
   it('rejects short_name that does not match regex pattern', () => {
@@ -110,13 +110,13 @@ describe('GasIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.short_name = 'Invalid Short Name';
       return next;
-    }, ['Short name token_id must match blockchain.token_id: 456']);
+    }, ['Short name token_id must match blockchain.token_id: 200001']);
   });
 
   it('rejects name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.name = 'GasID #456 • Invalid Format';
+      next.name = 'GasID #200001 • Invalid Format';
       return next;
     }, ['Name must match format']);
   });
@@ -124,7 +124,7 @@ describe('GasIDIpfsSchema', () => {
   it('rejects short_name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.short_name = 'GasID #456 Extra';
+      next.short_name = 'GasID #200001 Extra';
       return next;
     }, ['Short name must match format']);
   });

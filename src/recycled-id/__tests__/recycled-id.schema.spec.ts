@@ -80,7 +80,7 @@ describe('RecycledIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.name = 'RecycledID #999 • BOLD Recycling • 3.25t Recycled';
       return next;
-    }, ['Name token_id must match blockchain.token_id: 789']);
+    }, ['Name token_id must match blockchain.token_id: 300001']);
   });
 
   it('rejects short_name with mismatched token_id', () => {
@@ -88,7 +88,7 @@ describe('RecycledIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.short_name = 'RecycledID #999';
       return next;
-    }, ['Short name token_id must match blockchain.token_id: 789']);
+    }, ['Short name token_id must match blockchain.token_id: 300001']);
   });
 
   it('rejects name that does not match regex pattern', () => {
@@ -96,7 +96,7 @@ describe('RecycledIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.name = 'Invalid Name Format';
       return next;
-    }, ['Name token_id must match blockchain.token_id: 789']);
+    }, ['Name token_id must match blockchain.token_id: 300001']);
   });
 
   it('rejects short_name that does not match regex pattern', () => {
@@ -104,13 +104,13 @@ describe('RecycledIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.short_name = 'Invalid Short Name';
       return next;
-    }, ['Short name token_id must match blockchain.token_id: 789']);
+    }, ['Short name token_id must match blockchain.token_id: 300001']);
   });
 
   it('rejects name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.name = 'RecycledID #789 • Invalid Format';
+      next.name = 'RecycledID #300001 • Invalid Format';
       return next;
     }, ['Name must match format']);
   });
@@ -118,7 +118,7 @@ describe('RecycledIDIpfsSchema', () => {
   it('rejects short_name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.short_name = 'RecycledID #789 Extra';
+      next.short_name = 'RecycledID #300001 Extra';
       return next;
     }, ['Short name must match format']);
   });

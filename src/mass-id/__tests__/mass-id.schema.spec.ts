@@ -34,7 +34,7 @@ describe('MassIDIpfsSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('MassID');
-        expect(data.blockchain.token_id).toBe('1034');
+        expect(data.blockchain.token_id).toBe('100001');
       },
     );
   });
@@ -207,7 +207,7 @@ describe('MassIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.name = 'MassID #999 • Incorrect token id';
       return next;
-    }, ['Name token_id must match blockchain.token_id: 1034']);
+    }, ['Name token_id must match blockchain.token_id: 100001']);
   });
 
   it('rejects short_name with mismatched token_id', () => {
@@ -215,13 +215,13 @@ describe('MassIDIpfsSchema', () => {
       const next = structuredClone(base);
       next.short_name = 'MassID #999';
       return next;
-    }, ['Short name token_id must match blockchain.token_id: 1034']);
+    }, ['Short name token_id must match blockchain.token_id: 100001']);
   });
 
   it('rejects name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.name = 'MassID #1034 • Invalid Format';
+      next.name = 'MassID #100001 • Invalid Format';
       return next;
     }, ['Name must match format']);
   });
@@ -229,7 +229,7 @@ describe('MassIDIpfsSchema', () => {
   it('rejects short_name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.short_name = 'MassID #1034 Extra';
+      next.short_name = 'MassID #100001 Extra';
       return next;
     }, ['Short name must be exactly']);
   });

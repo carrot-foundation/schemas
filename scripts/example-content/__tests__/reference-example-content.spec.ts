@@ -3,7 +3,11 @@ import {
   buildReferenceStory,
   emitCollectionExample,
   emitCreditExample,
+  emitGasIdExample,
+  emitMassIdAuditExample,
+  emitMassIdExample,
   emitMethodologyExample,
+  emitRecycledIdExample,
 } from '../index.js';
 
 describe('reference example story', () => {
@@ -25,5 +29,16 @@ describe('reference example story', () => {
     expect(methodology.data.slug).toBe('bold-carbon-ch4');
     expect(collection.slug).toBe('bold-cold-start-carazinho');
     expect(credit.symbol).toBe('C-CARB.CH4');
+  });
+
+  it('keeps asset and audit references aligned', () => {
+    const massId = emitMassIdExample();
+    const gasId = emitGasIdExample();
+    const recycledId = emitRecycledIdExample();
+    const audit = emitMassIdAuditExample();
+
+    expect(gasId.data.mass_id.token_id).toBe(massId.blockchain.token_id);
+    expect(recycledId.data.mass_id.token_id).toBe(massId.blockchain.token_id);
+    expect(audit.data.mass_id.token_id).toBe(massId.blockchain.token_id);
   });
 });
