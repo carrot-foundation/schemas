@@ -108,8 +108,40 @@ function compareProperties(
     return;
   }
 
-  if (!baseProps || !curProps) return;
+  if (baseProps && curProps) {
+    comparePropertyEntries(baseProps, curProps, schemaName, propertyPath);
+  }
 
+  const baselineRequired = new Set(baselineObj.required || []);
+  const currentRequired = new Set(currentObj.required || []);
+  for (const req of currentRequired) {
+    if (!baselineRequired.has(req)) {
+      addFinding(
+        schemaName,
+        'NEW_REQUIRED_FIELD',
+        `"${joinPath(propertyPath, req)}" is now required (was optional or absent)`,
+      );
+    }
+  }
+
+  if (
+    baselineObj.additionalProperties !== false &&
+    currentObj.additionalProperties === false
+  ) {
+    addFinding(
+      schemaName,
+      'ADDITIONAL_PROPERTIES_RESTRICTED',
+      `additionalProperties set to false${propertyPath ? ` at "${propertyPath}"` : ''} (was not restricted)`,
+    );
+  }
+}
+
+function comparePropertyEntries(
+  baseProps: Record<string, SchemaObject>,
+  curProps: Record<string, SchemaObject>,
+  schemaName: string,
+  propertyPath: string,
+): void {
   for (const prop of Object.keys(baseProps)) {
     const fullPath = joinPath(propertyPath, prop);
 
@@ -168,29 +200,6 @@ function compareProperties(
         `${fullPath}[]`,
       );
     }
-  }
-
-  const baselineRequired = new Set(baselineObj.required || []);
-  const currentRequired = new Set(currentObj.required || []);
-  for (const req of currentRequired) {
-    if (!baselineRequired.has(req)) {
-      addFinding(
-        schemaName,
-        'NEW_REQUIRED_FIELD',
-        `"${joinPath(propertyPath, req)}" is now required (was optional or absent)`,
-      );
-    }
-  }
-
-  if (
-    baselineObj.additionalProperties !== false &&
-    currentObj.additionalProperties === false
-  ) {
-    addFinding(
-      schemaName,
-      'ADDITIONAL_PROPERTIES_RESTRICTED',
-      `additionalProperties changed to false${propertyPath ? ` at "${propertyPath}"` : ''}`,
-    );
   }
 }
 

@@ -56,13 +56,9 @@ function quote(value: unknown): string {
     return String(value);
   }
 
-  const str = String(value);
+  const str = typeof value === 'string' ? value : String(value);
   if (str === '') {
     return "''";
-  }
-
-  if (/^[A-Za-z0-9_./:@-]+$/.test(str)) {
-    return str;
   }
 
   const escaped = str.replaceAll("'", "''");
@@ -85,12 +81,12 @@ function toFrontmatter(
     if (Array.isArray(value)) {
       lines.push(`${key}:`);
       for (const item of value) {
-        lines.push(`  - ${quote(String(item))}`);
+        lines.push(`  - ${quote(item)}`);
       }
       continue;
     }
 
-    lines.push(`${key}: ${quote(String(value))}`);
+    lines.push(`${key}: ${quote(value)}`);
   }
 
   lines.push('---');

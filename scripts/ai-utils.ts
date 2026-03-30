@@ -177,14 +177,30 @@ export async function readFileWithContext(
 
 export async function readdirWithContext(
   dirPath: string,
+  options: { withFileTypes: true; recursive?: boolean },
+  operation?: string,
+): Promise<Dirent[]>;
+export async function readdirWithContext(
+  dirPath: string,
+  options?: { withFileTypes?: false; recursive?: boolean },
+  operation?: string,
+): Promise<string[]>;
+export async function readdirWithContext(
+  dirPath: string,
   options?: { withFileTypes?: boolean; recursive?: boolean },
   operation = 'list directory',
-): Promise<Dirent[]> {
+): Promise<Dirent[] | string[]> {
   try {
-    return (await fs.readdir(
-      dirPath,
-      options as { withFileTypes: true; recursive?: boolean },
-    )) as Dirent[];
+    if (options?.withFileTypes) {
+      return await fs.readdir(dirPath, {
+        ...options,
+        withFileTypes: true,
+      });
+    }
+    return await fs.readdir(dirPath, {
+      ...options,
+      withFileTypes: false,
+    });
   } catch (error) {
     throw new Error(
       `Failed to ${operation} ${dirPath}: ${getErrorMessage(error)}`,
