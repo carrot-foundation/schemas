@@ -21,7 +21,7 @@ const SummaryBaseSchema = z.strictObject({
   total_certificates: PositiveIntegerSchema.meta({
     title: 'Total Certificates',
     description:
-      'Total number of impact certificates (GasID or RecycledID) included in this receipt',
+      'Total number of certificates (GasID or RecycledID) included in this receipt',
   }),
 });
 

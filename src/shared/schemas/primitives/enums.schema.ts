@@ -133,7 +133,7 @@ export const CollectionSlugSchema = z
   .meta({
     title: 'Collection Slug',
     description:
-      'URL-friendly identifier for an impact credit collection, used in URIs and API references',
+      'URL-friendly identifier for an environmental credit collection, used in URIs and API references',
     examples: ['bold-cold-start-carazinho', 'bold-brazil'],
   });
 export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
@@ -193,7 +193,8 @@ export const CollectionNameSchema = z
   ])
   .meta({
     title: 'Collection Name',
-    description: 'Human-readable display name for the impact credit collection',
+    description:
+      'Human-readable display name for the environmental credit collection',
     examples: ['BOLD Cold Start - Carazinho', 'BOLD Brazil'],
   });
 export type CollectionName = z.infer<typeof CollectionNameSchema>;
@@ -235,7 +236,7 @@ export type MethodologySlug = z.infer<typeof MethodologySlugSchema>;
 export const CertificateTypeSchema = z.enum(['GasID', 'RecycledID']).meta({
   title: 'Certificate Type',
   description:
-    'Type of impact certificate — GasID for methane prevention, RecycledID for waste recycling',
+    'Type of certificate — GasID for methane prevention, RecycledID for waste recycling',
   examples: ['GasID', 'RecycledID'],
 });
 export type CertificateType = z.infer<typeof CertificateTypeSchema>;
