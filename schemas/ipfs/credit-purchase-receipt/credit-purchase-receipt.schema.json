@@ -222,7 +222,7 @@
           ],
           "additionalProperties": false,
           "title": "Credit Purchase Receipt Summary",
-          "description": "Summary totals for the credit purchase including amounts and collections represented"
+          "description": "Summary totals for the credit purchase including payment amount, credit quantity, certificate count, and timestamp"
         },
         "buyer": {
           "type": "object",

@@ -209,7 +209,7 @@
           ],
           "additionalProperties": false,
           "title": "Credit Retirement Receipt Summary",
-          "description": "Summary totals for the credit retirement including amounts and collections represented"
+          "description": "Summary totals for the credit retirement including credit quantity, certificate count, and timestamp"
         },
         "beneficiary": {
           "type": "object",

@@ -1,6 +1,5 @@
 export { buildReferenceStory } from './reference-story.js';
 export {
-  buildExampleId,
   formatDate,
   formatDateTime,
   formatUnixMs,

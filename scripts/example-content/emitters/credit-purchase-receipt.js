@@ -11,8 +11,8 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
 /**
  * Emit a complete Credit Purchase Receipt example document.
  *
- * Fields managed by post-processing ($schema, schema.hash, schema.version)
- * use placeholders that update-examples.js will overwrite.
+ * Fields managed by post-processing ($schema, schema.hash, schema.version,
+ * audit_data_hash) use placeholders that update-examples.js will overwrite.
  *
  * @returns {object} A valid Credit Purchase Receipt IPFS document
  */
@@ -47,8 +47,7 @@ export function emitCreditPurchaseReceiptExample() {
     created_at: formatDateTime(purchasedAt),
     external_id: externalId,
     external_url: `https://explore.carrot.eco/document/${externalId}`,
-    audit_data_hash:
-      'c49a39d9a4a265669682b8a147e5ecb439e8f31a304298db05b14497f064691b',
+    audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
       ipfs_uri:
         'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',

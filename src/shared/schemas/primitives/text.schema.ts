@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const NonEmptyStringSchema = z.string().min(1, 'Cannot be empty').meta({
   title: 'Non-Empty String',
-  description: 'A non-blank text value (at least one character)',
+  description: 'A non-empty string (minimum one character)',
 });
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 

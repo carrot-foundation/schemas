@@ -42,7 +42,7 @@ export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.safeExtend({
 }).meta({
   title: 'Credit Purchase Receipt Summary',
   description:
-    'Summary totals for the credit purchase including amounts and collections represented',
+    'Summary totals for the credit purchase including payment amount, credit quantity, certificate count, and timestamp',
 });
 export type CreditPurchaseReceiptSummary = z.infer<
   typeof CreditPurchaseReceiptSummarySchema
@@ -62,7 +62,7 @@ export const CreditRetirementReceiptSummarySchema =
   }).meta({
     title: 'Credit Retirement Receipt Summary',
     description:
-      'Summary totals for the credit retirement including amounts and collections represented',
+      'Summary totals for the credit retirement including credit quantity, certificate count, and timestamp',
   });
 export type CreditRetirementReceiptSummary = z.infer<
   typeof CreditRetirementReceiptSummarySchema

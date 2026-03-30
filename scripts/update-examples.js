@@ -71,7 +71,22 @@ function main() {
     const typeName = path.basename(path.dirname(examplePath));
     const emitter = emitters[typeName];
     if (emitter) {
-      writeJson(examplePath, emitter());
+      let emitterResult;
+      try {
+        emitterResult = emitter();
+      } catch (error) {
+        console.error(
+          `Emitter for schema type "${typeName}" failed while generating ${path.relative(process.cwd(), examplePath)}:`,
+        );
+        console.error(error);
+        process.exit(1);
+      }
+      writeJson(examplePath, emitterResult);
+    } else {
+      console.warn(
+        `Warning: No emitter registered for schema type "${typeName}". ` +
+          `Example file ${path.relative(process.cwd(), examplePath)} will not be regenerated from source.`,
+      );
     }
 
     const exampleJson = loadJson(examplePath);

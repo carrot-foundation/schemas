@@ -11,8 +11,8 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
 /**
  * Emit a complete Credit Retirement Receipt example document.
  *
- * Fields managed by post-processing ($schema, schema.hash, schema.version)
- * use placeholders that update-examples.js will overwrite.
+ * Fields managed by post-processing ($schema, schema.hash, schema.version,
+ * audit_data_hash) use placeholders that update-examples.js will overwrite.
  *
  * @returns {object} A valid Credit Retirement Receipt IPFS document
  */
@@ -282,7 +282,6 @@ export function emitCreditRetirementReceiptExample() {
         smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
       },
     },
-    audit_data_hash:
-      '2bdbaedd64967a50504ebaa09c5fd763bf1233eed8a7666a9ef4ebb763574fb6',
+    audit_data_hash: 'PLACEHOLDER',
   };
 }
