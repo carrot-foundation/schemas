@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { hashObject } from '../dist/index.js';
+import { emitters } from './example-content/index.js';
 import {
   collectJsonFiles,
   getVersion,
@@ -64,6 +65,13 @@ function main() {
         `No manifest entry for schema ${schemaKey}. Did you run pnpm hash-schemas?`,
       );
       process.exit(1);
+    }
+
+    // If an emitter exists for this schema type, generate base content first
+    const typeName = path.basename(path.dirname(examplePath));
+    const emitter = emitters[typeName];
+    if (emitter) {
+      writeJson(examplePath, emitter());
     }
 
     const exampleJson = loadJson(examplePath);
