@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://github.com/carrot-foundation/schemas/compare/v0.2.4...v0.3.0) (2026-03-30)
+
+### Features
+
+- add shared reference story for schema examples ([ece4f33](https://github.com/carrot-foundation/schemas/commit/ece4f333d4f21b87074c5a4ace38b7867c61bef0))
+- generate catalog schema examples from reference story ([31b4c2c](https://github.com/carrot-foundation/schemas/commit/31b4c2c7c485c28c39d58644ce2fa3218c9a7ba7))
+- generate linked asset examples from reference story ([51a0fee](https://github.com/carrot-foundation/schemas/commit/51a0feed8ede6a1a1537e3585b757a5d32d8e577))
+- generate receipt examples from reference story ([35cc590](https://github.com/carrot-foundation/schemas/commit/35cc590cf29b7a345e23c31288f00389ff508be5))
+
+### Bug Fixes
+
+- address PR review findings ([42a9872](https://github.com/carrot-foundation/schemas/commit/42a98720c7977bfd87aa93e85f4ff3c3683000b1))
+- address PR review findings for error handling, JSDoc, and descriptions ([515207b](https://github.com/carrot-foundation/schemas/commit/515207b606c86b7e5db50a1d9df61cd3046edfe3))
+- address PR review findings for schema metadata and examples ([c3b91e0](https://github.com/carrot-foundation/schemas/commit/c3b91e035badaac8057ce8790aa7afb60b7d2ab3))
+- correct misleading JSDoc on buildExampleId helper ([8266ae1](https://github.com/carrot-foundation/schemas/commit/8266ae1a9229a5c05fd0f98949846e45b7704503))
+- **shared:** align terminology with carrot-docs glossary ([6b47efb](https://github.com/carrot-foundation/schemas/commit/6b47efbcd04ba60cb26ea80827d5c01046d30985))
+- **shared:** align terminology with glossary and fix schema generation newlines ([6ae9647](https://github.com/carrot-foundation/schemas/commit/6ae96473ab0e8a9b195ae212ed6f3ae08f3e607c))
+- update receipt schema tests to match reference story token IDs ([a3fc039](https://github.com/carrot-foundation/schemas/commit/a3fc0397dddcda6f3a3c86c1b458abe5a3e5aefc))
+
+### Code Refactoring
+
+- consolidate import/export pattern in example-content index ([b1675b3](https://github.com/carrot-foundation/schemas/commit/b1675b326cab14c2cd4b643bda08252c6c345d27))
+- consolidate imports and remove redundant alias in emitter tests ([170acbc](https://github.com/carrot-foundation/schemas/commit/170acbc3f3e5fea3247ce38624b6ecf7a6429215))
+- normalize ID abbreviation casing across codebase ([8825ef6](https://github.com/carrot-foundation/schemas/commit/8825ef63e22fb9f2d2817ef74ae1495840ccb2d6))
+
 ## [0.2.4](https://github.com/carrot-foundation/schemas/compare/v0.2.3...v0.2.4) (2026-03-26)
 
 ### Code Refactoring
