@@ -18,7 +18,8 @@ export const MethodologySchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Methodology').meta({
       title: 'Methodology Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a Methodology impact-measurement definition',
     }),
   }),
   data: MethodologyDataSchema,

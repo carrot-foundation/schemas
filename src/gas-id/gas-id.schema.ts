@@ -30,7 +30,8 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('GasID').meta({
       title: 'GasID Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a GasID prevented-emissions certificate',
     }),
   }),
   name: GasIDNameSchema,

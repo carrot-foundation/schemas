@@ -18,7 +18,8 @@ export const MassIDAuditSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('MassID Audit').meta({
       title: 'MassID Audit Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a MassID Audit methodology-rule execution report',
     }),
   }),
   data: MassIDAuditDataSchema,

@@ -1,20 +1,20 @@
 /**
  * Emitter for Methodology example JSON.
  *
- * Produces a complete, AJV-valid Methodology document using the
- * canonical reference story for shared identifiers.
+ * Produces a Methodology document which, after post-processing,
+ * becomes AJV-valid. Uses the canonical reference story for shared identifiers.
  */
 
 import { buildReferenceStory } from '../reference-story.js';
 import { formatDate, formatDateTime } from '../shared.js';
 
 /**
- * Emit a complete Methodology example document.
+ * Emit a Methodology example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
  *
- * @returns {object} A valid Methodology IPFS document
+ * @returns {object} A Methodology IPFS document (requires post-processing for AJV validity)
  */
 export function emitMethodologyExample() {
   const story = buildReferenceStory();

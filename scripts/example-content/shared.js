@@ -1,7 +1,7 @@
 /**
  * Shared helpers for example content emitters.
  *
- * Provides date/ID formatting utilities and non-production markers
+ * Provides date formatting utilities and non-production markers
  * used across all schema example generators.
  */
 

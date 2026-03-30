@@ -21,7 +21,8 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Credit').meta({
       title: 'Credit Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a Credit environmental-impact token',
     }),
   }),
   data: z.record(z.string(), z.unknown()).optional().meta({

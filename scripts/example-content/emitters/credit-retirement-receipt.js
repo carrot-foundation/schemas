@@ -1,20 +1,20 @@
 /**
  * Emitter for Credit Retirement Receipt example JSON.
  *
- * Produces a complete, AJV-valid Credit Retirement Receipt document using the
- * canonical reference story for shared identifiers.
+ * Produces a Credit Retirement Receipt document which, after post-processing,
+ * becomes AJV-valid. Uses the canonical reference story for shared identifiers.
  */
 
 import { buildReferenceStory } from '../reference-story.js';
 import { formatDateTime, formatUnixMs } from '../shared.js';
 
 /**
- * Emit a complete Credit Retirement Receipt example document.
+ * Emit a Credit Retirement Receipt example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
  *
- * @returns {object} A valid Credit Retirement Receipt IPFS document
+ * @returns {object} A Credit Retirement Receipt IPFS document (requires post-processing for AJV validity)
  */
 export function emitCreditRetirementReceiptExample() {
   const story = buildReferenceStory();

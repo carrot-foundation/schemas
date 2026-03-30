@@ -29,7 +29,8 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('RecycledID').meta({
       title: 'RecycledID Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a RecycledID recycling-outcome certificate',
     }),
   }),
   name: RecycledIDNameSchema,

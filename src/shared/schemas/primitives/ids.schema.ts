@@ -12,7 +12,7 @@ export type Uuid = z.infer<typeof UuidSchema>;
 export const ExternalIdSchema = UuidSchema.meta({
   title: 'External ID',
   description:
-    'UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)',
+    'UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems',
 });
 export type ExternalId = z.infer<typeof ExternalIdSchema>;
 

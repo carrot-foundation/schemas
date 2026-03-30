@@ -81,12 +81,31 @@ function main() {
         console.error(error);
         process.exit(1);
       }
-      writeJson(examplePath, emitterResult);
+
+      if (!emitterResult || typeof emitterResult !== 'object') {
+        console.error(
+          `Emitter for schema type "${typeName}" returned an invalid result ` +
+            `(${typeof emitterResult}). Emitters must return a non-null object.`,
+        );
+        process.exit(1);
+      }
+
+      try {
+        writeJson(examplePath, emitterResult);
+      } catch (error) {
+        console.error(
+          `Failed to write emitter output for "${typeName}" to ${path.relative(process.cwd(), examplePath)}:`,
+        );
+        console.error(error);
+        process.exit(1);
+      }
     } else {
-      console.warn(
-        `Warning: No emitter registered for schema type "${typeName}". ` +
-          `Example file ${path.relative(process.cwd(), examplePath)} will not be regenerated from source.`,
+      console.error(
+        `Error: No emitter registered for schema type "${typeName}". ` +
+          `Register an emitter in scripts/example-content/index.js for ` +
+          `${path.relative(process.cwd(), examplePath)}.`,
       );
+      process.exit(1);
     }
 
     const exampleJson = loadJson(examplePath);

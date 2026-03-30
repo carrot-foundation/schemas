@@ -1,20 +1,20 @@
 /**
  * Emitter for Credit example JSON.
  *
- * Produces a complete, AJV-valid Credit document using the
- * canonical reference story for shared identifiers.
+ * Produces a Credit document which, after post-processing,
+ * becomes AJV-valid. Uses the canonical reference story for shared identifiers.
  */
 
 import { buildReferenceStory } from '../reference-story.js';
 import { formatDateTime } from '../shared.js';
 
 /**
- * Emit a complete Credit example document.
+ * Emit a Credit example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
  *
- * @returns {object} A valid Credit IPFS document
+ * @returns {object} A Credit IPFS document (requires post-processing for AJV validity)
  */
 export function emitCreditExample() {
   const story = buildReferenceStory();

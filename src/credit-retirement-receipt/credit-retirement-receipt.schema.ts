@@ -29,7 +29,8 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('CreditRetirementReceipt').meta({
       title: 'CreditRetirementReceipt Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a CreditRetirementReceipt permanent-offset proof',
     }),
   }),
   name: CreditRetirementReceiptNameSchema,
