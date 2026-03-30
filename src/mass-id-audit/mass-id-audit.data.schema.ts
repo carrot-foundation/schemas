@@ -53,10 +53,10 @@ export const MassIDAuditDataSchema = z
     rule_execution_results: AuditRuleExecutionResultsSchema,
   })
   .superRefine((data, ctx) => {
-    const hasGasId = !!data.gas_id;
-    const hasRecycledId = !!data.recycled_id;
+    const hasGasID = !!data.gas_id;
+    const hasRecycledID = !!data.recycled_id;
 
-    if (!hasGasId && !hasRecycledId) {
+    if (!hasGasID && !hasRecycledID) {
       ctx.addIssue({
         code: 'custom',
         path: ['gas_id'],
@@ -69,7 +69,7 @@ export const MassIDAuditDataSchema = z
       });
     }
 
-    if (hasGasId && hasRecycledId) {
+    if (hasGasID && hasRecycledID) {
       ctx.addIssue({
         code: 'custom',
         path: ['gas_id'],

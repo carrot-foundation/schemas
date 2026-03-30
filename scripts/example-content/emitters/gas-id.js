@@ -16,14 +16,14 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
  *
  * @returns {object} A GasID IPFS document (requires post-processing for AJV validity)
  */
-export function emitGasIdExample() {
+export function emitGasIDExample() {
   const story = buildReferenceStory();
   const recyclingAt = new Date('2024-12-08T11:32:47.000Z');
 
   const tokenId = story.gasID.tokenId;
-  const massIdTokenId = story.massID.tokenId;
+  const massIDTokenId = story.massID.tokenId;
   const externalId = 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6';
-  const massIdExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
+  const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
   const auditExternalId = '80011d61-fe40-4aa2-9031-4f2aafad5d42';
   const methodologyExternalId = '8375027a-a96f-446d-a8cb-c3ee92aea604';
 
@@ -95,7 +95,7 @@ export function emitGasIdExample() {
       },
       { trait_type: 'Origin City', value: 'Bras\u00edlia' },
       { trait_type: 'Origin Country Subdivision', value: 'BR-DF' },
-      { trait_type: 'MassID', value: `#${massIdTokenId}` },
+      { trait_type: 'MassID', value: `#${massIDTokenId}` },
       {
         trait_type: 'MassID Recycling Date',
         value: formatUnixMs(recyclingAt),
@@ -144,9 +144,9 @@ export function emitGasIdExample() {
           'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
       },
       mass_id: {
-        token_id: massIdTokenId,
-        external_id: massIdExternalId,
-        external_url: `https://explore.carrot.eco/document/${massIdExternalId}`,
+        token_id: massIDTokenId,
+        external_id: massIDExternalId,
+        external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

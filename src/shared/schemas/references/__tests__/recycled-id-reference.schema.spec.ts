@@ -1,13 +1,13 @@
 import { describe, expect } from 'vitest';
 
-import { validRecycledIdReferenceFixture } from '../../../../test-utils';
+import { validRecycledIDReferenceFixture } from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import { RecycledIDReferenceSchema } from '../recycled-id-reference.schema';
 
 describe('RecycledIDReferenceSchema', () => {
   runReferenceSchemaTests({
     schema: RecycledIDReferenceSchema,
-    base: validRecycledIdReferenceFixture,
+    base: validRecycledIDReferenceFixture,
     requiredFields: [
       'external_id',
       'token_id',

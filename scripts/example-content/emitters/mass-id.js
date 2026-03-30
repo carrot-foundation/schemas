@@ -16,7 +16,7 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
  *
  * @returns {object} A MassID IPFS document (requires post-processing for AJV validity)
  */
-export function emitMassIdExample() {
+export function emitMassIDExample() {
   const story = buildReferenceStory();
   const createdAt = new Date('2024-12-05T11:02:47.000Z');
   const weighingAt = new Date('2024-12-05T13:02:47.000Z');

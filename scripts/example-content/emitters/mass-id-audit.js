@@ -16,15 +16,15 @@ import { formatDateTime } from '../shared.js';
  *
  * @returns {object} A MassID Audit IPFS document (requires post-processing for AJV validity)
  */
-export function emitMassIdAuditExample() {
+export function emitMassIDAuditExample() {
   const story = buildReferenceStory();
   const auditStartedAt = new Date('2024-12-08T11:32:46.000Z');
 
-  const massIdTokenId = story.massID.tokenId;
-  const gasIdTokenId = story.gasID.tokenId;
+  const massIDTokenId = story.massID.tokenId;
+  const gasIDTokenId = story.gasID.tokenId;
   const externalId = '80011d61-fe40-4aa2-9031-4f2aafad5d42';
-  const massIdExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
-  const gasIdExternalId = 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6';
+  const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
+  const gasIDExternalId = 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6';
 
   const rulesCommit = '2e9cbbfd397027a03fb1561e431fcc156580459f';
   const baseUrl = `https://github.com/carrot-foundation/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
@@ -69,17 +69,17 @@ export function emitMassIdAuditExample() {
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
       },
       mass_id: {
-        external_id: massIdExternalId,
-        token_id: massIdTokenId,
-        external_url: `https://explore.carrot.eco/document/${massIdExternalId}`,
+        external_id: massIDExternalId,
+        token_id: massIDTokenId,
+        external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
       },
       gas_id: {
-        external_id: gasIdExternalId,
-        token_id: gasIdTokenId,
-        external_url: `https://explore.carrot.eco/document/${gasIdExternalId}`,
+        external_id: gasIDExternalId,
+        token_id: gasIDTokenId,
+        external_url: `https://explore.carrot.eco/document/${gasIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

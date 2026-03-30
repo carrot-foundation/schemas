@@ -1,12 +1,12 @@
-import recycledIdExample from '../../../schemas/ipfs/recycled-id/recycled-id.example.json';
+import recycledIDExample from '../../../schemas/ipfs/recycled-id/recycled-id.example.json';
 import { RecycledIDIpfs } from '../../recycled-id';
 
-export const recycledIdIpfsFixture = recycledIdExample as RecycledIDIpfs;
+export const recycledIDIpfsFixture = recycledIDExample as RecycledIDIpfs;
 
-export function createRecycledIdIpfsFixture(
+export function createRecycledIDIpfsFixture(
   overrides?: Partial<RecycledIDIpfs>,
 ): RecycledIDIpfs {
-  const base = recycledIdIpfsFixture;
+  const base = recycledIDIpfsFixture;
 
   const schema: RecycledIDIpfs['schema'] = overrides?.schema
     ? { ...base.schema, ...overrides.schema }

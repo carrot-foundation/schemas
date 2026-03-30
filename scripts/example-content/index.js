@@ -9,10 +9,10 @@ export {
 import { emitMethodologyExample } from './emitters/methodology.js';
 import { emitCollectionExample } from './emitters/collection.js';
 import { emitCreditExample } from './emitters/credit.js';
-import { emitMassIdExample } from './emitters/mass-id.js';
-import { emitGasIdExample } from './emitters/gas-id.js';
-import { emitRecycledIdExample } from './emitters/recycled-id.js';
-import { emitMassIdAuditExample } from './emitters/mass-id-audit.js';
+import { emitMassIDExample } from './emitters/mass-id.js';
+import { emitGasIDExample } from './emitters/gas-id.js';
+import { emitRecycledIDExample } from './emitters/recycled-id.js';
+import { emitMassIDAuditExample } from './emitters/mass-id-audit.js';
 import { emitCreditPurchaseReceiptExample } from './emitters/credit-purchase-receipt.js';
 import { emitCreditRetirementReceiptExample } from './emitters/credit-retirement-receipt.js';
 
@@ -20,10 +20,10 @@ export {
   emitMethodologyExample,
   emitCollectionExample,
   emitCreditExample,
-  emitMassIdExample,
-  emitGasIdExample,
-  emitRecycledIdExample,
-  emitMassIdAuditExample,
+  emitMassIDExample,
+  emitGasIDExample,
+  emitRecycledIDExample,
+  emitMassIDAuditExample,
   emitCreditPurchaseReceiptExample,
   emitCreditRetirementReceiptExample,
 };
@@ -33,10 +33,10 @@ export const emitters = {
   methodology: emitMethodologyExample,
   collection: emitCollectionExample,
   credit: emitCreditExample,
-  'mass-id': emitMassIdExample,
-  'gas-id': emitGasIdExample,
-  'recycled-id': emitRecycledIdExample,
-  'mass-id-audit': emitMassIdAuditExample,
+  'mass-id': emitMassIDExample,
+  'gas-id': emitGasIDExample,
+  'recycled-id': emitRecycledIDExample,
+  'mass-id-audit': emitMassIDAuditExample,
   'credit-purchase-receipt': emitCreditPurchaseReceiptExample,
   'credit-retirement-receipt': emitCreditRetirementReceiptExample,
 };

@@ -70,7 +70,7 @@ function buildShortNameSchemas(config: ShortNameConfig) {
   return { schema, createSchema };
 }
 
-const massIdName = buildNameSchemas({
+const massIDName = buildNameSchemas({
   prefix: 'MassID',
   regexSuffix: ' • .+ • .+t',
   formatHint: '[waste_type] • [weight]t',
@@ -80,7 +80,7 @@ const massIdName = buildNameSchemas({
   examples: ['MassID #1034 • Organic • 3.25t', 'MassID #123 • Plastic • 2.5t'],
 });
 
-const massIdShortName = buildShortNameSchemas({
+const massIDShortName = buildShortNameSchemas({
   prefix: 'MassID',
   title: 'MassID Short Name',
   description:
@@ -88,7 +88,7 @@ const massIdShortName = buildShortNameSchemas({
   examples: ['MassID #1034', 'MassID #123'],
 });
 
-const gasIdName = buildNameSchemas({
+const gasIDName = buildNameSchemas({
   prefix: 'GasID',
   regexSuffix: ' • .+ • .+t CO₂e',
   formatHint: '[methodology] • [co2e]t CO₂e',
@@ -101,7 +101,7 @@ const gasIdName = buildNameSchemas({
   ],
 });
 
-const gasIdShortName = buildShortNameSchemas({
+const gasIDShortName = buildShortNameSchemas({
   prefix: 'GasID',
   title: 'GasID Short Name',
   description:
@@ -109,7 +109,7 @@ const gasIdShortName = buildShortNameSchemas({
   examples: ['GasID #456', 'GasID #789'],
 });
 
-const recycledIdName = buildNameSchemas({
+const recycledIDName = buildNameSchemas({
   prefix: 'RecycledID',
   regexSuffix: ' • .+ • .+t Recycled',
   formatHint: '[methodology] • [weight]t Recycled',
@@ -122,7 +122,7 @@ const recycledIdName = buildNameSchemas({
   ],
 });
 
-const recycledIdShortName = buildShortNameSchemas({
+const recycledIDShortName = buildShortNameSchemas({
   prefix: 'RecycledID',
   title: 'RecycledID Short Name',
   description:
@@ -172,20 +172,20 @@ const creditRetirementReceiptShortName = buildShortNameSchemas({
   examples: ['Retirement Receipt #1245', 'Retirement Receipt #1200'],
 });
 
-export const MassIDNameSchema = massIdName.schema;
-export const MassIDShortNameSchema = massIdShortName.schema;
-export const createMassIDNameSchema = massIdName.createSchema;
-export const createMassIDShortNameSchema = massIdShortName.createSchema;
+export const MassIDNameSchema = massIDName.schema;
+export const MassIDShortNameSchema = massIDShortName.schema;
+export const createMassIDNameSchema = massIDName.createSchema;
+export const createMassIDShortNameSchema = massIDShortName.createSchema;
 
-export const GasIDNameSchema = gasIdName.schema;
-export const GasIDShortNameSchema = gasIdShortName.schema;
-export const createGasIDNameSchema = gasIdName.createSchema;
-export const createGasIDShortNameSchema = gasIdShortName.createSchema;
+export const GasIDNameSchema = gasIDName.schema;
+export const GasIDShortNameSchema = gasIDShortName.schema;
+export const createGasIDNameSchema = gasIDName.createSchema;
+export const createGasIDShortNameSchema = gasIDShortName.createSchema;
 
-export const RecycledIDNameSchema = recycledIdName.schema;
-export const RecycledIDShortNameSchema = recycledIdShortName.schema;
-export const createRecycledIDNameSchema = recycledIdName.createSchema;
-export const createRecycledIDShortNameSchema = recycledIdShortName.createSchema;
+export const RecycledIDNameSchema = recycledIDName.schema;
+export const RecycledIDShortNameSchema = recycledIDShortName.schema;
+export const createRecycledIDNameSchema = recycledIDName.createSchema;
+export const createRecycledIDShortNameSchema = recycledIDShortName.createSchema;
 
 export const CreditPurchaseReceiptNameSchema = creditPurchaseReceiptName.schema;
 export const CreditPurchaseReceiptShortNameSchema =

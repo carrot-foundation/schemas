@@ -57,7 +57,7 @@ export function createAuditReferenceFixture(
  * Contains only required fields for GasID reference schema validation.
  * Used as a base for creating custom GasID reference fixtures in tests.
  */
-export const minimalGasIdReferenceStub: GasIDReference = {
+export const minimalGasIDReferenceStub: GasIDReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
   token_id: '456',
   external_url:
@@ -73,8 +73,8 @@ export const minimalGasIdReferenceStub: GasIDReference = {
  * Represents a complete GasID reference that satisfies the GasID reference schema.
  * Used in tests to validate GasID reference schema parsing and validation.
  */
-export const validGasIdReferenceFixture: GasIDReference =
-  minimalGasIdReferenceStub;
+export const validGasIDReferenceFixture: GasIDReference =
+  minimalGasIDReferenceStub;
 
 /**
  * Creates a GasID reference fixture with optional overrides.
@@ -82,11 +82,11 @@ export const validGasIdReferenceFixture: GasIDReference =
  * @param overrides - Optional partial GasID reference to override default values
  * @returns A complete GasID reference fixture
  */
-export function createGasIdReferenceFixture(
+export function createGasIDReferenceFixture(
   overrides?: Partial<GasIDReference>,
 ): GasIDReference {
   return {
-    ...minimalGasIdReferenceStub,
+    ...minimalGasIDReferenceStub,
     ...overrides,
   };
 }
@@ -177,7 +177,7 @@ export function createMethodologyReferenceFixture(
  * Contains only required fields for RecycledID reference schema validation.
  * Used as a base for creating custom RecycledID reference fixtures in tests.
  */
-export const minimalRecycledIdReferenceStub: RecycledIDReference = {
+export const minimalRecycledIDReferenceStub: RecycledIDReference = {
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   token_id: '789',
   external_url:
@@ -193,8 +193,8 @@ export const minimalRecycledIdReferenceStub: RecycledIDReference = {
  * Represents a complete RecycledID reference that satisfies the RecycledID reference schema.
  * Used in tests to validate RecycledID reference schema parsing and validation.
  */
-export const validRecycledIdReferenceFixture: RecycledIDReference =
-  minimalRecycledIdReferenceStub;
+export const validRecycledIDReferenceFixture: RecycledIDReference =
+  minimalRecycledIDReferenceStub;
 
 /**
  * Creates a RecycledID reference fixture with optional overrides.
@@ -202,11 +202,11 @@ export const validRecycledIdReferenceFixture: RecycledIDReference =
  * @param overrides - Optional partial RecycledID reference to override default values
  * @returns A complete RecycledID reference fixture
  */
-export function createRecycledIdReferenceFixture(
+export function createRecycledIDReferenceFixture(
   overrides?: Partial<RecycledIDReference>,
 ): RecycledIDReference {
   return {
-    ...minimalRecycledIdReferenceStub,
+    ...minimalRecycledIDReferenceStub,
     ...overrides,
   };
 }

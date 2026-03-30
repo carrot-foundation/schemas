@@ -7,11 +7,11 @@ import {
   emitCreditExample,
   emitCreditPurchaseReceiptExample,
   emitCreditRetirementReceiptExample,
-  emitGasIdExample,
-  emitMassIdAuditExample,
-  emitMassIdExample,
+  emitGasIDExample,
+  emitMassIDAuditExample,
+  emitMassIDExample,
   emitMethodologyExample,
-  emitRecycledIdExample,
+  emitRecycledIDExample,
   NON_PRODUCTION_MARKER,
 } from '../index.js';
 import { emitters } from '../index.js';
@@ -89,24 +89,24 @@ describe('reference example story', () => {
   });
 
   it('keeps asset and audit references aligned', () => {
-    const massId = emitMassIdExample();
-    const gasId = emitGasIdExample();
-    const recycledId = emitRecycledIdExample();
-    const audit = emitMassIdAuditExample();
+    const massID = emitMassIDExample();
+    const gasID = emitGasIDExample();
+    const recycledID = emitRecycledIDExample();
+    const audit = emitMassIDAuditExample();
 
-    expect(gasId.data.mass_id.token_id).toBe(massId.blockchain.token_id);
-    expect(recycledId.data.mass_id.token_id).toBe(massId.blockchain.token_id);
-    expect(audit.data.mass_id.token_id).toBe(massId.blockchain.token_id);
+    expect(gasID.data.mass_id.token_id).toBe(massID.blockchain.token_id);
+    expect(recycledID.data.mass_id.token_id).toBe(massID.blockchain.token_id);
+    expect(audit.data.mass_id.token_id).toBe(massID.blockchain.token_id);
   });
 });
 
 describe('emitter output validates against Zod schemas', () => {
   const cases = [
-    { name: 'MassID', emitter: emitMassIdExample, schema: MassIDIpfsSchema },
-    { name: 'GasID', emitter: emitGasIdExample, schema: GasIDIpfsSchema },
+    { name: 'MassID', emitter: emitMassIDExample, schema: MassIDIpfsSchema },
+    { name: 'GasID', emitter: emitGasIDExample, schema: GasIDIpfsSchema },
     {
       name: 'RecycledID',
-      emitter: emitRecycledIdExample,
+      emitter: emitRecycledIDExample,
       schema: RecycledIDIpfsSchema,
     },
     { name: 'Credit', emitter: emitCreditExample, schema: CreditSchema },
@@ -122,7 +122,7 @@ describe('emitter output validates against Zod schemas', () => {
     },
     {
       name: 'MassID Audit',
-      emitter: emitMassIdAuditExample,
+      emitter: emitMassIDAuditExample,
       schema: MassIDAuditSchema,
     },
     {
@@ -171,23 +171,10 @@ describe('emitter registry completeness', () => {
 });
 
 describe('NON_PRODUCTION_MARKER propagation', () => {
-  const emitterEntries = [
-    { name: 'mass-id', emitter: emitMassIdExample },
-    { name: 'gas-id', emitter: emitGasIdExample },
-    { name: 'recycled-id', emitter: emitRecycledIdExample },
-    { name: 'credit', emitter: emitCreditExample },
-    { name: 'collection', emitter: emitCollectionExample },
-    { name: 'methodology', emitter: emitMethodologyExample },
-    { name: 'mass-id-audit', emitter: emitMassIdAuditExample },
-    {
-      name: 'credit-purchase-receipt',
-      emitter: emitCreditPurchaseReceiptExample,
-    },
-    {
-      name: 'credit-retirement-receipt',
-      emitter: emitCreditRetirementReceiptExample,
-    },
-  ] as const;
+  const emitterEntries = Object.entries(emitters).map(([name, emitter]) => ({
+    name,
+    emitter,
+  }));
 
   it.each(emitterEntries)(
     '$name emitter propagates NON_PRODUCTION_MARKER into environment',

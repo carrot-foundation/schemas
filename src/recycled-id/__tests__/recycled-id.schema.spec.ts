@@ -154,11 +154,11 @@ describe('RecycledIDIpfsSchema', () => {
   it('requires MassID attribute to match data.mass_id.token_id', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      const massIdAttrIndex = next.attributes.findIndex(
+      const massIDAttrIndex = next.attributes.findIndex(
         (attr) => attr.trait_type === 'MassID',
       );
-      if (massIdAttrIndex >= 0) {
-        next.attributes[massIdAttrIndex].value = '#999';
+      if (massIDAttrIndex >= 0) {
+        next.attributes[massIDAttrIndex].value = '#999';
       }
       return next;
     }, ['MassID attribute must equal data.mass_id.token_id as #<token_id>']);

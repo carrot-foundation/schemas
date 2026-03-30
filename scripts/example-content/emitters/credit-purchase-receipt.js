@@ -21,12 +21,12 @@ export function emitCreditPurchaseReceiptExample() {
 
   const purchaseTokenId = story.purchaseReceipt.tokenId;
   const retirementTokenId = story.retirementReceipt.tokenId;
-  const massIdTokenId = story.massID.tokenId;
+  const massIDTokenId = story.massID.tokenId;
 
   const purchasedAt = new Date('2025-02-03T12:45:30.000Z');
   const externalId = 'f1a2b3c4-d5e6-4789-9012-34567890abcd';
   const retirementExternalId = 'b2c3d4e5-f6a7-4c89-8a01-234567890abc';
-  const massIdExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
+  const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
 
   return {
     $schema: 'PLACEHOLDER',
@@ -188,9 +188,9 @@ export function emitCreditPurchaseReceiptExample() {
             },
           ],
           mass_id: {
-            token_id: massIdTokenId,
-            external_id: massIdExternalId,
-            external_url: `https://explore.carrot.eco/document/${massIdExternalId}`,
+            token_id: massIDTokenId,
+            external_id: massIDExternalId,
+            external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
             smart_contract_address:
@@ -216,9 +216,9 @@ export function emitCreditPurchaseReceiptExample() {
             },
           ],
           mass_id: {
-            token_id: massIdTokenId,
-            external_id: massIdExternalId,
-            external_url: `https://explore.carrot.eco/document/${massIdExternalId}`,
+            token_id: massIDTokenId,
+            external_id: massIDExternalId,
+            external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
             smart_contract_address:
@@ -244,9 +244,9 @@ export function emitCreditPurchaseReceiptExample() {
             },
           ],
           mass_id: {
-            token_id: massIdTokenId,
-            external_id: massIdExternalId,
-            external_url: `https://explore.carrot.eco/document/${massIdExternalId}`,
+            token_id: massIDTokenId,
+            external_id: massIDExternalId,
+            external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
             smart_contract_address:

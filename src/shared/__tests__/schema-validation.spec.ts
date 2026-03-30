@@ -402,13 +402,13 @@ describe('validateTokenIdInName', () => {
 
   it('works with different patterns', () => {
     const { ctx, issues } = createValidationContext();
-    const gasIdPattern = /^GasID #(\d+)/;
+    const gasIDPattern = /^GasID #(\d+)/;
 
     validateTokenIdInName({
       ctx,
       name: 'GasID #456 • BOLD Carbon (CH₄) • 0.86t CO₂e',
       tokenId: '456',
-      pattern: gasIdPattern,
+      pattern: gasIDPattern,
       path: ['name'],
     });
 
