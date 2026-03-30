@@ -13,8 +13,6 @@ import { formatDateTime } from '../shared.js';
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A MassID Audit IPFS document (requires post-processing for AJV validity)
  */
 export function emitMassIDAuditExample() {
   const story = buildReferenceStory();
@@ -36,7 +34,7 @@ export function emitMassIDAuditExample() {
   );
 
   const lastRuleCompletedAt = ruleExecutionResults.reduce((max, rule) => {
-    const t = new Date(/** @type {string} */ (rule.execution_completed_at));
+    const t = new Date(rule.execution_completed_at as string);
     return t > max ? t : max;
   }, auditStartedAt);
   const auditCompletedAt = new Date(lastRuleCompletedAt.getTime() + 50);
@@ -89,17 +87,21 @@ export function emitMassIDAuditExample() {
   };
 }
 
-/**
- * Build the full set of rule execution results for the audit.
- *
- * @param {string} baseUrl - Base URL for rule source code
- * @param {string} rulesCommit - Git commit hash for rules
- * @param {Date} auditStartedAt - When the audit started
- * @returns {Array<object>} Rule execution result entries
- */
-function buildRuleExecutionResults(baseUrl, rulesCommit, auditStartedAt) {
-  /** @type {Array<{slug: string; name: string; description: string; dirName?: string; message?: string; checksum: string; executionId: string}>} */
-  const definitions = [
+/** Build the full set of rule execution results for the audit. */
+function buildRuleExecutionResults(
+  baseUrl: string,
+  rulesCommit: string,
+  auditStartedAt: Date,
+) {
+  const definitions: Array<{
+    slug: string;
+    name: string;
+    description: string;
+    dirName?: string;
+    message?: string;
+    checksum: string;
+    executionId: string;
+  }> = [
     {
       slug: 'waste-mass-is-unique',
       name: 'Waste Mass is Unique',
@@ -292,8 +294,7 @@ function buildRuleExecutionResults(baseUrl, rulesCommit, auditStartedAt) {
     const startMs = auditStartedAt.getTime() + order * 100;
     const endMs = startMs + 50;
 
-    /** @type {Record<string, unknown>} */
-    const entry = {
+    const entry: Record<string, unknown> = {
       rule_name: rule.name,
       rule_slug: rule.slug,
       rule_id: `00000000-0000-4000-8000-${String(order).padStart(12, '0')}`,

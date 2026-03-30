@@ -13,8 +13,6 @@ import { formatDate, formatDateTime } from '../shared.js';
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A Methodology IPFS document (requires post-processing for AJV validity)
  */
 export function emitMethodologyExample() {
   const story = buildReferenceStory();
@@ -50,13 +48,17 @@ export function emitMethodologyExample() {
   };
 }
 
-/** @returns {Array<object>} The full set of BOLD Carbon mass-ID audit rules */
+/** The full set of BOLD Carbon mass-ID audit rules. */
 function buildMassIdAuditRules() {
   const rulesCommit = '2e9cbbfd397027a03fb1561e431fcc156580459f';
   const baseUrl = `https://github.com/carrot-foundation/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
 
-  /** @type {Array<{slug: string; name: string; description: string; dirName?: string}>} */
-  const definitions = [
+  const definitions: Array<{
+    slug: string;
+    name: string;
+    description: string;
+    dirName?: string;
+  }> = [
     {
       slug: 'waste-mass-is-unique',
       name: 'Waste Mass is Unique',

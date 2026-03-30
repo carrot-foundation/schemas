@@ -1,7 +1,7 @@
 /**
- * Emitter for Credit Purchase Receipt example JSON.
+ * Emitter for Credit Retirement Receipt example JSON.
  *
- * Produces a Credit Purchase Receipt document which, after post-processing,
+ * Produces a Credit Retirement Receipt document which, after post-processing,
  * becomes AJV-valid. Uses the canonical reference story for shared identifiers.
  */
 
@@ -9,138 +9,131 @@ import { buildReferenceStory } from '../reference-story.js';
 import { formatDateTime, formatUnixMs } from '../shared.js';
 
 /**
- * Emit a Credit Purchase Receipt example document with placeholders.
+ * Emit a Credit Retirement Receipt example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A Credit Purchase Receipt IPFS document (requires post-processing for AJV validity)
  */
-export function emitCreditPurchaseReceiptExample() {
+export function emitCreditRetirementReceiptExample() {
   const story = buildReferenceStory();
 
   const purchaseTokenId = story.purchaseReceipt.tokenId;
   const retirementTokenId = story.retirementReceipt.tokenId;
   const massIDTokenId = story.massID.tokenId;
 
-  const purchasedAt = new Date('2025-02-03T12:45:30.000Z');
-  const externalId = 'f1a2b3c4-d5e6-4789-9012-34567890abcd';
-  const retirementExternalId = 'b2c3d4e5-f6a7-4c89-8a01-234567890abc';
+  const retiredAt = new Date('2025-02-03T12:45:30.000Z');
+  const externalId = 'b2c3d4e5-f6a7-4c89-8a01-234567890abc';
+  const purchaseExternalId = 'f1a2b3c4-d5e6-4789-9012-34567890abcd';
   const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
 
   return {
     $schema: 'PLACEHOLDER',
     schema: {
       hash: 'PLACEHOLDER',
-      type: 'CreditPurchaseReceipt',
+      type: 'CreditRetirementReceipt',
       version: 'PLACEHOLDER',
       ipfs_uri:
         'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
     },
     environment: { ...story.environment },
     blockchain: {
-      token_id: purchaseTokenId,
+      token_id: retirementTokenId,
       smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
       chain_id: 80002,
       network_name: 'Amoy',
     },
-    created_at: formatDateTime(purchasedAt),
+    created_at: formatDateTime(retiredAt),
     external_id: externalId,
     external_url: `https://explore.carrot.eco/document/${externalId}`,
-    audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
       ipfs_uri:
         'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
       integrity_hash:
         '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
     },
-    name: `Credit Purchase Receipt #${purchaseTokenId} \u2022 8.5 Credits Purchased`,
-    short_name: `Purchase Receipt #${purchaseTokenId}`,
-    description: `Receipt for purchasing 8.5 credits (${story.credit.symbol} and C-BIOW) across 3 certificates, with 3.0 credits retired immediately on behalf of Climate Action Corp. Credits delivered to EcoTech Solutions Inc.`,
+    name: `Credit Retirement Receipt #${retirementTokenId} \u2022 3.0 Credits Retired`,
+    short_name: `Retirement Receipt #${retirementTokenId}`,
+    description: `Permanent proof of credit retirement: 3.0 credits (${story.credit.symbol} and C-BIOW) retired by EcoTech Solutions Inc. on behalf of beneficiary Climate Action Corp, from 3 certificates across 2 collections.`,
     image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
-    background_color: '#2D5A27',
+    background_color: '#1B4332',
     external_links: [
       {
         label: 'View on Carrot Explorer',
         url: `https://explore.carrot.eco/document/${externalId}`,
-        description: 'Complete purchase details and audit trail',
+        description: 'Complete retirement details and audit trail',
       },
     ],
     attributes: [
       {
         trait_type: story.credit.symbol,
-        value: 3,
+        value: 1.5,
         display_type: 'number',
       },
       {
         trait_type: 'C-BIOW',
-        value: 5.5,
+        value: 1.5,
         display_type: 'number',
       },
       {
-        trait_type: 'Total Credits Purchased',
-        value: 8.5,
-        display_type: 'number',
-      },
-      {
-        trait_type: 'Total Amount (USDC)',
-        value: 710.59,
-        display_type: 'number',
-      },
-      {
-        trait_type: 'Certificates Purchased',
+        trait_type: 'Total Credits Retired',
         value: 3,
         display_type: 'number',
       },
       {
-        trait_type: 'Buyer',
-        value: 'EcoTech Solutions Inc.',
-      },
-      {
-        trait_type: 'Purchase Date',
-        value: formatUnixMs(purchasedAt),
-        display_type: 'date',
+        trait_type: 'Beneficiary',
+        value: 'Climate Action Corp',
       },
       {
         trait_type: 'Retirement Date',
-        value: formatUnixMs(purchasedAt),
+        value: formatUnixMs(retiredAt),
         display_type: 'date',
       },
       {
-        trait_type: 'Retirement Receipt',
-        value: `#${retirementTokenId}`,
+        trait_type: 'Certificates Retired',
+        value: 3,
+        display_type: 'number',
+      },
+      {
+        trait_type: 'Purchase Date',
+        value: formatUnixMs(retiredAt),
+        display_type: 'date',
+      },
+      {
+        trait_type: 'Purchase Receipt',
+        value: `#${purchaseTokenId}`,
       },
     ],
     data: {
       summary: {
-        total_amount_usdc: 710.59,
-        total_credits: 8.5,
+        total_credits_retired: 3,
         total_certificates: 3,
-        purchased_at: formatDateTime(purchasedAt),
+        retired_at: formatDateTime(retiredAt),
       },
-      buyer: {
-        id: 'b5c6d7e8-f901-4a23-9b45-6789012cdef3',
-        wallet_address: '0x1234567890abcdef1234567890abcdef12345678',
+      beneficiary: {
+        beneficiary_id: 'c3d4e5f6-a7b8-4d12-8b56-789012cdef01',
         identity: {
-          name: 'EcoTech Solutions Inc.',
-          external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
+          name: 'Climate Action Corp',
+          external_id: 'd4e5f6a7-b8c9-4e23-8c67-890123def012',
           external_url:
-            'https://explore.carrot.eco/participant/ecotech-solutions-inc-12345',
+            'https://explore.carrot.eco/participant/climate-action-corp-78901',
         },
+      },
+      credit_holder: {
+        wallet_address: '0x1234567890abcdef1234567890abcdef12345678',
       },
       collections: [
         {
           slug: story.collection.slug,
-          name: story.collection.name,
           external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
+          name: story.collection.name,
           external_url: `https://explore.carrot.eco/collection/${story.collection.slug}`,
           ipfs_uri:
             'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
         },
         {
           slug: 'bold-brazil',
-          name: 'BOLD Brazil',
           external_id: 'e710790f-5909-4a54-ab89-6a59819472ee',
+          name: 'BOLD Brazil',
           external_url: 'https://explore.carrot.eco/collection/bold-brazil',
           ipfs_uri:
             'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
@@ -170,26 +163,34 @@ export function emitCreditPurchaseReceiptExample() {
       ],
       certificates: [
         {
-          type: 'GasID',
           token_id: story.gasID.tokenId,
-          total_amount: 10,
-          credit_slug: story.credit.slug,
+          type: 'GasID',
           external_id: 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6',
           external_url:
             'https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6',
           ipfs_uri:
             'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
           smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
+          total_amount: 10,
           collections: [
             {
               slug: story.collection.slug,
-              purchased_amount: 3,
               retired_amount: 1.5,
             },
           ],
+          credits_retired: [
+            {
+              credit_symbol: story.credit.symbol,
+              credit_slug: story.credit.slug,
+              amount: 1.5,
+              external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
+              external_url:
+                'https://explore.carrot.eco/credit-retirement/credit-retired-456-c-carb',
+            },
+          ],
           mass_id: {
-            token_id: massIDTokenId,
             external_id: massIDExternalId,
+            token_id: massIDTokenId,
             external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
@@ -198,21 +199,29 @@ export function emitCreditPurchaseReceiptExample() {
           },
         },
         {
-          type: 'RecycledID',
           token_id: story.recycledID.tokenId,
-          total_amount: 6,
-          credit_slug: 'biowaste',
+          type: 'RecycledID',
           external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d489',
           external_url:
             'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489',
           ipfs_uri:
             'ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae',
           smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
+          total_amount: 6,
           collections: [
             {
               slug: story.collection.slug,
-              purchased_amount: 2,
               retired_amount: 0.5,
+            },
+          ],
+          credits_retired: [
+            {
+              credit_symbol: 'C-BIOW',
+              credit_slug: 'biowaste',
+              amount: 0.5,
+              external_id: 'a1b2c3d4-e5f6-4a90-8b34-567890abcedf',
+              external_url:
+                'https://explore.carrot.eco/credit-retirement/credit-retired-789-c-biow',
             },
           ],
           mass_id: {
@@ -226,21 +235,29 @@ export function emitCreditPurchaseReceiptExample() {
           },
         },
         {
-          type: 'RecycledID',
           token_id: '890',
-          total_amount: 8,
-          credit_slug: 'biowaste',
+          type: 'RecycledID',
           external_id: '0f1e2d3c-4b5a-4d78-8c12-3456789abcde',
           external_url:
             'https://explore.carrot.eco/document/0f1e2d3c-4b5a-4d78-8c12-3456789abcde',
           ipfs_uri:
             'ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae',
           smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
+          total_amount: 8,
           collections: [
             {
               slug: 'bold-brazil',
-              purchased_amount: 3.5,
               retired_amount: 1,
+            },
+          ],
+          credits_retired: [
+            {
+              credit_symbol: 'C-BIOW',
+              credit_slug: 'biowaste',
+              amount: 1,
+              external_id: 'b2c3d4e5-f6a7-4b01-8c45-678901bcdef1',
+              external_url:
+                'https://explore.carrot.eco/credit-retirement/credit-retired-890-c-biow',
             },
           ],
           mass_id: {
@@ -254,14 +271,15 @@ export function emitCreditPurchaseReceiptExample() {
           },
         },
       ],
-      retirement_receipt: {
-        token_id: retirementTokenId,
-        external_id: retirementExternalId,
-        external_url: `https://explore.carrot.eco/document/${retirementExternalId}`,
+      purchase_receipt: {
+        token_id: purchaseTokenId,
+        external_id: purchaseExternalId,
+        external_url: `https://explore.carrot.eco/document/${purchaseExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
       },
     },
+    audit_data_hash: 'PLACEHOLDER',
   };
 }

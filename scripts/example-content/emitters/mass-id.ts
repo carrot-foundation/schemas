@@ -13,8 +13,6 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A MassID IPFS document (requires post-processing for AJV validity)
  */
 export function emitMassIDExample() {
   const story = buildReferenceStory();
