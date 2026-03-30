@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "cbe2a15f885e49ccc1e5c5c7f982f44013dc7a45d0c11b5155e77703bc0f7158",
+    "hash": "31ed49fbf54a3faccb5fe7e2e45e313b8ba190cbc9f2078da536a0415541612a",
     "type": "MassID Audit",
     "version": "0.2.4",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -95,7 +95,7 @@
         "execution_message": "All participant accreditations-and-verifications are active and approved.",
         "rule_processor_checksum": "e014fc2e2c85aba826ad8b079f9f8bd7",
         "rule_source_code_version": "2e9cbbfd397027a03fb1561e431fcc156580459f",
-        "rule_description": "Checks if all participating entities have valid certifications and permissions",
+        "rule_description": "Checks if all participating entities have valid accreditations and permissions",
         "rule_execution_order": 4,
         "rule_source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/participant-accreditations-and-verifications-requirements",
         "execution_id": "9eb0e3f4-6f7d-4820-b3f2-83d314a48dea",

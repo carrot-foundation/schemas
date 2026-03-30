@@ -19,7 +19,7 @@
     "short_name": "BOLD Carbon (CH₄)",
     "slug": "bold-carbon-ch4",
     "version": "1.0.1",
-    "description": "The BOLD (Breakthrough in Organics Landfill Diversion) Carbon methodology establishes the certification process for confirming avoided methane emissions from aerobic composting of organic waste at small-scale, professional composting facilities and distribution of rewards to supply chain contributors.",
+    "description": "The BOLD (Breakthrough in Organics Landfill Diversion) Carbon methodology establishes the verification process for confirming prevented methane emissions from aerobic composting of organic waste at small-scale, professional composting facilities and distribution of rewards to supply chain contributors.",
     "revision_date": "2025-08-15",
     "publication_date": "2025-08-15",
     "methodology_pdf": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
@@ -49,7 +49,7 @@
         "name": "Project Period Limit"
       },
       {
-        "description": "Checks if all participating entities have valid certifications and permissions",
+        "description": "Checks if all participating entities have valid accreditations and permissions",
         "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/participant-accreditations-and-verifications-requirements",
         "execution_order": 4,
         "id": "00000000-0000-4000-8000-000000000004",

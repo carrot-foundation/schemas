@@ -33,6 +33,7 @@ export const StringifiedTokenIdSchema = NonEmptyStringSchema.regex(
   title: 'Display Token ID',
   description:
     'Human-readable token ID prefixed with # for display purposes (e.g., #456789)',
+  examples: ['#456789', '#1000000'],
   example: '#456789',
 });
 export type StringifiedTokenId = z.infer<typeof StringifiedTokenIdSchema>;

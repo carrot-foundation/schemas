@@ -237,7 +237,7 @@
       "title": "Token Description",
       "description": "Comprehensive description of the credit token, its purpose, and impact",
       "examples": [
-        "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices."
+        "Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices."
       ]
     }
   },

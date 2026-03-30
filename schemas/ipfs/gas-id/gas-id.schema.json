@@ -174,7 +174,7 @@
                 "Methane (CH₄)"
               ],
               "title": "Gas Type",
-              "description": "Greenhouse gas type whose emission was avoided through the waste management activity",
+              "description": "Greenhouse gas type whose emission was prevented through the waste management activity",
               "examples": [
                 "Methane (CH₄)"
               ]
@@ -186,7 +186,7 @@
                 "Carbon (CH₄)"
               ],
               "title": "Credit Type",
-              "description": "Category of environmental credit — indicates the impact pathway (biowaste diversion or methane avoidance)",
+              "description": "Category of environmental credit — indicates the impact pathway (biowaste diversion or methane prevention)",
               "examples": [
                 "Biowaste",
                 "Carbon (CH₄)"
@@ -719,7 +719,7 @@
           ],
           "additionalProperties": false,
           "title": "Prevented Emissions Calculation",
-          "description": "Methodology-based calculation of prevented CO2e emissions, including formula, method, input values, and computation timestamp"
+          "description": "Methodology-based calculation of prevented CO₂e emissions, including formula, method, input values, and computation timestamp"
         }
       },
       "required": [
@@ -989,7 +989,7 @@
                 "Methane (CH₄)"
               ],
               "title": "Gas Type",
-              "description": "Greenhouse gas type whose emission was avoided through the waste management activity",
+              "description": "Greenhouse gas type whose emission was prevented through the waste management activity",
               "examples": [
                 "Methane (CH₄)"
               ]
@@ -1125,7 +1125,7 @@
                 "Carbon (CH₄)"
               ],
               "title": "Credit Type",
-              "description": "Category of environmental credit — indicates the impact pathway (biowaste diversion or methane avoidance)",
+              "description": "Category of environmental credit — indicates the impact pathway (biowaste diversion or methane prevention)",
               "examples": [
                 "Biowaste",
                 "Carbon (CH₄)"
@@ -1368,8 +1368,8 @@
               "title": "MassID Token ID",
               "description": "Token ID of the source MassID NFT as #<token_id>",
               "examples": [
-                "example-value",
-                "Hello World"
+                "#456789",
+                "#1000000"
               ],
               "example": "#456789"
             },

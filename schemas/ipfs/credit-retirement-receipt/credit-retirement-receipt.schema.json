@@ -575,7 +575,7 @@
                   "RecycledID"
                 ],
                 "title": "Certificate Type",
-                "description": "Type of impact certificate — GasID for methane avoidance, RecycledID for waste recycling",
+                "description": "Type of impact certificate — GasID for methane prevention, RecycledID for waste recycling",
                 "examples": [
                   "GasID",
                   "RecycledID"
@@ -1330,8 +1330,8 @@
                 "title": "Purchase Receipt Token ID",
                 "description": "Token ID of the purchase receipt NFT as #<token_id> (if purchase_receipt is present)",
                 "examples": [
-                  "example-value",
-                  "Hello World"
+                  "#456789",
+                  "#1000000"
                 ],
                 "example": "#456789"
               },
