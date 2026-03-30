@@ -40,7 +40,7 @@ export function emitMethodologyExample() {
       slug: story.methodology.slug,
       version: story.methodology.version,
       description:
-        'The BOLD (Breakthrough in Organics Landfill Diversion) Carbon methodology establishes the certification process for confirming avoided methane emissions from aerobic composting of organic waste at small-scale, professional composting facilities and distribution of rewards to supply chain contributors.',
+        'The BOLD (Breakthrough in Organics Landfill Diversion) Carbon methodology establishes the verification process for confirming prevented methane emissions from aerobic composting of organic waste at small-scale, professional composting facilities and distribution of rewards to supply chain contributors.',
       revision_date: formatDate(createdAt),
       publication_date: formatDate(createdAt),
       methodology_pdf:
@@ -80,7 +80,7 @@ function buildMassIdAuditRules() {
       dirName: 'participant-accreditations-and-verifications-requirements',
       name: 'Participant Accreditations & Verifications Requirements',
       description:
-        'Checks if all participating entities have valid certifications and permissions',
+        'Checks if all participating entities have valid accreditations and permissions',
     },
     {
       slug: 'mass-id-qualifications',

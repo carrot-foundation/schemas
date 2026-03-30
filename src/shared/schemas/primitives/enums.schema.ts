@@ -15,7 +15,7 @@ export const RecordSchemaTypeSchema = z
   .meta({
     title: 'Schema Type',
     description:
-      'Identifies the record type within the Carrot ecosystem (e.g., MassID for waste tracking, GasID for gas capture)',
+      'Identifies the record type within the Carrot ecosystem (e.g., MassID for waste tracking, GasID for prevented emissions certificates)',
     examples: ['MassID', 'GasID', 'Credit', 'CreditPurchaseReceipt'],
   });
 export type RecordSchemaType = z.infer<typeof RecordSchemaTypeSchema>;
@@ -48,7 +48,7 @@ export type CreditTokenSymbol = z.infer<typeof CreditTokenSymbolSchema>;
 export const CreditTypeSchema = z.enum(['Biowaste', 'Carbon (CH₄)']).meta({
   title: 'Credit Type',
   description:
-    'Category of environmental credit — indicates the impact pathway (biowaste diversion or methane avoidance)',
+    'Category of environmental credit — indicates the impact pathway (biowaste diversion or methane prevention)',
   examples: ['Biowaste', 'Carbon (CH₄)'],
 });
 export type CreditType = z.infer<typeof CreditTypeSchema>;
@@ -56,7 +56,7 @@ export type CreditType = z.infer<typeof CreditTypeSchema>;
 export const GasTypeSchema = z.enum(['Methane (CH₄)']).meta({
   title: 'Gas Type',
   description:
-    'Greenhouse gas type whose emission was avoided through the waste management activity',
+    'Greenhouse gas type whose emission was prevented through the waste management activity',
   examples: ['Methane (CH₄)'],
 });
 export type GasType = z.infer<typeof GasTypeSchema>;
@@ -235,7 +235,7 @@ export type MethodologySlug = z.infer<typeof MethodologySlugSchema>;
 export const CertificateTypeSchema = z.enum(['GasID', 'RecycledID']).meta({
   title: 'Certificate Type',
   description:
-    'Type of impact certificate — GasID for methane avoidance, RecycledID for waste recycling',
+    'Type of impact certificate — GasID for methane prevention, RecycledID for waste recycling',
   examples: ['GasID', 'RecycledID'],
 });
 export type CertificateType = z.infer<typeof CertificateTypeSchema>;

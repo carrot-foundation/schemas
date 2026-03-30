@@ -133,7 +133,7 @@ function buildRuleExecutionResults(baseUrl, rulesCommit, auditStartedAt) {
       dirName: 'participant-accreditations-and-verifications-requirements',
       name: 'Participant Accreditations & Verifications Requirements',
       description:
-        'Checks if all participating entities have valid certifications and permissions',
+        'Checks if all participating entities have valid accreditations and permissions',
       message:
         'All participant accreditations-and-verifications are active and approved.',
       checksum: 'e014fc2e2c85aba826ad8b079f9f8bd7',

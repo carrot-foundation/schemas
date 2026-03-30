@@ -94,7 +94,7 @@ const PreventedEmissionsCalculationSchema = z
   .meta({
     title: 'Prevented Emissions Calculation',
     description:
-      'Methodology-based calculation of prevented CO2e emissions, including formula, method, input values, and computation timestamp',
+      'Methodology-based calculation of prevented CO₂e emissions, including formula, method, input values, and computation timestamp',
   });
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema

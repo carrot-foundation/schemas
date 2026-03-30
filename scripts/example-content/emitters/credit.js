@@ -38,6 +38,6 @@ export function emitCreditExample() {
     decimals: 18,
     image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
     description:
-      'Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact.',
+      'Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact.',
   };
 }
