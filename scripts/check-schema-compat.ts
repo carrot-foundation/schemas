@@ -1,22 +1,26 @@
 #!/usr/bin/env node
 
-/**
- * Schema backward compatibility checker.
- * Compares generated JSON schemas in `schemas/ipfs/` against a baseline
- * directory specified by the `BASELINE_SCHEMAS_DIR` environment variable.
- * Detects breaking changes: removed properties, new required fields,
- * type changes, narrowed enums, additionalProperties restrictions,
- * deleted schemas, and deleted $defs.
- *
- * Checks nested properties recursively (including $defs).
- *
- * Pass --advisory to exit 0 even when findings exist.
- * Default: exits 1 when breaking changes are found.
- */
-
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, basename } from 'node:path';
 import { globSync } from 'glob';
+import { getErrorMessage } from './utils/fs-utils.js';
+
+interface Finding {
+  schema: string;
+  type: string;
+  detail: string;
+}
+
+interface SchemaObject {
+  properties?: Record<string, SchemaObject>;
+  required?: string[];
+  type?: string | string[];
+  enum?: unknown[];
+  additionalProperties?: boolean;
+  $defs?: Record<string, SchemaObject>;
+  items?: SchemaObject;
+  [key: string]: unknown;
+}
 
 const SCHEMAS_DIR = resolve(process.cwd(), 'schemas/ipfs');
 const BASELINE_DIR = process.env.BASELINE_SCHEMAS_DIR;
@@ -66,15 +70,15 @@ if (baselineSchemaCount === 0) {
   process.exit(1);
 }
 
-const findings = [];
+const findings: Finding[] = [];
 let hasInfrastructureFailure = false;
 
-function joinPath(parent, segment) {
+function joinPath(parent: string, segment: string): string {
   return parent ? `${parent}.${segment}` : segment;
 }
 
-function addFinding(schema, type, detail) {
-  const finding = { schema, type, detail };
+function addFinding(schema: string, type: string, detail: string): void {
+  const finding: Finding = { schema, type, detail };
   findings.push(finding);
   if (isCI) {
     // Must be console.log (stdout) for GitHub Actions to parse the ::warning:: annotation
@@ -84,19 +88,12 @@ function addFinding(schema, type, detail) {
   }
 }
 
-/**
- * Recursively compare properties between baseline and current schemas.
- * @param {object} baselineObj - Baseline schema or sub-schema object
- * @param {object} currentObj - Current schema or sub-schema object
- * @param {string} schemaName - Schema name for reporting
- * @param {string} propertyPath - Dot-separated property path for context
- */
 function compareProperties(
-  baselineObj,
-  currentObj,
-  schemaName,
+  baselineObj: SchemaObject,
+  currentObj: SchemaObject,
+  schemaName: string,
   propertyPath = '',
-) {
+): void {
   const baseProps = baselineObj.properties;
   const curProps = currentObj.properties;
 
@@ -111,8 +108,40 @@ function compareProperties(
     return;
   }
 
-  if (!baseProps && curProps) return;
+  if (baseProps && curProps) {
+    comparePropertyEntries(baseProps, curProps, schemaName, propertyPath);
+  }
 
+  const baselineRequired = new Set(baselineObj.required || []);
+  const currentRequired = new Set(currentObj.required || []);
+  for (const req of currentRequired) {
+    if (!baselineRequired.has(req)) {
+      addFinding(
+        schemaName,
+        'NEW_REQUIRED_FIELD',
+        `"${joinPath(propertyPath, req)}" is now required (was optional or absent)`,
+      );
+    }
+  }
+
+  if (
+    baselineObj.additionalProperties !== false &&
+    currentObj.additionalProperties === false
+  ) {
+    addFinding(
+      schemaName,
+      'ADDITIONAL_PROPERTIES_RESTRICTED',
+      `additionalProperties set to false${propertyPath ? ` at "${propertyPath}"` : ''} (was not restricted)`,
+    );
+  }
+}
+
+function comparePropertyEntries(
+  baseProps: Record<string, SchemaObject>,
+  curProps: Record<string, SchemaObject>,
+  schemaName: string,
+  propertyPath: string,
+): void {
   for (const prop of Object.keys(baseProps)) {
     const fullPath = joinPath(propertyPath, prop);
 
@@ -172,34 +201,13 @@ function compareProperties(
       );
     }
   }
-
-  const baselineRequired = new Set(baselineObj.required || []);
-  const currentRequired = new Set(currentObj.required || []);
-  for (const req of currentRequired) {
-    if (!baselineRequired.has(req)) {
-      addFinding(
-        schemaName,
-        'NEW_REQUIRED_FIELD',
-        `"${joinPath(propertyPath, req)}" is now required (was optional or absent)`,
-      );
-    }
-  }
-
-  if (
-    baselineObj.additionalProperties !== false &&
-    currentObj.additionalProperties === false
-  ) {
-    addFinding(
-      schemaName,
-      'ADDITIONAL_PROPERTIES_RESTRICTED',
-      `additionalProperties changed to false${propertyPath ? ` at "${propertyPath}"` : ''}`,
-    );
-  }
 }
 
-function checkSchema(currentPath, baselinePath) {
-  const current = JSON.parse(readFileSync(currentPath, 'utf8'));
-  const baseline = JSON.parse(readFileSync(baselinePath, 'utf8'));
+function checkSchema(currentPath: string, baselinePath: string): void {
+  const current = JSON.parse(readFileSync(currentPath, 'utf8')) as SchemaObject;
+  const baseline = JSON.parse(
+    readFileSync(baselinePath, 'utf8'),
+  ) as SchemaObject;
   const schemaName = basename(currentPath, '.schema.json');
 
   compareProperties(baseline, current, schemaName);
@@ -238,13 +246,13 @@ for (const schemaFile of currentSchemas) {
     } catch (error) {
       // Infrastructure failures (JSON parse, filesystem) are not advisory
       console.error(
-        `ERROR: Failed to compare schema ${schemaFile}: ${error.message}`,
+        `ERROR: Failed to compare schema ${schemaFile}: ${getErrorMessage(error)}`,
       );
-      if (error.stack) console.error(error.stack);
+      if (error instanceof Error && error.stack) console.error(error.stack);
       addFinding(
         schemaFile,
         'PARSE_ERROR',
-        `Failed to compare schema: ${error.message}`,
+        `Failed to compare schema: ${getErrorMessage(error)}`,
       );
       hasInfrastructureFailure = true;
     }

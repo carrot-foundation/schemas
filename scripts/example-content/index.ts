@@ -2,7 +2,7 @@ export { buildReferenceStory } from './reference-story.js';
 export {
   formatDate,
   formatDateTime,
-  formatUnixMs,
+  formatUnixMilliseconds,
   NON_PRODUCTION_MARKER,
 } from './shared.js';
 

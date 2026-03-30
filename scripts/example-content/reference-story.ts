@@ -11,8 +11,6 @@ import { NON_PRODUCTION_MARKER } from './shared.js';
 /**
  * Build the reference story containing all shared identifiers and metadata
  * used across schema example generators.
- *
- * @returns {object} The canonical reference story
  */
 export function buildReferenceStory() {
   return {
@@ -20,7 +18,7 @@ export function buildReferenceStory() {
       ...NON_PRODUCTION_MARKER,
     },
     methodology: {
-      name: 'AMS-III.F. | BOLD Carbon (CH\u2084) - SSC',
+      name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
       version: '1.0.1',
       slug: 'bold-carbon-ch4',
     },
@@ -29,7 +27,7 @@ export function buildReferenceStory() {
       slug: 'bold-cold-start-carazinho',
     },
     credit: {
-      name: 'Carrot Carbon (CH\u2084)',
+      name: 'Carrot Carbon (CH₄)',
       slug: 'carbon-methane',
       symbol: 'C-CARB.CH4',
     },
@@ -51,5 +49,5 @@ export function buildReferenceStory() {
     retirementReceipt: {
       tokenId: '600001',
     },
-  };
+  } as const;
 }

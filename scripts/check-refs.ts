@@ -2,11 +2,16 @@
 
 import fs from 'fs';
 import path from 'path';
+import { getErrorMessage } from './utils/fs-utils.js';
 
 const SCHEMAS_DIR = path.join(process.cwd(), 'schemas');
 const TARGET_EXTENSIONS = ['.schema.json', '.example.json'];
 
-function collectFiles(dir, extensions, collected) {
+function collectFiles(
+  dir: string,
+  extensions: string[],
+  collected?: string[],
+): string[] {
   const results = collected ?? [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -26,9 +31,9 @@ function collectFiles(dir, extensions, collected) {
   return results;
 }
 
-function collectJsonSchemaRefs(rootJson) {
-  const collectedRefs = [];
-  const stack = [rootJson];
+function collectJsonSchemaRefs(rootJson: unknown): string[] {
+  const collectedRefs: string[] = [];
+  const stack: unknown[] = [rootJson];
 
   while (stack.length > 0) {
     const node = stack.pop();
@@ -37,23 +42,25 @@ function collectJsonSchemaRefs(rootJson) {
       continue;
     }
 
-    if (typeof node.$ref === 'string') {
-      collectedRefs.push(node.$ref);
+    const obj = node as Record<string, unknown>;
+
+    if (typeof obj.$ref === 'string') {
+      collectedRefs.push(obj.$ref);
     }
 
-    for (const key of Object.keys(node)) {
-      stack.push(node[key]);
+    for (const key of Object.keys(obj)) {
+      stack.push(obj[key]);
     }
   }
 
   return collectedRefs;
 }
 
-function isHttpUrl(value) {
+function isHttpUrl(value: string): boolean {
   return value.startsWith('http://') || value.startsWith('https://');
 }
 
-function mapHttpSchemasUrlToLocalPath(url) {
+function mapHttpSchemasUrlToLocalPath(url: string): string {
   return path.resolve(
     url.replace(
       /^https?:\/\/.*\/schemas\//,
@@ -62,7 +69,10 @@ function mapHttpSchemasUrlToLocalPath(url) {
   );
 }
 
-function resolveRefToLocalPath(reference, baseFilePath) {
+function resolveRefToLocalPath(
+  reference: string,
+  baseFilePath: string,
+): string | null {
   const filePart = reference.split('#')[0];
 
   if (!filePart) {
@@ -84,7 +94,7 @@ function resolveRefToLocalPath(reference, baseFilePath) {
   return path.resolve(path.dirname(baseFilePath), filePart);
 }
 
-async function main() {
+async function main(): Promise<void> {
   if (!fs.existsSync(SCHEMAS_DIR)) {
     console.error(`schemas directory not found at ${SCHEMAS_DIR}`);
     process.exit(1);
@@ -93,15 +103,15 @@ async function main() {
   const filesToScan = collectFiles(SCHEMAS_DIR, TARGET_EXTENSIONS, []);
 
   let totalRefs = 0;
-  const missing = [];
+  const missing: Array<{ file: string; ref: string; resolved: string }> = [];
 
   for (const filePath of filesToScan) {
-    let parsed;
+    let parsed: unknown;
 
     try {
       parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     } catch (error) {
-      console.error(`Invalid JSON: ${filePath}: ${error.message}`);
+      console.error(`Invalid JSON: ${filePath}: ${getErrorMessage(error)}`);
       process.exitCode = 1;
       continue;
     }
@@ -136,7 +146,7 @@ async function main() {
   console.log(`All references resolved (${totalRefs} total).`);
 }
 
-main().catch((error) => {
+main().catch((error: unknown) => {
   console.error(error);
   process.exit(1);
 });

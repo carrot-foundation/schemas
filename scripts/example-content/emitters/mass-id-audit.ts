@@ -8,15 +8,29 @@
 import { buildReferenceStory } from '../reference-story.js';
 import { formatDateTime } from '../shared.js';
 
+interface RuleExecutionResult {
+  rule_name: string;
+  rule_slug: string;
+  rule_id: string;
+  result: string;
+  execution_message?: string;
+  rule_processor_checksum: string;
+  rule_source_code_version: string;
+  rule_description: string;
+  rule_execution_order: number;
+  rule_source_code_url: string;
+  execution_id: string;
+  execution_started_at: string;
+  execution_completed_at: string;
+}
+
 /**
  * Emit a MassID Audit example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A MassID Audit IPFS document (requires post-processing for AJV validity)
  */
-export function emitMassIDAuditExample() {
+export function emitMassIDAuditExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const auditStartedAt = new Date('2024-12-08T11:32:46.000Z');
 
@@ -36,7 +50,7 @@ export function emitMassIDAuditExample() {
   );
 
   const lastRuleCompletedAt = ruleExecutionResults.reduce((max, rule) => {
-    const t = new Date(/** @type {string} */ (rule.execution_completed_at));
+    const t = new Date(rule.execution_completed_at);
     return t > max ? t : max;
   }, auditStartedAt);
   const auditCompletedAt = new Date(lastRuleCompletedAt.getTime() + 50);
@@ -89,17 +103,21 @@ export function emitMassIDAuditExample() {
   };
 }
 
-/**
- * Build the full set of rule execution results for the audit.
- *
- * @param {string} baseUrl - Base URL for rule source code
- * @param {string} rulesCommit - Git commit hash for rules
- * @param {Date} auditStartedAt - When the audit started
- * @returns {Array<object>} Rule execution result entries
- */
-function buildRuleExecutionResults(baseUrl, rulesCommit, auditStartedAt) {
-  /** @type {Array<{slug: string; name: string; description: string; dirName?: string; message?: string; checksum: string; executionId: string}>} */
-  const definitions = [
+/** Build the full set of rule execution results for the audit. */
+function buildRuleExecutionResults(
+  baseUrl: string,
+  rulesCommit: string,
+  auditStartedAt: Date,
+): RuleExecutionResult[] {
+  const definitions: Array<{
+    slug: string;
+    name: string;
+    description: string;
+    dirName?: string;
+    message?: string;
+    checksum: string;
+    executionId: string;
+  }> = [
     {
       slug: 'waste-mass-is-unique',
       name: 'Waste Mass is Unique',
@@ -292,31 +310,27 @@ function buildRuleExecutionResults(baseUrl, rulesCommit, auditStartedAt) {
     const startMs = auditStartedAt.getTime() + order * 100;
     const endMs = startMs + 50;
 
-    /** @type {Record<string, unknown>} */
-    const entry = {
-      rule_name: rule.name,
-      rule_slug: rule.slug,
-      rule_id: `00000000-0000-4000-8000-${String(order).padStart(12, '0')}`,
-      result: 'PASSED',
-    };
-
-    if (rule.message) {
-      entry.execution_message = rule.message;
-    }
-
-    entry.rule_processor_checksum = rule.checksum;
-    const versionOverrides = {
+    const versionOverrides: Record<string, string> = {
       'no-conflicting-gas-id-or-credit':
         'v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd',
       'project-period-limit': 'v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef',
     };
-    entry.rule_source_code_version = versionOverrides[rule.slug] || rulesCommit;
-    entry.rule_description = rule.description;
-    entry.rule_execution_order = order;
-    entry.rule_source_code_url = `${baseUrl}/${rule.dirName ?? rule.slug}`;
-    entry.execution_id = rule.executionId;
-    entry.execution_started_at = new Date(startMs).toISOString();
-    entry.execution_completed_at = new Date(endMs).toISOString();
+
+    const entry: RuleExecutionResult = {
+      rule_name: rule.name,
+      rule_slug: rule.slug,
+      rule_id: `00000000-0000-4000-8000-${String(order).padStart(12, '0')}`,
+      result: 'PASSED',
+      ...(rule.message ? { execution_message: rule.message } : {}),
+      rule_processor_checksum: rule.checksum,
+      rule_source_code_version: versionOverrides[rule.slug] || rulesCommit,
+      rule_description: rule.description,
+      rule_execution_order: order,
+      rule_source_code_url: `${baseUrl}/${rule.dirName ?? rule.slug}`,
+      execution_id: rule.executionId,
+      execution_started_at: new Date(startMs).toISOString(),
+      execution_completed_at: new Date(endMs).toISOString(),
+    };
 
     return entry;
   });

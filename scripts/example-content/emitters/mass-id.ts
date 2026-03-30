@@ -6,17 +6,15 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMs } from '../shared.js';
+import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 
 /**
  * Emit a MassID example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A MassID IPFS document (requires post-processing for AJV validity)
  */
-export function emitMassIDExample() {
+export function emitMassIDExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const createdAt = new Date('2024-12-05T11:02:47.000Z');
   const weighingAt = new Date('2024-12-05T13:02:47.000Z');
@@ -111,17 +109,17 @@ export function emitMassIDExample() {
       },
       {
         trait_type: 'Pick-up Date',
-        value: formatUnixMs(createdAt),
+        value: formatUnixMilliseconds(createdAt),
         display_type: 'date',
       },
       {
         trait_type: 'Drop-off Date',
-        value: formatUnixMs(dropOffAt),
+        value: formatUnixMilliseconds(dropOffAt),
         display_type: 'date',
       },
       {
         trait_type: 'Recycling Date',
-        value: formatUnixMs(recyclingAt),
+        value: formatUnixMilliseconds(recyclingAt),
         display_type: 'date',
       },
     ],

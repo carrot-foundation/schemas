@@ -12,11 +12,12 @@ import {
   buildPaths,
   loadCanonicalEntries,
   setsAreIdentical,
-} from './ai-utils.mjs';
+} from './ai-utils.js';
+import type { CanonicalEntry } from './ai-utils.js';
 
 const ROOT = process.cwd();
 
-function isWithinRoot(absolutePath) {
+function isWithinRoot(absolutePath: string): boolean {
   const resolved = path.resolve(absolutePath);
   return resolved === ROOT || resolved.startsWith(ROOT + path.sep);
 }
@@ -34,8 +35,11 @@ const REQUIRED_CANONICAL_FILES = [
   PATHS.parityMatrix,
 ];
 
-function buildStalePatterns(rules, skills) {
-  const patterns = [];
+function buildStalePatterns(
+  rules: CanonicalEntry[],
+  skills: CanonicalEntry[],
+): string[] {
+  const patterns: string[] = [];
   for (const rule of rules) {
     if (!rule.data.id) continue;
     const id = String(rule.data.id);
@@ -60,7 +64,7 @@ const STALE_CHECK_FILES = [
   path.join(ROOT, '.ai', 'PARITY_MATRIX.md'),
 ];
 
-function parseFrontmatter(rawContent) {
+function parseFrontmatter(rawContent: string) {
   return parseFrontmatterBase(rawContent, '[check] ');
 }
 
@@ -68,9 +72,9 @@ function parseFrontmatter(rawContent) {
 // - `required:` parser accepts any indentation for list items
 // - `properties:` parser requires exactly 2-space-indented keys, 4-space-indented `type:` values
 // Reformatting (tabs, flow syntax) will cause empty results for properties.
-function parseSchemaRequired(content) {
+function parseSchemaRequired(content: string): string[] {
   const lines = content.split('\n');
-  const required = [];
+  const required: string[] = [];
   let inRequired = false;
   for (const line of lines) {
     if (line.trim() === 'required:') {
@@ -89,11 +93,11 @@ function parseSchemaRequired(content) {
   return required;
 }
 
-function parseSchemaPropertyTypes(content) {
+function parseSchemaPropertyTypes(content: string): Record<string, string> {
   const lines = content.split('\n');
-  const types = {};
+  const types: Record<string, string> = {};
   let inProperties = false;
-  let currentKey = null;
+  let currentKey: string | null = null;
   for (const line of lines) {
     if (line.trim() === 'properties:') {
       inProperties = true;
@@ -144,39 +148,50 @@ const FALLBACK_AGENT_FIELDS = [
   'tool_limits',
 ];
 
-const FALLBACK_RULE_TYPES = {
+const FALLBACK_RULE_TYPES: Record<string, string> = {
   scope: 'array',
   requirements: 'array',
   anti_patterns: 'array',
 };
-const FALLBACK_SKILL_TYPES = {
+const FALLBACK_SKILL_TYPES: Record<string, string> = {
   when_to_use: 'array',
   workflow: 'array',
   inputs: 'array',
   outputs: 'array',
   references: 'array',
 };
-const FALLBACK_AGENT_TYPES = {
+const FALLBACK_AGENT_TYPES: Record<string, string> = {
   when_to_delegate: 'array',
   checklist: 'array',
   tool_limits: 'array',
   report_format: 'string',
 };
 
-async function loadFromSchemas(parserFn, keyword, context, errors) {
-  const results = { rule: null, skill: null, agent: null };
+interface SchemaResults<T> {
+  rule: T | null;
+  skill: T | null;
+  agent: T | null;
+}
+
+async function loadFromSchemas<T>(
+  parserFn: (content: string) => T,
+  keyword: string,
+  context: string,
+  errors: string[],
+): Promise<SchemaResults<T>> {
+  const results: SchemaResults<T> = { rule: null, skill: null, agent: null };
   for (const [key, file] of [
     ['rule', 'rule.schema.yaml'],
     ['skill', 'skill.schema.yaml'],
     ['agent', 'agent.schema.yaml'],
-  ]) {
+  ] as const) {
     const p = path.join(PATHS.canonicalSchemas, file);
     if (await pathExists(p)) {
       const content = await readFileWithContext(p, `load schema ${context}`);
       const parsed = parserFn(content);
       const isEmpty = Array.isArray(parsed)
         ? parsed.length === 0
-        : Object.keys(parsed).length === 0;
+        : Object.keys(parsed as Record<string, unknown>).length === 0;
       if (!isEmpty) {
         results[key] = parsed;
       } else if (content.includes(keyword)) {
@@ -197,7 +212,12 @@ async function loadFromSchemas(parserFn, keyword, context, errors) {
   return results;
 }
 
-function assertRequiredFields(items, fields, errors, kind) {
+function assertRequiredFields(
+  items: CanonicalEntry[],
+  fields: string[],
+  errors: string[],
+  kind: string,
+): void {
   for (const item of items) {
     for (const field of fields) {
       if (!(field in item.data)) {
@@ -209,7 +229,12 @@ function assertRequiredFields(items, fields, errors, kind) {
   }
 }
 
-function assertFieldTypes(items, typeMap, errors, kind) {
+function assertFieldTypes(
+  items: CanonicalEntry[],
+  typeMap: Record<string, string>,
+  errors: string[],
+  kind: string,
+): void {
   for (const item of items) {
     for (const [field, expectedType] of Object.entries(typeMap)) {
       if (!(field in item.data)) continue;
@@ -228,49 +253,75 @@ function assertFieldTypes(items, typeMap, errors, kind) {
   }
 }
 
-async function verifyParity(rules, skills, agents, errors) {
-  for (const skill of skills) {
-    const id = String(skill.data.id);
-    for (const target of [
-      path.join(PATHS.cursorSkills, id, 'SKILL.md'),
-      path.join(PATHS.claudeSkills, id, 'SKILL.md'),
-      path.join(PATHS.codexSkills, id, 'SKILL.md'),
-    ]) {
-      if (!(await pathExists(target)))
-        errors.push(
-          `[parity][skill:${id}] missing ${path.relative(ROOT, target)}`,
-        );
-    }
-  }
-  for (const agent of agents) {
-    const id = String(agent.data.id);
-    for (const target of [
-      path.join(PATHS.cursorAgents, `${id}.md`),
-      path.join(PATHS.claudeAgents, `${id}.md`),
-      path.join(PATHS.codexSkills, id, 'SKILL.md'),
-    ]) {
-      if (!(await pathExists(target)))
-        errors.push(
-          `[parity][agent:${id}] missing ${path.relative(ROOT, target)}`,
-        );
-    }
-  }
-  for (const rule of rules) {
-    const id = String(rule.data.id);
-    for (const target of [
-      path.join(PATHS.cursorRules, `${id}.mdc`),
-      path.join(PATHS.claudeSkills, `rule-${id}`, 'SKILL.md'),
-      path.join(PATHS.codexSkills, `rule-${id}`, 'SKILL.md'),
-    ]) {
-      if (!(await pathExists(target)))
-        errors.push(
-          `[parity][rule:${id}] missing ${path.relative(ROOT, target)}`,
-        );
+async function checkParity(
+  kind: string,
+  id: string,
+  targets: string[],
+  errors: string[],
+): Promise<void> {
+  for (const target of targets) {
+    if (!(await pathExists(target))) {
+      errors.push(
+        `[parity][${kind}:${id}] missing ${path.relative(ROOT, target)}`,
+      );
     }
   }
 }
 
-function checkAdapterBodyLength(adapterPath, adapterContent, kind, id, errors) {
+async function verifyParity(
+  rules: CanonicalEntry[],
+  skills: CanonicalEntry[],
+  agents: CanonicalEntry[],
+  errors: string[],
+): Promise<void> {
+  for (const skill of skills) {
+    const id = String(skill.data.id);
+    await checkParity(
+      'skill',
+      id,
+      [
+        path.join(PATHS.cursorSkills, id, 'SKILL.md'),
+        path.join(PATHS.claudeSkills, id, 'SKILL.md'),
+        path.join(PATHS.codexSkills, id, 'SKILL.md'),
+      ],
+      errors,
+    );
+  }
+  for (const agent of agents) {
+    const id = String(agent.data.id);
+    await checkParity(
+      'agent',
+      id,
+      [
+        path.join(PATHS.cursorAgents, `${id}.md`),
+        path.join(PATHS.claudeAgents, `${id}.md`),
+        path.join(PATHS.codexSkills, id, 'SKILL.md'),
+      ],
+      errors,
+    );
+  }
+  for (const rule of rules) {
+    const id = String(rule.data.id);
+    await checkParity(
+      'rule',
+      id,
+      [
+        path.join(PATHS.cursorRules, `${id}.mdc`),
+        path.join(PATHS.claudeSkills, `rule-${id}`, 'SKILL.md'),
+        path.join(PATHS.codexSkills, `rule-${id}`, 'SKILL.md'),
+      ],
+      errors,
+    );
+  }
+}
+
+function checkAdapterBodyLength(
+  adapterPath: string,
+  adapterContent: string,
+  kind: string,
+  id: string,
+  errors: string[],
+): void {
   const { body: adapterBody } = parseFrontmatter(adapterContent);
   if (!adapterBody.trim()) {
     errors.push(
@@ -283,7 +334,12 @@ function checkAdapterBodyLength(adapterPath, adapterContent, kind, id, errors) {
   }
 }
 
-async function verifyAdapterFreshness(rules, skills, agents, errors) {
+async function verifyAdapterFreshness(
+  rules: CanonicalEntry[],
+  skills: CanonicalEntry[],
+  agents: CanonicalEntry[],
+  errors: string[],
+): Promise<void> {
   for (const rule of rules) {
     const id = String(rule.data.id);
     for (const p of [
@@ -337,7 +393,10 @@ async function verifyAdapterFreshness(rules, skills, agents, errors) {
   }
 }
 
-async function checkStalePatterns(stalePatterns, errors) {
+async function checkStalePatterns(
+  stalePatterns: string[],
+  errors: string[],
+): Promise<void> {
   const canonicalFiles = [
     ...(await listFilesRecursive(PATHS.canonicalRules, '.md')),
     ...(await listFilesRecursive(PATHS.canonicalSkills, '.md')),
@@ -355,13 +414,13 @@ async function checkStalePatterns(stalePatterns, errors) {
   }
 }
 
-function stripCodeBlocks(content) {
+function stripCodeBlocks(content: string): string {
   return content.replace(/```[\s\S]*?```/g, '');
 }
 
-function extractMarkdownLinks(content) {
+function extractMarkdownLinks(content: string): string[] {
   const stripped = stripCodeBlocks(content);
-  const links = [];
+  const links: string[] = [];
   const angleRegex = /\]\(<([^>]+)>\)/g;
   let match = angleRegex.exec(stripped);
   while (match) {
@@ -378,7 +437,7 @@ function extractMarkdownLinks(content) {
   return links;
 }
 
-async function resolveLink(filePath, link) {
+async function resolveLink(filePath: string, link: string): Promise<boolean> {
   const cleaned = link.replaceAll(/(?:^<)|(?:>$)/g, '').trim();
   if (!cleaned || cleaned.startsWith('#')) return true;
   if (
@@ -402,7 +461,7 @@ async function resolveLink(filePath, link) {
   return false;
 }
 
-async function checkLinks(errors) {
+async function checkLinks(errors: string[]): Promise<void> {
   const aiFiles = await listFilesRecursive(PATHS.canonicalRoot, '.md');
   const requiredRootFiles = [
     path.join(ROOT, 'AGENTS.md'),
@@ -429,7 +488,11 @@ async function checkLinks(errors) {
   }
 }
 
-function checkFrontmatterQuality(rules, skills, errors) {
+function checkFrontmatterQuality(
+  rules: CanonicalEntry[],
+  skills: CanonicalEntry[],
+  errors: string[],
+): void {
   for (const rule of rules) {
     const requirements = normalizeArray(rule.data.requirements);
     const antis = normalizeArray(rule.data.anti_patterns);
@@ -452,7 +515,10 @@ function checkFrontmatterQuality(rules, skills, errors) {
   }
 }
 
-async function checkReferencesPaths(skills, errors) {
+async function checkReferencesPaths(
+  skills: CanonicalEntry[],
+  errors: string[],
+): Promise<void> {
   for (const skill of skills) {
     const refs = normalizeArray(skill.data.references);
     const id = String(skill.data.id);
@@ -473,7 +539,12 @@ async function checkReferencesPaths(skills, errors) {
   }
 }
 
-async function verifyOrphanAdapters(rules, skills, agents, errors) {
+async function verifyOrphanAdapters(
+  rules: CanonicalEntry[],
+  skills: CanonicalEntry[],
+  agents: CanonicalEntry[],
+  errors: string[],
+): Promise<void> {
   const validRuleIds = new Set(rules.map((r) => String(r.data.id)));
   const validRuleSkillDirs = new Set(rules.map((r) => `rule-${r.data.id}`));
   const validSkillIds = new Set(skills.map((s) => String(s.data.id)));
@@ -542,13 +613,18 @@ async function verifyOrphanAdapters(rules, skills, agents, errors) {
   }
 }
 
-function assertNonEmptyStrings(items, stringFields, errors, kind) {
+function assertNonEmptyStrings(
+  items: CanonicalEntry[],
+  stringFields: string[],
+  errors: string[],
+  kind: string,
+): void {
   for (const item of items) {
     for (const field of stringFields) {
       if (!(field in item.data)) continue;
       if (
         typeof item.data[field] === 'string' &&
-        item.data[field].trim() === ''
+        (item.data[field] as string).trim() === ''
       )
         errors.push(
           `[${kind}] field \`${field}\` must be non-empty in ${path.relative(ROOT, item.file)}`,
@@ -557,7 +633,11 @@ function assertNonEmptyStrings(items, stringFields, errors, kind) {
   }
 }
 
-function assertIdMatchesFilename(items, errors, kind) {
+function assertIdMatchesFilename(
+  items: CanonicalEntry[],
+  errors: string[],
+  kind: string,
+): void {
   for (const item of items) {
     const basename = path.basename(item.file, '.md');
     const id = String(item.data.id || '');
@@ -568,7 +648,12 @@ function assertIdMatchesFilename(items, errors, kind) {
   }
 }
 
-function assertRequiredHeadings(rules, skills, agents, errors) {
+function assertRequiredHeadings(
+  rules: CanonicalEntry[],
+  skills: CanonicalEntry[],
+  agents: CanonicalEntry[],
+  errors: string[],
+): void {
   for (const rule of rules) {
     if (!/^##\s+Rule\s+body\s*$/im.test(rule.body))
       errors.push(
@@ -587,7 +672,7 @@ function assertRequiredHeadings(rules, skills, agents, errors) {
   }
 }
 
-async function main() {
+async function main(): Promise<void> {
   if (!(await pathExists(path.join(ROOT, 'package.json')))) {
     process.stderr.write(
       'Error: must be run from the project root (no package.json found)\n',
@@ -596,7 +681,7 @@ async function main() {
     return;
   }
 
-  const errors = [];
+  const errors: string[] = [];
 
   for (const file of REQUIRED_CANONICAL_FILES) {
     if (!(await pathExists(file)))
@@ -723,7 +808,7 @@ async function main() {
       adapterFile,
       'verify capability counts',
     );
-    const countsMap = {
+    const countsMap: Record<string, number> = {
       Rules: canonicalRules.length,
       Skills: canonicalSkills.length,
       'Agents/Roles': canonicalAgents.length,
@@ -753,7 +838,11 @@ async function main() {
   log(`agents: ${canonicalAgents.length}`);
 }
 
-main().catch((error) => {
-  process.stderr.write(`${error.stack || error.message}\n`);
+main().catch((error: unknown) => {
+  if (error instanceof Error) {
+    process.stderr.write(`${error.stack || error.message}\n`);
+  } else {
+    process.stderr.write(`Unexpected error: ${String(error)}\n`);
+  }
   process.exitCode = 1;
 });

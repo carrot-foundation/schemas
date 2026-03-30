@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-// Note: run after building (pnpm build) because it imports from dist/index.js
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { hashObject } from '../dist/index.js';
+import { hashObject } from '../src/index.js';
 import { emitters } from './example-content/index.js';
 import {
   collectJsonFiles,
@@ -11,33 +10,31 @@ import {
   loadJson,
   writeJson,
 } from './utils/fs-utils.js';
+import type { SchemaManifest } from './utils/schema-types.js';
+
+interface JsonSchema {
+  $id?: string;
+  properties?: Record<string, unknown>;
+}
 
 const SCHEMAS_ROOT = path.join(process.cwd(), 'schemas');
 const EXAMPLES_ROOT = path.join(SCHEMAS_ROOT, 'ipfs');
 const MANIFEST_PATH = path.join(SCHEMAS_ROOT, 'schema-hashes.json');
 
-function findSchemaPathForExample(examplePath) {
+function findSchemaPathForExample(examplePath: string): string {
   const dir = path.dirname(examplePath);
   const base = path.basename(examplePath, '.example.json');
   return path.join(dir, `${base}.schema.json`);
 }
 
-function computeContentHash(exampleData) {
+function computeContentHash(exampleData: Record<string, unknown>): string {
   const clone = structuredClone(exampleData);
   delete clone.content_hash;
   delete clone.audit_data_hash;
   return hashObject(clone);
 }
 
-function main() {
-  const distEntry = path.join(process.cwd(), 'dist', 'index.js');
-  if (!fs.existsSync(distEntry)) {
-    console.error(
-      `Compiled entry not found at ${distEntry}. Run "pnpm build" first.`,
-    );
-    process.exit(1);
-  }
-
+function main(): void {
   if (!fs.existsSync(EXAMPLES_ROOT)) {
     console.error(`Examples root not found: ${EXAMPLES_ROOT}`);
     process.exit(1);
@@ -50,7 +47,7 @@ function main() {
     process.exit(1);
   }
 
-  const manifest = loadJson(MANIFEST_PATH);
+  const manifest = loadJson<SchemaManifest>(MANIFEST_PATH);
   const version = getVersion();
   const examples = collectJsonFiles(EXAMPLES_ROOT, '.example.json');
 
@@ -58,7 +55,7 @@ function main() {
     const schemaPath = findSchemaPathForExample(examplePath);
     const schemaKey = path.relative(SCHEMAS_ROOT, schemaPath);
     const manifestEntry = manifest.schemas[schemaKey];
-    const schemaJson = loadJson(schemaPath);
+    const schemaJson = loadJson<JsonSchema>(schemaPath);
 
     if (!manifestEntry) {
       console.error(
@@ -69,9 +66,9 @@ function main() {
 
     // If an emitter exists for this schema type, generate base content first
     const typeName = path.basename(path.dirname(examplePath));
-    const emitter = emitters[typeName];
+    const emitter = emitters[typeName as keyof typeof emitters];
     if (emitter) {
-      let emitterResult;
+      let emitterResult: unknown;
       try {
         emitterResult = emitter();
       } catch (error) {
@@ -102,13 +99,13 @@ function main() {
     } else {
       console.error(
         `Error: No emitter registered for schema type "${typeName}". ` +
-          `Register an emitter in scripts/example-content/index.js for ` +
+          `Register an emitter in scripts/example-content/index.ts for ` +
           `${path.relative(process.cwd(), examplePath)}.`,
       );
       process.exit(1);
     }
 
-    const exampleJson = loadJson(examplePath);
+    const exampleJson = loadJson<Record<string, unknown>>(examplePath);
     const hasContentHash =
       schemaJson?.properties && 'content_hash' in schemaJson.properties;
     const hasAuditDataHash =
@@ -118,9 +115,10 @@ function main() {
       exampleJson.$schema = schemaJson.$id;
     }
 
-    exampleJson.schema ??= {};
-    exampleJson.schema.version = version;
-    exampleJson.schema.hash = manifestEntry.hash;
+    const schema = (exampleJson.schema ?? {}) as Record<string, unknown>;
+    exampleJson.schema = schema;
+    schema.version = version;
+    schema.hash = manifestEntry.hash;
 
     const contentHash = computeContentHash(exampleJson);
     if (hasContentHash) {

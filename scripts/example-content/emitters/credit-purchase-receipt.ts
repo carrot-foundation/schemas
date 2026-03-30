@@ -6,17 +6,15 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMs } from '../shared.js';
+import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 
 /**
  * Emit a Credit Purchase Receipt example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A Credit Purchase Receipt IPFS document (requires post-processing for AJV validity)
  */
-export function emitCreditPurchaseReceiptExample() {
+export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
   const story = buildReferenceStory();
 
   const purchaseTokenId = story.purchaseReceipt.tokenId;
@@ -98,12 +96,12 @@ export function emitCreditPurchaseReceiptExample() {
       },
       {
         trait_type: 'Purchase Date',
-        value: formatUnixMs(purchasedAt),
+        value: formatUnixMilliseconds(purchasedAt),
         display_type: 'date',
       },
       {
         trait_type: 'Retirement Date',
-        value: formatUnixMs(purchasedAt),
+        value: formatUnixMilliseconds(purchasedAt),
         display_type: 'date',
       },
       {

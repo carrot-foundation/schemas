@@ -13,10 +13,8 @@ import { formatDateTime } from '../shared.js';
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
- *
- * @returns {object} A Credit IPFS document (requires post-processing for AJV validity)
  */
-export function emitCreditExample() {
+export function emitCreditExample(): Record<string, unknown> {
   const story = buildReferenceStory();
 
   return {

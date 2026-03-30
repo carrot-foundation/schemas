@@ -67,22 +67,30 @@ describe('reference example story', () => {
     const collection = emitCollectionExample();
     const credit = emitCreditExample();
 
-    expect(methodology.data.slug).toBe('bold-carbon-ch4');
-    expect(collection.slug).toBe('bold-cold-start-carazinho');
-    expect(credit.symbol).toBe('C-CARB.CH4');
+    expect((methodology.data as Record<string, unknown>).slug).toBe(
+      'bold-carbon-ch4',
+    );
+    expect((collection as Record<string, unknown>).slug).toBe(
+      'bold-cold-start-carazinho',
+    );
+    expect((credit as Record<string, unknown>).symbol).toBe('C-CARB.CH4');
   });
 
   it('links purchase and retirement receipts to the same canonical story', () => {
     const purchase = emitCreditPurchaseReceiptExample();
     const retirement = emitCreditRetirementReceiptExample();
 
-    expect(purchase.data.retirement_receipt.token_id).toBe(
-      retirement.blockchain.token_id,
-    );
     expect(
-      retirement.attributes.some(
-        (attribute: { trait_type: string }) =>
-          attribute.trait_type === 'Purchase Receipt',
+      (
+        (purchase.data as Record<string, unknown>).retirement_receipt as Record<
+          string,
+          unknown
+        >
+      ).token_id,
+    ).toBe((retirement.blockchain as Record<string, unknown>).token_id);
+    expect(
+      (retirement.attributes as Array<{ trait_type: string }>).some(
+        (attribute) => attribute.trait_type === 'Purchase Receipt',
       ),
     ).toBe(true);
   });
@@ -93,9 +101,30 @@ describe('reference example story', () => {
     const recycledID = emitRecycledIDExample();
     const audit = emitMassIDAuditExample();
 
-    expect(gasID.data.mass_id.token_id).toBe(massID.blockchain.token_id);
-    expect(recycledID.data.mass_id.token_id).toBe(massID.blockchain.token_id);
-    expect(audit.data.mass_id.token_id).toBe(massID.blockchain.token_id);
+    expect(
+      (
+        (gasID.data as Record<string, unknown>).mass_id as Record<
+          string,
+          unknown
+        >
+      ).token_id,
+    ).toBe((massID.blockchain as Record<string, unknown>).token_id);
+    expect(
+      (
+        (recycledID.data as Record<string, unknown>).mass_id as Record<
+          string,
+          unknown
+        >
+      ).token_id,
+    ).toBe((massID.blockchain as Record<string, unknown>).token_id);
+    expect(
+      (
+        (audit.data as Record<string, unknown>).mass_id as Record<
+          string,
+          unknown
+        >
+      ).token_id,
+    ).toBe((massID.blockchain as Record<string, unknown>).token_id);
   });
 });
 
