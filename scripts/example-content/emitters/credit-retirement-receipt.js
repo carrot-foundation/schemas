@@ -157,7 +157,7 @@ export function emitCreditRetirementReceiptExample() {
           symbol: 'C-BIOW',
           external_id: 'e710790f-5909-4a54-ab89-6a59819472ee',
           external_url:
-            'https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0',
+            'https://explore.carrot.eco/credit/e710790f-5909-4a54-ab89-6a59819472ee',
           ipfs_uri:
             'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
           smart_contract_address: '0xfedcba0987654321fedcba0987654321fedcba09',

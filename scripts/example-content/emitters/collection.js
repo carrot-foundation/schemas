@@ -1,20 +1,20 @@
 /**
  * Emitter for Collection example JSON.
  *
- * Produces a complete, AJV-valid Collection document using the
- * canonical reference story for shared identifiers.
+ * Produces a Collection document which, after post-processing,
+ * becomes AJV-valid. Uses the canonical reference story for shared identifiers.
  */
 
 import { buildReferenceStory } from '../reference-story.js';
 import { formatDateTime } from '../shared.js';
 
 /**
- * Emit a complete Collection example document.
+ * Emit a Collection example document with placeholders.
  *
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
  *
- * @returns {object} A valid Collection IPFS document
+ * @returns {object} A Collection IPFS document (requires post-processing for AJV validity)
  */
 export function emitCollectionExample() {
   const story = buildReferenceStory();

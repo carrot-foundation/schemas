@@ -19,7 +19,6 @@ import { formatDateTime } from '../shared.js';
 export function emitMassIdAuditExample() {
   const story = buildReferenceStory();
   const auditStartedAt = new Date('2024-12-08T11:32:46.000Z');
-  const auditCompletedAt = new Date('2024-12-08T11:32:47.000Z');
 
   const massIdTokenId = story.massID.tokenId;
   const gasIdTokenId = story.gasID.tokenId;
@@ -29,6 +28,18 @@ export function emitMassIdAuditExample() {
 
   const rulesCommit = '2e9cbbfd397027a03fb1561e431fcc156580459f';
   const baseUrl = `https://github.com/carrot-foundation/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
+
+  const ruleExecutionResults = buildRuleExecutionResults(
+    baseUrl,
+    rulesCommit,
+    auditStartedAt,
+  );
+
+  const lastRuleCompletedAt = ruleExecutionResults.reduce((max, rule) => {
+    const t = new Date(/** @type {string} */ (rule.execution_completed_at));
+    return t > max ? t : max;
+  }, auditStartedAt);
+  const auditCompletedAt = new Date(lastRuleCompletedAt.getTime() + 50);
 
   return {
     $schema: 'PLACEHOLDER',
@@ -73,11 +84,7 @@ export function emitMassIdAuditExample() {
           'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
       },
-      rule_execution_results: buildRuleExecutionResults(
-        baseUrl,
-        rulesCommit,
-        auditStartedAt,
-      ),
+      rule_execution_results: ruleExecutionResults,
     },
   };
 }
@@ -298,16 +305,12 @@ function buildRuleExecutionResults(baseUrl, rulesCommit, auditStartedAt) {
     }
 
     entry.rule_processor_checksum = rule.checksum;
-    entry.rule_source_code_version =
-      rule.slug === 'waste-mass-is-unique' ||
-      rule.slug === 'participant-accreditations' ||
-      rule.slug === 'mass-id-qualifications'
-        ? rulesCommit
-        : rule.slug === 'no-conflicting-gas-id-or-credit'
-          ? `v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd`
-          : rule.slug === 'project-period-limit'
-            ? `v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef`
-            : rulesCommit;
+    const versionOverrides = {
+      'no-conflicting-gas-id-or-credit':
+        'v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd',
+      'project-period-limit': 'v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef',
+    };
+    entry.rule_source_code_version = versionOverrides[rule.slug] || rulesCommit;
     entry.rule_description = rule.description;
     entry.rule_execution_order = order;
     entry.rule_source_code_url = `${baseUrl}/${rule.dirName ?? rule.slug}`;

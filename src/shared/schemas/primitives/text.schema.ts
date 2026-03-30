@@ -1,9 +1,13 @@
 import { z } from 'zod';
 
-export const NonEmptyStringSchema = z.string().min(1, 'Cannot be empty').meta({
-  title: 'Non-Empty String',
-  description: 'A non-empty string (minimum one character)',
-});
+export const NonEmptyStringSchema = z
+  .string()
+  .min(1, 'Cannot be empty')
+  .meta({
+    title: 'Non-Empty String',
+    description: 'A non-empty string (minimum one character)',
+    examples: ['example-value', 'Hello World'],
+  });
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 
 export const SlugSchema = NonEmptyStringSchema.regex(
