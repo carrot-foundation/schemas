@@ -33,6 +33,12 @@ export function writeJson(filePath: string, data: unknown): void {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n');
 }
 
+export function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  if (typeof error === 'string') return error;
+  return String(error);
+}
+
 export function getVersion(): string {
   const pkgPath = path.join(process.cwd(), 'package.json');
   try {
@@ -44,7 +50,7 @@ export function getVersion(): string {
     const fallback = process.env.SCHEMA_VERSION || '0.0.0-dev';
     console.warn(
       `Warning: Failed to read package.json at ${pkgPath}. ` +
-        `Falling back to version "${fallback}". Error: ${(error as Error).message}`,
+        `Falling back to version "${fallback}". Error: ${getErrorMessage(error)}`,
     );
     return fallback;
   }

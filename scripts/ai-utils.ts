@@ -1,6 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import type { Dirent } from 'node:fs';
+import { getErrorMessage } from './utils/fs-utils.js';
 
 export interface FrontmatterResult {
   data: Record<string, unknown>;
@@ -166,7 +167,7 @@ export async function readFileWithContext(
     return await fs.readFile(filePath, 'utf8');
   } catch (error) {
     throw new Error(
-      `Failed to ${operation} ${filePath}: ${(error as Error).message}`,
+      `Failed to ${operation} ${filePath}: ${getErrorMessage(error)}`,
       {
         cause: error,
       },
@@ -186,7 +187,7 @@ export async function readdirWithContext(
     )) as Dirent[];
   } catch (error) {
     throw new Error(
-      `Failed to ${operation} ${dirPath}: ${(error as Error).message}`,
+      `Failed to ${operation} ${dirPath}: ${getErrorMessage(error)}`,
       {
         cause: error,
       },

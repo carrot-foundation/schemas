@@ -14,7 +14,7 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
  */
-export function emitMassIDExample() {
+export function emitMassIDExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const createdAt = new Date('2024-12-05T11:02:47.000Z');
   const weighingAt = new Date('2024-12-05T13:02:47.000Z');

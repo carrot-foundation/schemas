@@ -2,6 +2,7 @@
 
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { getErrorMessage } from './utils/fs-utils.js';
 import {
   log,
   warn,
@@ -40,7 +41,7 @@ async function ensureDir(targetPath: string): Promise<void> {
     await fs.mkdir(targetPath, { recursive: true });
   } catch (error) {
     throw new Error(
-      `Failed to create directory ${targetPath}: ${(error as Error).message}`,
+      `Failed to create directory ${targetPath}: ${getErrorMessage(error)}`,
       { cause: error },
     );
   }
@@ -172,7 +173,7 @@ async function writeFile(targetPath: string, content: string): Promise<void> {
     await fs.writeFile(targetPath, `${content.replace(/\s+$/u, '')}\n`, 'utf8');
   } catch (error) {
     throw new Error(
-      `Failed to write ${path.relative(ROOT, targetPath)}: ${(error as Error).message}`,
+      `Failed to write ${path.relative(ROOT, targetPath)}: ${getErrorMessage(error)}`,
       { cause: error },
     );
   }
@@ -1205,7 +1206,10 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  const err = error as Error;
-  process.stderr.write(`${err.stack || err.message}\n`);
+  if (error instanceof Error) {
+    process.stderr.write(`${error.stack || error.message}\n`);
+  } else {
+    process.stderr.write(`Unexpected error: ${String(error)}\n`);
+  }
   process.exitCode = 1;
 });

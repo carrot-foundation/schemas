@@ -14,7 +14,7 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
  */
-export function emitRecycledIDExample() {
+export function emitRecycledIDExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const recyclingAt = new Date('2024-12-08T11:32:47.000Z');
 

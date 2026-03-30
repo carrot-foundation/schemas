@@ -14,7 +14,7 @@ import { formatDateTime } from '../shared.js';
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
  */
-export function emitCollectionExample() {
+export function emitCollectionExample(): Record<string, unknown> {
   const story = buildReferenceStory();
 
   return {

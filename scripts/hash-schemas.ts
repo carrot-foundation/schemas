@@ -5,6 +5,7 @@ import path from 'node:path';
 import { hashObject } from '../src/index.js';
 import {
   collectJsonFiles,
+  getErrorMessage,
   getVersion,
   loadJson,
   writeJson,
@@ -37,7 +38,7 @@ function main(): void {
     try {
       json = loadJson<Record<string, unknown>>(filePath);
     } catch (error) {
-      console.error(`Failed to parse ${relative}: ${(error as Error).message}`);
+      console.error(`Failed to parse ${relative}: ${getErrorMessage(error)}`);
       process.exit(1);
     }
     const hash = hashObject(json);

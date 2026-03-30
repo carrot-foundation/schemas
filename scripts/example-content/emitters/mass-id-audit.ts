@@ -14,7 +14,7 @@ import { formatDateTime } from '../shared.js';
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
  */
-export function emitMassIDAuditExample() {
+export function emitMassIDAuditExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const auditStartedAt = new Date('2024-12-08T11:32:46.000Z');
 
@@ -92,7 +92,7 @@ function buildRuleExecutionResults(
   baseUrl: string,
   rulesCommit: string,
   auditStartedAt: Date,
-) {
+): Record<string, unknown>[] {
   const definitions: Array<{
     slug: string;
     name: string;

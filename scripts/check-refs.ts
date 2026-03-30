@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { getErrorMessage } from './utils/fs-utils.js';
 
 const SCHEMAS_DIR = path.join(process.cwd(), 'schemas');
 const TARGET_EXTENSIONS = ['.schema.json', '.example.json'];
@@ -110,7 +111,7 @@ async function main(): Promise<void> {
     try {
       parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     } catch (error) {
-      console.error(`Invalid JSON: ${filePath}: ${(error as Error).message}`);
+      console.error(`Invalid JSON: ${filePath}: ${getErrorMessage(error)}`);
       process.exitCode = 1;
       continue;
     }

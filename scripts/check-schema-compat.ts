@@ -3,6 +3,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, basename } from 'node:path';
 import { globSync } from 'glob';
+import { getErrorMessage } from './utils/fs-utils.js';
 
 interface Finding {
   schema: string;
@@ -236,13 +237,13 @@ for (const schemaFile of currentSchemas) {
     } catch (error) {
       // Infrastructure failures (JSON parse, filesystem) are not advisory
       console.error(
-        `ERROR: Failed to compare schema ${schemaFile}: ${(error as Error).message}`,
+        `ERROR: Failed to compare schema ${schemaFile}: ${getErrorMessage(error)}`,
       );
-      if ((error as Error).stack) console.error((error as Error).stack);
+      if (error instanceof Error && error.stack) console.error(error.stack);
       addFinding(
         schemaFile,
         'PARSE_ERROR',
-        `Failed to compare schema: ${(error as Error).message}`,
+        `Failed to compare schema: ${getErrorMessage(error)}`,
       );
       hasInfrastructureFailure = true;
     }

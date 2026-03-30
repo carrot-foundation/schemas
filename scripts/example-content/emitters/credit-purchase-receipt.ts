@@ -14,7 +14,7 @@ import { formatDateTime, formatUnixMs } from '../shared.js';
  * Fields managed by post-processing ($schema, schema.hash, schema.version,
  * audit_data_hash) use placeholders that update-examples.js will overwrite.
  */
-export function emitCreditPurchaseReceiptExample() {
+export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
   const story = buildReferenceStory();
 
   const purchaseTokenId = story.purchaseReceipt.tokenId;

@@ -2,6 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { getErrorMessage } from './utils/fs-utils.js';
 
 interface VerifyResult {
   valid: boolean;
@@ -15,7 +16,10 @@ function getPackageJsonVersion(): string {
       fs.readFileSync(packageJsonPath, 'utf8'),
     ) as { version?: string };
     return packageJson.version || '0.0.0-dev';
-  } catch {
+  } catch (error) {
+    console.warn(
+      `Warning: Could not read version from package.json: ${getErrorMessage(error)}. Falling back to "0.0.0-dev".`,
+    );
     return '0.0.0-dev';
   }
 }

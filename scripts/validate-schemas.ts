@@ -6,6 +6,7 @@ import Ajv from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { glob } from 'glob';
 import https from 'https';
+import { getErrorMessage } from './utils/fs-utils.js';
 
 interface ValidateOptions {
   schemasOnly?: boolean;
@@ -94,7 +95,7 @@ async function loadSchemaFromFile(
   } catch (error) {
     console.error(
       `${colors.red}Error loading schema ${uri}:${colors.reset}`,
-      (error as Error).message,
+      getErrorMessage(error),
     );
     throw error;
   }
@@ -169,7 +170,7 @@ async function validateSchema(schemaPath: string): Promise<ValidationResult> {
   } catch (error) {
     return {
       valid: false,
-      errors: [{ message: (error as Error).message }],
+      errors: [{ message: getErrorMessage(error) }],
       path: schemaPath,
     };
   }
@@ -182,7 +183,11 @@ async function loadMetaSchema(): Promise<unknown> {
       { with: { type: 'json' } }
     );
     return metaSchema;
-  } catch {
+  } catch (error) {
+    console.warn(
+      `Warning: Could not load local meta-schema, falling back to online fetch. ` +
+        `Reason: ${getErrorMessage(error)}`,
+    );
     return fetchOnlineMetaSchema();
   }
 }
@@ -199,7 +204,7 @@ function fetchOnlineMetaSchema(): Promise<unknown> {
           } catch (e) {
             reject(
               new Error(
-                `Failed to parse online meta-schema: ${(e as Error).message}`,
+                `Failed to parse online meta-schema: ${getErrorMessage(e)}`,
               ),
             );
           }
@@ -241,7 +246,7 @@ async function validateData(
   } catch (error) {
     return {
       valid: false,
-      errors: [{ message: (error as Error).message }],
+      errors: [{ message: getErrorMessage(error) }],
       path: dataPath,
       schemaPath,
     };
@@ -495,10 +500,10 @@ async function main(): Promise<void> {
   } catch (error) {
     console.error(
       `${colors.red}Fatal error:${colors.reset}`,
-      (error as Error).message,
+      getErrorMessage(error),
     );
     if (CONFIG.verbose) {
-      console.error((error as Error).stack);
+      console.error(error instanceof Error ? error.stack : undefined);
     }
     process.exit(1);
   }

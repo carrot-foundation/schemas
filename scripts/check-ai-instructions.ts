@@ -824,7 +824,10 @@ async function main(): Promise<void> {
 }
 
 main().catch((error: unknown) => {
-  const err = error as Error;
-  process.stderr.write(`${err.stack || err.message}\n`);
+  if (error instanceof Error) {
+    process.stderr.write(`${error.stack || error.message}\n`);
+  } else {
+    process.stderr.write(`Unexpected error: ${String(error)}\n`);
+  }
   process.exitCode = 1;
 });

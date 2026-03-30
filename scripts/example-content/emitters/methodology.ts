@@ -14,7 +14,7 @@ import { formatDate, formatDateTime } from '../shared.js';
  * Fields managed by post-processing ($schema, schema.hash, schema.version)
  * use placeholders that update-examples.js will overwrite.
  */
-export function emitMethodologyExample() {
+export function emitMethodologyExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const createdAt = new Date('2025-08-15T14:09:00.000Z');
 
@@ -49,7 +49,7 @@ export function emitMethodologyExample() {
 }
 
 /** The full set of BOLD Carbon mass-ID audit rules. */
-function buildMassIdAuditRules() {
+function buildMassIdAuditRules(): Record<string, unknown>[] {
   const rulesCommit = '2e9cbbfd397027a03fb1561e431fcc156580459f';
   const baseUrl = `https://github.com/carrot-foundation/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
 
