@@ -20,7 +20,7 @@
   "created_at": "2025-02-03T12:45:30.000Z",
   "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
   "external_url": "https://explore.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-  "audit_data_hash": "960bbceae654919619eebb0db68541e04278ac352f79f36e698305ae3716047a",
+  "audit_data_hash": "7f25dac96b56eb0cab048706949623493cca3448d2a884cc516e1d0c47204f6e",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
@@ -127,7 +127,7 @@
         "slug": "biowaste",
         "symbol": "C-BIOW",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-        "external_url": "https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0",
+        "external_url": "https://explore.carrot.eco/credit/e710790f-5909-4a54-ab89-6a59819472ee",
         "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
         "smart_contract_address": "0xfedcba0987654321fedcba0987654321fedcba09"
       }

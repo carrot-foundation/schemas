@@ -776,7 +776,11 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link"
+            "description": "Display name for the external link",
+            "examples": [
+              "example-value",
+              "Hello World"
+            ]
           },
           "url": {
             "type": "string",
@@ -1200,6 +1204,10 @@
               "pattern": "^#\\d+$",
               "title": "MassID Token ID",
               "description": "Token ID of the source MassID NFT as #<token_id>",
+              "examples": [
+                "example-value",
+                "Hello World"
+              ],
               "example": "#456789"
             },
             "display_type": {

@@ -1137,7 +1137,11 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link"
+            "description": "Display name for the external link",
+            "examples": [
+              "example-value",
+              "Hello World"
+            ]
           },
           "url": {
             "type": "string",

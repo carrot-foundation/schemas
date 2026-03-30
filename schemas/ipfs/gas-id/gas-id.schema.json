@@ -889,7 +889,11 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link"
+            "description": "Display name for the external link",
+            "examples": [
+              "example-value",
+              "Hello World"
+            ]
           },
           "url": {
             "type": "string",
@@ -1019,7 +1023,7 @@
           ],
           "additionalProperties": false,
           "title": "Gas Type Attribute",
-          "description": "Type of greenhouse gas whose emissions were prevented (e.g., CH4, CO2)"
+          "description": "Type of greenhouse gas whose emissions were prevented (e.g., Methane (CH₄))"
         },
         {
           "type": "object",
@@ -1363,6 +1367,10 @@
               "pattern": "^#\\d+$",
               "title": "MassID Token ID",
               "description": "Token ID of the source MassID NFT as #<token_id>",
+              "examples": [
+                "example-value",
+                "Hello World"
+              ],
               "example": "#456789"
             },
             "display_type": {

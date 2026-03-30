@@ -11,13 +11,13 @@
     "deployment": "development",
     "data_set_name": "TEST"
   },
-  "created_at": "2024-12-08T11:32:47.000Z",
+  "created_at": "2024-12-08T11:32:48.200Z",
   "external_id": "80011d61-fe40-4aa2-9031-4f2aafad5d42",
   "external_url": "https://explore.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
   "data": {
     "audit_summary": {
       "started_at": "2024-12-08T11:32:46.000Z",
-      "completed_at": "2024-12-08T11:32:47.000Z",
+      "completed_at": "2024-12-08T11:32:48.200Z",
       "result": "PASSED"
     },
     "methodology": {

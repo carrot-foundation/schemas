@@ -936,7 +936,11 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link"
+            "description": "Display name for the external link",
+            "examples": [
+              "example-value",
+              "Hello World"
+            ]
           },
           "url": {
             "type": "string",
@@ -1201,6 +1205,10 @@
                 "pattern": "^#\\d+$",
                 "title": "Retirement Receipt Token ID",
                 "description": "Token ID of the retirement receipt NFT as #<token_id> (if retirement occurred)",
+                "examples": [
+                  "example-value",
+                  "Hello World"
+                ],
                 "example": "#456789"
               },
               "display_type": {

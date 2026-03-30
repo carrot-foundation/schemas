@@ -1033,7 +1033,11 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link"
+            "description": "Display name for the external link",
+            "examples": [
+              "example-value",
+              "Hello World"
+            ]
           },
           "url": {
             "type": "string",
@@ -1325,6 +1329,10 @@
                 "pattern": "^#\\d+$",
                 "title": "Purchase Receipt Token ID",
                 "description": "Token ID of the purchase receipt NFT as #<token_id> (if purchase_receipt is present)",
+                "examples": [
+                  "example-value",
+                  "Hello World"
+                ],
                 "example": "#456789"
               },
               "display_type": {

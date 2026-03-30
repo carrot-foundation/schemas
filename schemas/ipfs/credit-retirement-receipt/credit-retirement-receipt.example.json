@@ -122,7 +122,7 @@
         "slug": "biowaste",
         "symbol": "C-BIOW",
         "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-        "external_url": "https://explore.carrot.eco/credit/9f3c4556-fg90-5ef8-9e06-8d925e6d9bg0",
+        "external_url": "https://explore.carrot.eco/credit/e710790f-5909-4a54-ab89-6a59819472ee",
         "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
         "smart_contract_address": "0xfedcba0987654321fedcba0987654321fedcba09"
       }
@@ -230,5 +230,5 @@
       "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
     }
   },
-  "audit_data_hash": "c9c131b874cd84854759dcceafde8ae342eb7b49f37931c6fd2c4a9220fe55c9"
+  "audit_data_hash": "ff1ee52716a6dbfada9556ae1fd0511317b3cabaa93fa5bab0080583ab3ad2e0"
 }

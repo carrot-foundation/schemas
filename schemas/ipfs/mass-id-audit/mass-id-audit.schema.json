@@ -612,14 +612,22 @@
                 "minLength": 1,
                 "maxLength": 200,
                 "title": "Rule Processor Checksum",
-                "description": "Checksum for rule processor integrity verification"
+                "description": "Checksum for rule processor integrity verification",
+                "examples": [
+                  "example-value",
+                  "Hello World"
+                ]
               },
               "rule_source_code_version": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 200,
                 "title": "Rule Source Code Version",
-                "description": "Version identifier for the rule source code"
+                "description": "Version identifier for the rule source code",
+                "examples": [
+                  "example-value",
+                  "Hello World"
+                ]
               }
             },
             "required": [
