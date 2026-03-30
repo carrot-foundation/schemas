@@ -49,8 +49,8 @@
     "url": "git+https://github.com/carrot-foundation/schemas.git"
   },
   "scripts": {
-    "ai:check": "node scripts/check-ai-instructions.mjs",
-    "ai:sync": "node scripts/sync-ai-instructions.mjs",
+    "ai:check": "tsx scripts/check-ai-instructions.ts",
+    "ai:sync": "tsx scripts/sync-ai-instructions.ts",
     "build": "tsup",
     "check": "run-s lint:fix format type-check spell-check pkgJsonLint generate-schemas hash-schemas update-examples validate-schemas verify-schema-versions check-refs validate-examples test knip license-check size-limit publint check-types-exports ai:check",
     "check-refs": "tsx scripts/check-refs.ts",

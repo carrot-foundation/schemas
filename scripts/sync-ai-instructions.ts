@@ -13,7 +13,8 @@ import {
   readdirWithContext,
   buildPaths,
   loadCanonicalEntries,
-} from './ai-utils.mjs';
+} from './ai-utils.js';
+import type { CanonicalEntry, FrontmatterResult } from './ai-utils.js';
 
 const ROOT = process.cwd();
 const args = new Set(process.argv.slice(2));
@@ -31,7 +32,7 @@ const PATHS = {
 // Note: in dry-run mode, ensureDir is a no-op and writeFile only logs what
 // would be written. writeIfMissing still checks the real filesystem, so it
 // will log and skip files that already exist on disk.
-async function ensureDir(targetPath) {
+async function ensureDir(targetPath: string): Promise<void> {
   if (DRY_RUN) {
     return;
   }
@@ -39,17 +40,17 @@ async function ensureDir(targetPath) {
     await fs.mkdir(targetPath, { recursive: true });
   } catch (error) {
     throw new Error(
-      `Failed to create directory ${targetPath}: ${error.message}`,
+      `Failed to create directory ${targetPath}: ${(error as Error).message}`,
       { cause: error },
     );
   }
 }
 
-function parseFrontmatter(rawContent) {
+function parseFrontmatter(rawContent: string): FrontmatterResult {
   return parseFrontmatterBase(rawContent, '[sync] ');
 }
 
-function quote(value) {
+function quote(value: unknown): string {
   if (typeof value === 'boolean' || typeof value === 'number') {
     return String(value);
   }
@@ -67,7 +68,10 @@ function quote(value) {
   return `'${escaped}'`;
 }
 
-function toFrontmatter(data, preferredOrder = []) {
+function toFrontmatter(
+  data: Record<string, unknown>,
+  preferredOrder: string[] = [],
+): string {
   const keys = [
     ...preferredOrder.filter((key) => key in data),
     ...Object.keys(data).filter((key) => !preferredOrder.includes(key)),
@@ -92,7 +96,7 @@ function toFrontmatter(data, preferredOrder = []) {
   return `${lines.join('\n')}\n`;
 }
 
-function titleFromId(id) {
+function titleFromId(id: string): string {
   return id
     .split('-')
     .filter(Boolean)
@@ -100,18 +104,23 @@ function titleFromId(id) {
     .join(' ');
 }
 
-function matchSectionHeading(line, heading) {
+function matchSectionHeading(line: string, heading: string): boolean {
   const trimmed = line.trim();
   if (!trimmed.startsWith('## ')) return false;
   const afterHash = trimmed.slice(3).trim();
   return afterHash.toLowerCase() === heading.toLowerCase();
 }
 
+interface GetSectionBodyOptions {
+  toEnd?: boolean;
+  contextLabel?: string;
+}
+
 function getSectionBody(
-  markdownBody,
-  heading,
-  { toEnd = false, contextLabel = '' } = {},
-) {
+  markdownBody: string,
+  heading: string,
+  { toEnd = false, contextLabel = '' }: GetSectionBodyOptions = {},
+): string {
   const lines = markdownBody.split('\n');
   const start = lines.findIndex((line) => matchSectionHeading(line, heading));
   if (start === -1) {
@@ -126,7 +135,7 @@ function getSectionBody(
       .trim();
   }
 
-  const out = [];
+  const out: string[] = [];
   for (let i = start + 1; i < lines.length; i += 1) {
     if (/^##\s+/.test(lines[i])) {
       break;
@@ -137,7 +146,7 @@ function getSectionBody(
   return out.join('\n').trim();
 }
 
-function extractBullets(markdownBody, heading) {
+function extractBullets(markdownBody: string, heading: string): string[] {
   const lines = markdownBody.split('\n');
   const hasHeading = lines.some((line) => matchSectionHeading(line, heading));
   if (!hasHeading) return [];
@@ -153,7 +162,7 @@ function extractBullets(markdownBody, heading) {
   return bullets;
 }
 
-async function writeFile(targetPath, content) {
+async function writeFile(targetPath: string, content: string): Promise<void> {
   if (DRY_RUN) {
     log(`[dry-run] would write: ${path.relative(ROOT, targetPath)}`);
     return;
@@ -163,7 +172,7 @@ async function writeFile(targetPath, content) {
     await fs.writeFile(targetPath, `${content.replace(/\s+$/u, '')}\n`, 'utf8');
   } catch (error) {
     throw new Error(
-      `Failed to write ${path.relative(ROOT, targetPath)}: ${error.message}`,
+      `Failed to write ${path.relative(ROOT, targetPath)}: ${(error as Error).message}`,
       { cause: error },
     );
   }
@@ -176,7 +185,7 @@ const CANONICAL_BASE_FILENAMES = new Set([
   'PROJECT_CONTEXT.md',
 ]);
 
-function isCanonicalTarget(targetPath) {
+function isCanonicalTarget(targetPath: string): boolean {
   const filename = path.basename(targetPath);
   const dir = path.dirname(targetPath);
   if (dir === PATHS.canonicalRoot && CANONICAL_BASE_FILENAMES.has(filename)) {
@@ -192,7 +201,10 @@ function isCanonicalTarget(targetPath) {
   return false;
 }
 
-async function writeIfMissing(targetPath, content) {
+async function writeIfMissing(
+  targetPath: string,
+  content: string,
+): Promise<void> {
   if (await pathExists(targetPath)) {
     if (isCanonicalTarget(targetPath) || !FORCE) {
       log(`[sync] skipped (exists): ${path.relative(ROOT, targetPath)}`);
@@ -202,7 +214,10 @@ async function writeIfMissing(targetPath, content) {
   await writeFile(targetPath, content);
 }
 
-function renderRuleCanonical(data, body) {
+function renderRuleCanonical(
+  data: Record<string, unknown>,
+  body: string,
+): string {
   const fm = toFrontmatter(data, [
     'id',
     'intent',
@@ -211,10 +226,13 @@ function renderRuleCanonical(data, body) {
     'anti_patterns',
   ]);
 
-  return `${fm}\n# ${titleFromId(data.id)} Rule\n\n## Rule body\n\n${body.trim()}\n`;
+  return `${fm}\n# ${titleFromId(data.id as string)} Rule\n\n## Rule body\n\n${body.trim()}\n`;
 }
 
-function renderSkillCanonical(data, body) {
+function renderSkillCanonical(
+  data: Record<string, unknown>,
+  body: string,
+): string {
   const fm = toFrontmatter(data, [
     'id',
     'name',
@@ -226,10 +244,13 @@ function renderSkillCanonical(data, body) {
     'references',
   ]);
 
-  return `${fm}\n# ${titleFromId(data.id)} Skill\n\n## Instructions\n\n${body.trim()}\n`;
+  return `${fm}\n# ${titleFromId(data.id as string)} Skill\n\n## Instructions\n\n${body.trim()}\n`;
 }
 
-function renderAgentCanonical(data, body) {
+function renderAgentCanonical(
+  data: Record<string, unknown>,
+  body: string,
+): string {
   const fm = toFrontmatter(data, [
     'id',
     'name',
@@ -240,10 +261,10 @@ function renderAgentCanonical(data, body) {
     'tool_limits',
   ]);
 
-  return `${fm}\n# ${titleFromId(data.id)} Agent\n\n## Instructions\n\n${body.trim()}\n`;
+  return `${fm}\n# ${titleFromId(data.id as string)} Agent\n\n## Instructions\n\n${body.trim()}\n`;
 }
 
-async function bootstrapCanonicalRules() {
+async function bootstrapCanonicalRules(): Promise<void> {
   const sourceFiles = await listFilesRecursive(PATHS.cursorRules, '.mdc');
   for (const sourceFile of sourceFiles) {
     const id = path.basename(sourceFile, '.mdc');
@@ -260,7 +281,7 @@ async function bootstrapCanonicalRules() {
     const requirements = extractBullets(body, 'Standards');
     const antiPatterns = extractBullets(body, 'Anti-patterns');
 
-    const canonicalData = {
+    const canonicalData: Record<string, unknown> = {
       id,
       intent: String(frontmatter.description || `Rule for ${id}`),
       scope: globs.length > 0 ? globs : ['*'],
@@ -281,8 +302,8 @@ async function bootstrapCanonicalRules() {
 
 const PATH_DISQUALIFY = /[\s'"()<{@]/;
 
-function collectPathReferences(text) {
-  const refs = new Set();
+function collectPathReferences(text: string): string[] {
+  const refs = new Set<string>();
   for (const [, value] of text.matchAll(/`([^`]+)`/g)) {
     if (
       value.includes('/') &&
@@ -297,7 +318,7 @@ function collectPathReferences(text) {
   return [...refs].slice(0, 10);
 }
 
-async function bootstrapCanonicalSkills() {
+async function bootstrapCanonicalSkills(): Promise<void> {
   if (!(await pathExists(PATHS.cursorSkills))) return;
   const entries = await readdirWithContext(
     PATHS.cursorSkills,
@@ -323,7 +344,7 @@ async function bootstrapCanonicalSkills() {
     const workflow = extractBullets(body, 'Workflow');
     const refs = collectPathReferences(body);
 
-    const canonicalData = {
+    const canonicalData: Record<string, unknown> = {
       id,
       name: String(frontmatter.name || id),
       description: String(frontmatter.description || `Skill for ${id}`),
@@ -345,7 +366,7 @@ async function bootstrapCanonicalSkills() {
   }
 }
 
-async function bootstrapCanonicalAgents() {
+async function bootstrapCanonicalAgents(): Promise<void> {
   const sourceFiles = await listFilesRecursive(PATHS.cursorAgents, '.md');
   for (const sourceFile of sourceFiles) {
     const id = path.basename(sourceFile, '.md');
@@ -367,7 +388,7 @@ async function bootstrapCanonicalAgents() {
       ? getSectionBody(body, 'Report Format')
       : '';
 
-    const canonicalData = {
+    const canonicalData: Record<string, unknown> = {
       id,
       name: String(frontmatter.name || id),
       purpose: String(frontmatter.description || `Specialist agent for ${id}`),
@@ -390,10 +411,10 @@ async function bootstrapCanonicalAgents() {
   }
 }
 
-function renderCursorRule(rule) {
+function renderCursorRule(rule: CanonicalEntry): string {
   const globs = normalizeArray(rule.data.scope);
   const isUniversal = globs.length === 1 && globs[0] === '*';
-  const frontmatter = {
+  const frontmatter: Record<string, unknown> = {
     description: rule.data.intent,
     globs: globs.length > 0 ? globs : ['*'],
     alwaysApply: isUniversal,
@@ -414,11 +435,11 @@ function renderCursorRule(rule) {
     .filter((l) => l.trim() && !l.startsWith('#') && !l.startsWith('>'));
   const isMinimal = substantiveLines.length < 3;
   const hasFrontmatterContent =
-    (rule.data.requirements?.length || 0) > 0 ||
-    (rule.data.anti_patterns?.length || 0) > 0;
+    ((rule.data.requirements as unknown[])?.length || 0) > 0 ||
+    ((rule.data.anti_patterns as unknown[])?.length || 0) > 0;
 
   if (isMinimal && hasFrontmatterContent) {
-    const sections = [];
+    const sections: string[] = [];
     const requirements = normalizeArray(rule.data.requirements);
     if (requirements.length > 0) {
       sections.push(
@@ -439,8 +460,8 @@ function renderCursorRule(rule) {
   return `${fm}\n${body}\n`;
 }
 
-function renderSkillFile(skill) {
-  const frontmatter = {
+function renderSkillFile(skill: CanonicalEntry): string {
+  const frontmatter: Record<string, unknown> = {
     name: skill.data.name || skill.data.id,
     description: skill.data.description || `Skill for ${skill.data.id}`,
   };
@@ -453,8 +474,8 @@ function renderSkillFile(skill) {
   return `${fm}\n${body}\n`;
 }
 
-function renderAgentFile(agent) {
-  const frontmatter = {
+function renderAgentFile(agent: CanonicalEntry): string {
+  const frontmatter: Record<string, unknown> = {
     name: agent.data.name || agent.data.id,
     description: agent.data.purpose || `Specialist agent for ${agent.data.id}`,
     model: 'default',
@@ -468,8 +489,8 @@ function renderAgentFile(agent) {
   return `${fm}\n${body}\n`;
 }
 
-function renderRuleSkillFile(rule) {
-  const frontmatter = {
+function renderRuleSkillFile(rule: CanonicalEntry): string {
+  const frontmatter: Record<string, unknown> = {
     name: `rule-${rule.data.id}`,
     description: rule.data.intent || `Rule mapping for ${rule.data.id}`,
   };
@@ -483,8 +504,8 @@ function renderRuleSkillFile(rule) {
   return `${fm}\n# Rule ${rule.data.id}\n\nApply this rule whenever work touches:\n${scope.map((item) => `- \`${item}\``).join('\n')}\n\n${getSectionBody(rule.body, 'Rule body', { toEnd: true, contextLabel: `rule:${rule.data.id}` })}\n`;
 }
 
-function renderAgentAsCodexSkill(agent) {
-  const frontmatter = {
+function renderAgentAsCodexSkill(agent: CanonicalEntry): string {
+  const frontmatter: Record<string, unknown> = {
     name: agent.data.id,
     description: agent.data.purpose || `Specialist role for ${agent.data.id}`,
   };
@@ -496,7 +517,7 @@ function renderAgentAsCodexSkill(agent) {
   return `${fm}\n# Specialist Role: ${agent.data.name || agent.data.id}\n\nUse this skill when:\n${whenToDelegate.map((item) => `- ${item}`).join('\n')}\n\n## Checklist\n${checklist.map((item) => `- ${item}`).join('\n')}\n\n## Report format\n${agent.data.report_format || 'Provide a structured report with findings and verification.'}\n\n## Instructions\n\n${getSectionBody(agent.body, 'Instructions', { toEnd: true, contextLabel: `agent:${agent.data.id}` })}\n`;
 }
 
-async function writeCanonicalBaseDocs() {
+async function writeCanonicalBaseDocs(): Promise<void> {
   await ensureDir(PATHS.canonicalRoot);
   await ensureDir(PATHS.canonicalSchemas);
 
@@ -536,7 +557,7 @@ async function writeCanonicalBaseDocs() {
   );
 }
 
-async function dirHasFiles(dir) {
+async function dirHasFiles(dir: string): Promise<boolean> {
   if (!(await pathExists(dir))) return false;
   const entries = await readdirWithContext(
     dir,
@@ -546,7 +567,7 @@ async function dirHasFiles(dir) {
   return entries.length > 0;
 }
 
-async function ensureCanonicalStructure() {
+async function ensureCanonicalStructure(): Promise<void> {
   await ensureDir(PATHS.canonicalRules);
   await ensureDir(PATHS.canonicalSkills);
   await ensureDir(PATHS.canonicalAgents);
@@ -563,7 +584,10 @@ async function ensureCanonicalStructure() {
   }
 }
 
-function renderCursorSkillsReadme(canonicalSkills, canonicalAgents) {
+function renderCursorSkillsReadme(
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): string {
   const lines = ['# Schemas skills', ''];
   lines.push(
     'This directory contains specialized skills for the Schemas project.',
@@ -598,10 +622,10 @@ function renderCursorSkillsReadme(canonicalSkills, canonicalAgents) {
 }
 
 async function generateCursorArtifacts(
-  canonicalRules,
-  canonicalSkills,
-  canonicalAgents,
-) {
+  canonicalRules: CanonicalEntry[],
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): Promise<void> {
   for (const rule of canonicalRules) {
     const target = path.join(PATHS.cursorRules, `${rule.data.id}.mdc`);
     await writeFile(target, renderCursorRule(rule));
@@ -628,20 +652,20 @@ async function generateCursorArtifacts(
 }
 
 async function generateClaudeArtifacts(
-  canonicalRules,
-  canonicalSkills,
-  canonicalAgents,
-) {
+  canonicalRules: CanonicalEntry[],
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): Promise<void> {
   const settingsPath = path.join(PATHS.claudeRoot, 'settings.json');
 
-  let existingSettings = {};
+  let existingSettings: Record<string, unknown> = {};
   if (await pathExists(settingsPath)) {
     const raw = await readFileWithContext(settingsPath, 'load Claude settings');
     try {
-      existingSettings = JSON.parse(raw);
+      existingSettings = JSON.parse(raw) as Record<string, unknown>;
     } catch (parseError) {
       throw new Error(
-        `[sync] ${settingsPath} contains invalid JSON: ${parseError.message}\nFix the file manually or delete it to start fresh, then re-run pnpm ai:sync.`,
+        `[sync] ${settingsPath} contains invalid JSON: ${(parseError as Error).message}\nFix the file manually or delete it to start fresh, then re-run pnpm ai:sync.`,
         { cause: parseError },
       );
     }
@@ -651,10 +675,12 @@ async function generateClaudeArtifacts(
     existingSettings.permissions &&
     typeof existingSettings.permissions === 'object' &&
     !Array.isArray(existingSettings.permissions)
-      ? existingSettings.permissions
+      ? (existingSettings.permissions as Record<string, unknown>)
       : {};
   const existingAllow = Array.isArray(existingPerms.allow)
-    ? existingPerms.allow.filter((item) => typeof item === 'string')
+    ? (existingPerms.allow as unknown[]).filter(
+        (item): item is string => typeof item === 'string',
+      )
     : [];
   const hardcodedAllow = [
     'Bash(ls:*)',
@@ -720,10 +746,10 @@ async function generateClaudeArtifacts(
 }
 
 async function generateCodexArtifacts(
-  canonicalRules,
-  canonicalSkills,
-  canonicalAgents,
-) {
+  canonicalRules: CanonicalEntry[],
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): Promise<void> {
   for (const skill of canonicalSkills) {
     const target = path.join(
       PATHS.codexSkills,
@@ -752,16 +778,16 @@ async function generateCodexArtifacts(
   }
 }
 
-function checkbox(value) {
+function checkbox(value: boolean): string {
   return value ? 'Yes' : 'No';
 }
 
 async function generateParityMatrix(
-  canonicalRules,
-  canonicalSkills,
-  canonicalAgents,
-) {
-  const lines = [];
+  canonicalRules: CanonicalEntry[],
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): Promise<void> {
+  const lines: string[] = [];
 
   lines.push('# Parity matrix');
   lines.push('');
@@ -845,10 +871,10 @@ async function generateParityMatrix(
 }
 
 async function generateRootAdapters(
-  canonicalRules,
-  canonicalSkills,
-  canonicalAgents,
-) {
+  canonicalRules: CanonicalEntry[],
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): Promise<void> {
   const sharedLinks = [
     '- `.ai/README.md`',
     '- `.ai/DEFINITIONS.md`',
@@ -924,7 +950,7 @@ ${sharedLinks}
 ## Where to look first (by task)
 
 - **Schema definitions**: \`src/{type}/\` — one directory per schema type
-- **Shared primitives**: \`src/shared/schemas/primitives/\` — blockchain, time, ids, etc.
+- **Shared primitives**: \`src/shared/schemas/primitives/\` — blockchain, time, ids, numbers, text, URI, geo, hashes, enums, version
 - **Shared entities**: \`src/shared/schemas/entities/\` — participant, location
 - **Core composition**: \`src/shared/schemas/core/\` — BaseIpfsSchema, NftIpfsSchema
 - **Test utilities**: \`src/test-utils/\` — centralized fixtures and assertions
@@ -989,10 +1015,10 @@ ${sharedLinks}
 }
 
 async function removeStaleAdapters(
-  canonicalRules,
-  canonicalSkills,
-  canonicalAgents,
-) {
+  canonicalRules: CanonicalEntry[],
+  canonicalSkills: CanonicalEntry[],
+  canonicalAgents: CanonicalEntry[],
+): Promise<number> {
   let removalFailures = 0;
   const validSkillIds = new Set(canonicalSkills.map((s) => String(s.data.id)));
   const validSkillAndAgentIds = new Set([
@@ -1031,7 +1057,7 @@ async function removeStaleAdapters(
           await fs.rm(staleDir, { recursive: true });
         } catch (rmError) {
           warn(
-            `[sync] warning: failed to remove ${path.relative(ROOT, staleDir)}: ${rmError.message}. Close any editors locking this file and re-run pnpm ai:sync.`,
+            `[sync] warning: failed to remove ${path.relative(ROOT, staleDir)}: ${(rmError as Error).message}. Close any editors locking this file and re-run pnpm ai:sync.`,
           );
           removalFailures++;
           continue;
@@ -1057,7 +1083,7 @@ async function removeStaleAdapters(
           await fs.unlink(stalePath);
         } catch (unlinkError) {
           warn(
-            `[sync] warning: failed to remove ${path.relative(ROOT, stalePath)}: ${unlinkError.message}. Close any editors locking this file and re-run pnpm ai:sync.`,
+            `[sync] warning: failed to remove ${path.relative(ROOT, stalePath)}: ${(unlinkError as Error).message}. Close any editors locking this file and re-run pnpm ai:sync.`,
           );
           removalFailures++;
           continue;
@@ -1085,7 +1111,7 @@ async function removeStaleAdapters(
           await fs.unlink(stalePath);
         } catch (unlinkError) {
           warn(
-            `[sync] warning: failed to remove ${path.relative(ROOT, stalePath)}: ${unlinkError.message}. Close any editors locking this file and re-run pnpm ai:sync.`,
+            `[sync] warning: failed to remove ${path.relative(ROOT, stalePath)}: ${(unlinkError as Error).message}. Close any editors locking this file and re-run pnpm ai:sync.`,
           );
           removalFailures++;
           continue;
@@ -1098,7 +1124,7 @@ async function removeStaleAdapters(
   return removalFailures;
 }
 
-async function main() {
+async function main(): Promise<void> {
   if (!(await pathExists(path.join(ROOT, 'package.json')))) {
     process.stderr.write(
       'Error: must be run from the project root (no package.json found)\n',
@@ -1178,7 +1204,8 @@ async function main() {
   log(`agents: ${canonicalAgents.length}`);
 }
 
-main().catch((error) => {
-  process.stderr.write(`${error.stack || error.message}\n`);
+main().catch((error: unknown) => {
+  const err = error as Error;
+  process.stderr.write(`${err.stack || err.message}\n`);
   process.exitCode = 1;
 });

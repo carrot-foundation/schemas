@@ -1,25 +1,58 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import type { Dirent } from 'node:fs';
 
-export function log(message) {
+export interface FrontmatterResult {
+  data: Record<string, unknown>;
+  body: string;
+}
+
+export interface CanonicalEntry {
+  file: string;
+  data: Record<string, unknown>;
+  body: string;
+  raw: string;
+}
+
+export interface CanonicalEntriesResult {
+  entries: CanonicalEntry[];
+  errors: string[];
+}
+
+export interface ProjectPaths {
+  canonicalRoot: string;
+  canonicalRules: string;
+  canonicalSkills: string;
+  canonicalAgents: string;
+  canonicalSchemas: string;
+  cursorRules: string;
+  cursorSkills: string;
+  cursorAgents: string;
+  claudeSkills: string;
+  claudeAgents: string;
+  codexSkills: string;
+  parityMatrix: string;
+}
+
+export function log(message: string): void {
   process.stdout.write(`${message}\n`);
 }
 
-export function warn(message) {
+export function warn(message: string): void {
   process.stderr.write(`${message}\n`);
 }
 
-export async function pathExists(targetPath) {
+export async function pathExists(targetPath: string): Promise<boolean> {
   try {
     await fs.access(targetPath);
     return true;
   } catch (error) {
-    if (error.code === 'ENOENT') return false;
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return false;
     throw error;
   }
 }
 
-export function parseScalar(value) {
+export function parseScalar(value: string): string | number | boolean {
   const trimmed = value.trim();
   if (trimmed === 'true') return true;
   if (trimmed === 'false') return false;
@@ -41,7 +74,10 @@ export function parseScalar(value) {
  * and comment lines (starting with `#`).
  * Does not handle nested objects, block scalars (`|`, `>`), or flow sequences.
  */
-export function parseFrontmatter(rawContent, prefix = '') {
+export function parseFrontmatter(
+  rawContent: string,
+  prefix = '',
+): FrontmatterResult {
   const content = rawContent.replace(/\r\n/g, '\n');
   if (!content.startsWith('---\n')) {
     return { data: {}, body: content.trim() };
@@ -61,8 +97,8 @@ export function parseFrontmatter(rawContent, prefix = '') {
     .replace(/^\n+/, '')
     .trim();
 
-  const data = {};
-  let currentArrayKey = null;
+  const data: Record<string, unknown> = {};
+  let currentArrayKey: string | null = null;
 
   for (const line of frontmatterRaw.split('\n')) {
     if (!line.trim() || line.trim().startsWith('#')) {
@@ -77,7 +113,7 @@ export function parseFrontmatter(rawContent, prefix = '') {
       continue;
     }
     if (listMatch && currentArrayKey) {
-      data[currentArrayKey].push(parseScalar(listMatch[1]));
+      (data[currentArrayKey] as unknown[]).push(parseScalar(listMatch[1]));
       continue;
     }
 
@@ -103,7 +139,7 @@ export function parseFrontmatter(rawContent, prefix = '') {
   return { data, body };
 }
 
-export function normalizeArray(value) {
+export function normalizeArray(value: unknown): string[] {
   if (Array.isArray(value)) {
     return value.map((item) => String(item).trim()).filter(Boolean);
   }
@@ -122,35 +158,47 @@ export function normalizeArray(value) {
   return [];
 }
 
-export async function readFileWithContext(filePath, operation = 'read') {
+export async function readFileWithContext(
+  filePath: string,
+  operation = 'read',
+): Promise<string> {
   try {
     return await fs.readFile(filePath, 'utf8');
   } catch (error) {
-    throw new Error(`Failed to ${operation} ${filePath}: ${error.message}`, {
-      cause: error,
-    });
+    throw new Error(
+      `Failed to ${operation} ${filePath}: ${(error as Error).message}`,
+      {
+        cause: error,
+      },
+    );
   }
 }
 
 export async function readdirWithContext(
-  dirPath,
-  options,
+  dirPath: string,
+  options?: { withFileTypes?: boolean; recursive?: boolean },
   operation = 'list directory',
-) {
+): Promise<Dirent[]> {
   try {
-    return await fs.readdir(dirPath, options);
+    return (await fs.readdir(
+      dirPath,
+      options as { withFileTypes: true; recursive?: boolean },
+    )) as Dirent[];
   } catch (error) {
-    throw new Error(`Failed to ${operation} ${dirPath}: ${error.message}`, {
-      cause: error,
-    });
+    throw new Error(
+      `Failed to ${operation} ${dirPath}: ${(error as Error).message}`,
+      {
+        cause: error,
+      },
+    );
   }
 }
 
 export async function listFilesRecursive(
-  dir,
-  extension,
+  dir: string,
+  extension: string,
   { warnIfMissing = false } = {},
-) {
+): Promise<string[]> {
   if (!(await pathExists(dir))) {
     if (warnIfMissing) {
       warn(`warning: directory does not exist: ${dir}`);
@@ -170,7 +218,7 @@ export async function listFilesRecursive(
     .sort();
 }
 
-export function buildPaths(root) {
+export function buildPaths(root: string): ProjectPaths {
   return {
     canonicalRoot: path.join(root, '.ai'),
     canonicalRules: path.join(root, '.ai', 'rules'),
@@ -194,12 +242,12 @@ export function buildPaths(root) {
 const ID_PATTERN = /^[a-z0-9][a-z0-9_-]*$/;
 
 export async function loadCanonicalEntries(
-  dir,
+  dir: string,
   { onError = 'throw', prefix = '' } = {},
-) {
+): Promise<CanonicalEntriesResult> {
   const files = await listFilesRecursive(dir, '.md', { warnIfMissing: true });
-  const parsed = [];
-  const errors = [];
+  const parsed: CanonicalEntry[] = [];
+  const errors: string[] = [];
 
   for (const file of files) {
     const raw = await readFileWithContext(file, 'load canonical');
@@ -208,8 +256,8 @@ export async function loadCanonicalEntries(
     parsed.push({ file, data, body, raw });
   }
 
-  const seenIds = new Map();
-  const validEntries = [];
+  const seenIds = new Map<string, string>();
+  const validEntries: CanonicalEntry[] = [];
 
   for (const entry of parsed) {
     const id = entry.data.id;
@@ -259,7 +307,7 @@ export async function loadCanonicalEntries(
 
 // Returns false for two empty sets to avoid false positives in quality checks
 // where both fields being absent is a separate concern from being identical.
-export function setsAreIdentical(a, b) {
+export function setsAreIdentical<T>(a: Set<T>, b: Set<T>): boolean {
   if (a.size === 0 || a.size !== b.size) return false;
   return [...b].every((item) => a.has(item));
 }
