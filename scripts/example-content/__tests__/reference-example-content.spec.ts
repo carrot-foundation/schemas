@@ -3,6 +3,8 @@ import {
   buildReferenceStory,
   emitCollectionExample,
   emitCreditExample,
+  emitCreditPurchaseReceiptExample,
+  emitCreditRetirementReceiptExample,
   emitGasIdExample,
   emitMassIdAuditExample,
   emitMassIdExample,
@@ -29,6 +31,21 @@ describe('reference example story', () => {
     expect(methodology.data.slug).toBe('bold-carbon-ch4');
     expect(collection.slug).toBe('bold-cold-start-carazinho');
     expect(credit.symbol).toBe('C-CARB.CH4');
+  });
+
+  it('links purchase and retirement receipts to the same canonical story', () => {
+    const purchase = emitCreditPurchaseReceiptExample();
+    const retirement = emitCreditRetirementReceiptExample();
+
+    expect(purchase.data.retirement_receipt.token_id).toBe(
+      retirement.blockchain.token_id,
+    );
+    expect(
+      retirement.attributes.some(
+        (attribute: { trait_type: string }) =>
+          attribute.trait_type === 'Purchase Receipt',
+      ),
+    ).toBe(true);
   });
 
   it('keeps asset and audit references aligned', () => {

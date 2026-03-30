@@ -14,6 +14,8 @@ import { emitMassIdExample } from './emitters/mass-id.js';
 import { emitGasIdExample } from './emitters/gas-id.js';
 import { emitRecycledIdExample } from './emitters/recycled-id.js';
 import { emitMassIdAuditExample } from './emitters/mass-id-audit.js';
+import { emitCreditPurchaseReceiptExample } from './emitters/credit-purchase-receipt.js';
+import { emitCreditRetirementReceiptExample } from './emitters/credit-retirement-receipt.js';
 
 export {
   emitMethodologyExample,
@@ -23,6 +25,8 @@ export {
   emitGasIdExample,
   emitRecycledIdExample,
   emitMassIdAuditExample,
+  emitCreditPurchaseReceiptExample,
+  emitCreditRetirementReceiptExample,
 };
 
 /** Registry mapping schema type directory names to their emitter functions. */
@@ -34,4 +38,6 @@ export const emitters = {
   'gas-id': emitGasIdExample,
   'recycled-id': emitRecycledIdExample,
   'mass-id-audit': emitMassIdAuditExample,
+  'credit-purchase-receipt': emitCreditPurchaseReceiptExample,
+  'credit-retirement-receipt': emitCreditRetirementReceiptExample,
 };
