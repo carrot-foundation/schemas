@@ -12,9 +12,9 @@ import {
   emitMassIDExample,
   emitMethodologyExample,
   emitRecycledIDExample,
+  emitters,
   NON_PRODUCTION_MARKER,
 } from '../index.js';
-import { emitters } from '../index.js';
 import { MassIDIpfsSchema } from '../../../src/mass-id';
 import { GasIDIpfsSchema } from '../../../src/gas-id';
 import { RecycledIDIpfsSchema } from '../../../src/recycled-id';
@@ -35,20 +35,19 @@ const VALID_VERSION = '1.0.0';
  * emitter output can be validated against Zod schemas.
  */
 function applyPlaceholders(doc: Record<string, unknown>): void {
-  const record = doc as Record<string, unknown>;
-  record.$schema = VALID_SCHEMA_URL;
+  doc.$schema = VALID_SCHEMA_URL;
 
-  const schema = record.schema as Record<string, unknown> | undefined;
+  const schema = doc.schema as Record<string, unknown> | undefined;
   if (schema) {
     schema.hash = VALID_SHA256;
     schema.version = VALID_VERSION;
   }
 
-  if ('audit_data_hash' in record) {
-    record.audit_data_hash = VALID_SHA256;
+  if ('audit_data_hash' in doc) {
+    doc.audit_data_hash = VALID_SHA256;
   }
-  if ('content_hash' in record) {
-    record.content_hash = VALID_SHA256;
+  if ('content_hash' in doc) {
+    doc.content_hash = VALID_SHA256;
   }
 }
 
