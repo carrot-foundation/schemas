@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/carrot-foundation/schemas/compare/v0.3.0...v0.3.1) (2026-03-30)
+
+### Bug Fixes
+
+- address code review findings in migrated scripts ([2c23576](https://github.com/carrot-foundation/schemas/commit/2c23576fb3c61ae4d03e4882324aa43694d6693b))
+- improve error handling and add return types to exported functions ([e40f0c1](https://github.com/carrot-foundation/schemas/commit/e40f0c12e02b70263185a27a896a3c2e2aa0332d))
+- resolve type-check errors in migrated scripts ([fa961ef](https://github.com/carrot-foundation/schemas/commit/fa961ef41a2ca1b02180fb54f3c452777d5b5d35))
+
+### Code Refactoring
+
+- improve type safety and reduce duplication in scripts ([f61441d](https://github.com/carrot-foundation/schemas/commit/f61441d6188292b1586020193dc058880628aa98))
+- migrate AI instruction scripts to TypeScript ([1758755](https://github.com/carrot-foundation/schemas/commit/17587558c0f2124ce279d487c9c86fce09d616bd))
+- migrate example-content emitters to TypeScript ([a33d5cb](https://github.com/carrot-foundation/schemas/commit/a33d5cb5899752e4e7143e06d3f9de7072aea69e))
+- migrate schema pipeline scripts to TypeScript ([13586ec](https://github.com/carrot-foundation/schemas/commit/13586eca764e466cd104e648ef6fd52f860f9188))
+- migrate shared utilities to TypeScript ([686dc1e](https://github.com/carrot-foundation/schemas/commit/686dc1ec4849b221d9bcd908fd6eb25ca373cd27))
+
 ## [0.3.0](https://github.com/carrot-foundation/schemas/compare/v0.2.4...v0.3.0) (2026-03-30)
 
 ### Features

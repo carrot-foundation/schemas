@@ -674,6 +674,6 @@
   "additionalProperties": false,
   "title": "MassID Audit IPFS Record",
   "description": "MassID audit record stored in IPFS, containing methodology reference, audit summary, rule execution results, and links to the source MassID and resulting GasID or RecycledID",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.0/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
-  "version": "0.3.0"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.1/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "version": "0.3.1"
 }
