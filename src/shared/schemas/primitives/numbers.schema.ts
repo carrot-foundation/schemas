@@ -48,7 +48,9 @@ export type PositiveInteger = z.infer<typeof PositiveIntegerSchema>;
 
 export const CreditAmountSchema = NonNegativeFloatSchema.meta({
   title: 'Credit Amount',
-  description: 'Amount of credits issued',
+  description:
+    'Number of environmental impact credits issued, purchased, or retired',
+  examples: [1.5, 100, 2500.75],
 });
 export type CreditAmount = z.infer<typeof CreditAmountSchema>;
 

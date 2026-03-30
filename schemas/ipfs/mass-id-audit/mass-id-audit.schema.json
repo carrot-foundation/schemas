@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -244,7 +244,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
-              "description": "UUID identifier for external system references",
+              "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -310,7 +310,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
-              "description": "UUID identifier for external system references",
+              "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -376,7 +376,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
-              "description": "UUID identifier for external system references",
+              "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -612,22 +612,14 @@
                 "minLength": 1,
                 "maxLength": 200,
                 "title": "Rule Processor Checksum",
-                "description": "Checksum for rule processor integrity verification",
-                "examples": [
-                  "Example text",
-                  "Sample value"
-                ]
+                "description": "Checksum for rule processor integrity verification"
               },
               "rule_source_code_version": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 200,
                 "title": "Rule Source Code Version",
-                "description": "Version identifier for the rule source code",
-                "examples": [
-                  "Example text",
-                  "Sample value"
-                ]
+                "description": "Version identifier for the rule source code"
               }
             },
             "required": [

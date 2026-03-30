@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -173,7 +173,7 @@
               "minimum": 1,
               "maximum": 9007199254740991,
               "title": "Total Certificates",
-              "description": "Total number of certificates represented in the receipt",
+              "description": "Total number of impact certificates (GasID or RecycledID) included in this receipt",
               "examples": [
                 1,
                 123,
@@ -184,7 +184,7 @@
               "type": "number",
               "minimum": 0,
               "title": "Total Amount (USDC)",
-              "description": "Total amount paid in USDC for the purchase",
+              "description": "Total amount paid in USDC stablecoin for the credit purchase",
               "examples": [
                 0,
                 100.5,
@@ -196,11 +196,11 @@
               "type": "number",
               "minimum": 0,
               "title": "Total Credits",
-              "description": "Total amount of credits purchased",
+              "description": "Total number of environmental impact credits purchased in this transaction",
               "examples": [
-                0,
-                45.2,
-                72.5
+                1.5,
+                100,
+                2500.75
               ]
             },
             "purchased_at": {
@@ -254,7 +254,7 @@
                   "minLength": 1,
                   "maxLength": 100,
                   "title": "Identity Name",
-                  "description": "Display name for the participant",
+                  "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
@@ -265,7 +265,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "title": "Identity External ID",
-                  "description": "External identifier for the participant",
+                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ]
@@ -274,7 +274,7 @@
                   "type": "string",
                   "format": "uri",
                   "title": "Identity External URL",
-                  "description": "External URL for the participant profile",
+                  "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
@@ -288,7 +288,7 @@
               ],
               "additionalProperties": false,
               "title": "Identity",
-              "description": "Participant identity information"
+              "description": "Identity information for the buyer or beneficiary associated with this receipt"
             }
           },
           "required": [
@@ -313,7 +313,7 @@
                   "bold-brazil"
                 ],
                 "title": "Collection Slug",
-                "description": "URL-friendly identifier for a collection",
+                "description": "URL-friendly identifier for an impact credit collection, used in URIs and API references",
                 "examples": [
                   "bold-cold-start-carazinho",
                   "bold-brazil"
@@ -324,7 +324,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Collection External ID",
-                "description": "External identifier for the collection",
+                "description": "Unique identifier for the collection in the Carrot platform",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]
@@ -338,7 +338,7 @@
                   "BOLD Brazil"
                 ],
                 "title": "Collection Name",
-                "description": "Display name of the collection",
+                "description": "Human-readable display name for the impact credit collection",
                 "examples": [
                   "BOLD Cold Start - Carazinho",
                   "BOLD Brazil"
@@ -348,7 +348,7 @@
                 "type": "string",
                 "format": "uri",
                 "title": "Collection External URL",
-                "description": "External URL for the collection",
+                "description": "Link to the collection page on the Carrot platform",
                 "examples": [
                   "https://explore.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
@@ -359,7 +359,7 @@
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                 "title": "Collection IPFS URI",
-                "description": "IPFS URI for the collection metadata",
+                "description": "IPFS URI pointing to the immutable collection metadata record",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -391,7 +391,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "External ID",
-                "description": "UUID identifier for external system references",
+                "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]
@@ -479,7 +479,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "External ID",
-                "description": "UUID identifier for external system references",
+                "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]
@@ -532,7 +532,7 @@
                   "RecycledID"
                 ],
                 "title": "Certificate Type",
-                "description": "Type of certificate (e.g., GasID, RecycledID)",
+                "description": "Type of impact certificate — GasID for methane avoidance, RecycledID for waste recycling",
                 "examples": [
                   "GasID",
                   "RecycledID"
@@ -544,9 +544,9 @@
                 "title": "Certificate Total Amount",
                 "description": "Total credits available in this certificate",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "mass_id": {
@@ -557,7 +557,7 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "External ID",
-                    "description": "UUID identifier for external system references",
+                    "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                     ]
@@ -643,7 +643,7 @@
                         "bold-brazil"
                       ],
                       "title": "Collection Slug",
-                      "description": "Slug of the collection",
+                      "description": "URL-friendly identifier of the collection this certificate belongs to",
                       "examples": [
                         "bold-cold-start-carazinho",
                         "bold-brazil"
@@ -652,12 +652,12 @@
                     "purchased_amount": {
                       "type": "number",
                       "minimum": 0,
-                      "title": "Collection Purchased Amount",
-                      "description": "Credits purchased from this collection for this certificate",
+                      "title": "Purchased Amount",
+                      "description": "Number of credits purchased from this collection for this certificate",
                       "examples": [
-                        0,
-                        45.2,
-                        72.5
+                        1.5,
+                        100,
+                        2500.75
                       ]
                     },
                     "retired_amount": {
@@ -666,9 +666,9 @@
                       "title": "Collection Retired Amount",
                       "description": "Credits retired from this collection for this certificate (0 if none)",
                       "examples": [
-                        0,
-                        45.2,
-                        72.5
+                        1.5,
+                        100,
+                        2500.75
                       ]
                     }
                   },
@@ -712,7 +712,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
-              "description": "UUID identifier for external system references",
+              "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -936,11 +936,7 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link",
-            "examples": [
-              "Example text",
-              "Sample value"
-            ]
+            "description": "Display name for the external link"
           },
           "url": {
             "type": "string",
@@ -987,9 +983,9 @@
                 "title": "Total Credits Purchased",
                 "description": "Total number of credits purchased across all tokens",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "display_type": {
@@ -1030,9 +1026,9 @@
                 "title": "Total Amount (USDC)",
                 "description": "Total USDC amount paid for the purchase",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "display_type": {
@@ -1205,11 +1201,7 @@
                 "pattern": "^#\\d+$",
                 "title": "Retirement Receipt Token ID",
                 "description": "Token ID of the retirement receipt NFT as #<token_id> (if retirement occurred)",
-                "examples": [
-                  "Example text",
-                  "Sample value"
-                ],
-                "example": "#123"
+                "example": "#456789"
               },
               "display_type": {
                 "title": "Display Type",
@@ -1264,9 +1256,9 @@
                 "title": "Credit Amount",
                 "description": "Amount of credits purchased for the token symbol",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "display_type": {

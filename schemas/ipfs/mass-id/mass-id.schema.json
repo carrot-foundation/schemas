@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -194,7 +194,7 @@
               "description": "Specific subcategory of waste material",
               "examples": [
                 "Food, Food Waste and Beverages",
-                "Domestic Sludge"
+                "Garden, Yard and Park Waste"
               ]
             },
             "local_classification": {
@@ -258,7 +258,7 @@
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$",
                 "title": "Location ID Hash",
-                "description": "Anonymized identifier for the location",
+                "description": "SHA-256 hash anonymizing the real location identifier for privacy",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                 ]
@@ -268,18 +268,22 @@
                 "minLength": 1,
                 "maxLength": 50,
                 "title": "City",
-                "description": "City name",
+                "description": "Name of the Brazilian municipality where the activity takes place",
                 "examples": [
                   "Brasília",
-                  "São Paulo"
+                  "São Paulo",
+                  "Carazinho",
+                  "Jundiaí"
                 ]
               },
               "subdivision_code": {
                 "type": "string",
                 "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
                 "title": "Country Subdivision Code",
-                "description": "Subdivision code following ISO 3166-2 standard",
+                "description": "State or region code following the ISO 3166-2 standard (e.g., BR-SP for São Paulo)",
                 "examples": [
+                  "BR-SP",
+                  "BR-RS",
                   "BR-AP",
                   "BR-DF"
                 ]
@@ -297,7 +301,7 @@
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$",
                 "title": "Responsible Participant ID Hash",
-                "description": "Anonymized ID of the participant responsible for this location",
+                "description": "SHA-256 hash identifying the participant responsible for operations at this location",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                 ]
@@ -336,7 +340,7 @@
                 ],
                 "additionalProperties": false,
                 "title": "Coordinates",
-                "description": "GPS coordinates of the location"
+                "description": "Approximate GPS coordinates of the site (city-level precision for privacy)"
               }
             },
             "required": [
@@ -364,7 +368,7 @@
                 "type": "string",
                 "pattern": "^[0-9a-fA-F]{64}$",
                 "title": "Participant ID Hash",
-                "description": "Anonymized identifier for the participant",
+                "description": "SHA-256 hash anonymizing the real participant identifier for privacy",
                 "examples": [
                   "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                 ]
@@ -403,7 +407,7 @@
             ],
             "additionalProperties": false,
             "title": "Participant",
-            "description": "A participant in the waste management supply chain"
+            "description": "An entity (person, company, or cooperative) involved in the waste management supply chain"
           },
           "title": "Participants",
           "description": "Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool"
@@ -440,7 +444,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
-                    "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
+                    "description": "SHA-256 hash anonymizing a participant identity — used to link records without exposing personal data",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -485,7 +489,9 @@
                         ],
                         "title": "Vehicle Type",
                         "examples": [
-                          "Truck"
+                          "Truck",
+                          "Motorcycle",
+                          "Cart"
                         ]
                       },
                       "weight_kg": {
@@ -538,7 +544,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
-                    "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
+                    "description": "SHA-256 hash anonymizing a participant identity — used to link records without exposing personal data",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -575,10 +581,10 @@
                           "Transport Manifest"
                         ],
                         "title": "Weighing Capture Method",
-                        "description": "Method used to capture weight data",
+                        "description": "How the weight measurement was recorded — digital readout, manual entry, photo evidence, or transport manifest",
                         "examples": [
                           "Digital",
-                          "Manual"
+                          "Photo (Scale + Cargo)"
                         ]
                       },
                       "scale_type": {
@@ -596,9 +602,10 @@
                           "Weighbridge (Truck Scale)"
                         ],
                         "title": "Scale Type",
-                        "description": "Type of scale used to weigh the load",
+                        "description": "Type of weighing equipment used to measure the waste load at a collection or processing site",
                         "examples": [
-                          "Weighbridge (Truck Scale)"
+                          "Weighbridge (Truck Scale)",
+                          "Floor Scale"
                         ]
                       },
                       "container_type": {
@@ -616,7 +623,8 @@
                         "title": "Container Type",
                         "examples": [
                           "Bag",
-                          "Bin"
+                          "Bin",
+                          "Truck"
                         ]
                       },
                       "vehicle_type": {
@@ -636,7 +644,9 @@
                         ],
                         "title": "Vehicle Type",
                         "examples": [
-                          "Truck"
+                          "Truck",
+                          "Motorcycle",
+                          "Cart"
                         ]
                       },
                       "container_capacity_kg": {
@@ -709,7 +719,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
-                    "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
+                    "description": "SHA-256 hash anonymizing a participant identity — used to link records without exposing personal data",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -771,7 +781,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
-                    "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
+                    "description": "SHA-256 hash anonymizing a participant identity — used to link records without exposing personal data",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -859,7 +869,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Participant ID Hash",
-                    "description": "SHA-256 hash representing a participant identifier (SHA-256 hex string)",
+                    "description": "SHA-256 hash anonymizing a participant identity — used to link records without exposing personal data",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -1127,11 +1137,7 @@
             "minLength": 1,
             "maxLength": 50,
             "title": "Link Label",
-            "description": "Display name for the external link",
-            "examples": [
-              "Example text",
-              "Sample value"
-            ]
+            "description": "Display name for the external link"
           },
           "url": {
             "type": "string",
@@ -1179,7 +1185,7 @@
                   "Organic"
                 ],
                 "title": "Waste Type",
-                "description": "Category or type of waste material",
+                "description": "Broad classification of the waste material being tracked (e.g., Organic)",
                 "examples": [
                   "Organic"
                 ]
@@ -1234,10 +1240,10 @@
                   "Wood and Wood Products"
                 ],
                 "title": "Waste Subtype",
-                "description": "Specific subcategory of waste within a waste type",
+                "description": "Detailed subcategory of the waste material, refining the broad waste type classification",
                 "examples": [
                   "Food, Food Waste and Beverages",
-                  "Domestic Sludge"
+                  "Garden, Yard and Park Waste"
                 ]
               },
               "display_type": {
@@ -1325,10 +1331,12 @@
                 "minLength": 1,
                 "maxLength": 50,
                 "title": "City",
-                "description": "City name",
+                "description": "Name of the Brazilian municipality where the activity takes place",
                 "examples": [
                   "Brasília",
-                  "São Paulo"
+                  "São Paulo",
+                  "Carazinho",
+                  "Jundiaí"
                 ]
               },
               "display_type": {
@@ -1373,8 +1381,10 @@
                 "type": "string",
                 "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
                 "title": "Country Subdivision Code",
-                "description": "Subdivision code following ISO 3166-2 standard",
+                "description": "State or region code following the ISO 3166-2 standard (e.g., BR-SP for São Paulo)",
                 "examples": [
+                  "BR-SP",
+                  "BR-RS",
                   "BR-AP",
                   "BR-DF"
                 ]
@@ -1434,7 +1444,9 @@
                 "title": "Pick-up Vehicle Type",
                 "description": "Type of vehicle used for waste pick-up operations",
                 "examples": [
-                  "Truck"
+                  "Truck",
+                  "Motorcycle",
+                  "Cart"
                 ]
               },
               "display_type": {
@@ -1774,10 +1786,10 @@
                   "Transport Manifest"
                 ],
                 "title": "Weighing Capture Method",
-                "description": "Method used to capture weight data",
+                "description": "How the weight measurement was recorded — digital readout, manual entry, photo evidence, or transport manifest",
                 "examples": [
                   "Digital",
-                  "Manual"
+                  "Photo (Scale + Cargo)"
                 ]
               },
               "display_type": {
@@ -1833,9 +1845,10 @@
                   "Weighbridge (Truck Scale)"
                 ],
                 "title": "Scale Type",
-                "description": "Type of scale used to weigh the load",
+                "description": "Type of weighing equipment used to measure the waste load at a collection or processing site",
                 "examples": [
-                  "Weighbridge (Truck Scale)"
+                  "Weighbridge (Truck Scale)",
+                  "Floor Scale"
                 ]
               },
               "display_type": {

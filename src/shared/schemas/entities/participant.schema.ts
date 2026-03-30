@@ -6,7 +6,8 @@ export const ParticipantSchema = z
   .strictObject({
     id_hash: Sha256HashSchema.meta({
       title: 'Participant ID Hash',
-      description: 'Anonymized identifier for the participant',
+      description:
+        'SHA-256 hash anonymizing the real participant identifier for privacy',
     }),
     roles: uniqueArrayItems(
       ParticipantRoleSchema,
@@ -21,6 +22,7 @@ export const ParticipantSchema = z
   })
   .meta({
     title: 'Participant',
-    description: 'A participant in the waste management supply chain',
+    description:
+      'An entity (person, company, or cooperative) involved in the waste management supply chain',
   });
 export type Participant = z.infer<typeof ParticipantSchema>;

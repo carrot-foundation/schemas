@@ -14,8 +14,9 @@ export const RecordSchemaTypeSchema = z
   ])
   .meta({
     title: 'Schema Type',
-    description: 'Type of schema in the Carrot ecosystem',
-    examples: ['MassID', 'RecycledID', 'GasID'],
+    description:
+      'Identifies the record type within the Carrot ecosystem (e.g., MassID for waste tracking, GasID for gas capture)',
+    examples: ['MassID', 'GasID', 'Credit', 'CreditPurchaseReceipt'],
   });
 export type RecordSchemaType = z.infer<typeof RecordSchemaTypeSchema>;
 
@@ -46,14 +47,16 @@ export type CreditTokenSymbol = z.infer<typeof CreditTokenSymbolSchema>;
 
 export const CreditTypeSchema = z.enum(['Biowaste', 'Carbon (CH₄)']).meta({
   title: 'Credit Type',
-  description: 'Type of credit issued',
+  description:
+    'Category of environmental credit — indicates the impact pathway (biowaste diversion or methane avoidance)',
   examples: ['Biowaste', 'Carbon (CH₄)'],
 });
 export type CreditType = z.infer<typeof CreditTypeSchema>;
 
 export const GasTypeSchema = z.enum(['Methane (CH₄)']).meta({
   title: 'Gas Type',
-  description: 'Type of gas prevented',
+  description:
+    'Greenhouse gas type whose emission was avoided through the waste management activity',
   examples: ['Methane (CH₄)'],
 });
 export type GasType = z.infer<typeof GasTypeSchema>;
@@ -73,8 +76,9 @@ export const VehicleTypeSchema = z
   ])
   .meta({
     title: 'Vehicle Type',
-    description: 'Type of vehicle used for waste transportation operations',
-    examples: ['Truck'],
+    description:
+      'Type of vehicle used to transport waste between collection and processing sites',
+    examples: ['Truck', 'Motorcycle', 'Cart'],
   });
 export type VehicleType = z.infer<typeof VehicleTypeSchema>;
 
@@ -93,8 +97,9 @@ export const ScaleTypeSchema = z
   ])
   .meta({
     title: 'Scale Type',
-    description: 'Type of scale used to weigh the load',
-    examples: ['Weighbridge (Truck Scale)'],
+    description:
+      'Type of weighing equipment used to measure the waste load at a collection or processing site',
+    examples: ['Weighbridge (Truck Scale)', 'Floor Scale'],
   });
 export type ScaleType = z.infer<typeof ScaleTypeSchema>;
 
@@ -102,8 +107,9 @@ export const WeighingCaptureMethodSchema = z
   .enum(['Digital', 'Manual', 'Photo (Scale + Cargo)', 'Transport Manifest'])
   .meta({
     title: 'Weighing Capture Method',
-    description: 'Method used to capture weight data',
-    examples: ['Digital', 'Manual'],
+    description:
+      'How the weight measurement was recorded — digital readout, manual entry, photo evidence, or transport manifest',
+    examples: ['Digital', 'Photo (Scale + Cargo)'],
   });
 export type WeighingCaptureMethod = z.infer<typeof WeighingCaptureMethodSchema>;
 
@@ -111,8 +117,9 @@ export const ContainerTypeSchema = z
   .enum(['Bag', 'Bin', 'Drum', 'Pail', 'Street Bin', 'Truck', 'Waste Box'])
   .meta({
     title: 'Container Type',
-    description: 'Type of container holding the waste',
-    examples: ['Bag', 'Bin'],
+    description:
+      'Type of container used to hold or transport the waste material',
+    examples: ['Bag', 'Bin', 'Truck'],
   });
 export type ContainerType = z.infer<typeof ContainerTypeSchema>;
 
@@ -125,7 +132,8 @@ export const CollectionSlugSchema = z
   ])
   .meta({
     title: 'Collection Slug',
-    description: 'URL-friendly identifier for a collection',
+    description:
+      'URL-friendly identifier for an impact credit collection, used in URIs and API references',
     examples: ['bold-cold-start-carazinho', 'bold-brazil'],
   });
 export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
@@ -152,7 +160,8 @@ export type ParticipantRole = z.infer<typeof ParticipantRoleSchema>;
 
 export const WasteTypeSchema = z.enum(['Organic']).meta({
   title: 'Waste Type',
-  description: 'Category or type of waste material',
+  description:
+    'Broad classification of the waste material being tracked (e.g., Organic)',
   examples: ['Organic'],
 });
 export type WasteType = z.infer<typeof WasteTypeSchema>;
@@ -169,8 +178,9 @@ export const WasteSubtypeSchema = z
   ])
   .meta({
     title: 'Waste Subtype',
-    description: 'Specific subcategory of waste within a waste type',
-    examples: ['Food, Food Waste and Beverages', 'Domestic Sludge'],
+    description:
+      'Detailed subcategory of the waste material, refining the broad waste type classification',
+    examples: ['Food, Food Waste and Beverages', 'Garden, Yard and Park Waste'],
   });
 export type WasteSubtype = z.infer<typeof WasteSubtypeSchema>;
 
@@ -183,7 +193,7 @@ export const CollectionNameSchema = z
   ])
   .meta({
     title: 'Collection Name',
-    description: 'Display name of the collection',
+    description: 'Human-readable display name for the impact credit collection',
     examples: ['BOLD Cold Start - Carazinho', 'BOLD Brazil'],
   });
 export type CollectionName = z.infer<typeof CollectionNameSchema>;
@@ -224,7 +234,8 @@ export type MethodologySlug = z.infer<typeof MethodologySlugSchema>;
 
 export const CertificateTypeSchema = z.enum(['GasID', 'RecycledID']).meta({
   title: 'Certificate Type',
-  description: 'Type of certificate (e.g., GasID, RecycledID)',
+  description:
+    'Type of impact certificate — GasID for methane avoidance, RecycledID for waste recycling',
   examples: ['GasID', 'RecycledID'],
 });
 export type CertificateType = z.infer<typeof CertificateTypeSchema>;

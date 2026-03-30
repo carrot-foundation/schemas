@@ -11,7 +11,8 @@ export type Uuid = z.infer<typeof UuidSchema>;
 
 export const ExternalIdSchema = UuidSchema.meta({
   title: 'External ID',
-  description: 'UUID identifier for external system references',
+  description:
+    'UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)',
 });
 export type ExternalId = z.infer<typeof ExternalIdSchema>;
 
@@ -29,8 +30,9 @@ export const StringifiedTokenIdSchema = NonEmptyStringSchema.regex(
   /^#\d+$/,
   'Must match pattern #<token_id>',
 ).meta({
-  title: 'Token ID',
-  description: 'Token ID represented as #<token_id>',
-  example: '#123',
+  title: 'Display Token ID',
+  description:
+    'Human-readable token ID prefixed with # for display purposes (e.g., #456789)',
+  example: '#456789',
 });
 export type StringifiedTokenId = z.infer<typeof StringifiedTokenIdSchema>;

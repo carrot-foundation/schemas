@@ -20,18 +20,20 @@ type Meta = {
 const SummaryBaseSchema = z.strictObject({
   total_certificates: PositiveIntegerSchema.meta({
     title: 'Total Certificates',
-    description: 'Total number of certificates represented in the receipt',
+    description:
+      'Total number of impact certificates (GasID or RecycledID) included in this receipt',
   }),
 });
 
 export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.safeExtend({
   total_amount_usdc: UsdcAmountSchema.meta({
     title: 'Total Amount (USDC)',
-    description: 'Total amount paid in USDC for the purchase',
+    description: 'Total amount paid in USDC stablecoin for the credit purchase',
   }),
   total_credits: CreditAmountSchema.meta({
     title: 'Total Credits',
-    description: 'Total amount of credits purchased',
+    description:
+      'Total number of environmental impact credits purchased in this transaction',
   }),
   purchased_at: IsoDateTimeSchema.meta({
     title: 'Purchased At',
@@ -50,7 +52,8 @@ export const CreditRetirementReceiptSummarySchema =
   SummaryBaseSchema.safeExtend({
     total_credits_retired: CreditAmountSchema.meta({
       title: 'Total Credits Retired',
-      description: 'Total amount of credits retired',
+      description:
+        'Total number of environmental impact credits permanently retired (removed from circulation)',
     }),
     retired_at: IsoDateTimeSchema.meta({
       title: 'Retired At',
@@ -69,21 +72,24 @@ export const ReceiptIdentitySchema = z
   .strictObject({
     name: NonEmptyStringSchema.max(100).meta({
       title: 'Identity Name',
-      description: 'Display name for the participant',
+      description: 'Display name of the buyer or beneficiary on the receipt',
       examples: ['EcoTech Solutions Inc.', 'Climate Action Corp'],
     }),
     external_id: ExternalIdSchema.meta({
       title: 'Identity External ID',
-      description: 'External identifier for the participant',
+      description:
+        'Unique identifier for the buyer or beneficiary in the Carrot platform',
     }),
     external_url: ExternalUrlSchema.meta({
       title: 'Identity External URL',
-      description: 'External URL for the participant profile',
+      description:
+        'Link to the buyer or beneficiary profile page on the Carrot platform',
     }),
   })
   .meta({
     title: 'Identity',
-    description: 'Participant identity information',
+    description:
+      'Identity information for the buyer or beneficiary associated with this receipt',
   });
 export type ReceiptIdentity = z.infer<typeof ReceiptIdentitySchema>;
 
@@ -95,16 +101,18 @@ export function createReceiptCollectionSchema(params: { meta: Meta }) {
       slug: CollectionSlugSchema,
       external_id: ExternalIdSchema.meta({
         title: 'Collection External ID',
-        description: 'External identifier for the collection',
+        description:
+          'Unique identifier for the collection in the Carrot platform',
       }),
       name: CollectionNameSchema,
       external_url: ExternalUrlSchema.meta({
         title: 'Collection External URL',
-        description: 'External URL for the collection',
+        description: 'Link to the collection page on the Carrot platform',
       }),
       ipfs_uri: IpfsUriSchema.meta({
         title: 'Collection IPFS URI',
-        description: 'IPFS URI for the collection metadata',
+        description:
+          'IPFS URI pointing to the immutable collection metadata record',
       }),
     })
     .meta(meta);
@@ -114,12 +122,13 @@ export const CertificateCollectionItemPurchaseSchema = z
   .strictObject({
     slug: CollectionSlugSchema.meta({
       title: 'Collection Slug',
-      description: 'Slug of the collection',
+      description:
+        'URL-friendly identifier of the collection this certificate belongs to',
     }),
     purchased_amount: CreditAmountSchema.meta({
-      title: 'Collection Purchased Amount',
+      title: 'Purchased Amount',
       description:
-        'Credits purchased from this collection for this certificate',
+        'Number of credits purchased from this collection for this certificate',
     }),
     retired_amount: CreditAmountSchema.meta({
       title: 'Collection Retired Amount',

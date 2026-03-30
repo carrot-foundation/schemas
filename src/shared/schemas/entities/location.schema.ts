@@ -16,7 +16,8 @@ export const CoordinatesSchema = z
   })
   .meta({
     title: 'Coordinates',
-    description: 'GPS coordinates of the location',
+    description:
+      'Approximate GPS coordinates of the site (city-level precision for privacy)',
   });
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 
@@ -24,7 +25,8 @@ export const LocationSchema = z
   .strictObject({
     id_hash: Sha256HashSchema.meta({
       title: 'Location ID Hash',
-      description: 'Anonymized identifier for the location',
+      description:
+        'SHA-256 hash anonymizing the real location identifier for privacy',
     }),
     city: CitySchema,
     subdivision_code: IsoCountrySubdivisionCodeSchema,
@@ -32,7 +34,7 @@ export const LocationSchema = z
     responsible_participant_id_hash: Sha256HashSchema.meta({
       title: 'Responsible Participant ID Hash',
       description:
-        'Anonymized ID of the participant responsible for this location',
+        'SHA-256 hash identifying the participant responsible for operations at this location',
     }),
     coordinates: CoordinatesSchema,
   })
