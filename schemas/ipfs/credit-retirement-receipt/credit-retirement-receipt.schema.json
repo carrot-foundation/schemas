@@ -173,7 +173,7 @@
               "minimum": 1,
               "maximum": 9007199254740991,
               "title": "Total Certificates",
-              "description": "Total number of impact certificates (GasID or RecycledID) included in this receipt",
+              "description": "Total number of certificates (GasID or RecycledID) included in this receipt",
               "examples": [
                 1,
                 123,
@@ -356,7 +356,7 @@
                   "bold-brazil"
                 ],
                 "title": "Collection Slug",
-                "description": "URL-friendly identifier for an impact credit collection, used in URIs and API references",
+                "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
                 "examples": [
                   "bold-cold-start-carazinho",
                   "bold-brazil"
@@ -381,7 +381,7 @@
                   "BOLD Brazil"
                 ],
                 "title": "Collection Name",
-                "description": "Human-readable display name for the impact credit collection",
+                "description": "Human-readable display name for the environmental credit collection",
                 "examples": [
                   "BOLD Cold Start - Carazinho",
                   "BOLD Brazil"
@@ -575,7 +575,7 @@
                   "RecycledID"
                 ],
                 "title": "Certificate Type",
-                "description": "Type of impact certificate — GasID for methane prevention, RecycledID for waste recycling",
+                "description": "Type of certificate — GasID for methane prevention, RecycledID for waste recycling",
                 "examples": [
                   "GasID",
                   "RecycledID"
@@ -673,7 +673,7 @@
                         "bold-brazil"
                       ],
                       "title": "Collection Slug",
-                      "description": "URL-friendly identifier for an impact credit collection, used in URIs and API references",
+                      "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
                       "examples": [
                         "bold-cold-start-carazinho",
                         "bold-brazil"

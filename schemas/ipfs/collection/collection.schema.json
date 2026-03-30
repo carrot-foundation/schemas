@@ -180,7 +180,7 @@
         "BOLD Brazil"
       ],
       "title": "Collection Name",
-      "description": "Human-readable display name for the impact credit collection",
+      "description": "Human-readable display name for the environmental credit collection",
       "examples": [
         "BOLD Cold Start - Carazinho",
         "BOLD Brazil"
@@ -195,7 +195,7 @@
         "bold-brazil"
       ],
       "title": "Collection Slug",
-      "description": "URL-friendly identifier for an impact credit collection, used in URIs and API references",
+      "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
       "examples": [
         "bold-cold-start-carazinho",
         "bold-brazil"
