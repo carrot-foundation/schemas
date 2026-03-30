@@ -7,6 +7,7 @@ export function collectJsonFiles(rootDir: string, suffix: string): string[] {
 
   while (stack.length > 0) {
     const current = stack.pop();
+    if (current === undefined) break;
     const entries = fs.readdirSync(current, { withFileTypes: true });
 
     for (const entry of entries) {

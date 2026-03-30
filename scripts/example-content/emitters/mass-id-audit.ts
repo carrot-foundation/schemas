@@ -306,7 +306,7 @@ function buildRuleExecutionResults(
     }
 
     entry.rule_processor_checksum = rule.checksum;
-    const versionOverrides = {
+    const versionOverrides: Record<string, string> = {
       'no-conflicting-gas-id-or-credit':
         'v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd',
       'project-period-limit': 'v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef',

@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-// @ts-expect-error missing types for ajv 2020 entrypoint
 import Ajv from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { glob } from 'glob';
@@ -50,7 +49,8 @@ const colors = {
 let currentSchemaContext: string | null = null;
 const schemaCache = new Map<string, unknown>();
 
-function createAjv(baseUri?: string): InstanceType<typeof Ajv> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function createAjv(baseUri?: string): any {
   const ajv = new Ajv({
     strict: false,
     allErrors: true,
@@ -58,7 +58,7 @@ function createAjv(baseUri?: string): InstanceType<typeof Ajv> {
     loadSchema: (uri: string) => loadSchemaFromFile(uri, baseUri),
     addUsedSchema: false,
     draft: '2020-12',
-  });
+  } as Record<string, unknown>);
 
   addFormats(ajv);
   return ajv;
@@ -67,7 +67,8 @@ function createAjv(baseUri?: string): InstanceType<typeof Ajv> {
 async function loadSchemaFromFile(
   uri: string,
   baseUri?: string,
-): Promise<unknown> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> {
   try {
     const filePath = resolveSchemaPath(uri, baseUri);
 
@@ -155,10 +156,16 @@ async function validateSchema(schemaPath: string): Promise<ValidationResult> {
     const schema: unknown = JSON.parse(schemaContent);
     const ajv = createAjv();
     const metaSchema = await loadMetaSchema();
-    const validate = ajv.compile(metaSchema);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const validate = ajv.compile(metaSchema as any);
     const valid: boolean = validate(schema);
 
-    return { valid, errors: validate.errors, schema, path: schemaPath };
+    return {
+      valid,
+      errors: validate.errors as ValidationError[] | null,
+      schema,
+      path: schemaPath,
+    };
   } catch (error) {
     return {
       valid: false,
@@ -220,12 +227,13 @@ async function validateData(
     currentSchemaContext = path.resolve(schemaPath);
 
     const ajv = createAjv(path.resolve(schemaPath));
-    const validate = await ajv.compileAsync(schema);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const validate = await ajv.compileAsync(schema as any);
     const valid: boolean = validate(data);
 
     return {
       valid,
-      errors: validate.errors || [],
+      errors: (validate.errors as ValidationError[] | null) || [],
       data,
       path: dataPath,
       schemaPath,
