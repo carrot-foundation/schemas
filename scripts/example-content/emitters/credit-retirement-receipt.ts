@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMs } from '../shared.js';
+import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 
 /**
  * Emit a Credit Retirement Receipt example document with placeholders.
@@ -85,7 +85,7 @@ export function emitCreditRetirementReceiptExample(): Record<string, unknown> {
       },
       {
         trait_type: 'Retirement Date',
-        value: formatUnixMs(retiredAt),
+        value: formatUnixMilliseconds(retiredAt),
         display_type: 'date',
       },
       {
@@ -95,7 +95,7 @@ export function emitCreditRetirementReceiptExample(): Record<string, unknown> {
       },
       {
         trait_type: 'Purchase Date',
-        value: formatUnixMs(retiredAt),
+        value: formatUnixMilliseconds(retiredAt),
         display_type: 'date',
       },
       {

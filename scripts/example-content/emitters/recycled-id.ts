@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMs } from '../shared.js';
+import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 
 /**
  * Emit a RecycledID example document with placeholders.
@@ -89,17 +89,17 @@ export function emitRecycledIDExample(): Record<string, unknown> {
       { trait_type: 'MassID', value: `#${massIDTokenId}` },
       {
         trait_type: 'MassID Recycling Date',
-        value: formatUnixMs(recyclingAt),
+        value: formatUnixMilliseconds(recyclingAt),
         display_type: 'date',
       },
       {
         trait_type: 'Recycling Date',
-        value: formatUnixMs(recyclingAt),
+        value: formatUnixMilliseconds(recyclingAt),
         display_type: 'date',
       },
       {
         trait_type: 'Certificate Issuance Date',
-        value: formatUnixMs(recyclingAt),
+        value: formatUnixMilliseconds(recyclingAt),
         display_type: 'date',
       },
     ],

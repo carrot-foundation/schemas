@@ -10,11 +10,7 @@ import {
   loadJson,
   writeJson,
 } from './utils/fs-utils.js';
-
-interface SchemaManifest {
-  version: string;
-  schemas: Record<string, { hash: string; path: string }>;
-}
+import type { SchemaManifest } from './utils/schema-types.js';
 
 const SCHEMAS_ROOT = path.join(process.cwd(), 'schemas', 'ipfs');
 const MANIFEST_PATH = path.join(process.cwd(), 'schemas', 'schema-hashes.json');

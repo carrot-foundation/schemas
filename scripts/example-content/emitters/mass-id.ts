@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMs } from '../shared.js';
+import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 
 /**
  * Emit a MassID example document with placeholders.
@@ -109,17 +109,17 @@ export function emitMassIDExample(): Record<string, unknown> {
       },
       {
         trait_type: 'Pick-up Date',
-        value: formatUnixMs(createdAt),
+        value: formatUnixMilliseconds(createdAt),
         display_type: 'date',
       },
       {
         trait_type: 'Drop-off Date',
-        value: formatUnixMs(dropOffAt),
+        value: formatUnixMilliseconds(dropOffAt),
         display_type: 'date',
       },
       {
         trait_type: 'Recycling Date',
-        value: formatUnixMs(recyclingAt),
+        value: formatUnixMilliseconds(recyclingAt),
         display_type: 'date',
       },
     ],

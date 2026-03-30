@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMs } from '../shared.js';
+import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 
 /**
  * Emit a Credit Purchase Receipt example document with placeholders.
@@ -96,12 +96,12 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
       },
       {
         trait_type: 'Purchase Date',
-        value: formatUnixMs(purchasedAt),
+        value: formatUnixMilliseconds(purchasedAt),
         display_type: 'date',
       },
       {
         trait_type: 'Retirement Date',
-        value: formatUnixMs(purchasedAt),
+        value: formatUnixMilliseconds(purchasedAt),
         display_type: 'date',
       },
       {

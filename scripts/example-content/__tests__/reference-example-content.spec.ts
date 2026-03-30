@@ -70,8 +70,10 @@ describe('reference example story', () => {
     expect((methodology.data as Record<string, unknown>).slug).toBe(
       'bold-carbon-ch4',
     );
-    expect(collection.slug).toBe('bold-cold-start-carazinho');
-    expect(credit.symbol).toBe('C-CARB.CH4');
+    expect((collection as Record<string, unknown>).slug).toBe(
+      'bold-cold-start-carazinho',
+    );
+    expect((credit as Record<string, unknown>).symbol).toBe('C-CARB.CH4');
   });
 
   it('links purchase and retirement receipts to the same canonical story', () => {

@@ -10,10 +10,7 @@ import {
   loadJson,
   writeJson,
 } from './utils/fs-utils.js';
-
-interface SchemaManifest {
-  schemas: Record<string, { hash: string; path: string }>;
-}
+import type { SchemaManifest } from './utils/schema-types.js';
 
 interface JsonSchema {
   $id?: string;

@@ -8,6 +8,22 @@
 import { buildReferenceStory } from '../reference-story.js';
 import { formatDateTime } from '../shared.js';
 
+interface RuleExecutionResult {
+  rule_name: string;
+  rule_slug: string;
+  rule_id: string;
+  result: string;
+  execution_message?: string;
+  rule_processor_checksum: string;
+  rule_source_code_version: string;
+  rule_description: string;
+  rule_execution_order: number;
+  rule_source_code_url: string;
+  execution_id: string;
+  execution_started_at: string;
+  execution_completed_at: string;
+}
+
 /**
  * Emit a MassID Audit example document with placeholders.
  *
@@ -34,7 +50,7 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
   );
 
   const lastRuleCompletedAt = ruleExecutionResults.reduce((max, rule) => {
-    const t = new Date(rule.execution_completed_at as string);
+    const t = new Date(rule.execution_completed_at);
     return t > max ? t : max;
   }, auditStartedAt);
   const auditCompletedAt = new Date(lastRuleCompletedAt.getTime() + 50);
@@ -92,7 +108,7 @@ function buildRuleExecutionResults(
   baseUrl: string,
   rulesCommit: string,
   auditStartedAt: Date,
-): Record<string, unknown>[] {
+): RuleExecutionResult[] {
   const definitions: Array<{
     slug: string;
     name: string;
@@ -294,30 +310,27 @@ function buildRuleExecutionResults(
     const startMs = auditStartedAt.getTime() + order * 100;
     const endMs = startMs + 50;
 
-    const entry: Record<string, unknown> = {
-      rule_name: rule.name,
-      rule_slug: rule.slug,
-      rule_id: `00000000-0000-4000-8000-${String(order).padStart(12, '0')}`,
-      result: 'PASSED',
-    };
-
-    if (rule.message) {
-      entry.execution_message = rule.message;
-    }
-
-    entry.rule_processor_checksum = rule.checksum;
     const versionOverrides: Record<string, string> = {
       'no-conflicting-gas-id-or-credit':
         'v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd',
       'project-period-limit': 'v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef',
     };
-    entry.rule_source_code_version = versionOverrides[rule.slug] || rulesCommit;
-    entry.rule_description = rule.description;
-    entry.rule_execution_order = order;
-    entry.rule_source_code_url = `${baseUrl}/${rule.dirName ?? rule.slug}`;
-    entry.execution_id = rule.executionId;
-    entry.execution_started_at = new Date(startMs).toISOString();
-    entry.execution_completed_at = new Date(endMs).toISOString();
+
+    const entry: RuleExecutionResult = {
+      rule_name: rule.name,
+      rule_slug: rule.slug,
+      rule_id: `00000000-0000-4000-8000-${String(order).padStart(12, '0')}`,
+      result: 'PASSED',
+      ...(rule.message ? { execution_message: rule.message } : {}),
+      rule_processor_checksum: rule.checksum,
+      rule_source_code_version: versionOverrides[rule.slug] || rulesCommit,
+      rule_description: rule.description,
+      rule_execution_order: order,
+      rule_source_code_url: `${baseUrl}/${rule.dirName ?? rule.slug}`,
+      execution_id: rule.executionId,
+      execution_started_at: new Date(startMs).toISOString(),
+      execution_completed_at: new Date(endMs).toISOString(),
+    };
 
     return entry;
   });

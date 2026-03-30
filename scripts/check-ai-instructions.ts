@@ -253,6 +253,21 @@ function assertFieldTypes(
   }
 }
 
+async function checkParity(
+  kind: string,
+  id: string,
+  targets: string[],
+  errors: string[],
+): Promise<void> {
+  for (const target of targets) {
+    if (!(await pathExists(target))) {
+      errors.push(
+        `[parity][${kind}:${id}] missing ${path.relative(ROOT, target)}`,
+      );
+    }
+  }
+}
+
 async function verifyParity(
   rules: CanonicalEntry[],
   skills: CanonicalEntry[],
@@ -261,42 +276,42 @@ async function verifyParity(
 ): Promise<void> {
   for (const skill of skills) {
     const id = String(skill.data.id);
-    for (const target of [
-      path.join(PATHS.cursorSkills, id, 'SKILL.md'),
-      path.join(PATHS.claudeSkills, id, 'SKILL.md'),
-      path.join(PATHS.codexSkills, id, 'SKILL.md'),
-    ]) {
-      if (!(await pathExists(target)))
-        errors.push(
-          `[parity][skill:${id}] missing ${path.relative(ROOT, target)}`,
-        );
-    }
+    await checkParity(
+      'skill',
+      id,
+      [
+        path.join(PATHS.cursorSkills, id, 'SKILL.md'),
+        path.join(PATHS.claudeSkills, id, 'SKILL.md'),
+        path.join(PATHS.codexSkills, id, 'SKILL.md'),
+      ],
+      errors,
+    );
   }
   for (const agent of agents) {
     const id = String(agent.data.id);
-    for (const target of [
-      path.join(PATHS.cursorAgents, `${id}.md`),
-      path.join(PATHS.claudeAgents, `${id}.md`),
-      path.join(PATHS.codexSkills, id, 'SKILL.md'),
-    ]) {
-      if (!(await pathExists(target)))
-        errors.push(
-          `[parity][agent:${id}] missing ${path.relative(ROOT, target)}`,
-        );
-    }
+    await checkParity(
+      'agent',
+      id,
+      [
+        path.join(PATHS.cursorAgents, `${id}.md`),
+        path.join(PATHS.claudeAgents, `${id}.md`),
+        path.join(PATHS.codexSkills, id, 'SKILL.md'),
+      ],
+      errors,
+    );
   }
   for (const rule of rules) {
     const id = String(rule.data.id);
-    for (const target of [
-      path.join(PATHS.cursorRules, `${id}.mdc`),
-      path.join(PATHS.claudeSkills, `rule-${id}`, 'SKILL.md'),
-      path.join(PATHS.codexSkills, `rule-${id}`, 'SKILL.md'),
-    ]) {
-      if (!(await pathExists(target)))
-        errors.push(
-          `[parity][rule:${id}] missing ${path.relative(ROOT, target)}`,
-        );
-    }
+    await checkParity(
+      'rule',
+      id,
+      [
+        path.join(PATHS.cursorRules, `${id}.mdc`),
+        path.join(PATHS.claudeSkills, `rule-${id}`, 'SKILL.md'),
+        path.join(PATHS.codexSkills, `rule-${id}`, 'SKILL.md'),
+      ],
+      errors,
+    );
   }
 }
 
