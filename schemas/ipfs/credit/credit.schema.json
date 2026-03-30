@@ -25,7 +25,7 @@
           "type": "string",
           "const": "Credit",
           "title": "Credit Schema Type",
-          "description": "Schema type identifier for this record"
+          "description": "Discriminator value identifying this record as a Credit environmental-impact token"
         },
         "version": {
           "type": "string",
@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID v4 identifier used to reference this record in external systems (e.g., Carrot platform)",
+      "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
