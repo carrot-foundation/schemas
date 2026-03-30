@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-// Note: run after building (pnpm build) because it imports from dist/index.js
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { hashObject } from '../dist/index.js';
+import { hashObject } from '../src/index.js';
 import {
   collectJsonFiles,
   getVersion,
@@ -11,25 +10,22 @@ import {
   writeJson,
 } from './utils/fs-utils.js';
 
+interface SchemaManifest {
+  version: string;
+  schemas: Record<string, { hash: string; path: string }>;
+}
+
 const SCHEMAS_ROOT = path.join(process.cwd(), 'schemas', 'ipfs');
 const MANIFEST_PATH = path.join(process.cwd(), 'schemas', 'schema-hashes.json');
 
-function main() {
+function main(): void {
   if (!fs.existsSync(SCHEMAS_ROOT)) {
     console.error(`Schemas root not found: ${SCHEMAS_ROOT}`);
     process.exit(1);
   }
 
-  const distEntry = path.join(process.cwd(), 'dist', 'index.js');
-  if (!fs.existsSync(distEntry)) {
-    console.error(
-      `Compiled entry not found at ${distEntry}. Run "pnpm build" first.`,
-    );
-    process.exit(1);
-  }
-
   const version = getVersion();
-  const manifest = { version, schemas: {} };
+  const manifest: SchemaManifest = { version, schemas: {} };
   const files = collectJsonFiles(SCHEMAS_ROOT, '.schema.json');
 
   for (const filePath of files) {
@@ -37,11 +33,11 @@ function main() {
       path.join(process.cwd(), 'schemas'),
       filePath,
     );
-    let json;
+    let json: Record<string, unknown>;
     try {
-      json = loadJson(filePath);
+      json = loadJson<Record<string, unknown>>(filePath);
     } catch (error) {
-      console.error(`Failed to parse ${relative}: ${error.message}`);
+      console.error(`Failed to parse ${relative}: ${(error as Error).message}`);
       process.exit(1);
     }
     const hash = hashObject(json);

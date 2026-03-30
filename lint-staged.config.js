@@ -3,6 +3,6 @@ export default {
   '*.{js,ts,mjs,cjs,mts,cts}':
     'eslint --fix --cache --cache-location .cache/eslint/',
   '*.json': (files) =>
-    `node scripts/validate-schemas.js --file ${files.join(' ')}`,
+    `tsx scripts/validate-schemas.ts --file ${files.join(' ')}`,
   'package.json': 'npmPkgJsonLint .',
 };

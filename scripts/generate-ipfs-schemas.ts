@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import type { ZodType } from 'zod';
+
 import {
   CollectionSchema,
   CreditSchema,
@@ -10,12 +12,18 @@ import {
   MassIDAuditSchema,
   MethodologySchema,
   RecycledIDIpfsSchema,
-} from '../dist/index.js';
+} from '../src/index.js';
 import { toJSONSchema } from 'zod';
 import { resolve } from 'node:path';
 import { writeJson } from './utils/fs-utils.js';
 
-function addItemsFalseForTuples(node) {
+interface JsonSchemaNode {
+  prefixItems?: unknown[];
+  items?: unknown;
+  [key: string]: unknown;
+}
+
+function addItemsFalseForTuples(node: unknown): void {
   if (!node || typeof node !== 'object') {
     return;
   }
@@ -27,16 +35,18 @@ function addItemsFalseForTuples(node) {
     return;
   }
 
-  if (Array.isArray(node.prefixItems) && !('items' in node)) {
-    node.items = false;
+  const obj = node as JsonSchemaNode;
+
+  if (Array.isArray(obj.prefixItems) && !('items' in obj)) {
+    obj.items = false;
   }
 
-  for (const value of Object.values(node)) {
+  for (const value of Object.values(obj)) {
     addItemsFalseForTuples(value);
   }
 }
 
-const schemas = [
+const schemas: ReadonlyArray<{ fileName: string; schema: ZodType }> = [
   {
     fileName: 'mass-id.schema',
     schema: MassIDIpfsSchema,
@@ -75,7 +85,7 @@ const schemas = [
   },
 ];
 
-function getFilePath(fullFileName) {
+function getFilePath(fullFileName: string): string {
   const fileFolder = fullFileName.replace('.schema', '');
   return resolve('schemas', 'ipfs', `${fileFolder}`, `${fullFileName}.json`);
 }

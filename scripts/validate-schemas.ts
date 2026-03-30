@@ -2,10 +2,33 @@
 
 import fs from 'fs';
 import path from 'path';
+// @ts-expect-error missing types for ajv 2020 entrypoint
 import Ajv from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { glob } from 'glob';
 import https from 'https';
+
+interface ValidateOptions {
+  schemasOnly?: boolean;
+  dataOnly?: boolean;
+  files?: string[];
+}
+
+interface ValidationError {
+  message: string;
+  instancePath?: string;
+  schemaPath?: string;
+  data?: unknown;
+}
+
+interface ValidationResult {
+  valid: boolean;
+  errors?: ValidationError[] | null;
+  schema?: unknown;
+  data?: unknown;
+  path: string;
+  schemaPath?: string;
+}
 
 const CONFIG = {
   schemasDir: './schemas',
@@ -24,15 +47,15 @@ const colors = {
   cyan: '\x1b[36m',
 };
 
-let currentSchemaContext = null;
-let schemaCache = new Map();
+let currentSchemaContext: string | null = null;
+const schemaCache = new Map<string, unknown>();
 
-function createAjv(baseUri) {
+function createAjv(baseUri?: string): InstanceType<typeof Ajv> {
   const ajv = new Ajv({
     strict: false,
     allErrors: true,
     verbose: CONFIG.verbose,
-    loadSchema: (uri) => loadSchemaFromFile(uri, baseUri),
+    loadSchema: (uri: string) => loadSchemaFromFile(uri, baseUri),
     addUsedSchema: false,
     draft: '2020-12',
   });
@@ -41,9 +64,12 @@ function createAjv(baseUri) {
   return ajv;
 }
 
-async function loadSchemaFromFile(uri, baseUri) {
+async function loadSchemaFromFile(
+  uri: string,
+  baseUri?: string,
+): Promise<unknown> {
   try {
-    let filePath = resolveSchemaPath(uri, baseUri);
+    const filePath = resolveSchemaPath(uri, baseUri);
 
     if (CONFIG.verbose) {
       console.log(`  Loading schema: ${uri} -> ${filePath}`);
@@ -60,20 +86,20 @@ async function loadSchemaFromFile(uri, baseUri) {
     }
 
     const content = fs.readFileSync(filePath, 'utf8');
-    const schema = JSON.parse(content);
+    const schema: unknown = JSON.parse(content);
 
     schemaCache.set(normalizedPath, schema);
     return schema;
   } catch (error) {
     console.error(
       `${colors.red}Error loading schema ${uri}:${colors.reset}`,
-      error.message,
+      (error as Error).message,
     );
     throw error;
   }
 }
 
-function resolveSchemaPath(uri, baseUri) {
+function resolveSchemaPath(uri: string, baseUri?: string): string {
   if (uri.startsWith('file://')) {
     return uri.replace('file://', '');
   }
@@ -94,7 +120,7 @@ function resolveSchemaPath(uri, baseUri) {
   }
 
   // Try multiple resolution strategies for non-relative URIs
-  const strategies = [
+  const strategies: Array<() => string | null> = [
     () => (baseUri ? path.resolve(path.dirname(baseUri), uri) : null),
     () =>
       currentSchemaContext
@@ -115,34 +141,34 @@ function resolveSchemaPath(uri, baseUri) {
   return path.resolve(CONFIG.schemasDir, uri);
 }
 
-function getSchemaFiles() {
+function getSchemaFiles(): string[] {
   return glob.sync(path.join(CONFIG.schemasDir, CONFIG.schemaPattern));
 }
 
-function getDataFiles() {
+function getDataFiles(): string[] {
   return glob.sync(path.join(CONFIG.schemasDir, CONFIG.dataPattern));
 }
 
-async function validateSchema(schemaPath) {
+async function validateSchema(schemaPath: string): Promise<ValidationResult> {
   try {
     const schemaContent = fs.readFileSync(schemaPath, 'utf8');
-    const schema = JSON.parse(schemaContent);
+    const schema: unknown = JSON.parse(schemaContent);
     const ajv = createAjv();
     const metaSchema = await loadMetaSchema();
     const validate = ajv.compile(metaSchema);
-    const valid = validate(schema);
+    const valid: boolean = validate(schema);
 
     return { valid, errors: validate.errors, schema, path: schemaPath };
   } catch (error) {
     return {
       valid: false,
-      errors: [{ message: error.message }],
+      errors: [{ message: (error as Error).message }],
       path: schemaPath,
     };
   }
 }
 
-async function loadMetaSchema() {
+async function loadMetaSchema(): Promise<unknown> {
   try {
     const metaSchema = await import(
       'ajv/dist/refs/json-schema-2020-12/schema.json',
@@ -154,23 +180,25 @@ async function loadMetaSchema() {
   }
 }
 
-function fetchOnlineMetaSchema() {
+function fetchOnlineMetaSchema(): Promise<unknown> {
   return new Promise((resolve, reject) => {
     https
       .get('https://json-schema.org/draft/2020-12/schema', (res) => {
         let data = '';
-        res.on('data', (chunk) => (data += chunk));
+        res.on('data', (chunk: string) => (data += chunk));
         res.on('end', () => {
           try {
             resolve(JSON.parse(data));
           } catch (e) {
             reject(
-              new Error(`Failed to parse online meta-schema: ${e.message}`),
+              new Error(
+                `Failed to parse online meta-schema: ${(e as Error).message}`,
+              ),
             );
           }
         });
       })
-      .on('error', (error) => {
+      .on('error', (error: Error) => {
         reject(
           new Error(`Failed to fetch online meta-schema: ${error.message}`),
         );
@@ -178,19 +206,22 @@ function fetchOnlineMetaSchema() {
   });
 }
 
-async function validateData(dataPath, schemaPath) {
+async function validateData(
+  dataPath: string,
+  schemaPath: string,
+): Promise<ValidationResult> {
   try {
     const dataContent = fs.readFileSync(dataPath, 'utf8');
-    const data = JSON.parse(dataContent);
+    const data: unknown = JSON.parse(dataContent);
     const schemaContent = fs.readFileSync(schemaPath, 'utf8');
-    const schema = JSON.parse(schemaContent);
+    const schema: unknown = JSON.parse(schemaContent);
 
     schemaCache.clear();
     currentSchemaContext = path.resolve(schemaPath);
 
     const ajv = createAjv(path.resolve(schemaPath));
     const validate = await ajv.compileAsync(schema);
-    const valid = validate(data);
+    const valid: boolean = validate(data);
 
     return {
       valid,
@@ -202,14 +233,14 @@ async function validateData(dataPath, schemaPath) {
   } catch (error) {
     return {
       valid: false,
-      errors: [{ message: error.message }],
+      errors: [{ message: (error as Error).message }],
       path: dataPath,
       schemaPath,
     };
   }
 }
 
-function findSchemaForData(dataPath) {
+function findSchemaForData(dataPath: string): string | null {
   const dataDir = path.dirname(dataPath);
   const dataName = path.basename(dataPath, '.example.json');
   const schemaInSameDir = path.join(dataDir, `${dataName}.schema.json`);
@@ -219,7 +250,7 @@ function findSchemaForData(dataPath) {
   }
 
   const content = fs.readFileSync(dataPath, 'utf8');
-  const data = JSON.parse(content);
+  const data = JSON.parse(content) as { metadata_type?: string };
 
   if (data.metadata_type) {
     const type = data.metadata_type.toLowerCase();
@@ -234,7 +265,10 @@ function findSchemaForData(dataPath) {
   return null;
 }
 
-function formatErrors(errors, verbose = false) {
+function formatErrors(
+  errors: ValidationError[] | null | undefined,
+  verbose = false,
+): string {
   if (!errors || errors.length === 0) return '';
 
   return errors
@@ -263,10 +297,10 @@ function formatErrors(errors, verbose = false) {
     .join('\n');
 }
 
-async function validateAll(options = {}) {
+async function validateAll(options: ValidateOptions = {}): Promise<void> {
   const results = {
-    schemas: { passed: 0, failed: 0, results: [] },
-    data: { passed: 0, failed: 0, results: [] },
+    schemas: { passed: 0, failed: 0, results: [] as ValidationResult[] },
+    data: { passed: 0, failed: 0, results: [] as ValidationResult[] },
   };
 
   console.log(
@@ -318,7 +352,7 @@ async function validateAll(options = {}) {
   if (shouldValidateData) {
     console.log(`${colors.cyan}📄 Validating Data Files...${colors.reset}`);
     const dataFiles = isValidatingSpecificFiles
-      ? options.files
+      ? (options.files as string[])
       : getDataFiles();
 
     for (const dataFile of dataFiles) {
@@ -387,9 +421,9 @@ async function validateAll(options = {}) {
   }
 }
 
-function parseArgs() {
+function parseArgs(): ValidateOptions {
   const args = process.argv.slice(2);
-  const options = {};
+  const options: ValidateOptions = {};
 
   for (let i = 0; i < args.length; i++) {
     switch (args[i]) {
@@ -424,7 +458,7 @@ function parseArgs() {
   return options;
 }
 
-function showHelp() {
+function showHelp(): void {
   console.log(`
 ${colors.bright}Schema Validator${colors.reset}
 
@@ -446,14 +480,17 @@ ${colors.cyan}Examples:${colors.reset}
 `);
 }
 
-async function main() {
+async function main(): Promise<void> {
   try {
     const options = parseArgs();
     await validateAll(options);
   } catch (error) {
-    console.error(`${colors.red}Fatal error:${colors.reset}`, error.message);
+    console.error(
+      `${colors.red}Fatal error:${colors.reset}`,
+      (error as Error).message,
+    );
     if (CONFIG.verbose) {
-      console.error(error.stack);
+      console.error((error as Error).stack);
     }
     process.exit(1);
   }

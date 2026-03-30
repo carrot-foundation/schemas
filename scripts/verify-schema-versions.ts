@@ -3,10 +3,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-function getPackageJsonVersion() {
+interface VerifyResult {
+  valid: boolean;
+  reason?: string;
+}
+
+function getPackageJsonVersion(): string {
   try {
     const packageJsonPath = path.join(process.cwd(), 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const packageJson = JSON.parse(
+      fs.readFileSync(packageJsonPath, 'utf8'),
+    ) as { version?: string };
     return packageJson.version || '0.0.0-dev';
   } catch {
     return '0.0.0-dev';
@@ -17,7 +24,7 @@ const SCHEMAS_DIR = path.join(process.cwd(), 'schemas');
 const EXPECTED_VERSION = process.env.SCHEMA_VERSION || getPackageJsonVersion();
 const EXPECTED_REF = `refs/tags/${EXPECTED_VERSION}`;
 
-function collectSchemaFiles(dir, collected = []) {
+function collectSchemaFiles(dir: string, collected: string[] = []): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
   for (const entry of entries) {
@@ -39,8 +46,11 @@ function collectSchemaFiles(dir, collected = []) {
   return collected;
 }
 
-function verifySchemaVersion(filePath) {
-  const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+function verifySchemaVersion(filePath: string): VerifyResult {
+  const content = JSON.parse(fs.readFileSync(filePath, 'utf8')) as {
+    version?: string;
+    $id?: string;
+  };
 
   if (!content.version) {
     return { valid: true, reason: 'Legacy schema (no version field)' };
@@ -69,7 +79,7 @@ function verifySchemaVersion(filePath) {
   return { valid: true };
 }
 
-function main() {
+function main(): void {
   console.log(`Verifying schema versions against: ${EXPECTED_REF}`);
   console.log(`Expected version: ${EXPECTED_VERSION}\n`);
 
@@ -79,7 +89,7 @@ function main() {
   }
 
   const schemaFiles = collectSchemaFiles(SCHEMAS_DIR);
-  const results = [];
+  const results: Array<{ file: string; valid: boolean; reason?: string }> = [];
   let hasErrors = false;
 
   for (const filePath of schemaFiles) {
