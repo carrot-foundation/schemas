@@ -5,8 +5,8 @@ export const NonEmptyStringSchema = z
   .min(1, 'Cannot be empty')
   .meta({
     title: 'Non-Empty String',
-    description: 'A string that contains at least one character',
-    examples: ['Example text', 'Sample value'],
+    description: 'A non-empty string (minimum one character)',
+    examples: ['example-value', 'Hello World'],
   });
 export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
 

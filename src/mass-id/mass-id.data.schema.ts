@@ -93,7 +93,7 @@ const MassIDAttachmentSchema = z
   .meta({
     title: 'MassID Attachment',
     description:
-      'Attachment associated with a specific MassID event, linked by event_id',
+      'Regulatory document (Transport Manifest or Recycling Manifest) linked to a specific lifecycle event via event_id',
   });
 
 export type MassIDAttachment = z.infer<typeof MassIDAttachmentSchema>;
@@ -116,7 +116,8 @@ const MassIDBaseEventSchema = z
   })
   .meta({
     title: 'MassID Base Event',
-    description: 'Base MassID event definition shared across event types',
+    description:
+      'Common fields for all MassID lifecycle events: identifier, timestamp, participant reference, and location reference',
   });
 
 const buildMassIDEventSchema = <TEventName extends string>(
@@ -152,7 +153,8 @@ const PickUpEventSchema = buildMassIDEventSchema(
     .optional()
     .meta({
       title: 'Pick-up Event Data',
-      description: 'Data associated with the pick-up event',
+      description:
+        'Optional vehicle and weight details captured during waste pick-up',
     }),
 });
 
@@ -355,6 +357,6 @@ export const MassIDDataSchema = z
   .meta({
     title: 'MassID Data',
     description:
-      'MassID data containing waste tracking events and supporting information',
+      'Complete MassID data including waste properties, geographic locations, supply-chain participants, chronological lifecycle events, and regulatory attachments',
   });
 export type MassIDData = z.infer<typeof MassIDDataSchema>;

@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "e79bd7aba0a859d8c7c1864177629322603a105b8e68ad6c51d324ecc2c621b6",
+    "hash": "159ee9f8a83307bf33efda8498539d3c4833e56ac56333cd830963cc426d85b1",
     "type": "Credit",
     "version": "0.2.4",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -19,5 +19,5 @@
   "name": "Carrot Carbon (CH₄)",
   "decimals": 18,
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-  "description": "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
+  "description": "Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
 }

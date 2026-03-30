@@ -144,16 +144,16 @@ describe('MassIDAuditDataSchema', () => {
     const result = schema.safeParse(invalidData);
     expect(result.success).toBe(false);
     if (!result.success) {
-      const gasIdIssue = result.error.issues.find(
+      const gasIDIssue = result.error.issues.find(
         (issue) => issue.path.length === 1 && issue.path[0] === 'gas_id',
       );
-      const recycledIdIssue = result.error.issues.find(
+      const recycledIDIssue = result.error.issues.find(
         (issue) => issue.path.length === 1 && issue.path[0] === 'recycled_id',
       );
-      expect(gasIdIssue).toBeDefined();
-      expect(recycledIdIssue).toBeDefined();
-      expect(gasIdIssue?.message).toContain('must be provided');
-      expect(recycledIdIssue?.message).toContain('must be provided');
+      expect(gasIDIssue).toBeDefined();
+      expect(recycledIDIssue).toBeDefined();
+      expect(gasIDIssue?.message).toContain('must be provided');
+      expect(recycledIDIssue?.message).toContain('must be provided');
     }
   });
 
@@ -174,16 +174,16 @@ describe('MassIDAuditDataSchema', () => {
     const result = schema.safeParse(invalidData);
     expect(result.success).toBe(false);
     if (!result.success) {
-      const gasIdIssue = result.error.issues.find(
+      const gasIDIssue = result.error.issues.find(
         (issue) => issue.path.length === 1 && issue.path[0] === 'gas_id',
       );
-      const recycledIdIssue = result.error.issues.find(
+      const recycledIDIssue = result.error.issues.find(
         (issue) => issue.path.length === 1 && issue.path[0] === 'recycled_id',
       );
-      expect(gasIdIssue).toBeDefined();
-      expect(recycledIdIssue).toBeDefined();
-      expect(gasIdIssue?.message).toContain('mutually exclusive');
-      expect(recycledIdIssue?.message).toContain('mutually exclusive');
+      expect(gasIDIssue).toBeDefined();
+      expect(recycledIDIssue).toBeDefined();
+      expect(gasIDIssue?.message).toContain('mutually exclusive');
+      expect(recycledIDIssue?.message).toContain('mutually exclusive');
     }
   });
 

@@ -21,7 +21,8 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Credit').meta({
       title: 'Credit Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a Credit environmental-impact token',
     }),
   }),
   data: z.record(z.string(), z.unknown()).optional().meta({
@@ -57,7 +58,7 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
       description:
         'Comprehensive description of the credit token, its purpose, and impact',
       examples: [
-        'Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices.',
+        'Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices.',
       ],
     }),
 }).meta(CreditSchemaMeta);

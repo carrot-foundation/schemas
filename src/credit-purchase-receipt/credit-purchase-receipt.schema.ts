@@ -18,7 +18,7 @@ import { CreditPurchaseReceiptAttributesSchema } from './credit-purchase-receipt
 export const CreditPurchaseReceiptIpfsSchemaMeta = {
   title: 'CreditPurchaseReceipt NFT IPFS Record',
   description:
-    'Complete CreditPurchaseReceipt NFT IPFS record including attributes and credit purchase data',
+    'Complete CreditPurchaseReceipt NFT IPFS record including purchase summary, buyer details, credit breakdowns, certificate allocations, and NFT display attributes',
   $id: buildSchemaUrl(
     'credit-purchase-receipt/credit-purchase-receipt.schema.json',
   ),
@@ -29,7 +29,8 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('CreditPurchaseReceipt').meta({
       title: 'CreditPurchaseReceipt Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a CreditPurchaseReceipt transaction proof',
     }),
   }),
   name: CreditPurchaseReceiptNameSchema,

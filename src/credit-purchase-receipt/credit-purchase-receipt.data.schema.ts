@@ -106,7 +106,8 @@ export const CreditPurchaseReceiptDataSchema = z
       .min(1)
       .meta({
         title: 'Collections',
-        description: 'Collections included in the purchase',
+        description:
+          'Impact collections referenced by this purchase, each identified by a unique slug',
       }),
     credits: uniqueBy(
       CreditPurchaseReceiptCreditSchema,
@@ -116,7 +117,8 @@ export const CreditPurchaseReceiptDataSchema = z
       .min(1)
       .meta({
         title: 'Credits',
-        description: 'Credits included in the purchase',
+        description:
+          'Credit token types involved in this purchase, each identified by a unique slug and symbol',
       }),
     certificates: uniqueBy(
       CreditPurchaseReceiptCertificateSchema,
@@ -126,7 +128,8 @@ export const CreditPurchaseReceiptDataSchema = z
       .min(1)
       .meta({
         title: 'Certificates',
-        description: 'Certificates involved in the purchase',
+        description:
+          'Environmental certificates allocated in this purchase, each linking a credit type to collection-level purchased and retired amounts',
       }),
     retirement_receipt: CreditPurchaseReceiptRetirementReceiptSchema.optional(),
   })

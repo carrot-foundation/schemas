@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "0fcf882e2a350500b088d67a70a05a790c6e1d167162727e5ef62980b6edf855",
+    "hash": "bd945b31e090b8659f6bce850a3526d4edf0d5b86a23be4aa038e10491804dc3",
     "type": "RecycledID",
     "version": "0.2.4",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -12,7 +12,7 @@
     "data_set_name": "TEST"
   },
   "blockchain": {
-    "token_id": "789",
+    "token_id": "300001",
     "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
     "chain_id": 80002,
     "network_name": "Amoy"
@@ -20,13 +20,13 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "audit_data_hash": "dc4cec983683d51a32c32cf6948afe0ed197e78bbe75ceefe7b47c18983bc091",
+  "audit_data_hash": "d8a97906fd013191bf42610afa05bc569df313f489e927dd397f802777481227",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
     "integrity_hash": "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
   },
-  "name": "RecycledID #789 • BOLD Recycling • 3.25t Recycled",
-  "short_name": "RecycledID #789",
+  "name": "RecycledID #300001 • BOLD Recycling • 3.25t Recycled",
+  "short_name": "RecycledID #300001",
   "description": "This RecycledID certifies 3.25 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Brasília, Brazil, producing high-quality compost and organic fertilizer.",
   "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
   "background_color": "#2D5016",
@@ -80,7 +80,7 @@
     },
     {
       "trait_type": "MassID",
-      "value": "#1034"
+      "value": "#100001"
     },
     {
       "trait_type": "MassID Recycling Date",
@@ -123,7 +123,7 @@
     },
     "mass_id": {
       "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-      "token_id": "1034",
+      "token_id": "100001",
       "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
       "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
       "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"

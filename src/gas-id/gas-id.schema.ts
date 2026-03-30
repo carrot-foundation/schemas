@@ -21,7 +21,7 @@ import { GasIDAttributesSchema } from './gas-id.attributes';
 export const GasIDIpfsSchemaMeta = {
   title: 'GasID NFT IPFS Record',
   description:
-    'Complete GasID NFT IPFS record including fixed attributes and detailed carbon emissions prevention data',
+    'Complete GasID NFT IPFS record including prevented emissions calculation, source waste provenance, methodology reference, and NFT display attributes',
   $id: buildSchemaUrl('gas-id/gas-id.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;
@@ -30,7 +30,8 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('GasID').meta({
       title: 'GasID Schema Type',
-      description: 'GasID NFT schema type',
+      description:
+        'Discriminator value identifying this record as a GasID prevented-emissions certificate',
     }),
   }),
   name: GasIDNameSchema,

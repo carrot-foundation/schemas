@@ -4,7 +4,11 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['src/**/__tests__/**/*.spec.{ts,js}', 'src/**/*.spec.{ts,js}'],
+    include: [
+      'src/**/__tests__/**/*.spec.{ts,js}',
+      'src/**/*.spec.{ts,js}',
+      'scripts/**/__tests__/**/*.spec.{ts,js}',
+    ],
     exclude: ['**/node_modules/**', '**/dist/**', '**/coverage/**'],
     reporters: ['default', 'junit'],
     outputFile: {

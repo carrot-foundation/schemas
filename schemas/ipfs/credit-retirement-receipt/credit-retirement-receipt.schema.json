@@ -25,7 +25,7 @@
           "type": "string",
           "const": "CreditRetirementReceipt",
           "title": "CreditRetirementReceipt Schema Type",
-          "description": "Schema type identifier for this record"
+          "description": "Discriminator value identifying this record as a CreditRetirementReceipt permanent-offset proof"
         },
         "version": {
           "type": "string",
@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -173,7 +173,7 @@
               "minimum": 1,
               "maximum": 9007199254740991,
               "title": "Total Certificates",
-              "description": "Total number of certificates represented in the receipt",
+              "description": "Total number of certificates (GasID or RecycledID) included in this receipt",
               "examples": [
                 1,
                 123,
@@ -184,11 +184,11 @@
               "type": "number",
               "minimum": 0,
               "title": "Total Credits Retired",
-              "description": "Total amount of credits retired",
+              "description": "Total number of environmental impact credits permanently retired (removed from circulation)",
               "examples": [
-                0,
-                45.2,
-                72.5
+                1.5,
+                100,
+                2500.75
               ]
             },
             "retired_at": {
@@ -209,7 +209,7 @@
           ],
           "additionalProperties": false,
           "title": "Credit Retirement Receipt Summary",
-          "description": "Summary totals for the credit retirement including amounts and collections represented"
+          "description": "Summary totals for the credit retirement including credit quantity, certificate count, and timestamp"
         },
         "beneficiary": {
           "type": "object",
@@ -232,7 +232,7 @@
                   "minLength": 1,
                   "maxLength": 100,
                   "title": "Identity Name",
-                  "description": "Display name for the participant",
+                  "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
@@ -243,7 +243,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "title": "Identity External ID",
-                  "description": "External identifier for the participant",
+                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ]
@@ -252,7 +252,7 @@
                   "type": "string",
                   "format": "uri",
                   "title": "Identity External URL",
-                  "description": "External URL for the participant profile",
+                  "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
@@ -266,7 +266,7 @@
               ],
               "additionalProperties": false,
               "title": "Identity",
-              "description": "Participant identity information"
+              "description": "Identity information for the buyer or beneficiary associated with this receipt"
             }
           },
           "required": [
@@ -297,7 +297,7 @@
                   "minLength": 1,
                   "maxLength": 100,
                   "title": "Identity Name",
-                  "description": "Display name for the participant",
+                  "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
@@ -308,7 +308,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "title": "Identity External ID",
-                  "description": "External identifier for the participant",
+                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ]
@@ -317,7 +317,7 @@
                   "type": "string",
                   "format": "uri",
                   "title": "Identity External URL",
-                  "description": "External URL for the participant profile",
+                  "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
@@ -331,7 +331,7 @@
               ],
               "additionalProperties": false,
               "title": "Identity",
-              "description": "Participant identity information"
+              "description": "Identity information for the buyer or beneficiary associated with this receipt"
             }
           },
           "required": [
@@ -356,7 +356,7 @@
                   "bold-brazil"
                 ],
                 "title": "Collection Slug",
-                "description": "URL-friendly identifier for a collection",
+                "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
                 "examples": [
                   "bold-cold-start-carazinho",
                   "bold-brazil"
@@ -367,7 +367,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Collection External ID",
-                "description": "External identifier for the collection",
+                "description": "Unique identifier for the collection in the Carrot platform",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]
@@ -381,7 +381,7 @@
                   "BOLD Brazil"
                 ],
                 "title": "Collection Name",
-                "description": "Display name of the collection",
+                "description": "Human-readable display name for the environmental credit collection",
                 "examples": [
                   "BOLD Cold Start - Carazinho",
                   "BOLD Brazil"
@@ -391,7 +391,7 @@
                 "type": "string",
                 "format": "uri",
                 "title": "Collection External URL",
-                "description": "External URL for the collection",
+                "description": "Link to the collection page on the Carrot platform",
                 "examples": [
                   "https://explore.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
@@ -402,7 +402,7 @@
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                 "title": "Collection IPFS URI",
-                "description": "IPFS URI for the collection metadata",
+                "description": "IPFS URI pointing to the immutable collection metadata record",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -421,7 +421,7 @@
             "description": "Collection included in the retirement"
           },
           "title": "Collections",
-          "description": "Collections included in the retirement"
+          "description": "Impact collections referenced by this retirement, each identified by a unique slug"
         },
         "credits": {
           "minItems": 1,
@@ -434,7 +434,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "External ID",
-                "description": "UUID identifier for external system references",
+                "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]
@@ -509,7 +509,7 @@
             "description": "Credit token retired in this receipt"
           },
           "title": "Credits",
-          "description": "Credits included in the retirement"
+          "description": "Credit token types retired in this receipt, each identified by a unique slug and symbol"
         },
         "certificates": {
           "minItems": 1,
@@ -522,7 +522,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "External ID",
-                "description": "UUID identifier for external system references",
+                "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]
@@ -575,7 +575,7 @@
                   "RecycledID"
                 ],
                 "title": "Certificate Type",
-                "description": "Type of certificate (e.g., GasID, RecycledID)",
+                "description": "Type of certificate — GasID for methane prevention, RecycledID for waste recycling",
                 "examples": [
                   "GasID",
                   "RecycledID"
@@ -587,9 +587,9 @@
                 "title": "Certificate Total Amount",
                 "description": "Total credits available in this certificate",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "mass_id": {
@@ -600,7 +600,7 @@
                     "format": "uuid",
                     "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                     "title": "External ID",
-                    "description": "UUID identifier for external system references",
+                    "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
                     "examples": [
                       "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                     ]
@@ -673,7 +673,7 @@
                         "bold-brazil"
                       ],
                       "title": "Collection Slug",
-                      "description": "URL-friendly identifier for a collection",
+                      "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
                       "examples": [
                         "bold-cold-start-carazinho",
                         "bold-brazil"
@@ -685,9 +685,9 @@
                       "title": "Collection Retired Amount",
                       "description": "Credits retired from this collection for this certificate",
                       "examples": [
-                        0,
-                        45.2,
-                        72.5
+                        1.5,
+                        100,
+                        2500.75
                       ]
                     }
                   },
@@ -740,9 +740,9 @@
                       "title": "Retired Credit Amount",
                       "description": "Credits retired of this type from the certificate",
                       "examples": [
-                        0,
-                        45.2,
-                        72.5
+                        1.5,
+                        100,
+                        2500.75
                       ]
                     },
                     "external_id": {
@@ -798,7 +798,7 @@
             "description": "Certificate associated with the retirement"
           },
           "title": "Certificates",
-          "description": "Certificates retired in this receipt"
+          "description": "Environmental certificates retired in this receipt, each linking collection-level retired amounts to per-credit breakdowns"
         },
         "purchase_receipt": {
           "type": "object",
@@ -808,7 +808,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
-              "description": "UUID identifier for external system references",
+              "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -1035,8 +1035,8 @@
             "title": "Link Label",
             "description": "Display name for the external link",
             "examples": [
-              "Example text",
-              "Sample value"
+              "example-value",
+              "Hello World"
             ]
           },
           "url": {
@@ -1084,9 +1084,9 @@
                 "title": "Total Credits Retired",
                 "description": "Total number of credits retired across all tokens",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "display_type": {
@@ -1330,10 +1330,10 @@
                 "title": "Purchase Receipt Token ID",
                 "description": "Token ID of the purchase receipt NFT as #<token_id> (if purchase_receipt is present)",
                 "examples": [
-                  "Example text",
-                  "Sample value"
+                  "#456789",
+                  "#1000000"
                 ],
-                "example": "#123"
+                "example": "#456789"
               },
               "display_type": {
                 "title": "Display Type",
@@ -1388,9 +1388,9 @@
                 "title": "Credit Retirement Amount",
                 "description": "Amount of credits retired for the token symbol",
                 "examples": [
-                  0,
-                  45.2,
-                  72.5
+                  1.5,
+                  100,
+                  2500.75
                 ]
               },
               "display_type": {
@@ -1443,7 +1443,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including attributes and credit retirement data",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details, credit breakdowns, certificate allocations, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "version": "0.2.4"
 }

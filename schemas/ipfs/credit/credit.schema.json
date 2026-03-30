@@ -25,7 +25,7 @@
           "type": "string",
           "const": "Credit",
           "title": "Credit Schema Type",
-          "description": "Schema type identifier for this record"
+          "description": "Discriminator value identifying this record as a Credit environmental-impact token"
         },
         "version": {
           "type": "string",
@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -237,7 +237,7 @@
       "title": "Token Description",
       "description": "Comprehensive description of the credit token, its purpose, and impact",
       "examples": [
-        "Carrot Carbon (C-CARB.CH4) represents verified carbon emissions reductions from organic waste composting projects. Each token equals one metric ton of CO2 equivalent prevented from entering the atmosphere through sustainable waste management practices."
+        "Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices."
       ]
     }
   },

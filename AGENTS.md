@@ -148,7 +148,7 @@ Each type has its own directory in `src/{type}/` with schema definitions, data s
 2. **JSON Schema generation** (`generate-ipfs-schemas.js`): Converts Zod schemas to JSON Schema
 3. **Version injection**: `SCHEMA_VERSION` environment variable is embedded into schema `$id` URLs
 4. **Schema hashing** (`hash-schemas.js`): Generates integrity hashes
-5. **Example updates** (`update-examples.js`): Regenerates example JSON from test fixtures
+5. **Example updates** (`update-examples.js`): Emits example JSON from the shared reference story, then updates schema hashes, versions, and content hashes
 6. **Validation** (`validate-schemas.js`): Validates generated schemas and examples via AJV
 
 ### Schema Composition Pattern

@@ -25,7 +25,7 @@
           "type": "string",
           "const": "Collection",
           "title": "Collection Schema Type",
-          "description": "Schema type identifier for this record"
+          "description": "Discriminator value identifying this record as a Collection grouping of credits and receipts"
         },
         "version": {
           "type": "string",
@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -180,7 +180,7 @@
         "BOLD Brazil"
       ],
       "title": "Collection Name",
-      "description": "Display name of the collection",
+      "description": "Human-readable display name for the environmental credit collection",
       "examples": [
         "BOLD Cold Start - Carazinho",
         "BOLD Brazil"
@@ -195,7 +195,7 @@
         "bold-brazil"
       ],
       "title": "Collection Slug",
-      "description": "URL-friendly identifier for a collection",
+      "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
       "examples": [
         "bold-cold-start-carazinho",
         "bold-brazil"

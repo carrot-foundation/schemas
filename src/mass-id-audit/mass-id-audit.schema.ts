@@ -9,7 +9,7 @@ import { MassIDAuditDataSchema } from './mass-id-audit.data.schema';
 export const MassIDAuditSchemaMeta = {
   title: 'MassID Audit IPFS Record',
   description:
-    'MassID audit metadata stored in IPFS, extending the base schema with audit results and references',
+    'MassID audit record stored in IPFS, containing methodology reference, audit summary, rule execution results, and links to the source MassID and resulting GasID or RecycledID',
   $id: buildSchemaUrl('mass-id-audit/mass-id-audit.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;
@@ -18,7 +18,8 @@ export const MassIDAuditSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('MassID Audit').meta({
       title: 'MassID Audit Schema Type',
-      description: 'MassID Audit schema type',
+      description:
+        'Discriminator value identifying this record as a MassID Audit methodology-rule execution report',
     }),
   }),
   data: MassIDAuditDataSchema,

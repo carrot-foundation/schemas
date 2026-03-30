@@ -37,7 +37,12 @@ export function getVersion() {
   try {
     const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
     return process.env.SCHEMA_VERSION || pkg.version || '0.0.0-dev';
-  } catch {
-    return process.env.SCHEMA_VERSION || '0.0.0-dev';
+  } catch (error) {
+    const fallback = process.env.SCHEMA_VERSION || '0.0.0-dev';
+    console.warn(
+      `Warning: Failed to read package.json at ${pkgPath}. ` +
+        `Falling back to version "${fallback}". Error: ${error.message}`,
+    );
+    return fallback;
   }
 }

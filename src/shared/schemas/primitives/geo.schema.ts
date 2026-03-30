@@ -26,8 +26,9 @@ export const IsoCountrySubdivisionCodeSchema = z
   )
   .meta({
     title: 'Country Subdivision Code',
-    description: 'Subdivision code following ISO 3166-2 standard',
-    examples: ['BR-AP', 'BR-DF'],
+    description:
+      'State or region code following the ISO 3166-2 standard (e.g., BR-SP for São Paulo)',
+    examples: ['BR-SP', 'BR-RS', 'BR-AP', 'BR-DF'],
   });
 export type IsoCountrySubdivisionCode = z.infer<
   typeof IsoCountrySubdivisionCodeSchema
@@ -41,8 +42,9 @@ export const CitySchema = NonEmptyStringSchema.max(50)
   )
   .meta({
     title: 'City',
-    description: 'City name',
-    examples: ['Brasília', 'São Paulo'],
+    description:
+      'Name of the Brazilian municipality where the activity takes place',
+    examples: ['Brasília', 'São Paulo', 'Carazinho', 'Jundiaí'],
   });
 export type City = z.infer<typeof CitySchema>;
 

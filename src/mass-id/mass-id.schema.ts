@@ -36,7 +36,7 @@ const isRecyclingEvent = (event: MassIDEvent): event is RecyclingEvent =>
 export const MassIDIpfsSchemaMeta = {
   title: 'MassID NFT IPFS Record',
   description:
-    'Complete MassID NFT IPFS record schema defining waste tracking metadata, chain of custody events, and NFT display attributes',
+    'Complete MassID NFT IPFS record including waste classification, chain-of-custody lifecycle events, geographic locations, supply-chain participants, and NFT display attributes',
   $id: buildSchemaUrl('mass-id/mass-id.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;
@@ -45,7 +45,8 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('MassID').meta({
       title: 'MassID Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a MassID waste-traceability certificate',
     }),
   }),
   name: MassIDNameSchema,

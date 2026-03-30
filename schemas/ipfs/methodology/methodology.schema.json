@@ -25,7 +25,7 @@
           "type": "string",
           "const": "Methodology",
           "title": "Methodology Schema Type",
-          "description": "Schema type identifier for this record"
+          "description": "Discriminator value identifying this record as a Methodology impact-measurement definition"
         },
         "version": {
           "type": "string",
@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -209,7 +209,7 @@
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Methodology Version",
-          "description": "Version of the methodology",
+          "description": "Semantic version of this methodology revision (e.g., 1.0.0)",
           "examples": [
             "0.1.0",
             "1.0.0",
@@ -368,7 +368,7 @@
   ],
   "additionalProperties": false,
   "title": "Methodology IPFS Record",
-  "description": "Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules",
+  "description": "Methodology metadata stored in IPFS, defining the environmental impact measurement approach including versioning, documentation, and MassID audit rules",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/methodology/methodology.schema.json",
   "version": "0.2.4"
 }

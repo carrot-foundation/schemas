@@ -9,7 +9,7 @@ import { MethodologyDataSchema } from './methodology.data.schema';
 export const MethodologySchemaMeta = {
   title: 'Methodology IPFS Record',
   description:
-    'Methodology metadata stored in IPFS, extending the base schema with methodology data and audit rules',
+    'Methodology metadata stored in IPFS, defining the environmental impact measurement approach including versioning, documentation, and MassID audit rules',
   $id: buildSchemaUrl('methodology/methodology.schema.json'),
   version: getSchemaVersionOrDefault(),
 } as const;
@@ -18,7 +18,8 @@ export const MethodologySchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Methodology').meta({
       title: 'Methodology Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a Methodology impact-measurement definition',
     }),
   }),
   data: MethodologyDataSchema,

@@ -18,7 +18,7 @@ import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-rec
 export const CreditRetirementReceiptIpfsSchemaMeta = {
   title: 'CreditRetirementReceipt NFT IPFS Record',
   description:
-    'Complete CreditRetirementReceipt NFT IPFS record including attributes and credit retirement data',
+    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details, credit breakdowns, certificate allocations, and NFT display attributes',
   $id: buildSchemaUrl(
     'credit-retirement-receipt/credit-retirement-receipt.schema.json',
   ),
@@ -29,7 +29,8 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
   schema: NftIpfsSchema.shape.schema.safeExtend({
     type: z.literal('CreditRetirementReceipt').meta({
       title: 'CreditRetirementReceipt Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a CreditRetirementReceipt permanent-offset proof',
     }),
   }),
   name: CreditRetirementReceiptNameSchema,

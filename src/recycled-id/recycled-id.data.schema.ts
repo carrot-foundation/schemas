@@ -32,7 +32,8 @@ const RecycledIDSummarySchema = z
   })
   .meta({
     title: 'RecycledID Summary',
-    description: 'Summary information for the RecycledID certificate',
+    description:
+      'Key metrics for the RecycledID certificate including recycled weight, credit details, and issuance timestamps',
   });
 export type RecycledIDSummary = z.infer<typeof RecycledIDSummarySchema>;
 
@@ -45,11 +46,13 @@ export const RecycledIDDataSchema = z
     waste_properties: WastePropertiesSchema,
     origin_location: LocationSchema.meta({
       title: 'RecycledID Origin Location',
-      description: 'Source waste origin location details',
+      description:
+        'Geographic location where the source waste was originally collected',
     }),
   })
   .meta({
     title: 'RecycledID Data',
-    description: 'Complete data structure for RecycledID certificate',
+    description:
+      'Complete RecycledID certificate data including summary metrics, methodology reference, audit trail, source MassID, waste properties, and origin location',
   });
 export type RecycledIDData = z.infer<typeof RecycledIDDataSchema>;

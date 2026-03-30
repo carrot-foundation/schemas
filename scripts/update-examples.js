@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { hashObject } from '../dist/index.js';
+import { emitters } from './example-content/index.js';
 import {
   collectJsonFiles,
   getVersion,
@@ -62,6 +63,47 @@ function main() {
     if (!manifestEntry) {
       console.error(
         `No manifest entry for schema ${schemaKey}. Did you run pnpm hash-schemas?`,
+      );
+      process.exit(1);
+    }
+
+    // If an emitter exists for this schema type, generate base content first
+    const typeName = path.basename(path.dirname(examplePath));
+    const emitter = emitters[typeName];
+    if (emitter) {
+      let emitterResult;
+      try {
+        emitterResult = emitter();
+      } catch (error) {
+        console.error(
+          `Emitter for schema type "${typeName}" failed while generating ${path.relative(process.cwd(), examplePath)}:`,
+        );
+        console.error(error);
+        process.exit(1);
+      }
+
+      if (!emitterResult || typeof emitterResult !== 'object') {
+        console.error(
+          `Emitter for schema type "${typeName}" returned an invalid result ` +
+            `(${typeof emitterResult}). Emitters must return a non-null object.`,
+        );
+        process.exit(1);
+      }
+
+      try {
+        writeJson(examplePath, emitterResult);
+      } catch (error) {
+        console.error(
+          `Failed to write emitter output for "${typeName}" to ${path.relative(process.cwd(), examplePath)}:`,
+        );
+        console.error(error);
+        process.exit(1);
+      }
+    } else {
+      console.error(
+        `Error: No emitter registered for schema type "${typeName}". ` +
+          `Register an emitter in scripts/example-content/index.js for ` +
+          `${path.relative(process.cwd(), examplePath)}.`,
       );
       process.exit(1);
     }

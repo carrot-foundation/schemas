@@ -38,7 +38,8 @@ export const MassIDAuditSummarySchema = z
   })
   .meta({
     title: 'Audit Summary',
-    description: 'Summary of audit execution results',
+    description:
+      'Overview of the audit execution including start time, completion time, and overall pass/fail result',
   });
 export type MassIDAuditSummary = z.infer<typeof MassIDAuditSummarySchema>;
 
@@ -52,10 +53,10 @@ export const MassIDAuditDataSchema = z
     rule_execution_results: AuditRuleExecutionResultsSchema,
   })
   .superRefine((data, ctx) => {
-    const hasGasId = !!data.gas_id;
-    const hasRecycledId = !!data.recycled_id;
+    const hasGasID = !!data.gas_id;
+    const hasRecycledID = !!data.recycled_id;
 
-    if (!hasGasId && !hasRecycledId) {
+    if (!hasGasID && !hasRecycledID) {
       ctx.addIssue({
         code: 'custom',
         path: ['gas_id'],
@@ -68,7 +69,7 @@ export const MassIDAuditDataSchema = z
       });
     }
 
-    if (hasGasId && hasRecycledId) {
+    if (hasGasID && hasRecycledID) {
       ctx.addIssue({
         code: 'custom',
         path: ['gas_id'],

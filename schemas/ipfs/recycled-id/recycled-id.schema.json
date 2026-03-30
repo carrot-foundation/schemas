@@ -25,7 +25,7 @@
           "type": "string",
           "const": "RecycledID",
           "title": "RecycledID Schema Type",
-          "description": "RecycledID NFT schema type"
+          "description": "Discriminator value identifying this record as a RecycledID recycling-outcome certificate"
         },
         "version": {
           "type": "string",
@@ -74,7 +74,7 @@
       "format": "uuid",
       "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
       "title": "External ID",
-      "description": "UUID identifier for external system references",
+      "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
         "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
       ]
@@ -185,7 +185,7 @@
                 "Carbon (CH₄)"
               ],
               "title": "Credit Type",
-              "description": "Type of credit issued",
+              "description": "Category of environmental credit — indicates the impact pathway (biowaste diversion or methane prevention)",
               "examples": [
                 "Biowaste",
                 "Carbon (CH₄)"
@@ -195,11 +195,11 @@
               "type": "number",
               "minimum": 0,
               "title": "Credit Amount",
-              "description": "Amount of credits issued",
+              "description": "Number of environmental impact credits issued, purchased, or retired",
               "examples": [
-                0,
-                45.2,
-                72.5
+                1.5,
+                100,
+                2500.75
               ]
             },
             "recycling_date": {
@@ -232,7 +232,7 @@
           ],
           "additionalProperties": false,
           "title": "RecycledID Summary",
-          "description": "Summary information for the RecycledID certificate"
+          "description": "Key metrics for the RecycledID certificate including recycled weight, credit details, and issuance timestamps"
         },
         "methodology": {
           "type": "object",
@@ -395,7 +395,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "External ID",
-              "description": "UUID identifier for external system references",
+              "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -482,7 +482,7 @@
               "description": "Subtype of the source waste",
               "examples": [
                 "Food, Food Waste and Beverages",
-                "Domestic Sludge"
+                "Garden, Yard and Park Waste"
               ]
             },
             "weight_kg": {
@@ -512,7 +512,7 @@
               "type": "string",
               "pattern": "^[0-9a-fA-F]{64}$",
               "title": "Location ID Hash",
-              "description": "Anonymized identifier for the location",
+              "description": "SHA-256 hash anonymizing the real location identifier for privacy",
               "examples": [
                 "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
               ]
@@ -522,18 +522,22 @@
               "minLength": 1,
               "maxLength": 50,
               "title": "City",
-              "description": "City name",
+              "description": "Name of the Brazilian municipality where the activity takes place",
               "examples": [
                 "Brasília",
-                "São Paulo"
+                "São Paulo",
+                "Carazinho",
+                "Jundiaí"
               ]
             },
             "subdivision_code": {
               "type": "string",
               "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
               "title": "Country Subdivision Code",
-              "description": "Subdivision code following ISO 3166-2 standard",
+              "description": "State or region code following the ISO 3166-2 standard (e.g., BR-SP for São Paulo)",
               "examples": [
+                "BR-SP",
+                "BR-RS",
                 "BR-AP",
                 "BR-DF"
               ]
@@ -551,7 +555,7 @@
               "type": "string",
               "pattern": "^[0-9a-fA-F]{64}$",
               "title": "Responsible Participant ID Hash",
-              "description": "Anonymized ID of the participant responsible for this location",
+              "description": "SHA-256 hash identifying the participant responsible for operations at this location",
               "examples": [
                 "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
               ]
@@ -590,7 +594,7 @@
               ],
               "additionalProperties": false,
               "title": "Coordinates",
-              "description": "GPS coordinates of the location"
+              "description": "Approximate GPS coordinates of the site (city-level precision for privacy)"
             }
           },
           "required": [
@@ -603,7 +607,7 @@
           ],
           "additionalProperties": false,
           "title": "RecycledID Origin Location",
-          "description": "Source waste origin location details"
+          "description": "Geographic location where the source waste was originally collected"
         }
       },
       "required": [
@@ -616,7 +620,7 @@
       ],
       "additionalProperties": false,
       "title": "RecycledID Data",
-      "description": "Complete data structure for RecycledID certificate"
+      "description": "Complete RecycledID certificate data including summary metrics, methodology reference, audit trail, source MassID, waste properties, and origin location"
     },
     "audit_data_hash": {
       "type": "string",
@@ -774,8 +778,8 @@
             "title": "Link Label",
             "description": "Display name for the external link",
             "examples": [
-              "Example text",
-              "Sample value"
+              "example-value",
+              "Hello World"
             ]
           },
           "url": {
@@ -914,9 +918,9 @@
               "title": "Credit Amount",
               "description": "Credit amount",
               "examples": [
-                0,
-                45.2,
-                72.5
+                1.5,
+                100,
+                2500.75
               ]
             },
             "display_type": {
@@ -958,7 +962,7 @@
                 "Carbon (CH₄)"
               ],
               "title": "Credit Type",
-              "description": "Type of credit issued",
+              "description": "Category of environmental credit — indicates the impact pathway (biowaste diversion or methane prevention)",
               "examples": [
                 "Biowaste",
                 "Carbon (CH₄)"
@@ -1008,7 +1012,7 @@
                 "Organic"
               ],
               "title": "Waste Type",
-              "description": "Category or type of waste material",
+              "description": "Broad classification of the waste material being tracked (e.g., Organic)",
               "examples": [
                 "Organic"
               ]
@@ -1098,10 +1102,12 @@
               "minLength": 1,
               "maxLength": 50,
               "title": "City",
-              "description": "City name",
+              "description": "Name of the Brazilian municipality where the activity takes place",
               "examples": [
                 "Brasília",
-                "São Paulo"
+                "São Paulo",
+                "Carazinho",
+                "Jundiaí"
               ]
             },
             "display_type": {
@@ -1146,8 +1152,10 @@
               "type": "string",
               "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
               "title": "Country Subdivision Code",
-              "description": "Subdivision code following ISO 3166-2 standard",
+              "description": "State or region code following the ISO 3166-2 standard (e.g., BR-SP for São Paulo)",
               "examples": [
+                "BR-SP",
+                "BR-RS",
                 "BR-AP",
                 "BR-DF"
               ]
@@ -1197,10 +1205,10 @@
               "title": "MassID Token ID",
               "description": "Token ID of the source MassID NFT as #<token_id>",
               "examples": [
-                "Example text",
-                "Sample value"
+                "#456789",
+                "#1000000"
               ],
-              "example": "#123"
+              "example": "#456789"
             },
             "display_type": {
               "title": "Display Type",
@@ -1351,7 +1359,7 @@
   ],
   "additionalProperties": false,
   "title": "RecycledID NFT IPFS Record",
-  "description": "Complete RecycledID NFT IPFS record including fixed attributes and recycling outcome data",
+  "description": "Complete RecycledID NFT IPFS record including recycling outcome metrics, source waste provenance, methodology reference, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "version": "0.2.4"
 }

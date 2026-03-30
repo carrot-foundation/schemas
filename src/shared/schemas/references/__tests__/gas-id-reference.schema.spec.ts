@@ -1,13 +1,13 @@
 import { describe, expect } from 'vitest';
 
-import { validGasIdReferenceFixture } from '../../../../test-utils';
+import { validGasIDReferenceFixture } from '../../../../test-utils';
 import { runReferenceSchemaTests } from './reference.test-helpers';
 import { GasIDReferenceSchema } from '../gas-id-reference.schema';
 
 describe('GasIDReferenceSchema', () => {
   runReferenceSchemaTests({
     schema: GasIDReferenceSchema,
-    base: validGasIdReferenceFixture,
+    base: validGasIDReferenceFixture,
     requiredFields: [
       'external_id',
       'token_id',

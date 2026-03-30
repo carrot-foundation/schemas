@@ -12,8 +12,8 @@ import {
   RecycledIDIpfsSchema,
 } from '../dist/index.js';
 import { toJSONSchema } from 'zod';
-import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { writeJson } from './utils/fs-utils.js';
 
 function addItemsFalseForTuples(node) {
   if (!node || typeof node !== 'object') {
@@ -85,7 +85,7 @@ for (const { fileName, schema } of schemas) {
   const filePath = getFilePath(fileName);
 
   addItemsFalseForTuples(jsonSchema);
-  writeFileSync(filePath, JSON.stringify(jsonSchema, null, 2));
+  writeJson(filePath, jsonSchema);
 
   console.log(`Generated schema: ${filePath}`);
 }

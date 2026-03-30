@@ -102,6 +102,10 @@ schemas/ipfs/mass-id/mass-id.schema.json
 schemas/ipfs/mass-id/mass-id.example.json
 ```
 
+Published examples are generated from the shared reference story and then
+post-processed with schema/version/hash metadata. Edit the reference story
+or emitter modules instead of hand-editing emitted example JSON.
+
 ## Architecture
 
 Schemas follow a layered composition pattern using Zod's `.safeExtend()`:

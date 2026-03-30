@@ -200,7 +200,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
       (data) => {
         expect(data.schema.type).toBe('CreditRetirementReceipt');
         expect(data.data.summary.total_certificates).toBe(3);
-        expect(data.data.certificates[0].mass_id.token_id).toBe('1034');
+        expect(data.data.certificates[0].mass_id.token_id).toBe('100001');
       },
     );
   });
@@ -351,7 +351,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
   it('rejects name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.name = 'Credit Retirement Receipt #1245 • Invalid Format';
+      next.name = `Credit Retirement Receipt #${base.blockchain.token_id} \u2022 Invalid Format`;
       return next;
     }, ['Name must match format']);
   });
@@ -359,7 +359,7 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
   it('rejects short_name with correct token_id but invalid format', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
-      next.short_name = 'Retirement Receipt #1245 Extra';
+      next.short_name = `Retirement Receipt #${base.blockchain.token_id} Extra`;
       return next;
     }, ['Short name must match format']);
   });

@@ -20,7 +20,8 @@ export const CollectionSchema = BaseIpfsSchema.safeExtend({
   schema: BaseIpfsSchema.shape.schema.safeExtend({
     type: z.literal('Collection').meta({
       title: 'Collection Schema Type',
-      description: 'Schema type identifier for this record',
+      description:
+        'Discriminator value identifying this record as a Collection grouping of credits and receipts',
     }),
   }),
   data: z.record(z.string(), z.unknown()).optional().meta({
