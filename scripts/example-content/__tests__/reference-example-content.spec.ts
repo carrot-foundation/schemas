@@ -25,6 +25,13 @@ import { MassIDAuditSchema } from '../../../src/mass-id-audit';
 import { CreditPurchaseReceiptIpfsSchema } from '../../../src/credit-purchase-receipt';
 import { CreditRetirementReceiptIpfsSchema } from '../../../src/credit-retirement-receipt';
 
+function getField(obj: Record<string, unknown>, ...keys: string[]): unknown {
+  return keys.reduce(
+    (acc, key) => (acc as Record<string, unknown>)[key],
+    obj as unknown,
+  );
+}
+
 const VALID_SHA256 = 'a'.repeat(64);
 const VALID_SCHEMA_URL =
   'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.0.0/schemas/ipfs/mass-id/mass-id.schema.json';
@@ -67,27 +74,18 @@ describe('reference example story', () => {
     const collection = emitCollectionExample();
     const credit = emitCreditExample();
 
-    expect((methodology.data as Record<string, unknown>).slug).toBe(
-      'bold-carbon-ch4',
-    );
-    expect((collection as Record<string, unknown>).slug).toBe(
-      'bold-cold-start-carazinho',
-    );
-    expect((credit as Record<string, unknown>).symbol).toBe('C-CARB.CH4');
+    expect(getField(methodology, 'data', 'slug')).toBe('bold-carbon-ch4');
+    expect(collection.slug).toBe('bold-cold-start-carazinho');
+    expect(credit.symbol).toBe('C-CARB.CH4');
   });
 
   it('links purchase and retirement receipts to the same canonical story', () => {
     const purchase = emitCreditPurchaseReceiptExample();
     const retirement = emitCreditRetirementReceiptExample();
 
-    expect(
-      (
-        (purchase.data as Record<string, unknown>).retirement_receipt as Record<
-          string,
-          unknown
-        >
-      ).token_id,
-    ).toBe((retirement.blockchain as Record<string, unknown>).token_id);
+    expect(getField(purchase, 'data', 'retirement_receipt', 'token_id')).toBe(
+      getField(retirement, 'blockchain', 'token_id'),
+    );
     expect(
       (retirement.attributes as Array<{ trait_type: string }>).some(
         (attribute) => attribute.trait_type === 'Purchase Receipt',
@@ -101,30 +99,12 @@ describe('reference example story', () => {
     const recycledID = emitRecycledIDExample();
     const audit = emitMassIDAuditExample();
 
-    expect(
-      (
-        (gasID.data as Record<string, unknown>).mass_id as Record<
-          string,
-          unknown
-        >
-      ).token_id,
-    ).toBe((massID.blockchain as Record<string, unknown>).token_id);
-    expect(
-      (
-        (recycledID.data as Record<string, unknown>).mass_id as Record<
-          string,
-          unknown
-        >
-      ).token_id,
-    ).toBe((massID.blockchain as Record<string, unknown>).token_id);
-    expect(
-      (
-        (audit.data as Record<string, unknown>).mass_id as Record<
-          string,
-          unknown
-        >
-      ).token_id,
-    ).toBe((massID.blockchain as Record<string, unknown>).token_id);
+    const massIDTokenId = getField(massID, 'blockchain', 'token_id');
+    expect(getField(gasID, 'data', 'mass_id', 'token_id')).toBe(massIDTokenId);
+    expect(getField(recycledID, 'data', 'mass_id', 'token_id')).toBe(
+      massIDTokenId,
+    );
+    expect(getField(audit, 'data', 'mass_id', 'token_id')).toBe(massIDTokenId);
   });
 });
 

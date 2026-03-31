@@ -12,7 +12,7 @@ export function formatDateTime(date: Date): string {
 
 /** Format a Date as an ISO 8601 date-only string (YYYY-MM-DD). */
 export function formatDate(date: Date): string {
-  if (!(date instanceof Date) || isNaN(date.getTime())) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
     throw new Error('formatDate requires a valid Date instance');
   }
   return date.toISOString().split('T')[0];
@@ -20,6 +20,9 @@ export function formatDate(date: Date): string {
 
 /** Convert a Date to a Unix timestamp in milliseconds. */
 export function formatUnixMilliseconds(date: Date): number {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    throw new Error('formatUnixMilliseconds requires a valid Date instance');
+  }
   return date.getTime();
 }
 

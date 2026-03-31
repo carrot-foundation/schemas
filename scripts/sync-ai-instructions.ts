@@ -95,7 +95,7 @@ function toFrontmatter(
 
 function titleFromId(id: string): string {
   return id
-    .split('-')
+    .split(/[-_]/)
     .filter(Boolean)
     .map((part) => part[0].toUpperCase() + part.slice(1))
     .join(' ');

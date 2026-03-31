@@ -663,6 +663,10 @@ function assertRequiredHeadings(
   for (const skill of skills) {
     if (!skill.body.trim())
       errors.push(`[skill:${skill.data.id}] body must not be empty`);
+    else if (!/^##\s+Instructions\s*$/im.test(skill.body))
+      errors.push(
+        `[skill:${skill.data.id}] body must contain "## Instructions" heading`,
+      );
   }
   for (const agent of agents) {
     if (!/^##\s+Instructions\s*$/im.test(agent.body))

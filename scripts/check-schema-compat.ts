@@ -128,10 +128,11 @@ function compareProperties(
     baselineObj.additionalProperties !== false &&
     currentObj.additionalProperties === false
   ) {
+    const pathSuffix = propertyPath ? ` at "${propertyPath}"` : '';
     addFinding(
       schemaName,
       'ADDITIONAL_PROPERTIES_RESTRICTED',
-      `additionalProperties set to false${propertyPath ? ` at "${propertyPath}"` : ''} (was not restricted)`,
+      `additionalProperties set to false${pathSuffix} (was not restricted)`,
     );
   }
 }
@@ -245,14 +246,13 @@ for (const schemaFile of currentSchemas) {
       checkSchema(currentPath, baselinePath);
     } catch (error) {
       // Infrastructure failures (JSON parse, filesystem) are not advisory
-      console.error(
-        `ERROR: Failed to compare schema ${schemaFile}: ${getErrorMessage(error)}`,
-      );
+      const errMsg = getErrorMessage(error);
+      console.error(`ERROR: Failed to compare schema ${schemaFile}: ${errMsg}`);
       if (error instanceof Error && error.stack) console.error(error.stack);
       addFinding(
         schemaFile,
         'PARSE_ERROR',
-        `Failed to compare schema: ${getErrorMessage(error)}`,
+        `Failed to compare schema: ${errMsg}`,
       );
       hasInfrastructureFailure = true;
     }
