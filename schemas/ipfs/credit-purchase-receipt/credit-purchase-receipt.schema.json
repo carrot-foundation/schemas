@@ -1320,6 +1320,6 @@
   "additionalProperties": false,
   "title": "CreditPurchaseReceipt NFT IPFS Record",
   "description": "Complete CreditPurchaseReceipt NFT IPFS record including purchase summary, buyer details, credit breakdowns, certificate allocations, and NFT display attributes",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.1/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
-  "version": "0.3.1"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.2/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "version": "0.3.2"
 }
