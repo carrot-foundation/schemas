@@ -237,5 +237,6 @@
   "title": "Collection IPFS Record",
   "description": "Collection metadata stored in IPFS, extending the base schema with collection-specific fields used to group and organize credit purchases and retirements in Carrot's ecosystem",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.2/schemas/ipfs/collection/collection.schema.json",
-  "version": "0.3.2"
+  "version": "0.3.2",
+  "hash": "1948e03a32b481b8581ac15f461c8ec9ff75506a03aa576c2394780a416878d6"
 }

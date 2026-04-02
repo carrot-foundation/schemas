@@ -370,5 +370,6 @@
   "title": "Methodology IPFS Record",
   "description": "Methodology metadata stored in IPFS, defining the environmental impact measurement approach including versioning, documentation, and MassID audit rules",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.2/schemas/ipfs/methodology/methodology.schema.json",
-  "version": "0.3.2"
+  "version": "0.3.2",
+  "hash": "f4f39449e34a74a4a4aea63c5cec4ee0d0bd5329e9746dc94f3110749346e636"
 }
