@@ -14,6 +14,7 @@ import {
   validateTokenIdInName,
   validateFormattedName,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { RecycledIDDataSchema } from './recycled-id.data.schema';
 import { RecycledIDAttributesSchema } from './recycled-id.attributes';
 
@@ -23,6 +24,7 @@ export const RecycledIDIpfsSchemaMeta = {
     'Complete RecycledID NFT IPFS record including recycling outcome metrics, source waste provenance, methodology reference, and NFT display attributes',
   $id: buildSchemaUrl('recycled-id/recycled-id.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['recycled-id'],
 } as const;
 
 export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({

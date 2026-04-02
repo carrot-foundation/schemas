@@ -12,6 +12,7 @@ import {
   validateTokenIdInName,
   validateFormattedName,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { CreditPurchaseReceiptDataSchema } from './credit-purchase-receipt.data.schema';
 import { CreditPurchaseReceiptAttributesSchema } from './credit-purchase-receipt.attributes';
 
@@ -23,6 +24,7 @@ export const CreditPurchaseReceiptIpfsSchemaMeta = {
     'credit-purchase-receipt/credit-purchase-receipt.schema.json',
   ),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['credit-purchase-receipt'],
 } as const;
 
 export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({

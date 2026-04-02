@@ -7,6 +7,7 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 
 export const CollectionSchemaMeta = {
   title: 'Collection IPFS Record',
@@ -14,6 +15,7 @@ export const CollectionSchemaMeta = {
     "Collection metadata stored in IPFS, extending the base schema with collection-specific fields used to group and organize credit purchases and retirements in Carrot's ecosystem",
   $id: buildSchemaUrl('collection/collection.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['collection'],
 } as const;
 
 export const CollectionSchema = BaseIpfsSchema.safeExtend({

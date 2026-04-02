@@ -4,6 +4,7 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { MassIDAuditDataSchema } from './mass-id-audit.data.schema';
 
 export const MassIDAuditSchemaMeta = {
@@ -12,6 +13,7 @@ export const MassIDAuditSchemaMeta = {
     'MassID audit record stored in IPFS, containing methodology reference, audit summary, rule execution results, and links to the source MassID and resulting GasID or RecycledID',
   $id: buildSchemaUrl('mass-id-audit/mass-id-audit.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['mass-id-audit'],
 } as const;
 
 export const MassIDAuditSchema = BaseIpfsSchema.safeExtend({

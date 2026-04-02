@@ -4,6 +4,7 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { MethodologyDataSchema } from './methodology.data.schema';
 
 export const MethodologySchemaMeta = {
@@ -12,6 +13,7 @@ export const MethodologySchemaMeta = {
     'Methodology metadata stored in IPFS, defining the environmental impact measurement approach including versioning, documentation, and MassID audit rules',
   $id: buildSchemaUrl('methodology/methodology.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['methodology'],
 } as const;
 
 export const MethodologySchema = BaseIpfsSchema.safeExtend({

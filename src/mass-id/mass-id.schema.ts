@@ -14,6 +14,7 @@ import {
   validateFormattedName,
   validateTokenIdInName,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { MassIDAttributesSchema } from './mass-id.attributes';
 
 type PickUpEvent = Extract<MassIDEvent, { event_name: 'Pick-up' }>;
@@ -39,6 +40,7 @@ export const MassIDIpfsSchemaMeta = {
     'Complete MassID NFT IPFS record including waste classification, chain-of-custody lifecycle events, geographic locations, supply-chain participants, and NFT display attributes',
   $id: buildSchemaUrl('mass-id/mass-id.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['mass-id'],
 } as const;
 
 export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({

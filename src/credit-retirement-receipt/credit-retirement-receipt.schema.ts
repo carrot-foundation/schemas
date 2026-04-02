@@ -12,6 +12,7 @@ import {
   validateTokenIdInName,
   validateFormattedName,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { CreditRetirementReceiptDataSchema } from './credit-retirement-receipt.data.schema';
 import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-receipt.attributes';
 
@@ -23,6 +24,7 @@ export const CreditRetirementReceiptIpfsSchemaMeta = {
     'credit-retirement-receipt/credit-retirement-receipt.schema.json',
   ),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['credit-retirement-receipt'],
 } as const;
 
 export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({

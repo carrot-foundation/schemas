@@ -15,6 +15,7 @@ import {
   createGasIDNameSchema,
   createGasIDShortNameSchema,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 import { GasIDDataSchema } from './gas-id.data.schema';
 import { GasIDAttributesSchema } from './gas-id.attributes';
 
@@ -24,6 +25,7 @@ export const GasIDIpfsSchemaMeta = {
     'Complete GasID NFT IPFS record including prevented emissions calculation, source waste provenance, methodology reference, and NFT display attributes',
   $id: buildSchemaUrl('gas-id/gas-id.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['gas-id'],
 } as const;
 
 export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({

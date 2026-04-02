@@ -8,6 +8,7 @@ import {
   CreditTokenNameSchema,
   CreditTokenSlugSchema,
 } from '../shared';
+import { SCHEMA_HASHES } from '../generated/schema-hashes';
 
 export const CreditSchemaMeta = {
   title: 'Credit IPFS Record',
@@ -15,6 +16,7 @@ export const CreditSchemaMeta = {
     'Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details',
   $id: buildSchemaUrl('credit/credit.schema.json'),
   version: getSchemaVersionOrDefault(),
+  hash: SCHEMA_HASHES['credit'],
 } as const;
 
 export const CreditSchema = BaseIpfsSchema.safeExtend({
