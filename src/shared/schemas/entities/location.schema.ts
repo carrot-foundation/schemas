@@ -17,7 +17,7 @@ export const CoordinatesSchema = z
   .meta({
     title: 'Coordinates',
     description:
-      'Approximate GPS coordinates of the site (city-level precision for privacy)',
+      'Approximate GPS coordinates of the site (city-level precision for privacy). Optional because some records (e.g., MassIDs) may not have geolocation data available.',
   });
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 
@@ -36,7 +36,7 @@ export const LocationSchema = z
       description:
         'SHA-256 hash identifying the participant responsible for operations at this location',
     }),
-    coordinates: CoordinatesSchema,
+    coordinates: CoordinatesSchema.optional(),
   })
   .superRefine((record, ctx) => {
     validateLocationBrazilData(record, ctx);
