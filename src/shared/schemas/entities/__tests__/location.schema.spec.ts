@@ -140,6 +140,13 @@ describe('LocationSchema', () => {
     expect(result.success).toBe(false);
   });
 
+  it('accepts valid location without coordinates', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { coordinates, ...locationWithoutCoordinates } = validLocation;
+    const result = LocationSchema.safeParse(locationWithoutCoordinates);
+    expect(result.success).toBe(true);
+  });
+
   it('rejects location with invalid coordinates', () => {
     const location = {
       ...validLocation,
