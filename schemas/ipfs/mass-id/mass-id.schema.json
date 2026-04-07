@@ -1911,6 +1911,6 @@
   "additionalProperties": false,
   "title": "MassID NFT IPFS Record",
   "description": "Complete MassID NFT IPFS record including waste classification, chain-of-custody lifecycle events, geographic locations, supply-chain participants, and NFT display attributes",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.3.2/schemas/ipfs/mass-id/mass-id.schema.json",
-  "version": "0.3.2"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.4.0/schemas/ipfs/mass-id/mass-id.schema.json",
+  "version": "0.4.0"
 }

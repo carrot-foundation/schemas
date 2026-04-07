@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.0](https://github.com/carrot-foundation/schemas/compare/v0.3.2...v0.4.0) (2026-04-07)
+
+### Features
+
+- **shared:** make Location coordinates optional ([f75819d](https://github.com/carrot-foundation/schemas/commit/f75819dd7a0e938b03742ba5891aa0a894019b8e))
+
 ## [0.3.2](https://github.com/carrot-foundation/schemas/compare/v0.3.1...v0.3.2) (2026-03-31)
 
 ### Bug Fixes
