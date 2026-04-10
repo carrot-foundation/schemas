@@ -154,6 +154,17 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
         'Origin City attribute must equal Pick-up event location.city',
     });
 
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
+      traitType: 'Origin Country Subdivision',
+      expectedValue: pickUpLocation?.subdivision_code,
+      missingMessage:
+        'Origin Country Subdivision attribute must be omitted when Pick-up event location.subdivision_code is not provided',
+      mismatchMessage:
+        'Origin Country Subdivision attribute must equal Pick-up event location.subdivision_code',
+    });
+
     validateDateTimeAttribute({
       ctx,
       attributeByTraitType,

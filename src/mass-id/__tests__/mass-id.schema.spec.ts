@@ -81,6 +81,33 @@ describe('MassIDIpfsSchema', () => {
     }, ['Waste Subtype attribute must equal waste_properties.subtype']);
   });
 
+  it('requires Origin Country Subdivision attribute to match pick-up location', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const subdivisionIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Origin Country Subdivision',
+      );
+      if (subdivisionIndex >= 0) {
+        next.attributes[subdivisionIndex].value = 'BR-RJ';
+      }
+      return next;
+    }, [
+      'Origin Country Subdivision attribute must equal Pick-up event location.subdivision_code',
+    ]);
+  });
+
+  it('requires Origin Country Subdivision attribute to be omitted when pick-up event is absent', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      next.data.events = next.data.events.filter(
+        (event) => event.event_name !== 'Pick-up',
+      );
+      return next;
+    }, [
+      'Origin Country Subdivision attribute must be omitted when Pick-up event location.subdivision_code is not provided',
+    ]);
+  });
+
   it('requires pick-up date attribute to match pick-up event', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
