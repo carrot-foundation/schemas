@@ -191,4 +191,19 @@ describe('RecycledIDIpfsSchema', () => {
       'Recycling Date attribute must equal data.summary.recycling_date as a Unix timestamp in milliseconds',
     ]);
   });
+
+  it('requires Origin Country Subdivision attribute to match origin location', () => {
+    expectIssuesContain(schema, () => {
+      const next = structuredClone(base);
+      const subdivisionIndex = next.attributes.findIndex(
+        (attr) => attr.trait_type === 'Origin Country Subdivision',
+      );
+      if (subdivisionIndex >= 0) {
+        next.attributes[subdivisionIndex].value = 'BR-RJ';
+      }
+      return next;
+    }, [
+      'Origin Country Subdivision attribute must equal data.origin_location.subdivision_code',
+    ]);
+  });
 });
