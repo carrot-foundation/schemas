@@ -168,6 +168,17 @@ export const GasIDIpfsSchema = NftIpfsSchema.safeExtend({
     validateAttributeValue({
       ctx,
       attributeByTraitType,
+      traitType: 'Origin Country Subdivision',
+      expectedValue: data.origin_location.subdivision_code,
+      missingMessage:
+        'Origin Country Subdivision attribute must be present and match data.origin_location.subdivision_code',
+      mismatchMessage:
+        'Origin Country Subdivision attribute must equal data.origin_location.subdivision_code',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
       traitType: 'MassID',
       expectedValue: `#${data.mass_id.token_id}`,
       missingMessage:
