@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/carrot-foundation/schemas/compare/v0.4.0...v0.4.1) (2026-04-13)
+
+### Bug Fixes
+
+- **schema:** add Origin Country Subdivision cross-validation ([17ede54](https://github.com/carrot-foundation/schemas/commit/17ede540c52820792796fc7e1dcad3292d176af2))
+- **schema:** add Origin Country Subdivision cross-validation to GasID and RecycledID ([6f29303](https://github.com/carrot-foundation/schemas/commit/6f29303eca2eb90ae09a965b7b5245a18f328f25))
+
 ## [0.4.0](https://github.com/carrot-foundation/schemas/compare/v0.3.2...v0.4.0) (2026-04-07)
 
 ### Features

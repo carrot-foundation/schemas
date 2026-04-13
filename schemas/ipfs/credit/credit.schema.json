@@ -257,6 +257,6 @@
   "additionalProperties": false,
   "title": "Credit IPFS Record",
   "description": "Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.4.0/schemas/ipfs/credit/credit.schema.json",
-  "version": "0.4.0"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.4.1/schemas/ipfs/credit/credit.schema.json",
+  "version": "0.4.1"
 }
