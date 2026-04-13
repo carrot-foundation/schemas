@@ -10,9 +10,20 @@ export const NonNegativeFloatSchema = z
   });
 export type NonNegativeFloat = z.infer<typeof NonNegativeFloatSchema>;
 
-export const WeightKgSchema = NonNegativeFloatSchema.meta({
+export const PositiveFloatSchema = z
+  .number()
+  .gt(0)
+  .meta({
+    title: 'Positive Float',
+    description: 'Floating-point number greater than zero',
+    examples: [0.1, 45.2, 72.5],
+  });
+export type PositiveFloat = z.infer<typeof PositiveFloatSchema>;
+
+export const WeightKgSchema = PositiveFloatSchema.meta({
   title: 'Weight',
-  description: 'Weight measurement in kilograms (kg)',
+  description:
+    'Weight measurement in kilograms (kg), must be greater than zero',
   examples: [500.35, 3000],
 });
 export type WeightKg = z.infer<typeof WeightKgSchema>;

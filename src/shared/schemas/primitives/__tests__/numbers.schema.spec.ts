@@ -4,7 +4,9 @@ import {
   NonNegativeFloatSchema,
   NonNegativeIntegerSchema,
   PercentageSchema,
+  PositiveFloatSchema,
   UsdcAmountSchema,
+  WeightKgSchema,
 } from '../numbers.schema';
 
 describe('NonNegativeFloatSchema', () => {
@@ -15,6 +17,37 @@ describe('NonNegativeFloatSchema', () => {
 
   it('rejects negative values', () => {
     expectSchemaInvalid(NonNegativeFloatSchema, 1, () => -1);
+  });
+});
+
+describe('PositiveFloatSchema', () => {
+  it('validates values greater than zero', () => {
+    expectSchemaValid(PositiveFloatSchema, () => 0.1);
+    expectSchemaValid(PositiveFloatSchema, () => 72.5);
+  });
+
+  it('rejects zero', () => {
+    expectSchemaInvalid(PositiveFloatSchema, 1, () => 0);
+  });
+
+  it('rejects negative values', () => {
+    expectSchemaInvalid(PositiveFloatSchema, 1, () => -1);
+  });
+});
+
+describe('WeightKgSchema', () => {
+  it('validates positive weights', () => {
+    expectSchemaValid(WeightKgSchema, () => 0.1);
+    expectSchemaValid(WeightKgSchema, () => 500.35);
+    expectSchemaValid(WeightKgSchema, () => 3000);
+  });
+
+  it('rejects zero weight', () => {
+    expectSchemaInvalid(WeightKgSchema, 1, () => 0);
+  });
+
+  it('rejects negative weight', () => {
+    expectSchemaInvalid(WeightKgSchema, 1, () => -5);
   });
 });
 

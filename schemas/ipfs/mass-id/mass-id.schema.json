@@ -231,7 +231,7 @@
             },
             "weight_kg": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Net Weight",
               "description": "Net weight of the waste batch in kilograms (kg)",
               "examples": [
@@ -497,7 +497,7 @@
                         "title": "Pick-up Waste Weight",
                         "description": "Weight of waste collected at the origin location, measured in kilograms (kg)",
                         "type": "number",
-                        "minimum": 0,
+                        "exclusiveMinimum": 0,
                         "examples": [
                           500.35,
                           3000
@@ -652,7 +652,7 @@
                         "title": "Container Capacity",
                         "description": "Maximum container capacity in kilograms (kg)",
                         "type": "number",
-                        "minimum": 0,
+                        "exclusiveMinimum": 0,
                         "examples": [
                           500.35,
                           3000
@@ -662,7 +662,7 @@
                         "title": "Gross Weight",
                         "description": "Total weight including vehicle/container before tare in kilograms (kg)",
                         "type": "number",
-                        "minimum": 0,
+                        "exclusiveMinimum": 0,
                         "examples": [
                           500.35,
                           3000
@@ -672,7 +672,7 @@
                         "title": "Tare Weight",
                         "description": "Weight of the empty vehicle or container in kilograms (kg)",
                         "type": "number",
-                        "minimum": 0,
+                        "exclusiveMinimum": 0,
                         "examples": [
                           500.35,
                           3000
@@ -812,7 +812,7 @@
                         "title": "Initial Weight",
                         "description": "Weight of the material entering the sorting process in kilograms (kg)",
                         "type": "number",
-                        "minimum": 0,
+                        "exclusiveMinimum": 0,
                         "examples": [
                           500.35,
                           3000
@@ -822,7 +822,7 @@
                         "title": "Deducted Weight",
                         "description": "Weight removed during sorting (e.g., contaminants or moisture) in kilograms (kg)",
                         "type": "number",
-                        "minimum": 0,
+                        "exclusiveMinimum": 0,
                         "examples": [
                           500.35,
                           3000
@@ -1289,7 +1289,7 @@
               },
               "value": {
                 "type": "number",
-                "minimum": 0,
+                "exclusiveMinimum": 0,
                 "title": "Weight",
                 "description": "Net batch weight in kilograms (kg) for this MassID",
                 "examples": [
