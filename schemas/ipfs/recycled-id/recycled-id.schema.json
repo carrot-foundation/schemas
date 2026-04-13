@@ -170,7 +170,7 @@
           "properties": {
             "recycled_mass_kg": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Recycled Weight",
               "description": "Total weight of materials successfully recycled in kilograms (kg)",
               "examples": [
@@ -487,7 +487,7 @@
             },
             "weight_kg": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Source Waste Net Weight",
               "description": "Net weight of the source waste in kilograms (kg)",
               "examples": [
@@ -871,7 +871,7 @@
             },
             "value": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Recycled Weight",
               "description": "Total weight of recycled materials in kilograms",
               "examples": [
@@ -1056,7 +1056,7 @@
             },
             "value": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Source Weight",
               "description": "Weight of the source waste in kilograms",
               "examples": [
