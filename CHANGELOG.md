@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/carrot-foundation/schemas/compare/v0.4.1...v0.4.2) (2026-04-13)
+
+### Bug Fixes
+
+- **shared:** reject zero weight in WeightKgSchema ([723e694](https://github.com/carrot-foundation/schemas/commit/723e6941d29390c37f9c17f4659d5be8e270c367))
+
+### Code Refactoring
+
+- **shared:** compose WeightKgSchema from PositiveFloatSchema ([41cc303](https://github.com/carrot-foundation/schemas/commit/41cc303e3c082c9123a697d65a5fc708127b106b))
+
 ## [0.4.1](https://github.com/carrot-foundation/schemas/compare/v0.4.0...v0.4.1) (2026-04-13)
 
 ### Bug Fixes
