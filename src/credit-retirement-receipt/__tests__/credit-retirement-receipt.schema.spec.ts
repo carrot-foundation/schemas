@@ -41,6 +41,37 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
     });
   });
 
+  it('allows beneficiary identity to be omitted', () => {
+    expectSchemaValid(schema, () => {
+      const withoutBeneficiaryIdentity = structuredClone(base);
+      Reflect.deleteProperty(
+        withoutBeneficiaryIdentity.data.beneficiary as Record<string, unknown>,
+        'identity',
+      );
+      withoutBeneficiaryIdentity.attributes =
+        withoutBeneficiaryIdentity.attributes.filter(
+          (attribute) => attribute.trait_type !== 'Beneficiary',
+        );
+
+      return withoutBeneficiaryIdentity;
+    });
+  });
+
+  it('allows beneficiary identity with only external_id', () => {
+    expectSchemaValid(schema, () => {
+      const withPartialBeneficiaryIdentity = structuredClone(base);
+      withPartialBeneficiaryIdentity.data.beneficiary.identity = {
+        external_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+      };
+      withPartialBeneficiaryIdentity.attributes =
+        withPartialBeneficiaryIdentity.attributes.filter(
+          (attribute) => attribute.trait_type !== 'Beneficiary',
+        );
+
+      return withPartialBeneficiaryIdentity;
+    });
+  });
+
   runReceiptInvalidCases(schema, base, [
     {
       description: 'rejects invalid schema type',
@@ -94,6 +125,18 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
         invalid.attributes = invalid.attributes.filter(
           (attribute) => attribute.trait_type !== 'Beneficiary',
         );
+      },
+    },
+    {
+      description:
+        'rejects beneficiary attribute value that does not match identity name',
+      mutate: (invalid) => {
+        invalid.attributes = invalid.attributes.map((attribute) => {
+          if (attribute.trait_type === 'Beneficiary') {
+            return { ...attribute, value: 'Totally-Different-Name' };
+          }
+          return attribute;
+        });
       },
     },
     {

@@ -228,50 +228,44 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100,
                   "title": "Identity Name",
                   "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
-                  ]
+                  ],
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
                 },
                 "external_id": {
+                  "title": "Identity External ID",
+                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-                  "title": "Identity External ID",
-                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ]
                 },
                 "external_url": {
-                  "type": "string",
-                  "format": "uri",
                   "title": "Identity External URL",
                   "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
+                  "type": "string",
+                  "format": "uri",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
                   ]
                 }
               },
-              "required": [
-                "name",
-                "external_id",
-                "external_url"
-              ],
               "additionalProperties": false,
               "title": "Identity",
-              "description": "Identity information for the buyer or beneficiary associated with this receipt"
+              "description": "Identity information for the buyer or beneficiary associated with this receipt. All fields are optional, but at least one must be provided when the identity block is present."
             }
           },
           "required": [
-            "beneficiary_id",
-            "identity"
+            "beneficiary_id"
           ],
           "additionalProperties": false,
           "title": "Beneficiary",
@@ -293,45 +287,40 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100,
                   "title": "Identity Name",
                   "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
-                  ]
+                  ],
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
                 },
                 "external_id": {
+                  "title": "Identity External ID",
+                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-                  "title": "Identity External ID",
-                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ]
                 },
                 "external_url": {
-                  "type": "string",
-                  "format": "uri",
                   "title": "Identity External URL",
                   "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
+                  "type": "string",
+                  "format": "uri",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
                   ]
                 }
               },
-              "required": [
-                "name",
-                "external_id",
-                "external_url"
-              ],
               "additionalProperties": false,
               "title": "Identity",
-              "description": "Identity information for the buyer or beneficiary associated with this receipt"
+              "description": "Identity information for the buyer or beneficiary associated with this receipt. All fields are optional, but at least one must be provided when the identity block is present."
             }
           },
           "required": [
@@ -1067,7 +1056,7 @@
       }
     },
     "attributes": {
-      "minItems": 4,
+      "minItems": 3,
       "type": "array",
       "items": {
         "anyOf": [
@@ -1113,54 +1102,6 @@
             "additionalProperties": false,
             "title": "Total Credits Retired Attribute",
             "description": "Total number of credits retired across all tokens attribute with numeric display"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "trait_type": {
-                "type": "string",
-                "const": "Beneficiary"
-              },
-              "value": {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 100,
-                "title": "Beneficiary",
-                "description": "Beneficiary receiving the retirement benefit",
-                "examples": [
-                  "Climate Action Corp"
-                ]
-              },
-              "display_type": {
-                "title": "Display Type",
-                "description": "How the trait should be displayed in marketplace UIs",
-                "type": "string",
-                "enum": [
-                  "number",
-                  "date",
-                  "boost_number",
-                  "boost_percentage"
-                ]
-              },
-              "max_value": {
-                "title": "Max Value",
-                "description": "Maximum possible value for numeric traits",
-                "type": "number",
-                "minimum": 0,
-                "examples": [
-                  0,
-                  45.2,
-                  72.5
-                ]
-              }
-            },
-            "required": [
-              "trait_type",
-              "value"
-            ],
-            "additionalProperties": false,
-            "title": "Beneficiary Attribute",
-            "description": "Attribute containing the beneficiary display name"
           },
           {
             "type": "object",
@@ -1236,6 +1177,54 @@
             "additionalProperties": false,
             "title": "Certificates Retired Attribute",
             "description": "Total number of certificates retired attribute with numeric display"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "trait_type": {
+                "type": "string",
+                "const": "Beneficiary"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "title": "Beneficiary",
+                "description": "Beneficiary receiving the retirement benefit",
+                "examples": [
+                  "Climate Action Corp"
+                ]
+              },
+              "display_type": {
+                "title": "Display Type",
+                "description": "How the trait should be displayed in marketplace UIs",
+                "type": "string",
+                "enum": [
+                  "number",
+                  "date",
+                  "boost_number",
+                  "boost_percentage"
+                ]
+              },
+              "max_value": {
+                "title": "Max Value",
+                "description": "Maximum possible value for numeric traits",
+                "type": "number",
+                "minimum": 0,
+                "examples": [
+                  0,
+                  45.2,
+                  72.5
+                ]
+              }
+            },
+            "required": [
+              "trait_type",
+              "value"
+            ],
+            "additionalProperties": false,
+            "title": "Beneficiary Attribute",
+            "description": "Attribute containing the beneficiary display name"
           },
           {
             "type": "object",
@@ -1421,7 +1410,7 @@
         ]
       },
       "title": "Credit Retirement Receipt NFT Attribute Array",
-      "description": "Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and optional purchase info. Fixed required attributes: Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired. Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). Dynamic attributes: Credit attributes (one per credit symbol in data.credits).\n\nRequired attributes (4): Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired"
+      "description": "Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and optional purchase info. Fixed required attributes: Total Credits Retired, Retirement Date, Certificates Retired. Conditional attributes: Beneficiary (required when beneficiary.identity.name is provided), Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). Dynamic attributes: Credit attributes (one per credit symbol in data.credits).\n\nRequired attributes (3): Total Credits Retired, Retirement Date, Certificates Retired"
     }
   },
   "required": [
@@ -1443,7 +1432,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details, credit breakdowns, certificate allocations, and NFT display attributes",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.4.2/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "version": "0.4.2"
 }

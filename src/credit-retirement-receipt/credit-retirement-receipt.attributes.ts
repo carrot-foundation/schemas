@@ -98,12 +98,12 @@ const CreditRetirementReceiptPurchaseReceiptAttributeSchema =
 
 const REQUIRED_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
   CreditRetirementReceiptTotalCreditsAttributeSchema,
-  CreditRetirementReceiptBeneficiaryAttributeSchema,
   CreditRetirementReceiptRetirementDateAttributeSchema,
   CreditRetirementReceiptCertificatesAttributeSchema,
 ] as const;
 
 const CONDITIONAL_CREDIT_RETIREMENT_RECEIPT_ATTRIBUTES = [
+  CreditRetirementReceiptBeneficiaryAttributeSchema,
   CreditRetirementReceiptCreditHolderAttributeSchema,
   CreditRetirementReceiptPurchaseDateAttributeSchema,
   CreditRetirementReceiptPurchaseReceiptAttributeSchema,
@@ -123,14 +123,13 @@ export const CreditRetirementReceiptAttributesSchema =
     title: 'Credit Retirement Receipt NFT Attribute Array',
     description:
       'Attributes for credit retirement receipts including per-credit breakdowns, totals, beneficiary, credit holder, retirement date, certificate count, and optional purchase info. ' +
-      'Fixed required attributes: Total Credits Retired, Beneficiary, Retirement Date, Certificates Retired. ' +
-      'Conditional attributes: Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). ' +
+      'Fixed required attributes: Total Credits Retired, Retirement Date, Certificates Retired. ' +
+      'Conditional attributes: Beneficiary (required when beneficiary.identity.name is provided), Credit Holder (required when credit_holder.identity.name is provided), Purchase Date (optional, when purchase_receipt is present), Purchase Receipt (optional, when purchase_receipt is present). ' +
       'Dynamic attributes: Credit attributes (one per credit symbol in data.credits).',
     uniqueBySelector: (attribute: unknown) =>
       (attribute as { trait_type: string }).trait_type,
     requiredTraitTypes: [
       'Total Credits Retired',
-      'Beneficiary',
       'Retirement Date',
       'Certificates Retired',
     ],

@@ -70,26 +70,38 @@ export type CreditRetirementReceiptSummary = z.infer<
 
 export const ReceiptIdentitySchema = z
   .strictObject({
-    name: NonEmptyStringSchema.max(100).meta({
-      title: 'Identity Name',
-      description: 'Display name of the buyer or beneficiary on the receipt',
-      examples: ['EcoTech Solutions Inc.', 'Climate Action Corp'],
-    }),
-    external_id: ExternalIdSchema.meta({
+    name: NonEmptyStringSchema.max(100)
+      .optional()
+      .meta({
+        title: 'Identity Name',
+        description: 'Display name of the buyer or beneficiary on the receipt',
+        examples: ['EcoTech Solutions Inc.', 'Climate Action Corp'],
+      }),
+    external_id: ExternalIdSchema.optional().meta({
       title: 'Identity External ID',
       description:
         'Unique identifier for the buyer or beneficiary in the Carrot platform',
     }),
-    external_url: ExternalUrlSchema.meta({
+    external_url: ExternalUrlSchema.optional().meta({
       title: 'Identity External URL',
       description:
         'Link to the buyer or beneficiary profile page on the Carrot platform',
     }),
   })
+  .refine(
+    (value) =>
+      value.name !== undefined ||
+      value.external_id !== undefined ||
+      value.external_url !== undefined,
+    {
+      message:
+        'identity must include at least one of: name, external_id, external_url',
+    },
+  )
   .meta({
     title: 'Identity',
     description:
-      'Identity information for the buyer or beneficiary associated with this receipt',
+      'Identity information for the buyer or beneficiary associated with this receipt. All fields are optional, but at least one must be provided when the identity block is present.',
   });
 export type ReceiptIdentity = z.infer<typeof ReceiptIdentitySchema>;
 
