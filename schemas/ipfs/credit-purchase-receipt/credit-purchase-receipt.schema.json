@@ -250,45 +250,40 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100,
                   "title": "Identity Name",
                   "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
                     "EcoTech Solutions Inc.",
                     "Climate Action Corp"
-                  ]
+                  ],
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
                 },
                 "external_id": {
+                  "title": "Identity External ID",
+                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-                  "title": "Identity External ID",
-                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
                   "examples": [
                     "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                   ]
                 },
                 "external_url": {
-                  "type": "string",
-                  "format": "uri",
                   "title": "Identity External URL",
                   "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
+                  "type": "string",
+                  "format": "uri",
                   "examples": [
                     "https://explore.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
                   ]
                 }
               },
-              "required": [
-                "name",
-                "external_id",
-                "external_url"
-              ],
               "additionalProperties": false,
               "title": "Identity",
-              "description": "Identity information for the buyer or beneficiary associated with this receipt"
+              "description": "Identity information for the buyer or beneficiary associated with this receipt. All fields are optional, but at least one must be provided when the identity block is present."
             }
           },
           "required": [
