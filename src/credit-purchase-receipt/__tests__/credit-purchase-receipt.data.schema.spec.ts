@@ -112,6 +112,17 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
+  it('allows buyer identity with only external_url', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      valid.buyer.identity = {
+        external_url: 'https://example.com/identity/eco-tech',
+      };
+
+      return valid;
+    });
+  });
+
   it('rejects certificate collection retired_amount greater than purchased_amount', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].collections[0].retired_amount =

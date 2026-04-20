@@ -18,7 +18,7 @@ import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-rec
 export const CreditRetirementReceiptIpfsSchemaMeta = {
   title: 'CreditRetirementReceipt NFT IPFS Record',
   description:
-    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details, credit breakdowns, certificate allocations, and NFT display attributes',
+    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes',
   $id: buildSchemaUrl(
     'credit-retirement-receipt/credit-retirement-receipt.schema.json',
   ),
@@ -101,15 +101,19 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
         'Attribute "Certificates Retired" must match data.summary.total_certificates',
     });
 
-    validateAttributeValue({
-      ctx,
-      attributeByTraitType,
-      traitType: 'Beneficiary',
-      expectedValue: String(data.beneficiary.identity.name),
-      missingMessage: 'Attribute "Beneficiary" is required',
-      mismatchMessage:
-        'Attribute "Beneficiary" must match beneficiary.identity.name',
-    });
+    const beneficiaryName = data.beneficiary.identity?.name;
+    if (beneficiaryName) {
+      validateAttributeValue({
+        ctx,
+        attributeByTraitType,
+        traitType: 'Beneficiary',
+        expectedValue: String(beneficiaryName),
+        missingMessage:
+          'Attribute "Beneficiary" is required when beneficiary.identity.name is provided',
+        mismatchMessage:
+          'Attribute "Beneficiary" must match beneficiary.identity.name',
+      });
+    }
 
     const creditHolderName = data.credit_holder.identity?.name;
     if (creditHolderName) {

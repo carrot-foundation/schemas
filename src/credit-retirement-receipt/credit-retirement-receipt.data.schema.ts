@@ -35,7 +35,7 @@ const CreditRetirementReceiptBeneficiarySchema = z
       description:
         'UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)',
     }),
-    identity: CreditRetirementReceiptIdentitySchema,
+    identity: CreditRetirementReceiptIdentitySchema.optional(),
   })
   .meta({
     title: 'Beneficiary',
