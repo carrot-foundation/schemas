@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.0](https://github.com/carrot-foundation/schemas/compare/v0.4.2...v0.5.0) (2026-04-20)
+
+### Features
+
+- **schema:** relax receipt identity optionality ([5fb83c3](https://github.com/carrot-foundation/schemas/commit/5fb83c30d32b60173f9c96d8b52700a0f40a8a56))
+
 ## [0.4.2](https://github.com/carrot-foundation/schemas/compare/v0.4.1...v0.4.2) (2026-04-13)
 
 ### Bug Fixes
