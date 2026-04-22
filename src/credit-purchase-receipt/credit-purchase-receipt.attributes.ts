@@ -79,7 +79,7 @@ const CreditPurchaseReceiptRetirementDateAttributeSchema =
     traitType: 'Retirement Date',
     title: 'Retirement Date',
     description:
-      'Unix timestamp in milliseconds when credits were retired (if retirement occurred)',
+      'Unix timestamp in milliseconds when credits were retired; present in the attributes array only when the purchase has been retired (data.retirement_receipt is set)',
   });
 
 const CreditPurchaseReceiptRetirementReceiptAttributeSchema =

@@ -195,7 +195,8 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
     .optional()
     .meta({
       title: 'External Links',
-      description: 'Optional list of public resource links with labels',
+      description:
+        'Supplementary reference links (label, URL, optional description) displayed on the NFT page',
     }),
   attributes: uniqueBy(
     NftAttributeSchema,

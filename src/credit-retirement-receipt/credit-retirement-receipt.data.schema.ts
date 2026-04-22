@@ -33,7 +33,7 @@ const CreditRetirementReceiptBeneficiarySchema = z
     beneficiary_id: ExternalIdSchema.meta({
       title: 'Retirement Beneficiary ID',
       description:
-        'UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)',
+        'UUID identifying the beneficiary of the retirement within the Carrot platform',
     }),
     identity: CreditRetirementReceiptIdentitySchema.optional(),
   })
@@ -49,7 +49,8 @@ const CreditRetirementReceiptCreditHolderSchema = z
   .strictObject({
     wallet_address: EthereumAddressSchema.meta({
       title: 'Credit Holder Wallet Address',
-      description: 'Ethereum address of the credit holder surrendering credits',
+      description:
+        'Ethereum address of the wallet that held and surrendered the credits',
     }),
     identity: CreditRetirementReceiptIdentitySchema.optional(),
   })

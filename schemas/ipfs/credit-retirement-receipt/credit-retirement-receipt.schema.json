@@ -219,7 +219,7 @@
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
               "title": "Retirement Beneficiary ID",
-              "description": "UUID identifying the beneficiary of the retirement (bytes16 normalized to UUID)",
+              "description": "UUID identifying the beneficiary of the retirement within the Carrot platform",
               "examples": [
                 "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
               ]
@@ -240,7 +240,7 @@
                 },
                 "external_id": {
                   "title": "Identity External ID",
-                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
+                  "description": "Unique identifier of the associated entity in the Carrot platform",
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
@@ -278,7 +278,7 @@
               "type": "string",
               "pattern": "^0x[a-f0-9]{40}$",
               "title": "Credit Holder Wallet Address",
-              "description": "Ethereum address of the credit holder surrendering credits",
+              "description": "Ethereum address of the wallet that held and surrendered the credits",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
               ]
@@ -299,7 +299,7 @@
                 },
                 "external_id": {
                   "title": "Identity External ID",
-                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
+                  "description": "Unique identifier of the associated entity in the Carrot platform",
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
@@ -1012,7 +1012,7 @@
     },
     "external_links": {
       "title": "External Links",
-      "description": "Optional list of public resource links with labels",
+      "description": "Supplementary reference links (label, URL, optional description) displayed on the NFT page",
       "type": "array",
       "items": {
         "type": "object",

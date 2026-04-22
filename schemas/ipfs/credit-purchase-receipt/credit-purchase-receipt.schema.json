@@ -262,7 +262,7 @@
                 },
                 "external_id": {
                   "title": "Identity External ID",
-                  "description": "Unique identifier for the buyer or beneficiary in the Carrot platform",
+                  "description": "Unique identifier of the associated entity in the Carrot platform",
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
@@ -921,7 +921,7 @@
     },
     "external_links": {
       "title": "External Links",
-      "description": "Optional list of public resource links with labels",
+      "description": "Supplementary reference links (label, URL, optional description) displayed on the NFT page",
       "type": "array",
       "items": {
         "type": "object",
@@ -1168,7 +1168,7 @@
                 "exclusiveMinimum": 0,
                 "maximum": 9007199254740991,
                 "title": "Retirement Date",
-                "description": "Unix timestamp in milliseconds when credits were retired (if retirement occurred)",
+                "description": "Present in the attributes array only when the purchase has been retired (when data.retirement_receipt is set)",
                 "examples": [
                   1704067200000
                 ]
@@ -1185,7 +1185,7 @@
             ],
             "additionalProperties": false,
             "title": "Retirement Date Attribute",
-            "description": "Unix timestamp in milliseconds when credits were retired (if retirement occurred) attribute"
+            "description": "Present in the attributes array only when the purchase has been retired (when data.retirement_receipt is set) attribute using Unix timestamp in milliseconds"
           },
           {
             "type": "object",

@@ -48,7 +48,8 @@ const MassIDWastePropertiesSchema = z
     local_classification: MassIDLocalClassificationSchema.optional(),
     weight_kg: WeightKgSchema.meta({
       title: 'Net Weight',
-      description: 'Net weight of the waste batch in kilograms (kg)',
+      description:
+        'Weight in kilograms of the entire waste batch tracked through the chain of custody',
       examples: [3000],
     }),
   })
@@ -111,7 +112,8 @@ const MassIDBaseEventSchema = z
     participant_id_hash: ParticipantIdHashSchema,
     location_id_hash: Sha256HashSchema.meta({
       title: 'Location ID Hash',
-      description: 'Reference to location in the locations array',
+      description:
+        'Hash reference to the geographic location where this event occurred; matches an entry in `data.locations`',
     }),
   })
   .meta({
