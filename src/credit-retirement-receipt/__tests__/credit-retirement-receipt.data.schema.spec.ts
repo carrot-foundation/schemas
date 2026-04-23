@@ -128,6 +128,60 @@ describe('CreditRetirementReceiptDataSchema', () => {
     });
   });
 
+  it('requires beneficiary.id_hash', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.beneficiary as Record<string, unknown>,
+        'id_hash',
+      );
+    });
+  });
+
+  it('rejects beneficiary.id_hash that is not a SHA-256 hex string', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      (invalid.beneficiary as Record<string, unknown>).id_hash =
+        'c3d4e5f6-a7b8-4d12-8b56-789012cdef01';
+    });
+  });
+
+  it('allows beneficiary.wallet_address when a valid Ethereum address', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      (valid.beneficiary as Record<string, unknown>).wallet_address =
+        '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9';
+
+      return valid;
+    });
+  });
+
+  it('requires credit_holder.id_hash', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.credit_holder as Record<string, unknown>,
+        'id_hash',
+      );
+    });
+  });
+
+  it('rejects credit_holder.id_hash that is not a SHA-256 hex string', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      (invalid.credit_holder as Record<string, unknown>).id_hash =
+        'not-a-valid-hash';
+    });
+  });
+
+  it('allows credit_holder.wallet_address to be omitted', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      Reflect.deleteProperty(
+        valid.credit_holder as Record<string, unknown>,
+        'wallet_address',
+      );
+
+      return valid;
+    });
+  });
+
   it('rejects collection with zero retired total', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.collections.push({

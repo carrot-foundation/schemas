@@ -214,71 +214,20 @@
         "beneficiary": {
           "type": "object",
           "properties": {
-            "beneficiary_id": {
+            "id_hash": {
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-              "title": "Retirement Beneficiary ID",
-              "description": "UUID identifying the beneficiary of the retirement within the Carrot platform",
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "title": "Beneficiary ID Hash",
+              "description": "Anonymized pseudonymous identifier linking this beneficiary to off-chain records via a keyed hash",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
               ]
             },
-            "identity": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "title": "Identity Name",
-                  "description": "Display name of the buyer or beneficiary on the receipt",
-                  "examples": [
-                    "EcoTech Solutions Inc.",
-                    "Climate Action Corp"
-                  ],
-                  "type": "string",
-                  "minLength": 1,
-                  "maxLength": 100
-                },
-                "external_id": {
-                  "title": "Identity External ID",
-                  "description": "Unique identifier of the associated entity in the Carrot platform",
-                  "type": "string",
-                  "format": "uuid",
-                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-                  "examples": [
-                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                  ]
-                },
-                "external_url": {
-                  "title": "Identity External URL",
-                  "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
-                  "type": "string",
-                  "format": "uri",
-                  "examples": [
-                    "https://explore.carrot.eco/",
-                    "https://whitepaper.carrot.eco/"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "title": "Identity",
-              "description": "Identity information for the buyer or beneficiary associated with this receipt. All fields are optional, but at least one must be provided when the identity block is present."
-            }
-          },
-          "required": [
-            "beneficiary_id"
-          ],
-          "additionalProperties": false,
-          "title": "Beneficiary",
-          "description": "Beneficiary receiving the retirement benefit"
-        },
-        "credit_holder": {
-          "type": "object",
-          "properties": {
             "wallet_address": {
+              "title": "Beneficiary Wallet Address",
+              "description": "Ethereum address associated with the beneficiary, when available",
               "type": "string",
               "pattern": "^0x[a-f0-9]{40}$",
-              "title": "Credit Holder Wallet Address",
-              "description": "Ethereum address of the wallet that held and surrendered the credits",
               "examples": [
                 "0x1234567890abcdef1234567890abcdef12345678"
               ]
@@ -324,11 +273,79 @@
             }
           },
           "required": [
-            "wallet_address"
+            "id_hash"
+          ],
+          "additionalProperties": false,
+          "title": "Beneficiary",
+          "description": "Beneficiary receiving the retirement benefit, identified by a hashed identifier with optional wallet address and identity"
+        },
+        "credit_holder": {
+          "type": "object",
+          "properties": {
+            "id_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{64}$",
+              "title": "Credit Holder ID Hash",
+              "description": "Anonymized pseudonymous identifier linking this credit holder to off-chain records via a keyed hash",
+              "examples": [
+                "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+              ]
+            },
+            "wallet_address": {
+              "title": "Credit Holder Wallet Address",
+              "description": "Ethereum address of the wallet that held and surrendered the credits",
+              "type": "string",
+              "pattern": "^0x[a-f0-9]{40}$",
+              "examples": [
+                "0x1234567890abcdef1234567890abcdef12345678"
+              ]
+            },
+            "identity": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "title": "Identity Name",
+                  "description": "Display name of the buyer or beneficiary on the receipt",
+                  "examples": [
+                    "EcoTech Solutions Inc.",
+                    "Climate Action Corp"
+                  ],
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                "external_id": {
+                  "title": "Identity External ID",
+                  "description": "Unique identifier of the associated entity in the Carrot platform",
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
+                  "examples": [
+                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                  ]
+                },
+                "external_url": {
+                  "title": "Identity External URL",
+                  "description": "Link to the buyer or beneficiary profile page on the Carrot platform",
+                  "type": "string",
+                  "format": "uri",
+                  "examples": [
+                    "https://explore.carrot.eco/",
+                    "https://whitepaper.carrot.eco/"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "title": "Identity",
+              "description": "Identity information for the buyer or beneficiary associated with this receipt. All fields are optional, but at least one must be provided when the identity block is present."
+            }
+          },
+          "required": [
+            "id_hash"
           ],
           "additionalProperties": false,
           "title": "Credit Holder",
-          "description": "Credit holder wallet and optional identity information"
+          "description": "Credit holder information including hashed identifier, optional wallet address, and optional identity"
         },
         "collections": {
           "minItems": 1,

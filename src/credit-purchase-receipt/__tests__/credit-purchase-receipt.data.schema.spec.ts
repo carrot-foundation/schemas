@@ -123,6 +123,34 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
+  it('requires buyer.id_hash', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.buyer as Record<string, unknown>,
+        'id_hash',
+      );
+    });
+  });
+
+  it('rejects buyer.id_hash that is not a SHA-256 hex string', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      (invalid.buyer as Record<string, unknown>).id_hash =
+        'b5c6d7e8-f901-4a23-9b45-6789012cdef3';
+    });
+  });
+
+  it('allows buyer.wallet_address to be omitted', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      Reflect.deleteProperty(
+        valid.buyer as Record<string, unknown>,
+        'wallet_address',
+      );
+
+      return valid;
+    });
+  });
+
   it('rejects certificate collection retired_amount greater than purchased_amount', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.certificates[0].collections[0].retired_amount =
