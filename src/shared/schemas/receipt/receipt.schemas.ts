@@ -80,7 +80,7 @@ export const ReceiptIdentitySchema = z
     external_id: ExternalIdSchema.optional().meta({
       title: 'Identity External ID',
       description:
-        'Unique identifier for the buyer or beneficiary in the Carrot platform',
+        'Unique identifier of the associated entity in the Carrot platform',
     }),
     external_url: ExternalUrlSchema.optional().meta({
       title: 'Identity External URL',

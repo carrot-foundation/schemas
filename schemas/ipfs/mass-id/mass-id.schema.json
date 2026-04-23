@@ -233,7 +233,7 @@
               "type": "number",
               "exclusiveMinimum": 0,
               "title": "Net Weight",
-              "description": "Net weight of the waste batch in kilograms (kg)",
+              "description": "Weight in kilograms of the entire waste batch tracked through the chain of custody",
               "examples": [
                 3000
               ]
@@ -452,7 +452,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
-                    "description": "Reference to location in the locations array",
+                    "description": "Hash reference to the geographic location where this event occurred; matches an entry in `data.locations`",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -552,7 +552,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
-                    "description": "Reference to location in the locations array",
+                    "description": "Hash reference to the geographic location where this event occurred; matches an entry in `data.locations`",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -727,7 +727,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
-                    "description": "Reference to location in the locations array",
+                    "description": "Hash reference to the geographic location where this event occurred; matches an entry in `data.locations`",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -789,7 +789,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
-                    "description": "Reference to location in the locations array",
+                    "description": "Hash reference to the geographic location where this event occurred; matches an entry in `data.locations`",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -877,7 +877,7 @@
                     "type": "string",
                     "pattern": "^[0-9a-fA-F]{64}$",
                     "title": "Location ID Hash",
-                    "description": "Reference to location in the locations array",
+                    "description": "Hash reference to the geographic location where this event occurred; matches an entry in `data.locations`",
                     "examples": [
                       "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
                     ]
@@ -1126,7 +1126,7 @@
     },
     "external_links": {
       "title": "External Links",
-      "description": "Optional list of public resource links with labels",
+      "description": "Supplementary reference links (label, URL, optional description) displayed on the NFT page",
       "type": "array",
       "items": {
         "type": "object",
