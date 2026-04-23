@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.5.0/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.5.1/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "4c4e23bfd6f458ce4f94c7d93efb0a16714ff4af2f21608e49b09315352de54b",
+    "hash": "c2762646feb40d22aef26501ad33eba7024beb5cec19e559b19fce4d8d755948",
     "type": "CreditRetirementReceipt",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
@@ -230,5 +230,5 @@
       "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
     }
   },
-  "audit_data_hash": "aef86131f82dade4020f4240373689b7f662d0c2b84d356979049de2a28e7c36"
+  "audit_data_hash": "86a67aeb7da1885b5861cbc71695e232c20e174e74e186abf94b5b90a50a9665"
 }

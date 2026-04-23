@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/carrot-foundation/schemas/compare/v0.5.0...v0.5.1) (2026-04-23)
+
+### Bug Fixes
+
+- **schema:** refine IPFS field descriptions across mass-id and credit receipt schemas ([fb089c8](https://github.com/carrot-foundation/schemas/commit/fb089c8c14a4c8b816d8d3760eb3aeeac407358c))
+
 ## [0.5.0](https://github.com/carrot-foundation/schemas/compare/v0.4.2...v0.5.0) (2026-04-20)
 
 ### Features
