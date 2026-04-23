@@ -110,7 +110,8 @@ export function emitCreditRetirementReceiptExample(): Record<string, unknown> {
         retired_at: formatDateTime(retiredAt),
       },
       beneficiary: {
-        beneficiary_id: 'c3d4e5f6-a7b8-4d12-8b56-789012cdef01',
+        id_hash:
+          '2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c',
         identity: {
           name: 'Climate Action Corp',
           external_id: 'd4e5f6a7-b8c9-4e23-8c67-890123def012',
@@ -119,6 +120,8 @@ export function emitCreditRetirementReceiptExample(): Record<string, unknown> {
         },
       },
       credit_holder: {
+        id_hash:
+          '3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d',
         wallet_address: '0x1234567890abcdef1234567890abcdef12345678',
       },
       collections: [

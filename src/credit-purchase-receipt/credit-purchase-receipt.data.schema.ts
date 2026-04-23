@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import {
-  ExternalIdSchema,
   uniqueBy,
   CreditPurchaseReceiptSummarySchema,
   ReceiptIdentitySchema,
@@ -18,6 +17,7 @@ import {
 import {
   CreditTokenSlugSchema,
   EthereumAddressSchema,
+  Sha256HashSchema,
 } from '../shared/schemas/primitives';
 
 const CreditPurchaseReceiptIdentitySchema = ReceiptIdentitySchema;
@@ -27,20 +27,21 @@ export type CreditPurchaseReceiptIdentity = z.infer<
 
 const CreditPurchaseReceiptBuyerSchema = z
   .strictObject({
-    wallet_address: EthereumAddressSchema.meta({
+    id_hash: Sha256HashSchema.meta({
+      title: 'Buyer ID Hash',
+      description:
+        'Anonymized pseudonymous identifier linking this buyer to off-chain records via a keyed hash',
+    }),
+    wallet_address: EthereumAddressSchema.optional().meta({
       title: 'Buyer Wallet Address',
       description: 'Ethereum address receiving the credits',
-    }),
-    id: ExternalIdSchema.optional().meta({
-      title: 'Buyer ID',
-      description: 'Unique identifier for the buyer',
     }),
     identity: CreditPurchaseReceiptIdentitySchema.optional(),
   })
   .meta({
     title: 'Buyer',
     description:
-      'Buyer information including wallet address, optional ID, and optional identity',
+      'Buyer information including hashed identifier, optional wallet address, and optional identity',
   });
 export type CreditPurchaseReceiptBuyer = z.infer<
   typeof CreditPurchaseReceiptBuyerSchema

@@ -14,7 +14,7 @@
       "properties": {
         "hash": {
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$",
+          "pattern": "^[a-f0-9]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
@@ -105,7 +105,7 @@
         },
         "integrity_hash": {
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$",
+          "pattern": "^[a-f0-9]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
@@ -227,23 +227,22 @@
         "buyer": {
           "type": "object",
           "properties": {
-            "wallet_address": {
+            "id_hash": {
               "type": "string",
-              "pattern": "^0x[a-f0-9]{40}$",
-              "title": "Buyer Wallet Address",
-              "description": "Ethereum address receiving the credits",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Buyer ID Hash",
+              "description": "Anonymized pseudonymous identifier linking this buyer to off-chain records via a keyed hash",
               "examples": [
-                "0x1234567890abcdef1234567890abcdef12345678"
+                "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
               ]
             },
-            "id": {
-              "title": "Buyer ID",
-              "description": "Unique identifier for the buyer",
+            "wallet_address": {
+              "title": "Buyer Wallet Address",
+              "description": "Ethereum address receiving the credits",
               "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
+              "pattern": "^0x[a-f0-9]{40}$",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "0x1234567890abcdef1234567890abcdef12345678"
               ]
             },
             "identity": {
@@ -287,11 +286,11 @@
             }
           },
           "required": [
-            "wallet_address"
+            "id_hash"
           ],
           "additionalProperties": false,
           "title": "Buyer",
-          "description": "Buyer information including wallet address, optional ID, and optional identity"
+          "description": "Buyer information including hashed identifier, optional wallet address, and optional identity"
         },
         "collections": {
           "minItems": 1,
@@ -779,7 +778,7 @@
     },
     "audit_data_hash": {
       "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$",
+      "pattern": "^[a-f0-9]{64}$",
       "title": "Audit Data Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [

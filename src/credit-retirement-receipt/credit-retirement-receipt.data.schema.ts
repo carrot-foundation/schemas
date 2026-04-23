@@ -16,6 +16,7 @@ import {
   validateTotalMatches,
   CreditTokenSlugSchema,
   EthereumAddressSchema,
+  Sha256HashSchema,
   validateCertificateCollectionSlugs,
   validateCollectionsHaveRetiredAmounts,
   validateCreditSlugExists,
@@ -30,16 +31,22 @@ export type CreditRetirementReceiptIdentity = z.infer<
 
 const CreditRetirementReceiptBeneficiarySchema = z
   .strictObject({
-    beneficiary_id: ExternalIdSchema.meta({
-      title: 'Retirement Beneficiary ID',
+    id_hash: Sha256HashSchema.meta({
+      title: 'Beneficiary ID Hash',
       description:
-        'UUID identifying the beneficiary of the retirement within the Carrot platform',
+        'Anonymized pseudonymous identifier linking this beneficiary to off-chain records via a keyed hash',
+    }),
+    wallet_address: EthereumAddressSchema.optional().meta({
+      title: 'Beneficiary Wallet Address',
+      description:
+        'Ethereum address associated with the beneficiary, when available',
     }),
     identity: CreditRetirementReceiptIdentitySchema.optional(),
   })
   .meta({
     title: 'Beneficiary',
-    description: 'Beneficiary receiving the retirement benefit',
+    description:
+      'Beneficiary receiving the retirement benefit, identified by a hashed identifier with optional wallet address and identity',
   });
 export type CreditRetirementReceiptBeneficiary = z.infer<
   typeof CreditRetirementReceiptBeneficiarySchema
@@ -47,7 +54,12 @@ export type CreditRetirementReceiptBeneficiary = z.infer<
 
 const CreditRetirementReceiptCreditHolderSchema = z
   .strictObject({
-    wallet_address: EthereumAddressSchema.meta({
+    id_hash: Sha256HashSchema.meta({
+      title: 'Credit Holder ID Hash',
+      description:
+        'Anonymized pseudonymous identifier linking this credit holder to off-chain records via a keyed hash',
+    }),
+    wallet_address: EthereumAddressSchema.optional().meta({
       title: 'Credit Holder Wallet Address',
       description:
         'Ethereum address of the wallet that held and surrendered the credits',
@@ -56,7 +68,8 @@ const CreditRetirementReceiptCreditHolderSchema = z
   })
   .meta({
     title: 'Credit Holder',
-    description: 'Credit holder wallet and optional identity information',
+    description:
+      'Credit holder information including hashed identifier, optional wallet address, and optional identity',
   });
 export type CreditRetirementReceiptCreditHolder = z.infer<
   typeof CreditRetirementReceiptCreditHolderSchema
