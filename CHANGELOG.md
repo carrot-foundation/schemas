@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0](https://github.com/carrot-foundation/schemas/compare/v0.5.1...v1.0.0) (2026-04-23)
+
+### ⚠ BREAKING CHANGES
+
+- **schema:** - buyer.id (optional ExternalId) -> buyer.id_hash (required Sha256Hash)
+
+* beneficiary.beneficiary_id (ExternalId) -> beneficiary.id_hash
+  (Sha256Hash)
+* credit_holder: new required id_hash (Sha256Hash)
+* buyer.wallet_address relaxed from required to optional
+* credit_holder.wallet_address relaxed from required to optional
+* beneficiary: new optional wallet_address
+
+ReceiptIdentitySchema is unchanged -- external_id and external_url stay
+optional on all three identity blocks. Attribute validators are
+unchanged: they still read \*.identity.name.
+
+The hashing is performed by consumers (smaug) via KMS-HMAC with
+token + role scoping; the schemas repo only validates primitive shape.
+
+### Features
+
+- **schema:** hash participant ids + uniform identity blocks on credit receipts (CRT-382) ([cf6a95b](https://github.com/carrot-foundation/schemas/commit/cf6a95bb37a5ece73a11e9a08b467dab1aeec435))
+
+### Bug Fixes
+
+- **shared:** enforce canonical lowercase SHA-256 pattern on Sha256HashSchema ([b8563f9](https://github.com/carrot-foundation/schemas/commit/b8563f961b00dce81e5e75c2348d404059b7cc34))
+
 ## [0.5.1](https://github.com/carrot-foundation/schemas/compare/v0.5.0...v0.5.1) (2026-04-23)
 
 ### Bug Fixes
