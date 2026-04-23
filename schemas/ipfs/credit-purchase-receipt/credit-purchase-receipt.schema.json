@@ -1168,7 +1168,7 @@
                 "exclusiveMinimum": 0,
                 "maximum": 9007199254740991,
                 "title": "Retirement Date",
-                "description": "Present in the attributes array only when the purchase has been retired (when data.retirement_receipt is set)",
+                "description": "Unix timestamp in milliseconds when credits were retired; present in the attributes array only when the purchase has been retired (data.retirement_receipt is set)",
                 "examples": [
                   1704067200000
                 ]
@@ -1185,7 +1185,7 @@
             ],
             "additionalProperties": false,
             "title": "Retirement Date Attribute",
-            "description": "Present in the attributes array only when the purchase has been retired (when data.retirement_receipt is set) attribute using Unix timestamp in milliseconds"
+            "description": "Unix timestamp in milliseconds when credits were retired; present in the attributes array only when the purchase has been retired (data.retirement_receipt is set) attribute"
           },
           {
             "type": "object",
