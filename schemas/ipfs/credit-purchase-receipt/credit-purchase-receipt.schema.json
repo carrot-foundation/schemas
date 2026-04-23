@@ -14,7 +14,7 @@
       "properties": {
         "hash": {
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$",
+          "pattern": "^[a-f0-9]{64}$",
           "title": "Schema Hash",
           "description": "SHA-256 hash of the JSON Schema this record was validated against",
           "examples": [
@@ -105,7 +105,7 @@
         },
         "integrity_hash": {
           "type": "string",
-          "pattern": "^[0-9a-fA-F]{64}$",
+          "pattern": "^[a-f0-9]{64}$",
           "title": "Viewer Integrity Hash",
           "description": "SHA-256 hash of the published viewer bundle to verify integrity",
           "examples": [
@@ -229,7 +229,7 @@
           "properties": {
             "id_hash": {
               "type": "string",
-              "pattern": "^[0-9a-fA-F]{64}$",
+              "pattern": "^[a-f0-9]{64}$",
               "title": "Buyer ID Hash",
               "description": "Anonymized pseudonymous identifier linking this buyer to off-chain records via a keyed hash",
               "examples": [
@@ -778,7 +778,7 @@
     },
     "audit_data_hash": {
       "type": "string",
-      "pattern": "^[0-9a-fA-F]{64}$",
+      "pattern": "^[a-f0-9]{64}$",
       "title": "Audit Data Hash",
       "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
       "examples": [
