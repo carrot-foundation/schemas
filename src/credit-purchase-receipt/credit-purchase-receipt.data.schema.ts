@@ -147,14 +147,6 @@ export const CreditPurchaseReceiptDataSchema = z
         'summary.total_certificates must equal the number of certificates',
     });
 
-    if (data.summary.total_credits === 0) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'summary.total_credits must be greater than 0',
-        path: ['summary', 'total_credits'],
-      });
-    }
-
     const collectionSlugs = new Set<string>(
       data.collections.map((collection) => String(collection.slug)),
     );
@@ -162,9 +154,6 @@ export const CreditPurchaseReceiptDataSchema = z
       data.credits.map((credit) => String(credit.slug)),
     );
 
-    const creditPurchaseTotalsBySlug = new Map<string, number>();
-    const creditRetiredTotalsBySlug = new Map<string, number>();
-    const collectionPurchasedTotalsBySlug = new Map<string, number>();
     const collectionRetiredTotalsBySlug = new Map<string, number>();
     let totalCreditsFromCertificates = 0;
 
@@ -177,7 +166,6 @@ export const CreditPurchaseReceiptDataSchema = z
       });
 
       let certificatePurchasedTotal = 0;
-      let certificateRetiredTotal = 0;
 
       validateCertificateCollectionSlugs({
         ctx,
@@ -203,13 +191,7 @@ export const CreditPurchaseReceiptDataSchema = z
         }
 
         certificatePurchasedTotal += Number(collectionItem.purchased_amount);
-        certificateRetiredTotal += Number(collectionItem.retired_amount);
 
-        collectionPurchasedTotalsBySlug.set(
-          collectionItem.slug,
-          (collectionPurchasedTotalsBySlug.get(collectionItem.slug) ?? 0) +
-            Number(collectionItem.purchased_amount),
-        );
         collectionRetiredTotalsBySlug.set(
           collectionItem.slug,
           (collectionRetiredTotalsBySlug.get(collectionItem.slug) ?? 0) +
@@ -239,17 +221,6 @@ export const CreditPurchaseReceiptDataSchema = z
       }
 
       totalCreditsFromCertificates += Number(certificate.purchased_amount);
-
-      creditPurchaseTotalsBySlug.set(
-        String(certificate.credit_slug),
-        (creditPurchaseTotalsBySlug.get(certificate.credit_slug) ?? 0) +
-          certificatePurchasedTotal,
-      );
-      creditRetiredTotalsBySlug.set(
-        String(certificate.credit_slug),
-        (creditRetiredTotalsBySlug.get(certificate.credit_slug) ?? 0) +
-          certificateRetiredTotal,
-      );
     });
 
     const certificateCollectionRetiredTotal = Array.from(
