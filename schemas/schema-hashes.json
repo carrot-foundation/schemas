@@ -26,7 +26,7 @@
       "path": "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json"
     },
     "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json": {
-      "hash": "6192619b85c846393b8ccc06d8b0875992c00e490eb2a3a2800a3b834a7a31a2",
+      "hash": "78b4268591fd349333cc6e9074e07873c78507423b96eab6c9d7a09beefeb2fa",
       "path": "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json"
     },
     "ipfs/credit/credit.schema.json": {

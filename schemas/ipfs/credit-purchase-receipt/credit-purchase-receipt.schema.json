@@ -293,7 +293,6 @@
           "description": "Buyer information including hashed identifier, optional wallet address, and optional identity"
         },
         "collections": {
-          "minItems": 1,
           "type": "array",
           "items": {
             "type": "object",
@@ -372,7 +371,7 @@
             "description": "Collection included in the purchase"
           },
           "title": "Collections",
-          "description": "Impact collections referenced by this purchase, each identified by a unique slug"
+          "description": "Impact collections referenced by this purchase, each identified by a unique slug. May be empty when no certificate is assigned to a collection."
         },
         "credits": {
           "minItems": 1,

@@ -108,13 +108,11 @@ export const CreditPurchaseReceiptDataSchema = z
       CreditPurchaseReceiptCollectionSchema,
       (collection) => collection.slug,
       'Collection slugs must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Collections',
-        description:
-          'Impact collections referenced by this purchase, each identified by a unique slug',
-      }),
+    ).meta({
+      title: 'Collections',
+      description:
+        'Impact collections referenced by this purchase, each identified by a unique slug. May be empty when no certificate is assigned to a collection.',
+    }),
     credits: uniqueBy(
       CreditPurchaseReceiptCreditSchema,
       (credit) => credit.slug,

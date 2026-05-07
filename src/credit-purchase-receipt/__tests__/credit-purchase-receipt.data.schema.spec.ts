@@ -209,6 +209,54 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
+  it('accepts no-collection variant (data.collections empty + every cert.collections empty)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.collections = [];
+      data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      Reflect.deleteProperty(
+        data as Record<string, unknown>,
+        'retirement_receipt',
+      );
+      return data;
+    });
+  });
+
+  it('accepts mixed-mode receipt (some certs with collections, some without)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.certificates.slice(1).forEach((cert) => {
+        cert.collections = [];
+      });
+      const stillReferenced = new Set<string>(
+        data.certificates.flatMap((cert) =>
+          cert.collections.map((c) => c.slug),
+        ),
+      );
+      data.collections = data.collections.filter((c) =>
+        stillReferenced.has(c.slug),
+      );
+      const totalRetired = data.certificates.reduce(
+        (sum, cert) =>
+          sum +
+          cert.collections.reduce(
+            (s, col) => s + Number(col.retired_amount),
+            0,
+          ),
+        0,
+      );
+      if (totalRetired === 0) {
+        Reflect.deleteProperty(
+          data as Record<string, unknown>,
+          'retirement_receipt',
+        );
+      }
+      return data;
+    });
+  });
+
   it('rejects summary.total_credits === 0', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       invalid.summary.total_credits = 0;
