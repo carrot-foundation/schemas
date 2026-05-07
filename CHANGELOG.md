@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/carrot-foundation/schemas/compare/v1.0.0...v2.0.0) (2026-05-07)
+
+### ⚠ BREAKING CHANGES
+
+- **schema:** credit purchase and retirement receipt schemas no longer
+  require a collection field. Consumers relying on collection being always
+  present must handle the optional/absent case. purchased_amount is now
+  the canonical quantity field on purchase receipt certificates, replacing
+  the previously derived totals pattern.
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+
+### Features
+
+- **schema:** add purchased_amount field to credit purchase receipt certificate ([74c4085](https://github.com/carrot-foundation/schemas/commit/74c40859bbc0664c5992d78d3f4f9ac86423431e))
+- **schema:** allow credit receipts without collection reference ([5527e77](https://github.com/carrot-foundation/schemas/commit/5527e77490d764bb0e3c641dad2cc6df07156703))
+- **schema:** allow no-collection and mixed-mode credit purchase receipts ([0865826](https://github.com/carrot-foundation/schemas/commit/0865826845d0a6b44d4169ddc9673f98b48c520f))
+- **schema:** document no-collection retirement NFT variant ([efdb170](https://github.com/carrot-foundation/schemas/commit/efdb1709567a95b4f8c36bf61bd91ae8b0cac0c5))
+- **schema:** drive total_credits and per-cert checks from purchased_amount ([88a0403](https://github.com/carrot-foundation/schemas/commit/88a0403a5fd57fd7edab65b5d38c02a89a2e879d))
+- **schema:** drive total_credits_retired from credits_retired and allow no-collection retirement ([5446d43](https://github.com/carrot-foundation/schemas/commit/5446d436499c737c0609bde39842ba22bcf639df))
+- **schema:** nft-layer per-symbol attribute uses purchased_amount ([349f98c](https://github.com/carrot-foundation/schemas/commit/349f98ca182d2b8b8bef8a2734ea63cef18080cf))
+
+### Bug Fixes
+
+- **schema:** bound credit-retirement total by certificate.total_amount in no-collection mode ([2d26db7](https://github.com/carrot-foundation/schemas/commit/2d26db7cb8eb26a051e5c45ea1528b07dcc3769e))
+- **schema:** reject phantom slugs in credit-purchase data.collections ([bcffb24](https://github.com/carrot-foundation/schemas/commit/bcffb2487a03860c7b2d9a5dbdfcec1e0bb881d6))
+
+### Code Refactoring
+
+- **schema:** move > 0 rule to field-level Zod constraint and remove dead accumulators ([cd104fd](https://github.com/carrot-foundation/schemas/commit/cd104fd19c5c5e77438f3db45fee470f90367084))
+
 ## [1.0.0](https://github.com/carrot-foundation/schemas/compare/v0.5.1...v1.0.0) (2026-04-23)
 
 ### ⚠ BREAKING CHANGES
