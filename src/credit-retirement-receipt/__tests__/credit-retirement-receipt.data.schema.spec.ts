@@ -194,4 +194,28 @@ describe('CreditRetirementReceiptDataSchema', () => {
       });
     });
   });
+
+  it('accepts no-collection retirement variant (data.collections empty + every cert.collections empty)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.collections = [];
+      data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      return data;
+    });
+  });
+
+  it('rejects summary.total_credits_retired === 0', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections = [];
+      invalid.summary.total_credits_retired = 0;
+      invalid.certificates.forEach((cert) => {
+        cert.collections = [];
+        cert.credits_retired.forEach((cr) => {
+          cr.amount = 0;
+        });
+      });
+    });
+  });
 });
