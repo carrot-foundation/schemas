@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 import {
   expectIssuesContain,
+  expectSchemaInvalid,
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
@@ -271,6 +272,25 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
         'retirement_receipt',
       );
       return value;
+    });
+  });
+
+  it('rejects no-collection NFT receipt when per-symbol attribute does not match purchased_amount', () => {
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.data.collections = [];
+      invalid.data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      Reflect.deleteProperty(
+        invalid.data as Record<string, unknown>,
+        'retirement_receipt',
+      );
+      const firstSymbolAttr = invalid.attributes.find(
+        (a) => a.trait_type === invalid.data.credits[0].symbol,
+      );
+      if (firstSymbolAttr) {
+        firstSymbolAttr.value = Number(firstSymbolAttr.value) + 1;
+      }
     });
   });
 
