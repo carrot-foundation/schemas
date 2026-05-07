@@ -194,4 +194,35 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       );
     });
   });
+
+  it('rejects when certificate.purchased_amount does not match sum of collections.purchased_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].purchased_amount =
+        invalid.certificates[0].purchased_amount + 1;
+    });
+  });
+
+  it('rejects when certificate.purchased_amount exceeds certificate.total_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].purchased_amount =
+        invalid.certificates[0].total_amount + 1;
+    });
+  });
+
+  it('rejects summary.total_credits === 0', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.total_credits = 0;
+      invalid.certificates.forEach((cert) => {
+        cert.purchased_amount = 0;
+        cert.collections.forEach((col) => {
+          col.purchased_amount = 0;
+          col.retired_amount = 0;
+        });
+      });
+      Reflect.deleteProperty(
+        invalid as Record<string, unknown>,
+        'retirement_receipt',
+      );
+    });
+  });
 });

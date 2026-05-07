@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   uniqueBy,
+  nearlyEqual,
   CreditPurchaseReceiptSummarySchema,
   ReceiptIdentitySchema,
   CertificateCollectionItemPurchaseSchema,
@@ -148,6 +149,14 @@ export const CreditPurchaseReceiptDataSchema = z
         'summary.total_certificates must equal the number of certificates',
     });
 
+    if (data.summary.total_credits === 0) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'summary.total_credits must be greater than 0',
+        path: ['summary', 'total_credits'],
+      });
+    }
+
     const collectionSlugs = new Set<string>(
       data.collections.map((collection) => String(collection.slug)),
     );
@@ -210,16 +219,28 @@ export const CreditPurchaseReceiptDataSchema = z
         );
       });
 
-      if (certificatePurchasedTotal > certificate.total_amount) {
+      if (certificate.purchased_amount > certificate.total_amount) {
         ctx.addIssue({
           code: 'custom',
           message:
-            'Sum of certificate.collections[].purchased_amount cannot exceed certificate.total_amount',
-          path: ['certificates', index],
+            'certificate.purchased_amount cannot exceed certificate.total_amount',
+          path: ['certificates', index, 'purchased_amount'],
         });
       }
 
-      totalCreditsFromCertificates += certificatePurchasedTotal;
+      if (
+        certificate.collections.length > 0 &&
+        !nearlyEqual(certificatePurchasedTotal, certificate.purchased_amount)
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'certificate.purchased_amount must equal sum of collections[].purchased_amount when collections are present',
+          path: ['certificates', index, 'purchased_amount'],
+        });
+      }
+
+      totalCreditsFromCertificates += Number(certificate.purchased_amount);
 
       creditPurchaseTotalsBySlug.set(
         String(certificate.credit_slug),
@@ -243,7 +264,7 @@ export const CreditPurchaseReceiptDataSchema = z
       expectedTotal: data.summary.total_credits,
       path: ['summary', 'total_credits'],
       message:
-        'summary.total_credits must equal sum of certificate.collections[].purchased_amount',
+        'summary.total_credits must equal sum of certificates[].purchased_amount',
     });
 
     validateRetirementReceiptRequirement({
