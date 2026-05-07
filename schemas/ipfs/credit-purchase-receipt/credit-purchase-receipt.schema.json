@@ -622,8 +622,18 @@
                   "biowaste"
                 ]
               },
+              "purchased_amount": {
+                "type": "number",
+                "minimum": 0,
+                "title": "Certificate Purchased Amount",
+                "description": "Total credits purchased from this certificate. Authoritative source for receipt totals; cross-checked against sum(collections[].purchased_amount) when collections are non-empty.",
+                "examples": [
+                  1.5,
+                  100,
+                  2500.75
+                ]
+              },
               "collections": {
-                "minItems": 1,
                 "type": "array",
                 "items": {
                   "type": "object",
@@ -676,7 +686,7 @@
                   "description": "Collection reference with purchased and retired amounts for a certificate in a purchase receipt"
                 },
                 "title": "Certificate Collections",
-                "description": "Collections associated with this certificate, each with purchased and retired amounts"
+                "description": "Collections associated with this certificate, each with purchased and retired amounts. May be empty when this certificate is not assigned to any collection."
               }
             },
             "required": [
@@ -689,6 +699,7 @@
               "total_amount",
               "mass_id",
               "credit_slug",
+              "purchased_amount",
               "collections"
             ],
             "additionalProperties": false,

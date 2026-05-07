@@ -185,4 +185,13 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       };
     });
   });
+
+  it('requires purchased_amount on every certificate', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.certificates[0] as Record<string, unknown>,
+        'purchased_amount',
+      );
+    });
+  });
 });

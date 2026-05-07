@@ -15,6 +15,7 @@ import {
   CreditRetirementReceiptReferenceSchema,
 } from '../shared';
 import {
+  CreditAmountSchema,
   CreditTokenSlugSchema,
   EthereumAddressSchema,
   Sha256HashSchema,
@@ -70,17 +71,20 @@ const CreditPurchaseReceiptCertificateSchema =
     credit_slug: CreditTokenSlugSchema.meta({
       description: 'Slug of the credit type for this certificate',
     }),
+    purchased_amount: CreditAmountSchema.meta({
+      title: 'Certificate Purchased Amount',
+      description:
+        'Total credits purchased from this certificate. Authoritative source for receipt totals; cross-checked against sum(collections[].purchased_amount) when collections are non-empty.',
+    }),
     collections: uniqueBy(
       CertificateCollectionItemPurchaseSchema,
       (item) => item.slug,
       'Collection slugs within certificate collections must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Certificate Collections',
-        description:
-          'Collections associated with this certificate, each with purchased and retired amounts',
-      }),
+    ).meta({
+      title: 'Certificate Collections',
+      description:
+        'Collections associated with this certificate, each with purchased and retired amounts. May be empty when this certificate is not assigned to any collection.',
+    }),
   }).meta({
     title: 'Certificate',
     description: 'Certificate associated with the purchase',
