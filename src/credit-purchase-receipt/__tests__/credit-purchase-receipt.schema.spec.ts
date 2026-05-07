@@ -220,6 +220,15 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
         withUnusedCredit.data.certificates.filter(
           (cert) => cert.credit_slug !== biowasteCredit.slug,
         );
+      const referencedSlugs = new Set(
+        withUnusedCredit.data.certificates.flatMap((cert) =>
+          cert.collections.map((col) => col.slug),
+        ),
+      );
+      withUnusedCredit.data.collections =
+        withUnusedCredit.data.collections.filter((col) =>
+          referencedSlugs.has(col.slug),
+        );
       const biowasteAttribute = withUnusedCredit.attributes.find(
         (attr) => attr.trait_type === 'C-BIOW',
       );

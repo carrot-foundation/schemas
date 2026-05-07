@@ -150,6 +150,7 @@ export const CreditPurchaseReceiptDataSchema = z
     const collectionSlugs = new Set<string>(
       data.collections.map((collection) => String(collection.slug)),
     );
+    const referencedCollectionSlugs = new Set<string>();
     const creditSlugs = new Set<string>(
       data.credits.map((credit) => String(credit.slug)),
     );
@@ -175,6 +176,7 @@ export const CreditPurchaseReceiptDataSchema = z
       });
 
       certificate.collections.forEach((collectionItem, collectionIndex) => {
+        referencedCollectionSlugs.add(String(collectionItem.slug));
         if (collectionItem.retired_amount > collectionItem.purchased_amount) {
           ctx.addIssue({
             code: 'custom',
@@ -226,6 +228,17 @@ export const CreditPurchaseReceiptDataSchema = z
     const certificateCollectionRetiredTotal = Array.from(
       collectionRetiredTotalsBySlug.values(),
     ).reduce((sum, amount) => sum + amount, 0);
+
+    data.collections.forEach((collection, collectionIndex) => {
+      if (!referencedCollectionSlugs.has(String(collection.slug))) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'collections must only include slugs referenced by certificates[].collections',
+          path: ['collections', collectionIndex, 'slug'],
+        });
+      }
+    });
 
     validateTotalMatches({
       ctx,
