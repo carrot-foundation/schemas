@@ -182,9 +182,9 @@
             },
             "total_credits_retired": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Total Credits Retired",
-              "description": "Total number of environmental impact credits permanently retired (removed from circulation)",
+              "description": "Total number of environmental impact credits permanently retired (removed from circulation). Must be greater than 0.",
               "examples": [
                 1.5,
                 100,

@@ -194,9 +194,9 @@
             },
             "total_credits": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Total Credits",
-              "description": "Total number of environmental impact credits purchased in this transaction",
+              "description": "Total number of environmental impact credits purchased in this transaction. Must be greater than 0.",
               "examples": [
                 1.5,
                 100,
