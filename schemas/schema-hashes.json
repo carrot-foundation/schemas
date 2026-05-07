@@ -22,7 +22,7 @@
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {
-      "hash": "882cdddf6158a56bae8b41b3cd07db27a9e6a37efbf98c2a637ec2a8a8e38c5a",
+      "hash": "97be61b98ffdbb4e3054c137f36cfbe9d94f9d5d28436c44cc11d19d36c8fd44",
       "path": "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json"
     },
     "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json": {

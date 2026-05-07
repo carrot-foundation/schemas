@@ -1447,7 +1447,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants.",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.0.0/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "version": "1.0.0"
 }

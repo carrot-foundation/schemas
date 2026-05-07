@@ -258,6 +258,17 @@ describe('CreditRetirementReceiptIpfsSchema', () => {
     });
   });
 
+  it('accepts no-collection NFT retirement receipt', () => {
+    expectSchemaValid(schema, () => {
+      const value = structuredClone(base);
+      value.data.collections = [];
+      value.data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      return value;
+    });
+  });
+
   it('allows purchase_receipt to be omitted', () => {
     expectSchemaValid(schema, () => {
       const withoutPurchase = structuredClone(base);
