@@ -213,14 +213,6 @@ export const CreditRetirementReceiptDataSchema = z
         'summary.total_certificates must equal the number of certificates',
     });
 
-    if (data.summary.total_credits_retired === 0) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'summary.total_credits_retired must be greater than 0',
-        path: ['summary', 'total_credits_retired'],
-      });
-    }
-
     const creditTotalsBySymbol = new Map<string, number>();
     const collectionRetiredTotalsBySlug = new Map<string, number>();
     let totalRetiredFromCertificates = 0;
@@ -240,6 +232,20 @@ export const CreditRetirementReceiptDataSchema = z
         });
       }
 
+      const creditsRetiredTotal = certificate.credits_retired.reduce(
+        (sum, credit) => sum + Number(credit.amount),
+        0,
+      );
+
+      if (creditsRetiredTotal > certificate.total_amount) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'Sum of certificate.credits_retired[].amount cannot exceed certificate.total_amount',
+          path: ['certificates', index, 'credits_retired'],
+        });
+      }
+
       validateCertificateCollectionSlugs({
         ctx,
         certificateCollections: certificate.collections,
@@ -254,11 +260,6 @@ export const CreditRetirementReceiptDataSchema = z
             Number(collectionItem.retired_amount),
         );
       });
-
-      const creditsRetiredTotal = certificate.credits_retired.reduce(
-        (sum, credit) => sum + Number(credit.amount),
-        0,
-      );
 
       if (
         certificate.collections.length > 0 &&
