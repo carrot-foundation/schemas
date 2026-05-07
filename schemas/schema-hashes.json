@@ -22,11 +22,11 @@
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {
-      "hash": "343a22f6bd51a89b8a6ca83c5136938a2bd3e3c1b42645d05216476085d28d06",
+      "hash": "e21c90d2b781098165ceaea8e23f87376556e8b8fca0fee3ed5d5416506bb9ac",
       "path": "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json"
     },
     "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json": {
-      "hash": "baf3544f11c71c86c2187af967635ccf1ffdddd70cb14365f44d08a32bc3d1f7",
+      "hash": "5c5b9ff4f0cc657570699c120e8028b87ae95f00a318ccd9349fabc800dee10a",
       "path": "ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json"
     },
     "ipfs/credit/credit.schema.json": {

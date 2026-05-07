@@ -18,7 +18,7 @@ import { CreditPurchaseReceiptAttributesSchema } from './credit-purchase-receipt
 export const CreditPurchaseReceiptIpfsSchemaMeta = {
   title: 'CreditPurchaseReceipt NFT IPFS Record',
   description:
-    'Complete CreditPurchaseReceipt NFT IPFS record including purchase summary, buyer details, credit breakdowns, certificate allocations, and NFT display attributes',
+    'Complete CreditPurchaseReceipt NFT IPFS record including purchase summary, buyer details, credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants.',
   $id: buildSchemaUrl(
     'credit-purchase-receipt/credit-purchase-receipt.schema.json',
   ),
@@ -179,14 +179,10 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
         });
         return;
       }
-      const certificatePurchasedTotal = certificate.collections.reduce(
-        (sum, collection) => sum + Number(collection.purchased_amount),
-        0,
-      );
       const currentTotal = creditTotalsBySymbol.get(credit.symbol) ?? 0;
       creditTotalsBySymbol.set(
         credit.symbol,
-        currentTotal + certificatePurchasedTotal,
+        currentTotal + Number(certificate.purchased_amount),
       );
     });
 
@@ -202,7 +198,7 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
       } else if (Number(attribute.value) !== expectedTotal) {
         ctx.addIssue({
           code: 'custom',
-          message: `Attribute for credit symbol ${credit.symbol} must match sum of certificate.collections[].purchased_amount for the credit symbol`,
+          message: `Attribute for credit symbol ${credit.symbol} must match sum of certificates[].purchased_amount for the credit symbol`,
           path: ['attributes'],
         });
       }

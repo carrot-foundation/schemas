@@ -172,6 +172,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           type: 'GasID',
           token_id: story.gasID.tokenId,
           total_amount: 10,
+          purchased_amount: 3,
           credit_slug: story.credit.slug,
           external_id: 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6',
           external_url:
@@ -200,6 +201,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           type: 'RecycledID',
           token_id: story.recycledID.tokenId,
           total_amount: 6,
+          purchased_amount: 2,
           credit_slug: 'biowaste',
           external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d489',
           external_url:
@@ -228,6 +230,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           type: 'RecycledID',
           token_id: '890',
           total_amount: 8,
+          purchased_amount: 3.5,
           credit_slug: 'biowaste',
           external_id: '0f1e2d3c-4b5a-4d78-8c12-3456789abcde',
           external_url:

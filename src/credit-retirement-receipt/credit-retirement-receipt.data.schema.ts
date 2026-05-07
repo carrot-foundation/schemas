@@ -128,13 +128,11 @@ const CreditRetirementReceiptCertificateSchema =
       CertificateCollectionItemRetirementSchema,
       (item) => item.slug,
       'Collection slugs within certificate collections must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Certificate Collections',
-        description:
-          'Collections associated with this certificate, each with retired amounts',
-      }),
+    ).meta({
+      title: 'Certificate Collections',
+      description:
+        'Collections associated with this certificate, each with retired amounts. May be empty when this certificate is not assigned to any collection.',
+    }),
     credits_retired: uniqueBy(
       CreditRetirementReceiptCertificateCreditSchema,
       (credit) => credit.credit_symbol,
@@ -163,13 +161,11 @@ export const CreditRetirementReceiptDataSchema = z
       CreditRetirementReceiptCollectionSchema,
       (collection) => collection.slug,
       'Collection slugs must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Collections',
-        description:
-          'Impact collections referenced by this retirement, each identified by a unique slug',
-      }),
+    ).meta({
+      title: 'Collections',
+      description:
+        'Impact collections referenced by this retirement, each identified by a unique slug. May be empty when no certificate is assigned to a collection.',
+    }),
     credits: uniqueBy(
       CreditRetirementReceiptCreditSchema,
       (credit) => credit.slug,
@@ -236,6 +232,20 @@ export const CreditRetirementReceiptDataSchema = z
         });
       }
 
+      const creditsRetiredTotal = certificate.credits_retired.reduce(
+        (sum, credit) => sum + Number(credit.amount),
+        0,
+      );
+
+      if (creditsRetiredTotal > certificate.total_amount) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'Sum of certificate.credits_retired[].amount cannot exceed certificate.total_amount',
+          path: ['certificates', index, 'credits_retired'],
+        });
+      }
+
       validateCertificateCollectionSlugs({
         ctx,
         certificateCollections: certificate.collections,
@@ -251,12 +261,8 @@ export const CreditRetirementReceiptDataSchema = z
         );
       });
 
-      const creditsRetiredTotal = certificate.credits_retired.reduce(
-        (sum, credit) => sum + Number(credit.amount),
-        0,
-      );
-
       if (
+        certificate.collections.length > 0 &&
         !nearlyEqual(creditsRetiredTotal, certificateCollectionRetiredTotal)
       ) {
         ctx.addIssue({
@@ -320,7 +326,7 @@ export const CreditRetirementReceiptDataSchema = z
         );
       });
 
-      totalRetiredFromCertificates += certificateCollectionRetiredTotal;
+      totalRetiredFromCertificates += creditsRetiredTotal;
     });
 
     validateTotalMatches({
@@ -329,14 +335,16 @@ export const CreditRetirementReceiptDataSchema = z
       expectedTotal: data.summary.total_credits_retired,
       path: ['summary', 'total_credits_retired'],
       message:
-        'summary.total_credits_retired must equal sum of certificate.collections[].retired_amount',
+        'summary.total_credits_retired must equal sum of certificates[].credits_retired[].amount',
     });
 
-    validateCollectionsHaveRetiredAmounts({
-      ctx,
-      collections: data.collections,
-      retiredTotalsBySlug: collectionRetiredTotalsBySlug,
-    });
+    if (data.collections.length > 0) {
+      validateCollectionsHaveRetiredAmounts({
+        ctx,
+        collections: data.collections,
+        retiredTotalsBySlug: collectionRetiredTotalsBySlug,
+      });
+    }
   })
   .meta({
     title: 'Credit Retirement Receipt Data',

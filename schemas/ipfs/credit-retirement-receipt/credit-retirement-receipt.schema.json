@@ -182,9 +182,9 @@
             },
             "total_credits_retired": {
               "type": "number",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "title": "Total Credits Retired",
-              "description": "Total number of environmental impact credits permanently retired (removed from circulation)",
+              "description": "Total number of environmental impact credits permanently retired (removed from circulation). Must be greater than 0.",
               "examples": [
                 1.5,
                 100,
@@ -348,7 +348,6 @@
           "description": "Credit holder information including hashed identifier, optional wallet address, and optional identity"
         },
         "collections": {
-          "minItems": 1,
           "type": "array",
           "items": {
             "type": "object",
@@ -427,7 +426,7 @@
             "description": "Collection included in the retirement"
           },
           "title": "Collections",
-          "description": "Impact collections referenced by this retirement, each identified by a unique slug"
+          "description": "Impact collections referenced by this retirement, each identified by a unique slug. May be empty when no certificate is assigned to a collection."
         },
         "credits": {
           "minItems": 1,
@@ -665,7 +664,6 @@
                 "description": "Reference to a MassID record"
               },
               "collections": {
-                "minItems": 1,
                 "type": "array",
                 "items": {
                   "type": "object",
@@ -706,7 +704,7 @@
                   "description": "Collection reference with retired amount for a certificate in a retirement receipt"
                 },
                 "title": "Certificate Collections",
-                "description": "Collections associated with this certificate, each with retired amounts"
+                "description": "Collections associated with this certificate, each with retired amounts. May be empty when this certificate is not assigned to any collection."
               },
               "credits_retired": {
                 "minItems": 1,
@@ -1449,7 +1447,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants.",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.0.0/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "version": "1.0.0"
 }

@@ -194,4 +194,79 @@ describe('CreditRetirementReceiptDataSchema', () => {
       });
     });
   });
+
+  it('accepts no-collection retirement variant (data.collections empty + every cert.collections empty)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.collections = [];
+      data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      return data;
+    });
+  });
+
+  it('rejects no-collection retirement when summary.total_credits_retired does not match sum of credits_retired amounts', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections = [];
+      invalid.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      invalid.summary.total_credits_retired =
+        invalid.summary.total_credits_retired + 1;
+    });
+  });
+
+  it('rejects no-collection retirement when sum of credits_retired exceeds certificate.total_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections = [];
+      invalid.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      const cert = invalid.certificates[0];
+      const inflated = cert.total_amount + 5;
+      cert.credits_retired[0].amount = inflated;
+      invalid.summary.total_credits_retired =
+        inflated +
+        invalid.certificates
+          .slice(1)
+          .reduce(
+            (s, c) =>
+              s +
+              c.credits_retired.reduce((cs, cr) => cs + Number(cr.amount), 0),
+            0,
+          );
+    });
+  });
+
+  it('accepts mixed-mode retirement (some certs with collections, some without)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.certificates.slice(1).forEach((cert) => {
+        cert.collections = [];
+      });
+      const stillReferenced = new Set<string>(
+        data.certificates.flatMap((cert) =>
+          cert.collections.map((c) => c.slug),
+        ),
+      );
+      data.collections = data.collections.filter((c) =>
+        stillReferenced.has(c.slug),
+      );
+      return data;
+    });
+  });
+
+  it('rejects summary.total_credits_retired === 0', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections = [];
+      invalid.summary.total_credits_retired = 0;
+      invalid.certificates.forEach((cert) => {
+        cert.collections = [];
+        cert.credits_retired.forEach((cr) => {
+          cr.amount = 0;
+        });
+      });
+    });
+  });
 });

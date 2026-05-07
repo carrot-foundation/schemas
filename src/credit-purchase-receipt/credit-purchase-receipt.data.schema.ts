@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   uniqueBy,
+  nearlyEqual,
   CreditPurchaseReceiptSummarySchema,
   ReceiptIdentitySchema,
   CertificateCollectionItemPurchaseSchema,
@@ -15,6 +16,7 @@ import {
   CreditRetirementReceiptReferenceSchema,
 } from '../shared';
 import {
+  CreditAmountSchema,
   CreditTokenSlugSchema,
   EthereumAddressSchema,
   Sha256HashSchema,
@@ -70,17 +72,20 @@ const CreditPurchaseReceiptCertificateSchema =
     credit_slug: CreditTokenSlugSchema.meta({
       description: 'Slug of the credit type for this certificate',
     }),
+    purchased_amount: CreditAmountSchema.meta({
+      title: 'Certificate Purchased Amount',
+      description:
+        'Total credits purchased from this certificate. Authoritative source for receipt totals; cross-checked against sum(collections[].purchased_amount) when collections are non-empty.',
+    }),
     collections: uniqueBy(
       CertificateCollectionItemPurchaseSchema,
       (item) => item.slug,
       'Collection slugs within certificate collections must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Certificate Collections',
-        description:
-          'Collections associated with this certificate, each with purchased and retired amounts',
-      }),
+    ).meta({
+      title: 'Certificate Collections',
+      description:
+        'Collections associated with this certificate, each with purchased and retired amounts. May be empty when this certificate is not assigned to any collection.',
+    }),
   }).meta({
     title: 'Certificate',
     description: 'Certificate associated with the purchase',
@@ -103,13 +108,11 @@ export const CreditPurchaseReceiptDataSchema = z
       CreditPurchaseReceiptCollectionSchema,
       (collection) => collection.slug,
       'Collection slugs must be unique',
-    )
-      .min(1)
-      .meta({
-        title: 'Collections',
-        description:
-          'Impact collections referenced by this purchase, each identified by a unique slug',
-      }),
+    ).meta({
+      title: 'Collections',
+      description:
+        'Impact collections referenced by this purchase, each identified by a unique slug. May be empty when no certificate is assigned to a collection.',
+    }),
     credits: uniqueBy(
       CreditPurchaseReceiptCreditSchema,
       (credit) => credit.slug,
@@ -147,13 +150,11 @@ export const CreditPurchaseReceiptDataSchema = z
     const collectionSlugs = new Set<string>(
       data.collections.map((collection) => String(collection.slug)),
     );
+    const referencedCollectionSlugs = new Set<string>();
     const creditSlugs = new Set<string>(
       data.credits.map((credit) => String(credit.slug)),
     );
 
-    const creditPurchaseTotalsBySlug = new Map<string, number>();
-    const creditRetiredTotalsBySlug = new Map<string, number>();
-    const collectionPurchasedTotalsBySlug = new Map<string, number>();
     const collectionRetiredTotalsBySlug = new Map<string, number>();
     let totalCreditsFromCertificates = 0;
 
@@ -166,7 +167,6 @@ export const CreditPurchaseReceiptDataSchema = z
       });
 
       let certificatePurchasedTotal = 0;
-      let certificateRetiredTotal = 0;
 
       validateCertificateCollectionSlugs({
         ctx,
@@ -176,6 +176,7 @@ export const CreditPurchaseReceiptDataSchema = z
       });
 
       certificate.collections.forEach((collectionItem, collectionIndex) => {
+        referencedCollectionSlugs.add(String(collectionItem.slug));
         if (collectionItem.retired_amount > collectionItem.purchased_amount) {
           ctx.addIssue({
             code: 'custom',
@@ -192,13 +193,7 @@ export const CreditPurchaseReceiptDataSchema = z
         }
 
         certificatePurchasedTotal += Number(collectionItem.purchased_amount);
-        certificateRetiredTotal += Number(collectionItem.retired_amount);
 
-        collectionPurchasedTotalsBySlug.set(
-          collectionItem.slug,
-          (collectionPurchasedTotalsBySlug.get(collectionItem.slug) ?? 0) +
-            Number(collectionItem.purchased_amount),
-        );
         collectionRetiredTotalsBySlug.set(
           collectionItem.slug,
           (collectionRetiredTotalsBySlug.get(collectionItem.slug) ?? 0) +
@@ -206,32 +201,44 @@ export const CreditPurchaseReceiptDataSchema = z
         );
       });
 
-      if (certificatePurchasedTotal > certificate.total_amount) {
+      if (certificate.purchased_amount > certificate.total_amount) {
         ctx.addIssue({
           code: 'custom',
           message:
-            'Sum of certificate.collections[].purchased_amount cannot exceed certificate.total_amount',
-          path: ['certificates', index],
+            'certificate.purchased_amount cannot exceed certificate.total_amount',
+          path: ['certificates', index, 'purchased_amount'],
         });
       }
 
-      totalCreditsFromCertificates += certificatePurchasedTotal;
+      if (
+        certificate.collections.length > 0 &&
+        !nearlyEqual(certificatePurchasedTotal, certificate.purchased_amount)
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'certificate.purchased_amount must equal sum of collections[].purchased_amount when collections are present',
+          path: ['certificates', index, 'purchased_amount'],
+        });
+      }
 
-      creditPurchaseTotalsBySlug.set(
-        String(certificate.credit_slug),
-        (creditPurchaseTotalsBySlug.get(certificate.credit_slug) ?? 0) +
-          certificatePurchasedTotal,
-      );
-      creditRetiredTotalsBySlug.set(
-        String(certificate.credit_slug),
-        (creditRetiredTotalsBySlug.get(certificate.credit_slug) ?? 0) +
-          certificateRetiredTotal,
-      );
+      totalCreditsFromCertificates += Number(certificate.purchased_amount);
     });
 
     const certificateCollectionRetiredTotal = Array.from(
       collectionRetiredTotalsBySlug.values(),
     ).reduce((sum, amount) => sum + amount, 0);
+
+    data.collections.forEach((collection, collectionIndex) => {
+      if (!referencedCollectionSlugs.has(String(collection.slug))) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'collections must only include slugs referenced by certificates[].collections',
+          path: ['collections', collectionIndex, 'slug'],
+        });
+      }
+    });
 
     validateTotalMatches({
       ctx,
@@ -239,7 +246,7 @@ export const CreditPurchaseReceiptDataSchema = z
       expectedTotal: data.summary.total_credits,
       path: ['summary', 'total_credits'],
       message:
-        'summary.total_credits must equal sum of certificate.collections[].purchased_amount',
+        'summary.total_credits must equal sum of certificates[].purchased_amount',
     });
 
     validateRetirementReceiptRequirement({

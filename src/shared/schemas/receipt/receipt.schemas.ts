@@ -30,10 +30,10 @@ export const CreditPurchaseReceiptSummarySchema = SummaryBaseSchema.safeExtend({
     title: 'Total Amount (USDC)',
     description: 'Total amount paid in USDC stablecoin for the credit purchase',
   }),
-  total_credits: CreditAmountSchema.meta({
+  total_credits: CreditAmountSchema.gt(0).meta({
     title: 'Total Credits',
     description:
-      'Total number of environmental impact credits purchased in this transaction',
+      'Total number of environmental impact credits purchased in this transaction. Must be greater than 0.',
   }),
   purchased_at: IsoDateTimeSchema.meta({
     title: 'Purchased At',
@@ -50,10 +50,10 @@ export type CreditPurchaseReceiptSummary = z.infer<
 
 export const CreditRetirementReceiptSummarySchema =
   SummaryBaseSchema.safeExtend({
-    total_credits_retired: CreditAmountSchema.meta({
+    total_credits_retired: CreditAmountSchema.gt(0).meta({
       title: 'Total Credits Retired',
       description:
-        'Total number of environmental impact credits permanently retired (removed from circulation)',
+        'Total number of environmental impact credits permanently retired (removed from circulation). Must be greater than 0.',
     }),
     retired_at: IsoDateTimeSchema.meta({
       title: 'Retired At',

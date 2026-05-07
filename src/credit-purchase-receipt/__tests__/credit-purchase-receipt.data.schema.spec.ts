@@ -185,4 +185,134 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       };
     });
   });
+
+  it('requires purchased_amount on every certificate', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.certificates[0] as Record<string, unknown>,
+        'purchased_amount',
+      );
+    });
+  });
+
+  it('rejects when certificate.purchased_amount does not match sum of collections.purchased_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].purchased_amount =
+        invalid.certificates[0].purchased_amount + 1;
+    });
+  });
+
+  it('rejects when certificate.purchased_amount exceeds certificate.total_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.certificates[0].purchased_amount =
+        invalid.certificates[0].total_amount + 1;
+    });
+  });
+
+  it('accepts no-collection variant (data.collections empty + every cert.collections empty)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.collections = [];
+      data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      Reflect.deleteProperty(
+        data as Record<string, unknown>,
+        'retirement_receipt',
+      );
+      return data;
+    });
+  });
+
+  it('accepts mixed-mode receipt (some certs with collections, some without)', () => {
+    expectSchemaValid(schema, () => {
+      const data = structuredClone(baseData);
+      data.certificates.slice(1).forEach((cert) => {
+        cert.collections = [];
+      });
+      const stillReferenced = new Set<string>(
+        data.certificates.flatMap((cert) =>
+          cert.collections.map((c) => c.slug),
+        ),
+      );
+      data.collections = data.collections.filter((c) =>
+        stillReferenced.has(c.slug),
+      );
+      const totalRetired = data.certificates.reduce(
+        (sum, cert) =>
+          sum +
+          cert.collections.reduce(
+            (s, col) => s + Number(col.retired_amount),
+            0,
+          ),
+        0,
+      );
+      if (totalRetired === 0) {
+        Reflect.deleteProperty(
+          data as Record<string, unknown>,
+          'retirement_receipt',
+        );
+      }
+      return data;
+    });
+  });
+
+  it('rejects summary.total_credits === 0', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.summary.total_credits = 0;
+      invalid.certificates.forEach((cert) => {
+        cert.purchased_amount = 0;
+        cert.collections.forEach((col) => {
+          col.purchased_amount = 0;
+          col.retired_amount = 0;
+        });
+      });
+      Reflect.deleteProperty(
+        invalid as Record<string, unknown>,
+        'retirement_receipt',
+      );
+    });
+  });
+
+  it('rejects no-collection receipt when summary.total_credits does not match sum of certificates.purchased_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections = [];
+      invalid.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      invalid.summary.total_credits = invalid.summary.total_credits + 1;
+      Reflect.deleteProperty(
+        invalid as Record<string, unknown>,
+        'retirement_receipt',
+      );
+    });
+  });
+
+  it('rejects when data.collections contains a slug not referenced by any certificate', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      (invalid.collections as unknown as Record<string, unknown>[]).push({
+        slug: 'bold-innovators',
+        name: 'BOLD Innovators',
+        external_id: 'aa1bb2cc-3d4e-4f56-7890-1234567890ab',
+        external_url: 'https://explore.carrot.eco/collection/bold-innovators',
+        ipfs_uri:
+          'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
+      });
+    });
+  });
+
+  it('rejects no-collection receipt when certificate.purchased_amount exceeds total_amount', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      invalid.collections = [];
+      invalid.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      invalid.certificates[0].purchased_amount =
+        invalid.certificates[0].total_amount + 1;
+      Reflect.deleteProperty(
+        invalid as Record<string, unknown>,
+        'retirement_receipt',
+      );
+    });
+  });
 });
