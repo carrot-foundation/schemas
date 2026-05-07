@@ -259,6 +259,21 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
     });
   });
 
+  it('accepts no-collection NFT receipt with per-symbol attributes from purchased_amount', () => {
+    expectSchemaValid(schema, () => {
+      const value = structuredClone(base);
+      value.data.collections = [];
+      value.data.certificates.forEach((cert) => {
+        cert.collections = [];
+      });
+      Reflect.deleteProperty(
+        value.data as Record<string, unknown>,
+        'retirement_receipt',
+      );
+      return value;
+    });
+  });
+
   it('rejects name with mismatched token_id', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);
