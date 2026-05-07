@@ -291,11 +291,10 @@ describe('CreditPurchaseReceiptDataSchema', () => {
   it('rejects when data.collections contains a slug not referenced by any certificate', () => {
     expectSchemaInvalid(schema, baseData, (invalid) => {
       (invalid.collections as unknown as Record<string, unknown>[]).push({
-        slug: 'phantom-collection',
-        name: 'Phantom Collection',
+        slug: 'bold-innovators',
+        name: 'BOLD Innovators',
         external_id: 'aa1bb2cc-3d4e-4f56-7890-1234567890ab',
-        external_url:
-          'https://explore.carrot.eco/collection/phantom-collection',
+        external_url: 'https://explore.carrot.eco/collection/bold-innovators',
         ipfs_uri:
           'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
       });
