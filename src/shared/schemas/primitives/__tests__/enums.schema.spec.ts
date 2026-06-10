@@ -7,13 +7,18 @@ import {
 
 describe('CreditTokenSlugSchema', () => {
   it('accepts canonical credit token slugs', () => {
-    expect(CreditTokenSlugSchema.parse('carbon-ch4')).toBe('carbon-ch4');
-    expect(CreditTokenSlugSchema.parse('biowaste')).toBe('biowaste');
+    expect(CreditTokenSlugSchema.safeParse('carbon-ch4')).toEqual({
+      success: true,
+      data: 'carbon-ch4',
+    });
+    expect(CreditTokenSlugSchema.safeParse('biowaste')).toEqual({
+      success: true,
+      data: 'biowaste',
+    });
   });
 
   it('rejects the legacy methane slug', () => {
-    const legacyMethaneSlug = ['carbon', 'methane'].join('-');
-    const result = CreditTokenSlugSchema.safeParse(legacyMethaneSlug);
+    const result = CreditTokenSlugSchema.safeParse('carbon-methane');
 
     expect(result.success).toBe(false);
   });
@@ -21,7 +26,19 @@ describe('CreditTokenSlugSchema', () => {
 
 describe('CreditTokenSymbolSchema', () => {
   it('keeps canonical credit token symbols unchanged', () => {
-    expect(CreditTokenSymbolSchema.parse('C-CARB.CH4')).toBe('C-CARB.CH4');
-    expect(CreditTokenSymbolSchema.parse('C-BIOW')).toBe('C-BIOW');
+    expect(CreditTokenSymbolSchema.safeParse('C-CARB.CH4')).toEqual({
+      success: true,
+      data: 'C-CARB.CH4',
+    });
+    expect(CreditTokenSymbolSchema.safeParse('C-BIOW')).toEqual({
+      success: true,
+      data: 'C-BIOW',
+    });
+  });
+
+  it('rejects a non-canonical credit token symbol', () => {
+    const result = CreditTokenSymbolSchema.safeParse('C-CARB.METHANE');
+
+    expect(result.success).toBe(false);
   });
 });
