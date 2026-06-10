@@ -78,7 +78,11 @@ The generated `Credit` example should continue to represent the carbon token, wi
 - `name: "Carrot Carbon (CH4)"` or the existing display form if the package intentionally keeps the Unicode display name
 - `decimals` unchanged unless a separate schema decision changes examples
 
-Receipt examples should update both credit references and certificate-level `credit_slug` fields.
+Receipt examples should update every carbon slug path:
+
+- purchase and retirement `data.credits[].slug`
+- purchase `data.certificates[].credit_slug`
+- retirement `data.certificates[].credits_retired[].credit_slug`
 
 ### Generated Artifacts
 
@@ -102,6 +106,7 @@ Consumers that still emit `carbon-methane` must migrate before upgrading.
 Run the schema repo validation gates:
 
 ```bash
+pnpm build
 pnpm generate-schemas
 pnpm hash-schemas
 pnpm update-examples
@@ -113,12 +118,18 @@ pnpm check
 
 If `pnpm check` already includes some of the earlier commands, the implementation may run `pnpm check` as the final aggregate gate after focused commands.
 
+Add a focused regression test for the slug enum:
+
+- `CreditTokenSlugSchema.parse('carbon-ch4')` passes.
+- `CreditTokenSlugSchema.safeParse('carbon-methane')` fails.
+
 ## Acceptance Criteria
 
 - `CreditTokenSlugSchema.parse('carbon-ch4')` passes.
 - `CreditTokenSlugSchema.safeParse('carbon-methane')` fails.
 - Generated `Credit`, `CreditPurchaseReceipt`, and `CreditRetirementReceipt` schemas contain `carbon-ch4` and no longer contain `carbon-methane`.
 - Generated examples validate successfully.
+- A focused enum regression test proves `carbon-ch4` is accepted and `carbon-methane` is rejected.
 - `schemas/schema-hashes.json` is regenerated and consistent.
 - The release notes or commit metadata identify this as a breaking schema change.
 
