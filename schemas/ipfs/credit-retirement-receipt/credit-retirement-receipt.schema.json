@@ -477,13 +477,13 @@
               "slug": {
                 "type": "string",
                 "enum": [
-                  "carbon-methane",
+                  "carbon-ch4",
                   "biowaste"
                 ],
                 "title": "Credit Token Slug",
                 "description": "URL-friendly identifier for the credit token",
                 "examples": [
-                  "carbon-methane",
+                  "carbon-ch4",
                   "biowaste"
                 ]
               },
@@ -728,13 +728,13 @@
                     "credit_slug": {
                       "type": "string",
                       "enum": [
-                        "carbon-methane",
+                        "carbon-ch4",
                         "biowaste"
                       ],
                       "title": "Credit Token Slug",
                       "description": "Slug of the credit type retired from the certificate",
                       "examples": [
-                        "carbon-methane",
+                        "carbon-ch4",
                         "biowaste"
                       ]
                     },

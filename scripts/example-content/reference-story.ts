@@ -28,7 +28,7 @@ export function buildReferenceStory() {
     },
     credit: {
       name: 'Carrot Carbon (CH₄)',
-      slug: 'carbon-methane',
+      slug: 'carbon-ch4',
       symbol: 'C-CARB.CH4',
     },
     massID: {
