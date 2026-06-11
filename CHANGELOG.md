@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0](https://github.com/carrot-foundation/schemas/compare/v2.0.0...v3.0.0) (2026-06-11)
+
+### ⚠ BREAKING CHANGES
+
+- **schema:** CreditTokenSlugSchema now accepts carbon-ch4 instead of carbon-methane.
+
+### Features
+
+- **schema:** canonicalize carbon credit slug ([36a08c1](https://github.com/carrot-foundation/schemas/commit/36a08c1fd3ed7fe77267aeae0fe6f3f511b02f7a))
+
 ## [2.0.0](https://github.com/carrot-foundation/schemas/compare/v1.0.0...v2.0.0) (2026-05-07)
 
 ### ⚠ BREAKING CHANGES

@@ -1359,6 +1359,6 @@
   "additionalProperties": false,
   "title": "RecycledID NFT IPFS Record",
   "description": "Complete RecycledID NFT IPFS record including recycling outcome metrics, source waste provenance, methodology reference, and NFT display attributes",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/2.0.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
-  "version": "2.0.0"
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/3.0.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "version": "3.0.0"
 }
