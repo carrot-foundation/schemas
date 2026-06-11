@@ -29,13 +29,11 @@ export const CreditTokenNameSchema = z
   });
 export type CreditTokenName = z.infer<typeof CreditTokenNameSchema>;
 
-export const CreditTokenSlugSchema = z
-  .enum(['carbon-methane', 'biowaste'])
-  .meta({
-    title: 'Credit Token Slug',
-    description: 'URL-friendly identifier for the credit token',
-    examples: ['carbon-methane', 'biowaste'],
-  });
+export const CreditTokenSlugSchema = z.enum(['carbon-ch4', 'biowaste']).meta({
+  title: 'Credit Token Slug',
+  description: 'URL-friendly identifier for the credit token',
+  examples: ['carbon-ch4', 'biowaste'],
+});
 export type CreditTokenSlug = z.infer<typeof CreditTokenSlugSchema>;
 
 export const CreditTokenSymbolSchema = z.enum(['C-CARB.CH4', 'C-BIOW']).meta({
