@@ -869,6 +869,83 @@
           "additionalProperties": false,
           "title": "Credit Purchase Receipt Reference",
           "description": "Reference to the credit purchase receipt when retirement occurs during purchase"
+        },
+        "original_sale": {
+          "type": "object",
+          "properties": {
+            "order_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
+              "title": "Order ID",
+              "description": "Identifier of the originating sale order",
+              "examples": [
+                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+              ]
+            },
+            "sold_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "title": "Sold At",
+              "description": "Timestamp at which the original sale was completed",
+              "examples": [
+                "2024-12-05T11:02:47.000Z"
+              ]
+            },
+            "original_nft": {
+              "type": "object",
+              "properties": {
+                "chain_id": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991,
+                  "title": "Chain ID",
+                  "description": "Identifier of the blockchain network on which the original asset was minted",
+                  "examples": [
+                    137,
+                    80002
+                  ]
+                },
+                "smart_contract_address": {
+                  "type": "string",
+                  "pattern": "^0x[a-f0-9]{40}$",
+                  "title": "Smart Contract Address",
+                  "description": "Address of the smart contract that minted and manages the original tokenized asset",
+                  "examples": [
+                    "0x1234567890abcdef1234567890abcdef12345678"
+                  ]
+                },
+                "token_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^\\d+$",
+                  "title": "Token ID",
+                  "description": "Identifier of the original tokenized asset within its smart contract",
+                  "examples": [
+                    "456789",
+                    "1000000"
+                  ]
+                }
+              },
+              "required": [
+                "chain_id",
+                "smart_contract_address",
+                "token_id"
+              ],
+              "additionalProperties": false,
+              "title": "Original NFT",
+              "description": "On-chain reference to the tokenized asset associated with the original sale"
+            }
+          },
+          "required": [
+            "order_id",
+            "sold_at",
+            "original_nft"
+          ],
+          "additionalProperties": false,
+          "title": "Original Sale Reference",
+          "description": "Reference to the sale that originated this record, linking it to the originating sale order and its tokenized asset"
         }
       },
       "required": [

@@ -269,4 +269,30 @@ describe('CreditRetirementReceiptDataSchema', () => {
       });
     });
   });
+
+  it('accepts data with an optional original_sale reference', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      valid.original_sale = {
+        order_id: 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+        sold_at: '2024-12-05T11:02:47.000Z',
+        original_nft: {
+          chain_id: 137,
+          smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
+          token_id: '456789',
+        },
+      };
+
+      return valid;
+    });
+  });
+
+  it('accepts data without original_sale (optional)', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      Reflect.deleteProperty(valid as Record<string, unknown>, 'original_sale');
+
+      return valid;
+    });
+  });
 });

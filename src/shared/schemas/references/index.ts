@@ -4,6 +4,7 @@ export * from './credit-reference.schema';
 export * from './gas-id-reference.schema';
 export * from './mass-id-reference.schema';
 export * from './methodology-reference.schema';
+export * from './original-sale-reference.schema';
 export * from './receipt-reference.schema';
 export * from './recycled-id-reference.schema';
 export * from './token-reference-base.schema';

@@ -22,6 +22,7 @@ import {
   validateCreditSlugExists,
   validateCreditSymbolExists,
   CreditPurchaseReceiptReferenceSchema,
+  OriginalSaleReferenceSchema,
 } from '../shared';
 
 const CreditRetirementReceiptIdentitySchema = ReceiptIdentitySchema;
@@ -189,6 +190,7 @@ export const CreditRetirementReceiptDataSchema = z
           'Environmental certificates retired in this receipt, each linking collection-level retired amounts to per-credit breakdowns',
       }),
     purchase_receipt: CreditPurchaseReceiptReferenceSchema.optional(),
+    original_sale: OriginalSaleReferenceSchema.optional(),
   })
   .superRefine((data, ctx) => {
     const creditSymbols = new Set<string>(
