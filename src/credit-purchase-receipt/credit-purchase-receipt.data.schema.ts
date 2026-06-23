@@ -14,6 +14,7 @@ import {
   validateRetirementReceiptRequirement,
   validateCreditSlugExists,
   CreditRetirementReceiptReferenceSchema,
+  OriginalSaleReferenceSchema,
 } from '../shared';
 import {
   CreditAmountSchema,
@@ -136,6 +137,7 @@ export const CreditPurchaseReceiptDataSchema = z
           'Environmental certificates allocated in this purchase, each linking a credit type to collection-level purchased and retired amounts',
       }),
     retirement_receipt: CreditPurchaseReceiptRetirementReceiptSchema.optional(),
+    original_sale: OriginalSaleReferenceSchema.optional(),
   })
   .superRefine((data, ctx) => {
     validateCountMatches({
