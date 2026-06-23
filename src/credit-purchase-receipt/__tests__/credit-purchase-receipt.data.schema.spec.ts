@@ -341,4 +341,18 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       return valid;
     });
   });
+
+  it('rejects data with an invalid original_sale reference', () => {
+    expectSchemaInvalid(schema, baseData, (invalid) => {
+      (invalid as Record<string, unknown>).original_sale = {
+        order_id: 'not-a-uuid',
+        sold_at: '2024-12-05T11:02:47.000Z',
+        original_nft: {
+          chain_id: 137,
+          smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
+          token_id: '456789',
+        },
+      };
+    });
+  });
 });

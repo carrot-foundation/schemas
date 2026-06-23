@@ -56,6 +56,12 @@ describe('OriginalSaleReferenceSchema', () => {
     });
   });
 
+  it('rejects missing sold_at', () => {
+    expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
+      Reflect.deleteProperty(invalid as Record<string, unknown>, 'sold_at');
+    });
+  });
+
   it('rejects a missing original_nft', () => {
     expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
       Reflect.deleteProperty(
@@ -71,15 +77,42 @@ describe('OriginalSaleReferenceSchema', () => {
     });
   });
 
+  it('rejects missing original_nft.chain_id', () => {
+    expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.original_nft as Record<string, unknown>,
+        'chain_id',
+      );
+    });
+  });
+
   it('rejects an invalid smart_contract_address', () => {
     expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
       invalid.original_nft.smart_contract_address = 'invalid-address';
     });
   });
 
+  it('rejects missing original_nft.smart_contract_address', () => {
+    expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.original_nft as Record<string, unknown>,
+        'smart_contract_address',
+      );
+    });
+  });
+
   it('rejects a non-numeric token_id', () => {
     expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
       invalid.original_nft.token_id = 'abc';
+    });
+  });
+
+  it('rejects missing original_nft.token_id', () => {
+    expectSchemaInvalid(schema, validOriginalSaleReference, (invalid) => {
+      Reflect.deleteProperty(
+        invalid.original_nft as Record<string, unknown>,
+        'token_id',
+      );
     });
   });
 });
