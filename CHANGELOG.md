@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0](https://github.com/carrot-foundation/schemas/compare/v3.0.0...v3.1.0) (2026-06-23)
+
+### Features
+
+- **schema:** add optional original_sale reference to receipt data ([feca68a](https://github.com/carrot-foundation/schemas/commit/feca68abe983ea32cd1872715035cb5f5747fa5e))
+
+### Code Refactoring
+
+- **schema:** scope original_sale to purchase receipt only ([741223d](https://github.com/carrot-foundation/schemas/commit/741223d64739d4f765e3823fa2fbf3b28c52c323))
+
 ## [3.0.0](https://github.com/carrot-foundation/schemas/compare/v2.0.0...v3.0.0) (2026-06-11)
 
 ### ⚠ BREAKING CHANGES
