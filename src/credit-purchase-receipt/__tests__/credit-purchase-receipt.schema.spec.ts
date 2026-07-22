@@ -350,4 +350,79 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       return next;
     }, ['Short name must match format']);
   });
+
+  describe('per-symbol credit totals tolerate floating-point summation drift', () => {
+    // Regression: a single credit symbol split across multiple certificates with
+    // fractional purchased_amounts. Summing the parts in IEEE-754 drifts ~1 ULP
+    // from the mathematically-exact attribute value produced upstream (BigNumber
+    // in the Smaug builder), so a strict `!==` comparison wrongly rejects an
+    // otherwise-valid receipt. Evidence: Sentry SMAUG-API-EV (issue 7624830232).
+    const buildFractionalPurchase = (
+      biowasteAmounts: [number, number],
+      exactBiowasteTotal: number,
+    ) => {
+      const value = structuredClone(base);
+      value.data.collections = [];
+      value.data.certificates.forEach((certificate) => {
+        certificate.collections = [];
+      });
+      Reflect.deleteProperty(
+        value.data as Record<string, unknown>,
+        'retirement_receipt',
+      );
+
+      const biowasteCertificates = value.data.certificates.filter(
+        (certificate) => certificate.credit_slug === 'biowaste',
+      );
+      biowasteCertificates[0].purchased_amount = biowasteAmounts[0];
+      biowasteCertificates[1].purchased_amount = biowasteAmounts[1];
+
+      const carbonTotal = value.data.certificates
+        .filter((certificate) => certificate.credit_slug === 'carbon-ch4')
+        .reduce(
+          (sum, certificate) => sum + Number(certificate.purchased_amount),
+          0,
+        );
+      const totalCredits = carbonTotal + exactBiowasteTotal;
+
+      value.attributes = value.attributes.map((attribute) => {
+        if (attribute.trait_type === 'C-BIOW') {
+          return { ...attribute, value: exactBiowasteTotal };
+        }
+        if (attribute.trait_type === 'Total Credits Purchased') {
+          return { ...attribute, value: totalCredits };
+        }
+        return attribute;
+      });
+      value.data.summary.total_credits = totalCredits;
+      value.name = `Credit Purchase Receipt #${value.blockchain.token_id} • ${totalCredits} Credits Purchased`;
+
+      return value;
+    };
+
+    it.each([
+      {
+        description: 'classic 0.1 + 0.2 binary drift',
+        biowasteAmounts: [0.1, 0.2] as [number, number],
+        exactBiowasteTotal: 0.3,
+      },
+      {
+        description: 'six-decimal 1.234567 + 2.345678 drift',
+        biowasteAmounts: [1.234567, 2.345678] as [number, number],
+        exactBiowasteTotal: 3.580245,
+      },
+    ])(
+      'accepts a fractional multi-certificate purchase ($description)',
+      ({ biowasteAmounts, exactBiowasteTotal }) => {
+        // Guard the regression premise: the naive float sum must actually drift
+        // from the exact total, otherwise the test would pass even unfixed.
+        expect(biowasteAmounts[0] + biowasteAmounts[1]).not.toBe(
+          exactBiowasteTotal,
+        );
+        expectSchemaValid(schema, () =>
+          buildFractionalPurchase(biowasteAmounts, exactBiowasteTotal),
+        );
+      },
+    );
+  });
 });
