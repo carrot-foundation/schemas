@@ -4,6 +4,7 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
   createAttributeMap,
+  nearlyEqual,
   validateAttributeValue,
   CreditPurchaseReceiptNameSchema,
   CreditPurchaseReceiptShortNameSchema,
@@ -195,7 +196,7 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
           message: `Attribute for credit symbol ${credit.symbol} is required`,
           path: ['attributes'],
         });
-      } else if (Number(attribute.value) !== expectedTotal) {
+      } else if (!nearlyEqual(Number(attribute.value), expectedTotal)) {
         ctx.addIssue({
           code: 'custom',
           message: `Attribute for credit symbol ${credit.symbol} must match sum of certificates[].purchased_amount for the credit symbol`,
