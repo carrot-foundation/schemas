@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/carrot-foundation/schemas/compare/v3.1.0...v3.1.1) (2026-07-23)
+
+### Bug Fixes
+
+- **schema:** tolerate float summation drift in receipt per-symbol totals ([e2225ca](https://github.com/carrot-foundation/schemas/commit/e2225ca9a9d89594c9bbb58a953acca4902cb9e2))
+
 ## [3.1.0](https://github.com/carrot-foundation/schemas/compare/v3.0.0...v3.1.0) (2026-06-23)
 
 ### Features

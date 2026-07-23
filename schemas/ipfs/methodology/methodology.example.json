@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/3.1.0/schemas/ipfs/methodology/methodology.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/3.1.1/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "58495685fbf80b572729139fb86c1e275874061db8d37c83098cf3a45d611481",
+    "hash": "0c11650f640045c30a06194a15eaf1507703d0b17ca129f23e917a7f0e35f8ef",
     "type": "Methodology",
-    "version": "3.1.0",
+    "version": "3.1.1",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
