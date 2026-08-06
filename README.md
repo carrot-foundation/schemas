@@ -92,7 +92,7 @@ const { MassIDIpfsSchema } = require('@carrot-foundation/schemas');
 Generated JSON Schemas are available at stable URLs and included in the npm package under `schemas/`:
 
 ```text
-https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
+https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v{version}/schemas/ipfs/{type}/{type}.schema.json
 ```
 
 Example JSON data for each schema is also available:
@@ -154,7 +154,7 @@ src/
 Schema `$id` fields reference Git tags for stable, immutable URLs:
 
 ```json
-"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/0.2.4/schemas/ipfs/mass-id/mass-id.schema.json"
+"$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.2.4/schemas/ipfs/mass-id/mass-id.schema.json"
 ```
 
 - **Default**: version from `package.json`

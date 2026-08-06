@@ -14,13 +14,13 @@ Schema versioning ensures every generated JSON Schema has a correct, traceable `
 
 Every generated JSON Schema includes a `$id` field with this format:
 
-```
+```text
 https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v{version}/schemas/ipfs/{type}/{type}.schema.json
 ```
 
 Example for a MassID schema at version 1.2.3:
 
-```
+```text
 https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v1.2.3/schemas/ipfs/mass-id/mass-id.schema.json
 ```
 
