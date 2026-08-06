@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/carrot-foundation/schemas/compare/v3.1.2...v3.1.3) (2026-08-06)
+
+### Bug Fixes
+
+- **schema:** allow repeated execution ids across rule execution results ([42217a0](https://github.com/carrot-foundation/schemas/commit/42217a07864936134e7392307b5deafc8aed81cc))
+- **schema:** share one execution id across example rule executions ([9f712cb](https://github.com/carrot-foundation/schemas/commit/9f712cb765fe6a60803156ef9b2efac3d3b33c7d))
+
 ## [3.1.2](https://github.com/carrot-foundation/schemas/compare/v3.1.1...v3.1.2) (2026-08-06)
 
 ### Bug Fixes
