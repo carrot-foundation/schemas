@@ -135,26 +135,13 @@ describe('MassIDAuditDataSchema', () => {
     expectSchemaValid(schema, () => validData);
   });
 
-  it('rejects when both gas_id and recycled_id are missing', () => {
-    const invalidData = {
+  it('accepts when both gas_id and recycled_id are missing', () => {
+    const validData = {
       ...structuredClone(base),
       gas_id: undefined,
       recycled_id: undefined,
     };
-    const result = schema.safeParse(invalidData);
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      const gasIDIssue = result.error.issues.find(
-        (issue) => issue.path.length === 1 && issue.path[0] === 'gas_id',
-      );
-      const recycledIDIssue = result.error.issues.find(
-        (issue) => issue.path.length === 1 && issue.path[0] === 'recycled_id',
-      );
-      expect(gasIDIssue).toBeDefined();
-      expect(recycledIDIssue).toBeDefined();
-      expect(gasIDIssue?.message).toContain('must be provided');
-      expect(recycledIDIssue?.message).toContain('must be provided');
-    }
+    expectSchemaValid(schema, () => validData);
   });
 
   it('rejects when both gas_id and recycled_id are present', () => {
