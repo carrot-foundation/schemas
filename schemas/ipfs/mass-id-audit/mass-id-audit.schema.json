@@ -660,7 +660,7 @@
       ],
       "additionalProperties": false,
       "title": "MassID Audit Data",
-      "description": "Complete data structure for MassID Audit records. Must include exactly one of gas_id or recycled_id."
+      "description": "Complete data structure for MassID Audit records. May include at most one of gas_id or recycled_id."
     }
   },
   "required": [

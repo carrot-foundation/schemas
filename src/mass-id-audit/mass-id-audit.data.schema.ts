@@ -56,19 +56,9 @@ export const MassIDAuditDataSchema = z
     const hasGasID = !!data.gas_id;
     const hasRecycledID = !!data.recycled_id;
 
-    if (!hasGasID && !hasRecycledID) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['gas_id'],
-        message: 'Either gas_id or recycled_id must be provided',
-      });
-      ctx.addIssue({
-        code: 'custom',
-        path: ['recycled_id'],
-        message: 'Either gas_id or recycled_id must be provided',
-      });
-    }
-
+    // The audit record is pinned before the certificate metadata exists (the
+    // certificate hashes this record's CID), so the certificate back-reference
+    // cannot be required at pin time.
     if (hasGasID && hasRecycledID) {
       ctx.addIssue({
         code: 'custom',
@@ -85,6 +75,6 @@ export const MassIDAuditDataSchema = z
   .meta({
     title: 'MassID Audit Data',
     description:
-      'Complete data structure for MassID Audit records. Must include exactly one of gas_id or recycled_id.',
+      'Complete data structure for MassID Audit records. May include at most one of gas_id or recycled_id.',
   });
 export type MassIDAuditData = z.infer<typeof MassIDAuditDataSchema>;
