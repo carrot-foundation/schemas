@@ -82,7 +82,7 @@ Schemas AI instructions for Codex, Claude, and Cursor with equal capability pari
 ## Where to look first (by task)
 
 - **Schema definitions**: `src/{type}/` — one directory per schema type
-- **Shared primitives**: `src/shared/schemas/primitives/` — blockchain, time, ids, etc.
+- **Shared primitives**: `src/shared/schemas/primitives/` — blockchain, time, ids, numbers, text, URI, geo, hashes, enums, version
 - **Shared entities**: `src/shared/schemas/entities/` — participant, location
 - **Core composition**: `src/shared/schemas/core/` — BaseIpfsSchema, NftIpfsSchema
 - **Test utilities**: `src/test-utils/` — centralized fixtures and assertions
@@ -166,7 +166,7 @@ Each schema uses `.safeExtend()` to compose layers and `.meta()` to add metadata
 - **Unified approach**: All builds (dev and prod) use the same versioning mechanism
 - **Default version**: Version from `package.json` (when `SCHEMA_VERSION` env var not set)
 - **Production**: Version is set automatically during release via GitHub Actions
-- **Schema `$id` format**: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json`
+- **Schema `$id` format**: `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v{version}/schemas/ipfs/{type}/{type}.schema.json`
 
 ## Common Commands
 

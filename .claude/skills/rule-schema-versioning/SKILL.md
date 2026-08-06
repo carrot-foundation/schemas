@@ -1,5 +1,5 @@
 ---
-name: rule-schema-versioning
+name: 'rule-schema-versioning'
 description: 'Schema version injection, $id format, and SCHEMA_VERSION environment variable'
 ---
 
@@ -19,13 +19,13 @@ Schema versioning ensures every generated JSON Schema has a correct, traceable `
 Every generated JSON Schema includes a `$id` field with this format:
 
 ```
-https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
+https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v{version}/schemas/ipfs/{type}/{type}.schema.json
 ```
 
 Example for a MassID schema at version 1.2.3:
 
 ```
-https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.2.3/schemas/ipfs/mass-id/mass-id.schema.json
+https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v1.2.3/schemas/ipfs/mass-id/mass-id.schema.json
 ```
 
 This URL must resolve to the actual file in the GitHub repository at the tagged release, enabling consumers to fetch and validate against the exact schema version.
@@ -123,10 +123,10 @@ To test a specific version locally:
 ```typescript
 // BAD: hardcoded version
 const schemaId =
-  'https://raw.githubusercontent.com/.../refs/tags/1.2.3/schemas/...';
+  'https://raw.githubusercontent.com/.../refs/tags/v1.2.3/schemas/...';
 
 // GOOD: dynamic version
-const schemaId = `https://raw.githubusercontent.com/.../refs/tags/${getSchemaVersionOrDefault()}/schemas/...`;
+const schemaId = `https://raw.githubusercontent.com/.../refs/tags/v${getSchemaVersionOrDefault()}/schemas/...`;
 ```
 
 ### Bypassing the injection chain
