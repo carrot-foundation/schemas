@@ -136,11 +136,11 @@ describe('MassIDAuditDataSchema', () => {
   });
 
   it('accepts when both gas_id and recycled_id are missing', () => {
-    const validData = {
-      ...structuredClone(base),
-      gas_id: undefined,
-      recycled_id: undefined,
-    };
+    const validData: Partial<typeof base> = structuredClone(base);
+
+    delete validData.gas_id;
+    delete validData.recycled_id;
+
     expectSchemaValid(schema, () => validData);
   });
 
