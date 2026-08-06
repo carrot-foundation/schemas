@@ -556,7 +556,7 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                 "title": "Execution ID",
-                "description": "Unique identifier for this specific rule execution",
+                "description": "Identifier of the audit run that executed this rule; shared by every rule executed in the same run",
                 "examples": [
                   "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
                 ]

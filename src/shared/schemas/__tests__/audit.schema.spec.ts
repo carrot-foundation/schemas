@@ -506,16 +506,14 @@ describe('AuditRuleExecutionResultsSchema', () => {
     expectSchemaValid(schema, () => [base[0]]);
   });
 
-  it('rejects duplicate execution_id', () => {
-    const invalid = structuredClone(base);
-    invalid[1] = {
-      ...invalid[1],
-      execution_id: invalid[0].execution_id,
+  it('accepts a repeated execution_id across results', () => {
+    const valid = structuredClone(base);
+    valid[1] = {
+      ...valid[1],
+      execution_id: valid[0].execution_id,
     };
 
-    expectIssuesContain(schema, () => invalid, [
-      `Duplicate execution_id found: ${invalid[0].execution_id}`,
-    ]);
+    expectSchemaValid(schema, () => valid);
   });
 
   it('rejects unsorted array by execution_started_at', () => {
