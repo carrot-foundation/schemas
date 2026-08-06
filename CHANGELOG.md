@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/carrot-foundation/schemas/compare/v3.1.1...v3.1.2) (2026-08-06)
+
+### Bug Fixes
+
+- **schema:** make the certificate back-reference optional in mass-id-audit ([beb2106](https://github.com/carrot-foundation/schemas/commit/beb2106b2fc904960e4b132cd799bf86d11a6f28))
+
 ## [3.1.1](https://github.com/carrot-foundation/schemas/compare/v3.1.0...v3.1.1) (2026-07-23)
 
 ### Bug Fixes
