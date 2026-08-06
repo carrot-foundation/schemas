@@ -164,7 +164,8 @@ export const AuditRuleExecutionResultSchema = z
     }),
     execution_id: UuidSchema.meta({
       title: 'Execution ID',
-      description: 'Unique identifier for this specific rule execution',
+      description:
+        'Identifier of the audit run that executed this rule; shared by every rule executed in the same run',
     }),
     execution_started_at: IsoDateTimeSchema.meta({
       title: 'Execution Started At',
@@ -212,22 +213,6 @@ export const AuditRuleExecutionResultsSchema = z
   .array(AuditRuleExecutionResultSchema)
   .min(1)
   .superRefine((results, ctx) => {
-    const executionIds = new Set<string>();
-
-    for (let i = 0; i < results.length; i++) {
-      const result = results[i];
-
-      if (executionIds.has(result.execution_id)) {
-        ctx.addIssue({
-          code: 'custom',
-          message: `Duplicate execution_id found: ${result.execution_id}`,
-          path: [i, 'execution_id'],
-        });
-      } else {
-        executionIds.add(result.execution_id);
-      }
-    }
-
     for (let i = 1; i < results.length; i++) {
       const previousStartedAt = new Date(
         results[i - 1].execution_started_at,
