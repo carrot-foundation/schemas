@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.4](https://github.com/carrot-foundation/schemas/compare/v3.1.3...v3.1.4) (2026-08-07)
+
+### Bug Fixes
+
+- **schema:** use v-prefixed release tag in published schema URLs ([935b750](https://github.com/carrot-foundation/schemas/commit/935b750a9e5d4f213d5628b56c4aa51e8d91d87f))
+
 ## [3.1.3](https://github.com/carrot-foundation/schemas/compare/v3.1.2...v3.1.3) (2026-08-06)
 
 ### Bug Fixes

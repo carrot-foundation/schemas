@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v3.1.3/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v3.1.4/schemas/ipfs/mass-id-audit/mass-id-audit.schema.json",
   "schema": {
-    "hash": "b18b87ca69a443d9ee6d28fb4ffacbe85ec08bf34fb1fd36b8d57879014a2871",
+    "hash": "3662207dcfaf02c7f1da23bac19f4d8109a773a8ef90d07e9ca1a58581c64407",
     "type": "MassID Audit",
-    "version": "3.1.3",
+    "version": "3.1.4",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
   "environment": {
