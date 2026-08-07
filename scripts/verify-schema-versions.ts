@@ -26,7 +26,7 @@ function getPackageJsonVersion(): string {
 
 const SCHEMAS_DIR = path.join(process.cwd(), 'schemas');
 const EXPECTED_VERSION = process.env.SCHEMA_VERSION || getPackageJsonVersion();
-const EXPECTED_REF = `refs/tags/${EXPECTED_VERSION}`;
+const EXPECTED_REF = `refs/tags/v${EXPECTED_VERSION}`;
 
 function collectSchemaFiles(dir: string, collected: string[] = []): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });

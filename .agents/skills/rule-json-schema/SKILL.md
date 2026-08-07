@@ -1,5 +1,5 @@
 ---
-name: rule-json-schema
+name: 'rule-json-schema'
 description: 'Generated JSON Schema structure — required fields, validation patterns, and $ref usage'
 ---
 
@@ -37,7 +37,7 @@ Every generated JSON Schema must include these top-level fields:
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v{version}/schemas/ipfs/{type}/{type}.schema.json",
   "title": "Human-Readable Schema Title",
   "description": "Comprehensive description of what this schema validates",
   "type": "object",
@@ -54,7 +54,7 @@ If any of these fields are missing in the output, the issue is in the Zod source
 Schema `$id` values follow a strict URL format using GitHub raw content URLs with git tags:
 
 ```text
-https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/{version}/schemas/ipfs/{type}/{type}.schema.json
+https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v{version}/schemas/ipfs/{type}/{type}.schema.json
 ```
 
 Where:

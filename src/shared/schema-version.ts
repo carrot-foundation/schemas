@@ -12,7 +12,7 @@ function getPackageJsonVersion(): string {
 }
 
 export function getSchemaBaseUrl(): string {
-  return `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/${getSchemaVersionOrDefault()}/schemas/ipfs`;
+  return `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v${getSchemaVersionOrDefault()}/schemas/ipfs`;
 }
 
 export function buildSchemaUrl(schemaPath: string): string {

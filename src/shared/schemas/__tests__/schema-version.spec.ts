@@ -79,7 +79,7 @@ describe('schema-version utilities', () => {
       const baseUrl = getSchemaBaseUrl();
 
       expect(baseUrl).toBe(
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/2.0.0/schemas/ipfs',
+        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v2.0.0/schemas/ipfs',
       );
     });
 
@@ -88,7 +88,7 @@ describe('schema-version utilities', () => {
       const baseUrl = getSchemaBaseUrl();
 
       expect(baseUrl).toBe(
-        `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/${packageJsonVersion}/schemas/ipfs`,
+        `https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v${packageJsonVersion}/schemas/ipfs`,
       );
     });
   });
@@ -101,7 +101,7 @@ describe('schema-version utilities', () => {
     it('strips leading slash from path', () => {
       const url = buildSchemaUrl('/mass-id/mass-id.schema.json');
       expect(url).toBe(
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.0.0/schemas/ipfs/mass-id/mass-id.schema.json',
+        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v1.0.0/schemas/ipfs/mass-id/mass-id.schema.json',
       );
       expect(url).not.toContain('//mass-id');
     });
@@ -109,7 +109,7 @@ describe('schema-version utilities', () => {
     it('uses path as-is when it does not start with slash', () => {
       const url = buildSchemaUrl('mass-id/mass-id.schema.json');
       expect(url).toBe(
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.0.0/schemas/ipfs/mass-id/mass-id.schema.json',
+        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v1.0.0/schemas/ipfs/mass-id/mass-id.schema.json',
       );
     });
   });
