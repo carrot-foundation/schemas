@@ -50,12 +50,16 @@ describe('ViewerReferenceSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('rejects viewer reference without integrity_hash', () => {
-    const { integrity_hash, ...missingIntegrityHash } =
-      minimalViewerReferenceStub;
-    expect(integrity_hash).toBeDefined();
+  it('rejects viewer reference with integrity_hash', () => {
+    const viewerReferenceWithIntegrityHash = {
+      ...minimalViewerReferenceStub,
+      integrity_hash:
+        'd6672ee3a93d0d6e3c30bdef89f310799c2f3ab781098a9792040d5541ce3ed3',
+    };
 
-    const result = ViewerReferenceSchema.safeParse(missingIntegrityHash);
+    const result = ViewerReferenceSchema.safeParse(
+      viewerReferenceWithIntegrityHash,
+    );
 
     expect(result.success).toBe(false);
   });

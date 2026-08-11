@@ -48,8 +48,6 @@ export function emitCreditRetirementReceiptExample(): Record<string, unknown> {
     viewer_reference: {
       ipfs_uri:
         'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
-      integrity_hash:
-        '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
     },
     name: `Credit Retirement Receipt #${retirementTokenId} \u2022 3.0 Credits Retired`,
     short_name: `Retirement Receipt #${retirementTokenId}`,

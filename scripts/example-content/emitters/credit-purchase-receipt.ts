@@ -49,8 +49,6 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
     viewer_reference: {
       ipfs_uri:
         'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
-      integrity_hash:
-        '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489',
     },
     name: `Credit Purchase Receipt #${purchaseTokenId} \u2022 8.5 Credits Purchased`,
     short_name: `Purchase Receipt #${purchaseTokenId}`,
