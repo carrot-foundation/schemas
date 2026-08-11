@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0](https://github.com/carrot-foundation/schemas/compare/v3.1.4...v4.0.0) (2026-08-11)
+
+### ⚠ BREAKING CHANGES
+
+- **schema:** viewer_reference no longer accepts integrity_hash.
+  additionalProperties: false on the object means producers that keep
+  writing the field will fail validation. Affects all 9 schemas that
+  carry viewer_reference: mass-id, mass-id-audit, collection, credit,
+  gas-id, recycled-id, methodology, credit-purchase-receipt,
+  credit-retirement-receipt.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01DxRZZDHCV2q2V4YwXJf148
+
+### Features
+
+- **schema:** remove the redundant viewer integrity hash ([e2fce71](https://github.com/carrot-foundation/schemas/commit/e2fce71cf6bc4926bf1e27e5cb8d433154fa23d9))
+
 ## [3.1.4](https://github.com/carrot-foundation/schemas/compare/v3.1.3...v3.1.4) (2026-08-07)
 
 ### Bug Fixes
