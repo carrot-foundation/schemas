@@ -102,24 +102,14 @@
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ]
-        },
-        "integrity_hash": {
-          "type": "string",
-          "pattern": "^[a-f0-9]{64}$",
-          "title": "Viewer Integrity Hash",
-          "description": "SHA-256 hash of the published viewer bundle to verify integrity",
-          "examples": [
-            "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
-          ]
         }
       },
       "required": [
-        "ipfs_uri",
-        "integrity_hash"
+        "ipfs_uri"
       ],
       "additionalProperties": false,
       "title": "Metadata Viewer Reference",
-      "description": "References to the metadata viewer dApp, including immutable and latest entry points"
+      "description": "Immutable reference to the metadata viewer dApp build. The IPFS CID itself is the integrity proof: tampered content resolves to a different CID"
     },
     "environment": {
       "type": "object",

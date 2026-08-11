@@ -60,16 +60,11 @@ export const ViewerReferenceSchema = z
       title: 'Viewer IPFS URI',
       description: 'IPFS URI of the metadata viewer dApp build',
     }),
-    integrity_hash: Sha256HashSchema.meta({
-      title: 'Viewer Integrity Hash',
-      description:
-        'SHA-256 hash of the published viewer bundle to verify integrity',
-    }),
   })
   .meta({
     title: 'Metadata Viewer Reference',
     description:
-      'References to the metadata viewer dApp, including immutable and latest entry points',
+      'Immutable reference to the metadata viewer dApp build. The IPFS CID itself is the integrity proof: tampered content resolves to a different CID',
   });
 export type ViewerReference = z.infer<typeof ViewerReferenceSchema>;
 
