@@ -163,32 +163,25 @@
     },
     "name": {
       "type": "string",
-      "enum": [
-        "BOLD Innovators",
-        "BOLD Cold Start - Carazinho",
-        "BOLD Cold Start - Jundiaí",
-        "BOLD Brazil"
-      ],
+      "minLength": 1,
+      "maxLength": 100,
       "title": "Collection Name",
       "description": "Human-readable display name for the environmental credit collection",
       "examples": [
-        "BOLD Cold Start - Carazinho",
-        "BOLD Brazil"
+        "BOLD Cold Start - Araucária",
+        "BOLD Cold Start - Papagaios"
       ]
     },
     "slug": {
       "type": "string",
-      "enum": [
-        "bold-innovators",
-        "bold-cold-start-jundiai",
-        "bold-cold-start-carazinho",
-        "bold-brazil"
-      ],
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-z0-9-]+$",
       "title": "Collection Slug",
       "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
       "examples": [
-        "bold-cold-start-carazinho",
-        "bold-brazil"
+        "bold-cold-start-araucaria",
+        "bold-cold-start-papagaios"
       ]
     },
     "image": {

@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { NonEmptyStringSchema, SlugSchema } from './text.schema';
+
 export const RecordSchemaTypeSchema = z
   .enum([
     'MassID',
@@ -121,19 +123,12 @@ export const ContainerTypeSchema = z
   });
 export type ContainerType = z.infer<typeof ContainerTypeSchema>;
 
-export const CollectionSlugSchema = z
-  .enum([
-    'bold-innovators',
-    'bold-cold-start-jundiai',
-    'bold-cold-start-carazinho',
-    'bold-brazil',
-  ])
-  .meta({
-    title: 'Collection Slug',
-    description:
-      'URL-friendly identifier for an environmental credit collection, used in URIs and API references',
-    examples: ['bold-cold-start-carazinho', 'bold-brazil'],
-  });
+export const CollectionSlugSchema = SlugSchema.meta({
+  title: 'Collection Slug',
+  description:
+    'URL-friendly identifier for an environmental credit collection, used in URIs and API references',
+  examples: ['bold-cold-start-araucaria', 'bold-cold-start-papagaios'],
+});
 export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
 
 export const ParticipantRoleSchema = z
@@ -182,19 +177,12 @@ export const WasteSubtypeSchema = z
   });
 export type WasteSubtype = z.infer<typeof WasteSubtypeSchema>;
 
-export const CollectionNameSchema = z
-  .enum([
-    'BOLD Innovators',
-    'BOLD Cold Start - Carazinho',
-    'BOLD Cold Start - Jundiaí',
-    'BOLD Brazil',
-  ])
-  .meta({
-    title: 'Collection Name',
-    description:
-      'Human-readable display name for the environmental credit collection',
-    examples: ['BOLD Cold Start - Carazinho', 'BOLD Brazil'],
-  });
+export const CollectionNameSchema = NonEmptyStringSchema.max(100).meta({
+  title: 'Collection Name',
+  description:
+    'Human-readable display name for the environmental credit collection',
+  examples: ['BOLD Cold Start - Araucária', 'BOLD Cold Start - Papagaios'],
+});
 export type CollectionName = z.infer<typeof CollectionNameSchema>;
 
 export const MethodologyNameSchema = z
