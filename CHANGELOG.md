@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0](https://github.com/carrot-foundation/schemas/compare/v4.0.0...v5.0.0) (2026-08-21)
+
+### ⚠ BREAKING CHANGES
+
+- **schema:** CollectionSlug and CollectionName are no longer
+  string-literal unions — both widen to `string`. Any consumer that
+  declared CollectionSlug/CollectionName as a closed union (e.g. a
+  discriminated switch or exhaustive mapping) needs a broader type.
+  Runtime validation still enforces shape (slug pattern, name
+  non-empty, both capped at 100 chars); it no longer enforces
+  membership in a fixed list.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01HBNKhzuSFsCB4nmJ9FZ9LB
+
+### Features
+
+- **schema:** replace collection enums with pattern-validated strings ([739f79e](https://github.com/carrot-foundation/schemas/commit/739f79e15139e8db3aeaf740648c0e17609dbe7b))
+
 ## [4.0.0](https://github.com/carrot-foundation/schemas/compare/v3.1.4...v4.0.0) (2026-08-11)
 
 ### ⚠ BREAKING CHANGES
