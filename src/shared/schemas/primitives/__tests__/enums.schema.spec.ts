@@ -5,6 +5,7 @@ import {
   CollectionSlugSchema,
   CreditTokenSlugSchema,
   CreditTokenSymbolSchema,
+  WasteSubtypeSchema,
 } from '../enums.schema';
 
 describe('CreditTokenSlugSchema', () => {
@@ -98,6 +99,30 @@ describe('CollectionNameSchema', () => {
 
   it('rejects a name longer than 100 characters', () => {
     const result = CollectionNameSchema.safeParse('a'.repeat(101));
+
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('WasteSubtypeSchema', () => {
+  it.each([
+    'Domestic Sludge',
+    'EFB similar to Garden, Yard and Park Waste',
+    'Food, Food Waste and Beverages',
+    'Garden, Yard and Park Waste',
+    'Industrial Sludge',
+    'Others (if organic)',
+    'Tobacco',
+    'Wood and Wood Products',
+  ])('accepts the canonical waste subtype "%s"', (value) => {
+    expect(WasteSubtypeSchema.safeParse(value)).toEqual({
+      success: true,
+      data: value,
+    });
+  });
+
+  it('rejects a waste subtype not in the canonical list', () => {
+    const result = WasteSubtypeSchema.safeParse('Other');
 
     expect(result.success).toBe(false);
   });

@@ -166,6 +166,7 @@ export const WasteSubtypeSchema = z
     'Food, Food Waste and Beverages',
     'Garden, Yard and Park Waste',
     'Industrial Sludge',
+    'Others (if organic)',
     'Tobacco',
     'Wood and Wood Products',
   ])
