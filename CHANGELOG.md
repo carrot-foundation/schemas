@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.0](https://github.com/carrot-foundation/schemas/compare/v5.0.0...v5.1.0) (2026-08-24)
+
+### Features
+
+- **shared:** add "Others (if organic)" to WasteSubtypeSchema ([50c9300](https://github.com/carrot-foundation/schemas/commit/50c93003d90a8c2665720c2f42e4279998869ad5))
+
 ## [5.0.0](https://github.com/carrot-foundation/schemas/compare/v4.0.0...v5.0.0) (2026-08-21)
 
 ### ⚠ BREAKING CHANGES
