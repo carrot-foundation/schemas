@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.1](https://github.com/carrot-foundation/schemas/compare/v5.1.0...v5.1.1) (2026-08-27)
+
+### Bug Fixes
+
+- **schema:** rename Registry example labels ([b56d4df](https://github.com/carrot-foundation/schemas/commit/b56d4dff4a1db2ec8aaee937ea9affe9ea9c31f4))
+- **schema:** update Registry example URLs ([53cc9db](https://github.com/carrot-foundation/schemas/commit/53cc9dbf4a46cc4b9999f7c12fc74699fe9eaf49))
+
 ## [5.1.0](https://github.com/carrot-foundation/schemas/compare/v5.0.0...v5.1.0) (2026-08-24)
 
 ### Features
