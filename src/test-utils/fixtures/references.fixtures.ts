@@ -20,7 +20,7 @@ export const minimalAuditReferenceStub: AuditReference = {
   completed_at: '2025-06-24T13:02:25.000Z',
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   external_url:
-    'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
+    'https://registry.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
   result: 'PASSED',
   rules_executed: 21,
   ipfs_uri:
@@ -61,7 +61,7 @@ export const minimalGasIDReferenceStub: GasIDReference = {
   external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
   token_id: '456',
   external_url:
-    'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
+    'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d479',
   ipfs_uri:
     'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -101,7 +101,7 @@ export const minimalMassIDReferenceStub: MassIDReference = {
   external_id: '6f520d88-864d-432d-bf9f-5c3166c4818f',
   token_id: '123',
   external_url:
-    'https://explore.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
+    'https://registry.carrot.eco/document/6f520d88-864d-432d-bf9f-5c3166c4818f',
   ipfs_uri:
     'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -142,7 +142,7 @@ export const minimalMethodologyReferenceStub: MethodologyReference = {
   name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
   version: '1.3.0',
   external_url:
-    'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
+    'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d480',
   ipfs_uri:
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
 };
@@ -181,7 +181,7 @@ export const minimalRecycledIDReferenceStub: RecycledIDReference = {
   external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   token_id: '789',
   external_url:
-    'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
+    'https://registry.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
   ipfs_uri:
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -222,7 +222,7 @@ export const minimalCreditPurchaseReceiptReferenceStub: CreditPurchaseReceiptRef
     external_id: 'b2c3d4e5-f6a7-4901-9234-678901abcdef',
     token_id: '1001',
     external_url:
-      'https://explore.carrot.eco/document/b2c3d4e5-f6a7-4901-9234-678901abcdef',
+      'https://registry.carrot.eco/document/b2c3d4e5-f6a7-4901-9234-678901abcdef',
     ipfs_uri:
       'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/purchase-receipt.json',
     smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -263,7 +263,7 @@ export const minimalCreditRetirementReceiptReferenceStub: CreditRetirementReceip
     external_id: 'c3d4e5f6-a7b8-4902-9234-789012cdefab',
     token_id: '1002',
     external_url:
-      'https://explore.carrot.eco/document/c3d4e5f6-a7b8-4902-9234-789012cdefab',
+      'https://registry.carrot.eco/document/c3d4e5f6-a7b8-4902-9234-789012cdefab',
     ipfs_uri:
       'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/retirement-receipt.json',
     smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -302,7 +302,7 @@ export function createCreditRetirementReceiptReferenceFixture(
 export const minimalCreditReferenceStub: CreditReference = {
   external_id: 'd4e5f6a7-b8c9-4903-9234-890123defabc',
   external_url:
-    'https://explore.carrot.eco/document/d4e5f6a7-b8c9-4903-9234-890123defabc',
+    'https://registry.carrot.eco/document/d4e5f6a7-b8c9-4903-9234-890123defabc',
   ipfs_uri:
     'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/credit.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -319,7 +319,7 @@ export const minimalCreditReferenceStub: CreditReference = {
 export const validCreditReferenceFixture: CreditReference = {
   external_id: 'd4e5f6a7-b8c9-4903-9234-890123defabc',
   external_url:
-    'https://explore.carrot.eco/document/d4e5f6a7-b8c9-4903-9234-890123defabc',
+    'https://registry.carrot.eco/document/d4e5f6a7-b8c9-4903-9234-890123defabc',
   ipfs_uri:
     'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/credit.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -352,7 +352,7 @@ export const minimalCertificateReferenceStub: CertificateReferenceBase = {
   external_id: 'e5f6a7b8-c9d0-4904-9234-901234efabcd',
   token_id: '2001',
   external_url:
-    'https://explore.carrot.eco/document/e5f6a7b8-c9d0-4904-9234-901234efabcd',
+    'https://registry.carrot.eco/document/e5f6a7b8-c9d0-4904-9234-901234efabcd',
   ipfs_uri:
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/certificate.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

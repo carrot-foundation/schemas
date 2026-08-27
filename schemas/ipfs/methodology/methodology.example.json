@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.1.0/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "be22fd00b1637f446c1c3b3016ebbbc7c9da1c432511a527ea08268b110ce7fb",
+    "hash": "0791c8aa2167bf0d62739a4af291c34639db4649c08a5b5b1eb45dd08da1999e",
     "type": "Methodology",
     "version": "5.1.0",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -13,7 +13,7 @@
   },
   "created_at": "2025-08-15T14:09:00.000Z",
   "external_id": "8375027a-a96f-446d-a8cb-c3ee92aea604",
-  "external_url": "https://explore.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
+  "external_url": "https://registry.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
   "data": {
     "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
     "short_name": "BOLD Carbon (CH₄)",

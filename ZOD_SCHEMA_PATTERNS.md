@@ -84,7 +84,7 @@ external_links: uniqueBy(ExternalLinkSchema, ...).optional().meta({
     [
       {
         label: 'Carrot Explorer',
-        url: 'https://explore.carrot.eco/document/...',
+        url: 'https://registry.carrot.eco/document/...',
         description: 'Complete chain of custody and audit trail',
       },
       {

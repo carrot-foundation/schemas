@@ -29,7 +29,7 @@ export function emitCreditExample(): Record<string, unknown> {
     environment: { ...story.environment },
     created_at: formatDateTime(new Date('2024-12-05T14:30:00.000Z')),
     external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
-    external_url: `https://explore.carrot.eco/credit/carrot-carbon`,
+    external_url: `https://registry.carrot.eco/credit/carrot-carbon`,
     symbol: story.credit.symbol,
     slug: story.credit.slug,
     name: story.credit.name,

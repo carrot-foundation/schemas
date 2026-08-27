@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.1.0/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "88d40c73d9a8ff1731433a094d1a22f62f1d0f2025eefd6b1320d0b69986be6f",
+    "hash": "5b255debf5fdd1115928120ad61daf4b406182064a8a92050bd8d70c8522c687",
     "type": "GasID",
     "version": "5.1.0",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -19,8 +19,8 @@
   },
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "external_url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "audit_data_hash": "a3d4af01e3cdd0dc31390bfd9444d7353a337f68ce8c786e50500b3232a4b1c3",
+  "external_url": "https://registry.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
+  "audit_data_hash": "11e51356f4b75ccc31ee435356ea4f661a56f9fe5371a8dc0a94f2b40f195594",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
@@ -32,7 +32,7 @@
   "external_links": [
     {
       "label": "Carrot Explorer",
-      "url": "https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
+      "url": "https://registry.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "description": "Complete GasID details and audit trail"
     },
     {
@@ -119,7 +119,7 @@
       "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
       "version": "1.0.1",
       "external_id": "8375027a-a96f-446d-a8cb-c3ee92aea604",
-      "external_url": "https://explore.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
+      "external_url": "https://registry.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
       "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
     },
     "audit": {
@@ -127,13 +127,13 @@
       "rules_executed": 21,
       "completed_at": "2024-12-08T11:32:47.000Z",
       "external_id": "80011d61-fe40-4aa2-9031-4f2aafad5d42",
-      "external_url": "https://explore.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
+      "external_url": "https://registry.carrot.eco/document/80011d61-fe40-4aa2-9031-4f2aafad5d42",
       "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
     },
     "mass_id": {
       "token_id": "100001",
       "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-      "external_url": "https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "external_url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
       "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
       "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
     },

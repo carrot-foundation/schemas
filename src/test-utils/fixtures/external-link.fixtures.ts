@@ -8,7 +8,7 @@ import type { ExternalLink } from '../../shared';
  */
 export const minimalExternalLinkStub: ExternalLink = {
   label: 'Carrot Explorer',
-  url: 'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+  url: 'https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
 };
 
 /**
@@ -19,7 +19,7 @@ export const minimalExternalLinkStub: ExternalLink = {
  */
 export const validExternalLinkFixture: ExternalLink = {
   label: 'Carrot Explorer',
-  url: 'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+  url: 'https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
   description: 'Complete chain of custody and audit trail',
 };
 

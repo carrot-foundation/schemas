@@ -67,7 +67,7 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
     environment: { ...story.environment },
     created_at: formatDateTime(auditCompletedAt),
     external_id: externalId,
-    external_url: `https://explore.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.carrot.eco/document/${externalId}`,
     data: {
       audit_summary: {
         started_at: formatDateTime(auditStartedAt),
@@ -78,14 +78,14 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
         external_id: '8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9',
         name: story.methodology.name,
         version: 'v1.4.2',
-        external_url: `https://explore.carrot.eco/document/${story.methodology.slug}`,
+        external_url: `https://registry.carrot.eco/document/${story.methodology.slug}`,
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
       },
       mass_id: {
         external_id: massIDExternalId,
         token_id: massIDTokenId,
-        external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -93,7 +93,7 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
       gas_id: {
         external_id: gasIDExternalId,
         token_id: gasIDTokenId,
-        external_url: `https://explore.carrot.eco/document/${gasIDExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${gasIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

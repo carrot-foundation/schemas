@@ -85,7 +85,7 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://explore.carrot.eco/",
+        "https://registry.carrot.eco/",
         "https://whitepaper.carrot.eco/"
       ]
     },
@@ -252,7 +252,7 @@
                   "type": "string",
                   "format": "uri",
                   "examples": [
-                    "https://explore.carrot.eco/",
+                    "https://registry.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
                   ]
                 }
@@ -320,7 +320,7 @@
                   "type": "string",
                   "format": "uri",
                   "examples": [
-                    "https://explore.carrot.eco/",
+                    "https://registry.carrot.eco/",
                     "https://whitepaper.carrot.eco/"
                   ]
                 }
@@ -381,7 +381,7 @@
                 "title": "Collection External URL",
                 "description": "Link to the collection page on the Carrot platform",
                 "examples": [
-                  "https://explore.carrot.eco/",
+                  "https://registry.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
                 ]
               },
@@ -433,7 +433,7 @@
                 "title": "External URL",
                 "description": "URL pointing to external resources",
                 "examples": [
-                  "https://explore.carrot.eco/",
+                  "https://registry.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
                 ]
               },
@@ -521,7 +521,7 @@
                 "title": "External URL",
                 "description": "URL pointing to external resources",
                 "examples": [
-                  "https://explore.carrot.eco/",
+                  "https://registry.carrot.eco/",
                   "https://whitepaper.carrot.eco/"
                 ]
               },
@@ -599,7 +599,7 @@
                     "title": "External URL",
                     "description": "URL pointing to external resources",
                     "examples": [
-                      "https://explore.carrot.eco/",
+                      "https://registry.carrot.eco/",
                       "https://whitepaper.carrot.eco/"
                     ]
                   },
@@ -745,7 +745,7 @@
                       "title": "Retired Credit External URL",
                       "description": "External URL for the retired credit entry",
                       "examples": [
-                        "https://explore.carrot.eco/",
+                        "https://registry.carrot.eco/",
                         "https://whitepaper.carrot.eco/"
                       ]
                     }
@@ -803,7 +803,7 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://explore.carrot.eco/",
+                "https://registry.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
               ]
             },
@@ -1029,7 +1029,7 @@
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
-              "https://explore.carrot.eco/",
+              "https://registry.carrot.eco/",
               "https://whitepaper.carrot.eco/"
             ]
           },

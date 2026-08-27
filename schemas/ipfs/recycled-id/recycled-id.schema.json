@@ -85,7 +85,7 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://explore.carrot.eco/",
+        "https://registry.carrot.eco/",
         "https://whitepaper.carrot.eco/"
       ]
     },
@@ -268,7 +268,7 @@
               "title": "Methodology External URL",
               "description": "URL to view the methodology on Carrot Explorer",
               "examples": [
-                "https://explore.carrot.eco/",
+                "https://registry.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
               ]
             },
@@ -324,7 +324,7 @@
               "title": "Audit External URL",
               "description": "URL to view the audit on Carrot Explorer",
               "examples": [
-                "https://explore.carrot.eco/",
+                "https://registry.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
               ]
             },
@@ -396,7 +396,7 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://explore.carrot.eco/",
+                "https://registry.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
               ]
             },
@@ -778,7 +778,7 @@
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
-              "https://explore.carrot.eco/",
+              "https://registry.carrot.eco/",
               "https://whitepaper.carrot.eco/"
             ]
           },
