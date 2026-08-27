@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.1.0/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "5b255debf5fdd1115928120ad61daf4b406182064a8a92050bd8d70c8522c687",
+    "hash": "718981ebe8911ae2775d04ddab998177cb968b5d678017fcdb087a594f37d420",
     "type": "GasID",
     "version": "5.1.0",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,7 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
   "external_url": "https://registry.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-  "audit_data_hash": "11e51356f4b75ccc31ee435356ea4f661a56f9fe5371a8dc0a94f2b40f195594",
+  "audit_data_hash": "324574ebc144fbd00432db3f77d3580bad94623d96daa2440a4cdce4190a5b0d",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
@@ -31,7 +31,7 @@
   "background_color": "#1B4332",
   "external_links": [
     {
-      "label": "Carrot Explorer",
+      "label": "Carrot Registry",
       "url": "https://registry.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
       "description": "Complete GasID details and audit trail"
     },

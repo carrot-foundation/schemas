@@ -57,7 +57,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
     background_color: '#2D5A27',
     external_links: [
       {
-        label: 'View on Carrot Explorer',
+        label: 'View on Carrot Registry',
         url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete purchase details and audit trail',
       },

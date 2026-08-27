@@ -76,7 +76,7 @@ export function emitMassIDExample(): Record<string, unknown> {
     background_color: '#2D5A27',
     external_links: [
       {
-        label: 'Carrot Explorer',
+        label: 'Carrot Registry',
         url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete chain of custody and audit trail',
       },

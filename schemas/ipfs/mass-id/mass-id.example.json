@@ -31,7 +31,7 @@
   "background_color": "#2D5A27",
   "external_links": [
     {
-      "label": "Carrot Explorer",
+      "label": "Carrot Registry",
       "url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
       "description": "Complete chain of custody and audit trail"
     },
@@ -107,7 +107,7 @@
       "display_type": "date"
     }
   ],
-  "audit_data_hash": "b8a4b14fea0c0f1965f63eb4230ea1e7be5faf1cf6b64f742bfadcf728460b37",
+  "audit_data_hash": "ea6b814743117b1e07d6f36f42c8340a9314f350eeb77724de74a39b3ea273f1",
   "data": {
     "waste_properties": {
       "type": "Organic",

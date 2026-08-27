@@ -83,7 +83,7 @@ external_links: uniqueBy(ExternalLinkSchema, ...).optional().meta({
   examples: [
     [
       {
-        label: 'Carrot Explorer',
+        label: 'Carrot Registry',
         url: 'https://registry.carrot.eco/document/...',
         description: 'Complete chain of custody and audit trail',
       },

@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.1.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "7710071da2bd414c2e85eed1677e610216b3d9d79fe31baeed76973cfd3b6de3",
+    "hash": "c42a24ea23ec9586cfba501d7aee05d9d335b1097079a49071dcabbb83209b19",
     "type": "RecycledID",
     "version": "5.1.0",
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
@@ -20,7 +20,7 @@
   "created_at": "2024-12-08T11:32:47.000Z",
   "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
   "external_url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "audit_data_hash": "0cb3ec2953460e99d126c27e8873554ee0de9b4db541e27e8affa97d15950a5c",
+  "audit_data_hash": "d7df155e92f40b666769ca63de6f87d4b53ff38da13b6c824e0673a4b1b6c30f",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
@@ -31,7 +31,7 @@
   "background_color": "#2D5016",
   "external_links": [
     {
-      "label": "Carrot Explorer",
+      "label": "Carrot Registry",
       "url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
       "description": "Complete RecycledID details and audit trail"
     },

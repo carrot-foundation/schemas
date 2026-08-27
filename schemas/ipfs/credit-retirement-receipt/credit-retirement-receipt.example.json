@@ -30,7 +30,7 @@
   "background_color": "#1B4332",
   "external_links": [
     {
-      "label": "View on Carrot Explorer",
+      "label": "View on Carrot Registry",
       "url": "https://registry.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
       "description": "Complete retirement details and audit trail"
     }
@@ -230,5 +230,5 @@
       "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
     }
   },
-  "audit_data_hash": "1f36ee9c378c9e3441eef99ddb8e4d6c9bbcdc43bf76453e8b923c995eae89f1"
+  "audit_data_hash": "1804836cd965a3043b35c8475eb566c642950fce2eaed6de0d40d087f4cf047d"
 }

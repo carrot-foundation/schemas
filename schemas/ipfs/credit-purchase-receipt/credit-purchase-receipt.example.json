@@ -20,7 +20,7 @@
   "created_at": "2025-02-03T12:45:30.000Z",
   "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
   "external_url": "https://registry.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-  "audit_data_hash": "57e1f90860ec97110d8669802b8c449bd8c3d90471b706bd102a3393e37e9fe8",
+  "audit_data_hash": "f035913670a767ae24c4d58efec69d2351347a8059a28dd234bfccf016c19b23",
   "viewer_reference": {
     "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
   },
@@ -31,7 +31,7 @@
   "background_color": "#2D5A27",
   "external_links": [
     {
-      "label": "View on Carrot Explorer",
+      "label": "View on Carrot Registry",
       "url": "https://registry.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
       "description": "Complete purchase details and audit trail"
     }

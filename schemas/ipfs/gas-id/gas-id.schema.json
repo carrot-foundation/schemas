@@ -278,7 +278,7 @@
               "type": "string",
               "format": "uri",
               "title": "Methodology External URL",
-              "description": "URL to view the methodology on Carrot Explorer",
+              "description": "URL to view the methodology on Carrot Registry",
               "examples": [
                 "https://registry.carrot.eco/",
                 "https://whitepaper.carrot.eco/"
@@ -334,7 +334,7 @@
               "type": "string",
               "format": "uri",
               "title": "Audit External URL",
-              "description": "URL to view the audit on Carrot Explorer",
+              "description": "URL to view the audit on Carrot Registry",
               "examples": [
                 "https://registry.carrot.eco/",
                 "https://whitepaper.carrot.eco/"

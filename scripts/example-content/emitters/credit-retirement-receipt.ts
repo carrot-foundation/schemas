@@ -56,7 +56,7 @@ export function emitCreditRetirementReceiptExample(): Record<string, unknown> {
     background_color: '#1B4332',
     external_links: [
       {
-        label: 'View on Carrot Explorer',
+        label: 'View on Carrot Registry',
         url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete retirement details and audit trail',
       },

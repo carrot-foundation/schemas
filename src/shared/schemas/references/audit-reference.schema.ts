@@ -27,7 +27,7 @@ export const AuditReferenceSchema = z
     }),
     external_url: ExternalUrlSchema.meta({
       title: 'Audit External URL',
-      description: 'URL to view the audit on Carrot Explorer',
+      description: 'URL to view the audit on Carrot Registry',
     }),
     result: AuditResultSchema.meta({
       title: 'Audit Result',

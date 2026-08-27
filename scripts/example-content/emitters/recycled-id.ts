@@ -54,7 +54,7 @@ export function emitRecycledIDExample(): Record<string, unknown> {
     background_color: '#2D5016',
     external_links: [
       {
-        label: 'Carrot Explorer',
+        label: 'Carrot Registry',
         url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete RecycledID details and audit trail',
       },

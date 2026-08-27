@@ -56,7 +56,7 @@ export function emitGasIDExample(): Record<string, unknown> {
     background_color: '#1B4332',
     external_links: [
       {
-        label: 'Carrot Explorer',
+        label: 'Carrot Registry',
         url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete GasID details and audit trail',
       },
