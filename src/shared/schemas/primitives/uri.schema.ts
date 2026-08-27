@@ -5,7 +5,7 @@ import { NonEmptyStringSchema } from './text.schema';
 export const ExternalUrlSchema = z.url().meta({
   title: 'External URL',
   description: 'URL pointing to external resources',
-  examples: ['https://explore.carrot.eco/', 'https://whitepaper.carrot.eco/'],
+  examples: ['https://registry.carrot.eco/', 'https://whitepaper.carrot.eco/'],
 });
 export type ExternalUrl = z.infer<typeof ExternalUrlSchema>;
 

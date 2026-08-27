@@ -7,8 +7,8 @@ import type { ExternalLink } from '../../shared';
  * Used as a base for creating custom external link fixtures in tests.
  */
 export const minimalExternalLinkStub: ExternalLink = {
-  label: 'Carrot Explorer',
-  url: 'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+  label: 'Carrot Registry',
+  url: 'https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
 };
 
 /**
@@ -18,8 +18,8 @@ export const minimalExternalLinkStub: ExternalLink = {
  * Used in tests to validate external link schema parsing and validation.
  */
 export const validExternalLinkFixture: ExternalLink = {
-  label: 'Carrot Explorer',
-  url: 'https://explore.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+  label: 'Carrot Registry',
+  url: 'https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
   description: 'Complete chain of custody and audit trail',
 };
 

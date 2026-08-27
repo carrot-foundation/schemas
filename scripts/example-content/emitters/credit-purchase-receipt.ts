@@ -44,7 +44,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
     },
     created_at: formatDateTime(purchasedAt),
     external_id: externalId,
-    external_url: `https://explore.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.carrot.eco/document/${externalId}`,
     audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
       ipfs_uri:
@@ -57,8 +57,8 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
     background_color: '#2D5A27',
     external_links: [
       {
-        label: 'View on Carrot Explorer',
-        url: `https://explore.carrot.eco/document/${externalId}`,
+        label: 'View on Carrot Registry',
+        url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete purchase details and audit trail',
       },
     ],
@@ -122,7 +122,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           name: 'EcoTech Solutions Inc.',
           external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
           external_url:
-            'https://explore.carrot.eco/participant/ecotech-solutions-inc-12345',
+            'https://registry.carrot.eco/participant/ecotech-solutions-inc-12345',
         },
       },
       collections: [
@@ -130,7 +130,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           slug: story.collection.slug,
           name: story.collection.name,
           external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
-          external_url: `https://explore.carrot.eco/collection/${story.collection.slug}`,
+          external_url: `https://registry.carrot.eco/collection/${story.collection.slug}`,
           ipfs_uri:
             'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
         },
@@ -138,7 +138,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           slug: 'bold-brazil',
           name: 'BOLD Brazil',
           external_id: 'e710790f-5909-4a54-ab89-6a59819472ee',
-          external_url: 'https://explore.carrot.eco/collection/bold-brazil',
+          external_url: 'https://registry.carrot.eco/collection/bold-brazil',
           ipfs_uri:
             'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
         },
@@ -149,7 +149,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           symbol: story.credit.symbol,
           external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
           external_url:
-            'https://explore.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
+            'https://registry.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
           ipfs_uri:
             'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha',
           smart_contract_address: '0xabcdef1234567890abcdef1234567890abcdef12',
@@ -159,7 +159,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           symbol: 'C-BIOW',
           external_id: 'e710790f-5909-4a54-ab89-6a59819472ee',
           external_url:
-            'https://explore.carrot.eco/credit/e710790f-5909-4a54-ab89-6a59819472ee',
+            'https://registry.carrot.eco/credit/e710790f-5909-4a54-ab89-6a59819472ee',
           ipfs_uri:
             'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
           smart_contract_address: '0xfedcba0987654321fedcba0987654321fedcba09',
@@ -174,7 +174,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           credit_slug: story.credit.slug,
           external_id: 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6',
           external_url:
-            'https://explore.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6',
+            'https://registry.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6',
           ipfs_uri:
             'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
           smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
@@ -188,7 +188,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           mass_id: {
             token_id: massIDTokenId,
             external_id: massIDExternalId,
-            external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
+            external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
             smart_contract_address:
@@ -203,7 +203,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           credit_slug: 'biowaste',
           external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d489',
           external_url:
-            'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489',
+            'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489',
           ipfs_uri:
             'ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae',
           smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
@@ -217,7 +217,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           mass_id: {
             token_id: massIDTokenId,
             external_id: massIDExternalId,
-            external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
+            external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
             smart_contract_address:
@@ -232,7 +232,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           credit_slug: 'biowaste',
           external_id: '0f1e2d3c-4b5a-4d78-8c12-3456789abcde',
           external_url:
-            'https://explore.carrot.eco/document/0f1e2d3c-4b5a-4d78-8c12-3456789abcde',
+            'https://registry.carrot.eco/document/0f1e2d3c-4b5a-4d78-8c12-3456789abcde',
           ipfs_uri:
             'ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae',
           smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
@@ -246,7 +246,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
           mass_id: {
             token_id: massIDTokenId,
             external_id: massIDExternalId,
-            external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
+            external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
             ipfs_uri:
               'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
             smart_contract_address:
@@ -257,7 +257,7 @@ export function emitCreditPurchaseReceiptExample(): Record<string, unknown> {
       retirement_receipt: {
         token_id: retirementTokenId,
         external_id: retirementExternalId,
-        external_url: `https://explore.carrot.eco/document/${retirementExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${retirementExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',

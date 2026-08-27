@@ -126,7 +126,7 @@ describe('MassIDAuditDataSchema', () => {
         external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
         token_id: '789',
         external_url:
-          'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
+          'https://registry.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
@@ -152,7 +152,7 @@ describe('MassIDAuditDataSchema', () => {
         external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
         token_id: '789',
         external_url:
-          'https://explore.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
+          'https://registry.carrot.eco/document/a1b2c3d4-e5f6-4890-8234-567890abcdef',
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

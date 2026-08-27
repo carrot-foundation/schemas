@@ -43,7 +43,7 @@ export function emitGasIDExample(): Record<string, unknown> {
     },
     created_at: formatDateTime(recyclingAt),
     external_id: externalId,
-    external_url: `https://explore.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.carrot.eco/document/${externalId}`,
     audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
       ipfs_uri:
@@ -56,8 +56,8 @@ export function emitGasIDExample(): Record<string, unknown> {
     background_color: '#1B4332',
     external_links: [
       {
-        label: 'Carrot Explorer',
-        url: `https://explore.carrot.eco/document/${externalId}`,
+        label: 'Carrot Registry',
+        url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete GasID details and audit trail',
       },
       {
@@ -126,7 +126,7 @@ export function emitGasIDExample(): Record<string, unknown> {
         name: story.methodology.name,
         version: story.methodology.version,
         external_id: methodologyExternalId,
-        external_url: `https://explore.carrot.eco/document/${methodologyExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${methodologyExternalId}`,
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
       },
@@ -135,14 +135,14 @@ export function emitGasIDExample(): Record<string, unknown> {
         rules_executed: 21,
         completed_at: formatDateTime(recyclingAt),
         external_id: auditExternalId,
-        external_url: `https://explore.carrot.eco/document/${auditExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${auditExternalId}`,
         ipfs_uri:
           'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
       },
       mass_id: {
         token_id: massIDTokenId,
         external_id: massIDExternalId,
-        external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

@@ -29,7 +29,7 @@ export function emitCollectionExample(): Record<string, unknown> {
     environment: { ...story.environment },
     created_at: formatDateTime(new Date('2024-12-05T14:30:00.000Z')),
     external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
-    external_url: `https://explore.carrot.eco/collection/${story.collection.slug}`,
+    external_url: `https://registry.carrot.eco/collection/${story.collection.slug}`,
     name: story.collection.name,
     slug: story.collection.slug,
     image: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',

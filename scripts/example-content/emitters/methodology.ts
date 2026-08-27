@@ -31,7 +31,7 @@ export function emitMethodologyExample(): Record<string, unknown> {
     created_at: formatDateTime(createdAt),
     external_id: '8375027a-a96f-446d-a8cb-c3ee92aea604',
     external_url:
-      'https://explore.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604',
+      'https://registry.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604',
     data: {
       name: story.methodology.name,
       short_name: 'BOLD Carbon (CH\u2084)',

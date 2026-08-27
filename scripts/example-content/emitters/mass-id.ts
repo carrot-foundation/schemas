@@ -66,7 +66,7 @@ export function emitMassIDExample(): Record<string, unknown> {
     },
     created_at: formatDateTime(createdAt),
     external_id: externalId,
-    external_url: `https://explore.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.carrot.eco/document/${externalId}`,
     name: `MassID #${tokenId} \u2022 Organic \u2022 3.25t`,
     short_name: `MassID #${tokenId}`,
     description: `This MassID represents 3.25 metric tons of organic food waste from Bras\u00edlia, Brazil, tracked through complete chain of custody from pick-up to composting.`,
@@ -76,8 +76,8 @@ export function emitMassIDExample(): Record<string, unknown> {
     background_color: '#2D5A27',
     external_links: [
       {
-        label: 'Carrot Explorer',
-        url: `https://explore.carrot.eco/document/${externalId}`,
+        label: 'Carrot Registry',
+        url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete chain of custody and audit trail',
       },
       {

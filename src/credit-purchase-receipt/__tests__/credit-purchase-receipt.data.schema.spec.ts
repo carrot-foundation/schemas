@@ -29,7 +29,7 @@ describe('CreditPurchaseReceiptDataSchema', () => {
       invalid.retirement_receipt ??= {
         token_id: '1200',
         external_id: 'a1b2c3d4-e5f6-4b90-8a34-567890abcdef',
-        external_url: 'https://explore.carrot.eco/document/test',
+        external_url: 'https://registry.carrot.eco/document/test',
         ipfs_uri:
           'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
         smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
@@ -294,7 +294,7 @@ describe('CreditPurchaseReceiptDataSchema', () => {
         slug: 'bold-innovators',
         name: 'BOLD Innovators',
         external_id: 'aa1bb2cc-3d4e-4f56-7890-1234567890ab',
-        external_url: 'https://explore.carrot.eco/collection/bold-innovators',
+        external_url: 'https://registry.carrot.eco/collection/bold-innovators',
         ipfs_uri:
           'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
       });

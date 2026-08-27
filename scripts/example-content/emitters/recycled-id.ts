@@ -41,7 +41,7 @@ export function emitRecycledIDExample(): Record<string, unknown> {
     },
     created_at: formatDateTime(recyclingAt),
     external_id: externalId,
-    external_url: `https://explore.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.carrot.eco/document/${externalId}`,
     audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
       ipfs_uri:
@@ -54,8 +54,8 @@ export function emitRecycledIDExample(): Record<string, unknown> {
     background_color: '#2D5016',
     external_links: [
       {
-        label: 'Carrot Explorer',
-        url: `https://explore.carrot.eco/document/${externalId}`,
+        label: 'Carrot Registry',
+        url: `https://registry.carrot.eco/document/${externalId}`,
         description: 'Complete RecycledID details and audit trail',
       },
       {
@@ -114,7 +114,7 @@ export function emitRecycledIDExample(): Record<string, unknown> {
         name: 'AMS-III.F. | BOLD Recycling Credit',
         version: '1.2.0',
         external_url:
-          'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490',
+          'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490',
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
       },
@@ -122,7 +122,7 @@ export function emitRecycledIDExample(): Record<string, unknown> {
         completed_at: formatDateTime(recyclingAt),
         external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d499',
         external_url:
-          'https://explore.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499',
+          'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499',
         result: 'PASSED',
         rules_executed: 18,
         ipfs_uri:
@@ -131,7 +131,7 @@ export function emitRecycledIDExample(): Record<string, unknown> {
       mass_id: {
         external_id: massIDExternalId,
         token_id: massIDTokenId,
-        external_url: `https://explore.carrot.eco/document/${massIDExternalId}`,
+        external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
         ipfs_uri:
           'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',

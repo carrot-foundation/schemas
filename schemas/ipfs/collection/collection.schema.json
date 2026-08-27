@@ -85,7 +85,7 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://explore.carrot.eco/",
+        "https://registry.carrot.eco/",
         "https://whitepaper.carrot.eco/"
       ]
     },
