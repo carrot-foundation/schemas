@@ -298,7 +298,7 @@ export const MassIDDataSchema = z
       .meta({
         title: 'Participants',
         description:
-          'Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool',
+          'Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Bin Custodian, Waste Manager, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool',
       }),
     events: MassIDEventsSchema,
     attachments: z.array(MassIDAttachmentSchema).optional().meta({

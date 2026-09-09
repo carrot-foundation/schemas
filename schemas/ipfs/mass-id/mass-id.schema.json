@@ -369,6 +369,7 @@
                 "items": {
                   "type": "string",
                   "enum": [
+                    "Bin Custodian",
                     "Community Impact Pool",
                     "Hauler",
                     "Network Integrator",
@@ -377,7 +378,8 @@
                     "Network",
                     "Processor",
                     "Recycler",
-                    "Waste Generator"
+                    "Waste Generator",
+                    "Waste Manager"
                   ],
                   "title": "Participant Role",
                   "description": "Role that a participant plays in the waste management supply chain",
@@ -400,7 +402,7 @@
             "description": "An entity (person, company, or cooperative) involved in the waste management supply chain"
           },
           "title": "Participants",
-          "description": "Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool"
+          "description": "Supply chain participants involved in waste management operations. Roles include Waste Generator, Hauler, Processor, Recycler, Bin Custodian, Waste Manager, Network Integrator, Methodology Author, Methodology Developer, Network, and Community Impact Pool"
         },
         "events": {
           "minItems": 1,

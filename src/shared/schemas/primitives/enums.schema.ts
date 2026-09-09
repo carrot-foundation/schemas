@@ -133,6 +133,7 @@ export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
 
 export const ParticipantRoleSchema = z
   .enum([
+    'Bin Custodian',
     'Community Impact Pool',
     'Hauler',
     'Network Integrator',
@@ -142,6 +143,7 @@ export const ParticipantRoleSchema = z
     'Processor',
     'Recycler',
     'Waste Generator',
+    'Waste Manager',
   ])
   .meta({
     title: 'Participant Role',
