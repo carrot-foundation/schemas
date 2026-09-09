@@ -5,6 +5,7 @@ import {
   CollectionSlugSchema,
   CreditTokenSlugSchema,
   CreditTokenSymbolSchema,
+  ParticipantRoleSchema,
   WasteSubtypeSchema,
 } from '../enums.schema';
 
@@ -123,6 +124,33 @@ describe('WasteSubtypeSchema', () => {
 
   it('rejects a waste subtype not in the canonical list', () => {
     const result = WasteSubtypeSchema.safeParse('Other');
+
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('ParticipantRoleSchema', () => {
+  it.each([
+    'Bin Custodian',
+    'Community Impact Pool',
+    'Hauler',
+    'Network Integrator',
+    'Methodology Author',
+    'Methodology Developer',
+    'Network',
+    'Processor',
+    'Recycler',
+    'Waste Generator',
+    'Waste Manager',
+  ])('accepts the canonical participant role "%s"', (value) => {
+    expect(ParticipantRoleSchema.safeParse(value)).toEqual({
+      success: true,
+      data: value,
+    });
+  });
+
+  it('rejects a participant role not in the canonical list', () => {
+    const result = ParticipantRoleSchema.safeParse('Regulator');
 
     expect(result.success).toBe(false);
   });

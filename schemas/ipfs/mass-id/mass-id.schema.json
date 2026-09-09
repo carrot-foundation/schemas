@@ -369,6 +369,7 @@
                 "items": {
                   "type": "string",
                   "enum": [
+                    "Bin Custodian",
                     "Community Impact Pool",
                     "Hauler",
                     "Network Integrator",
@@ -377,7 +378,8 @@
                     "Network",
                     "Processor",
                     "Recycler",
-                    "Waste Generator"
+                    "Waste Generator",
+                    "Waste Manager"
                   ],
                   "title": "Participant Role",
                   "description": "Role that a participant plays in the waste management supply chain",
