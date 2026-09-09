@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.0](https://github.com/carrot-foundation/schemas/compare/v5.1.1...v5.2.0) (2026-09-09)
+
+### Features
+
+- **schema:** add Bin Custodian and Waste Manager to ParticipantRoleSchema ([c8951b3](https://github.com/carrot-foundation/schemas/commit/c8951b3b705301db4757add1dc8e44b2cc25573d))
+
+### Bug Fixes
+
+- **schema:** update stale participant-role list in MassID description ([e5b8a84](https://github.com/carrot-foundation/schemas/commit/e5b8a8453319b3ee3d2b180c7282ba3d4c430d3c))
+
 ## [5.1.1](https://github.com/carrot-foundation/schemas/compare/v5.1.0...v5.1.1) (2026-08-27)
 
 ### Bug Fixes
