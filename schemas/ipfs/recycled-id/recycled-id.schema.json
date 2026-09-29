@@ -6,8 +6,7 @@
       "type": "string",
       "format": "uri",
       "title": "JSON Schema URI",
-      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json"
+      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash"
     },
     "schema": {
       "type": "object",
@@ -727,7 +726,7 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$",
       "title": "Audit Data Hash",
-      "description": "SHA-256 digest of this canonical JSON metadata record excluding content_hash and audit_data_hash; it is not a hash of private source documents",
+      "description": "SHA-256 digest of the canonical data block in this NFT metadata record; it is not a hash of private source documents",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ]
@@ -1455,5 +1454,125 @@
   "title": "RecycledID NFT IPFS Record",
   "description": "Complete RecycledID NFT IPFS record including recycling outcome metrics, source waste provenance, methodology reference, and NFT display attributes",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
-  "version": "5.2.0"
+  "version": "5.2.0",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "environment": {
+            "properties": {
+              "blockchain_network": {
+                "const": "mainnet"
+              }
+            },
+            "required": [
+              "blockchain_network"
+            ]
+          }
+        },
+        "required": [
+          "environment"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blockchain": {
+            "properties": {
+              "chain_id": {
+                "const": 137
+              }
+            },
+            "required": [
+              "chain_id"
+            ]
+          }
+        },
+        "required": [
+          "blockchain"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "environment": {
+            "properties": {
+              "blockchain_network": {
+                "const": "testnet"
+              }
+            },
+            "required": [
+              "blockchain_network"
+            ]
+          }
+        },
+        "required": [
+          "environment"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blockchain": {
+            "properties": {
+              "chain_id": {
+                "const": 80002
+              }
+            },
+            "required": [
+              "chain_id"
+            ]
+          }
+        },
+        "required": [
+          "blockchain"
+        ]
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "blockchain": {
+              "properties": {
+                "chain_id": {
+                  "const": 137
+                },
+                "network_name": {
+                  "const": "Polygon"
+                }
+              },
+              "required": [
+                "chain_id",
+                "network_name"
+              ]
+            }
+          },
+          "required": [
+            "blockchain"
+          ]
+        },
+        {
+          "properties": {
+            "blockchain": {
+              "properties": {
+                "chain_id": {
+                  "const": 80002
+                },
+                "network_name": {
+                  "const": "Amoy"
+                }
+              },
+              "required": [
+                "chain_id",
+                "network_name"
+              ]
+            }
+          },
+          "required": [
+            "blockchain"
+          ]
+        }
+      ]
+    }
+  ]
 }

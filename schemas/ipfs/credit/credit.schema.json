@@ -6,8 +6,7 @@
       "type": "string",
       "format": "uri",
       "title": "JSON Schema URI",
-      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json"
+      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash"
     },
     "schema": {
       "type": "object",
@@ -299,5 +298,123 @@
   "title": "Credit IPFS Record",
   "description": "Credit token metadata stored in IPFS, extending the base schema with ERC20-specific details",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/credit/credit.schema.json",
-  "version": "5.2.0"
+  "version": "5.2.0",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "slug": {
+            "const": "carbon-ch4"
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      },
+      "then": {
+        "properties": {
+          "symbol": {
+            "const": "C-CARB.CH4"
+          }
+        },
+        "required": [
+          "symbol"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "slug": {
+            "const": "biowaste"
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      },
+      "then": {
+        "properties": {
+          "symbol": {
+            "const": "C-BIOW"
+          }
+        },
+        "required": [
+          "symbol"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "environment": {
+            "properties": {
+              "blockchain_network": {
+                "const": "mainnet"
+              }
+            },
+            "required": [
+              "blockchain_network"
+            ]
+          }
+        },
+        "required": [
+          "environment"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blockchain": {
+            "properties": {
+              "chain_id": {
+                "const": 137
+              }
+            },
+            "required": [
+              "chain_id"
+            ]
+          }
+        },
+        "required": [
+          "blockchain"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "environment": {
+            "properties": {
+              "blockchain_network": {
+                "const": "testnet"
+              }
+            },
+            "required": [
+              "blockchain_network"
+            ]
+          }
+        },
+        "required": [
+          "environment"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blockchain": {
+            "properties": {
+              "chain_id": {
+                "const": 80002
+              }
+            },
+            "required": [
+              "chain_id"
+            ]
+          }
+        },
+        "required": [
+          "blockchain"
+        ]
+      }
+    }
+  ]
 }

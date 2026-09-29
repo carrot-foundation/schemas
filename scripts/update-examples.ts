@@ -120,14 +120,13 @@ function main(): void {
     schema.version = version;
     schema.hash = manifestEntry.hash;
 
-    const contentHash = computeContentHash(exampleJson);
     if (hasContentHash) {
-      exampleJson.content_hash = contentHash;
+      exampleJson.content_hash = computeContentHash(exampleJson);
     } else {
       delete exampleJson.content_hash;
     }
     if (hasAuditDataHash) {
-      exampleJson.audit_data_hash = contentHash;
+      exampleJson.audit_data_hash = hashObject(exampleJson.data);
     } else {
       delete exampleJson.audit_data_hash;
     }

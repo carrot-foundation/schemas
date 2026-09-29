@@ -10,6 +10,7 @@ import {
   buildSchemaUrl,
   getSchemaVersionOrDefault,
   CreditTokenSlugSchema,
+  CREDIT_TOKEN_PAIRS,
 } from '../shared';
 
 export const CreditSchemaMeta = {
@@ -89,8 +90,7 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
     }),
 })
   .superRefine((record, ctx) => {
-    const expectedSymbol =
-      record.slug === 'carbon-ch4' ? 'C-CARB.CH4' : 'C-BIOW';
+    const expectedSymbol = CREDIT_TOKEN_PAIRS[record.slug];
     if (record.symbol !== expectedSymbol) {
       ctx.addIssue({
         code: 'custom',

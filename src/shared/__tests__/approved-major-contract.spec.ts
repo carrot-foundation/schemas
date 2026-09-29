@@ -24,6 +24,7 @@ import recycledExample from '../../../schemas/ipfs/recycled-id/recycled-id.examp
 
 import creditJsonSchema from '../../../schemas/ipfs/credit/credit.schema.json';
 import gasJsonSchema from '../../../schemas/ipfs/gas-id/gas-id.schema.json';
+import { hashObject } from '../hash';
 
 describe('approved major metadata contract', () => {
   it.each([
@@ -242,5 +243,121 @@ describe('approved major metadata contract', () => {
       'unit',
     );
     expect(validateGas(missingUnit)).toBe(false);
+
+    const wrongPair = structuredClone(creditExample);
+    Object.assign(wrongPair, { symbol: 'C-BIOW' });
+    expect(CreditSchema.safeParse(wrongPair).success).toBe(false);
+    expect(validateCredit(wrongPair)).toBe(false);
+
+    const wrongCreditNetwork = structuredClone(creditExample);
+    Object.assign(wrongCreditNetwork.blockchain, { chain_id: 137 });
+    expect(CreditSchema.safeParse(wrongCreditNetwork).success).toBe(false);
+    expect(validateCredit(wrongCreditNetwork)).toBe(false);
+
+    const noCreditEnvironment = structuredClone(creditExample);
+    Reflect.deleteProperty(noCreditEnvironment, 'environment');
+    expect(CreditSchema.safeParse(noCreditEnvironment).success).toBe(true);
+    expect(validateCredit(noCreditEnvironment)).toBe(true);
+
+    const biowasteCredit = structuredClone(creditExample);
+    Object.assign(biowasteCredit, {
+      slug: 'biowaste',
+      symbol: 'C-BIOW',
+    });
+    expect(CreditSchema.safeParse(biowasteCredit).success).toBe(true);
+    expect(validateCredit(biowasteCredit)).toBe(true);
+
+    const wrongNftNetwork = structuredClone(gasExample);
+    Object.assign(wrongNftNetwork.blockchain, { chain_id: 1 });
+    expect(GasIDIpfsSchema.safeParse(wrongNftNetwork).success).toBe(false);
+    expect(validateGas(wrongNftNetwork)).toBe(false);
+
+    const wrongNftEnvironment = structuredClone(gasExample);
+    Object.assign(wrongNftEnvironment.environment, {
+      blockchain_network: 'mainnet',
+    });
+    expect(GasIDIpfsSchema.safeParse(wrongNftEnvironment).success).toBe(false);
+    expect(validateGas(wrongNftEnvironment)).toBe(false);
+
+    const polygonNft = structuredClone(gasExample);
+    Object.assign(polygonNft.blockchain, {
+      chain_id: 137,
+      network_name: 'Polygon',
+    });
+    Object.assign(polygonNft.environment, { blockchain_network: 'mainnet' });
+    Object.assign(polygonNft.data.credit, { chain_id: 137 });
+    Object.assign(polygonNft.data.mass_id, { chain_id: 137 });
+    expect(GasIDIpfsSchema.safeParse(polygonNft).success).toBe(true);
+    expect(validateGas(polygonNft)).toBe(true);
+  });
+
+  it('hashes audit data independently from the complete metadata record', () => {
+    for (const document of [
+      massExample,
+      gasExample,
+      recycledExample,
+      purchaseExample,
+      retirementExample,
+    ]) {
+      const wholeRecord = structuredClone(document);
+      Reflect.deleteProperty(wholeRecord, 'audit_data_hash');
+      expect(document.audit_data_hash).toBe(hashObject(document.data));
+      expect(document.audit_data_hash).not.toBe(hashObject(wholeRecord));
+    }
+  });
+
+  it('rejects mismatched chain identities at every certificate and receipt reference', () => {
+    for (const [schema, example] of [
+      [GasIDIpfsSchema, gasExample],
+      [RecycledIDIpfsSchema, recycledExample],
+    ] as const) {
+      const document = structuredClone(example);
+      Object.assign(document.data.mass_id, { chain_id: 137 });
+      expect(schema.safeParse(document).success).toBe(false);
+    }
+
+    for (const field of [
+      'retirement_receipt',
+      'credits',
+      'certificates',
+    ] as const) {
+      const document = structuredClone(purchaseExample);
+      if (field === 'retirement_receipt') {
+        Object.assign(document.data.retirement_receipt, { chain_id: 137 });
+      } else {
+        Object.assign(document.data[field][0], { chain_id: 137 });
+      }
+      expect(CreditPurchaseReceiptIpfsSchema.safeParse(document).success).toBe(
+        false,
+      );
+    }
+
+    for (const field of [
+      'purchase_receipt',
+      'credits',
+      'certificates',
+    ] as const) {
+      const document = structuredClone(retirementExample);
+      if (field === 'purchase_receipt') {
+        Object.assign(document.data.purchase_receipt, { chain_id: 137 });
+      } else {
+        Object.assign(document.data[field][0], { chain_id: 137 });
+      }
+      expect(
+        CreditRetirementReceiptIpfsSchema.safeParse(document).success,
+      ).toBe(false);
+    }
+
+    for (const field of ['gas_id', 'recycled_id'] as const) {
+      const document = structuredClone(auditExample);
+      Object.assign(document.data, {
+        [field]: {
+          ...document.data.mass_id,
+          token_id: '200001',
+          chain_id: 137,
+        },
+      });
+      expect(MassIDAuditSchema.safeParse(document).success).toBe(false);
+    }
   });
 });

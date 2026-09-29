@@ -74,8 +74,6 @@ export const BaseIpfsSchema = z
       title: 'JSON Schema URI',
       description:
         'Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash',
-      example:
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json',
     }),
     schema: SchemaInfoSchema,
     created_at: IsoDateTimeSchema.meta({

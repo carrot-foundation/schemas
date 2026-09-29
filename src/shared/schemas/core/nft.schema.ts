@@ -135,7 +135,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   audit_data_hash: Sha256HashSchema.meta({
     title: 'Audit Data Hash',
     description:
-      'SHA-256 digest of this canonical JSON metadata record excluding content_hash and audit_data_hash; it is not a hash of private source documents',
+      'SHA-256 digest of the canonical data block in this NFT metadata record; it is not a hash of private source documents',
   }),
   viewer_reference: ViewerReferenceSchema,
   environment: RecordEnvironmentSchema,

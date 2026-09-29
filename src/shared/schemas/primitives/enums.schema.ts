@@ -52,6 +52,11 @@ export const CreditTokenSymbolSchema = z.enum(['C-CARB.CH4', 'C-BIOW']).meta({
 });
 export type CreditTokenSymbol = z.infer<typeof CreditTokenSymbolSchema>;
 
+export const CREDIT_TOKEN_PAIRS = {
+  'carbon-ch4': 'C-CARB.CH4',
+  biowaste: 'C-BIOW',
+} as const satisfies Record<CreditTokenSlug, CreditTokenSymbol>;
+
 export const CreditTypeSchema = z.enum(['Biowaste', 'Carbon (CH₄)']).meta({
   title: 'Credit Type',
   description:
