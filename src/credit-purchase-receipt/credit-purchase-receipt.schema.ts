@@ -80,7 +80,60 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     const attributes = value.attributes;
     const data = value.data;
 
+    if (
+      data.retirement_receipt &&
+      data.retirement_receipt.chain_id !== value.blockchain.chain_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'retirement_receipt.chain_id must match blockchain.chain_id',
+        path: ['data', 'retirement_receipt', 'chain_id'],
+      });
+    }
+
+    data.credits.forEach((credit, index) => {
+      if (credit.chain_id !== value.blockchain.chain_id) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'credit.chain_id must match blockchain.chain_id',
+          path: ['data', 'credits', index, 'chain_id'],
+        });
+      }
+    });
+
+    data.certificates.forEach((certificate, index) => {
+      if (certificate.chain_id !== value.blockchain.chain_id) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'certificate.chain_id must match blockchain.chain_id',
+          path: ['data', 'certificates', index, 'chain_id'],
+        });
+      }
+    });
+
     const attributeByTraitType = createAttributeMap(attributes);
+
+    const retirementDateAttribute = attributeByTraitType.get('Retirement Date');
+    if (retirementDateAttribute) {
+      const retiredTotal = data.certificates.reduce(
+        (certificateTotal, certificate) =>
+          certificateTotal +
+          certificate.collections.reduce(
+            (collectionTotal, collection) =>
+              collectionTotal + collection.retired_amount,
+            0,
+          ),
+        0,
+      );
+      if (!data.retirement_receipt || retiredTotal <= 0) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'Retirement Date requires a retirement receipt and a positive retired amount; a reserved token ID alone is not proof of retirement',
+          path: ['attributes'],
+        });
+      }
+    }
 
     validateAttributeValue({
       ctx,

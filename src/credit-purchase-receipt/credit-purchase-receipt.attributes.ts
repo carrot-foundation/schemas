@@ -66,7 +66,7 @@ const CreditPurchaseReceiptBuyerAttributeSchema = NftAttributeSchema.omit({
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Buyer',
       description: 'Organization or individual purchasing the credits',
-      examples: ['EcoTech Solutions Inc.'],
+      examples: ['Example Buyer Ltd.'],
     }),
   })
   .meta({
@@ -79,7 +79,7 @@ const CreditPurchaseReceiptRetirementDateAttributeSchema =
     traitType: 'Retirement Date',
     title: 'Retirement Date',
     description:
-      'Unix timestamp in milliseconds when credits were retired; present in the attributes array only when the purchase has been retired (data.retirement_receipt is set)',
+      'Unix timestamp in milliseconds of a confirmed retirement; omit for a planned or reserved retirement',
   });
 
 const CreditPurchaseReceiptRetirementReceiptAttributeSchema =
@@ -88,7 +88,7 @@ const CreditPurchaseReceiptRetirementReceiptAttributeSchema =
     value: StringifiedTokenIdSchema.meta({
       title: 'Retirement Receipt Token ID',
       description:
-        'Token ID of the retirement receipt NFT as #<token_id> (if retirement occurred)',
+        'Token ID of the planned or completed retirement receipt NFT as #<token_id>',
     }),
   }).meta({
     title: 'Retirement Receipt Attribute',
@@ -123,7 +123,7 @@ export const CreditPurchaseReceiptAttributesSchema =
     description:
       'Attributes for credit purchase receipts including per-credit breakdowns, totals, buyer, purchase date, and optional retirement info. ' +
       'Fixed required attributes: Total Credits Purchased, Total Amount (USDC), Purchase Date, Certificates Purchased. ' +
-      'Conditional attributes: Buyer (required when buyer.identity.name is provided), Retirement Date (optional, when retirement_receipt is present), Retirement Receipt (optional, when retirement_receipt is present). ' +
+      'Conditional attributes: Buyer (required when buyer.identity.name is provided), Retirement Date (only after confirmed retirement), Retirement Receipt (optional, when retirement_receipt is present). ' +
       'Dynamic attributes: Credit attributes (one per credit symbol in data.credits).',
     uniqueBySelector: (attribute: unknown) =>
       (attribute as { trait_type: string }).trait_type,

@@ -14,7 +14,7 @@ export const SchemaInfoSchema = z
     hash: Sha256HashSchema.meta({
       title: 'Schema Hash',
       description:
-        'SHA-256 hash of the JSON Schema this record was validated against',
+        'SHA-256 digest of the canonical JSON Schema object identified by this version and IPFS URI',
     }),
     type: RecordSchemaTypeSchema,
     version: SemanticVersionSchema.meta({
@@ -24,7 +24,7 @@ export const SchemaInfoSchema = z
     ipfs_uri: IpfsUriSchema.meta({
       title: 'Schema IPFS URI',
       description:
-        'IPFS URI for this JSON Schema when the primary schema URI is unavailable',
+        'IPFS URI of the exact pinned JSON Schema artifact whose version and hash are recorded alongside it',
     }),
   })
   .meta({
@@ -72,14 +72,16 @@ export const BaseIpfsSchema = z
   .strictObject({
     $schema: z.url('Must be a valid URI').meta({
       title: 'JSON Schema URI',
-      description: 'URI of the JSON Schema used to validate this record',
+      description:
+        'Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash',
       example:
-        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json',
+        'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json',
     }),
     schema: SchemaInfoSchema,
     created_at: IsoDateTimeSchema.meta({
       title: 'Created At',
-      description: 'ISO 8601 creation timestamp for this record',
+      description:
+        'ISO 8601 timestamp when this metadata document was created; it is not the date of the underlying event or methodology publication',
     }),
     external_id: ExternalIdSchema,
     external_url: ExternalUrlSchema,
@@ -87,7 +89,8 @@ export const BaseIpfsSchema = z
     environment: RecordEnvironmentSchema.optional(),
     data: z.record(z.string(), z.unknown()).optional().meta({
       title: 'Custom Data',
-      description: "Custom data block that includes the record's data",
+      description:
+        'Type-specific data payload when defined by a record family; consult that family schema for required fields',
     }),
   })
   .meta({

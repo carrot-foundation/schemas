@@ -75,7 +75,7 @@ export const ReceiptIdentitySchema = z
       .meta({
         title: 'Identity Name',
         description: 'Display name of the buyer or beneficiary on the receipt',
-        examples: ['EcoTech Solutions Inc.', 'Climate Action Corp'],
+        examples: ['Example Buyer Ltd.', 'Example Beneficiary Ltd.'],
       }),
     external_id: ExternalIdSchema.optional().meta({
       title: 'Identity External ID',
@@ -124,7 +124,7 @@ export function createReceiptCollectionSchema(params: { meta: Meta }) {
       ipfs_uri: IpfsUriSchema.meta({
         title: 'Collection IPFS URI',
         description:
-          'IPFS URI pointing to the immutable collection metadata record',
+          'IPFS URI of the collection JSON document cited by this receipt; its image is the document image field, not this URI itself',
       }),
     })
     .meta(meta);

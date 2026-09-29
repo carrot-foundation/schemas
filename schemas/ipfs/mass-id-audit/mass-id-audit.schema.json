@@ -6,8 +6,8 @@
       "type": "string",
       "format": "uri",
       "title": "JSON Schema URI",
-      "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
+      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json"
     },
     "schema": {
       "type": "object",
@@ -16,7 +16,7 @@
           "type": "string",
           "pattern": "^[a-f0-9]{64}$",
           "title": "Schema Hash",
-          "description": "SHA-256 hash of the JSON Schema this record was validated against",
+          "description": "SHA-256 digest of the canonical JSON Schema object identified by this version and IPFS URI",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
           ]
@@ -44,7 +44,7 @@
           "minLength": 1,
           "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
-          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "description": "IPFS URI of the exact pinned JSON Schema artifact whose version and hash are recorded alongside it",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -64,7 +64,7 @@
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
-      "description": "ISO 8601 creation timestamp for this record",
+      "description": "ISO 8601 timestamp when this metadata document was created; it is not the date of the underlying event or methodology publication",
       "examples": [
         "2024-12-05T11:02:47.000Z"
       ]
@@ -76,7 +76,7 @@
       "title": "External ID",
       "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
-        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+        "00000000-0000-4000-8000-000000000001"
       ]
     },
     "external_url": {
@@ -85,8 +85,8 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://registry.carrot.eco/",
-        "https://whitepaper.carrot.eco/"
+        "https://registry.example.com/",
+        "https://whitepaper.example.com/"
       ]
     },
     "viewer_reference": {
@@ -165,7 +165,7 @@
               "title": "Methodology External ID",
               "description": "Unique identifier for the methodology",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "name": {
@@ -199,8 +199,8 @@
               "title": "Methodology External URL",
               "description": "URL to view the methodology on Carrot Registry",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -208,7 +208,7 @@
               "minLength": 1,
               "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "Methodology IPFS URI",
-              "description": "IPFS URI to the methodology record",
+              "description": "IPFS URI of the version-specific Methodology JSON document; that document links to its PDF",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -224,7 +224,7 @@
           ],
           "additionalProperties": false,
           "title": "Methodology Reference",
-          "description": "Reference to a methodology record"
+          "description": "Reference to the exact version of a Methodology JSON document used by this record"
         },
         "mass_id": {
           "type": "object",
@@ -236,7 +236,7 @@
               "title": "External ID",
               "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "external_url": {
@@ -245,8 +245,8 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -258,6 +258,17 @@
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ]
+            },
+            "chain_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "title": "Chain ID",
+              "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+              "examples": [
+                137,
+                80002
               ]
             },
             "smart_contract_address": {
@@ -285,6 +296,7 @@
             "external_id",
             "external_url",
             "ipfs_uri",
+            "chain_id",
             "smart_contract_address",
             "token_id"
           ],
@@ -302,7 +314,7 @@
               "title": "External ID",
               "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "external_url": {
@@ -311,8 +323,8 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -324,6 +336,17 @@
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ]
+            },
+            "chain_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "title": "Chain ID",
+              "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+              "examples": [
+                137,
+                80002
               ]
             },
             "smart_contract_address": {
@@ -351,6 +374,7 @@
             "external_id",
             "external_url",
             "ipfs_uri",
+            "chain_id",
             "smart_contract_address",
             "token_id"
           ],
@@ -368,7 +392,7 @@
               "title": "External ID",
               "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "external_url": {
@@ -377,8 +401,8 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -390,6 +414,17 @@
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ]
+            },
+            "chain_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "title": "Chain ID",
+              "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+              "examples": [
+                137,
+                80002
               ]
             },
             "smart_contract_address": {
@@ -417,6 +452,7 @@
             "external_id",
             "external_url",
             "ipfs_uri",
+            "chain_id",
             "smart_contract_address",
             "token_id"
           ],
@@ -483,7 +519,7 @@
                 "title": "Rule ID",
                 "description": "Unique identifier for the audit rule",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                  "00000000-0000-4000-8000-000000000001"
                 ]
               },
               "rule_slug": {
@@ -517,7 +553,7 @@
                 "title": "Rule Description",
                 "description": "Detailed description of what the rule validates and why it is necessary",
                 "examples": [
-                  "Validates that each MassID is unique within the system to prevent duplicate entries"
+                  "Illustrative check for duplicate MassID registration before counting a waste mass again"
                 ]
               },
               "rule_source_code_url": {
@@ -526,7 +562,7 @@
                 "title": "Rule Source Code URL",
                 "description": "GitHub URL pointing to the implementation source code for this rule",
                 "examples": [
-                  "https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js"
+                  "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/mass-id/waste-mass-is-unique"
                 ]
               },
               "rule_execution_order": {
@@ -548,7 +584,7 @@
                 "title": "Execution ID",
                 "description": "Identifier of the audit run that executed this rule; shared by every rule executed in the same run",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                  "00000000-0000-4000-8000-000000000001"
                 ]
               },
               "execution_started_at": {
@@ -589,9 +625,9 @@
                 "description": "Human-readable message explaining the rule execution result, including details about what was validated or calculated",
                 "examples": [
                   "No other MassIDs with the same attributes were found.",
-                  "The MassID is not linked to a valid MassID Certificate",
-                  "The time between the \"Drop-off\" and \"Recycled\" events is 90 days, within the valid range (60-180 days).",
-                  "The prevented emissions were calculated as 419.93 kg CO₂e using the formula (1 - 0.029) x 0.067 x 6454.8 = 419.93"
+                  "The MassID is not linked to a certificate in this illustrative audit.",
+                  "Recorded processing dates passed the illustrative project-period rule.",
+                  "Illustrative rule output recorded 123.519 kg CO₂e for this MassID."
                 ],
                 "type": "string",
                 "minLength": 1,

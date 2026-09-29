@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDate, formatDateTime } from '../shared.js';
+import { exampleIpfsUri, formatDate, formatDateTime } from '../shared.js';
 
 /**
  * Emit a Methodology example document with placeholders.
@@ -16,7 +16,7 @@ import { formatDate, formatDateTime } from '../shared.js';
  */
 export function emitMethodologyExample(): Record<string, unknown> {
   const story = buildReferenceStory();
-  const createdAt = new Date('2025-08-15T14:09:00.000Z');
+  const createdAt = new Date('2024-02-02T14:09:00.000Z');
 
   return {
     $schema: 'PLACEHOLDER',
@@ -24,25 +24,24 @@ export function emitMethodologyExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'Methodology',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:methodology'),
     },
     environment: { ...story.environment },
     created_at: formatDateTime(createdAt),
-    external_id: '8375027a-a96f-446d-a8cb-c3ee92aea604',
+    external_id: '00000000-0000-4000-8000-100000000005',
     external_url:
-      'https://registry.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604',
+      'https://registry.example.com/document/00000000-0000-4000-8000-100000000005',
+    image: exampleIpfsUri('image:methodology-carbon'),
     data: {
       name: story.methodology.name,
       short_name: 'BOLD Carbon (CH\u2084)',
       slug: story.methodology.slug,
       version: story.methodology.version,
       description:
-        'The BOLD (Breakthrough in Organics Landfill Diversion) Carbon methodology establishes the verification process for confirming prevented methane emissions from aerobic composting of organic waste at small-scale, professional composting facilities and distribution of rewards to supply chain contributors.',
-      revision_date: formatDate(createdAt),
-      publication_date: formatDate(createdAt),
-      methodology_pdf:
-        'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
+        'Illustrative, non-production BOLD Carbon methodology record. Its example version and dates are fictional and do not establish the publication or revision history of any official methodology document.',
+      revision_date: formatDate(new Date('2024-02-01T00:00:00.000Z')),
+      publication_date: formatDate(new Date('2024-01-01T00:00:00.000Z')),
+      methodology_pdf: exampleIpfsUri('pdf:methodology-carbon'),
       mass_id_audit_rules: buildMassIdAuditRules(),
     },
   };
@@ -50,8 +49,8 @@ export function emitMethodologyExample(): Record<string, unknown> {
 
 /** The full set of BOLD Carbon mass-ID audit rules. */
 function buildMassIdAuditRules(): Record<string, unknown>[] {
-  const rulesCommit = '2e9cbbfd397027a03fb1561e431fcc156580459f';
-  const baseUrl = `https://github.com/carrot-foundation/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
+  const rulesCommit = '0000000000000000000000000000000000000000';
+  const baseUrl = `https://github.com/example-org/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
 
   const definitions: Array<{
     slug: string;
@@ -63,128 +62,118 @@ function buildMassIdAuditRules(): Record<string, unknown>[] {
       slug: 'waste-mass-is-unique',
       name: 'Waste Mass is Unique',
       description:
-        'Validates that each MassID is unique within the system to prevent duplicate entries and double counting',
+        'Illustrative check for duplicate MassID registration before counting a waste mass again',
     },
     {
       slug: 'no-conflicting-gas-id-or-credit',
       name: 'No Conflicting GasID or Credit',
       description:
-        'Verifies that the MassID has not been previously registered in other carbon certificates or carbon credits to prevent double issuance',
+        'Illustrative check for conflicting certificate or credit records linked to the same MassID',
     },
     {
       slug: 'project-period-limit',
       name: 'Project Period Limit',
       description:
-        'Confirms that the MassID processing occurred within the valid project timeframe as defined by methodology guidelines',
+        'Illustrative check of recorded processing dates against the versioned project period rule',
     },
     {
       slug: 'participant-accreditations',
       dirName: 'participant-accreditations-and-verifications-requirements',
       name: 'Participant Accreditations & Verifications Requirements',
       description:
-        'Checks if all participating entities have valid accreditations and permissions',
+        'Illustrative check of participant accreditations against the versioned rule requirements',
     },
     {
       slug: 'mass-id-qualifications',
       name: 'MassID Qualifications',
       description:
-        'Validates the proper categorization and definition of the organic waste mass',
+        'Illustrative check of waste mass category and qualification inputs',
     },
     {
       slug: 'regional-waste-classification',
       name: 'Regional Waste Classification',
       description:
-        'Ensures the waste is properly classified according to Brazilian ABNT NBR 10004 standards and local municipal regulations',
+        'Illustrative check of regional waste classification data required by the versioned rule',
     },
     {
       slug: 'geolocation-and-address-precision',
       name: 'Geolocation and Address Precision',
       description:
-        'Verifies the accuracy of geographical coordinates for waste collection and processing locations within 10-meter precision',
+        'Illustrative check of available location evidence against the versioned geolocation rule',
     },
     {
       slug: 'waste-origin-identification',
       name: 'Waste Origin Identification',
       description:
-        'Validates the documented source and origin point of the organic waste with complete chain of custody documentation',
+        'Illustrative check of recorded waste origin and custody evidence',
     },
     {
       slug: 'hauler-identification',
       name: 'Hauler Identification',
-      description:
-        'Confirms the identity, ANTT registration, and environmental credentials of the waste transportation company',
+      description: 'Illustrative check of required hauler identification data',
     },
     {
       slug: 'vehicle-identification',
       name: 'Vehicle Identification',
-      description:
-        'Verifies the registration, inspection certificates, and environmental compliance of vehicles used in waste transportation',
+      description: 'Illustrative check of required transport vehicle data',
     },
     {
       slug: 'driver-identification',
       name: 'Driver Identification',
-      description:
-        "Validates the identity, CNH (driver's license), and proper licensing of the waste transport driver",
+      description: 'Illustrative check of required transport driver data',
     },
     {
       slug: 'transport-manifest-data',
       name: 'Transport Manifest Data',
-      description:
-        'Checks the completeness and accuracy of MTR (Waste Transport Manifest) documentation and digital signatures',
+      description: 'Illustrative check of recorded transport manifest data',
     },
     {
       slug: 'processor-identification',
       name: 'Processor Identification',
-      description:
-        'Validates the identity, environmental licensing, and ISO 14001 certification of the waste processing facility',
+      description: 'Illustrative check of required waste processor data',
     },
     {
       slug: 'recycler-identification',
       name: 'Recycler Identification',
-      description:
-        'Confirms the identity, CETESB licensing, and operational credentials of the composting facility operator',
+      description: 'Illustrative check of required recycler data',
     },
     {
       slug: 'weighing',
       name: 'Weighing',
-      description:
-        'Verifies the accurate measurement using INMETRO-certified scales and recording of waste MassID quantities with traceability',
+      description: 'Illustrative check of recorded weighing evidence',
     },
     {
       slug: 'drop-off-at-recycler',
       name: 'Drop-off at Recycler',
-      description:
-        'Validates the proper reception, inspection, and documentation of waste material at the composting facility with photographic evidence',
+      description: 'Illustrative check of recorded waste drop-off evidence',
     },
     {
       slug: 'mass-id-sorting',
       name: 'MassID Sorting',
-      description:
-        'Confirms the proper segregation, contamination analysis, and classification of organic waste materials according to composting requirements',
+      description: 'Illustrative check of recorded sorting activity',
     },
     {
       slug: 'composting-cycle-timeframe',
       name: 'Composting Cycle Timeframe',
       description:
-        'Validates that the composting process follows required duration and conditions',
+        'Illustrative check of recorded cycle dates against the versioned timeframe rule',
     },
     {
       slug: 'recycling-manifest-data',
       name: 'Recycling Manifest Data',
-      description:
-        'Verifies the completion and accuracy of final recycling documentation and outcomes',
+      description: 'Illustrative check of recorded recycling manifest data',
     },
     {
       slug: 'project-boundary',
       name: 'Project Boundary',
       description:
-        'Validate if the MassID is in accordance with the project boundary, we only output the value',
+        'Illustrative check of recorded MassID data against the project boundary rule',
     },
     {
       slug: 'prevented-emissions',
       name: 'Prevented CO\u2082e',
       description:
-        'Calculate the prevented CO\u2082e emissions based on methane emission factors and the processed organic waste mass',
+        'Illustrative check of the prevented emissions result produced by the versioned rule',
     },
   ];
 

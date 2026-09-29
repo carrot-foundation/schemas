@@ -105,7 +105,7 @@ describe('validateCertificateCollectionSlugs', () => {
 });
 
 describe('validateRetirementReceiptRequirement', () => {
-  it('adds issue when retirement_receipt is present but totalRetiredAmount is 0', () => {
+  it('allows a reserved retirement_receipt while retired total is 0', () => {
     const { ctx, issues } = createValidationContext();
 
     validateRetirementReceiptRequirement({
@@ -114,11 +114,7 @@ describe('validateRetirementReceiptRequirement', () => {
       totalRetiredAmount: 0,
     });
 
-    expect(issues).toHaveLength(1);
-    expect(issues[0]?.message).toBe(
-      'retirement_receipt is present but no certificate has retired_amount greater than 0',
-    );
-    expect(issues[0]?.path).toEqual(['retirement_receipt']);
+    expect(issues).toHaveLength(0);
   });
 
   it('adds issue when retirement_receipt is not present but totalRetiredAmount > 0', () => {
@@ -161,14 +157,14 @@ describe('validateRetirementReceiptRequirement', () => {
     expect(issues).toHaveLength(0);
   });
 
-  it('uses custom messages when provided', () => {
+  it('uses a custom missing-reference message when provided', () => {
     const { ctx, issues } = createValidationContext();
 
     validateRetirementReceiptRequirement({
       ctx,
-      hasRetirementReceipt: true,
-      totalRetiredAmount: 0,
-      messageWhenPresentButNoRetired: 'Custom message 1',
+      hasRetirementReceipt: false,
+      totalRetiredAmount: 1,
+      messageWhenRetiredButNotPresent: 'Custom message 1',
     });
 
     expect(issues[0]?.message).toBe('Custom message 1');

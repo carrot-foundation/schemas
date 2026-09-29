@@ -1,192 +1,193 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "6b665d131104c0d1b135e128de8a5d818466747241f5c1f942721b49f63e216c",
+    "hash": "4008eeacc1f1a6a3bc4d37c9db86088fa4117055dfaefc3724f0bb6751dd1dd0",
     "type": "Methodology",
     "version": "5.2.0",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeigwemoy4uj7mvnhicmxorjc6j3txdjvao6nhvji67icygdwvqjtlq"
   },
   "environment": {
     "blockchain_network": "testnet",
     "deployment": "development",
     "data_set_name": "TEST"
   },
-  "created_at": "2025-08-15T14:09:00.000Z",
-  "external_id": "8375027a-a96f-446d-a8cb-c3ee92aea604",
-  "external_url": "https://registry.carrot.eco/document/8375027a-a96f-446d-a8cb-c3ee92aea604",
+  "created_at": "2024-02-02T14:09:00.000Z",
+  "external_id": "00000000-0000-4000-8000-100000000005",
+  "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000005",
+  "image": "ipfs://bafybeifhqnbkhczeq564nomeyzwhc5jrtmz56mvjp6tg4fve4oscq4jzmm",
   "data": {
     "name": "AMS-III.F. | BOLD Carbon (CH₄) - SSC",
     "short_name": "BOLD Carbon (CH₄)",
     "slug": "bold-carbon-ch4",
-    "version": "1.0.1",
-    "description": "The BOLD (Breakthrough in Organics Landfill Diversion) Carbon methodology establishes the verification process for confirming prevented methane emissions from aerobic composting of organic waste at small-scale, professional composting facilities and distribution of rewards to supply chain contributors.",
-    "revision_date": "2025-08-15",
-    "publication_date": "2025-08-15",
-    "methodology_pdf": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku",
+    "version": "0.0.0-example",
+    "description": "Illustrative, non-production BOLD Carbon methodology record. Its example version and dates are fictional and do not establish the publication or revision history of any official methodology document.",
+    "revision_date": "2024-02-01",
+    "publication_date": "2024-01-01",
+    "methodology_pdf": "ipfs://bafybeigdm5jsx7vquthxlijyx3cno4vvm7v5l5z2ng2atmrizehrtffjpa",
     "mass_id_audit_rules": [
       {
-        "description": "Validates that each MassID is unique within the system to prevent duplicate entries and double counting",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/waste-mass-is-unique",
+        "description": "Illustrative check for duplicate MassID registration before counting a waste mass again",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/waste-mass-is-unique",
         "execution_order": 1,
         "id": "00000000-0000-4000-8000-000000000001",
         "slug": "waste-mass-is-unique",
         "name": "Waste Mass is Unique"
       },
       {
-        "description": "Verifies that the MassID has not been previously registered in other carbon certificates or carbon credits to prevent double issuance",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/no-conflicting-gas-id-or-credit",
+        "description": "Illustrative check for conflicting certificate or credit records linked to the same MassID",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/no-conflicting-gas-id-or-credit",
         "execution_order": 2,
         "id": "00000000-0000-4000-8000-000000000002",
         "slug": "no-conflicting-gas-id-or-credit",
         "name": "No Conflicting GasID or Credit"
       },
       {
-        "description": "Confirms that the MassID processing occurred within the valid project timeframe as defined by methodology guidelines",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/project-period-limit",
+        "description": "Illustrative check of recorded processing dates against the versioned project period rule",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/project-period-limit",
         "execution_order": 3,
         "id": "00000000-0000-4000-8000-000000000003",
         "slug": "project-period-limit",
         "name": "Project Period Limit"
       },
       {
-        "description": "Checks if all participating entities have valid accreditations and permissions",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/participant-accreditations-and-verifications-requirements",
+        "description": "Illustrative check of participant accreditations against the versioned rule requirements",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/participant-accreditations-and-verifications-requirements",
         "execution_order": 4,
         "id": "00000000-0000-4000-8000-000000000004",
         "slug": "participant-accreditations",
         "name": "Participant Accreditations & Verifications Requirements"
       },
       {
-        "description": "Validates the proper categorization and definition of the organic waste mass",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/mass-id-qualifications",
+        "description": "Illustrative check of waste mass category and qualification inputs",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/mass-id-qualifications",
         "execution_order": 5,
         "id": "00000000-0000-4000-8000-000000000005",
         "slug": "mass-id-qualifications",
         "name": "MassID Qualifications"
       },
       {
-        "description": "Ensures the waste is properly classified according to Brazilian ABNT NBR 10004 standards and local municipal regulations",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/regional-waste-classification",
+        "description": "Illustrative check of regional waste classification data required by the versioned rule",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/regional-waste-classification",
         "execution_order": 6,
         "id": "00000000-0000-4000-8000-000000000006",
         "slug": "regional-waste-classification",
         "name": "Regional Waste Classification"
       },
       {
-        "description": "Verifies the accuracy of geographical coordinates for waste collection and processing locations within 10-meter precision",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/geolocation-and-address-precision",
+        "description": "Illustrative check of available location evidence against the versioned geolocation rule",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/geolocation-and-address-precision",
         "execution_order": 7,
         "id": "00000000-0000-4000-8000-000000000007",
         "slug": "geolocation-and-address-precision",
         "name": "Geolocation and Address Precision"
       },
       {
-        "description": "Validates the documented source and origin point of the organic waste with complete chain of custody documentation",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/waste-origin-identification",
+        "description": "Illustrative check of recorded waste origin and custody evidence",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/waste-origin-identification",
         "execution_order": 8,
         "id": "00000000-0000-4000-8000-000000000008",
         "slug": "waste-origin-identification",
         "name": "Waste Origin Identification"
       },
       {
-        "description": "Confirms the identity, ANTT registration, and environmental credentials of the waste transportation company",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/hauler-identification",
+        "description": "Illustrative check of required hauler identification data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/hauler-identification",
         "execution_order": 9,
         "id": "00000000-0000-4000-8000-000000000009",
         "slug": "hauler-identification",
         "name": "Hauler Identification"
       },
       {
-        "description": "Verifies the registration, inspection certificates, and environmental compliance of vehicles used in waste transportation",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/vehicle-identification",
+        "description": "Illustrative check of required transport vehicle data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/vehicle-identification",
         "execution_order": 10,
         "id": "00000000-0000-4000-8000-000000000010",
         "slug": "vehicle-identification",
         "name": "Vehicle Identification"
       },
       {
-        "description": "Validates the identity, CNH (driver's license), and proper licensing of the waste transport driver",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/driver-identification",
+        "description": "Illustrative check of required transport driver data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/driver-identification",
         "execution_order": 11,
         "id": "00000000-0000-4000-8000-000000000011",
         "slug": "driver-identification",
         "name": "Driver Identification"
       },
       {
-        "description": "Checks the completeness and accuracy of MTR (Waste Transport Manifest) documentation and digital signatures",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/transport-manifest-data",
+        "description": "Illustrative check of recorded transport manifest data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/transport-manifest-data",
         "execution_order": 12,
         "id": "00000000-0000-4000-8000-000000000012",
         "slug": "transport-manifest-data",
         "name": "Transport Manifest Data"
       },
       {
-        "description": "Validates the identity, environmental licensing, and ISO 14001 certification of the waste processing facility",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/processor-identification",
+        "description": "Illustrative check of required waste processor data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/processor-identification",
         "execution_order": 13,
         "id": "00000000-0000-4000-8000-000000000013",
         "slug": "processor-identification",
         "name": "Processor Identification"
       },
       {
-        "description": "Confirms the identity, CETESB licensing, and operational credentials of the composting facility operator",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/recycler-identification",
+        "description": "Illustrative check of required recycler data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/recycler-identification",
         "execution_order": 14,
         "id": "00000000-0000-4000-8000-000000000014",
         "slug": "recycler-identification",
         "name": "Recycler Identification"
       },
       {
-        "description": "Verifies the accurate measurement using INMETRO-certified scales and recording of waste MassID quantities with traceability",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/weighing",
+        "description": "Illustrative check of recorded weighing evidence",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/weighing",
         "execution_order": 15,
         "id": "00000000-0000-4000-8000-000000000015",
         "slug": "weighing",
         "name": "Weighing"
       },
       {
-        "description": "Validates the proper reception, inspection, and documentation of waste material at the composting facility with photographic evidence",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/drop-off-at-recycler",
+        "description": "Illustrative check of recorded waste drop-off evidence",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/drop-off-at-recycler",
         "execution_order": 16,
         "id": "00000000-0000-4000-8000-000000000016",
         "slug": "drop-off-at-recycler",
         "name": "Drop-off at Recycler"
       },
       {
-        "description": "Confirms the proper segregation, contamination analysis, and classification of organic waste materials according to composting requirements",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/mass-id-sorting",
+        "description": "Illustrative check of recorded sorting activity",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/mass-id-sorting",
         "execution_order": 17,
         "id": "00000000-0000-4000-8000-000000000017",
         "slug": "mass-id-sorting",
         "name": "MassID Sorting"
       },
       {
-        "description": "Validates that the composting process follows required duration and conditions",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/composting-cycle-timeframe",
+        "description": "Illustrative check of recorded cycle dates against the versioned timeframe rule",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/composting-cycle-timeframe",
         "execution_order": 18,
         "id": "00000000-0000-4000-8000-000000000018",
         "slug": "composting-cycle-timeframe",
         "name": "Composting Cycle Timeframe"
       },
       {
-        "description": "Verifies the completion and accuracy of final recycling documentation and outcomes",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/recycling-manifest-data",
+        "description": "Illustrative check of recorded recycling manifest data",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/recycling-manifest-data",
         "execution_order": 19,
         "id": "00000000-0000-4000-8000-000000000019",
         "slug": "recycling-manifest-data",
         "name": "Recycling Manifest Data"
       },
       {
-        "description": "Validate if the MassID is in accordance with the project boundary, we only output the value",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/project-boundary",
+        "description": "Illustrative check of recorded MassID data against the project boundary rule",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/project-boundary",
         "execution_order": 20,
         "id": "00000000-0000-4000-8000-000000000020",
         "slug": "project-boundary",
         "name": "Project Boundary"
       },
       {
-        "description": "Calculate the prevented CO₂e emissions based on methane emission factors and the processed organic waste mass",
-        "source_code_url": "https://github.com/carrot-foundation/methodology-rules/tree/2e9cbbfd397027a03fb1561e431fcc156580459f/apps/methodologies/bold-carbon/rule-processors/mass-id/prevented-emissions",
+        "description": "Illustrative check of the prevented emissions result produced by the versioned rule",
+        "source_code_url": "https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/apps/methodologies/bold-carbon/rule-processors/mass-id/prevented-emissions",
         "execution_order": 21,
         "id": "00000000-0000-4000-8000-000000000021",
         "slug": "prevented-emissions",

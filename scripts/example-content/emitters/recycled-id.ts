@@ -6,7 +6,11 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
+import {
+  exampleIpfsUri,
+  formatDateTime,
+  formatUnixMilliseconds,
+} from '../shared.js';
 
 /**
  * Emit a RecycledID example document with placeholders.
@@ -17,11 +21,13 @@ import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 export function emitRecycledIDExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const recyclingAt = new Date('2024-12-08T11:32:47.000Z');
+  const auditCompletedAt = new Date('2024-12-08T11:32:48.200Z');
+  const issuedAt = new Date('2024-12-08T11:35:47.000Z');
 
   const tokenId = story.recycledID.tokenId;
   const massIDTokenId = story.massID.tokenId;
-  const externalId = 'f47ac10b-58cc-4372-a567-0e02b2c3d489';
-  const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
+  const externalId = '00000000-0000-4000-8000-100000000020';
+  const massIDExternalId = '00000000-0000-4000-8000-100000000009';
 
   return {
     $schema: 'PLACEHOLDER',
@@ -29,8 +35,7 @@ export function emitRecycledIDExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'RecycledID',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:recycled-id'),
     },
     environment: { ...story.environment },
     blockchain: {
@@ -39,28 +44,27 @@ export function emitRecycledIDExample(): Record<string, unknown> {
       chain_id: 80002,
       network_name: 'Amoy',
     },
-    created_at: formatDateTime(recyclingAt),
+    created_at: formatDateTime(issuedAt),
     external_id: externalId,
-    external_url: `https://registry.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.example.com/document/${externalId}`,
     audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('viewer:build'),
     },
     name: `RecycledID #${tokenId} \u2022 BOLD Recycling \u2022 3.25t Recycled`,
     short_name: `RecycledID #${tokenId}`,
     description: `This RecycledID certifies 3.25 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Bras\u00edlia, Brazil, producing high-quality compost and organic fertilizer.`,
-    image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+    image: exampleIpfsUri('image:recycled-id'),
     background_color: '#2D5016',
     external_links: [
       {
         label: 'Carrot Registry',
-        url: `https://registry.carrot.eco/document/${externalId}`,
+        url: `https://registry.example.com/document/${externalId}`,
         description: 'Complete RecycledID details and audit trail',
       },
       {
         label: 'Carrot White Paper',
-        url: 'https://whitepaper.carrot.eco',
+        url: 'https://whitepaper.example.com',
         description: 'Carrot Foundation technical white paper',
       },
     ],
@@ -97,44 +101,48 @@ export function emitRecycledIDExample(): Record<string, unknown> {
       },
       {
         trait_type: 'Certificate Issuance Date',
-        value: formatUnixMilliseconds(recyclingAt),
+        value: formatUnixMilliseconds(issuedAt),
         display_type: 'date',
       },
     ],
     data: {
+      credit: {
+        slug: 'biowaste',
+        symbol: 'C-BIOW',
+        chain_id: 80002,
+        smart_contract_address: '0xfedcba0987654321fedcba0987654321fedcba09',
+      },
       summary: {
         recycled_mass_kg: 3250.5,
         credit_type: 'Biowaste',
         credit_amount: 3,
         recycling_date: formatDateTime(recyclingAt),
-        issued_at: formatDateTime(recyclingAt),
+        issued_at: formatDateTime(issuedAt),
       },
       methodology: {
-        external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d490',
+        external_id: '00000000-0000-4000-8000-100000000021',
         name: 'AMS-III.F. | BOLD Recycling Credit',
         version: '1.2.0',
         external_url:
-          'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490',
-        ipfs_uri:
-          'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
+          'https://registry.example.com/document/00000000-0000-4000-8000-100000000021',
+        ipfs_uri: exampleIpfsUri('doc:methodology-recycling'),
       },
       audit: {
-        completed_at: formatDateTime(recyclingAt),
-        external_id: 'f47ac10b-58cc-4372-a567-0e02b2c3d499',
+        completed_at: formatDateTime(auditCompletedAt),
+        external_id: '00000000-0000-4000-8000-100000000022',
         external_url:
-          'https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499',
+          'https://registry.example.com/document/00000000-0000-4000-8000-100000000022',
         result: 'PASSED',
         rules_executed: 18,
-        ipfs_uri:
-          'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
+        ipfs_uri: exampleIpfsUri('doc:audit-recycling'),
       },
       mass_id: {
         external_id: massIDExternalId,
         token_id: massIDTokenId,
-        external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
-        ipfs_uri:
-          'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+        external_url: `https://registry.example.com/document/${massIDExternalId}`,
+        ipfs_uri: exampleIpfsUri('doc:mass-id'),
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+        chain_id: 80002,
       },
       waste_properties: {
         type: 'Organic',

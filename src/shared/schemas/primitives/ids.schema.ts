@@ -5,7 +5,7 @@ import { NonEmptyStringSchema } from './text.schema';
 export const UuidSchema = z.uuidv4().meta({
   title: 'UUID V4',
   description: 'A universally unique identifier version 4',
-  examples: ['ad44dd3f-f176-4b98-bf78-5ee6e77d0530'],
+  examples: ['00000000-0000-4000-8000-000000000001'],
 });
 export type Uuid = z.infer<typeof UuidSchema>;
 

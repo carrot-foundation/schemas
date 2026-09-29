@@ -44,9 +44,9 @@ export const CollectionSchema = BaseIpfsSchema.safeExtend({
     .meta({
       title: 'Collection Description',
       description:
-        'Comprehensive description of the collection, its purpose, and context',
+        'Human-readable purpose and context of this collection grouping; this document is distinct from its image asset',
       examples: [
-        'Cold Start is a limited-edition collection created for early supporters of BOLD - Breakthrough in Organic Landfill Diversion. This purchase contributes to reducing global waste and promoting circularity, with funds distributed via smart contract to local recycling operations and communities.',
+        'Illustrative collection grouping credit purchases and retirements for an example campaign. The collection document describes the grouping and points to a separate image asset; its URI is what receipt collection references cite.',
       ],
     }),
 }).meta(CollectionSchemaMeta);

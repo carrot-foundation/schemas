@@ -12,6 +12,7 @@ import {
   CreditTypeSchema,
   CreditAmountSchema,
   GasTypeSchema,
+  CreditIdentifierSchema,
 } from '../shared';
 
 const GasIDSummarySchema = z
@@ -45,21 +46,22 @@ const CalculationValueSchema = z
     reference: NonEmptyStringSchema.max(3).meta({
       title: 'Calculation Reference',
       description: 'Reference symbol used in the calculation formula',
-      examples: ['E', 'B', 'W', 'R'],
+      examples: ['R'],
     }),
     value: NonNegativeFloatSchema.meta({
       title: 'Calculation Value',
-      description: 'Numeric value for this calculation parameter',
+      description: 'Recorded numeric value for this calculation entry',
+    }),
+    unit: NonEmptyStringSchema.max(50).meta({
+      title: 'Calculation Unit',
+      description:
+        'Unit of this specific value, taken from its calculation source. The emitted prevented-emissions result R is measured in kg CO₂e; other parameters require their own verified units.',
+      examples: ['kg CO₂e'],
     }),
     label: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Label',
       description: 'Human-readable label for this calculation value',
-      examples: [
-        'Exceeding Emission Coefficient',
-        'Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton',
-        'Waste Weight',
-        'Prevented Emissions (CO₂e kg)',
-      ],
+      examples: ['Prevented Emissions (CO₂e kg)'],
     }),
   })
   .meta({
@@ -74,27 +76,29 @@ const PreventedEmissionsCalculationSchema = z
     formula: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Formula',
       description: 'Formula used to calculate the prevented emissions',
-      examples: ['W * B - W * E'],
+      examples: ['R = recorded result'],
     }),
     method: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Method',
-      description: 'Method used to calculate the prevented emissions',
-      examples: ['UNFCCC AMS-III.F'],
+      description:
+        'Identifier of the calculation rule that produced these values; do not claim direct implementation of an external methodology without evidence',
+      examples: ['Illustrative calculation rule'],
     }),
     calculated_at: IsoDateTimeSchema.meta({
       title: 'Calculated At',
-      description: 'ISO 8601 timestamp when the calculation was performed',
+      description:
+        'ISO 8601 timestamp recorded for the calculation execution; not a fallback for issuance or recycling time',
     }),
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',
       description:
-        'Input parameters and computed result used in the prevented emissions formula',
+        'Only values actually retained by the calculation source. The current certificate builder retains result R; do not reconstruct E, B or W from an illustrative example.',
     }),
   })
   .meta({
     title: 'Prevented Emissions Calculation',
     description:
-      'Methodology-based calculation of prevented CO₂e emissions, including formula, method, input values, and computation timestamp',
+      'Recorded prevented-emissions result and any source-backed calculation parameters, with a unit per entry and an execution timestamp',
   });
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema
@@ -103,6 +107,7 @@ export type PreventedEmissionsCalculation = z.infer<
 export const GasIDDataSchema = z
   .strictObject({
     summary: GasIDSummarySchema,
+    credit: CreditIdentifierSchema,
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
     mass_id: MassIDReferenceSchema,

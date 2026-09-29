@@ -92,6 +92,15 @@ describe('MassIDAuditSummarySchema', () => {
 describe('MassIDAuditDataSchema', () => {
   const schema = MassIDAuditDataSchema;
   const base = exampleJson.data as z.input<typeof schema>;
+  const gasIDReference = {
+    external_id: '00000000-0000-4000-8000-900000000001',
+    token_id: '200001',
+    external_url: 'https://registry.example.com/document/example-gas-id',
+    ipfs_uri:
+      'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
+    smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+    chain_id: 80002,
+  };
 
   it('validates example data successfully', () => {
     expectSchemaValid(schema, () => structuredClone(base));
@@ -112,7 +121,7 @@ describe('MassIDAuditDataSchema', () => {
   it('validates with gas_id only', () => {
     const validData = {
       ...structuredClone(base),
-      gas_id: base.gas_id,
+      gas_id: gasIDReference,
       recycled_id: undefined,
     };
     expectSchemaValid(schema, () => validData);
@@ -130,6 +139,7 @@ describe('MassIDAuditDataSchema', () => {
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+        chain_id: 80002,
       },
     };
     expectSchemaValid(schema, () => validData);
@@ -147,7 +157,7 @@ describe('MassIDAuditDataSchema', () => {
   it('rejects when both gas_id and recycled_id are present', () => {
     const invalidData = {
       ...structuredClone(base),
-      gas_id: base.gas_id,
+      gas_id: gasIDReference,
       recycled_id: {
         external_id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
         token_id: '789',
@@ -156,6 +166,7 @@ describe('MassIDAuditDataSchema', () => {
         ipfs_uri:
           'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+        chain_id: 80002,
       },
     };
     const result = schema.safeParse(invalidData);

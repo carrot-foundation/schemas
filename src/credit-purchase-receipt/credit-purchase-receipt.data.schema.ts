@@ -140,6 +140,17 @@ export const CreditPurchaseReceiptDataSchema = z
     original_sale: OriginalSaleReferenceSchema.optional(),
   })
   .superRefine((data, ctx) => {
+    if (
+      data.retirement_receipt &&
+      data.retirement_receipt.chain_id !== data.certificates[0]?.chain_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'retirement_receipt.chain_id must match the purchase certificate network',
+        path: ['retirement_receipt', 'chain_id'],
+      });
+    }
     validateCountMatches({
       ctx,
       actualCount: data.certificates.length,

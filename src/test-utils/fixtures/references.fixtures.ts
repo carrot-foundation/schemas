@@ -9,6 +9,7 @@ import type {
   MethodologyReference,
   RecycledIDReference,
 } from '../../shared';
+import { CreditReferenceSchema } from '../../shared';
 
 /**
  * Minimal audit reference stub for testing.
@@ -65,6 +66,7 @@ export const minimalGasIDReferenceStub: GasIDReference = {
   ipfs_uri:
     'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/gas-id.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+  chain_id: 137,
 };
 
 /**
@@ -105,6 +107,7 @@ export const minimalMassIDReferenceStub: MassIDReference = {
   ipfs_uri:
     'ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha/mass-id.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+  chain_id: 137,
 };
 
 /**
@@ -185,6 +188,7 @@ export const minimalRecycledIDReferenceStub: RecycledIDReference = {
   ipfs_uri:
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/recycled-id.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+  chain_id: 137,
 };
 
 /**
@@ -226,6 +230,7 @@ export const minimalCreditPurchaseReceiptReferenceStub: CreditPurchaseReceiptRef
     ipfs_uri:
       'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/purchase-receipt.json',
     smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+    chain_id: 137,
   };
 
 /**
@@ -260,13 +265,9 @@ export function createCreditPurchaseReceiptReferenceFixture(
  */
 export const minimalCreditRetirementReceiptReferenceStub: CreditRetirementReceiptReference =
   {
-    external_id: 'c3d4e5f6-a7b8-4902-9234-789012cdefab',
     token_id: '1002',
-    external_url:
-      'https://registry.carrot.eco/document/c3d4e5f6-a7b8-4902-9234-789012cdefab',
-    ipfs_uri:
-      'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/retirement-receipt.json',
     smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+    chain_id: 137,
   };
 
 /**
@@ -306,6 +307,7 @@ export const minimalCreditReferenceStub: CreditReference = {
   ipfs_uri:
     'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/credit.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+  chain_id: 137,
   slug: 'biowaste',
   symbol: 'C-BIOW',
 };
@@ -323,6 +325,7 @@ export const validCreditReferenceFixture: CreditReference = {
   ipfs_uri:
     'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm/credit.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+  chain_id: 137,
   slug: 'biowaste',
   symbol: 'C-BIOW',
 };
@@ -336,10 +339,10 @@ export const validCreditReferenceFixture: CreditReference = {
 export function createCreditReferenceFixture(
   overrides?: Partial<CreditReference>,
 ): CreditReference {
-  return {
+  return CreditReferenceSchema.parse({
     ...minimalCreditReferenceStub,
     ...overrides,
-  };
+  });
 }
 
 /**
@@ -356,6 +359,7 @@ export const minimalCertificateReferenceStub: CertificateReferenceBase = {
   ipfs_uri:
     'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku/certificate.json',
   smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+  chain_id: 137,
   type: 'GasID',
   total_amount: 100.5,
   mass_id: minimalMassIDReferenceStub,

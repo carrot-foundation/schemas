@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime } from '../shared.js';
+import { exampleIpfsUri, formatDateTime } from '../shared.js';
 
 /**
  * Emit a Collection example document with placeholders.
@@ -23,17 +23,16 @@ export function emitCollectionExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'Collection',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:collection'),
     },
     environment: { ...story.environment },
     created_at: formatDateTime(new Date('2024-12-05T14:30:00.000Z')),
-    external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
-    external_url: `https://registry.carrot.eco/collection/${story.collection.slug}`,
+    external_id: '00000000-0000-4000-8000-100000000006',
+    external_url: `https://registry.example.com/collection/${story.collection.slug}`,
     name: story.collection.name,
     slug: story.collection.slug,
-    image: 'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
+    image: exampleIpfsUri('image:collection-one'),
     description:
-      'Cold Start is a limited-edition collection created for early supporters of BOLD - Breakthrough in Organic Landfill Diversion. This purchase contributes to reducing global waste and promoting circularity, with funds distributed via smart contract to local recycling operations and communities.',
+      'Illustrative collection grouping credit purchases and retirements for an example campaign. The collection document describes the grouping and points to a separate image asset; its URI is what receipt collection references cite.',
   };
 }

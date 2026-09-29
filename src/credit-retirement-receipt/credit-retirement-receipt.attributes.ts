@@ -39,7 +39,7 @@ const CreditRetirementReceiptBeneficiaryAttributeSchema =
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Beneficiary',
       description: 'Beneficiary receiving the retirement benefit',
-      examples: ['Climate Action Corp'],
+      examples: ['Example Beneficiary Ltd.'],
     }),
   }).meta({
     title: 'Beneficiary Attribute',
@@ -52,7 +52,7 @@ const CreditRetirementReceiptCreditHolderAttributeSchema =
     value: NonEmptyStringSchema.max(100).meta({
       title: 'Credit Holder',
       description: 'Entity that surrendered the credits',
-      examples: ['EcoTech Solutions Inc.'],
+      examples: ['Example Buyer Ltd.'],
     }),
   }).meta({
     title: 'Credit Holder Attribute',

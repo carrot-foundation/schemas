@@ -6,8 +6,8 @@
       "type": "string",
       "format": "uri",
       "title": "JSON Schema URI",
-      "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
+      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json"
     },
     "schema": {
       "type": "object",
@@ -16,7 +16,7 @@
           "type": "string",
           "pattern": "^[a-f0-9]{64}$",
           "title": "Schema Hash",
-          "description": "SHA-256 hash of the JSON Schema this record was validated against",
+          "description": "SHA-256 digest of the canonical JSON Schema object identified by this version and IPFS URI",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
           ]
@@ -44,7 +44,7 @@
           "minLength": 1,
           "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
-          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "description": "IPFS URI of the exact pinned JSON Schema artifact whose version and hash are recorded alongside it",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -64,7 +64,7 @@
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
-      "description": "ISO 8601 creation timestamp for this record",
+      "description": "ISO 8601 timestamp when this metadata document was created; it is not the date of the underlying event or methodology publication",
       "examples": [
         "2024-12-05T11:02:47.000Z"
       ]
@@ -76,7 +76,7 @@
       "title": "External ID",
       "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
-        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+        "00000000-0000-4000-8000-000000000001"
       ]
     },
     "external_url": {
@@ -85,8 +85,8 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://registry.carrot.eco/",
-        "https://whitepaper.carrot.eco/"
+        "https://registry.example.com/",
+        "https://whitepaper.example.com/"
       ]
     },
     "viewer_reference": {
@@ -236,6 +236,104 @@
           "title": "GasID Summary",
           "description": "Key metrics for the GasID certificate including gas type, credit details, prevented emissions, and issuance timestamps"
         },
+        "credit": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "const": "carbon-ch4",
+                  "title": "Carbon Credit Slug",
+                  "description": "Stable slug paired with C-CARB.CH4"
+                },
+                "symbol": {
+                  "type": "string",
+                  "const": "C-CARB.CH4",
+                  "title": "Carbon Credit Symbol",
+                  "description": "ERC-20 symbol paired with carbon-ch4"
+                },
+                "chain_id": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991,
+                  "title": "Credit Chain ID",
+                  "description": "Positive chain identifier of the ERC-20 contract; use the network verified for this exact contract deployment",
+                  "examples": [
+                    137,
+                    80002
+                  ]
+                },
+                "smart_contract_address": {
+                  "type": "string",
+                  "pattern": "^0x[a-f0-9]{40}$",
+                  "title": "Smart Contract Address",
+                  "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+                  "examples": [
+                    "0x1234567890abcdef1234567890abcdef12345678"
+                  ]
+                }
+              },
+              "required": [
+                "slug",
+                "symbol",
+                "chain_id",
+                "smart_contract_address"
+              ],
+              "additionalProperties": false,
+              "title": "Carbon Credit Identity",
+              "description": "Contract identity of a carbon credit on its actual network"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "const": "biowaste",
+                  "title": "Biowaste Credit Slug",
+                  "description": "Stable slug paired with C-BIOW"
+                },
+                "symbol": {
+                  "type": "string",
+                  "const": "C-BIOW",
+                  "title": "Biowaste Credit Symbol",
+                  "description": "ERC-20 symbol paired with biowaste"
+                },
+                "chain_id": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991,
+                  "title": "Credit Chain ID",
+                  "description": "Positive chain identifier of the ERC-20 contract; use the network verified for this exact contract deployment",
+                  "examples": [
+                    137,
+                    80002
+                  ]
+                },
+                "smart_contract_address": {
+                  "type": "string",
+                  "pattern": "^0x[a-f0-9]{40}$",
+                  "title": "Smart Contract Address",
+                  "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+                  "examples": [
+                    "0x1234567890abcdef1234567890abcdef12345678"
+                  ]
+                }
+              },
+              "required": [
+                "slug",
+                "symbol",
+                "chain_id",
+                "smart_contract_address"
+              ],
+              "additionalProperties": false,
+              "title": "Biowaste Credit Identity",
+              "description": "Contract identity of a biowaste credit on its actual network"
+            }
+          ],
+          "title": "Credit Token Identity",
+          "description": "Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair; no IPFS URI is stored in certificate identifiers."
+        },
         "methodology": {
           "type": "object",
           "properties": {
@@ -246,7 +344,7 @@
               "title": "Methodology External ID",
               "description": "Unique identifier for the methodology",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "name": {
@@ -280,8 +378,8 @@
               "title": "Methodology External URL",
               "description": "URL to view the methodology on Carrot Registry",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -289,7 +387,7 @@
               "minLength": 1,
               "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
               "title": "Methodology IPFS URI",
-              "description": "IPFS URI to the methodology record",
+              "description": "IPFS URI of the version-specific Methodology JSON document; that document links to its PDF",
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -305,7 +403,7 @@
           ],
           "additionalProperties": false,
           "title": "Methodology Reference",
-          "description": "Reference to a methodology record"
+          "description": "Reference to the exact version of a Methodology JSON document used by this record"
         },
         "audit": {
           "type": "object",
@@ -327,7 +425,7 @@
               "title": "Audit External ID",
               "description": "Unique identifier for the audit",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "external_url": {
@@ -336,8 +434,8 @@
               "title": "Audit External URL",
               "description": "URL to view the audit on Carrot Registry",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "result": {
@@ -399,7 +497,7 @@
               "title": "External ID",
               "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "external_url": {
@@ -408,8 +506,8 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -421,6 +519,17 @@
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ]
+            },
+            "chain_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "title": "Chain ID",
+              "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+              "examples": [
+                137,
+                80002
               ]
             },
             "smart_contract_address": {
@@ -448,6 +557,7 @@
             "external_id",
             "external_url",
             "ipfs_uri",
+            "chain_id",
             "smart_contract_address",
             "token_id"
           ],
@@ -621,7 +731,7 @@
               "title": "Calculation Formula",
               "description": "Formula used to calculate the prevented emissions",
               "examples": [
-                "W * B - W * E"
+                "R = recorded result"
               ]
             },
             "method": {
@@ -629,9 +739,9 @@
               "minLength": 1,
               "maxLength": 100,
               "title": "Calculation Method",
-              "description": "Method used to calculate the prevented emissions",
+              "description": "Identifier of the calculation rule that produced these values; do not claim direct implementation of an external methodology without evidence",
               "examples": [
-                "UNFCCC AMS-III.F"
+                "Illustrative calculation rule"
               ]
             },
             "calculated_at": {
@@ -639,7 +749,7 @@
               "format": "date-time",
               "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
               "title": "Calculated At",
-              "description": "ISO 8601 timestamp when the calculation was performed",
+              "description": "ISO 8601 timestamp recorded for the calculation execution; not a fallback for issuance or recycling time",
               "examples": [
                 "2024-12-05T11:02:47.000Z"
               ]
@@ -657,9 +767,6 @@
                     "title": "Calculation Reference",
                     "description": "Reference symbol used in the calculation formula",
                     "examples": [
-                      "E",
-                      "B",
-                      "W",
                       "R"
                     ]
                   },
@@ -667,11 +774,21 @@
                     "type": "number",
                     "minimum": 0,
                     "title": "Calculation Value",
-                    "description": "Numeric value for this calculation parameter",
+                    "description": "Recorded numeric value for this calculation entry",
                     "examples": [
                       0,
                       45.2,
                       72.5
+                    ]
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 50,
+                    "title": "Calculation Unit",
+                    "description": "Unit of this specific value, taken from its calculation source. The emitted prevented-emissions result R is measured in kg CO₂e; other parameters require their own verified units.",
+                    "examples": [
+                      "kg CO₂e"
                     ]
                   },
                   "label": {
@@ -681,9 +798,6 @@
                     "title": "Calculation Label",
                     "description": "Human-readable label for this calculation value",
                     "examples": [
-                      "Exceeding Emission Coefficient",
-                      "Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton",
-                      "Waste Weight",
                       "Prevented Emissions (CO₂e kg)"
                     ]
                   }
@@ -691,6 +805,7 @@
                 "required": [
                   "reference",
                   "value",
+                  "unit",
                   "label"
                 ],
                 "additionalProperties": false,
@@ -698,7 +813,7 @@
                 "description": "Named parameter or computed result used in the prevented emissions formula"
               },
               "title": "Calculation Values",
-              "description": "Input parameters and computed result used in the prevented emissions formula"
+              "description": "Only values actually retained by the calculation source. The current certificate builder retains result R; do not reconstruct E, B or W from an illustrative example."
             }
           },
           "required": [
@@ -709,11 +824,12 @@
           ],
           "additionalProperties": false,
           "title": "Prevented Emissions Calculation",
-          "description": "Methodology-based calculation of prevented CO₂e emissions, including formula, method, input values, and computation timestamp"
+          "description": "Recorded prevented-emissions result and any source-backed calculation parameters, with a unit per entry and an execution timestamp"
         }
       },
       "required": [
         "summary",
+        "credit",
         "methodology",
         "audit",
         "mass_id",
@@ -729,7 +845,7 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$",
       "title": "Audit Data Hash",
-      "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
+      "description": "SHA-256 digest of this canonical JSON metadata record excluding content_hash and audit_data_hash; it is not a hash of private source documents",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ]
@@ -747,18 +863,11 @@
           ]
         },
         "chain_id": {
-          "anyOf": [
-            {
-              "type": "number",
-              "const": 137
-            },
-            {
-              "type": "number",
-              "const": 80002
-            }
-          ],
-          "title": "Chain ID",
-          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "title": "NFT Chain ID",
+          "description": "Positive chain identifier of the NFT contract deployment. For the supported Polygon and Amoy environments, it must agree with network_name and environment.blockchain_network.",
           "examples": [
             137,
             80002
@@ -828,10 +937,10 @@
       "minLength": 1,
       "maxLength": 500,
       "title": "Description",
-      "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
+      "description": "Human-readable summary of this NFT record. Certificate and receipt families describe different events; use the family schema for exact meaning.",
       "examples": [
-        "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
-        "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
+        "Illustrative MassID tracking 3 metric tons of organic food waste through a documented chain of custody.",
+        "Illustrative RecycledID recording 2.5 metric tons of material processed for recycling."
       ]
     },
     "image": {
@@ -891,8 +1000,8 @@
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
-              "https://registry.carrot.eco/",
-              "https://whitepaper.carrot.eco/"
+              "https://registry.example.com/",
+              "https://whitepaper.example.com/"
             ]
           },
           "description": {

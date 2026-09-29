@@ -15,6 +15,7 @@ import {
   emitters,
   NON_PRODUCTION_MARKER,
 } from '../index.js';
+import { exampleIpfsUri } from '../shared.js';
 import { MassIDIpfsSchema } from '../../../src/mass-id';
 import { GasIDIpfsSchema } from '../../../src/gas-id';
 import { RecycledIDIpfsSchema } from '../../../src/recycled-id';
@@ -59,13 +60,13 @@ function applyPlaceholders(doc: Record<string, unknown>): void {
 }
 
 describe('reference example story', () => {
-  it('uses real Carrot entities in a non-production context', () => {
+  it('uses approved domain values with fictional identifiers in a non-production context', () => {
     const story = buildReferenceStory();
 
     expect(story.environment.deployment).not.toBe('production');
     expect(story.environment.data_set_name).toBe('TEST');
     expect(story.methodology.name).toContain('BOLD');
-    expect(story.collection.slug).toBe('bold-cold-start-carazinho');
+    expect(story.collection.slug).toBe('example-collection-one');
     expect(story.credit.symbol).toBe('C-CARB.CH4');
   });
 
@@ -75,7 +76,7 @@ describe('reference example story', () => {
     const credit = emitCreditExample();
 
     expect(getField(methodology, 'data', 'slug')).toBe('bold-carbon-ch4');
-    expect(collection.slug).toBe('bold-cold-start-carazinho');
+    expect(collection.slug).toBe('example-collection-one');
     expect(credit.symbol).toBe('C-CARB.CH4');
   });
 
@@ -105,6 +106,70 @@ describe('reference example story', () => {
       massIDTokenId,
     );
     expect(getField(audit, 'data', 'mass_id', 'token_id')).toBe(massIDTokenId);
+    expect(getField(audit, 'data', 'gas_id')).toBeUndefined();
+    expect(getField(gasID, 'data', 'audit', 'ipfs_uri')).toBe(
+      exampleIpfsUri('doc:audit-carbon'),
+    );
+    expect(getField(gasID, 'data', 'methodology', 'ipfs_uri')).toBe(
+      exampleIpfsUri('doc:methodology-carbon'),
+    );
+    expect(getField(gasID, 'data', 'mass_id', 'ipfs_uri')).toBe(
+      exampleIpfsUri('doc:mass-id'),
+    );
+    expect(getField(recycledID, 'data', 'methodology', 'ipfs_uri')).not.toBe(
+      getField(gasID, 'data', 'methodology', 'ipfs_uri'),
+    );
+    expect(getField(recycledID, 'data', 'audit', 'ipfs_uri')).not.toBe(
+      getField(gasID, 'data', 'audit', 'ipfs_uri'),
+    );
+
+    const auditCompletedAt = getField(
+      audit,
+      'data',
+      'audit_summary',
+      'completed_at',
+    );
+    expect(getField(gasID, 'data', 'audit', 'completed_at')).toBe(
+      auditCompletedAt,
+    );
+    expect(Date.parse(String(auditCompletedAt))).toBeLessThan(
+      Date.parse(String(getField(gasID, 'data', 'summary', 'issued_at'))),
+    );
+    const methodology = emitMethodologyExample();
+    expect(Date.parse(String(methodology.created_at))).toBeLessThan(
+      Date.parse(
+        String(getField(audit, 'data', 'audit_summary', 'started_at')),
+      ),
+    );
+  });
+
+  it('assigns distinct example CIDs by asset role and schema family', () => {
+    const documents = Object.values(emitters).map((emit) => emit());
+    const schemaUris = documents.map((document) =>
+      getField(document, 'schema', 'ipfs_uri'),
+    );
+    expect(new Set(schemaUris).size).toBe(documents.length);
+
+    const methodology = emitMethodologyExample();
+    expect(methodology.image).not.toBe(
+      getField(methodology, 'data', 'methodology_pdf'),
+    );
+    expect(methodology.image).not.toBe(
+      getField(methodology, 'schema', 'ipfs_uri'),
+    );
+
+    const collection = emitCollectionExample();
+    const purchase = emitCreditPurchaseReceiptExample();
+    const retirement = emitCreditRetirementReceiptExample();
+    expect(getField(purchase, 'data', 'collections', '0', 'ipfs_uri')).toBe(
+      exampleIpfsUri('doc:collection-one'),
+    );
+    expect(getField(purchase, 'data', 'collections', '0', 'ipfs_uri')).not.toBe(
+      collection.image,
+    );
+    expect(getField(retirement, 'data', 'purchase_receipt', 'ipfs_uri')).toBe(
+      exampleIpfsUri('doc:purchase-receipt'),
+    );
   });
 });
 

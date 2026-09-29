@@ -6,8 +6,8 @@
       "type": "string",
       "format": "uri",
       "title": "JSON Schema URI",
-      "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
+      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json"
     },
     "schema": {
       "type": "object",
@@ -16,7 +16,7 @@
           "type": "string",
           "pattern": "^[a-f0-9]{64}$",
           "title": "Schema Hash",
-          "description": "SHA-256 hash of the JSON Schema this record was validated against",
+          "description": "SHA-256 digest of the canonical JSON Schema object identified by this version and IPFS URI",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
           ]
@@ -25,7 +25,7 @@
           "type": "string",
           "const": "CreditRetirementReceipt",
           "title": "CreditRetirementReceipt Schema Type",
-          "description": "Discriminator value identifying this record as a CreditRetirementReceipt permanent-offset proof"
+          "description": "Discriminator identifying a credit retirement receipt; this field does not declare an offset claim or beneficiary purpose"
         },
         "version": {
           "type": "string",
@@ -44,7 +44,7 @@
           "minLength": 1,
           "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
-          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "description": "IPFS URI of the exact pinned JSON Schema artifact whose version and hash are recorded alongside it",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -64,7 +64,7 @@
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
-      "description": "ISO 8601 creation timestamp for this record",
+      "description": "ISO 8601 timestamp when this metadata document was created; it is not the date of the underlying event or methodology publication",
       "examples": [
         "2024-12-05T11:02:47.000Z"
       ]
@@ -76,7 +76,7 @@
       "title": "External ID",
       "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
-        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+        "00000000-0000-4000-8000-000000000001"
       ]
     },
     "external_url": {
@@ -85,8 +85,8 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://registry.carrot.eco/",
-        "https://whitepaper.carrot.eco/"
+        "https://registry.example.com/",
+        "https://whitepaper.example.com/"
       ]
     },
     "viewer_reference": {
@@ -229,8 +229,8 @@
                   "title": "Identity Name",
                   "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
-                    "EcoTech Solutions Inc.",
-                    "Climate Action Corp"
+                    "Example Buyer Ltd.",
+                    "Example Beneficiary Ltd."
                   ],
                   "type": "string",
                   "minLength": 1,
@@ -243,7 +243,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "examples": [
-                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                    "00000000-0000-4000-8000-000000000001"
                   ]
                 },
                 "external_url": {
@@ -252,8 +252,8 @@
                   "type": "string",
                   "format": "uri",
                   "examples": [
-                    "https://registry.carrot.eco/",
-                    "https://whitepaper.carrot.eco/"
+                    "https://registry.example.com/",
+                    "https://whitepaper.example.com/"
                   ]
                 }
               },
@@ -297,8 +297,8 @@
                   "title": "Identity Name",
                   "description": "Display name of the buyer or beneficiary on the receipt",
                   "examples": [
-                    "EcoTech Solutions Inc.",
-                    "Climate Action Corp"
+                    "Example Buyer Ltd.",
+                    "Example Beneficiary Ltd."
                   ],
                   "type": "string",
                   "minLength": 1,
@@ -311,7 +311,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
                   "examples": [
-                    "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                    "00000000-0000-4000-8000-000000000001"
                   ]
                 },
                 "external_url": {
@@ -320,8 +320,8 @@
                   "type": "string",
                   "format": "uri",
                   "examples": [
-                    "https://registry.carrot.eco/",
-                    "https://whitepaper.carrot.eco/"
+                    "https://registry.example.com/",
+                    "https://whitepaper.example.com/"
                   ]
                 }
               },
@@ -350,8 +350,8 @@
                 "title": "Collection Slug",
                 "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
                 "examples": [
-                  "bold-cold-start-araucaria",
-                  "bold-cold-start-papagaios"
+                  "example-collection-one",
+                  "example-collection-two"
                 ]
               },
               "external_id": {
@@ -361,7 +361,7 @@
                 "title": "Collection External ID",
                 "description": "Unique identifier for the collection in the Carrot platform",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                  "00000000-0000-4000-8000-000000000001"
                 ]
               },
               "name": {
@@ -371,8 +371,8 @@
                 "title": "Collection Name",
                 "description": "Human-readable display name for the environmental credit collection",
                 "examples": [
-                  "BOLD Cold Start - Araucária",
-                  "BOLD Cold Start - Papagaios"
+                  "Example Collection One",
+                  "Example Collection Two"
                 ]
               },
               "external_url": {
@@ -381,8 +381,8 @@
                 "title": "Collection External URL",
                 "description": "Link to the collection page on the Carrot platform",
                 "examples": [
-                  "https://registry.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
+                  "https://registry.example.com/",
+                  "https://whitepaper.example.com/"
                 ]
               },
               "ipfs_uri": {
@@ -390,7 +390,7 @@
                 "minLength": 1,
                 "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
                 "title": "Collection IPFS URI",
-                "description": "IPFS URI pointing to the immutable collection metadata record",
+                "description": "IPFS URI of the collection JSON document cited by this receipt; its image is the document image field, not this URI itself",
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -415,84 +415,164 @@
           "minItems": 1,
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "external_id": {
-                "type": "string",
-                "format": "uuid",
-                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-                "title": "External ID",
-                "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
-                "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
-                ]
-              },
-              "external_url": {
-                "type": "string",
-                "format": "uri",
-                "title": "External URL",
-                "description": "URL pointing to external resources",
-                "examples": [
-                  "https://registry.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
-                ]
-              },
-              "ipfs_uri": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
-                "title": "IPFS URI",
-                "description": "InterPlanetary File System URI pointing to distributed content",
-                "examples": [
-                  "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-                  "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
-                ]
-              },
-              "smart_contract_address": {
-                "type": "string",
-                "pattern": "^0x[a-f0-9]{40}$",
-                "title": "Smart Contract Address",
-                "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
-                "examples": [
-                  "0x1234567890abcdef1234567890abcdef12345678"
-                ]
-              },
-              "slug": {
-                "type": "string",
-                "enum": [
-                  "carbon-ch4",
-                  "biowaste"
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "external_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
+                    "title": "External ID",
+                    "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
+                    "examples": [
+                      "00000000-0000-4000-8000-000000000001"
+                    ]
+                  },
+                  "external_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "External URL",
+                    "description": "URL pointing to external resources",
+                    "examples": [
+                      "https://registry.example.com/",
+                      "https://whitepaper.example.com/"
+                    ]
+                  },
+                  "ipfs_uri": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
+                    "title": "IPFS URI",
+                    "description": "InterPlanetary File System URI pointing to distributed content",
+                    "examples": [
+                      "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+                      "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+                    ]
+                  },
+                  "chain_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991,
+                    "title": "Chain ID",
+                    "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+                    "examples": [
+                      137,
+                      80002
+                    ]
+                  },
+                  "smart_contract_address": {
+                    "type": "string",
+                    "pattern": "^0x[a-f0-9]{40}$",
+                    "title": "Smart Contract Address",
+                    "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+                    "examples": [
+                      "0x1234567890abcdef1234567890abcdef12345678"
+                    ]
+                  },
+                  "slug": {
+                    "type": "string",
+                    "const": "carbon-ch4",
+                    "title": "Carbon Credit Slug",
+                    "description": "Stable slug paired with C-CARB.CH4"
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "const": "C-CARB.CH4",
+                    "title": "Carbon Credit Symbol",
+                    "description": "ERC-20 symbol paired with carbon-ch4"
+                  }
+                },
+                "required": [
+                  "external_id",
+                  "external_url",
+                  "ipfs_uri",
+                  "chain_id",
+                  "smart_contract_address",
+                  "slug",
+                  "symbol"
                 ],
-                "title": "Credit Token Slug",
-                "description": "URL-friendly identifier for the credit token",
-                "examples": [
-                  "carbon-ch4",
-                  "biowaste"
-                ]
+                "additionalProperties": false
               },
-              "symbol": {
-                "type": "string",
-                "enum": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
+              {
+                "type": "object",
+                "properties": {
+                  "external_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
+                    "title": "External ID",
+                    "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
+                    "examples": [
+                      "00000000-0000-4000-8000-000000000001"
+                    ]
+                  },
+                  "external_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "External URL",
+                    "description": "URL pointing to external resources",
+                    "examples": [
+                      "https://registry.example.com/",
+                      "https://whitepaper.example.com/"
+                    ]
+                  },
+                  "ipfs_uri": {
+                    "type": "string",
+                    "minLength": 1,
+                    "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
+                    "title": "IPFS URI",
+                    "description": "InterPlanetary File System URI pointing to distributed content",
+                    "examples": [
+                      "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+                      "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+                    ]
+                  },
+                  "chain_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991,
+                    "title": "Chain ID",
+                    "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+                    "examples": [
+                      137,
+                      80002
+                    ]
+                  },
+                  "smart_contract_address": {
+                    "type": "string",
+                    "pattern": "^0x[a-f0-9]{40}$",
+                    "title": "Smart Contract Address",
+                    "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+                    "examples": [
+                      "0x1234567890abcdef1234567890abcdef12345678"
+                    ]
+                  },
+                  "slug": {
+                    "type": "string",
+                    "const": "biowaste",
+                    "title": "Biowaste Credit Slug",
+                    "description": "Stable slug paired with C-BIOW"
+                  },
+                  "symbol": {
+                    "type": "string",
+                    "const": "C-BIOW",
+                    "title": "Biowaste Credit Symbol",
+                    "description": "ERC-20 symbol paired with biowaste"
+                  }
+                },
+                "required": [
+                  "external_id",
+                  "external_url",
+                  "ipfs_uri",
+                  "chain_id",
+                  "smart_contract_address",
+                  "slug",
+                  "symbol"
                 ],
-                "title": "Credit Token Symbol",
-                "description": "ERC20 token symbol identifier",
-                "examples": [
-                  "C-CARB.CH4",
-                  "C-BIOW"
-                ]
+                "additionalProperties": false
               }
-            },
-            "required": [
-              "external_id",
-              "external_url",
-              "ipfs_uri",
-              "smart_contract_address",
-              "slug",
-              "symbol"
             ],
-            "additionalProperties": false,
             "title": "Credit",
             "description": "Credit token retired in this receipt"
           },
@@ -512,7 +592,7 @@
                 "title": "External ID",
                 "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
                 "examples": [
-                  "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                  "00000000-0000-4000-8000-000000000001"
                 ]
               },
               "external_url": {
@@ -521,8 +601,8 @@
                 "title": "External URL",
                 "description": "URL pointing to external resources",
                 "examples": [
-                  "https://registry.carrot.eco/",
-                  "https://whitepaper.carrot.eco/"
+                  "https://registry.example.com/",
+                  "https://whitepaper.example.com/"
                 ]
               },
               "ipfs_uri": {
@@ -534,6 +614,17 @@
                 "examples": [
                   "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                   "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+                ]
+              },
+              "chain_id": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991,
+                "title": "Chain ID",
+                "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+                "examples": [
+                  137,
+                  80002
                 ]
               },
               "smart_contract_address": {
@@ -590,7 +681,7 @@
                     "title": "External ID",
                     "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
                     "examples": [
-                      "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                      "00000000-0000-4000-8000-000000000001"
                     ]
                   },
                   "external_url": {
@@ -599,8 +690,8 @@
                     "title": "External URL",
                     "description": "URL pointing to external resources",
                     "examples": [
-                      "https://registry.carrot.eco/",
-                      "https://whitepaper.carrot.eco/"
+                      "https://registry.example.com/",
+                      "https://whitepaper.example.com/"
                     ]
                   },
                   "ipfs_uri": {
@@ -612,6 +703,17 @@
                     "examples": [
                       "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                       "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+                    ]
+                  },
+                  "chain_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991,
+                    "title": "Chain ID",
+                    "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+                    "examples": [
+                      137,
+                      80002
                     ]
                   },
                   "smart_contract_address": {
@@ -639,6 +741,7 @@
                   "external_id",
                   "external_url",
                   "ipfs_uri",
+                  "chain_id",
                   "smart_contract_address",
                   "token_id"
                 ],
@@ -659,8 +762,8 @@
                       "title": "Collection Slug",
                       "description": "URL-friendly identifier for an environmental credit collection, used in URIs and API references",
                       "examples": [
-                        "bold-cold-start-araucaria",
-                        "bold-cold-start-papagaios"
+                        "example-collection-one",
+                        "example-collection-two"
                       ]
                     },
                     "retired_amount": {
@@ -736,7 +839,7 @@
                       "title": "Retired Credit External ID",
                       "description": "External identifier for the retired credit entry",
                       "examples": [
-                        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                        "00000000-0000-4000-8000-000000000001"
                       ]
                     },
                     "external_url": {
@@ -745,8 +848,8 @@
                       "title": "Retired Credit External URL",
                       "description": "External URL for the retired credit entry",
                       "examples": [
-                        "https://registry.carrot.eco/",
-                        "https://whitepaper.carrot.eco/"
+                        "https://registry.example.com/",
+                        "https://whitepaper.example.com/"
                       ]
                     }
                   },
@@ -769,6 +872,7 @@
               "external_id",
               "external_url",
               "ipfs_uri",
+              "chain_id",
               "smart_contract_address",
               "token_id",
               "type",
@@ -794,7 +898,7 @@
               "title": "External ID",
               "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
               "examples": [
-                "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+                "00000000-0000-4000-8000-000000000001"
               ]
             },
             "external_url": {
@@ -803,8 +907,8 @@
               "title": "External URL",
               "description": "URL pointing to external resources",
               "examples": [
-                "https://registry.carrot.eco/",
-                "https://whitepaper.carrot.eco/"
+                "https://registry.example.com/",
+                "https://whitepaper.example.com/"
               ]
             },
             "ipfs_uri": {
@@ -816,6 +920,17 @@
               "examples": [
                 "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
                 "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ]
+            },
+            "chain_id": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991,
+              "title": "Chain ID",
+              "description": "Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot",
+              "examples": [
+                137,
+                80002
               ]
             },
             "smart_contract_address": {
@@ -843,12 +958,13 @@
             "external_id",
             "external_url",
             "ipfs_uri",
+            "chain_id",
             "smart_contract_address",
             "token_id"
           ],
           "additionalProperties": false,
           "title": "Credit Purchase Receipt Reference",
-          "description": "Reference to the credit purchase receipt when retirement occurs during purchase"
+          "description": "Reference to the purchase receipt snapshot associated with this retirement; ipfs_uri preserves the cited historical version"
         }
       },
       "required": [
@@ -867,7 +983,7 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$",
       "title": "Audit Data Hash",
-      "description": "SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes",
+      "description": "SHA-256 digest of this canonical JSON metadata record excluding content_hash and audit_data_hash; it is not a hash of private source documents",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ]
@@ -885,18 +1001,11 @@
           ]
         },
         "chain_id": {
-          "anyOf": [
-            {
-              "type": "number",
-              "const": 137
-            },
-            {
-              "type": "number",
-              "const": 80002
-            }
-          ],
-          "title": "Chain ID",
-          "description": "Blockchain network chain identifier (e.g., 137 for Polygon mainnet, 80002 for Amoy testnet)",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "title": "NFT Chain ID",
+          "description": "Positive chain identifier of the NFT contract deployment. For the supported Polygon and Amoy environments, it must agree with network_name and environment.blockchain_network.",
           "examples": [
             137,
             80002
@@ -966,10 +1075,10 @@
       "minLength": 1,
       "maxLength": 500,
       "title": "Description",
-      "description": "Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.",
+      "description": "Human-readable summary of this NFT record. Certificate and receipt families describe different events; use the family schema for exact meaning.",
       "examples": [
-        "This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.",
-        "This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd."
+        "Illustrative MassID tracking 3 metric tons of organic food waste through a documented chain of custody.",
+        "Illustrative RecycledID recording 2.5 metric tons of material processed for recycling."
       ]
     },
     "image": {
@@ -1029,8 +1138,8 @@
             "title": "Link URL",
             "description": "Direct URI to the linked resource",
             "examples": [
-              "https://registry.carrot.eco/",
-              "https://whitepaper.carrot.eco/"
+              "https://registry.example.com/",
+              "https://whitepaper.example.com/"
             ]
           },
           "description": {
@@ -1187,7 +1296,7 @@
                 "title": "Beneficiary",
                 "description": "Beneficiary receiving the retirement benefit",
                 "examples": [
-                  "Climate Action Corp"
+                  "Example Beneficiary Ltd."
                 ]
               },
               "display_type": {
@@ -1235,7 +1344,7 @@
                 "title": "Credit Holder",
                 "description": "Entity that surrendered the credits",
                 "examples": [
-                  "EcoTech Solutions Inc."
+                  "Example Buyer Ltd."
                 ]
               },
               "display_type": {
@@ -1427,7 +1536,7 @@
   ],
   "additionalProperties": false,
   "title": "CreditRetirementReceipt NFT IPFS Record",
-  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants.",
+  "description": "Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants; a separate claim needs its own evidence.",
   "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "version": "5.2.0"
 }

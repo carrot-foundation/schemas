@@ -26,12 +26,13 @@ export const MethodologyDataSchema = z
     }),
     revision_date: IsoDateSchema.meta({
       title: 'Revision Date',
-      description: 'ISO 8601 date of the last revision to this methodology',
+      description:
+        'Official ISO 8601 revision date of the methodology version represented by this document; source it from the versioned publication, not database creation time',
     }),
     publication_date: IsoDateSchema.meta({
       title: 'Publication Date',
       description:
-        'ISO 8601 date of the original publication of this methodology',
+        'ISO 8601 date of the first official publication of this methodology family, independent of the represented version; source it from official publication history',
     }),
     methodology_pdf: IpfsUriSchema.meta({
       title: 'Methodology PDF',

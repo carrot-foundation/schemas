@@ -9,6 +9,7 @@ import {
   CreditTypeSchema,
   CreditAmountSchema,
   IsoDateTimeSchema,
+  CreditIdentifierSchema,
 } from '../shared';
 
 const RecycledIDSummarySchema = z
@@ -40,6 +41,7 @@ export type RecycledIDSummary = z.infer<typeof RecycledIDSummarySchema>;
 export const RecycledIDDataSchema = z
   .strictObject({
     summary: RecycledIDSummarySchema,
+    credit: CreditIdentifierSchema,
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
     mass_id: MassIDReferenceSchema,

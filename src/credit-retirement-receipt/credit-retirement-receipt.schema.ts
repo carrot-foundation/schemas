@@ -19,7 +19,7 @@ import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-rec
 export const CreditRetirementReceiptIpfsSchemaMeta = {
   title: 'CreditRetirementReceipt NFT IPFS Record',
   description:
-    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants.',
+    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants; a separate claim needs its own evidence.',
   $id: buildSchemaUrl(
     'credit-retirement-receipt/credit-retirement-receipt.schema.json',
   ),
@@ -31,7 +31,7 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     type: z.literal('CreditRetirementReceipt').meta({
       title: 'CreditRetirementReceipt Schema Type',
       description:
-        'Discriminator value identifying this record as a CreditRetirementReceipt permanent-offset proof',
+        'Discriminator identifying a credit retirement receipt; this field does not declare an offset claim or beneficiary purpose',
     }),
   }),
   name: CreditRetirementReceiptNameSchema,
@@ -79,6 +79,37 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
 
     const attributes = value.attributes;
     const data = value.data;
+
+    data.credits.forEach((credit, index) => {
+      if (credit.chain_id !== value.blockchain.chain_id) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'credit.chain_id must match blockchain.chain_id',
+          path: ['data', 'credits', index, 'chain_id'],
+        });
+      }
+    });
+
+    data.certificates.forEach((certificate, index) => {
+      if (certificate.chain_id !== value.blockchain.chain_id) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'certificate.chain_id must match blockchain.chain_id',
+          path: ['data', 'certificates', index, 'chain_id'],
+        });
+      }
+    });
+
+    if (
+      data.purchase_receipt &&
+      data.purchase_receipt.chain_id !== value.blockchain.chain_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'purchase_receipt.chain_id must match blockchain.chain_id',
+        path: ['data', 'purchase_receipt', 'chain_id'],
+      });
+    }
 
     const attributeByTraitType = createAttributeMap(attributes);
 

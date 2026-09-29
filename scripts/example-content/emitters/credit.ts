@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime } from '../shared.js';
+import { exampleIpfsUri, formatDateTime } from '../shared.js';
 
 /**
  * Emit a Credit example document with placeholders.
@@ -23,19 +23,24 @@ export function emitCreditExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'Credit',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:credit'),
     },
     environment: { ...story.environment },
     created_at: formatDateTime(new Date('2024-12-05T14:30:00.000Z')),
-    external_id: '8f2c3445-ef89-4de7-8d95-7c814d5c8af9',
-    external_url: `https://registry.carrot.eco/credit/carrot-carbon`,
+    external_id: '00000000-0000-4000-8000-100000000016',
+    external_url:
+      'https://registry.example.com/credit/00000000-0000-4000-8000-100000000016',
     symbol: story.credit.symbol,
     slug: story.credit.slug,
-    name: story.credit.name,
-    decimals: 18,
-    image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+    name: 'Example Carbon Credit',
+    blockchain: {
+      chain_id: 80002,
+      smart_contract_address: '0xabcdef1234567890abcdef1234567890abcdef12',
+    },
+    interop: { erc1046: true },
+    decimals: 6,
+    image: exampleIpfsUri('image:credit-carbon'),
     description:
-      'Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact.',
+      'Illustrative carbon credit metadata for a fictional ERC-20 contract. Its name, symbol, decimals, and network must match the deployed contract before any real document is generated.',
   };
 }

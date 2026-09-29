@@ -6,8 +6,8 @@
       "type": "string",
       "format": "uri",
       "title": "JSON Schema URI",
-      "description": "URI of the JSON Schema used to validate this record",
-      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/heads/main/schemas/ipfs/shared/base/base.schema.json"
+      "description": "Versioned URL of the JSON Schema used to validate this record; it must identify the same artifact as schema.ipfs_uri and schema.hash",
+      "example": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v0.0.0-example/schemas/ipfs/mass-id/mass-id.schema.json"
     },
     "schema": {
       "type": "object",
@@ -16,7 +16,7 @@
           "type": "string",
           "pattern": "^[a-f0-9]{64}$",
           "title": "Schema Hash",
-          "description": "SHA-256 hash of the JSON Schema this record was validated against",
+          "description": "SHA-256 digest of the canonical JSON Schema object identified by this version and IPFS URI",
           "examples": [
             "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
           ]
@@ -44,7 +44,7 @@
           "minLength": 1,
           "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
           "title": "Schema IPFS URI",
-          "description": "IPFS URI for this JSON Schema when the primary schema URI is unavailable",
+          "description": "IPFS URI of the exact pinned JSON Schema artifact whose version and hash are recorded alongside it",
           "examples": [
             "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
@@ -64,7 +64,7 @@
       "format": "date-time",
       "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
       "title": "Created At",
-      "description": "ISO 8601 creation timestamp for this record",
+      "description": "ISO 8601 timestamp when this metadata document was created; it is not the date of the underlying event or methodology publication",
       "examples": [
         "2024-12-05T11:02:47.000Z"
       ]
@@ -76,7 +76,7 @@
       "title": "External ID",
       "description": "UUID v4 identifier linking this IPFS record to its counterpart in the Carrot platform and other consuming systems",
       "examples": [
-        "ad44dd3f-f176-4b98-bf78-5ee6e77d0530"
+        "00000000-0000-4000-8000-000000000001"
       ]
     },
     "external_url": {
@@ -85,8 +85,8 @@
       "title": "External URL",
       "description": "URL pointing to external resources",
       "examples": [
-        "https://registry.carrot.eco/",
-        "https://whitepaper.carrot.eco/"
+        "https://registry.example.com/",
+        "https://whitepaper.example.com/"
       ]
     },
     "viewer_reference": {
@@ -189,16 +189,65 @@
     },
     "name": {
       "type": "string",
-      "enum": [
-        "Carrot Carbon (CH₄)",
-        "Carrot Biowaste"
-      ],
-      "title": "Credit Token Name",
-      "description": "Human-readable display name for the credit token",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^\\S(?:[\\s\\S]*\\S)?$(?![\\s\\S])",
+      "title": "On-chain Credit Token Name",
+      "description": "Exact ERC-20 name() value for the deployed credit contract; it may differ from a product display label",
       "examples": [
-        "Carrot Carbon (CH₄)",
-        "Carrot Biowaste"
+        "Example Carbon Credit",
+        "Example Biowaste Credit"
       ]
+    },
+    "blockchain": {
+      "type": "object",
+      "properties": {
+        "chain_id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "title": "Positive Integer",
+          "description": "Integer value that is greater than zero",
+          "examples": [
+            1,
+            123,
+            456
+          ]
+        },
+        "smart_contract_address": {
+          "type": "string",
+          "pattern": "^0x[a-f0-9]{40}$",
+          "title": "Smart Contract Address",
+          "description": "Ethereum-compatible address of the smart contract that mints and manages this token",
+          "examples": [
+            "0x1234567890abcdef1234567890abcdef12345678"
+          ]
+        }
+      },
+      "required": [
+        "chain_id",
+        "smart_contract_address"
+      ],
+      "additionalProperties": false,
+      "title": "Credit Contract Identity",
+      "description": "Network and ERC-20 contract whose tokenURI() resolves this document. ERC-20 has no token_id."
+    },
+    "interop": {
+      "type": "object",
+      "properties": {
+        "erc1046": {
+          "type": "boolean",
+          "const": true,
+          "title": "ERC-1046 Interoperability",
+          "description": "Declares this metadata document compatible with ERC-1046."
+        }
+      },
+      "required": [
+        "erc1046"
+      ],
+      "additionalProperties": false,
+      "title": "Interoperability",
+      "description": "Mandatory ERC-1046 marker for both PROD and TEST credit documents."
     },
     "decimals": {
       "type": "integer",
@@ -207,7 +256,7 @@
       "title": "Token Decimals",
       "description": "Number of decimal places for the ERC20 token",
       "examples": [
-        18
+        6
       ]
     },
     "image": {
@@ -225,9 +274,9 @@
       "minLength": 50,
       "maxLength": 1000,
       "title": "Token Description",
-      "description": "Comprehensive description of the credit token, its purpose, and impact",
+      "description": "Human-readable purpose and impact pathway of this ERC-20 credit token; quantitative claims require their own evidence",
       "examples": [
-        "Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices."
+        "Illustrative carbon credit metadata for a fictional ERC-20 contract. Its name, symbol, decimals, and network must match the deployed contract before any real document is generated."
       ]
     }
   },
@@ -240,6 +289,8 @@
     "symbol",
     "slug",
     "name",
+    "blockchain",
+    "interop",
     "decimals",
     "image",
     "description"

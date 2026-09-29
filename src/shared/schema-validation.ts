@@ -395,26 +395,16 @@ export function validateRetirementReceiptRequirement(params: {
   ctx: z.RefinementCtx;
   hasRetirementReceipt: boolean;
   totalRetiredAmount: number;
-  messageWhenPresentButNoRetired?: string;
   messageWhenRetiredButNotPresent?: string;
 }) {
   const {
     ctx,
     hasRetirementReceipt,
     totalRetiredAmount,
-    messageWhenPresentButNoRetired = 'retirement_receipt is present but no certificate has retired_amount greater than 0',
     messageWhenRetiredButNotPresent = 'certificates with retired amounts > 0 require retirement_receipt',
   } = params;
 
-  if (hasRetirementReceipt) {
-    if (totalRetiredAmount === 0) {
-      ctx.addIssue({
-        code: 'custom',
-        message: messageWhenPresentButNoRetired,
-        path: ['retirement_receipt'],
-      });
-    }
-  } else if (totalRetiredAmount > 0) {
+  if (!hasRetirementReceipt && totalRetiredAmount > 0) {
     ctx.addIssue({
       code: 'custom',
       message: messageWhenRetiredButNotPresent,

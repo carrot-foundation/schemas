@@ -32,7 +32,7 @@ export const AuditRuleDefinitionSchema = z
         description:
           'Detailed description of what the rule validates and why it is necessary',
         examples: [
-          'Validates that each MassID is unique within the system to prevent duplicate entries',
+          'Illustrative check for duplicate MassID registration before counting a waste mass again',
         ],
       }),
     source_code_url: z
@@ -43,7 +43,7 @@ export const AuditRuleDefinitionSchema = z
         description:
           'GitHub URL pointing to the implementation source code for this rule',
         examples: [
-          'https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js',
+          'https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/mass-id/waste-mass-is-unique',
         ],
       }),
     execution_order: PositiveIntegerSchema.meta({
@@ -54,7 +54,7 @@ export const AuditRuleDefinitionSchema = z
   .meta({
     title: 'Audit Rule Definition',
     description:
-      'Definition of an audit rule that must be executed for methodology compliance',
+      'Versioned definition of a methodology audit rule and its execution order',
   });
 export type AuditRuleDefinition = z.infer<typeof AuditRuleDefinitionSchema>;
 
@@ -115,8 +115,7 @@ export const AuditRuleDefinitionsSchema = z
   })
   .meta({
     title: 'Audit Rule Definitions',
-    description:
-      'List of audit rules that must be executed to check methodology compliance, sorted by execution order',
+    description: 'Versioned methodology audit rules, sorted by execution order',
   });
 export type AuditRuleDefinitions = z.infer<typeof AuditRuleDefinitionsSchema>;
 
@@ -144,7 +143,7 @@ export const AuditRuleExecutionResultSchema = z
         description:
           'Detailed description of what the rule validates and why it is necessary',
         examples: [
-          'Validates that each MassID is unique within the system to prevent duplicate entries',
+          'Illustrative check for duplicate MassID registration before counting a waste mass again',
         ],
       }),
     rule_source_code_url: z
@@ -155,7 +154,7 @@ export const AuditRuleExecutionResultSchema = z
         description:
           'GitHub URL pointing to the implementation source code for this rule',
         examples: [
-          'https://github.com/carrot-foundation/methodologies/blob/main/bold-carbon/rules/waste-mass-unique.js',
+          'https://github.com/example-org/methodology-rules/tree/0000000000000000000000000000000000000000/mass-id/waste-mass-is-unique',
         ],
       }),
     rule_execution_order: PositiveIntegerSchema.meta({
@@ -187,9 +186,9 @@ export const AuditRuleExecutionResultSchema = z
           'Human-readable message explaining the rule execution result, including details about what was validated or calculated',
         examples: [
           'No other MassIDs with the same attributes were found.',
-          'The MassID is not linked to a valid MassID Certificate',
-          'The time between the "Drop-off" and "Recycled" events is 90 days, within the valid range (60-180 days).',
-          'The prevented emissions were calculated as 419.93 kg CO₂e using the formula (1 - 0.029) x 0.067 x 6454.8 = 419.93',
+          'The MassID is not linked to a certificate in this illustrative audit.',
+          'Recorded processing dates passed the illustrative project-period rule.',
+          'Illustrative rule output recorded 123.519 kg CO₂e for this MassID.',
         ],
       }),
     rule_processor_checksum: NonEmptyStringSchema.max(200).meta({
