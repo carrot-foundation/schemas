@@ -13,6 +13,7 @@ import {
   validateNumericAttributeValue,
   validateTokenIdInName,
   validateFormattedName,
+  validateCertificateReferenceChainIds,
 } from '../shared';
 import { RecycledIDDataSchema } from './recycled-id.data.schema';
 import { RecycledIDAttributesSchema } from './recycled-id.attributes';
@@ -75,20 +76,12 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
     });
 
     const { data, attributes } = record;
-    if (data.credit.chain_id !== record.blockchain.chain_id) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'data.credit.chain_id must match blockchain.chain_id',
-        path: ['data', 'credit', 'chain_id'],
-      });
-    }
-    if (data.mass_id.chain_id !== record.blockchain.chain_id) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'data.mass_id.chain_id must match blockchain.chain_id',
-        path: ['data', 'mass_id', 'chain_id'],
-      });
-    }
+    validateCertificateReferenceChainIds({
+      ctx,
+      credit: data.credit,
+      massId: data.mass_id,
+      expectedChainId: record.blockchain.chain_id,
+    });
     const attributeByTraitType = createAttributeMap(attributes);
 
     validateAttributeValue({

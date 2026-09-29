@@ -12,6 +12,7 @@ import {
   createCreditRetirementReceiptShortNameSchema,
   validateTokenIdInName,
   validateFormattedName,
+  validateReceiptReferenceChainIds,
 } from '../shared';
 import { CreditRetirementReceiptDataSchema } from './credit-retirement-receipt.data.schema';
 import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-receipt.attributes';
@@ -80,36 +81,14 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     const attributes = value.attributes;
     const data = value.data;
 
-    data.credits.forEach((credit, index) => {
-      if (credit.chain_id !== value.blockchain.chain_id) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'credit.chain_id must match blockchain.chain_id',
-          path: ['data', 'credits', index, 'chain_id'],
-        });
-      }
+    validateReceiptReferenceChainIds({
+      ctx,
+      credits: data.credits,
+      certificates: data.certificates,
+      relatedReceipt: data.purchase_receipt,
+      relatedReceiptName: 'purchase_receipt',
+      expectedChainId: value.blockchain.chain_id,
     });
-
-    data.certificates.forEach((certificate, index) => {
-      if (certificate.chain_id !== value.blockchain.chain_id) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'certificate.chain_id must match blockchain.chain_id',
-          path: ['data', 'certificates', index, 'chain_id'],
-        });
-      }
-    });
-
-    if (
-      data.purchase_receipt &&
-      data.purchase_receipt.chain_id !== value.blockchain.chain_id
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'purchase_receipt.chain_id must match blockchain.chain_id',
-        path: ['data', 'purchase_receipt', 'chain_id'],
-      });
-    }
 
     const attributeByTraitType = createAttributeMap(attributes);
 
