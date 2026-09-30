@@ -92,7 +92,7 @@ const PreventedEmissionsCalculationSchema = z
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',
       description:
-        'Only values actually retained by the calculation source. The current certificate builder retains result R; do not reconstruct E, B or W from an illustrative example.',
+        'Values recorded for the prevented emissions calculation, including any retained input parameters and result. Each entry identifies its reference, numeric value, unit, and label.',
     }),
   })
   .meta({

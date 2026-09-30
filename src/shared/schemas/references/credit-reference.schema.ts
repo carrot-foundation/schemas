@@ -61,7 +61,7 @@ export const CreditIdentifierSchema = z
   .meta({
     title: 'Credit Token Identity',
     description:
-      'Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair; no IPFS URI is stored in certificate identifiers.',
+      'Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair.',
   });
 export type CreditIdentifier = z.infer<typeof CreditIdentifierSchema>;
 

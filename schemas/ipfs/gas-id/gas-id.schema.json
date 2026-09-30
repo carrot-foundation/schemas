@@ -331,7 +331,7 @@
             }
           ],
           "title": "Credit Token Identity",
-          "description": "Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair; no IPFS URI is stored in certificate identifiers."
+          "description": "Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair."
         },
         "methodology": {
           "type": "object",
@@ -812,7 +812,7 @@
                 "description": "Named parameter or computed result used in the prevented emissions formula"
               },
               "title": "Calculation Values",
-              "description": "Only values actually retained by the calculation source. The current certificate builder retains result R; do not reconstruct E, B or W from an illustrative example."
+              "description": "Values recorded for the prevented emissions calculation, including any retained input parameters and result. Each entry identifies its reference, numeric value, unit, and label."
             }
           },
           "required": [

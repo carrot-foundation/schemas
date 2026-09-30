@@ -206,7 +206,7 @@
           "minimum": 1,
           "maximum": 9007199254740991,
           "title": "Positive Integer",
-          "description": "Integer value that is greater than zero",
+          "description": "Identifier of the blockchain network where the ERC-20 credit contract is deployed. Together with smart_contract_address, it identifies the contract represented by this metadata.",
           "examples": [
             1,
             123,

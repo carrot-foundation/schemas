@@ -319,7 +319,7 @@
             }
           ],
           "title": "Credit Token Identity",
-          "description": "Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair; no IPFS URI is stored in certificate identifiers."
+          "description": "Stable ERC-20 identity on a specific chain. Slug and symbol must be the approved pair."
         },
         "methodology": {
           "type": "object",

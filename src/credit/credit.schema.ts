@@ -38,7 +38,10 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
   name: CreditTokenNameSchema,
   blockchain: z
     .strictObject({
-      chain_id: PositiveIntegerSchema,
+      chain_id: PositiveIntegerSchema.meta({
+        description:
+          'Identifier of the blockchain network where the ERC-20 credit contract is deployed. Together with smart_contract_address, it identifies the contract represented by this metadata.',
+      }),
       smart_contract_address: SmartContractAddressSchema,
     })
     .meta({
