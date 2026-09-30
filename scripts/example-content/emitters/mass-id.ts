@@ -81,11 +81,6 @@ export function emitMassIDExample(): Record<string, unknown> {
         url: `https://registry.example.com/document/${externalId}`,
         description: 'Complete chain of custody and audit trail',
       },
-      {
-        label: 'MassID Audit',
-        url: 'https://registry.example.com/document/00000000-0000-4000-8000-100000000004',
-        description: 'Illustrative audit result for this MassID',
-      },
     ],
     attributes: [
       { trait_type: 'Waste Type', value: 'Organic' },

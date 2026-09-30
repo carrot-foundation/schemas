@@ -175,9 +175,7 @@ describe('reference example story', () => {
       expect(urls[0]).toBe(record.external_url);
     }
 
-    expect(externalLinkUrls(massID)[1]).toBe(
-      emitMassIDAuditExample().external_url,
-    );
+    expect(externalLinkUrls(massID)).toHaveLength(1);
     expect(externalLinkUrls(gasID)[1]).toBe(
       emitMethodologyExample().external_url,
     );
