@@ -84,10 +84,10 @@ const PreventedEmissionsCalculationSchema = z
         'Identifier of the calculation rule that produced these values; do not claim direct implementation of an external methodology without evidence',
       examples: ['Illustrative calculation rule'],
     }),
-    calculated_at: IsoDateTimeSchema.meta({
-      title: 'Calculated At',
+    result_recorded_at: IsoDateTimeSchema.meta({
+      title: 'Result Recorded At',
       description:
-        'ISO 8601 timestamp recorded for the calculation execution; not a fallback for issuance or recycling time',
+        'ISO 8601 timestamp of the event that recorded this calculation result. This is not the calculation execution time, token issuance time, or recycling time.',
     }),
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',
@@ -98,7 +98,7 @@ const PreventedEmissionsCalculationSchema = z
   .meta({
     title: 'Prevented Emissions Calculation',
     description:
-      'Recorded prevented-emissions result and any source-backed calculation parameters, with a unit per entry and an execution timestamp',
+      'Recorded prevented-emissions result and any source-backed calculation parameters, with a unit per entry and the result-recording event time',
   });
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema

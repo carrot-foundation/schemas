@@ -22,7 +22,7 @@ export function emitGasIDExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const recyclingAt = new Date('2024-12-08T11:32:47.000Z');
   const auditCompletedAt = new Date('2024-12-08T11:32:48.200Z');
-  const calculationAt = new Date('2024-12-08T11:34:47.000Z');
+  const resultRecordedAt = new Date('2024-12-08T11:34:47.000Z');
   const issuedAt = new Date('2024-12-08T11:35:47.000Z');
 
   const tokenId = story.gasID.tokenId;
@@ -169,7 +169,7 @@ export function emitGasIDExample(): Record<string, unknown> {
       prevented_emissions_calculation: {
         formula: 'R = recorded result',
         method: 'Illustrative calculation rule',
-        calculated_at: formatDateTime(calculationAt),
+        result_recorded_at: formatDateTime(resultRecordedAt),
         values: [
           {
             reference: 'R',
