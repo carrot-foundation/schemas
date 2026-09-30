@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "95be72dfb80a369f9d34681e3c0b1e88542718a631d04a0498fe469d1c3cbc45",
+    "hash": "e7d9d3dc80d82535deebe3bdf5edb270719e58095c62d3e8dadce812546f9c7f",
     "type": "MassID",
     "version": "5.2.0",
     "ipfs_uri": "ipfs://bafybeigz7vfpvlvn7wcl43wrddh5i2asywmjgehi3fzgvgm6isimsmxpzq"
@@ -36,9 +36,9 @@
       "description": "Complete chain of custody and audit trail"
     },
     {
-      "label": "Carrot White Paper",
-      "url": "https://whitepaper.example.com",
-      "description": "Carrot Foundation technical white paper"
+      "label": "MassID Audit",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000004",
+      "description": "Illustrative audit result for this MassID"
     }
   ],
   "attributes": [

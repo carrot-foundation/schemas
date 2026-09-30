@@ -85,7 +85,7 @@
       "description": "URL pointing to external resources",
       "examples": [
         "https://registry.example.com/",
-        "https://whitepaper.example.com/"
+        "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
       ]
     },
     "viewer_reference": {
@@ -265,7 +265,7 @@
                   "format": "uri",
                   "examples": [
                     "https://registry.example.com/",
-                    "https://whitepaper.example.com/"
+                    "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
                   ]
                 }
               },
@@ -326,7 +326,7 @@
                 "description": "Link to the collection page on the Carrot platform",
                 "examples": [
                   "https://registry.example.com/",
-                  "https://whitepaper.example.com/"
+                  "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
                 ]
               },
               "ipfs_uri": {
@@ -380,7 +380,7 @@
                     "description": "URL pointing to external resources",
                     "examples": [
                       "https://registry.example.com/",
-                      "https://whitepaper.example.com/"
+                      "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
                     ]
                   },
                   "ipfs_uri": {
@@ -458,7 +458,7 @@
                     "description": "URL pointing to external resources",
                     "examples": [
                       "https://registry.example.com/",
-                      "https://whitepaper.example.com/"
+                      "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
                     ]
                   },
                   "ipfs_uri": {
@@ -546,7 +546,7 @@
                 "description": "URL pointing to external resources",
                 "examples": [
                   "https://registry.example.com/",
-                  "https://whitepaper.example.com/"
+                  "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
                 ]
               },
               "ipfs_uri": {
@@ -635,7 +635,7 @@
                     "description": "URL pointing to external resources",
                     "examples": [
                       "https://registry.example.com/",
-                      "https://whitepaper.example.com/"
+                      "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
                     ]
                   },
                   "ipfs_uri": {
@@ -928,7 +928,7 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$",
       "title": "Audit Data Hash",
-      "description": "SHA-256 digest of the canonical data block in this NFT metadata record; it is not a hash of private source documents",
+      "description": "SHA-256 digest of the canonicalized data block emitted in this NFT metadata record",
       "examples": [
         "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
       ]
@@ -1084,7 +1084,7 @@
             "description": "Direct URI to the linked resource",
             "examples": [
               "https://registry.example.com/",
-              "https://whitepaper.example.com/"
+              "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
             ]
           },
           "description": {

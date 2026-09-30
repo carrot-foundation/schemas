@@ -7,7 +7,7 @@ export const ExternalUrlSchema = z.url().meta({
   description: 'URL pointing to external resources',
   examples: [
     'https://registry.example.com/',
-    'https://whitepaper.example.com/',
+    'https://registry.example.com/document/00000000-0000-4000-8000-100000000009',
   ],
 });
 export type ExternalUrl = z.infer<typeof ExternalUrlSchema>;

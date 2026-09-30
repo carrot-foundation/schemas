@@ -63,9 +63,9 @@ export function emitRecycledIDExample(): Record<string, unknown> {
         description: 'Complete RecycledID details and audit trail',
       },
       {
-        label: 'Carrot White Paper',
-        url: 'https://whitepaper.example.com',
-        description: 'Carrot Foundation technical white paper',
+        label: 'Source MassID',
+        url: `https://registry.example.com/document/${massIDExternalId}`,
+        description: 'Illustrative source waste record for this RecycledID',
       },
     ],
     attributes: [

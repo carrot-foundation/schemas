@@ -66,9 +66,9 @@ export function emitGasIDExample(): Record<string, unknown> {
         description: 'Complete GasID details and audit trail',
       },
       {
-        label: 'Carrot White Paper',
-        url: 'https://whitepaper.example.com/',
-        description: 'Carrot ecosystem overview and technical foundation',
+        label: 'BOLD Carbon Methodology',
+        url: `https://registry.example.com/document/${methodologyExternalId}`,
+        description: 'Illustrative methodology record referenced by this GasID',
       },
     ],
     attributes: [

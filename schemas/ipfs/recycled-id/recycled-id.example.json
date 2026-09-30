@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "4a6a71851870e7942af97fb9ea35bd8374f875e04d868731bd7d99161ca2098f",
+    "hash": "018522806d0229a3de5ab321f6fd7100ac9d0922c7f55f27ca9469e60cfb29a0",
     "type": "RecycledID",
     "version": "5.2.0",
     "ipfs_uri": "ipfs://bafybeihozcjncfp7fifukcummybyc2je3sft7h7rosrjfn46tfpf4l73z4"
@@ -36,9 +36,9 @@
       "description": "Complete RecycledID details and audit trail"
     },
     {
-      "label": "Carrot White Paper",
-      "url": "https://whitepaper.example.com",
-      "description": "Carrot Foundation technical white paper"
+      "label": "Source MassID",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
+      "description": "Illustrative source waste record for this RecycledID"
     }
   ],
   "attributes": [

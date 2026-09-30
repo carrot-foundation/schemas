@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "f0152c30ac5cc6de216e687a99eb3d81c2dbb7e7d907c5ef9f8ce5e86fe9b3c1",
+    "hash": "ff8f8f3287111f90627a2b8192dd95d4ff52e1a9bec3e7669440fc5b42541c28",
     "type": "CreditRetirementReceipt",
     "version": "5.2.0",
     "ipfs_uri": "ipfs://bafybeibgxmejmgefhdzetidadejdwcu26ebj5hsfro7pex43ivuqyoxuxi"

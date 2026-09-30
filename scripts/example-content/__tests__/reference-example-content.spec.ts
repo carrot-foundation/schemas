@@ -33,6 +33,23 @@ function getField(obj: Record<string, unknown>, ...keys: string[]): unknown {
   );
 }
 
+function externalLinkUrls(document: Record<string, unknown>): string[] {
+  if (!Array.isArray(document.external_links)) {
+    throw new Error('Expected external_links array');
+  }
+  return document.external_links.map((link: unknown) => {
+    if (
+      typeof link !== 'object' ||
+      link === null ||
+      !('url' in link) ||
+      typeof link.url !== 'string'
+    ) {
+      throw new Error('Expected external link URL');
+    }
+    return link.url;
+  });
+}
+
 const VALID_SHA256 = 'a'.repeat(64);
 const VALID_SCHEMA_URL =
   'https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/1.0.0/schemas/ipfs/mass-id/mass-id.schema.json';
@@ -141,6 +158,30 @@ describe('reference example story', () => {
         String(getField(audit, 'data', 'audit_summary', 'started_at')),
       ),
     );
+  });
+
+  it('uses distinct Registry records instead of white paper example links', () => {
+    const massID = emitMassIDExample();
+    const gasID = emitGasIDExample();
+    const recycledID = emitRecycledIDExample();
+    const linkedRecords = [massID, gasID, recycledID];
+
+    for (const record of linkedRecords) {
+      const urls = externalLinkUrls(record);
+      expect(new Set(urls).size).toBe(urls.length);
+      expect(
+        urls.every((url) => url.startsWith('https://registry.example.com/')),
+      ).toBe(true);
+      expect(urls[0]).toBe(record.external_url);
+    }
+
+    expect(externalLinkUrls(massID)[1]).toBe(
+      emitMassIDAuditExample().external_url,
+    );
+    expect(externalLinkUrls(gasID)[1]).toBe(
+      emitMethodologyExample().external_url,
+    );
+    expect(externalLinkUrls(recycledID)[1]).toBe(massID.external_url);
   });
 
   it('assigns distinct example CIDs by asset role and schema family', () => {

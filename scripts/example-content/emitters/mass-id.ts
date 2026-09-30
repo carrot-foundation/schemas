@@ -82,9 +82,9 @@ export function emitMassIDExample(): Record<string, unknown> {
         description: 'Complete chain of custody and audit trail',
       },
       {
-        label: 'Carrot White Paper',
-        url: 'https://whitepaper.example.com',
-        description: 'Carrot Foundation technical white paper',
+        label: 'MassID Audit',
+        url: 'https://registry.example.com/document/00000000-0000-4000-8000-100000000004',
+        description: 'Illustrative audit result for this MassID',
       },
     ],
     attributes: [

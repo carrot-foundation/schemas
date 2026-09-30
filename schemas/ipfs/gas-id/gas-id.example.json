@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "e79f8489cf5ee5f8762c8c2ffe896d7add94bd53a34e7c47d521f3ce54f38a1e",
+    "hash": "2d40c07d5ef60b3c616ba72656761346877bf6f3a5d562b52d8b682644b3d1ff",
     "type": "GasID",
     "version": "5.2.0",
     "ipfs_uri": "ipfs://bafybeie5p6yw3ygxkw76jzoxzg5vkvc5efjmhr4uv6qtugtfwegwocwz4a"
@@ -36,9 +36,9 @@
       "description": "Complete GasID details and audit trail"
     },
     {
-      "label": "Carrot White Paper",
-      "url": "https://whitepaper.example.com/",
-      "description": "Carrot ecosystem overview and technical foundation"
+      "label": "BOLD Carbon Methodology",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000005",
+      "description": "Illustrative methodology record referenced by this GasID"
     }
   ],
   "attributes": [
