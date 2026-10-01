@@ -224,14 +224,22 @@
                           ]
                         },
                         {
-                          "type": "string",
-                          "maxLength": 4096,
-                          "pattern": "^https?:\\/\\/",
-                          "title": "External URL",
-                          "description": "URL pointing to external resources",
-                          "examples": [
-                            "https://registry.example.com/",
-                            "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
+                          "allOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 4096,
+                              "format": "uri",
+                              "title": "External URL",
+                              "description": "URL pointing to external resources",
+                              "examples": [
+                                "https://registry.example.com/",
+                                "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^[hH][tT][tT][pP][sS]?:\\/\\/[^/?#\\s]+(?:[/?#][\\s\\S]*)?$"
+                            }
                           ]
                         }
                       ],
@@ -413,14 +421,22 @@
                           ]
                         },
                         {
-                          "type": "string",
-                          "maxLength": 4096,
-                          "pattern": "^https?:\\/\\/",
-                          "title": "External URL",
-                          "description": "URL pointing to external resources",
-                          "examples": [
-                            "https://registry.example.com/",
-                            "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
+                          "allOf": [
+                            {
+                              "type": "string",
+                              "maxLength": 4096,
+                              "format": "uri",
+                              "title": "External URL",
+                              "description": "URL pointing to external resources",
+                              "examples": [
+                                "https://registry.example.com/",
+                                "https://registry.example.com/document/00000000-0000-4000-8000-100000000009"
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "pattern": "^[hH][tT][tT][pP][sS]?:\\/\\/[^/?#\\s]+(?:[/?#][\\s\\S]*)?$"
+                            }
                           ]
                         }
                       ],

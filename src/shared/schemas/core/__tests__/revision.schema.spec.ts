@@ -33,6 +33,34 @@ describe('metadata revision publication contract', () => {
     expect(validateJson(input)).toBe(true);
   });
 
+  it.each(['https://', 'http://%', 'https:///', 'https://?', 'http://#'])(
+    'rejects malformed HTTP supporting reference %s in source and generated validators',
+    (reference) => {
+      const input = {
+        ...verifiedRevisionFixture,
+        changes: [
+          { ...verifiedRevisionFixture.changes[0], references: [reference] },
+        ],
+      };
+      expect(MetadataRevisionSchema.safeParse(input).success).toBe(false);
+      expect(validateJson(input)).toBe(false);
+    },
+  );
+
+  it.each(['HTTP://example.com/evidence', 'Https://example.com/evidence'])(
+    'preserves public URI scheme casing exactly for %s',
+    (reference) => {
+      const input = {
+        ...verifiedRevisionFixture,
+        changes: [
+          { ...verifiedRevisionFixture.changes[0], references: [reference] },
+        ],
+      };
+      expect(MetadataRevisionSchema.safeParse(input).data).toEqual(input);
+      expect(validateJson(input)).toBe(true);
+    },
+  );
+
   it.each(['add', 'replace', 'remove'])(
     'requires verified %s operation without inventing old/new values',
     (operation) => {

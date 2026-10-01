@@ -61,9 +61,13 @@ const RevisionReasonSchema = NonEmptyStringSchema.max(500)
 export const RevisionReferenceSchema = z
   .union([
     IpfsUriSchema.max(4096),
-    ExternalUrlSchema.max(4096).regex(
-      /^https?:\/\//,
-      'Must be a public HTTP(S) URL',
+    ExternalUrlSchema.max(4096).and(
+      z
+        .string()
+        .regex(
+          /^[hH][tT][tT][pP][sS]?:\/\/[^/?#\s]+(?:[/?#][\s\S]*)?$/,
+          'Must be a public HTTP(S) URL with an authority',
+        ),
     ),
   ])
   .meta({
