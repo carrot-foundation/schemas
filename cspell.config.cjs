@@ -44,6 +44,8 @@ module.exports = {
   useGitignore: true,
   words: vsCodeSettings['cSpell.words'],
   ignoreRegExpList: [
+    // Unicode escapes in generated JSON Schema regular expressions.
+    '/\\\\u[0-9a-fA-F]{4}/',
     '/ipfs:\\/\\/[^\\s"\']+/',
     '/\\b(?:bafy[a-z0-9]{20,}|Qm[1-9A-HJ-NP-Za-km-z]{20,})\\b/',
     '/\\bk[a-z0-9]{40,}\\b/',

@@ -25,6 +25,10 @@ import recycledExample from '../../../schemas/ipfs/recycled-id/recycled-id.examp
 import creditJsonSchema from '../../../schemas/ipfs/credit/credit.schema.json';
 import gasJsonSchema from '../../../schemas/ipfs/gas-id/gas-id.schema.json';
 import { hashObject } from '../hash';
+import {
+  verifiedRevisionFixture,
+  unavailableRevisionFixture,
+} from '../../test-utils/fixtures';
 
 describe('approved major metadata contract', () => {
   it.each([
@@ -45,6 +49,36 @@ describe('approved major metadata contract', () => {
     'validates complete %s example with Zod',
     (_name, schema, example) => {
       expect(schema.safeParse(example).success).toBe(true);
+    },
+  );
+
+  it.each([
+    ['MassID', MassIDIpfsSchema, massExample],
+    ['GasID', GasIDIpfsSchema, gasExample],
+    ['RecycledID', RecycledIDIpfsSchema, recycledExample],
+    ['Credit', CreditSchema, creditExample],
+    ['Collection', CollectionSchema, collectionExample],
+    ['Purchase receipt', CreditPurchaseReceiptIpfsSchema, purchaseExample],
+    [
+      'Retirement receipt',
+      CreditRetirementReceiptIpfsSchema,
+      retirementExample,
+    ],
+    ['MassID Audit', MassIDAuditSchema, auditExample],
+    ['Methodology', MethodologySchema, methodologyExample],
+  ] as const)(
+    'preserves initial publication and accepts both revision states for %s',
+    (_name, schema, example) => {
+      expect(schema.safeParse(example).success).toBe(true);
+      for (const revision of [
+        verifiedRevisionFixture,
+        unavailableRevisionFixture,
+      ]) {
+        const input = { ...structuredClone(example), revision };
+        const result = schema.safeParse(input);
+        expect(result.success).toBe(true);
+        expect(result.data).toEqual(input);
+      }
     },
   );
 

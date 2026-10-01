@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { MetadataRevisionSchema } from './revision.schema';
 import {
   SemanticVersionSchema,
   IsoDateTimeSchema,
@@ -83,6 +84,7 @@ export const BaseIpfsSchema = z
     }),
     external_id: ExternalIdSchema,
     external_url: ExternalUrlSchema,
+    revision: MetadataRevisionSchema.optional(),
     viewer_reference: ViewerReferenceSchema.optional(),
     environment: RecordEnvironmentSchema.optional(),
     data: z.record(z.string(), z.unknown()).optional().meta({
