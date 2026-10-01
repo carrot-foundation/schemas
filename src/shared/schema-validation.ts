@@ -83,7 +83,10 @@ export function validateCertificateReferenceChainIds(params: {
 export function validateReceiptReferenceChainIds(params: {
   ctx: z.RefinementCtx;
   credits: readonly { chain_id: number }[];
-  certificates: readonly { chain_id: number }[];
+  certificates: readonly {
+    chain_id: number;
+    mass_id: { chain_id: number };
+  }[];
   relatedReceipt?: { chain_id: number };
   relatedReceiptName: 'purchase_receipt' | 'retirement_receipt';
   expectedChainId: number;
@@ -99,6 +102,14 @@ export function validateReceiptReferenceChainIds(params: {
     references: params.certificates,
     path: ['data', 'certificates'],
     message: 'certificate.chain_id must match blockchain.chain_id',
+  });
+  params.certificates.forEach((certificate, index) => {
+    validateReferenceChainId({
+      ...params,
+      reference: certificate.mass_id,
+      path: ['data', 'certificates', index, 'mass_id', 'chain_id'],
+      message: 'certificate.mass_id.chain_id must match blockchain.chain_id',
+    });
   });
   validateReferenceChainId({
     ...params,

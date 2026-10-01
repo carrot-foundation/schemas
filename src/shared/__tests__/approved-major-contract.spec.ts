@@ -306,6 +306,31 @@ describe('approved major metadata contract', () => {
     }
   });
 
+  it.each([
+    ['purchase', CreditPurchaseReceiptIpfsSchema, purchaseExample],
+    ['retirement', CreditRetirementReceiptIpfsSchema, retirementExample],
+  ] as const)(
+    'rejects nested MassID chain mismatches in every %s receipt certificate',
+    (_family, schema, example) => {
+      expect(schema.safeParse(example).success).toBe(true);
+
+      for (const index of [0, 1, 2]) {
+        const document = structuredClone(example);
+        document.data.certificates[index].mass_id.chain_id = 137;
+        const result = schema.safeParse(document);
+
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          expect(result.error.issues).toContainEqual(
+            expect.objectContaining({
+              path: ['data', 'certificates', index, 'mass_id', 'chain_id'],
+            }),
+          );
+        }
+      }
+    },
+  );
+
   it('rejects mismatched chain identities at every certificate and receipt reference', () => {
     for (const [schema, example] of [
       [GasIDIpfsSchema, gasExample],
