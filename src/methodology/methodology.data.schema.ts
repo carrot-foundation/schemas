@@ -8,6 +8,7 @@ import {
   MethodologySlugSchema,
   SemanticVersionSchema,
 } from '../shared';
+import { MethodologyRulesManifestSchema } from './methodology-rules-manifest.schema';
 
 export const MethodologyDataSchema = z
   .strictObject({
@@ -17,7 +18,7 @@ export const MethodologyDataSchema = z
     version: SemanticVersionSchema.meta({
       title: 'Methodology Version',
       description:
-        'Semantic version of this methodology revision (e.g., 1.0.0)',
+        'Operational Methodology entity revision; independent of manifest format, framework, application and executed processor versions',
     }),
     description: z.string().min(50).max(2000).meta({
       title: 'Methodology Description',
@@ -38,6 +39,7 @@ export const MethodologyDataSchema = z
       title: 'Methodology PDF',
       description: 'IPFS URI pointing to the complete methodology PDF document',
     }),
+    rules_manifest: MethodologyRulesManifestSchema,
     mass_id_audit_rules: AuditRuleDefinitionsSchema.meta({
       title: 'MassID Audit Rules',
       description:

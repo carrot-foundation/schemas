@@ -42,6 +42,13 @@ export function emitMethodologyExample(): Record<string, unknown> {
       revision_date: formatDate(new Date('2024-02-01T00:00:00.000Z')),
       publication_date: formatDate(new Date('2024-01-01T00:00:00.000Z')),
       methodology_pdf: exampleIpfsUri('pdf:methodology-carbon'),
+      rules_manifest: {
+        ipfs_uri: exampleIpfsUri('manifest:methodology-rules'),
+        sha256: '0'.repeat(64),
+        source_commit: '1'.repeat(40),
+        framework: { slug: 'example-carbon-framework', version: '1.0.2' },
+        application: { slug: 'example-carbon-application', version: '1.0.0' },
+      },
       mass_id_audit_rules: buildMassIdAuditRules(),
     },
   };
@@ -183,6 +190,8 @@ function buildMassIdAuditRules(): Record<string, unknown>[] {
     execution_order: index + 1,
     id: `00000000-0000-4000-8000-${String(index + 1).padStart(12, '0')}`,
     slug: rule.slug,
+    application_rule_slug: rule.dirName ?? rule.slug,
+    implements_methodology_framework_rules: [`${rule.slug}-requirement`],
     name: rule.name,
   }));
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/methodology/methodology.schema.json",
   "schema": {
-    "hash": "60b498491fa9bf3d5b208652d093656c3801fb2b8ad22a5f50c1757447b687de",
+    "hash": "d69f9da5c9d6f46fc1b216e2e0c0431ea2088e8b904db52c10dfaebb655767b8",
     "type": "Methodology",
     "version": "5.2.0",
     "ipfs_uri": "ipfs://bafybeigwemoy4uj7mvnhicmxorjc6j3txdjvao6nhvji67icygdwvqjtlq"
@@ -24,6 +24,19 @@
     "revision_date": "2024-02-01",
     "publication_date": "2024-01-01",
     "methodology_pdf": "ipfs://bafybeigdm5jsx7vquthxlijyx3cno4vvm7v5l5z2ng2atmrizehrtffjpa",
+    "rules_manifest": {
+      "ipfs_uri": "ipfs://bafybeigjzj47jnln3po77vzwvespvaficntnnk5yzu2er65mm33o6esfri",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "source_commit": "1111111111111111111111111111111111111111",
+      "framework": {
+        "slug": "example-carbon-framework",
+        "version": "1.0.2"
+      },
+      "application": {
+        "slug": "example-carbon-application",
+        "version": "1.0.0"
+      }
+    },
     "mass_id_audit_rules": [
       {
         "description": "Illustrative check for duplicate MassID registration before counting a waste mass again",
@@ -31,6 +44,10 @@
         "execution_order": 1,
         "id": "00000000-0000-4000-8000-000000000001",
         "slug": "waste-mass-is-unique",
+        "application_rule_slug": "waste-mass-is-unique",
+        "implements_methodology_framework_rules": [
+          "waste-mass-is-unique-requirement"
+        ],
         "name": "Waste Mass is Unique"
       },
       {
@@ -39,6 +56,10 @@
         "execution_order": 2,
         "id": "00000000-0000-4000-8000-000000000002",
         "slug": "no-conflicting-gas-id-or-credit",
+        "application_rule_slug": "no-conflicting-gas-id-or-credit",
+        "implements_methodology_framework_rules": [
+          "no-conflicting-gas-id-or-credit-requirement"
+        ],
         "name": "No Conflicting GasID or Credit"
       },
       {
@@ -47,6 +68,10 @@
         "execution_order": 3,
         "id": "00000000-0000-4000-8000-000000000003",
         "slug": "project-period-limit",
+        "application_rule_slug": "project-period-limit",
+        "implements_methodology_framework_rules": [
+          "project-period-limit-requirement"
+        ],
         "name": "Project Period Limit"
       },
       {
@@ -55,6 +80,10 @@
         "execution_order": 4,
         "id": "00000000-0000-4000-8000-000000000004",
         "slug": "participant-accreditations",
+        "application_rule_slug": "participant-accreditations-and-verifications-requirements",
+        "implements_methodology_framework_rules": [
+          "participant-accreditations-requirement"
+        ],
         "name": "Participant Accreditations & Verifications Requirements"
       },
       {
@@ -63,6 +92,10 @@
         "execution_order": 5,
         "id": "00000000-0000-4000-8000-000000000005",
         "slug": "mass-id-qualifications",
+        "application_rule_slug": "mass-id-qualifications",
+        "implements_methodology_framework_rules": [
+          "mass-id-qualifications-requirement"
+        ],
         "name": "MassID Qualifications"
       },
       {
@@ -71,6 +104,10 @@
         "execution_order": 6,
         "id": "00000000-0000-4000-8000-000000000006",
         "slug": "regional-waste-classification",
+        "application_rule_slug": "regional-waste-classification",
+        "implements_methodology_framework_rules": [
+          "regional-waste-classification-requirement"
+        ],
         "name": "Regional Waste Classification"
       },
       {
@@ -79,6 +116,10 @@
         "execution_order": 7,
         "id": "00000000-0000-4000-8000-000000000007",
         "slug": "geolocation-and-address-precision",
+        "application_rule_slug": "geolocation-and-address-precision",
+        "implements_methodology_framework_rules": [
+          "geolocation-and-address-precision-requirement"
+        ],
         "name": "Geolocation and Address Precision"
       },
       {
@@ -87,6 +128,10 @@
         "execution_order": 8,
         "id": "00000000-0000-4000-8000-000000000008",
         "slug": "waste-origin-identification",
+        "application_rule_slug": "waste-origin-identification",
+        "implements_methodology_framework_rules": [
+          "waste-origin-identification-requirement"
+        ],
         "name": "Waste Origin Identification"
       },
       {
@@ -95,6 +140,10 @@
         "execution_order": 9,
         "id": "00000000-0000-4000-8000-000000000009",
         "slug": "hauler-identification",
+        "application_rule_slug": "hauler-identification",
+        "implements_methodology_framework_rules": [
+          "hauler-identification-requirement"
+        ],
         "name": "Hauler Identification"
       },
       {
@@ -103,6 +152,10 @@
         "execution_order": 10,
         "id": "00000000-0000-4000-8000-000000000010",
         "slug": "vehicle-identification",
+        "application_rule_slug": "vehicle-identification",
+        "implements_methodology_framework_rules": [
+          "vehicle-identification-requirement"
+        ],
         "name": "Vehicle Identification"
       },
       {
@@ -111,6 +164,10 @@
         "execution_order": 11,
         "id": "00000000-0000-4000-8000-000000000011",
         "slug": "driver-identification",
+        "application_rule_slug": "driver-identification",
+        "implements_methodology_framework_rules": [
+          "driver-identification-requirement"
+        ],
         "name": "Driver Identification"
       },
       {
@@ -119,6 +176,10 @@
         "execution_order": 12,
         "id": "00000000-0000-4000-8000-000000000012",
         "slug": "transport-manifest-data",
+        "application_rule_slug": "transport-manifest-data",
+        "implements_methodology_framework_rules": [
+          "transport-manifest-data-requirement"
+        ],
         "name": "Transport Manifest Data"
       },
       {
@@ -127,6 +188,10 @@
         "execution_order": 13,
         "id": "00000000-0000-4000-8000-000000000013",
         "slug": "processor-identification",
+        "application_rule_slug": "processor-identification",
+        "implements_methodology_framework_rules": [
+          "processor-identification-requirement"
+        ],
         "name": "Processor Identification"
       },
       {
@@ -135,6 +200,10 @@
         "execution_order": 14,
         "id": "00000000-0000-4000-8000-000000000014",
         "slug": "recycler-identification",
+        "application_rule_slug": "recycler-identification",
+        "implements_methodology_framework_rules": [
+          "recycler-identification-requirement"
+        ],
         "name": "Recycler Identification"
       },
       {
@@ -143,6 +212,10 @@
         "execution_order": 15,
         "id": "00000000-0000-4000-8000-000000000015",
         "slug": "weighing",
+        "application_rule_slug": "weighing",
+        "implements_methodology_framework_rules": [
+          "weighing-requirement"
+        ],
         "name": "Weighing"
       },
       {
@@ -151,6 +224,10 @@
         "execution_order": 16,
         "id": "00000000-0000-4000-8000-000000000016",
         "slug": "drop-off-at-recycler",
+        "application_rule_slug": "drop-off-at-recycler",
+        "implements_methodology_framework_rules": [
+          "drop-off-at-recycler-requirement"
+        ],
         "name": "Drop-off at Recycler"
       },
       {
@@ -159,6 +236,10 @@
         "execution_order": 17,
         "id": "00000000-0000-4000-8000-000000000017",
         "slug": "mass-id-sorting",
+        "application_rule_slug": "mass-id-sorting",
+        "implements_methodology_framework_rules": [
+          "mass-id-sorting-requirement"
+        ],
         "name": "MassID Sorting"
       },
       {
@@ -167,6 +248,10 @@
         "execution_order": 18,
         "id": "00000000-0000-4000-8000-000000000018",
         "slug": "composting-cycle-timeframe",
+        "application_rule_slug": "composting-cycle-timeframe",
+        "implements_methodology_framework_rules": [
+          "composting-cycle-timeframe-requirement"
+        ],
         "name": "Composting Cycle Timeframe"
       },
       {
@@ -175,6 +260,10 @@
         "execution_order": 19,
         "id": "00000000-0000-4000-8000-000000000019",
         "slug": "recycling-manifest-data",
+        "application_rule_slug": "recycling-manifest-data",
+        "implements_methodology_framework_rules": [
+          "recycling-manifest-data-requirement"
+        ],
         "name": "Recycling Manifest Data"
       },
       {
@@ -183,6 +272,10 @@
         "execution_order": 20,
         "id": "00000000-0000-4000-8000-000000000020",
         "slug": "project-boundary",
+        "application_rule_slug": "project-boundary",
+        "implements_methodology_framework_rules": [
+          "project-boundary-requirement"
+        ],
         "name": "Project Boundary"
       },
       {
@@ -191,6 +284,10 @@
         "execution_order": 21,
         "id": "00000000-0000-4000-8000-000000000021",
         "slug": "prevented-emissions",
+        "application_rule_slug": "prevented-emissions",
+        "implements_methodology_framework_rules": [
+          "prevented-emissions-requirement"
+        ],
         "name": "Prevented CO₂e"
       }
     ]

@@ -14,6 +14,8 @@ import type {
 export const minimalAuditRuleDefinitionStub: AuditRuleDefinition = {
   id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   slug: 'waste-mass-unique',
+  application_rule_slug: 'waste-mass-unique',
+  implements_methodology_framework_rules: ['example-requirement'],
   name: 'Waste Mass is Unique',
   description: 'Validates that each MassID is unique within the system',
   source_code_url:
@@ -30,6 +32,8 @@ export const minimalAuditRuleDefinitionStub: AuditRuleDefinition = {
 export const validAuditRuleDefinitionFixture: AuditRuleDefinition = {
   id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
   slug: 'waste-mass-unique',
+  application_rule_slug: 'waste-mass-unique',
+  implements_methodology_framework_rules: ['example-requirement'],
   name: 'Waste Mass is Unique',
   description:
     'Validates that each MassID is unique within the system to prevent duplicate entries',
@@ -63,6 +67,8 @@ export const validAuditRuleDefinitionsFixture: AuditRuleDefinitions = [
   {
     id: 'a1b2c3d4-e5f6-4890-8234-567890abcdef',
     slug: 'waste-mass-unique',
+    application_rule_slug: 'waste-mass-unique',
+    implements_methodology_framework_rules: ['example-requirement'],
     name: 'Waste Mass is Unique',
     description:
       'Validates that each MassID is unique within the system to prevent duplicate entries',
@@ -73,6 +79,8 @@ export const validAuditRuleDefinitionsFixture: AuditRuleDefinitions = [
   {
     id: 'b2c3d4e5-f6a7-4901-9345-678901bcdefa',
     slug: 'no-conflicting-gas-id',
+    application_rule_slug: 'no-conflicting-gas-id',
+    implements_methodology_framework_rules: ['example-requirement'],
     name: 'No Conflicting GasID or Credit',
     description:
       'Ensures no conflicting GasID or Credit exists for the same waste batch',
@@ -83,6 +91,8 @@ export const validAuditRuleDefinitionsFixture: AuditRuleDefinitions = [
   {
     id: 'c3d4e5f6-a7b8-4012-8456-789012cdefab',
     slug: 'methodology-compliance',
+    application_rule_slug: 'methodology-compliance',
+    implements_methodology_framework_rules: ['example-requirement'],
     name: 'Methodology Compliance Check',
     description:
       'Verifies that the waste processing follows the approved methodology guidelines',

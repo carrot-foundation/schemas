@@ -583,7 +583,7 @@
           "minLength": 1,
           "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
           "title": "Methodology Version",
-          "description": "Semantic version of this methodology revision (e.g., 1.0.0)",
+          "description": "Operational Methodology entity revision; independent of manifest format, framework, application and executed processor versions",
           "examples": [
             "0.1.0",
             "1.0.0",
@@ -628,6 +628,125 @@
             "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
           ]
         },
+        "rules_manifest": {
+          "type": "object",
+          "properties": {
+            "ipfs_uri": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^ipfs:\\/\\/(?:Qm[1-9A-HJ-NP-Za-km-z]{44}|[bB][a-z2-7]{58,}|[zZ][1-9A-HJ-NP-Za-km-z]{48,})(?:\\/[^\\s]*)?$",
+              "title": "Rules Manifest IPFS URI",
+              "description": "Complete immutable IPFS locator of the original received methodology-rules manifest bytes, including any file path",
+              "examples": [
+                "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+                "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+              ]
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Rules Manifest SHA-256",
+              "description": "SHA-256 of the original received manifest bytes, not a regeneration or reformatted projection",
+              "examples": [
+                "87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489"
+              ]
+            },
+            "source_commit": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[a-f0-9]{40}$",
+              "title": "Rules Manifest Source Commit",
+              "description": "Full sourceCommit declared by the immutable manifest; independent of the processor source-code version",
+              "examples": [
+                "0000000000000000000000000000000000000000"
+              ]
+            },
+            "framework": {
+              "type": "object",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "^[a-z0-9-]+$",
+                  "title": "Manifest Selection Slug",
+                  "description": "Exact framework or application key in the frozen manifest",
+                  "examples": [
+                    "mass-id-123",
+                    "recycled-plastic",
+                    "organic-waste"
+                  ]
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
+                  "title": "Manifest Selection Version",
+                  "description": "Exact version of the selected framework or application in the frozen manifest; independent of operational Methodology and processor versions",
+                  "examples": [
+                    "0.1.0",
+                    "1.0.0",
+                    "2.1.3"
+                  ]
+                }
+              },
+              "required": [
+                "slug",
+                "version"
+              ],
+              "additionalProperties": false,
+              "title": "Methodology Framework Selection",
+              "description": "Framework key and version selected from the frozen manifest"
+            },
+            "application": {
+              "type": "object",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "^[a-z0-9-]+$",
+                  "title": "Manifest Selection Slug",
+                  "description": "Exact framework or application key in the frozen manifest",
+                  "examples": [
+                    "mass-id-123",
+                    "recycled-plastic",
+                    "organic-waste"
+                  ]
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^v?\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$",
+                  "title": "Manifest Selection Version",
+                  "description": "Exact version of the selected framework or application in the frozen manifest; independent of operational Methodology and processor versions",
+                  "examples": [
+                    "0.1.0",
+                    "1.0.0",
+                    "2.1.3"
+                  ]
+                }
+              },
+              "required": [
+                "slug",
+                "version"
+              ],
+              "additionalProperties": false,
+              "title": "Methodology Application Selection",
+              "description": "Application key and version within the selected framework; the producer verifies membership and versions against the frozen manifest"
+            }
+          },
+          "required": [
+            "ipfs_uri",
+            "sha256",
+            "source_commit",
+            "framework",
+            "application"
+          ],
+          "additionalProperties": false,
+          "title": "Methodology Rules Manifest",
+          "description": "Immutable source identity and independent framework/application selectors for this derived Methodology snapshot"
+        },
         "mass_id_audit_rules": {
           "minItems": 1,
           "type": "array",
@@ -655,6 +774,45 @@
                   "mass-id-123",
                   "recycled-plastic",
                   "organic-waste"
+                ]
+              },
+              "application_rule_slug": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[a-z0-9-]+$",
+                "title": "Manifest Application Rule Slug",
+                "description": "Exact mass-id application-rule slug in the selected frozen manifest; preserves an explicit source join when the operational slug is a legacy alias",
+                "examples": [
+                  "mass-id-123",
+                  "recycled-plastic",
+                  "organic-waste"
+                ]
+              },
+              "implements_methodology_framework_rules": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "^[a-z0-9-]+$",
+                  "title": "Slug",
+                  "description": "URL-friendly identifier with lowercase letters, numbers, and hyphens",
+                  "examples": [
+                    "mass-id-123",
+                    "recycled-plastic",
+                    "organic-waste"
+                  ]
+                },
+                "title": "Implemented Methodology Framework Rules",
+                "description": "Distinct normative rule slugs in the selected framework implemented by this application rule; preserve every association and its source order",
+                "uniqueItems": true,
+                "examples": [
+                  [
+                    "example-requirement",
+                    "another-requirement"
+                  ]
                 ]
               },
               "name": {
@@ -703,6 +861,8 @@
             "required": [
               "id",
               "slug",
+              "application_rule_slug",
+              "implements_methodology_framework_rules",
               "name",
               "description",
               "source_code_url",
@@ -725,6 +885,7 @@
         "revision_date",
         "publication_date",
         "methodology_pdf",
+        "rules_manifest",
         "mass_id_audit_rules"
       ],
       "additionalProperties": false,

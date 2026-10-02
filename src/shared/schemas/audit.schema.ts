@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { uniqueArrayItems } from '../schema-helpers';
 import {
   IsoDateTimeSchema,
   NonEmptyStringSchema,
@@ -18,6 +19,20 @@ export const AuditRuleDefinitionSchema = z
       title: 'Rule Slug',
       description: 'URL-friendly identifier for the rule',
     }),
+    application_rule_slug: SlugSchema.meta({
+      title: 'Manifest Application Rule Slug',
+      description:
+        'Exact mass-id application-rule slug in the selected frozen manifest; preserves an explicit source join when the operational slug is a legacy alias',
+    }),
+    implements_methodology_framework_rules: uniqueArrayItems(SlugSchema)
+      .min(1)
+      .meta({
+        title: 'Implemented Methodology Framework Rules',
+        description:
+          'Distinct normative rule slugs in the selected framework implemented by this application rule; preserve every association and its source order',
+        uniqueItems: true,
+        examples: [['example-requirement', 'another-requirement']],
+      }),
     name: NonEmptyStringSchema.max(100).meta({
       title: 'Rule Name',
       description: 'Human-readable name of the rule',
