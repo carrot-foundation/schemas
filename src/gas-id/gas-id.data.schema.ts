@@ -64,10 +64,27 @@ const CalculationValueSchema = z
       examples: ['Prevented Emissions (CO₂e kg)'],
     }),
   })
+  .refine(({ reference, unit }) => reference !== 'R' || unit === 'kg CO₂e', {
+    message: 'Calculation result R must use kg CO₂e',
+    path: ['unit'],
+  })
   .meta({
     title: 'Calculation Value',
     description:
       'Named parameter or computed result used in the prevented emissions formula',
+    // Zod refinements need an explicit equivalent in the published JSON Schema.
+    allOf: [
+      {
+        if: {
+          properties: { reference: { const: 'R' } },
+          required: ['reference'],
+        },
+        then: {
+          properties: { unit: { const: 'kg CO₂e' } },
+          required: ['unit'],
+        },
+      },
+    ],
   });
 export type CalculationValue = z.infer<typeof CalculationValueSchema>;
 

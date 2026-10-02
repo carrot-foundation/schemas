@@ -18,7 +18,7 @@
       "path": "ipfs/mass-id/mass-id.schema.json"
     },
     "ipfs/gas-id/gas-id.schema.json": {
-      "hash": "7b51273e7ec1d71dac282e676a4980aa7c57479d35e2357b452337ca8792d9f2",
+      "hash": "3bb81b4e38fa1684d1c6cf469494d701deffd67862c459bd9063dfa0297ca3a6",
       "path": "ipfs/gas-id/gas-id.schema.json"
     },
     "ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json": {

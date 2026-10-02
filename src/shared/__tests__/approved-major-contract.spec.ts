@@ -161,7 +161,12 @@ describe('approved major metadata contract', () => {
   });
 
   it('keeps reserved retirement references conditional and free of a CID', () => {
-    const purchase = CreditPurchaseReceiptIpfsSchema.parse(purchaseExample);
+    const result = CreditPurchaseReceiptIpfsSchema.safeParse(purchaseExample);
+    expect(result.success).toBe(true);
+    if (!result.success) {
+      throw result.error;
+    }
+    const purchase = result.data;
     expect(Object.keys(purchase.data.retirement_receipt ?? {}).sort()).toEqual([
       'chain_id',
       'smart_contract_address',

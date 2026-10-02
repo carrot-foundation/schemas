@@ -1194,7 +1194,31 @@
                 ],
                 "additionalProperties": false,
                 "title": "Calculation Value",
-                "description": "Named parameter or computed result used in the prevented emissions formula"
+                "description": "Named parameter or computed result used in the prevented emissions formula",
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "reference": {
+                          "const": "R"
+                        }
+                      },
+                      "required": [
+                        "reference"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "unit": {
+                          "const": "kg CO₂e"
+                        }
+                      },
+                      "required": [
+                        "unit"
+                      ]
+                    }
+                  }
+                ]
               },
               "title": "Calculation Values",
               "description": "Values recorded for the prevented emissions calculation, including any retained input parameters and result. Each entry identifies its reference, numeric value, unit, and label."
