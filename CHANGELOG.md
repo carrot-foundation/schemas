@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0](https://github.com/carrot-foundation/schemas/compare/v5.2.0...v6.0.0) (2026-10-03)
+
+### ⚠ BREAKING CHANGES
+
+- **schema:** GasID prevented_emissions_calculation now requires
+  result_recorded_at instead of calculated_at. Producers must use the
+  matching rule result event time.
+- **schema:** all nine IPFS families gain required fields and stricter
+  reference, credit, receipt, methodology, and audit contracts.
+
+### Features
+
+- **schema:** bind methodology snapshots to rule manifests ([44133c2](https://github.com/carrot-foundation/schemas/commit/44133c286cc4075dd052bd8b957a00cae9ccb302))
+- **schema:** define next major IPFS metadata contract ([8d8f693](https://github.com/carrot-foundation/schemas/commit/8d8f6937cf9f723af804c2fd94ebf98bcdcfae7f))
+- **schema:** use GasID result event timestamp ([c54ad49](https://github.com/carrot-foundation/schemas/commit/c54ad493a2c5bb565ea65bbfc44504aafefe7822))
+- **shared:** add field-level metadata revision contracts ([a0c6132](https://github.com/carrot-foundation/schemas/commit/a0c6132e91fc811f0fd6d65ce5b161fe96379146))
+
+### Bug Fixes
+
+- align IPFS hashes and JSON Schema identities ([21da1bf](https://github.com/carrot-foundation/schemas/commit/21da1bfbf159132225ff8dfa487328b85690de8b))
+- **schema:** require kg CO₂e for every calculation result ([19a9c2f](https://github.com/carrot-foundation/schemas/commit/19a9c2f2b45b6512221570d77b02adda6cdda12d))
+- **shared:** preserve URL constraints in revision schemas ([cacc60a](https://github.com/carrot-foundation/schemas/commit/cacc60a20e9080cad7e99927ee9095dad8e4268b))
+- **shared:** validate receipt certificate MassID chains ([7491faa](https://github.com/carrot-foundation/schemas/commit/7491faa0e7c4011cc5bf006470c529eb0904d2ca))
+
+### Code Refactoring
+
+- share chain reference validation ([5175cc0](https://github.com/carrot-foundation/schemas/commit/5175cc05770590526e08fb402edb06efd5dc75bf))
+
 ## [5.2.0](https://github.com/carrot-foundation/schemas/compare/v5.1.1...v5.2.0) (2026-09-09)
 
 ### Features

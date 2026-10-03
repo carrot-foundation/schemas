@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.0.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "fe43531ec69b78224b917e81bc378915332ab119b217eb4704ddd6325f101e8b",
+    "hash": "75c13ab405fa7abff1cc4596cee12784fbe58a2609deaff0b5ed9bff22e4e02c",
     "type": "RecycledID",
-    "version": "5.2.0",
+    "version": "6.0.0",
     "ipfs_uri": "ipfs://bafybeihozcjncfp7fifukcummybyc2je3sft7h7rosrjfn46tfpf4l73z4"
   },
   "environment": {

@@ -2030,8 +2030,8 @@
   "additionalProperties": false,
   "title": "GasID NFT IPFS Record",
   "description": "Complete GasID NFT IPFS record including prevented emissions calculation, source waste provenance, methodology reference, and NFT display attributes",
-  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/gas-id/gas-id.schema.json",
-  "version": "5.2.0",
+  "$id": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.0.0/schemas/ipfs/gas-id/gas-id.schema.json",
+  "version": "6.0.0",
   "allOf": [
     {
       "if": {
