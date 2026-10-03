@@ -6,7 +6,11 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
+import {
+  exampleIpfsUri,
+  formatDateTime,
+  formatUnixMilliseconds,
+} from '../shared.js';
 
 /**
  * Emit a GasID example document with placeholders.
@@ -17,13 +21,16 @@ import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
 export function emitGasIDExample(): Record<string, unknown> {
   const story = buildReferenceStory();
   const recyclingAt = new Date('2024-12-08T11:32:47.000Z');
+  const auditCompletedAt = new Date('2024-12-08T11:32:48.200Z');
+  const resultRecordedAt = new Date('2024-12-08T11:34:47.000Z');
+  const issuedAt = new Date('2024-12-08T11:35:47.000Z');
 
   const tokenId = story.gasID.tokenId;
   const massIDTokenId = story.massID.tokenId;
-  const externalId = 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6';
-  const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
-  const auditExternalId = '80011d61-fe40-4aa2-9031-4f2aafad5d42';
-  const methodologyExternalId = '8375027a-a96f-446d-a8cb-c3ee92aea604';
+  const externalId = '00000000-0000-4000-8000-100000000015';
+  const massIDExternalId = '00000000-0000-4000-8000-100000000009';
+  const auditExternalId = '00000000-0000-4000-8000-100000000004';
+  const methodologyExternalId = '00000000-0000-4000-8000-100000000005';
 
   return {
     $schema: 'PLACEHOLDER',
@@ -31,8 +38,7 @@ export function emitGasIDExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'GasID',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:gas-id'),
     },
     environment: { ...story.environment },
     blockchain: {
@@ -41,29 +47,28 @@ export function emitGasIDExample(): Record<string, unknown> {
       chain_id: 80002,
       network_name: 'Amoy',
     },
-    created_at: formatDateTime(recyclingAt),
+    created_at: formatDateTime(issuedAt),
     external_id: externalId,
-    external_url: `https://registry.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.example.com/document/${externalId}`,
     audit_data_hash: 'PLACEHOLDER',
     viewer_reference: {
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('viewer:build'),
     },
     name: `GasID #${tokenId} \u2022 BOLD Carbon (CH\u2084) \u2022 0.12t CO\u2082e`,
     short_name: `GasID #${tokenId}`,
     description: `This GasID certifies 0.12 metric tons of CO\u2082e emissions prevented through BOLD Carbon (CH\u2084) methodology composting of 3.25 metric tons of organic waste from Bras\u00edlia, Brazil.`,
-    image: 'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+    image: exampleIpfsUri('image:gas-id'),
     background_color: '#1B4332',
     external_links: [
       {
         label: 'Carrot Registry',
-        url: `https://registry.carrot.eco/document/${externalId}`,
+        url: `https://registry.example.com/document/${externalId}`,
         description: 'Complete GasID details and audit trail',
       },
       {
-        label: 'Carrot White Paper',
-        url: 'https://whitepaper.carrot.eco/',
-        description: 'Carrot ecosystem overview and technical foundation',
+        label: 'BOLD Carbon Methodology',
+        url: `https://registry.example.com/document/${methodologyExternalId}`,
+        description: 'Illustrative methodology record referenced by this GasID',
       },
     ],
     attributes: [
@@ -104,18 +109,24 @@ export function emitGasIDExample(): Record<string, unknown> {
       },
       {
         trait_type: 'Certificate Issuance Date',
-        value: formatUnixMilliseconds(recyclingAt),
+        value: formatUnixMilliseconds(issuedAt),
         display_type: 'date',
       },
     ],
     data: {
+      credit: {
+        slug: 'carbon-ch4',
+        symbol: 'C-CARB.CH4',
+        chain_id: 80002,
+        smart_contract_address: '0xabcdef1234567890abcdef1234567890abcdef12',
+      },
       summary: {
         gas_type: 'Methane (CH\u2084)',
         credit_type: 'Carbon (CH\u2084)',
         credit_amount: 0.123519,
         prevented_co2e_kg: 123.519,
         recycling_date: formatDateTime(recyclingAt),
-        issued_at: formatDateTime(recyclingAt),
+        issued_at: formatDateTime(issuedAt),
       },
       waste_properties: {
         type: 'Organic',
@@ -126,26 +137,24 @@ export function emitGasIDExample(): Record<string, unknown> {
         name: story.methodology.name,
         version: story.methodology.version,
         external_id: methodologyExternalId,
-        external_url: `https://registry.carrot.eco/document/${methodologyExternalId}`,
-        ipfs_uri:
-          'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
+        external_url: `https://registry.example.com/document/${methodologyExternalId}`,
+        ipfs_uri: exampleIpfsUri('doc:methodology-carbon'),
       },
       audit: {
         result: 'PASSED',
         rules_executed: 21,
-        completed_at: formatDateTime(recyclingAt),
+        completed_at: formatDateTime(auditCompletedAt),
         external_id: auditExternalId,
-        external_url: `https://registry.carrot.eco/document/${auditExternalId}`,
-        ipfs_uri:
-          'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
+        external_url: `https://registry.example.com/document/${auditExternalId}`,
+        ipfs_uri: exampleIpfsUri('doc:audit-carbon'),
       },
       mass_id: {
         token_id: massIDTokenId,
         external_id: massIDExternalId,
-        external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
-        ipfs_uri:
-          'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+        external_url: `https://registry.example.com/document/${massIDExternalId}`,
+        ipfs_uri: exampleIpfsUri('doc:mass-id'),
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+        chain_id: 80002,
       },
       origin_location: {
         id_hash:
@@ -158,29 +167,14 @@ export function emitGasIDExample(): Record<string, unknown> {
           'a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd',
       },
       prevented_emissions_calculation: {
-        formula: 'W * B - W * E',
-        method: 'UNFCCC AMS-III.F',
-        calculated_at: formatDateTime(recyclingAt),
+        formula: 'R = recorded result',
+        method: 'Illustrative calculation rule',
+        result_recorded_at: formatDateTime(resultRecordedAt),
         values: [
-          {
-            reference: 'E',
-            value: 0.029,
-            label: 'Exceeding Emission Coefficient',
-          },
-          {
-            reference: 'B',
-            value: 0.067,
-            label:
-              'Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton',
-          },
-          {
-            reference: 'W',
-            value: 3250.5,
-            label: 'Waste Weight',
-          },
           {
             reference: 'R',
             value: 123.519,
+            unit: 'kg CO₂e',
             label: 'Prevented Emissions (CO\u2082e kg)',
           },
         ],

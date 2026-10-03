@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import { z } from 'zod';
 import {
   expectIssuesContain,
   expectSchemaInvalid,
@@ -13,7 +12,7 @@ import exampleJson from '../../../schemas/ipfs/credit-purchase-receipt/credit-pu
 
 describe('CreditPurchaseReceiptIpfsSchema', () => {
   const schema = CreditPurchaseReceiptIpfsSchema;
-  const base = exampleJson as z.input<typeof schema>;
+  const base = schema.parse(exampleJson);
 
   it('validates example.json successfully', () => {
     expectSchemaValid(schema, () => structuredClone(base));
@@ -280,6 +279,11 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
         value.data as Record<string, unknown>,
         'retirement_receipt',
       );
+      value.attributes = value.attributes.filter(
+        (attribute) =>
+          attribute.trait_type !== 'Retirement Date' &&
+          attribute.trait_type !== 'Retirement Receipt',
+      );
       return value;
     });
   });
@@ -293,6 +297,11 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       Reflect.deleteProperty(
         invalid.data as Record<string, unknown>,
         'retirement_receipt',
+      );
+      invalid.attributes = invalid.attributes.filter(
+        (attribute) =>
+          attribute.trait_type !== 'Retirement Date' &&
+          attribute.trait_type !== 'Retirement Receipt',
       );
       const firstSymbolAttr = invalid.attributes.find(
         (a) => a.trait_type === invalid.data.credits[0].symbol,
@@ -369,6 +378,11 @@ describe('CreditPurchaseReceiptIpfsSchema', () => {
       Reflect.deleteProperty(
         value.data as Record<string, unknown>,
         'retirement_receipt',
+      );
+      value.attributes = value.attributes.filter(
+        (attribute) =>
+          attribute.trait_type !== 'Retirement Date' &&
+          attribute.trait_type !== 'Retirement Receipt',
       );
 
       const biowasteCertificates = value.data.certificates.filter(

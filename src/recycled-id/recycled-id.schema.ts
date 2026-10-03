@@ -13,6 +13,7 @@ import {
   validateNumericAttributeValue,
   validateTokenIdInName,
   validateFormattedName,
+  validateCertificateReferenceChainIds,
 } from '../shared';
 import { RecycledIDDataSchema } from './recycled-id.data.schema';
 import { RecycledIDAttributesSchema } from './recycled-id.attributes';
@@ -75,6 +76,12 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
     });
 
     const { data, attributes } = record;
+    validateCertificateReferenceChainIds({
+      ctx,
+      credit: data.credit,
+      massId: data.mass_id,
+      expectedChainId: record.blockchain.chain_id,
+    });
     const attributeByTraitType = createAttributeMap(attributes);
 
     validateAttributeValue({
@@ -181,13 +188,13 @@ export const RecycledIDIpfsSchema = NftIpfsSchema.safeExtend({
       ctx,
       attributeByTraitType,
       traitType: 'MassID Recycling Date',
-      dateTimeValue: data.summary.issued_at,
+      dateTimeValue: data.summary.recycling_date,
       missingMessage:
-        'MassID Recycling Date attribute must be present and match data.summary.issued_at',
+        'MassID Recycling Date attribute must be present and match data.summary.recycling_date',
       invalidDateMessage:
-        'data.summary.issued_at must be a valid ISO 8601 date-time string',
+        'data.summary.recycling_date must be a valid ISO 8601 date-time string',
       mismatchMessage:
-        'MassID Recycling Date attribute must equal data.summary.issued_at as a Unix timestamp in milliseconds',
+        'MassID Recycling Date attribute must equal data.summary.recycling_date as a Unix timestamp in milliseconds',
     });
 
     validateDateTimeAttribute({

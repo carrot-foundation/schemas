@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json",
   "schema": {
-    "hash": "657662cfc170e972d328518ed787065a08206bd488fbb6162c844edfa1aff06d",
+    "hash": "96cb9741fcf1836d00453f6a643dada3ab237390ce7eefddcb89998976cbe7f8",
     "type": "CreditRetirementReceipt",
     "version": "5.2.0",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeibgxmejmgefhdzetidadejdwcu26ebj5hsfro7pex43ivuqyoxuxi"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -18,20 +18,20 @@
     "network_name": "Amoy"
   },
   "created_at": "2025-02-03T12:45:30.000Z",
-  "external_id": "b2c3d4e5-f6a7-4c89-8a01-234567890abc",
-  "external_url": "https://registry.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
+  "external_id": "00000000-0000-4000-8000-100000000011",
+  "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000011",
   "viewer_reference": {
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeiekc76kqqdv2sf276a5h4fvfyvaemo2iz3ei7ixyfdtxff66dlte4"
   },
   "name": "Credit Retirement Receipt #600001 • 3.0 Credits Retired",
   "short_name": "Retirement Receipt #600001",
-  "description": "Permanent proof of credit retirement: 3.0 credits (C-CARB.CH4 and C-BIOW) retired by EcoTech Solutions Inc. on behalf of beneficiary Climate Action Corp, from 3 certificates across 2 collections.",
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+  "description": "Permanent proof of credit retirement: 3.0 credits (C-CARB.CH4 and C-BIOW) retired by Example Buyer Ltd. on behalf of beneficiary Example Beneficiary Ltd., from 3 certificates across 2 collections.",
+  "image": "ipfs://bafybeifgdew2rrpt3mt4os6wmwwd7a4s7itxgd7wgbtxln75dawy4lap5e",
   "background_color": "#1B4332",
   "external_links": [
     {
       "label": "View on Carrot Registry",
-      "url": "https://registry.carrot.eco/document/b2c3d4e5-f6a7-4c89-8a01-234567890abc",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000011",
       "description": "Complete retirement details and audit trail"
     }
   ],
@@ -53,7 +53,7 @@
     },
     {
       "trait_type": "Beneficiary",
-      "value": "Climate Action Corp"
+      "value": "Example Beneficiary Ltd."
     },
     {
       "trait_type": "Retirement Date",
@@ -84,9 +84,9 @@
     "beneficiary": {
       "id_hash": "2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c",
       "identity": {
-        "name": "Climate Action Corp",
-        "external_id": "d4e5f6a7-b8c9-4e23-8c67-890123def012",
-        "external_url": "https://registry.carrot.eco/participant/climate-action-corp-78901"
+        "name": "Example Beneficiary Ltd.",
+        "external_id": "00000000-0000-4000-8000-100000000017",
+        "external_url": "https://registry.example.com/participant/example-beneficiary"
       }
     },
     "credit_holder": {
@@ -95,50 +95,53 @@
     },
     "collections": [
       {
-        "slug": "bold-cold-start-carazinho",
-        "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-        "name": "BOLD Cold Start - Carazinho",
-        "external_url": "https://registry.carrot.eco/collection/bold-cold-start-carazinho",
-        "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+        "slug": "example-collection-one",
+        "external_id": "00000000-0000-4000-8000-100000000006",
+        "name": "Example Collection One",
+        "external_url": "https://registry.example.com/collection/example-collection-one",
+        "ipfs_uri": "ipfs://bafybeid6sot5z5tqrwkgryloq4kwoecmmvsl7ru33w7dff7hhw4sdzyriq"
       },
       {
-        "slug": "bold-brazil",
-        "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-        "name": "BOLD Brazil",
-        "external_url": "https://registry.carrot.eco/collection/bold-brazil",
-        "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
+        "slug": "example-collection-two",
+        "external_id": "00000000-0000-4000-8000-400000000002",
+        "name": "Example Collection Two",
+        "external_url": "https://registry.example.com/collection/example-collection-two",
+        "ipfs_uri": "ipfs://bafybeice53f4hcjkmzg7ei6jzdvomr6gccdkvwiwm5mkh7w6molkx23a7u"
       }
     ],
     "credits": [
       {
         "slug": "carbon-ch4",
         "symbol": "C-CARB.CH4",
-        "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-        "external_url": "https://registry.carrot.eco/credit/8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-        "ipfs_uri": "ipfs://bafybeibwzifubdt5epaz43pj4gk7t2r4e6uah6vuvtbtmq5r2mwyrc6yha",
-        "smart_contract_address": "0xabcdef1234567890abcdef1234567890abcdef12"
+        "external_id": "00000000-0000-4000-8000-100000000016",
+        "external_url": "https://registry.example.com/credit/00000000-0000-4000-8000-100000000016",
+        "ipfs_uri": "ipfs://bafybeibkpx7qo52z2k7n4f75frg27ipa4yk5abpz2fggk233psnbumwpze",
+        "smart_contract_address": "0xabcdef1234567890abcdef1234567890abcdef12",
+        "chain_id": 80002
       },
       {
         "slug": "biowaste",
         "symbol": "C-BIOW",
-        "external_id": "e710790f-5909-4a54-ab89-6a59819472ee",
-        "external_url": "https://registry.carrot.eco/credit/e710790f-5909-4a54-ab89-6a59819472ee",
-        "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
-        "smart_contract_address": "0xfedcba0987654321fedcba0987654321fedcba09"
+        "external_id": "00000000-0000-4000-8000-100000000018",
+        "external_url": "https://registry.example.com/credit/00000000-0000-4000-8000-100000000018",
+        "ipfs_uri": "ipfs://bafybeiez6qwtlhd7zn3zj37my2ihv24dbqttnyrrs5jbcgpc6updzlgmqe",
+        "smart_contract_address": "0xfedcba0987654321fedcba0987654321fedcba09",
+        "chain_id": 80002
       }
     ],
     "certificates": [
       {
-        "token_id": "200001",
+        "token_id": "700001",
         "type": "GasID",
-        "external_id": "d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-        "external_url": "https://registry.carrot.eco/document/d2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6",
-        "ipfs_uri": "ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm",
+        "external_id": "00000000-0000-4000-8000-200000000001",
+        "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-200000000001",
+        "ipfs_uri": "ipfs://bafybeiafh7zv54msilfililzh3ljt56pbykrvpusftuqpex757tlqzxzyy",
         "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+        "chain_id": 80002,
         "total_amount": 10,
         "collections": [
           {
-            "slug": "bold-cold-start-carazinho",
+            "slug": "example-collection-one",
             "retired_amount": 1.5
           }
         ],
@@ -147,29 +150,31 @@
             "credit_symbol": "C-CARB.CH4",
             "credit_slug": "carbon-ch4",
             "amount": 1.5,
-            "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-            "external_url": "https://registry.carrot.eco/credit-retirement/credit-retired-456-c-carb"
+            "external_id": "00000000-0000-4000-8000-700000000001",
+            "external_url": "https://registry.example.com/credit-retirement/credit-retired-456-c-carb"
           }
         ],
         "mass_id": {
-          "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+          "external_id": "00000000-0000-4000-8000-100000000009",
           "token_id": "100001",
-          "external_url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-          "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
+          "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
+          "ipfs_uri": "ipfs://bafybeiccebtlzaos3teullpxbr437cruztivzwta6nyvkvca76jkobvw4m",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+          "chain_id": 80002
         }
       },
       {
-        "token_id": "300001",
+        "token_id": "700002",
         "type": "RecycledID",
-        "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
-        "external_url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-        "ipfs_uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
+        "external_id": "00000000-0000-4000-8000-200000000002",
+        "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-200000000002",
+        "ipfs_uri": "ipfs://bafybeihv6sh43ialeeq43c5jd464hdulq5ojrxopek3cogr2lncc3w63ha",
         "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+        "chain_id": 80002,
         "total_amount": 6,
         "collections": [
           {
-            "slug": "bold-cold-start-carazinho",
+            "slug": "example-collection-one",
             "retired_amount": 0.5
           }
         ],
@@ -178,29 +183,31 @@
             "credit_symbol": "C-BIOW",
             "credit_slug": "biowaste",
             "amount": 0.5,
-            "external_id": "a1b2c3d4-e5f6-4a90-8b34-567890abcedf",
-            "external_url": "https://registry.carrot.eco/credit-retirement/credit-retired-789-c-biow"
+            "external_id": "00000000-0000-4000-8000-700000000002",
+            "external_url": "https://registry.example.com/credit-retirement/credit-retired-789-c-biow"
           }
         ],
         "mass_id": {
           "token_id": "100001",
-          "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-          "external_url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-          "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
+          "external_id": "00000000-0000-4000-8000-100000000009",
+          "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
+          "ipfs_uri": "ipfs://bafybeiccebtlzaos3teullpxbr437cruztivzwta6nyvkvca76jkobvw4m",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+          "chain_id": 80002
         }
       },
       {
-        "token_id": "890",
+        "token_id": "700003",
         "type": "RecycledID",
-        "external_id": "0f1e2d3c-4b5a-4d78-8c12-3456789abcde",
-        "external_url": "https://registry.carrot.eco/document/0f1e2d3c-4b5a-4d78-8c12-3456789abcde",
-        "ipfs_uri": "ipfs://bafybeihhrm5vm5ye6wucyo2qwphlapb4ic5lfdn4e5ytw53hzfkzsbizae",
+        "external_id": "00000000-0000-4000-8000-200000000003",
+        "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-200000000003",
+        "ipfs_uri": "ipfs://bafybeibvi7huuhumuzxhrihatzvdtzwqy2bwlwcmhbgi3faqy67rowkyfe",
         "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+        "chain_id": 80002,
         "total_amount": 8,
         "collections": [
           {
-            "slug": "bold-brazil",
+            "slug": "example-collection-two",
             "retired_amount": 1
           }
         ],
@@ -209,26 +216,28 @@
             "credit_symbol": "C-BIOW",
             "credit_slug": "biowaste",
             "amount": 1,
-            "external_id": "b2c3d4e5-f6a7-4b01-8c45-678901bcdef1",
-            "external_url": "https://registry.carrot.eco/credit-retirement/credit-retired-890-c-biow"
+            "external_id": "00000000-0000-4000-8000-700000000003",
+            "external_url": "https://registry.example.com/credit-retirement/credit-retired-890-c-biow"
           }
         ],
         "mass_id": {
           "token_id": "100001",
-          "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-          "external_url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-          "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
+          "external_id": "00000000-0000-4000-8000-100000000009",
+          "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
+          "ipfs_uri": "ipfs://bafybeiccebtlzaos3teullpxbr437cruztivzwta6nyvkvca76jkobvw4m",
+          "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+          "chain_id": 80002
         }
       }
     ],
     "purchase_receipt": {
       "token_id": "500001",
-      "external_id": "f1a2b3c4-d5e6-4789-9012-34567890abcd",
-      "external_url": "https://registry.carrot.eco/document/f1a2b3c4-d5e6-4789-9012-34567890abcd",
-      "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-      "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9"
+      "external_id": "00000000-0000-4000-8000-100000000019",
+      "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000019",
+      "ipfs_uri": "ipfs://bafybeigqdk3hclfazepqj4rxptzrwp7jhd3zp7crbjh4qziehm7gexkdl4",
+      "smart_contract_address": "0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9",
+      "chain_id": 80002
     }
   },
-  "audit_data_hash": "16caf1c15e599f54340426687264ff247aecbe849897894d5b715a25378d999a"
+  "audit_data_hash": "c2d7ab87dd4d30fdbe251939e2dc2448d9388238f1ca6e5c719b83b2292d9a24"
 }

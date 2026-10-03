@@ -8,6 +8,7 @@ import {
   MethodologySlugSchema,
   SemanticVersionSchema,
 } from '../shared';
+import { MethodologyRulesManifestSchema } from './methodology-rules-manifest.schema';
 
 export const MethodologyDataSchema = z
   .strictObject({
@@ -17,7 +18,7 @@ export const MethodologyDataSchema = z
     version: SemanticVersionSchema.meta({
       title: 'Methodology Version',
       description:
-        'Semantic version of this methodology revision (e.g., 1.0.0)',
+        'Operational Methodology entity revision; independent of manifest format, framework, application and executed processor versions',
     }),
     description: z.string().min(50).max(2000).meta({
       title: 'Methodology Description',
@@ -26,17 +27,19 @@ export const MethodologyDataSchema = z
     }),
     revision_date: IsoDateSchema.meta({
       title: 'Revision Date',
-      description: 'ISO 8601 date of the last revision to this methodology',
+      description:
+        'Official ISO 8601 revision date of the methodology version represented by this document; source it from the versioned publication, not database creation time',
     }),
     publication_date: IsoDateSchema.meta({
       title: 'Publication Date',
       description:
-        'ISO 8601 date of the original publication of this methodology',
+        'ISO 8601 date of the first official publication of this methodology family, independent of the represented version; source it from official publication history',
     }),
     methodology_pdf: IpfsUriSchema.meta({
       title: 'Methodology PDF',
       description: 'IPFS URI pointing to the complete methodology PDF document',
     }),
+    rules_manifest: MethodologyRulesManifestSchema,
     mass_id_audit_rules: AuditRuleDefinitionsSchema.meta({
       title: 'MassID Audit Rules',
       description:

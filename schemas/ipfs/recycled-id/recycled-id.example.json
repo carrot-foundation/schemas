@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "e46b80ffea479844a603f5a7fb72ba618e7eb66603d7ebbd37973bef02454bb0",
+    "hash": "fe43531ec69b78224b917e81bc378915332ab119b217eb4704ddd6325f101e8b",
     "type": "RecycledID",
     "version": "5.2.0",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeihozcjncfp7fifukcummybyc2je3sft7h7rosrjfn46tfpf4l73z4"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -17,28 +17,28 @@
     "chain_id": 80002,
     "network_name": "Amoy"
   },
-  "created_at": "2024-12-08T11:32:47.000Z",
-  "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "external_url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
-  "audit_data_hash": "f2569765b92f37e06cd4cea9ee7e57e0b256a482f9199a02643d42160c0398df",
+  "created_at": "2024-12-08T11:35:47.000Z",
+  "external_id": "00000000-0000-4000-8000-100000000020",
+  "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000020",
+  "audit_data_hash": "1c740a76bacb237626d48f3b54a802b7a82c4e4f5b12aa5728c05683cd132085",
   "viewer_reference": {
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeiekc76kqqdv2sf276a5h4fvfyvaemo2iz3ei7ixyfdtxff66dlte4"
   },
   "name": "RecycledID #300001 • BOLD Recycling • 3.25t Recycled",
   "short_name": "RecycledID #300001",
   "description": "This RecycledID certifies 3.25 metric tons of organic waste successfully recycled through BOLD Recycling methodology from Brasília, Brazil, producing high-quality compost and organic fertilizer.",
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+  "image": "ipfs://bafybeibs55ldlp7jee22rg7kn5lpobo5t7c4gbn7phmu6pej4knklmhbvi",
   "background_color": "#2D5016",
   "external_links": [
     {
       "label": "Carrot Registry",
-      "url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d489",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000020",
       "description": "Complete RecycledID details and audit trail"
     },
     {
-      "label": "Carrot White Paper",
-      "url": "https://whitepaper.carrot.eco",
-      "description": "Carrot Foundation technical white paper"
+      "label": "Source MassID",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
+      "description": "Illustrative source waste record for this RecycledID"
     }
   ],
   "attributes": [
@@ -93,39 +93,46 @@
     },
     {
       "trait_type": "Certificate Issuance Date",
-      "value": 1733657567000,
+      "value": 1733657747000,
       "display_type": "date"
     }
   ],
   "data": {
+    "credit": {
+      "slug": "biowaste",
+      "symbol": "C-BIOW",
+      "chain_id": 80002,
+      "smart_contract_address": "0xfedcba0987654321fedcba0987654321fedcba09"
+    },
     "summary": {
       "recycled_mass_kg": 3250.5,
       "credit_type": "Biowaste",
       "credit_amount": 3,
       "recycling_date": "2024-12-08T11:32:47.000Z",
-      "issued_at": "2024-12-08T11:32:47.000Z"
+      "issued_at": "2024-12-08T11:35:47.000Z"
     },
     "methodology": {
-      "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d490",
+      "external_id": "00000000-0000-4000-8000-100000000021",
       "name": "AMS-III.F. | BOLD Recycling Credit",
       "version": "1.2.0",
-      "external_url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d490",
-      "ipfs_uri": "ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku"
+      "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000021",
+      "ipfs_uri": "ipfs://bafybeiehxzpzi3la4eqmsfkddq57pt3j4lsao2sm5qzv6qvefim4a5ovza"
     },
     "audit": {
-      "completed_at": "2024-12-08T11:32:47.000Z",
-      "external_id": "f47ac10b-58cc-4372-a567-0e02b2c3d499",
-      "external_url": "https://registry.carrot.eco/document/f47ac10b-58cc-4372-a567-0e02b2c3d499",
+      "completed_at": "2024-12-08T11:32:48.200Z",
+      "external_id": "00000000-0000-4000-8000-100000000022",
+      "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000022",
       "result": "PASSED",
       "rules_executed": 18,
-      "ipfs_uri": "ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy"
+      "ipfs_uri": "ipfs://bafybeibcrd4e5ls5aa6zinl75ur2utdfgiqdd3jzg24xlxqeufnal5woqq"
     },
     "mass_id": {
-      "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "external_id": "00000000-0000-4000-8000-100000000009",
       "token_id": "100001",
-      "external_url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-      "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-      "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678"
+      "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
+      "ipfs_uri": "ipfs://bafybeiccebtlzaos3teullpxbr437cruztivzwta6nyvkvca76jkobvw4m",
+      "smart_contract_address": "0x1234567890abcdef1234567890abcdef12345678",
+      "chain_id": 80002
     },
     "waste_properties": {
       "type": "Organic",

@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/credit/credit.schema.json",
   "schema": {
-    "hash": "755faba2e76d9301f0d43e0ed34220a7668385ae206005cc7ad6e9b926d19237",
+    "hash": "05b258248faeed2eb8de64d4ab225034dab75947ec648889687355bf5cd6454d",
     "type": "Credit",
     "version": "5.2.0",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeifyqyznvcdgf36wbizwdnqbdaon4by3b44h3oyxnsjga6tns7zutm"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -12,12 +12,19 @@
     "data_set_name": "TEST"
   },
   "created_at": "2024-12-05T14:30:00.000Z",
-  "external_id": "8f2c3445-ef89-4de7-8d95-7c814d5c8af9",
-  "external_url": "https://registry.carrot.eco/credit/carrot-carbon",
+  "external_id": "00000000-0000-4000-8000-100000000016",
+  "external_url": "https://registry.example.com/credit/00000000-0000-4000-8000-100000000016",
   "symbol": "C-CARB.CH4",
   "slug": "carbon-ch4",
-  "name": "Carrot Carbon (CH₄)",
-  "decimals": 18,
-  "image": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
-  "description": "Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices. These credits are generated through the BOLD Carbon methodology and provide transparent, traceable environmental impact."
+  "name": "Example Carbon Credit",
+  "blockchain": {
+    "chain_id": 80002,
+    "smart_contract_address": "0xabcdef1234567890abcdef1234567890abcdef12"
+  },
+  "interop": {
+    "erc1046": true
+  },
+  "decimals": 6,
+  "image": "ipfs://bafybeiayfqtfj3saznraa4z2uq3fbx56cladd5rhlok5tdwtj2as2g4qdm",
+  "description": "Illustrative carbon credit metadata for a fictional ERC-20 contract. Its name, symbol, decimals, and network must match the deployed contract before any real document is generated."
 }

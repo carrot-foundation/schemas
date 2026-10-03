@@ -12,7 +12,7 @@ import {
   RecordSchemaTypeSchema,
   ALLOWED_BLOCKCHAIN_NETWORKS,
   BLOCKCHAIN_NETWORK_CONFIG,
-  BlockchainChainIdSchema,
+  PositiveIntegerSchema,
   BlockchainNetworkNameSchema,
   ExternalUrlSchema,
   NonEmptyStringSchema,
@@ -36,7 +36,12 @@ export type NftSchemaType = z.infer<typeof NftSchemaTypeSchema>;
 const BlockchainReferenceSchema = z
   .strictObject({
     smart_contract_address: SmartContractAddressSchema,
-    chain_id: BlockchainChainIdSchema,
+    chain_id: PositiveIntegerSchema.meta({
+      title: 'NFT Chain ID',
+      description:
+        'Positive chain identifier of the NFT contract deployment. For the supported Polygon and Amoy environments, it must agree with network_name and environment.blockchain_network.',
+      examples: [137, 80002],
+    }),
     network_name: BlockchainNetworkNameSchema,
     token_id: TokenIdSchema.meta({
       description: 'NFT token ID',
@@ -130,7 +135,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   audit_data_hash: Sha256HashSchema.meta({
     title: 'Audit Data Hash',
     description:
-      'SHA-256 hash of the original JSON content including private data before schema validation, used for data audit purposes',
+      'SHA-256 digest of the canonicalized data block emitted in this NFT metadata record',
   }),
   viewer_reference: ViewerReferenceSchema,
   environment: RecordEnvironmentSchema,
@@ -138,7 +143,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   name: NonEmptyStringSchema.max(100).meta({
     title: 'NFT Name',
     description:
-      'Full display name for this NFT, following format: "[Type] #[token_id] • [metrics]". For certificates: include waste type and weight. For receipts: include credit amount and action verb.',
+      'Full NFT display name. Family schemas define the format and check that its token ID matches blockchain.token_id.',
     examples: [
       'MassID #123 • Organic • 3.0t',
       'RecycledID #456 • BOLD Recycling • 2.5t Recycled',
@@ -162,10 +167,10 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   description: NonEmptyStringSchema.max(500).meta({
     title: 'Description',
     description:
-      'Human-readable summary describing the waste batch, origin, processing method, and chain of custody. Ideally, maximum 300 characters.',
+      'Human-readable summary of this NFT record. Certificate and receipt families describe different events; use the family schema for exact meaning.',
     examples: [
-      'This MassID represents 3 metric tons of organic food waste from Enlatados Produção, tracked through complete chain of custody from generation to composting.',
-      'This RecycledID represents 2.5 metric tons of recycled plastic bottles processed by Green Solutions Ltd.',
+      'Illustrative MassID tracking 3 metric tons of organic food waste through a documented chain of custody.',
+      'Illustrative RecycledID recording 2.5 metric tons of material processed for recycling.',
     ],
   }),
   image: IpfsUriSchema.meta({

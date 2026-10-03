@@ -12,6 +12,7 @@ import {
   CreditTypeSchema,
   CreditAmountSchema,
   GasTypeSchema,
+  CreditIdentifierSchema,
 } from '../shared';
 
 const GasIDSummarySchema = z
@@ -45,27 +46,45 @@ const CalculationValueSchema = z
     reference: NonEmptyStringSchema.max(3).meta({
       title: 'Calculation Reference',
       description: 'Reference symbol used in the calculation formula',
-      examples: ['E', 'B', 'W', 'R'],
+      examples: ['R'],
     }),
     value: NonNegativeFloatSchema.meta({
       title: 'Calculation Value',
-      description: 'Numeric value for this calculation parameter',
+      description: 'Recorded numeric value for this calculation entry',
+    }),
+    unit: NonEmptyStringSchema.max(50).meta({
+      title: 'Calculation Unit',
+      description:
+        'Unit of this specific value, taken from its calculation source. The emitted prevented-emissions result R is measured in kg CO₂e; other parameters require their own verified units.',
+      examples: ['kg CO₂e'],
     }),
     label: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Label',
       description: 'Human-readable label for this calculation value',
-      examples: [
-        'Exceeding Emission Coefficient',
-        'Prevented Emissions by Waste Subtype and Emissions Baseline Per Ton',
-        'Waste Weight',
-        'Prevented Emissions (CO₂e kg)',
-      ],
+      examples: ['Prevented Emissions (CO₂e kg)'],
     }),
+  })
+  .refine(({ reference, unit }) => reference !== 'R' || unit === 'kg CO₂e', {
+    message: 'Calculation result R must use kg CO₂e',
+    path: ['unit'],
   })
   .meta({
     title: 'Calculation Value',
     description:
       'Named parameter or computed result used in the prevented emissions formula',
+    // Zod refinements need an explicit equivalent in the published JSON Schema.
+    allOf: [
+      {
+        if: {
+          properties: { reference: { const: 'R' } },
+          required: ['reference'],
+        },
+        then: {
+          properties: { unit: { const: 'kg CO₂e' } },
+          required: ['unit'],
+        },
+      },
+    ],
   });
 export type CalculationValue = z.infer<typeof CalculationValueSchema>;
 
@@ -74,27 +93,29 @@ const PreventedEmissionsCalculationSchema = z
     formula: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Formula',
       description: 'Formula used to calculate the prevented emissions',
-      examples: ['W * B - W * E'],
+      examples: ['R = recorded result'],
     }),
     method: NonEmptyStringSchema.max(100).meta({
       title: 'Calculation Method',
-      description: 'Method used to calculate the prevented emissions',
-      examples: ['UNFCCC AMS-III.F'],
+      description:
+        'Identifier of the calculation rule that produced these values; do not claim direct implementation of an external methodology without evidence',
+      examples: ['Illustrative calculation rule'],
     }),
-    calculated_at: IsoDateTimeSchema.meta({
-      title: 'Calculated At',
-      description: 'ISO 8601 timestamp when the calculation was performed',
+    result_recorded_at: IsoDateTimeSchema.meta({
+      title: 'Result Recorded At',
+      description:
+        'ISO 8601 timestamp of the event that recorded this calculation result. This is not the calculation execution time, token issuance time, or recycling time.',
     }),
     values: z.array(CalculationValueSchema).min(1).meta({
       title: 'Calculation Values',
       description:
-        'Input parameters and computed result used in the prevented emissions formula',
+        'Values recorded for the prevented emissions calculation, including any retained input parameters and result. Each entry identifies its reference, numeric value, unit, and label.',
     }),
   })
   .meta({
     title: 'Prevented Emissions Calculation',
     description:
-      'Methodology-based calculation of prevented CO₂e emissions, including formula, method, input values, and computation timestamp',
+      'Recorded prevented-emissions result and any source-backed calculation parameters, with a unit per entry and the result-recording event time',
   });
 export type PreventedEmissionsCalculation = z.infer<
   typeof PreventedEmissionsCalculationSchema
@@ -103,6 +124,7 @@ export type PreventedEmissionsCalculation = z.infer<
 export const GasIDDataSchema = z
   .strictObject({
     summary: GasIDSummarySchema,
+    credit: CreditIdentifierSchema,
     methodology: MethodologyReferenceSchema,
     audit: AuditReferenceSchema,
     mass_id: MassIDReferenceSchema,

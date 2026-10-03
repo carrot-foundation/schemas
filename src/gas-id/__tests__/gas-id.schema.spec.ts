@@ -18,6 +18,37 @@ describe('GasIDIpfsSchema', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
 
+  it('requires result_recorded_at and rejects the former calculated_at key', () => {
+    const resultRecorded = structuredClone(exampleJson);
+    const calculation = resultRecorded.data.prevented_emissions_calculation;
+    const recordedAt = calculation.result_recorded_at;
+
+    expect(schema.safeParse(resultRecorded).success).toBe(true);
+
+    const legacy = structuredClone(resultRecorded);
+    Reflect.deleteProperty(
+      legacy.data.prevented_emissions_calculation,
+      'result_recorded_at',
+    );
+    Object.assign(legacy.data.prevented_emissions_calculation, {
+      calculated_at: recordedAt,
+    });
+    expect(schema.safeParse(legacy).success).toBe(false);
+
+    const missing = structuredClone(resultRecorded);
+    Reflect.deleteProperty(
+      missing.data.prevented_emissions_calculation,
+      'result_recorded_at',
+    );
+    expect(schema.safeParse(missing).success).toBe(false);
+
+    const both = structuredClone(resultRecorded);
+    Object.assign(both.data.prevented_emissions_calculation, {
+      calculated_at: recordedAt,
+    });
+    expect(schema.safeParse(both).success).toBe(false);
+  });
+
   it('rejects invalid data', () => {
     expectSchemaInvalid(schema, base, (invalid) => {
       invalid.blockchain = {

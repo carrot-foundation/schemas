@@ -56,6 +56,24 @@ export const MassIDAuditDataSchema = z
     const hasGasID = !!data.gas_id;
     const hasRecycledID = !!data.recycled_id;
 
+    if (data.gas_id && data.gas_id.chain_id !== data.mass_id.chain_id) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['gas_id', 'chain_id'],
+        message: 'gas_id.chain_id must match mass_id.chain_id',
+      });
+    }
+    if (
+      data.recycled_id &&
+      data.recycled_id.chain_id !== data.mass_id.chain_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['recycled_id', 'chain_id'],
+        message: 'recycled_id.chain_id must match mass_id.chain_id',
+      });
+    }
+
     // The audit record is pinned before the certificate metadata exists (the
     // certificate hashes this record's CID), so the certificate back-reference
     // cannot be required at pin time.

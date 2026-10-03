@@ -278,6 +278,12 @@ export type MassIDEvents = z.infer<typeof MassIDEventsSchema>;
 export const MassIDDataSchema = z
   .strictObject({
     waste_properties: MassIDWastePropertiesSchema,
+    recycling_method: NonEmptyStringSchema.max(100).meta({
+      title: 'Recycling Method',
+      description:
+        'Processing or recycling method applied to this waste batch; must match the Recycling Method NFT attribute.',
+      examples: ['Composting'],
+    }),
     locations: uniqueBy(
       LocationSchema,
       (loc) => loc.id_hash,

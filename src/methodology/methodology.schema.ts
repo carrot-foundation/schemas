@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   BaseIpfsSchema,
+  IpfsUriSchema,
   buildSchemaUrl,
   getSchemaVersionOrDefault,
 } from '../shared';
@@ -23,6 +24,11 @@ export const MethodologySchema = BaseIpfsSchema.safeExtend({
     }),
   }),
   data: MethodologyDataSchema,
+  image: IpfsUriSchema.meta({
+    title: 'Methodology Image',
+    description:
+      'IPFS URI of the representative image for this methodology version. The methodology PDF remains in data.methodology_pdf.',
+  }),
 }).meta(MethodologySchemaMeta);
 
 export type Methodology = z.infer<typeof MethodologySchema>;

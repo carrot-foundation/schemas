@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { ReceiptIdentitySchema } from '../receipt.schemas';
 
 describe('ReceiptIdentitySchema', () => {
-  const validName = 'EcoTech Solutions Inc.';
+  const validName = 'Example Buyer Ltd.';
   const validExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
   const validExternalUrl = 'https://example.com/identity/eco-tech';
 

@@ -2,11 +2,15 @@ import { z } from 'zod';
 import {
   BaseIpfsSchema,
   IpfsUriSchema,
+  PositiveIntegerSchema,
+  SmartContractAddressSchema,
+  BLOCKCHAIN_NETWORK_CONFIG,
   CreditTokenSymbolSchema,
+  CreditTokenNameSchema,
   buildSchemaUrl,
   getSchemaVersionOrDefault,
-  CreditTokenNameSchema,
   CreditTokenSlugSchema,
+  CREDIT_TOKEN_PAIRS,
 } from '../shared';
 
 export const CreditSchemaMeta = {
@@ -32,6 +36,32 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
   symbol: CreditTokenSymbolSchema,
   slug: CreditTokenSlugSchema,
   name: CreditTokenNameSchema,
+  blockchain: z
+    .strictObject({
+      chain_id: PositiveIntegerSchema.meta({
+        description:
+          'Identifier of the blockchain network where the ERC-20 credit contract is deployed. Together with smart_contract_address, it identifies the contract represented by this metadata.',
+      }),
+      smart_contract_address: SmartContractAddressSchema,
+    })
+    .meta({
+      title: 'Credit Contract Identity',
+      description:
+        'Network and ERC-20 contract whose tokenURI() resolves this document. ERC-20 has no token_id.',
+    }),
+  interop: z
+    .strictObject({
+      erc1046: z.literal(true).meta({
+        title: 'ERC-1046 Interoperability',
+        description:
+          'Declares this metadata document compatible with ERC-1046.',
+      }),
+    })
+    .meta({
+      title: 'Interoperability',
+      description:
+        'Mandatory ERC-1046 marker for both PROD and TEST credit documents.',
+    }),
   decimals: z
     .number()
     .int()
@@ -40,7 +70,7 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
     .meta({
       title: 'Token Decimals',
       description: 'Number of decimal places for the ERC20 token',
-      examples: [18],
+      examples: [6],
     }),
   image: IpfsUriSchema.meta({
     title: 'Token Image',
@@ -56,11 +86,35 @@ export const CreditSchema = BaseIpfsSchema.safeExtend({
     .meta({
       title: 'Token Description',
       description:
-        'Comprehensive description of the credit token, its purpose, and impact',
+        'Human-readable purpose and impact pathway of this ERC-20 credit token; quantitative claims require their own evidence',
       examples: [
-        'Carrot Carbon (C-CARB.CH4) represents verified prevented emissions from organic waste composting projects. Each token equals one metric ton of CO₂ equivalent (CO₂e) prevented from entering the atmosphere through sustainable waste management practices.',
+        'Illustrative carbon credit metadata for a fictional ERC-20 contract. Its name, symbol, decimals, and network must match the deployed contract before any real document is generated.',
       ],
     }),
-}).meta(CreditSchemaMeta);
+})
+  .superRefine((record, ctx) => {
+    const expectedSymbol = CREDIT_TOKEN_PAIRS[record.slug];
+    if (record.symbol !== expectedSymbol) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['symbol'],
+        message: 'symbol must match the approved slug/symbol pair',
+      });
+    }
+    if (
+      record.environment &&
+      record.blockchain.chain_id !==
+        BLOCKCHAIN_NETWORK_CONFIG[record.environment.blockchain_network]
+          .chain_id
+    ) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['blockchain', 'chain_id'],
+        message:
+          'blockchain.chain_id must match environment.blockchain_network',
+      });
+    }
+  })
+  .meta(CreditSchemaMeta);
 
 export type Credit = z.infer<typeof CreditSchema>;

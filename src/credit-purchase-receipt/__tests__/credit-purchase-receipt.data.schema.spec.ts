@@ -1,15 +1,12 @@
 import { describe, it } from 'vitest';
 
 import { expectSchemaInvalid, expectSchemaValid } from '../../test-utils';
-import {
-  CreditPurchaseReceiptData,
-  CreditPurchaseReceiptDataSchema,
-} from '../credit-purchase-receipt.data.schema';
+import { CreditPurchaseReceiptDataSchema } from '../credit-purchase-receipt.data.schema';
 import exampleJson from '../../../schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.example.json';
 
 describe('CreditPurchaseReceiptDataSchema', () => {
   const schema = CreditPurchaseReceiptDataSchema;
-  const baseData = exampleJson.data as CreditPurchaseReceiptData;
+  const baseData = schema.parse(exampleJson.data);
 
   it('validates example data', () => {
     expectSchemaValid(schema, () => structuredClone(baseData));
@@ -24,24 +21,28 @@ describe('CreditPurchaseReceiptDataSchema', () => {
     });
   });
 
-  it('rejects retirement_receipt when no certificates have retired_amount > 0', () => {
-    expectSchemaInvalid(schema, baseData, (invalid) => {
-      invalid.retirement_receipt ??= {
-        token_id: '1200',
-        external_id: 'a1b2c3d4-e5f6-4b90-8a34-567890abcdef',
-        external_url: 'https://registry.carrot.eco/document/test',
-        ipfs_uri:
-          'ipfs://bafybeiaysiqlz2rcdjfbh264l4d7f5szszw7vvr2wxwb62xtx4tqhy4gmy',
-        smart_contract_address: '0x742d35cc6634c0532925a3b8d8b5c2d4c7f8e1a9',
-      };
-      invalid.certificates = invalid.certificates.map((cert) => ({
+  it('allows a reserved retirement receipt when retired amounts are zero', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      valid.certificates = valid.certificates.map((cert) => ({
         ...cert,
-        retired_amount: 0,
         collections: cert.collections.map((col) => ({
           ...col,
           retired_amount: 0,
         })),
       }));
+      return valid;
+    });
+  });
+
+  it('allows a reserved retirement receipt with no collections', () => {
+    expectSchemaValid(schema, () => {
+      const valid = structuredClone(baseData);
+      valid.collections = [];
+      valid.certificates.forEach((certificate) => {
+        certificate.collections = [];
+      });
+      return valid;
     });
   });
 

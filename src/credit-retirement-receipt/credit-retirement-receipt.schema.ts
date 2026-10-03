@@ -12,6 +12,7 @@ import {
   createCreditRetirementReceiptShortNameSchema,
   validateTokenIdInName,
   validateFormattedName,
+  validateReceiptReferenceChainIds,
 } from '../shared';
 import { CreditRetirementReceiptDataSchema } from './credit-retirement-receipt.data.schema';
 import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-receipt.attributes';
@@ -19,7 +20,7 @@ import { CreditRetirementReceiptAttributesSchema } from './credit-retirement-rec
 export const CreditRetirementReceiptIpfsSchemaMeta = {
   title: 'CreditRetirementReceipt NFT IPFS Record',
   description:
-    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants.',
+    'Complete CreditRetirementReceipt NFT IPFS record including retirement summary, beneficiary and credit holder details (identity optional), credit breakdowns, certificate allocations, and NFT display attributes. Supports both collection-assigned and no-collection variants; a separate claim needs its own evidence.',
   $id: buildSchemaUrl(
     'credit-retirement-receipt/credit-retirement-receipt.schema.json',
   ),
@@ -31,7 +32,7 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     type: z.literal('CreditRetirementReceipt').meta({
       title: 'CreditRetirementReceipt Schema Type',
       description:
-        'Discriminator value identifying this record as a CreditRetirementReceipt permanent-offset proof',
+        'Discriminator identifying a credit retirement receipt; this field does not declare an offset claim or beneficiary purpose',
     }),
   }),
   name: CreditRetirementReceiptNameSchema,
@@ -79,6 +80,15 @@ export const CreditRetirementReceiptIpfsSchema = NftIpfsSchema.safeExtend({
 
     const attributes = value.attributes;
     const data = value.data;
+
+    validateReceiptReferenceChainIds({
+      ctx,
+      credits: data.credits,
+      certificates: data.certificates,
+      relatedReceipt: data.purchase_receipt,
+      relatedReceiptName: 'purchase_receipt',
+      expectedChainId: value.blockchain.chain_id,
+    });
 
     const attributeByTraitType = createAttributeMap(attributes);
 

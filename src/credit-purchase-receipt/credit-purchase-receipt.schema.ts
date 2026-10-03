@@ -12,6 +12,7 @@ import {
   createCreditPurchaseReceiptShortNameSchema,
   validateTokenIdInName,
   validateFormattedName,
+  validateReceiptReferenceChainIds,
 } from '../shared';
 import { CreditPurchaseReceiptDataSchema } from './credit-purchase-receipt.data.schema';
 import { CreditPurchaseReceiptAttributesSchema } from './credit-purchase-receipt.attributes';
@@ -80,7 +81,38 @@ export const CreditPurchaseReceiptIpfsSchema = NftIpfsSchema.safeExtend({
     const attributes = value.attributes;
     const data = value.data;
 
+    validateReceiptReferenceChainIds({
+      ctx,
+      credits: data.credits,
+      certificates: data.certificates,
+      relatedReceipt: data.retirement_receipt,
+      relatedReceiptName: 'retirement_receipt',
+      expectedChainId: value.blockchain.chain_id,
+    });
+
     const attributeByTraitType = createAttributeMap(attributes);
+
+    const retirementDateAttribute = attributeByTraitType.get('Retirement Date');
+    if (retirementDateAttribute) {
+      const retiredTotal = data.certificates.reduce(
+        (certificateTotal, certificate) =>
+          certificateTotal +
+          certificate.collections.reduce(
+            (collectionTotal, collection) =>
+              collectionTotal + collection.retired_amount,
+            0,
+          ),
+        0,
+      );
+      if (!data.retirement_receipt || retiredTotal <= 0) {
+        ctx.addIssue({
+          code: 'custom',
+          message:
+            'Retirement Date requires a retirement receipt and a positive retired amount; a reserved token ID alone is not proof of retirement',
+          path: ['attributes'],
+        });
+      }
+    }
 
     validateAttributeValue({
       ctx,

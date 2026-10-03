@@ -23,11 +23,18 @@ export const RecordSchemaTypeSchema = z
 export type RecordSchemaType = z.infer<typeof RecordSchemaTypeSchema>;
 
 export const CreditTokenNameSchema = z
-  .enum(['Carrot Carbon (CH₄)', 'Carrot Biowaste'])
+  .string()
+  .min(1)
+  .max(100)
+  .regex(
+    /^\S(?:[\s\S]*\S)?$(?![\s\S])/,
+    'Token name must have no surrounding whitespace',
+  )
   .meta({
-    title: 'Credit Token Name',
-    description: 'Human-readable display name for the credit token',
-    examples: ['Carrot Carbon (CH₄)', 'Carrot Biowaste'],
+    title: 'On-chain Credit Token Name',
+    description:
+      'Exact ERC-20 name() value for the deployed credit contract; it may differ from a product display label',
+    examples: ['Example Carbon Credit', 'Example Biowaste Credit'],
   });
 export type CreditTokenName = z.infer<typeof CreditTokenNameSchema>;
 
@@ -44,6 +51,11 @@ export const CreditTokenSymbolSchema = z.enum(['C-CARB.CH4', 'C-BIOW']).meta({
   examples: ['C-CARB.CH4', 'C-BIOW'],
 });
 export type CreditTokenSymbol = z.infer<typeof CreditTokenSymbolSchema>;
+
+export const CREDIT_TOKEN_PAIRS = {
+  'carbon-ch4': 'C-CARB.CH4',
+  biowaste: 'C-BIOW',
+} as const satisfies Record<CreditTokenSlug, CreditTokenSymbol>;
 
 export const CreditTypeSchema = z.enum(['Biowaste', 'Carbon (CH₄)']).meta({
   title: 'Credit Type',
@@ -127,7 +139,7 @@ export const CollectionSlugSchema = SlugSchema.meta({
   title: 'Collection Slug',
   description:
     'URL-friendly identifier for an environmental credit collection, used in URIs and API references',
-  examples: ['bold-cold-start-araucaria', 'bold-cold-start-papagaios'],
+  examples: ['example-collection-one', 'example-collection-two'],
 });
 export type CollectionSlug = z.infer<typeof CollectionSlugSchema>;
 
@@ -184,7 +196,7 @@ export const CollectionNameSchema = NonEmptyStringSchema.max(100).meta({
   title: 'Collection Name',
   description:
     'Human-readable display name for the environmental credit collection',
-  examples: ['BOLD Cold Start - Araucária', 'BOLD Cold Start - Papagaios'],
+  examples: ['Example Collection One', 'Example Collection Two'],
 });
 export type CollectionName = z.infer<typeof CollectionNameSchema>;
 

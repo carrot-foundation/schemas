@@ -16,6 +16,10 @@ import {
 import { toJSONSchema } from 'zod';
 import { resolve } from 'node:path';
 import { writeJson } from './utils/fs-utils.js';
+import {
+  BLOCKCHAIN_NETWORK_CONFIG,
+  CREDIT_TOKEN_PAIRS,
+} from '../src/shared/schemas/primitives/index.js';
 
 interface JsonSchemaNode {
   prefixItems?: unknown[];
@@ -43,6 +47,74 @@ function addItemsFalseForTuples(node: unknown): void {
 
   for (const value of Object.values(obj)) {
     addItemsFalseForTuples(value);
+  }
+}
+
+function nestedConstant(
+  path: readonly string[],
+  value: string | number,
+): object {
+  return path.reduceRight<object>(
+    (nested, key) => ({ properties: { [key]: nested }, required: [key] }),
+    { const: value },
+  );
+}
+
+const nftSchemaFiles = new Set([
+  'mass-id.schema',
+  'gas-id.schema',
+  'recycled-id.schema',
+  'credit-purchase-receipt.schema',
+  'credit-retirement-receipt.schema',
+]);
+
+function addCrossFieldConstraints(
+  schema: Record<string, unknown>,
+  fileName: string,
+): void {
+  const conditions: object[] = [];
+  const networks = Object.entries(BLOCKCHAIN_NETWORK_CONFIG);
+
+  if (fileName === 'credit.schema') {
+    for (const [slug, symbol] of Object.entries(CREDIT_TOKEN_PAIRS)) {
+      conditions.push({
+        if: nestedConstant(['slug'], slug),
+        then: nestedConstant(['symbol'], symbol),
+      });
+    }
+  }
+
+  if (fileName === 'credit.schema' || nftSchemaFiles.has(fileName)) {
+    for (const [environment, network] of networks) {
+      conditions.push({
+        if: nestedConstant(['environment', 'blockchain_network'], environment),
+        then: nestedConstant(['blockchain', 'chain_id'], network.chain_id),
+      });
+    }
+  }
+
+  if (nftSchemaFiles.has(fileName)) {
+    conditions.push({
+      oneOf: networks.map(([, network]) => ({
+        properties: {
+          blockchain: {
+            properties: {
+              chain_id: { const: network.chain_id },
+              network_name: { const: network.network_name },
+            },
+            required: ['chain_id', 'network_name'],
+          },
+        },
+        required: ['blockchain'],
+      })),
+    });
+  }
+
+  if (conditions.length > 0) {
+    schema.allOf = [
+      ...(Array.isArray(schema.allOf) ? schema.allOf : []),
+      ...conditions,
+    ];
   }
 }
 
@@ -95,6 +167,7 @@ for (const { fileName, schema } of schemas) {
   const filePath = getFilePath(fileName);
 
   addItemsFalseForTuples(jsonSchema);
+  addCrossFieldConstraints(jsonSchema, fileName);
   writeJson(filePath, jsonSchema);
 
   console.log(`Generated schema: ${filePath}`);

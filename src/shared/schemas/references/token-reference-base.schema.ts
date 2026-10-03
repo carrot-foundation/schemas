@@ -3,6 +3,7 @@ import {
   ExternalIdSchema,
   ExternalUrlSchema,
   IpfsUriSchema,
+  PositiveIntegerSchema,
   SmartContractAddressSchema,
   TokenIdSchema,
 } from '../primitives';
@@ -12,11 +13,18 @@ export const TokenReferenceBaseSchema = z
     external_id: ExternalIdSchema,
     external_url: ExternalUrlSchema,
     ipfs_uri: IpfsUriSchema,
+    chain_id: PositiveIntegerSchema.meta({
+      title: 'Chain ID',
+      description:
+        'Positive identifier of the network that deployed this token; resolve the current metadata on this chain, while ipfs_uri retains the referenced snapshot',
+      examples: [137, 80002],
+    }),
     smart_contract_address: SmartContractAddressSchema,
   })
   .meta({
     title: 'Token Reference',
-    description: 'Base schema for all token references',
+    description:
+      'Token identity and referenced metadata snapshot. ipfs_uri records the cited version; current metadata is resolved from the contract on chain_id.',
   });
 export type TokenReferenceBase = z.infer<typeof TokenReferenceBaseSchema>;
 

@@ -23,6 +23,102 @@ export function createAttributeMap(attributes: Attribute[]) {
   );
 }
 
+function validateReferenceChainId(params: {
+  ctx: z.RefinementCtx;
+  reference?: { chain_id: number };
+  expectedChainId: number;
+  path: (string | number)[];
+  message: string;
+}): void {
+  if (
+    params.reference &&
+    params.reference.chain_id !== params.expectedChainId
+  ) {
+    params.ctx.addIssue({
+      code: 'custom',
+      message: params.message,
+      path: params.path,
+    });
+  }
+}
+
+function validateReferenceChainIds(params: {
+  ctx: z.RefinementCtx;
+  references: readonly { chain_id: number }[];
+  expectedChainId: number;
+  path: (string | number)[];
+  message: string;
+}): void {
+  params.references.forEach((reference, index) => {
+    validateReferenceChainId({
+      ctx: params.ctx,
+      reference,
+      expectedChainId: params.expectedChainId,
+      path: [...params.path, index, 'chain_id'],
+      message: params.message,
+    });
+  });
+}
+
+export function validateCertificateReferenceChainIds(params: {
+  ctx: z.RefinementCtx;
+  credit: { chain_id: number };
+  massId: { chain_id: number };
+  expectedChainId: number;
+}): void {
+  validateReferenceChainId({
+    ...params,
+    reference: params.credit,
+    path: ['data', 'credit', 'chain_id'],
+    message: 'data.credit.chain_id must match blockchain.chain_id',
+  });
+  validateReferenceChainId({
+    ...params,
+    reference: params.massId,
+    path: ['data', 'mass_id', 'chain_id'],
+    message: 'data.mass_id.chain_id must match blockchain.chain_id',
+  });
+}
+
+export function validateReceiptReferenceChainIds(params: {
+  ctx: z.RefinementCtx;
+  credits: readonly { chain_id: number }[];
+  certificates: readonly {
+    chain_id: number;
+    mass_id: { chain_id: number };
+  }[];
+  relatedReceipt?: { chain_id: number };
+  relatedReceiptName: 'purchase_receipt' | 'retirement_receipt';
+  expectedChainId: number;
+}): void {
+  validateReferenceChainIds({
+    ...params,
+    references: params.credits,
+    path: ['data', 'credits'],
+    message: 'credit.chain_id must match blockchain.chain_id',
+  });
+  validateReferenceChainIds({
+    ...params,
+    references: params.certificates,
+    path: ['data', 'certificates'],
+    message: 'certificate.chain_id must match blockchain.chain_id',
+  });
+  params.certificates.forEach((certificate, index) => {
+    validateReferenceChainId({
+      ...params,
+      reference: certificate.mass_id,
+      path: ['data', 'certificates', index, 'mass_id', 'chain_id'],
+      message: 'certificate.mass_id.chain_id must match blockchain.chain_id',
+    });
+  });
+  validateReferenceChainId({
+    ...params,
+    reference: params.relatedReceipt,
+    path: ['data', params.relatedReceiptName, 'chain_id'],
+    message: `${params.relatedReceiptName}.chain_id must match blockchain.chain_id`,
+  });
+}
+
 export function validateSummaryListMatchesData(params: {
   ctx: z.RefinementCtx;
   summaryValues: Iterable<string>;
@@ -395,26 +491,16 @@ export function validateRetirementReceiptRequirement(params: {
   ctx: z.RefinementCtx;
   hasRetirementReceipt: boolean;
   totalRetiredAmount: number;
-  messageWhenPresentButNoRetired?: string;
   messageWhenRetiredButNotPresent?: string;
 }) {
   const {
     ctx,
     hasRetirementReceipt,
     totalRetiredAmount,
-    messageWhenPresentButNoRetired = 'retirement_receipt is present but no certificate has retired_amount greater than 0',
     messageWhenRetiredButNotPresent = 'certificates with retired amounts > 0 require retirement_receipt',
   } = params;
 
-  if (hasRetirementReceipt) {
-    if (totalRetiredAmount === 0) {
-      ctx.addIssue({
-        code: 'custom',
-        message: messageWhenPresentButNoRetired,
-        path: ['retirement_receipt'],
-      });
-    }
-  } else if (totalRetiredAmount > 0) {
+  if (!hasRetirementReceipt && totalRetiredAmount > 0) {
     ctx.addIssue({
       code: 'custom',
       message: messageWhenRetiredButNotPresent,

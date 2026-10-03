@@ -6,7 +6,7 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime } from '../shared.js';
+import { exampleIpfsUri, formatDateTime } from '../shared.js';
 
 interface RuleExecutionResult {
   rule_name: string;
@@ -35,13 +35,11 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
   const auditStartedAt = new Date('2024-12-08T11:32:46.000Z');
 
   const massIDTokenId = story.massID.tokenId;
-  const gasIDTokenId = story.gasID.tokenId;
-  const externalId = '80011d61-fe40-4aa2-9031-4f2aafad5d42';
-  const massIDExternalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
-  const gasIDExternalId = 'd2a7f8e4-9c61-4e35-b8f2-a5c9e7d1b4f6';
+  const externalId = '00000000-0000-4000-8000-100000000004';
+  const massIDExternalId = '00000000-0000-4000-8000-100000000009';
 
-  const rulesCommit = '2e9cbbfd397027a03fb1561e431fcc156580459f';
-  const baseUrl = `https://github.com/carrot-foundation/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
+  const rulesCommit = '0000000000000000000000000000000000000000';
+  const baseUrl = `https://github.com/example-org/methodology-rules/tree/${rulesCommit}/apps/methodologies/bold-carbon/rule-processors/mass-id`;
 
   const ruleExecutionResults = buildRuleExecutionResults(
     baseUrl,
@@ -61,13 +59,12 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'MassID Audit',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:mass-id-audit'),
     },
     environment: { ...story.environment },
     created_at: formatDateTime(auditCompletedAt),
     external_id: externalId,
-    external_url: `https://registry.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.example.com/document/${externalId}`,
     data: {
       audit_summary: {
         started_at: formatDateTime(auditStartedAt),
@@ -75,28 +72,20 @@ export function emitMassIDAuditExample(): Record<string, unknown> {
         result: 'PASSED',
       },
       methodology: {
-        external_id: '8a1f5c92-e847-4b6d-9f23-d4e7a8b1c5e9',
+        external_id: '00000000-0000-4000-8000-100000000005',
         name: story.methodology.name,
-        version: 'v1.4.2',
-        external_url: `https://registry.carrot.eco/document/${story.methodology.slug}`,
-        ipfs_uri:
-          'ipfs://bafybeihdwdcefgh4dqkjv67uzcmw7ojee6xedzdetojuzjevtenxquvyku',
+        version: story.methodology.version,
+        external_url:
+          'https://registry.example.com/document/00000000-0000-4000-8000-100000000005',
+        ipfs_uri: exampleIpfsUri('doc:methodology-carbon'),
       },
       mass_id: {
         external_id: massIDExternalId,
         token_id: massIDTokenId,
-        external_url: `https://registry.carrot.eco/document/${massIDExternalId}`,
-        ipfs_uri:
-          'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+        external_url: `https://registry.example.com/document/${massIDExternalId}`,
+        ipfs_uri: exampleIpfsUri('doc:mass-id'),
         smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
-      },
-      gas_id: {
-        external_id: gasIDExternalId,
-        token_id: gasIDTokenId,
-        external_url: `https://registry.carrot.eco/document/${gasIDExternalId}`,
-        ipfs_uri:
-          'ipfs://bafybeicnuw2ytgukpr5uzmdyt6gdsbkq2xvula4odrqpnbx2ens4qfoywm',
-        smart_contract_address: '0x1234567890abcdef1234567890abcdef12345678',
+        chain_id: 80002,
       },
       rule_execution_results: ruleExecutionResults,
     },
@@ -109,7 +98,7 @@ function buildRuleExecutionResults(
   rulesCommit: string,
   auditStartedAt: Date,
 ): RuleExecutionResult[] {
-  const AUDIT_RUN_EXECUTION_ID = 'b7708f8b-ef9d-4e79-8b7e-fe1acbc63866';
+  const AUDIT_RUN_EXECUTION_ID = '00000000-0000-4000-8000-100000000013';
 
   const definitions: Array<{
     slug: string;
@@ -117,171 +106,139 @@ function buildRuleExecutionResults(
     description: string;
     dirName?: string;
     message?: string;
-    checksum: string;
   }> = [
     {
       slug: 'waste-mass-is-unique',
       name: 'Waste Mass is Unique',
       description:
-        'Validates that each MassID is unique within the system to prevent duplicate entries and double counting',
+        'Illustrative check for duplicate MassID registration before counting a waste mass again',
       message: 'No other MassIDs with the same attributes were found.',
-      checksum: '06230ee263852c67332b50c3ea12ceb7',
     },
     {
       slug: 'no-conflicting-gas-id-or-credit',
       name: 'No Conflicting GasID or Credit',
       description:
-        'Verifies that the MassID has not been previously registered in other carbon certificates or carbon credits to prevent double issuance',
+        'Illustrative check for conflicting certificate or credit records linked to the same MassID',
       message: 'The MassID is not linked to a valid MassID Certificate',
-      checksum: 'b2c3d4e5-f6a7-8901-2345-6789abcdef01',
     },
     {
       slug: 'project-period-limit',
       name: 'Project Period Limit',
       description:
-        'Confirms that the MassID processing occurred within the valid project timeframe as defined by methodology guidelines',
+        'Illustrative check of recorded processing dates against the versioned project period rule',
       message:
-        'The "Recycled" event occurred on or after the first day of the previous year, in UTC time.',
-      checksum: 'c3d4e5f6-a7b8-9012-3456-789abcdef012',
+        'Recorded recycling date passed the illustrative project-period rule.',
     },
     {
       slug: 'participant-accreditations',
       dirName: 'participant-accreditations-and-verifications-requirements',
       name: 'Participant Accreditations & Verifications Requirements',
       description:
-        'Checks if all participating entities have valid accreditations and permissions',
+        'Illustrative check of participant accreditations against the versioned rule requirements',
       message:
         'All participant accreditations-and-verifications are active and approved.',
-      checksum: 'e014fc2e2c85aba826ad8b079f9f8bd7',
     },
     {
       slug: 'mass-id-qualifications',
       name: 'MassID Qualifications',
       description:
-        'Validates the proper categorization and definition of the organic waste mass',
+        'Illustrative check of waste mass category and qualification inputs',
       message:
         'The document category, measurement unit, subtype, type, and value are correctly defined.',
-      checksum: '2f21946ad5ffe903cfcec58aeedc06f8',
     },
     {
       slug: 'regional-waste-classification',
       name: 'Regional Waste Classification',
       description:
-        'Ensures the waste is properly classified according to Brazilian ABNT NBR 10004 standards and local municipal regulations',
-      checksum: 'f6a7b8c9d0e123456789abcdef012345',
+        'Illustrative check of regional waste classification data required by the versioned rule',
     },
     {
       slug: 'geolocation-and-address-precision',
       name: 'Geolocation and Address Precision',
       description:
-        'Verifies the accuracy of geographical coordinates for waste collection and processing locations within 10-meter precision',
-      checksum: 'a7b8c9d0e1f23456789abcdef0123456',
+        'Illustrative check of available location evidence against the versioned geolocation rule',
     },
     {
       slug: 'waste-origin-identification',
       name: 'Waste Origin Identification',
       description:
-        'Validates the documented source and origin point of the organic waste with complete chain of custody documentation',
-      checksum: 'b8c9d0e1f2a3456789abcdef01234567',
+        'Illustrative check of recorded waste origin and custody evidence',
     },
     {
       slug: 'hauler-identification',
       name: 'Hauler Identification',
-      description:
-        'Confirms the identity, ANTT registration, and environmental credentials of the waste transportation company',
-      checksum: 'c9d0e1f2a3b456789abcdef012345678',
+      description: 'Illustrative check of required hauler identification data',
     },
     {
       slug: 'vehicle-identification',
       name: 'Vehicle Identification',
-      description:
-        'Verifies the registration, inspection certificates, and environmental compliance of vehicles used in waste transportation',
-      checksum: 'd0e1f2a3b4c56789abcdef0123456789',
+      description: 'Illustrative check of required transport vehicle data',
     },
     {
       slug: 'driver-identification',
       name: 'Driver Identification',
-      description:
-        "Validates the identity, CNH (driver's license), and proper licensing of the waste transport driver",
-      checksum: 'e1f2a3b4c5d6789abcdef01234567890',
+      description: 'Illustrative check of required transport driver data',
     },
     {
       slug: 'transport-manifest-data',
       name: 'Transport Manifest Data',
-      description:
-        'Checks the completeness and accuracy of MTR (Waste Transport Manifest) documentation and digital signatures',
-      checksum: 'f2a3b4c5d6e789abcdef012345678901',
+      description: 'Illustrative check of recorded transport manifest data',
     },
     {
       slug: 'processor-identification',
       name: 'Processor Identification',
-      description:
-        'Validates the identity, environmental licensing, and ISO 14001 certification of the waste processing facility',
-      checksum: 'a3b4c5d6e7f89abcdef0123456789012',
+      description: 'Illustrative check of required waste processor data',
     },
     {
       slug: 'recycler-identification',
       name: 'Recycler Identification',
-      description:
-        'Confirms the identity, CETESB licensing, and operational credentials of the composting facility operator',
-      checksum: 'b4c5d6e7f8a9abcdef0123456789013a',
+      description: 'Illustrative check of required recycler data',
     },
     {
       slug: 'weighing',
       name: 'Weighing',
-      description:
-        'Verifies the accurate measurement using INMETRO-certified scales and recording of waste MassID quantities with traceability',
-      checksum: 'c5d6e7f8a9b0bcdef012345678901234',
+      description: 'Illustrative check of recorded weighing evidence',
     },
     {
       slug: 'drop-off-at-recycler',
       name: 'Drop-off at Recycler',
-      description:
-        'Validates the proper reception, inspection, and documentation of waste material at the composting facility with photographic evidence',
-      checksum: 'd6e7f8a9b0c1cdef0123456789012345',
+      description: 'Illustrative check of recorded waste drop-off evidence',
     },
     {
       slug: 'mass-id-sorting',
       name: 'MassID Sorting',
-      description:
-        'Confirms the proper segregation, contamination analysis, and classification of organic waste materials according to composting requirements',
-      checksum: 'e7f8a9b0c1d2def01234567890123456',
+      description: 'Illustrative check of recorded sorting activity',
     },
     {
       slug: 'composting-cycle-timeframe',
       name: 'Composting Cycle Timeframe',
       description:
-        'Validates that the composting process follows required duration and conditions',
+        'Illustrative check of recorded cycle dates against the versioned timeframe rule',
       message:
-        'The time between the "Drop-off" and "Recycled" events is 90 days, within the valid range (60-180 days).',
-      checksum: '425813869ab97f3ad2dec3a904abca7b',
+        'Recorded processing dates passed the illustrative cycle-timeframe rule.',
     },
     {
       slug: 'recycling-manifest-data',
       name: 'Recycling Manifest Data',
-      description:
-        'Verifies the completion and accuracy of final recycling documentation and outcomes',
+      description: 'Illustrative check of recorded recycling manifest data',
       message:
-        'The CDF attachment (No. 47214/24), issued on 2024-02-09, with a value of 0kg, was provided.',
-      checksum: '3447e06d0f84861e46ab3ee2dd76e594',
+        'An illustrative recycling manifest was recorded for this MassID.',
     },
     {
       slug: 'project-boundary',
       name: 'Project Boundary',
       description:
-        'Validate if the MassID is in accordance with the project boundary, we only output the value',
+        'Illustrative check of recorded MassID data against the project boundary rule',
       message:
-        'The distance between the first "Pick-up" and last "Drop-off" is 0.438km.',
-      checksum: '8107054159f5b58217ff189ab4f9a279',
+        'Recorded locations passed the illustrative project-boundary rule.',
     },
     {
       slug: 'prevented-emissions',
       name: 'Prevented CO\u2082e',
       description:
-        'Calculate the prevented CO\u2082e emissions based on methane emission factors and the processed organic waste mass',
+        'Illustrative check of the prevented emissions result produced by the versioned rule',
       message:
-        'The prevented emissions were calculated as 419.93 kg CO\u2082e using the formula (1 - 0.029) x 0.067 x 6454.8 = 419.93',
-      checksum: 'e99cd5ed5dd5dd74d85fec73c886b295',
+        'Illustrative rule output recorded 123.519 kg CO\u2082e for this MassID.',
     },
   ];
 
@@ -290,20 +247,14 @@ function buildRuleExecutionResults(
     const startMs = auditStartedAt.getTime() + order * 100;
     const endMs = startMs + 50;
 
-    const versionOverrides: Record<string, string> = {
-      'no-conflicting-gas-id-or-credit':
-        'v2.1.3-9f0e1a2b-d3e4-5f67-8901-23456789abcd',
-      'project-period-limit': 'v2.1.3-a0f1e2a3-e4f5-6789-0123-456789abcdef',
-    };
-
     const entry: RuleExecutionResult = {
       rule_name: rule.name,
       rule_slug: rule.slug,
       rule_id: `00000000-0000-4000-8000-${String(order).padStart(12, '0')}`,
       result: 'PASSED',
       ...(rule.message ? { execution_message: rule.message } : {}),
-      rule_processor_checksum: rule.checksum,
-      rule_source_code_version: versionOverrides[rule.slug] || rulesCommit,
+      rule_processor_checksum: order.toString(16).padStart(32, '0'),
+      rule_source_code_version: rulesCommit,
       rule_description: rule.description,
       rule_execution_order: order,
       rule_source_code_url: `${baseUrl}/${rule.dirName ?? rule.slug}`,

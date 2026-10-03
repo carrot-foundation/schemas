@@ -8,7 +8,7 @@ import type { ExternalLink } from '../../shared';
  */
 export const minimalExternalLinkStub: ExternalLink = {
   label: 'Carrot Registry',
-  url: 'https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+  url: 'https://registry.example.com/document/00000000-0000-4000-8000-100000000009',
 };
 
 /**
@@ -19,7 +19,7 @@ export const minimalExternalLinkStub: ExternalLink = {
  */
 export const validExternalLinkFixture: ExternalLink = {
   label: 'Carrot Registry',
-  url: 'https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530',
+  url: 'https://registry.example.com/document/00000000-0000-4000-8000-100000000009',
   description: 'Complete chain of custody and audit trail',
 };
 
@@ -29,10 +29,10 @@ export const validExternalLinkFixture: ExternalLink = {
  * Represents a complete external link with alternative label that satisfies the external link schema.
  * Used in tests to validate external link schema parsing and validation.
  */
-export const validExternalLinkWhitePaperFixture: ExternalLink = {
-  label: 'Carrot White Paper',
-  url: 'https://whitepaper.carrot.eco',
-  description: 'Carrot Foundation technical and impact white paper',
+export const validExternalLinkAuditFixture: ExternalLink = {
+  label: 'MassID Audit',
+  url: 'https://registry.example.com/document/00000000-0000-4000-8000-100000000004',
+  description: 'Illustrative audit result for this MassID',
 };
 
 /**

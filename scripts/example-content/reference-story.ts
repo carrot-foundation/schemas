@@ -19,15 +19,15 @@ export function buildReferenceStory() {
     },
     methodology: {
       name: 'AMS-III.F. | BOLD Carbon (CH₄) - SSC',
-      version: '1.0.1',
+      version: '0.0.0-example',
       slug: 'bold-carbon-ch4',
     },
     collection: {
-      name: 'BOLD Cold Start - Carazinho',
-      slug: 'bold-cold-start-carazinho',
+      name: 'Example Collection One',
+      slug: 'example-collection-one',
     },
     credit: {
-      name: 'Carrot Carbon (CH₄)',
+      name: 'Example Carbon Credit',
       slug: 'carbon-ch4',
       symbol: 'C-CARB.CH4',
     },

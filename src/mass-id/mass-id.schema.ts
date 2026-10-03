@@ -96,6 +96,16 @@ export const MassIDIpfsSchema = NftIpfsSchema.safeExtend({
     validateAttributeValue({
       ctx,
       attributeByTraitType,
+      traitType: 'Recycling Method',
+      expectedValue: data.recycling_method,
+      missingMessage: 'Recycling Method attribute is required',
+      mismatchMessage:
+        'Recycling Method attribute must equal data.recycling_method',
+    });
+
+    validateAttributeValue({
+      ctx,
+      attributeByTraitType,
       traitType: 'Waste Type',
       expectedValue: data.waste_properties.type,
       missingMessage:

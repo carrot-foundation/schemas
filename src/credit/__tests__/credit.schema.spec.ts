@@ -48,7 +48,7 @@ describe('CreditSchema', () => {
       () => structuredClone(base),
       (data) => {
         expect(data.schema.type).toBe('Credit');
-        expect(data.decimals).toBe(18);
+        expect(data.decimals).toBe(6);
       },
     );
   });

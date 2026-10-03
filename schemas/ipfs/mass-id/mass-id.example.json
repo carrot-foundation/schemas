@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v5.2.0/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "e2f0093372234d865fc2c2fe026e10f5def2e921c1ac63db566f68e53628f7f5",
+    "hash": "26c1e6ac1855f76b62f66100472312ec16bdbef2650bbf402eeacb607f0943e3",
     "type": "MassID",
     "version": "5.2.0",
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeigz7vfpvlvn7wcl43wrddh5i2asywmjgehi3fzgvgm6isimsmxpzq"
   },
   "environment": {
     "blockchain_network": "testnet",
@@ -18,27 +18,22 @@
     "network_name": "Amoy"
   },
   "viewer_reference": {
-    "ipfs_uri": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm"
+    "ipfs_uri": "ipfs://bafybeiekc76kqqdv2sf276a5h4fvfyvaemo2iz3ei7ixyfdtxff66dlte4"
   },
   "created_at": "2024-12-05T11:02:47.000Z",
-  "external_id": "ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
-  "external_url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+  "external_id": "00000000-0000-4000-8000-100000000009",
+  "external_url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
   "name": "MassID #100001 • Organic • 3.25t",
   "short_name": "MassID #100001",
   "description": "This MassID represents 3.25 metric tons of organic food waste from Brasília, Brazil, tracked through complete chain of custody from pick-up to composting.",
-  "image": "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb",
-  "animation_url": "ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm",
+  "image": "ipfs://bafybeibwtcofemqgjyq7ubpl6l3dpct5zmuvnny24zr26fmpfxz4rxrsjy",
+  "animation_url": "ipfs://bafybeibj7nkjtxar3c5eajhpvaw3ii4ht2fwinw2ux6xpkvfjh74pgh7rq",
   "background_color": "#2D5A27",
   "external_links": [
     {
       "label": "Carrot Registry",
-      "url": "https://registry.carrot.eco/document/ad44dd3f-f176-4b98-bf78-5ee6e77d0530",
+      "url": "https://registry.example.com/document/00000000-0000-4000-8000-100000000009",
       "description": "Complete chain of custody and audit trail"
-    },
-    {
-      "label": "Carrot White Paper",
-      "url": "https://whitepaper.carrot.eco",
-      "description": "Carrot Foundation technical white paper"
     }
   ],
   "attributes": [
@@ -107,8 +102,9 @@
       "display_type": "date"
     }
   ],
-  "audit_data_hash": "349eba45b7903ba500a67aa65aef0af7a7d3361de99cd214bb6b0491a22a345d",
+  "audit_data_hash": "f95d7dbe588a227cf7336c2cd7d6ec9fe1f8429348f603d17fc0ca8864e1f19a",
   "data": {
+    "recycling_method": "Composting",
     "waste_properties": {
       "type": "Organic",
       "subtype": "Food, Food Waste and Beverages",
@@ -193,7 +189,7 @@
     ],
     "events": [
       {
-        "event_id": "8f799606-4ed5-49ce-8310-83b0c56ac01e",
+        "event_id": "00000000-0000-4000-8000-100000000007",
         "event_name": "Pick-up",
         "timestamp": "2024-12-05T11:02:47.000Z",
         "participant_id_hash": "a1b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcd",
@@ -204,7 +200,7 @@
         }
       },
       {
-        "event_id": "591eb414-a678-486d-982c-3c25f3cb52de",
+        "event_id": "00000000-0000-4000-8000-100000000002",
         "event_name": "Weighing",
         "timestamp": "2024-12-05T13:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
@@ -220,14 +216,14 @@
         }
       },
       {
-        "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
+        "event_id": "00000000-0000-4000-8000-100000000003",
         "event_name": "Drop-off",
         "timestamp": "2024-12-05T14:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
         "location_id_hash": "6e83b8e6373847bbdc056549bedda38dc88854ce41ba4fca11e0fc6ce3e07ef6"
       },
       {
-        "event_id": "ca509646-e35a-47b5-aff7-39595125effe",
+        "event_id": "00000000-0000-4000-8000-100000000014",
         "event_name": "Sorting",
         "timestamp": "2024-12-05T15:02:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
@@ -238,7 +234,7 @@
         }
       },
       {
-        "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
+        "event_id": "00000000-0000-4000-8000-100000000012",
         "event_name": "Recycling",
         "timestamp": "2024-12-08T11:32:47.000Z",
         "participant_id_hash": "b2c3d4e5f6789012345678901234567890abcdefabcdefabcdefabcdefabcdef",
@@ -247,13 +243,13 @@
     ],
     "attachments": [
       {
-        "event_id": "5d4b0723-b3a6-4659-8d80-d74f5e842af7",
+        "event_id": "00000000-0000-4000-8000-100000000003",
         "type": "Transport Manifest",
         "document_number": "4126",
         "issued_at": "2024-12-05T14:02:47.000Z"
       },
       {
-        "event_id": "b544695f-c3ba-4b97-9b24-c13dd32e4db8",
+        "event_id": "00000000-0000-4000-8000-100000000012",
         "type": "Recycling Manifest",
         "document_number": "2353",
         "issued_at": "2024-12-08T11:32:47.000Z"

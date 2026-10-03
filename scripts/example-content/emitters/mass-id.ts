@@ -6,7 +6,11 @@
  */
 
 import { buildReferenceStory } from '../reference-story.js';
-import { formatDateTime, formatUnixMilliseconds } from '../shared.js';
+import {
+  exampleIpfsUri,
+  formatDateTime,
+  formatUnixMilliseconds,
+} from '../shared.js';
 
 /**
  * Emit a MassID example document with placeholders.
@@ -22,7 +26,7 @@ export function emitMassIDExample(): Record<string, unknown> {
   const sortingAt = new Date('2024-12-05T15:02:47.000Z');
   const recyclingAt = new Date('2024-12-08T11:32:47.000Z');
 
-  const externalId = 'ad44dd3f-f176-4b98-bf78-5ee6e77d0530';
+  const externalId = '00000000-0000-4000-8000-100000000009';
   const tokenId = story.massID.tokenId;
 
   const participantHashes = {
@@ -50,8 +54,7 @@ export function emitMassIDExample(): Record<string, unknown> {
       hash: 'PLACEHOLDER',
       type: 'MassID',
       version: 'PLACEHOLDER',
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('schema:mass-id'),
     },
     environment: { ...story.environment },
     blockchain: {
@@ -61,29 +64,22 @@ export function emitMassIDExample(): Record<string, unknown> {
       network_name: 'Amoy',
     },
     viewer_reference: {
-      ipfs_uri:
-        'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+      ipfs_uri: exampleIpfsUri('viewer:build'),
     },
     created_at: formatDateTime(createdAt),
     external_id: externalId,
-    external_url: `https://registry.carrot.eco/document/${externalId}`,
+    external_url: `https://registry.example.com/document/${externalId}`,
     name: `MassID #${tokenId} \u2022 Organic \u2022 3.25t`,
     short_name: `MassID #${tokenId}`,
     description: `This MassID represents 3.25 metric tons of organic food waste from Bras\u00edlia, Brazil, tracked through complete chain of custody from pick-up to composting.`,
-    image: 'ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb',
-    animation_url:
-      'ipfs://bafybeigdyrztvzl5cceubvaxob7iqh6f3f7s36c74ojav2xsz2uib2g3vm',
+    image: exampleIpfsUri('image:mass-id'),
+    animation_url: exampleIpfsUri('animation:mass-id'),
     background_color: '#2D5A27',
     external_links: [
       {
         label: 'Carrot Registry',
-        url: `https://registry.carrot.eco/document/${externalId}`,
+        url: `https://registry.example.com/document/${externalId}`,
         description: 'Complete chain of custody and audit trail',
-      },
-      {
-        label: 'Carrot White Paper',
-        url: 'https://whitepaper.carrot.eco',
-        description: 'Carrot Foundation technical white paper',
       },
     ],
     attributes: [
@@ -123,6 +119,7 @@ export function emitMassIDExample(): Record<string, unknown> {
     ],
     audit_data_hash: 'PLACEHOLDER',
     data: {
+      recycling_method: 'Composting',
       waste_properties: {
         type: 'Organic',
         subtype: 'Food, Food Waste and Beverages',
@@ -186,7 +183,7 @@ export function emitMassIDExample(): Record<string, unknown> {
       ],
       events: [
         {
-          event_id: '8f799606-4ed5-49ce-8310-83b0c56ac01e',
+          event_id: '00000000-0000-4000-8000-100000000007',
           event_name: 'Pick-up',
           timestamp: formatDateTime(createdAt),
           participant_id_hash: participantHashes.wasteGenerator,
@@ -197,7 +194,7 @@ export function emitMassIDExample(): Record<string, unknown> {
           },
         },
         {
-          event_id: '591eb414-a678-486d-982c-3c25f3cb52de',
+          event_id: '00000000-0000-4000-8000-100000000002',
           event_name: 'Weighing',
           timestamp: formatDateTime(weighingAt),
           participant_id_hash: participantHashes.processorRecycler,
@@ -213,14 +210,14 @@ export function emitMassIDExample(): Record<string, unknown> {
           },
         },
         {
-          event_id: '5d4b0723-b3a6-4659-8d80-d74f5e842af7',
+          event_id: '00000000-0000-4000-8000-100000000003',
           event_name: 'Drop-off',
           timestamp: formatDateTime(dropOffAt),
           participant_id_hash: participantHashes.processorRecycler,
           location_id_hash: locationHashes.processingFacility,
         },
         {
-          event_id: 'ca509646-e35a-47b5-aff7-39595125effe',
+          event_id: '00000000-0000-4000-8000-100000000014',
           event_name: 'Sorting',
           timestamp: formatDateTime(sortingAt),
           participant_id_hash: participantHashes.processorRecycler,
@@ -231,7 +228,7 @@ export function emitMassIDExample(): Record<string, unknown> {
           },
         },
         {
-          event_id: 'b544695f-c3ba-4b97-9b24-c13dd32e4db8',
+          event_id: '00000000-0000-4000-8000-100000000012',
           event_name: 'Recycling',
           timestamp: formatDateTime(recyclingAt),
           participant_id_hash: participantHashes.processorRecycler,
@@ -240,13 +237,13 @@ export function emitMassIDExample(): Record<string, unknown> {
       ],
       attachments: [
         {
-          event_id: '5d4b0723-b3a6-4659-8d80-d74f5e842af7',
+          event_id: '00000000-0000-4000-8000-100000000003',
           type: 'Transport Manifest',
           document_number: '4126',
           issued_at: formatDateTime(dropOffAt),
         },
         {
-          event_id: 'b544695f-c3ba-4b97-9b24-c13dd32e4db8',
+          event_id: '00000000-0000-4000-8000-100000000012',
           type: 'Recycling Manifest',
           document_number: '2353',
           issued_at: formatDateTime(recyclingAt),
