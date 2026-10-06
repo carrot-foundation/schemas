@@ -102,7 +102,7 @@ export const EvidenceCommitmentSchema = z
       .meta({
         title: 'Evidence Leaves',
         description:
-          'Committed evidence items in index order. Carries hashes only, never content',
+          'Committed evidence items in index order. Carries hashes only, never content. Indexes are unique, contiguous from 0, and equal to the array position.',
       }),
   })
   .meta({

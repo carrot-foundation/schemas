@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.0.0/schemas/ipfs/gas-id/gas-id.schema.json",
   "schema": {
-    "hash": "bb3e7224abb8552d9343076480a45e1c03a01e8971afbee4878559aabe7da2cc",
+    "hash": "960baa978f0fe2a5bbd1f2a67699d5f2bd53d8187ba73374dfb7c5be55881a23",
     "type": "GasID",
     "version": "6.0.0",
     "ipfs_uri": "ipfs://bafybeie5p6yw3ygxkw76jzoxzg5vkvc5efjmhr4uv6qtugtfwegwocwz4a"

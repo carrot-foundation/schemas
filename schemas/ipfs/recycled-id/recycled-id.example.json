@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.0.0/schemas/ipfs/recycled-id/recycled-id.schema.json",
   "schema": {
-    "hash": "14bc1d680949a068008f3b6b866d3132ab628c435d872a7d39c9207263737bad",
+    "hash": "430e0e27ab4f5fc5ab8ba4804be494e00974b9e627e27e647812f5b9367059fc",
     "type": "RecycledID",
     "version": "6.0.0",
     "ipfs_uri": "ipfs://bafybeihozcjncfp7fifukcummybyc2je3sft7h7rosrjfn46tfpf4l73z4"
