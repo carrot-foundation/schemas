@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.0.0/schemas/ipfs/mass-id/mass-id.schema.json",
   "schema": {
-    "hash": "91b79358b245a57bd92e9b8a57d97978250790c5bba049ba49419f09d5d7a7bc",
+    "hash": "aaa82f5c5eea76cf7a29df2aad4df021c14159fe0a00414bc5dfb94ec032efd1",
     "type": "MassID",
     "version": "6.0.0",
     "ipfs_uri": "ipfs://bafybeigz7vfpvlvn7wcl43wrddh5i2asywmjgehi3fzgvgm6isimsmxpzq"

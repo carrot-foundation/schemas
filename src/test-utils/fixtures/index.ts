@@ -11,3 +11,4 @@ export * from './schema-info.fixtures';
 export * from './viewer-reference.fixtures';
 export * from './revision.fixtures';
 export * from './methodology-manifest.fixtures';
+export * from './evidence-commitment.fixtures';

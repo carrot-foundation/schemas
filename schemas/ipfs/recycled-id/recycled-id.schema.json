@@ -1174,6 +1174,118 @@
       "title": "Blockchain Information",
       "description": "Blockchain deployment information including smart contract address, network, and token identifier"
     },
+    "evidence_commitment": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "const": "carrot-evidence-commitment/v1",
+          "title": "Commitment Format",
+          "description": "Version tag of the evidence commitment format"
+        },
+        "encoding": {
+          "type": "object",
+          "properties": {
+            "canonicalization": {
+              "type": "string",
+              "const": "RFC 8785 (JCS)",
+              "title": "Canonicalization",
+              "description": "JSON canonicalization applied before hashing each leaf"
+            },
+            "leaf": {
+              "type": "string",
+              "const": "\"0x\" + sha256(JCS([\"carrot-evidence-leaf/v1\", type, salt, content]))",
+              "title": "Leaf Encoding",
+              "description": "Formula that derives each leaf hash from its evidence item"
+            },
+            "tree": {
+              "type": "string",
+              "const": "OpenZeppelin StandardMerkleTree, one bytes32 value per leaf, sorted leaves",
+              "title": "Tree Encoding",
+              "description": "Merkle tree construction that produces the root"
+            }
+          },
+          "required": [
+            "canonicalization",
+            "leaf",
+            "tree"
+          ],
+          "additionalProperties": false,
+          "title": "Evidence Encoding",
+          "description": "Constants that describe how leaf hashes and the Merkle root are computed, so a verifier can recompute them from the JSON alone"
+        },
+        "root": {
+          "type": "string",
+          "pattern": "^0x[a-f0-9]{64}$",
+          "title": "Evidence Root",
+          "description": "Merkle root over all leaf hashes, with 0x prefix",
+          "examples": [
+            "0x3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e3b1e"
+          ]
+        },
+        "leaves": {
+          "minItems": 1,
+          "maxItems": 10000,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "title": "Leaf Index",
+                "description": "Position of the leaf in the commitment, starting at 0",
+                "examples": [
+                  0,
+                  1,
+                  20
+                ]
+              },
+              "type": {
+                "type": "string",
+                "maxLength": 256,
+                "pattern": "^[a-z0-9-]+(:[a-z0-9-]+)+$",
+                "title": "Leaf Type",
+                "description": "Kind of evidence item, as colon-separated lowercase segments",
+                "examples": [
+                  "mass-id:document",
+                  "mass-id:actor:methodology-platform"
+                ]
+              },
+              "hash": {
+                "type": "string",
+                "pattern": "^0x[a-f0-9]{64}$",
+                "title": "Leaf Hash",
+                "description": "Salted hash of the evidence item, with 0x prefix",
+                "examples": [
+                  "0x5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a5d0a"
+                ]
+              }
+            },
+            "required": [
+              "index",
+              "type",
+              "hash"
+            ],
+            "additionalProperties": false,
+            "title": "Evidence Commitment Leaf",
+            "description": "One committed evidence item: its position, kind and hash"
+          },
+          "title": "Evidence Leaves",
+          "description": "Committed evidence items in index order. Carries hashes only, never content"
+        }
+      },
+      "required": [
+        "format",
+        "encoding",
+        "root",
+        "leaves"
+      ],
+      "additionalProperties": false,
+      "title": "Evidence Commitment",
+      "description": "Commitment to the private evidence record behind this token: a Merkle root plus the hash of each leaf. It carries no evidence content"
+    },
     "name": {
       "type": "string",
       "minLength": 1,

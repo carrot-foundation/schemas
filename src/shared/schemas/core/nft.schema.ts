@@ -20,6 +20,7 @@ import {
   Sha256HashSchema,
 } from '../primitives';
 import { uniqueBy } from '../../schema-helpers';
+import { EvidenceCommitmentSchema } from './evidence-commitment.schema';
 
 const NftSchemaTypeSchema = RecordSchemaTypeSchema.extract([
   'MassID',
@@ -140,6 +141,7 @@ export const NftIpfsSchema = BaseIpfsSchema.safeExtend({
   viewer_reference: ViewerReferenceSchema,
   environment: RecordEnvironmentSchema,
   blockchain: BlockchainReferenceSchema,
+  evidence_commitment: EvidenceCommitmentSchema.optional(),
   name: NonEmptyStringSchema.max(100).meta({
     title: 'NFT Name',
     description:
