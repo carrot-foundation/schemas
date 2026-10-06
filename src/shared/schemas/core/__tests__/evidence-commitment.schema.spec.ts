@@ -40,8 +40,9 @@ describe('EvidenceCommitmentSchema', () => {
     expectBoth(buildEvidenceCommitmentFixture(indexes), true);
   });
 
-  it.each([[[1, 2]], [[0, 2]], [[0, 0]], [[1, 0]], [[-1]]])(
-    'rejects indexes %j',
+  // The generated JSON Schema cannot express contiguity, so these hold for Zod only.
+  it.each([[[1, 2]], [[0, 2]], [[0, 0]], [[1, 0]]])(
+    'rejects indexes %j in Zod',
     (indexes) => {
       expect(
         EvidenceCommitmentSchema.safeParse(
@@ -51,6 +52,11 @@ describe('EvidenceCommitmentSchema', () => {
     },
   );
 
+  // Contiguity is not at play here: only `minimum: 0` refuses it in the JSON Schema.
+  it('rejects a negative index in Zod and in the generated JSON Schema', () => {
+    expectBoth(buildEvidenceCommitmentFixture([-1]), false);
+  });
+
   it('rejects a non-integer index', () => {
     expectBoth(withLeaf({ index: 0.5 }), false);
   });
@@ -59,22 +65,14 @@ describe('EvidenceCommitmentSchema', () => {
     expectBoth({ ...validEvidenceCommitmentFixture, leaves: [] }, false);
   });
 
-  it('accepts exactly the maximum number of leaves', () => {
+  it('accepts exactly the maximum number of leaves in Zod and in the generated JSON Schema', () => {
     const indexes = Array.from({ length: MAX_EVIDENCE_ITEMS }, (_, i) => i);
-    expect(
-      EvidenceCommitmentSchema.safeParse(
-        buildEvidenceCommitmentFixture(indexes),
-      ).success,
-    ).toBe(true);
+    expectBoth(buildEvidenceCommitmentFixture(indexes), true);
   });
 
-  it('rejects one leaf over the maximum', () => {
+  it('rejects one leaf over the maximum in Zod and in the generated JSON Schema', () => {
     const indexes = Array.from({ length: MAX_EVIDENCE_ITEMS + 1 }, (_, i) => i);
-    expect(
-      EvidenceCommitmentSchema.safeParse(
-        buildEvidenceCommitmentFixture(indexes),
-      ).success,
-    ).toBe(false);
+    expectBoth(buildEvidenceCommitmentFixture(indexes), false);
   });
 
   it.each([
