@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.0](https://github.com/carrot-foundation/schemas/compare/v6.0.0...v6.1.0) (2026-10-06)
+
+### Features
+
+- **shared:** add evidence_commitment to NFT metadata ([1e4e806](https://github.com/carrot-foundation/schemas/commit/1e4e806c1204a9b783a10505ede85171481b3516))
+
 ## [6.0.0](https://github.com/carrot-foundation/schemas/compare/v5.2.0...v6.0.0) (2026-10-03)
 
 ### ⚠ BREAKING CHANGES

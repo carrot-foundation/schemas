@@ -1,9 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.0.0/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
+  "$schema": "https://raw.githubusercontent.com/carrot-foundation/schemas/refs/tags/v6.1.0/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json",
   "schema": {
-    "hash": "a6bf9c53c4d51b82c82a2d778580f4732f16e22d5acbc7068da35dcf09bf2439",
+    "hash": "5d318f571e3b07618419d779249963417467f40d7c0d792d719861a99701c110",
     "type": "CreditPurchaseReceipt",
-    "version": "6.0.0",
+    "version": "6.1.0",
     "ipfs_uri": "ipfs://bafybeich5zzszgvvn3atj5ukdfcg7vqwomomfh6mev7lzc45a3r6yr4cdq"
   },
   "environment": {
