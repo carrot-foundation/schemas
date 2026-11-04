@@ -1,5 +1,5 @@
 ---
-name: rule-zod
+name: 'rule-zod'
 description: 'Zod schema authoring — strictObject, safeExtend, meta(), and composition layers'
 ---
 

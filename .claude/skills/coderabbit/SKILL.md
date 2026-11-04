@@ -1,5 +1,5 @@
 ---
-name: coderabbit
+name: 'coderabbit'
 description: 'Use when triggering a CodeRabbit review on current changes or a pull request'
 ---
 

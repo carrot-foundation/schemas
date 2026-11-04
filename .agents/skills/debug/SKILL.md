@@ -1,5 +1,5 @@
 ---
-name: debug
+name: 'debug'
 description: 'Use when schema generation fails, validation errors occur, or tests fail unexpectedly'
 ---
 

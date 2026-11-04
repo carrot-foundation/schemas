@@ -1,5 +1,5 @@
 ---
-name: rule-testing
+name: 'rule-testing'
 description: 'Vitest patterns, 100% coverage thresholds, and fixture-driven schema validation'
 ---
 

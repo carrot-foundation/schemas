@@ -1,5 +1,5 @@
 ---
-name: create-schema
+name: 'create-schema'
 description: 'Use when scaffolding a new schema type directory with data, attributes, tests, and index'
 ---
 

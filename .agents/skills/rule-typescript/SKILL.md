@@ -1,5 +1,5 @@
 ---
-name: rule-typescript
+name: 'rule-typescript'
 description: 'TypeScript conventions — strict mode, type patterns, and inference preferences'
 ---
 

@@ -47,7 +47,8 @@
     "fbzdi",
     "jundiai",
     "tuesday",
-    "thursday"
+    "thursday",
+    "CDPATH"
   ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

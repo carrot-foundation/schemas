@@ -1,5 +1,5 @@
 ---
-name: check
+name: 'check'
 description: 'Use when running quality gates before committing, creating a PR, or validating the project builds correctly'
 ---
 

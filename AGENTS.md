@@ -282,3 +282,11 @@ Every generated JSON schema must include: `$schema`, `$id`, `title`, `descriptio
 - Test files in `__tests__/` folders, named `*.spec.ts` (NOT `.test.ts`)
 - Use `.safeParse()` for Zod schema validation tests
 - Test both valid and invalid inputs for every schema
+
+## Worktree setup
+
+Run `/bin/sh scripts/setup-worktree.sh` after creating a worktree. On CrisOS this
+starts or joins the shared setup receipt, selects the pinned runtimes and arms
+Git hooks. Use `crisos-project-setup status --worktree "$PWD"` to inspect it; use
+`retry` after fixing a failed setup. The portable fallback installs the frozen
+lockfile with `--prefer-offline`.

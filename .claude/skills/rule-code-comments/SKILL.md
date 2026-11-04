@@ -1,5 +1,5 @@
 ---
-name: rule-code-comments
+name: 'rule-code-comments'
 description: 'When and how to write effective comments — favor self-documenting code'
 ---
 

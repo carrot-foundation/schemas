@@ -1,5 +1,5 @@
 ---
-name: schema-reviewer
+name: 'schema-reviewer'
 description: 'Reviews schema design quality — Zod patterns, metadata completeness, composition correctness, naming, backward compatibility'
 ---
 

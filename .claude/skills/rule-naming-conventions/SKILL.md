@@ -1,5 +1,5 @@
 ---
-name: rule-naming-conventions
+name: 'rule-naming-conventions'
 description: 'Naming standards — snake_case properties, kebab-case files, PascalCase types and exports'
 ---
 

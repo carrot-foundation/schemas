@@ -1,5 +1,5 @@
 ---
-name: rule-package-management
+name: 'rule-package-management'
 description: 'pnpm only, exact versions, Node >= 22, and minimal dependencies'
 ---
 

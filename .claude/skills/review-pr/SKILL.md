@@ -1,5 +1,5 @@
 ---
-name: review-pr
+name: 'review-pr'
 description: 'Use when reviewing a pull request for schema quality, test coverage, and conventions'
 ---
 

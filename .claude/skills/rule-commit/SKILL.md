@@ -1,5 +1,5 @@
 ---
-name: rule-commit
+name: 'rule-commit'
 description: 'Conventional commit messages with schemas-specific scopes'
 ---
 

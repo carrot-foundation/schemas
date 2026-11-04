@@ -1,5 +1,5 @@
 ---
-name: rule-code-style
+name: 'rule-code-style'
 description: 'Readable, consistent, and well-structured code across the schemas package'
 ---
 

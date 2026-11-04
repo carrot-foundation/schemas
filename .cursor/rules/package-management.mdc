@@ -1,8 +1,8 @@
 ---
 description: 'pnpm only, exact versions, Node >= 22, and minimal dependencies'
 globs:
-  - package.json
-  - pnpm-lock.yaml
+  - 'package.json'
+  - 'pnpm-lock.yaml'
 alwaysApply: false
 ---
 
