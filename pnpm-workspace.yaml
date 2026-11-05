@@ -1,4 +1,6 @@
-nodeVersion: 22.15.0
+# Setup and CI select the exact packageManager pin.
+# Keep one lockfile document for GitHub dependency detection.
+pmOnFail: ignore
 engineStrict: true
 saveExact: true
 verifyDepsBeforeRun: error
