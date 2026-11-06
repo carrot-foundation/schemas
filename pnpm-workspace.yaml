@@ -2,6 +2,7 @@
 # Keep one lockfile document for GitHub dependency detection.
 pmOnFail: ignore
 engineStrict: true
+nodeVersion: 22.15.0
 saveExact: true
 verifyDepsBeforeRun: error
 allowBuilds:
