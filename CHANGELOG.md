@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.1](https://github.com/carrot-foundation/schemas/compare/v6.1.0...v6.1.1) (2026-11-06)
+
+### Bug Fixes
+
+- **shared:** keep pnpm installs and runtime updates consistent ([bf122d5](https://github.com/carrot-foundation/schemas/commit/bf122d55da03c02bc583a1b315e5342e7a6cecbb))
+- **shared:** keep portable setup when the machine helper skips ([90525f2](https://github.com/carrot-foundation/schemas/commit/90525f26c3d795af805f61a0a6f5fff6cb348579))
+- **shared:** preserve the Node engine target ([4c8926e](https://github.com/carrot-foundation/schemas/commit/4c8926e9b8a60bdec184823523735f8d5f2e8a2c))
+- **shared:** repair worktree-specific husky routing ([7f6de3f](https://github.com/carrot-foundation/schemas/commit/7f6de3f798a3bb106f5efb1dbfad6ebccda96746))
+- **shared:** resolve bootstrap tools outside dependency bins ([2a2cfe2](https://github.com/carrot-foundation/schemas/commit/2a2cfe2ff7225f5dc0c5cc1ecdd8071fcdca3165))
+- **shared:** validate and repair portable hook setup ([2bb9a63](https://github.com/carrot-foundation/schemas/commit/2bb9a6387d038f357eaf7a09653bc4ce79f65d75))
+
 ## [6.1.0](https://github.com/carrot-foundation/schemas/compare/v6.0.0...v6.1.0) (2026-10-06)
 
 ### Features
