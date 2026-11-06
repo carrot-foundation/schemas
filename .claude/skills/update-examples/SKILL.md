@@ -1,5 +1,5 @@
 ---
-name: update-examples
+name: 'update-examples'
 description: 'Use when schemas have changed and example JSON files need regeneration and validation'
 ---
 

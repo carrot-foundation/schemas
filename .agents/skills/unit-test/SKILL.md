@@ -1,5 +1,5 @@
 ---
-name: unit-test
+name: 'unit-test'
 description: 'Use when writing or updating tests for schemas, especially when 100% coverage is required'
 ---
 

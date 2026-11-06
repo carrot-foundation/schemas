@@ -1,5 +1,5 @@
 ---
-name: create-pr
+name: 'create-pr'
 description: 'Use when work is ready for review and a pull request needs to be created'
 ---
 

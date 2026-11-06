@@ -1,5 +1,5 @@
 ---
-name: commit
+name: 'commit'
 description: 'Use when staging and committing code changes with conventional commit messages'
 ---
 

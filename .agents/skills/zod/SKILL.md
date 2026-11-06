@@ -1,5 +1,5 @@
 ---
-name: zod
+name: 'zod'
 description: 'Use when authoring or modifying Zod schemas -- composition, metadata, and validation patterns'
 ---
 

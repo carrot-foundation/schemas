@@ -1,5 +1,5 @@
 ---
-name: rule-pull-request
+name: 'rule-pull-request'
 description: 'PR creation workflow, title format, description template, and quality gates'
 ---
 

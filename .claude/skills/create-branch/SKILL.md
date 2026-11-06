@@ -1,5 +1,5 @@
 ---
-name: create-branch
+name: 'create-branch'
 description: 'Use when starting new work and need a branch following naming conventions'
 ---
 

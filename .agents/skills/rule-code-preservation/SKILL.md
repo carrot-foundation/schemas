@@ -1,5 +1,5 @@
 ---
-name: rule-code-preservation
+name: 'rule-code-preservation'
 description: 'Preserve existing behavior during refactoring — no silent deletions or reversions'
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: finish-work
+name: 'finish-work'
 description: 'Use when a task is complete and needs the full check, commit, and PR workflow'
 ---
 

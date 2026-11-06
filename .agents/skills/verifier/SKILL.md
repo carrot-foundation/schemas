@@ -1,5 +1,5 @@
 ---
-name: verifier
+name: 'verifier'
 description: 'Validates completed work — tests at 100% coverage, schemas generate correctly, versions consistent, examples valid'
 ---
 
