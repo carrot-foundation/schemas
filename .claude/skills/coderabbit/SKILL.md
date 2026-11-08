@@ -11,7 +11,7 @@ CodeRabbit is an AI-powered code review tool. It runs as a GitHub App and posts 
 
 ### Reviews Run Only on Request
 
-`.coderabbit.yaml` sets `auto_review.enabled: false`, because every run counts against the organization's shared review allowance. Creating a PR, pushing commits, and marking a draft ready start no review. The carrot-eng reviewer ladder requests CodeRabbit with a marked `@coderabbitai review` comment when it picks it.
+`.coderabbit.yaml` sets `auto_review.enabled: false`. Creating a PR, pushing commits, and marking a draft ready start no review. The carrot-eng reviewer ladder requests CodeRabbit with a marked `@coderabbitai review` comment when it picks it.
 
 ### Requesting a Review
 

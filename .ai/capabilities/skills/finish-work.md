@@ -166,7 +166,7 @@ Provide a concise summary to the user:
   - chore(schema): regenerate JSON schemas and examples
 - **PR**: https://github.com/carrot-foundation/schemas/pull/123
 - **Status**: All quality gates passing
-- **Remaining**: Awaiting CodeRabbit review and human review
+- **Remaining**: Awaiting human review (and CodeRabbit's, if one was requested)
 ```
 
 ### Error Recovery
