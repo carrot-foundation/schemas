@@ -22,25 +22,19 @@ references:
 
 ## Instructions
 
-Trigger and manage automated CodeRabbit reviews on pull requests in the schemas repository.
+Trigger and manage CodeRabbit reviews on pull requests in the schemas repository.
 
 ### How CodeRabbit Reviews Work
 
-CodeRabbit is an AI-powered code review tool that automatically analyzes pull requests. It runs as a GitHub App and posts review comments directly on the PR.
+CodeRabbit is an AI-powered code review tool. It runs as a GitHub App and posts review comments directly on the PR.
 
-### Automatic Triggering
+### Reviews Run Only on Request
 
-CodeRabbit reviews are triggered **automatically** when:
+`.coderabbit.yaml` sets `auto_review.enabled: false`, because every run counts against the organization's shared review allowance. Creating a PR, pushing commits, and marking a draft ready start no review. The carrot-eng reviewer ladder requests CodeRabbit with a marked `@coderabbitai review` comment when it picks it.
 
-- A new pull request is created
-- New commits are pushed to an existing PR
-- A draft PR is marked as ready for review
+### Requesting a Review
 
-No manual action is needed for the initial review.
-
-### Re-triggering a Review
-
-If you need to re-trigger a CodeRabbit review (e.g., after addressing findings or if the initial review didn't run), comment on the PR:
+To request a CodeRabbit review (the first one, or another after addressing findings), comment on the PR:
 
 ```
 @coderabbitai review
@@ -112,7 +106,7 @@ The recommended workflow for CodeRabbit integration:
 2. Run `pnpm check` -- fix all issues
 3. Commit and push changes
 4. Create PR via `gh pr create`
-5. Wait for automatic CodeRabbit review
+5. Request a CodeRabbit review with `@coderabbitai review`, or let the reviewer ladder request it
 6. Address findings
 7. Push fixes
 8. Re-trigger review if needed
