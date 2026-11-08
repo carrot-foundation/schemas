@@ -3,12 +3,11 @@ id: coderabbit
 name: coderabbit
 description: 'Use when triggering a CodeRabbit review on current changes or a pull request'
 when_to_use:
-  - 'After creating a PR'
-  - 'When wanting automated code review'
-  - 'Before requesting human review'
+  - 'When someone asks for a CodeRabbit review of a PR'
+  - 'When the reviewer ladder picks CodeRabbit'
 workflow:
   - '[ ] Ensure changes are pushed'
-  - '[ ] Trigger CodeRabbit review'
+  - '[ ] Request the review with an `@coderabbitai review` PR comment'
   - '[ ] Address findings'
 inputs:
   - 'PR number or current branch with pushed changes'
