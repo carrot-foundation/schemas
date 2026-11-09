@@ -145,7 +145,7 @@ After creating the PR:
 
 2. **Wait for CI** to run and confirm checks pass remotely.
 
-3. **Wait for CodeRabbit** review (automatic) and address any findings.
+3. **Address review findings.** CodeRabbit reviews only on request (`@coderabbitai review`, or the reviewer ladder), so wait for it only when it was requested.
 
 4. **Report the PR URL** to the user.
 
