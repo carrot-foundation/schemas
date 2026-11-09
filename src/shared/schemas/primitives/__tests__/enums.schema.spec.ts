@@ -7,6 +7,7 @@ import {
   CreditTokenSymbolSchema,
   ParticipantRoleSchema,
   WasteSubtypeSchema,
+  WasteTypeSchema,
 } from '../enums.schema';
 
 describe('CreditTokenSlugSchema', () => {
@@ -113,6 +114,8 @@ describe('WasteSubtypeSchema', () => {
     'Garden, Yard and Park Waste',
     'Industrial Sludge',
     'Others (if organic)',
+    'Pulp, Paper and Cardboard',
+    'Textile',
     'Tobacco',
     'Wood and Wood Products',
   ])('accepts the canonical waste subtype "%s"', (value) => {
@@ -127,6 +130,29 @@ describe('WasteSubtypeSchema', () => {
 
     expect(result.success).toBe(false);
   });
+
+  it.each(['Paper', 'Pulp, Paper and Cardboard ', 'textile', 'Textiles'])(
+    'rejects the near-miss waste subtype "%s"',
+    (value) => {
+      expect(WasteSubtypeSchema.safeParse(value).success).toBe(false);
+    },
+  );
+});
+
+describe('WasteTypeSchema', () => {
+  it('accepts the Organic waste type', () => {
+    expect(WasteTypeSchema.safeParse('Organic')).toEqual({
+      success: true,
+      data: 'Organic',
+    });
+  });
+
+  it.each(['Textile', 'Pulp, Paper and Cardboard'])(
+    'keeps rejecting "%s" as a waste type even though it is a waste subtype',
+    (value) => {
+      expect(WasteTypeSchema.safeParse(value).success).toBe(false);
+    },
+  );
 });
 
 describe('ParticipantRoleSchema', () => {

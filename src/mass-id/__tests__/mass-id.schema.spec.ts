@@ -81,6 +81,57 @@ describe('MassIDIpfsSchema', () => {
     }, ['Waste Subtype attribute must equal waste_properties.subtype']);
   });
 
+  describe.each(['Pulp, Paper and Cardboard', 'Textile'] as const)(
+    'with the "%s" waste subtype',
+    (subtype) => {
+      const withSubtype = (attributeSubtype: string = subtype) => {
+        const next = structuredClone(base);
+        next.data.waste_properties.subtype = subtype;
+        const wasteSubtypeAttrIndex = next.attributes.findIndex(
+          (attr) => attr.trait_type === 'Waste Subtype',
+        );
+        expect(wasteSubtypeAttrIndex).toBeGreaterThanOrEqual(0);
+        next.attributes[wasteSubtypeAttrIndex].value = attributeSubtype;
+        return next;
+      };
+
+      it('accepts and preserves the subtype in data and the Waste Subtype attribute', () => {
+        const input = withSubtype();
+        const result = schema.safeParse(input);
+
+        expect(result.success).toBe(true);
+        expect(result.data).toEqual(input);
+        expect(result.data?.data.waste_properties.subtype).toBe(subtype);
+        expect(
+          result.data?.attributes.find(
+            (attr) => attr.trait_type === 'Waste Subtype',
+          )?.value,
+        ).toBe(subtype);
+      });
+
+      it('rejects a Waste Subtype attribute that disagrees with the data', () => {
+        const otherSubtype =
+          subtype === 'Textile' ? 'Pulp, Paper and Cardboard' : 'Textile';
+
+        expectIssuesContain(schema, () => withSubtype(otherSubtype), [
+          'Waste Subtype attribute must equal waste_properties.subtype',
+        ]);
+      });
+
+      it('keeps rejecting Textile as the waste type', () => {
+        expectSchemaInvalid(schema, withSubtype(), (invalid) => {
+          invalid.data.waste_properties.type =
+            'Textile' as unknown as typeof invalid.data.waste_properties.type;
+          const wasteTypeAttrIndex = invalid.attributes.findIndex(
+            (attr) => attr.trait_type === 'Waste Type',
+          );
+          expect(wasteTypeAttrIndex).toBeGreaterThanOrEqual(0);
+          invalid.attributes[wasteTypeAttrIndex].value = 'Textile';
+        });
+      });
+    },
+  );
+
   it('requires Origin Country Subdivision attribute to match pick-up location', () => {
     expectIssuesContain(schema, () => {
       const next = structuredClone(base);

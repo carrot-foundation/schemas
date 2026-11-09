@@ -24,6 +24,28 @@ describe('WastePropertiesSchema', () => {
     expectSchemaInvalidWithout(schema, base, 'subtype');
   });
 
+  it.each(['Pulp, Paper and Cardboard', 'Textile'] as const)(
+    'accepts and preserves the "%s" subtype',
+    (subtype) => {
+      const input = { ...base, subtype };
+
+      expect(schema.safeParse(input)).toEqual({ success: true, data: input });
+    },
+  );
+
+  it('rejects a subtype outside the canonical list', () => {
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.subtype = 'Textiles' as unknown as (typeof invalid)['subtype'];
+    });
+  });
+
+  it('rejects Textile as the waste type', () => {
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.type = 'Textile' as unknown as (typeof invalid)['type'];
+      invalid.subtype = 'Textile';
+    });
+  });
+
   it('rejects missing weight_kg', () => {
     expectSchemaInvalidWithout(schema, base, 'weight_kg');
   });

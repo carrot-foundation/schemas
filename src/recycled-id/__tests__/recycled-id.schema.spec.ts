@@ -17,6 +17,26 @@ describe('RecycledIDIpfsSchema', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
 
+  it.each(['Pulp, Paper and Cardboard', 'Textile'] as const)(
+    'accepts and preserves the "%s" source waste subtype',
+    (subtype) => {
+      const input = structuredClone(base);
+      input.data.waste_properties.subtype = subtype;
+      const result = schema.safeParse(input);
+
+      expect(result.success).toBe(true);
+      expect(result.data).toEqual(input);
+      expect(result.data?.data.waste_properties.subtype).toBe(subtype);
+    },
+  );
+
+  it('rejects a source waste subtype outside the canonical list', () => {
+    expectSchemaInvalid(schema, base, (invalid) => {
+      invalid.data.waste_properties.subtype =
+        'Textiles' as unknown as typeof invalid.data.waste_properties.subtype;
+    });
+  });
+
   it.each([
     {
       description: 'rejects invalid schema type',
