@@ -5,6 +5,7 @@ import {
   expectSchemaInvalid,
   expectSchemaTyped,
   expectSchemaValid,
+  runSourceWasteSubtypeCases,
 } from '../../test-utils';
 import { RecycledIDIpfsSchema } from '../recycled-id.schema';
 import exampleJson from '../../../schemas/ipfs/recycled-id/recycled-id.example.json';
@@ -16,6 +17,8 @@ describe('RecycledIDIpfsSchema', () => {
   it('validates example.json successfully', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
+
+  runSourceWasteSubtypeCases(schema, base);
 
   it.each([
     {

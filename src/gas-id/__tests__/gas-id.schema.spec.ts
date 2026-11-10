@@ -6,6 +6,7 @@ import {
   expectSchemaInvalidWithout,
   expectSchemaTyped,
   expectSchemaValid,
+  runSourceWasteSubtypeCases,
 } from '../../test-utils';
 import { GasIDIpfsSchema } from '../gas-id.schema';
 import exampleJson from '../../../schemas/ipfs/gas-id/gas-id.example.json';
@@ -17,6 +18,8 @@ describe('GasIDIpfsSchema', () => {
   it('validates example.json successfully', () => {
     expectSchemaValid(schema, () => structuredClone(base));
   });
+
+  runSourceWasteSubtypeCases(schema, base);
 
   it('requires result_recorded_at and rejects the former calculated_at key', () => {
     const resultRecorded = structuredClone(exampleJson);
