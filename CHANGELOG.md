@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.0](https://github.com/carrot-foundation/schemas/compare/v6.1.1...v6.2.0) (2026-11-10)
+
+### Features
+
+- **shared:** add paper and textile waste subtypes ([f75f53a](https://github.com/carrot-foundation/schemas/commit/f75f53a1ab36cc6523e655704eba104fcbec9cf9))
+
 ## [6.1.1](https://github.com/carrot-foundation/schemas/compare/v6.1.0...v6.1.1) (2026-11-06)
 
 ### Bug Fixes
