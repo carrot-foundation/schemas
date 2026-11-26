@@ -44,7 +44,7 @@ This runs the following steps sequentially via `run-s`:
 7. **validate-schemas** -- Validate all generated JSON schemas and examples with AJV
 8. **verify-schema-versions** -- Check schema version consistency
 9. **check-refs** -- Validate internal `$ref` pointers
-10. **test:examples** -- Run the reference example tests with Vitest
+10. **test:verify** -- Run focused reference example and artifact comparison tests
 11. **ai:check** -- Validate parity between canonical AI instructions and their adapters
 
 ### Maintenance Commands
@@ -74,7 +74,7 @@ This validates that canonical AI instructions are consistent across tool adapter
 | validate-schemas       | Generated JSON schema is structurally invalid | Fix the Zod source; check `$id` URLs and `$ref` pointers    |
 | verify-schema-versions | Version mismatch between schema files         | Align version fields in the Zod source                      |
 | check-refs             | Broken `$ref` pointers in generated schemas   | Ensure referenced schemas exist and paths are correct       |
-| test:examples          | Reference example test failures               | Fix the failing example emitters or schemas                 |
+| test:verify            | Artifact verification test failures           | Fix the failing example emitters or schemas                 |
 
 ### Recovery Workflow
 

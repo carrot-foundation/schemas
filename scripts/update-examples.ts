@@ -52,12 +52,10 @@ function main(): void {
   const version = getVersion();
   const check = process.argv.includes('--check');
   const examples = new Set(collectJsonFiles(EXAMPLES_ROOT, '.example.json'));
-  if (check) {
-    for (const typeName of Object.keys(emitters)) {
-      examples.add(
-        path.join(EXAMPLES_ROOT, typeName, `${typeName}.example.json`),
-      );
-    }
+  for (const typeName of Object.keys(emitters)) {
+    examples.add(
+      path.join(EXAMPLES_ROOT, typeName, `${typeName}.example.json`),
+    );
   }
 
   for (const examplePath of examples) {

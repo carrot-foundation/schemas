@@ -57,7 +57,7 @@ Before requesting a CodeRabbit review, ensure:
    git push origin HEAD
    ```
 
-2. **Quality gates pass locally** -- run `pnpm check` first to avoid noise in the review from issues you could have caught locally.
+2. **Quality gates pass locally** -- run `pnpm check:verify` first to avoid noise in the review from issues you could have caught locally.
 
 3. **The PR description is complete** -- CodeRabbit uses the PR description for context when reviewing.
 
@@ -102,7 +102,7 @@ When CodeRabbit posts review comments:
 The recommended workflow for CodeRabbit integration:
 
 1. Complete implementation locally
-2. Run `pnpm check` -- fix all issues
+2. Run `pnpm check:verify` -- fix all issues
 3. Commit and push changes
 4. Create PR via `gh pr create`
 5. Request a CodeRabbit review with `@coderabbitai review`, or let the reviewer ladder request it

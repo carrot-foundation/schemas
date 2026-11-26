@@ -72,7 +72,7 @@ Schemas AI instructions for Codex, Claude, and Cursor with equal capability pari
 ## Setup commands
 
 - Install deps: `pnpm install`
-- Run all quality gates: `pnpm check`
+- Run the read-only verification gate: `pnpm check:verify`
 - Run tests: `pnpm test`
 - Build: `pnpm build`
 - Generate JSON schemas: `pnpm generate-ipfs-schemas`
@@ -145,11 +145,11 @@ Each type has its own directory in `src/{type}/` with schema definitions, data s
 ### Build Pipeline
 
 1. **TypeScript compilation** (`tsup`): Compiles TypeScript to ESM and CJS in `dist/`
-2. **JSON Schema generation** (`generate-ipfs-schemas.js`): Converts Zod schemas to JSON Schema
+2. **JSON Schema generation** (`generate-ipfs-schemas.ts`): Converts Zod schemas to JSON Schema
 3. **Version injection**: `SCHEMA_VERSION` environment variable is embedded into schema `$id` URLs
-4. **Schema hashing** (`hash-schemas.js`): Generates integrity hashes
-5. **Example updates** (`update-examples.js`): Emits example JSON from the shared reference story, then updates schema hashes, versions, and content hashes
-6. **Validation** (`validate-schemas.js`): Validates generated schemas and examples via AJV
+4. **Schema hashing** (`hash-schemas.ts`): Generates integrity hashes
+5. **Example updates** (`update-examples.ts`): Emits example JSON from the shared reference story, then updates schema hashes, versions, and content hashes
+6. **Validation** (`validate-schemas.ts`): Validates generated schemas and examples via AJV
 
 ### Schema Composition Pattern
 
@@ -189,8 +189,9 @@ pnpm format                       # Prettier write
 pnpm format:check                 # Prettier check
 pnpm spell-check                  # cspell
 pnpm pkgJsonLint                  # Validate package.json
-pnpm check                        # Run ALL quality gates sequentially
-pnpm check:parallel               # Run ALL quality gates in parallel
+pnpm check:verify                 # Run the read-only verification gate
+pnpm check                        # Run maintenance and verification sequentially (writes files)
+pnpm check:parallel               # Run maintenance and verification in parallel (writes files)
 ```
 
 ### Schema Validation

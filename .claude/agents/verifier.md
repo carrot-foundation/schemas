@@ -16,8 +16,8 @@ Before running the full pipeline, start with the checks most likely to catch iss
 # Type-check first — catches structural issues immediately
 pnpm type-check
 
-# Run the existing reference example tests
-pnpm test:examples
+# Run the focused artifact verification tests
+pnpm test:verify
 ```
 
 If tests fail, report the exact failing test name, file, and assertion error. Do not proceed to the full pipeline until tests pass.
@@ -36,11 +36,11 @@ This command executes the gates listed in the check skill:
 - **Format** (`pnpm format:check`) — Prettier formatting verification
 - **Type-check** (`pnpm type-check`) — TypeScript strict compilation
 - **Spell-check** (`pnpm spell-check`) — cspell dictionary validation
-- **Tests** (`pnpm test:examples`) — Reference example tests with Vitest
+- **Tests** (`pnpm test:verify`) — Focused reference example and artifact comparison tests
 - **Artifact freshness** (`pnpm check-generated`) — Compare checked-in schemas, hashes, and examples with calculated output
 - **Schema validation** (`pnpm validate-schemas`) — JSON Schema structural validation
 
-Check the CI Test result on the reviewed commit. It runs `pnpm test:coverage` and enforces 100% coverage.
+Check the CI Test result on the reviewed commit. It runs `pnpm test:coverage` and enforces 100% coverage. If CI has no result for the reviewed changes, report coverage as pending and verify it before merge.
 
 If any step fails, record the exact gate name, command, error output, and exit code.
 
