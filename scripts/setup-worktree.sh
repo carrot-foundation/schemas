@@ -27,14 +27,11 @@ PATH="${setup_path#:}"
 export PATH
 project_root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)"
 cd "$project_root"
-if managed_helper="$(command -v crisos-project-setup)"; then
-  managed_status=0
-  managed_scope="$("$managed_helper" status --worktree "$project_root" --json)" || managed_status=$?
-  if [ "$managed_status" -eq 0 ] && printf '%s' "$managed_scope" | python3 -c 'import json,sys; sys.exit(0 if json.load(sys.stdin).get("state") == "skipped" else 1)'; then
-    : # Forks and older checkouts keep the portable setup path.
-  else
-    exec "$managed_helper" start --worktree "$project_root" --wait
-  fi
+if [ -n "${SCHEMAS_WORKTREE_SETUP_HELPER:-}" ]; then
+  case "$SCHEMAS_WORKTREE_SETUP_HELPER" in
+    /*) exec "$SCHEMAS_WORKTREE_SETUP_HELPER" "$project_root" ;;
+    *) echo "SCHEMAS_WORKTREE_SETUP_HELPER must be an absolute executable path" >&2; exit 1 ;;
+  esac
 fi
 node_pin="$(cat .nvmrc)"
 node_pin="${node_pin#v}"

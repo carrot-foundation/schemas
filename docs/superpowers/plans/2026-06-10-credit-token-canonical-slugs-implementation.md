@@ -12,7 +12,7 @@
 
 ## Preconditions
 
-- Work from `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas`.
+- Work from `the repository root`.
 - Keep this repo scoped to schema/package changes only. Do not change Smaug code here.
 - Treat this as a breaking release. The implementation commit must use a breaking Conventional Commit marker or a `BREAKING CHANGE:` footer so semantic-release publishes the next major version.
 - Before edits, verify the branch and baseline:
@@ -28,12 +28,12 @@ The new enum test does not exist yet; add it in Chunk 1 before running the red t
 
 - [ ] **Step 1.1: Add the focused enum regression test**
 
-Create `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/src/shared/schemas/primitives/__tests__/enums.schema.spec.ts`.
+Create `src/shared/schemas/primitives/__tests__/enums.schema.spec.ts`.
 
 Use the existing primitive test style from:
 
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/src/shared/schemas/primitives/__tests__/numbers.schema.spec.ts`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/src/credit/__tests__/credit.schema.spec.ts`
+- `src/shared/schemas/primitives/__tests__/numbers.schema.spec.ts`
+- `src/credit/__tests__/credit.schema.spec.ts`
 
 Test cases:
 
@@ -56,7 +56,7 @@ Do not commit the red state.
 
 - [ ] **Step 2.1: Update `CreditTokenSlugSchema`**
 
-Edit `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/src/shared/schemas/primitives/enums.schema.ts`.
+Edit `src/shared/schemas/primitives/enums.schema.ts`.
 
 Change:
 
@@ -79,7 +79,7 @@ Keep `CreditTokenSymbolSchema` unchanged:
 
 - [ ] **Step 2.2: Update source example data**
 
-Edit `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/scripts/example-content/reference-story.ts`.
+Edit `scripts/example-content/reference-story.ts`.
 
 Change `credit.slug` from `carbon-methane` to `carbon-ch4`.
 
@@ -114,13 +114,13 @@ pnpm update-examples
 
 Expected generated updates include:
 
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/ipfs/credit/credit.example.json`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/ipfs/credit/credit.schema.json`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.example.json`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.example.json`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json`
-- `/Users/cristianosantos/CrisOS/Repositories/Work/Carrot/schemas/schemas/schema-hashes.json`
+- `schemas/ipfs/credit/credit.example.json`
+- `schemas/ipfs/credit/credit.schema.json`
+- `schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.example.json`
+- `schemas/ipfs/credit-purchase-receipt/credit-purchase-receipt.schema.json`
+- `schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.example.json`
+- `schemas/ipfs/credit-retirement-receipt/credit-retirement-receipt.schema.json`
+- `schemas/schema-hashes.json`
 
 - [ ] **Step 3.2: Verify generated content**
 
