@@ -16,9 +16,8 @@ Before running the full pipeline, start with the checks most likely to catch iss
 # Type-check first — catches structural issues immediately
 pnpm type-check
 
-# Run tests with coverage — must hit 100% on all four metrics
-pnpm test
-# Expected: all tests pass, coverage shows 100% branches, functions, lines, statements
+# Run the existing reference example tests
+pnpm test:examples
 ```
 
 If tests fail, report the exact failing test name, file, and assertion error. Do not proceed to the full pipeline until tests pass.
@@ -28,18 +27,20 @@ If tests fail, report the exact failing test name, file, and assertion error. Do
 Once targeted checks pass, run the complete quality gate:
 
 ```bash
-pnpm check
+pnpm check:verify
 ```
 
-This command executes the following gates in sequence:
+This command executes the gates listed in the check skill:
 
-- **Lint** (`pnpm lint`) — ESLint checks on all source files
+- **Lint** (`pnpm lint:verify`) — ESLint checks on all source files
 - **Format** (`pnpm format:check`) — Prettier formatting verification
 - **Type-check** (`pnpm type-check`) — TypeScript strict compilation
-- **Spell-check** (`pnpm spellcheck`) — cspell dictionary validation
-- **Tests** (`pnpm test`) — Vitest with 100% coverage enforcement
-- **Schema generation** (`pnpm generate-ipfs-schemas`) — Zod-to-JSON-Schema conversion
+- **Spell-check** (`pnpm spell-check`) — cspell dictionary validation
+- **Tests** (`pnpm test:examples`) — Reference example tests with Vitest
+- **Artifact freshness** (`pnpm check-generated`) — Compare checked-in schemas, hashes, and examples with calculated output
 - **Schema validation** (`pnpm validate-schemas`) — JSON Schema structural validation
+
+Check the CI Test result on the reviewed commit. It runs `pnpm test:coverage` and enforces 100% coverage.
 
 If any step fails, record the exact gate name, command, error output, and exit code.
 
@@ -48,9 +49,8 @@ If any step fails, record the exact gate name, command, error output, and exit c
 Run each schema artifact command individually to confirm correctness:
 
 ```bash
-# Generate JSON schemas from Zod definitions
-pnpm generate-ipfs-schemas
-# Expected: JSON schema files written to schemas/ directory without errors
+# Compare checked-in JSON schemas with Zod output
+pnpm generate-ipfs-schemas --check
 
 # Validate schema versions are embedded correctly
 pnpm verify-schema-versions
@@ -65,11 +65,13 @@ pnpm check-refs
 # Expected: no broken references
 
 # Verify schema content hashes are current
-pnpm hash-schemas
-# Expected: hashes match, no dirty diff after running
+pnpm hash-schemas --check
+
+# Verify generated example content is current
+pnpm update-examples --check
 ```
 
-After running `pnpm hash-schemas`, check `git diff` to confirm no files changed. If hashes are outdated, report which schema files have stale hashes.
+If an artifact is missing or stale, report the file that failed verification.
 
 ### 4. Inspect the diff for quality issues
 

@@ -35,6 +35,8 @@ jobs:
             command: pnpm spell-check
           - name: Package JSON Lint
             command: pnpm pkgJsonLint
+          - name: Generated Artifacts
+            command: pnpm check-generated
           - name: Build and Validate
             command: pnpm validate-all
           - name: Test

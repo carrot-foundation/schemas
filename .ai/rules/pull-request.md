@@ -6,7 +6,7 @@ scope:
 requirements:
   - 'Clear descriptive titles (NOT conventional commit format)'
   - '<= 400 lines changed and <= 20 files (split if larger)'
-  - 'All quality gates pass before PR (`pnpm check`)'
+  - 'All quality gates pass before PR (`pnpm check:verify`)'
   - 'Follow PR template'
   - 'Link related issues'
 anti_patterns:
@@ -62,19 +62,11 @@ If a PR must exceed limits (e.g., initial schema creation), add a comment explai
 
 ## Quality gates
 
-Run `pnpm check` before creating a PR. This executes the full quality gate pipeline:
+Run `pnpm check:verify` before creating a PR. The check skill lists each read-only step. CI runs the full coverage suite, build, and package checks.
 
 ```bash
-pnpm check
+pnpm check:verify
 ```
-
-This includes:
-
-- TypeScript type checking (`tsc --noEmit`)
-- Linting (ESLint + Prettier)
-- Tests with 100% coverage (Vitest)
-- Schema generation and validation
-- Spell checking (cspell)
 
 All gates must pass. Do not create a PR with failing checks.
 
@@ -111,7 +103,7 @@ Brief description of what this PR accomplishes and why.
 - [ ] 100% coverage maintained
 - [ ] Both valid and invalid inputs tested
 - [ ] Generated JSON schemas validated
-- [ ] `pnpm check` passes
+- [ ] `pnpm check:verify` passes
 
 ## Related issues
 

@@ -8,7 +8,7 @@ when_to_use:
   - 'End of a development session with uncommitted work'
 workflow:
   - '[ ] Validate branch naming'
-  - '[ ] Run pnpm check (all quality gates)'
+  - '[ ] Run pnpm check:verify (read-only quality gate)'
   - '[ ] Stage and commit changes via commit skill'
   - '[ ] Create PR via create-pr skill'
   - '[ ] Summarize what was done'
@@ -57,20 +57,20 @@ If the branch name doesn't follow conventions, warn the user but proceed (don't 
 Execute the full quality gate pipeline:
 
 ```bash
-pnpm check
+pnpm check:verify
 ```
 
-This runs all 13 steps sequentially: lint:fix, format, type-check, spell-check, pkgJsonLint, generate-schemas, hash-schemas, update-examples, validate-schemas, verify-schema-versions, check-refs, validate-examples, test.
+The check skill documents the steps. CI runs the full coverage suite, build, and package checks.
 
 **If any step fails**:
 
 1. Fix the issue
-2. Re-run `pnpm check`
+2. Re-run `pnpm check:verify`
 3. Repeat until clean
 
 Do NOT proceed to committing until all gates pass.
 
-If `.ai/` files were modified, also run:
+If `.ai/` files were modified, you can check parity directly with:
 
 ```bash
 pnpm ai:check
@@ -112,7 +112,7 @@ git add src/index.ts
 git commit -m "chore: add mass-id to barrel exports"
 ```
 
-**Generated files**: If the check pipeline auto-fixed formatting or regenerated schemas, include those changes. They are expected artifacts of the quality gates.
+**Generated files**: If your change requires regeneration, generate the artifacts explicitly, review the diff, and include the updated artifacts.
 
 ### Step 4: Push Branch
 
@@ -140,7 +140,7 @@ gh pr create --title "Add MassID IPFS schema definitions" --body "$(cat <<'EOF'
 - Regenerate JSON schemas and examples
 
 ## Test plan
-- [ ] All quality gates pass (`pnpm check`)
+- [ ] All quality gates pass (`pnpm check:verify`)
 - [ ] 100% test coverage maintained
 - [ ] Generated JSON schemas are valid
 - [ ] Examples validate against schemas
@@ -175,7 +175,7 @@ If issues arise during the workflow:
 
 | Issue                      | Action                                            |
 | -------------------------- | ------------------------------------------------- |
-| `pnpm check` fails         | Fix the issue, re-run check, then continue        |
+| `pnpm check:verify` fails  | Fix the issue, re-run check, then continue        |
 | Commit hook fails          | Fix lint/format issues, stage fixes, commit again |
 | Push fails (no remote)     | Run `git push -u origin HEAD`                     |
 | Push fails (behind remote) | Run `git pull --rebase @{u}` then push            |
@@ -185,7 +185,7 @@ If issues arise during the workflow:
 ### Checklist Before Marking Complete
 
 - [ ] On a properly named feature branch
-- [ ] `pnpm check` passes with zero errors
+- [ ] `pnpm check:verify` passes with zero errors
 - [ ] All changes committed with conventional commit messages
 - [ ] Branch pushed to remote
 - [ ] PR created with summary and test plan

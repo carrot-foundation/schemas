@@ -10,7 +10,7 @@ Create a pull request for the schemas repository with a clear description, after
 Before creating the PR, ensure all quality gates pass:
 
 ```bash
-pnpm check
+pnpm check:verify
 ```
 
 If any step fails, fix the issue before proceeding. Do not create a PR with failing checks.
@@ -85,7 +85,7 @@ Structure the description following this template:
 
 ## Test plan
 
-- [ ] All quality gates pass (`pnpm check`)
+- [ ] All quality gates pass (`pnpm check:verify`)
 - [ ] 100% test coverage maintained
 - [ ] Generated JSON schemas are valid
 - [ ] Examples validate against schemas
@@ -108,7 +108,7 @@ gh pr create --title "Add MassID IPFS schema definitions" --body "$(cat <<'EOF'
 - Regenerate JSON schemas and examples
 
 ## Test plan
-- [ ] All quality gates pass (`pnpm check`)
+- [ ] All quality gates pass (`pnpm check:verify`)
 - [ ] 100% test coverage maintained
 - [ ] Generated JSON schemas are valid
 - [ ] Examples validate against schemas
@@ -163,7 +163,7 @@ After creating the PR:
 
 Before marking the PR as ready for review:
 
-- [ ] `pnpm check` passes locally
+- [ ] `pnpm check:verify` passes locally
 - [ ] All commits follow Conventional Commits format
 - [ ] PR title is descriptive (not conventional commit format)
 - [ ] PR description includes summary and test plan

@@ -8,6 +8,7 @@ import {
   collectJsonFiles,
   getVersion,
   loadJson,
+  verifyJson,
   writeJson,
 } from './utils/fs-utils.js';
 import type { SchemaManifest } from './utils/schema-types.js';
@@ -49,7 +50,15 @@ function main(): void {
 
   const manifest = loadJson<SchemaManifest>(MANIFEST_PATH);
   const version = getVersion();
-  const examples = collectJsonFiles(EXAMPLES_ROOT, '.example.json');
+  const check = process.argv.includes('--check');
+  const examples = new Set(collectJsonFiles(EXAMPLES_ROOT, '.example.json'));
+  if (check) {
+    for (const typeName of Object.keys(emitters)) {
+      examples.add(
+        path.join(EXAMPLES_ROOT, typeName, `${typeName}.example.json`),
+      );
+    }
+  }
 
   for (const examplePath of examples) {
     const schemaPath = findSchemaPathForExample(examplePath);
@@ -64,39 +73,9 @@ function main(): void {
       process.exit(1);
     }
 
-    // If an emitter exists for this schema type, generate base content first
     const typeName = path.basename(path.dirname(examplePath));
     const emitter = emitters[typeName as keyof typeof emitters];
-    if (emitter) {
-      let emitterResult: unknown;
-      try {
-        emitterResult = emitter();
-      } catch (error) {
-        console.error(
-          `Emitter for schema type "${typeName}" failed while generating ${path.relative(process.cwd(), examplePath)}:`,
-        );
-        console.error(error);
-        process.exit(1);
-      }
-
-      if (!emitterResult || typeof emitterResult !== 'object') {
-        console.error(
-          `Emitter for schema type "${typeName}" returned an invalid result ` +
-            `(${typeof emitterResult}). Emitters must return a non-null object.`,
-        );
-        process.exit(1);
-      }
-
-      try {
-        writeJson(examplePath, emitterResult);
-      } catch (error) {
-        console.error(
-          `Failed to write emitter output for "${typeName}" to ${path.relative(process.cwd(), examplePath)}:`,
-        );
-        console.error(error);
-        process.exit(1);
-      }
-    } else {
+    if (!Object.hasOwn(emitters, typeName)) {
       console.error(
         `Error: No emitter registered for schema type "${typeName}". ` +
           `Register an emitter in scripts/example-content/index.ts for ` +
@@ -105,7 +84,26 @@ function main(): void {
       process.exit(1);
     }
 
-    const exampleJson = loadJson<Record<string, unknown>>(examplePath);
+    let emitterResult: unknown;
+    try {
+      emitterResult = emitter();
+    } catch (error) {
+      console.error(
+        `Emitter for schema type "${typeName}" failed while generating ${path.relative(process.cwd(), examplePath)}:`,
+      );
+      console.error(error);
+      process.exit(1);
+    }
+
+    if (!emitterResult || typeof emitterResult !== 'object') {
+      console.error(
+        `Emitter for schema type "${typeName}" returned an invalid result ` +
+          `(${typeof emitterResult}). Emitters must return a non-null object.`,
+      );
+      process.exit(1);
+    }
+
+    const exampleJson: Record<string, unknown> = { ...emitterResult };
     const hasContentHash =
       schemaJson?.properties && 'content_hash' in schemaJson.properties;
     const hasAuditDataHash =
@@ -131,13 +129,15 @@ function main(): void {
       delete exampleJson.audit_data_hash;
     }
 
-    writeJson(examplePath, exampleJson);
-    console.log(`Updated example ${path.relative(process.cwd(), examplePath)}`);
+    if (check) {
+      verifyJson(examplePath, exampleJson);
+    } else {
+      writeJson(examplePath, exampleJson);
+    }
+    console.log(
+      `${check ? 'Verified' : 'Updated'} example ${path.relative(process.cwd(), examplePath)}`,
+    );
   }
-
-  console.log(
-    '\nExamples updated with schema hashes, versions, and content hashes.',
-  );
 }
 
 main();

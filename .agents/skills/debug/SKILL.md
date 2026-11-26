@@ -11,7 +11,7 @@ Diagnose and fix failures in the schemas package -- build errors, test failures,
 2. **Isolate**: Narrow down to the smallest failing unit
 3. **Analyze**: Identify the root cause (not just the symptom)
 4. **Fix**: Apply the minimal change to address the root cause
-5. **Verify**: Run `pnpm check` to confirm the fix doesn't break anything else
+5. **Verify**: Run `pnpm check:verify` to confirm the fix doesn't break anything else
 
 ### Error Category: TypeScript Type-Check
 
@@ -149,7 +149,7 @@ pnpm build 2>&1
 
 ### Error Category: Schema Generation
 
-**Command**: `pnpm generate-schemas` (runs build + `node scripts/generate-ipfs-schemas.js`)
+**Command**: `pnpm generate-schemas` (runs `tsx scripts/generate-ipfs-schemas.ts`)
 
 **Common failures**:
 
@@ -160,7 +160,7 @@ Error: Unable to generate JSON Schema for ...
 **Isolation**:
 
 ```bash
-pnpm build && node scripts/generate-ipfs-schemas.js 2>&1
+pnpm generate-schemas 2>&1
 ```
 
 **Common causes**:
@@ -179,7 +179,7 @@ pnpm build && node scripts/generate-ipfs-schemas.js 2>&1
 
 ### Error Category: Schema Validation (AJV)
 
-**Command**: `pnpm validate-schemas` (runs `node scripts/validate-schemas.js`)
+**Command**: `pnpm validate-schemas` (runs `tsx scripts/validate-schemas.ts`)
 
 **Common failures**:
 
@@ -191,7 +191,7 @@ Schema validation failed: /schemas/ipfs/mass-id/v1.0.0.json
 **Isolation**:
 
 ```bash
-node scripts/validate-schemas.js 2>&1
+pnpm validate-schemas 2>&1
 ```
 
 **Common causes**:
@@ -248,7 +248,7 @@ Example validation failed: schemas/ipfs/mass-id/examples/valid.json
 **Isolation**:
 
 ```bash
-node scripts/validate-schemas.js --data-only 2>&1
+pnpm validate-examples 2>&1
 ```
 
 **Common causes**:
@@ -268,6 +268,6 @@ node scripts/validate-schemas.js --data-only 2>&1
 After fixing any issue:
 
 1. Run the specific failing command to verify the fix
-2. Run `pnpm check` to verify nothing else broke
+2. Run `pnpm check:verify` to verify nothing else broke
 3. Check `git diff` to understand what changed
 4. Commit the fix with a descriptive message
