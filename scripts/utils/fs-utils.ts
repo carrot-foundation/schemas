@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { isDeepStrictEqual } from 'node:util';
 
 export function collectJsonFiles(rootDir: string, suffix: string): string[] {
   const results: string[] = [];
@@ -31,6 +32,18 @@ export function loadJson<T = unknown>(filePath: string): T {
 
 export function writeJson(filePath: string, data: unknown): void {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n');
+}
+
+export function verifyJson(filePath: string, expected: unknown): void {
+  const expectedJson: unknown = JSON.parse(JSON.stringify(expected));
+  if (
+    !fs.existsSync(filePath) ||
+    !isDeepStrictEqual(loadJson(filePath), expectedJson)
+  ) {
+    throw new Error(
+      `Generated artifact is missing or stale: ${path.relative(process.cwd(), filePath)}`,
+    );
+  }
 }
 
 export function getErrorMessage(error: unknown): string {

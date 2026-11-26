@@ -937,7 +937,7 @@ ${sharedLinks}
 ## Setup commands
 
 - Install deps: \`pnpm install\`
-- Run all quality gates: \`pnpm check\`
+- Run the read-only verification gate: \`pnpm check:verify\`
 - Run tests: \`pnpm test\`
 - Build: \`pnpm build\`
 - Generate JSON schemas: \`pnpm generate-ipfs-schemas\`

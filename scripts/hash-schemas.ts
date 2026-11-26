@@ -8,6 +8,7 @@ import {
   getErrorMessage,
   getVersion,
   loadJson,
+  verifyJson,
   writeJson,
 } from './utils/fs-utils.js';
 import type { SchemaManifest } from './utils/schema-types.js';
@@ -45,8 +46,13 @@ function main(): void {
     console.log(`✔ hashed ${relative}`);
   }
 
-  writeJson(MANIFEST_PATH, manifest);
-  console.log(`\nWrote manifest to ${MANIFEST_PATH}`);
+  if (process.argv.includes('--check')) {
+    verifyJson(MANIFEST_PATH, manifest);
+    console.log(`\nVerified manifest at ${MANIFEST_PATH}`);
+  } else {
+    writeJson(MANIFEST_PATH, manifest);
+    console.log(`\nWrote manifest to ${MANIFEST_PATH}`);
+  }
 }
 
 main();

@@ -15,7 +15,7 @@ import {
 } from '../src/index.js';
 import { toJSONSchema } from 'zod';
 import { resolve } from 'node:path';
-import { writeJson } from './utils/fs-utils.js';
+import { collectJsonFiles, verifyJson, writeJson } from './utils/fs-utils.js';
 import {
   BLOCKCHAIN_NETWORK_CONFIG,
   CREDIT_TOKEN_PAIRS,
@@ -162,13 +162,30 @@ function getFilePath(fullFileName: string): string {
   return resolve('schemas', 'ipfs', `${fileFolder}`, `${fullFileName}.json`);
 }
 
+const check = process.argv.includes('--check');
+const saveOrVerify = check ? verifyJson : writeJson;
+
 for (const { fileName, schema } of schemas) {
   const jsonSchema = toJSONSchema(schema);
   const filePath = getFilePath(fileName);
 
   addItemsFalseForTuples(jsonSchema);
   addCrossFieldConstraints(jsonSchema, fileName);
-  writeJson(filePath, jsonSchema);
+  saveOrVerify(filePath, jsonSchema);
 
-  console.log(`Generated schema: ${filePath}`);
+  console.log(`${check ? 'Verified' : 'Generated'} schema: ${filePath}`);
+}
+
+if (check) {
+  const expectedPaths = new Set(
+    schemas.map(({ fileName }) => getFilePath(fileName)),
+  );
+  const unexpectedPath = collectJsonFiles(
+    resolve('schemas', 'ipfs'),
+    '.schema.json',
+  ).find((filePath) => !expectedPaths.has(filePath));
+
+  if (unexpectedPath !== undefined) {
+    throw new Error(`Unexpected generated schema: ${unexpectedPath}`);
+  }
 }
