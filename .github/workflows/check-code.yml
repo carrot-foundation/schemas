@@ -1,3 +1,4 @@
+# cspell:words lorien
 name: Check Code
 
 on:
@@ -41,8 +42,6 @@ jobs:
             command: pnpm validate-all
           - name: Test
             command: pnpm test:coverage
-          - name: AI Check
-            command: pnpm ai:check
           - name: Package Quality
             command: pnpm build && pnpm size-limit && pnpm publint && pnpm check-types-exports && npm pack --dry-run
           - name: Dead Exports
@@ -107,3 +106,26 @@ jobs:
       - name: Warn if test results upload failed
         if: ${{ !cancelled() && steps.upload-test-results.outcome == 'failure' }}
         run: echo "::warning::Codecov test results upload failed -- check step logs above"
+
+  agent-config:
+    uses: carrot-foundation/.github/.github/workflows/repo-agent-config.yml@6f8c2d0e71dd8923e4c745161a8c4a04c4791c95
+    with:
+      lorien-ref: 'main'
+      deny-patterns: |
+        cri[s]os
+      skip: ''
+      max-agents-bytes: '32768'
+    secrets:
+      lorien-read-token: ${{ secrets.LORIEN_READ_TOKEN }}
+
+  agent-config-required:
+    # Keep the ruleset's existing check context while the reusable workflow owns the audit.
+    name: AI Check
+    runs-on: ubuntu-latest
+    needs: agent-config
+    if: ${{ always() }}
+    steps:
+      - name: Require a successful audit
+        env:
+          AUDIT_RESULT: ${{ needs.agent-config.result }}
+        run: test "$AUDIT_RESULT" = success
