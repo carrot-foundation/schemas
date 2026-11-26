@@ -30,14 +30,15 @@ schema compatibility comparison, and the central agent configuration audit.
 
 ## Where to work
 
-| Path                       | Contents                                                   |
-| -------------------------- | ---------------------------------------------------------- |
-| `src/{type}/`              | IPFS schemas, family-specific data, attributes and exports |
-| `src/shared/schemas/`      | Primitives, entities, references and base record schemas   |
-| `src/test-utils/`          | Shared fixtures and schema assertions                      |
-| `scripts/example-content/` | Reference story used to emit example records               |
-| `schemas/ipfs/`            | Generated JSON schemas, examples and schema hashes         |
-| `dist/`                    | Build output                                               |
+| Path                         | Contents                                                   |
+| ---------------------------- | ---------------------------------------------------------- |
+| `src/{type}/`                | IPFS schemas, family-specific data, attributes and exports |
+| `src/shared/schemas/`        | Primitives, entities, references and base record schemas   |
+| `src/test-utils/`            | Shared fixtures and schema assertions                      |
+| `scripts/example-content/`   | Reference story used to emit example records               |
+| `schemas/ipfs/`              | Generated JSON schemas and examples                        |
+| `schemas/schema-hashes.json` | Generated schema hash manifest                             |
+| `dist/`                      | Build output                                               |
 
 Families include MassID, GasID, RecycledID, Credit, Collection, purchase and
 retirement receipts, MassID audit, and Methodology. The TypeScript entry point

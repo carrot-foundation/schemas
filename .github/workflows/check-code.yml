@@ -110,7 +110,7 @@ jobs:
   agent-config:
     uses: carrot-foundation/.github/.github/workflows/repo-agent-config.yml@6f8c2d0e71dd8923e4c745161a8c4a04c4791c95
     with:
-      lorien-ref: 'main'
+      lorien-ref: '564bf7321710640cb16fdf7d16066995d5f47f60'
       deny-patterns: |
         cri[s]os
       skip: ''

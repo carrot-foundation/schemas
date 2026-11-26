@@ -14,6 +14,7 @@ pnpm check:verify
 ```
 
 Change example data in `scripts/example-content/`. Inspect the resulting diff
-under `schemas/ipfs/` for expected fields, versioned references and updated
-hashes. See [schema conventions](../../../docs/schema-authoring.md) for the version
+under `schemas/ipfs/` for expected fields and versioned references, and check
+`schemas/schema-hashes.json` for updated hashes. See
+[schema conventions](../../../docs/schema-authoring.md) for the version
 source and generated artifact rules.
